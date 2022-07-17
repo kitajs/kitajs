@@ -1,0 +1,15 @@
+{
+  "name": "@kita/runtime",
+  "version": "1.0.0",
+  "author": "Arthur Fiorette <me@arthur.place>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@kita/core": "*",
+    "fastify": "^4.2.1",
+    "tslib": "^2.4.0"
+  }
+}

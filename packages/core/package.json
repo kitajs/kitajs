@@ -1,0 +1,19 @@
+{
+  "name": "@kita/core",
+  "version": "1.0.0",
+  "author": "Arthur Fiorette <me@arthur.place>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "cosmiconfig": "^7.0.1",
+    "tslib": "^2.4.0"
+  },
+  "files": [
+    "src",
+    "dist",
+    "templates"
+  ]
+}
