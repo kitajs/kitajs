@@ -5,7 +5,8 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "start": "../cli/dist/program.js generate"
   },
   "dependencies": {
     "@kita/core": "*",

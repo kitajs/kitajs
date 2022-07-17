@@ -1,19 +1,4 @@
-///
-//
-
-export type Path<Name extends string> = string;
-export type Cookie<Name extends String> = string | number | boolean;
-export type Body<Obj> = Obj;
-export type BodyProp<T, Path extends string> = T;
-export type Query<Name extends string | true = true> = string;
-export type Header<Name extends String> = string;
-export type Req = Request;
-export type Reply = Response;
-export type Next = () => void;
-
-//
-///
-//
+import { Body, BodyProp, Cookie, Header, Path, Query, Req, Reply } from '@kita/runtime';
 
 type Dummy = {
   a: number;
@@ -28,47 +13,49 @@ export async function get(
   // /{asd}
   path: Path<'asd'>,
 
-  body: Body<Dummy>,
-
-  // /url?a=asd&b=123
-  query: Query,
-
   // /url?asd=123
   queryNamed: Query<'asd'>,
-
-  header: Header<'Cache-Control'>,
-
-  cookie: Cookie<'auth'>,
 
   req: Req,
 
   res: Reply,
 
-  next: Next
-): Promise<void> {}
+  header: Header<'cache-control'>,
 
-/** Executes on any route  */
-export async function route(
-  // /{asd}
-  path: Path<'asd'>,
+  cookie: Cookie<'auth'>,
 
   body: Body<Dummy>,
 
   bodyProp: BodyProp<number, 'asd.asd.asd'>,
 
   // /url?a=asd&b=123
-  query: Query,
+  query: Query
+): Promise<void> {
+
+
+
+}
+
+/** Executes on any route  */
+export async function all(
+  // /{asd}
+  path: Path<'asd'>,
+
+  header: Header<'cache-control'>,
+
+  bodyProp: BodyProp<number, 'asd.asd.asd'>,
+
+  // /url?a=asd&b=123
+  req: Req,
 
   // /url?asd=123
   queryNamed: Query<'asd'>,
 
-  header: Header<'cache-control'>,
+  query: Query,
 
   cookie: Cookie<'auth'>,
 
-  req: Req,
-
   res: Reply,
 
-  next: Next
+  body: Body<Dummy>
 ): Promise<void> {}

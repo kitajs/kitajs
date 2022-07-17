@@ -1,0 +1,13 @@
+{
+  "routes": {
+    "output": "src/routes.ts",
+    "template": "@kita/core/templates/default.hbs"
+  },
+  "controllers": {
+    "glob": [
+      "./src/api/⁎⁎/⁎.ts",
+      "./api/⁎⁎/⁎.ts"
+    ]
+  },
+  "tsconfig": "./tsconfig.json"
+}

@@ -16,7 +16,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build -- --watch"
+    "build": "turbo run build"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
