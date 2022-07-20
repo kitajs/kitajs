@@ -20,6 +20,7 @@ export async function generate() {
   const tsconfig = require(tsconfigPath);
 
   const program = createProgram(files, tsconfig.compilerOptions);
+  const typeChecker = program.getTypeChecker();
 
   const jsonConfig: JsonConfig = { tsconfig: tsconfigPath };
   const generator = new SchemaGenerator(
@@ -34,7 +35,13 @@ export async function generate() {
 
   for (const source of program.getSourceFiles().filter((s) => !s.isDeclarationFile)) {
     ts.forEachChild(source, (node) => {
-      const result = visit(node as ts.FunctionDeclaration, source, config, generator);
+      const result = visit(
+        node as ts.FunctionDeclaration,
+        source,
+        config,
+        generator,
+        typeChecker
+      );
 
       if (!result) {
         return;
@@ -47,11 +54,21 @@ export async function generate() {
 
   const file = `
 import '@fastify/cookie';
+
+import type { RouteContext, ProvidedRouteContext } from '@kita/runtime';
+import { RouterUtils } from '@kita/runtime';
 import type { FastifyInstance } from 'fastify';
+import Config from '${config.runtimeConfig}';
 
 ${Array(...imports).join('\n')}
 
-export function applyRouter(app: FastifyInstance, context: KitaContext) {
+export function applyRouter(app: FastifyInstance, providedContext: ProvidedRouteContext) {
+  const context: RouteContext = {
+    ...providedContext,
+    kita: Config,
+    config: ${JSON.stringify(config)},
+  };
+
   ${routes.join('\n\n ')}
 }
 `;
@@ -63,7 +80,8 @@ function visit(
   node: ts.FunctionDeclaration,
   source: ts.SourceFile,
   config: KitaConfig,
-  generator: SchemaGenerator
+  generator: SchemaGenerator,
+  _: ts.TypeChecker
 ) {
   if (
     // Only visit exported nodes
@@ -80,14 +98,16 @@ function visit(
     return;
   }
 
-  const parameters = node.parameters.map((param) => ({
-    //@ts-expect-error - type later
-    type: param.type?.typeName?.escapedText,
-    //@ts-expect-error - type later
-    generics: param.type?.typeArguments?.map((i) => i.literal?.text) as string[],
-    //@ts-expect-error - type later
-    genericNodes: param.type?.typeArguments
-  }));
+  const parameters = node.parameters
+    .filter((p) => p.name.getFullText(source).trim() !== 'this')
+    .map((param) => ({
+      //@ts-expect-error - type later
+      type: param.type?.typeName?.escapedText,
+      //@ts-expect-error - type later
+      generics: param.type?.typeArguments?.map((i) => i.literal?.text) as string[],
+      //@ts-expect-error - type later
+      genericNodes: param.type?.typeArguments
+    }));
 
   const schema: FastifySchema = {};
 
@@ -101,9 +121,65 @@ function visit(
         }
 
         schema.body = generator.createSchemaFromNodes([type]);
+
+        break;
+      }
+
+      case 'BodyProp': {
+        const type = parameter.genericNodes[0];
+
+        if (!type) {
+          throw new Error('BodyProp must have a type');
+        }
+
+        schema.body ??= {};
+        //@ts-expect-error - type later
+        schema.body!.properties ??= {};
+        //@ts-expect-error - type later
+        schema.body!.properties![parameter.type] = generator.createSchemaFromNodes([
+          type
+        ]);
+        break;
+      }
+
+      case 'Query': {
+        const generic = parameter.genericNodes[0];
+        const name = parameter.generics[0];
+
+        // Query
+        if (!name) {
+          schema.querystring = generator.createSchemaFromNodes([generic]);
+        } else {
+          // FieldQuery
+
+          schema.querystring ??= {};
+          //@ts-expect-error - type later
+          schema.querystring!.properties ??= {};
+          //@ts-expect-error - type later
+          schema.querystring!.properties![name] = generator.createSchemaFromNodes([
+            generic
+          ]);
+
+          break;
+        }
+
+        break;
       }
     }
   }
+
+  // return type
+  // TODO: Fazer funcionar isto daqui
+  // {
+  //   const signature = typeChecker.getSignatureFromDeclaration(node)!;
+  //   const returnType = typeChecker.getReturnTypeOfSignature(signature);
+
+  //   if (returnType.symbol.valueDeclaration) {
+  //     schema.response = generator.createSchemaFromNodes([
+  //       returnType.symbol.valueDeclaration
+  //     ]);
+  //   }
+  // }
 
   const pathname = source.fileName
     .replace('src/api/', '')
@@ -128,20 +204,17 @@ function visit(
     ],
     route: `
   app.${methodName}('/${pathname}', { schema: ${JSON.stringify(
-      schema,
-      null,
-      2
+      schema
     )} }, async (req, reply) => {
-    const response = await ${routeIdentifier}.${methodName}.call(
+    const promise = ${routeIdentifier}.${methodName}.call(
       context,
-
       ${parameters
         .map((param) => getParameterCode(param.type, param.generics))
         .filter(Boolean)
         .join(',\n      ')}
     );
 
-    return reply.send(response);
+    return RouterUtils.sendResponse.call(context, req, reply, promise);
   });
 `
   };
@@ -195,11 +268,13 @@ function getParameterCode(type?: string, generics?: string[]): string | undefine
     case 'Req':
       return 'req';
 
-    case 'Reply':
+    case 'Rep':
       return 'reply';
 
     default:
-      return;
+      return `Config.parameterResolvers.${type}.apply(context, [req, reply, [${generics.join(
+        ','
+      )}]])`;
   }
 }
 

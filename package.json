@@ -16,6 +16,7 @@
     "packages/*"
   ],
   "scripts": {
+    "watch": "sh scripts/watch.sh",
     "build": "turbo run build"
   },
   "devDependencies": {

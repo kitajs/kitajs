@@ -1,6 +1,6 @@
-import { Body } from '@kita/runtime';
+import { Body, RouteContext } from '@kita/runtime';
 
-export function post(this: KitaContext, body: Body<{ a: 1 }>) {
+export function post(this: RouteContext, body: Body<{ a: 1 }>) {
   return {
     a: 2,
     b: 3
