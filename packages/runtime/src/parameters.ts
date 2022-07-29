@@ -27,9 +27,9 @@ export type Rep = FastifyReply;
 
 /** A custom parameter type. */
 export type CustomParameter<Result, Parameters extends Native[]> = Result & {
-  /** 
+  /**
    * **THIS TYPE IS NOT AVAILABLE AT RUNTIME. IGNORE IT**
-   * 
+   *
    * @internal
    */
   [KitaCpp]: Parameters;

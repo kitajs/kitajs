@@ -30,11 +30,7 @@ export async function get(
 
   // /url?a=asd&b=123
   query: Query
-): Promise<void> {
-
-
-
-}
+): Promise<void> {}
 
 /** Executes on any route  */
 export async function all(

@@ -17,7 +17,10 @@ export function applyRouter(app: FastifyInstance, providedContext: ProvidedRoute
       tsconfig: './tsconfig.json',
       params: { AuthParam: './src/params/auth' },
       controllers: { glob: ['src/api/**/*.ts', 'api/**/*.ts'] },
-      routes: { output: './src/routes.ts', template: '@kita/core/templates/default.hbs' }
+      routes: {
+        output: './src/routes.ts',
+        template: '@kita/core/templates/default.hbs'
+      }
     }
   };
 

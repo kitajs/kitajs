@@ -34,9 +34,9 @@ export type KitaConfig = {
   };
 
   params: {
-    /** 
+    /**
      * The parameter name and its path
-     * 
+     *
      * @default {}
      */
     [name: string]: string;
@@ -54,7 +54,7 @@ export function mergeDefaults(config: Partial<KitaConfig>): KitaConfig {
     params: config?.params ?? {},
 
     controllers: {
-      glob: config?.controllers?.glob ?? ['src/api/**/*.ts', 'api/**/*.ts'],
+      glob: config?.controllers?.glob ?? ['src/api/**/*.ts', 'api/**/*.ts']
     },
 
     routes: {
