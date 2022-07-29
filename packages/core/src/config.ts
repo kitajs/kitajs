@@ -1,10 +1,17 @@
 import { cosmiconfig } from 'cosmiconfig';
 
 export type KitaConfig = {
+  /**
+   * The tsconfig path
+   *
+   * @default './tsconfig.json'
+   */
+  tsconfig: string;
+
   routes: {
     /**
      * Where to emit the generated routes file
-     * 
+     *
      * @default './src/routes.ts'
      */
     output: string;
@@ -26,33 +33,28 @@ export type KitaConfig = {
     glob: string[];
   };
 
-  /**
-   * The tsconfig path
-   *
-   * @default './tsconfig.json'
-   */
-  tsconfig: string;
-
-  /**
-   * The path to the runtime config file. (relative to the routes.output file)
-   *
-   * @default './kita' 
-   */
-  runtimeConfig: string;
+  params: {
+    /** 
+     * The parameter name and its path
+     * 
+     * @default {}
+     */
+    [name: string]: string;
+  };
 };
 
 export function createConfigExplorer() {
   return cosmiconfig('kita', { packageProp: 'kita' }).search();
 }
 
-export function mergeDefaults(config: any): KitaConfig {
+export function mergeDefaults(config: Partial<KitaConfig>): KitaConfig {
   return {
     tsconfig: config?.tsconfig ?? './tsconfig.json',
 
-    runtimeConfig: config?.runtimeConfig ?? './kita',
+    params: config?.params ?? {},
 
     controllers: {
-      glob: config?.controllers?.glob ?? ['src/api/**/*.ts', 'api/**/*.ts']
+      glob: config?.controllers?.glob ?? ['src/api/**/*.ts', 'api/**/*.ts'],
     },
 
     routes: {

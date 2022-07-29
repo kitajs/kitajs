@@ -3,6 +3,7 @@ import type { FastifySchema } from 'fastify';
 import fs from 'fs';
 import { sync as globSync } from 'glob';
 import path from 'path';
+import prettier from 'prettier';
 import {
   Config as JsonConfig,
   createFormatter,
@@ -13,22 +14,24 @@ import ts, { createProgram } from 'typescript';
 
 export async function generate() {
   const configs = await createConfigExplorer();
+  const rootPath = configs?.filepath ? path.dirname(configs.filepath) : process.cwd();
+
   const config = mergeDefaults(configs?.config);
 
+  const outputPath = path.resolve(rootPath, config.routes.output);
+  const outputFolder = path.dirname(outputPath);
+
   const files = config.controllers.glob.flatMap((file) => globSync(file));
-  const tsconfigPath = path.resolve(process.cwd(), config.tsconfig);
+  const tsconfigPath = path.resolve(rootPath, config.tsconfig);
   const tsconfig = require(tsconfigPath);
 
   const program = createProgram(files, tsconfig.compilerOptions);
   const typeChecker = program.getTypeChecker();
 
   const jsonConfig: JsonConfig = { tsconfig: tsconfigPath };
-  const generator = new SchemaGenerator(
-    program,
-    createParser(program, jsonConfig),
-    createFormatter(jsonConfig),
-    jsonConfig
-  );
+  const typeFormatter = createFormatter(jsonConfig);
+  const nodeParser = createParser(program, jsonConfig);
+  const generator = new SchemaGenerator(program, nodeParser, typeFormatter, jsonConfig);
 
   const imports = new Set();
   const routes = [] as string[];
@@ -58,14 +61,19 @@ import '@fastify/cookie';
 import type { RouteContext, ProvidedRouteContext } from '@kita/runtime';
 import { RouterUtils } from '@kita/runtime';
 import type { FastifyInstance } from 'fastify';
-import Config from '${config.runtimeConfig}';
 
 ${Array(...imports).join('\n')}
+
+${Object.entries(config.params)
+  .map(([name, p]) => {
+    const paramPath = path.resolve(rootPath, p);
+    return `import ${name}Resolver from './${path.relative(outputFolder, paramPath)}';`;
+  })
+  .join('\n')}
 
 export function applyRouter(app: FastifyInstance, providedContext: ProvidedRouteContext) {
   const context: RouteContext = {
     ...providedContext,
-    kita: Config,
     config: ${JSON.stringify(config)},
   };
 
@@ -73,7 +81,29 @@ export function applyRouter(app: FastifyInstance, providedContext: ProvidedRoute
 }
 `;
 
-  await fs.promises.writeFile(path.resolve(process.cwd(), config.routes.output), file);
+  await fs.promises.writeFile(
+    outputPath,
+    prettier.format(file, {
+      parser: 'typescript',
+
+      //TODO: Customize prettier config
+      arrowParens: 'always',
+      bracketSpacing: true,
+      endOfLine: 'lf',
+      insertPragma: false,
+      bracketSameLine: false,
+      jsxSingleQuote: false,
+      printWidth: 90,
+      proseWrap: 'always',
+      quoteProps: 'as-needed',
+      requirePragma: false,
+      semi: true,
+      singleQuote: true,
+      tabWidth: 2,
+      trailingComma: 'none',
+      useTabs: false
+    })
+  );
 }
 
 function visit(
@@ -81,7 +111,7 @@ function visit(
   source: ts.SourceFile,
   config: KitaConfig,
   generator: SchemaGenerator,
-  _: ts.TypeChecker
+  _typeChecker: ts.TypeChecker
 ) {
   if (
     // Only visit exported nodes
@@ -101,6 +131,7 @@ function visit(
   const parameters = node.parameters
     .filter((p) => p.name.getFullText(source).trim() !== 'this')
     .map((param) => ({
+      name: param.name.getFullText(source).trim(),
       //@ts-expect-error - type later
       type: param.type?.typeName?.escapedText,
       //@ts-expect-error - type later
@@ -203,18 +234,38 @@ function visit(
         .replace('.ts', '')}';`
     ],
     route: `
-  app.${methodName}('/${pathname}', { schema: ${JSON.stringify(
-      schema
-    )} }, async (req, reply) => {
-    const promise = ${routeIdentifier}.${methodName}.call(
-      context,
-      ${parameters
-        .map((param) => getParameterCode(param.type, param.generics))
-        .filter(Boolean)
-        .join(',\n      ')}
-    );
+  app.${methodName}(
+    '/${pathname}',
+    { schema: ${JSON.stringify(schema)} },
+    async (req, reply) => {
 
-    return RouterUtils.sendResponse.call(context, req, reply, promise);
+      ${parameters
+        .map((p) => {
+          if (internalParams.includes(p.type)) return undefined;
+          return `const ${p.name} = await ${
+            p.type
+          }Resolver.call(context, req, reply, [${p.generics
+            .map((n) => `'${n}'`)
+            .join(', ')}]);
+
+      if (reply.sent) {
+        return undefined as any;
+      }`;
+        })
+        .filter(Boolean)
+        .join(`\n    `)}
+
+      const promise = ${routeIdentifier}.${methodName}.call(
+        context,
+        ${parameters
+          .map((param) =>
+            getParameterCode(param.name, config, param.type, param.generics)
+          )
+          .filter(Boolean)
+          .join(',\n        ')}
+      );
+
+      return RouterUtils.sendResponse.call(context, req, reply, promise);
   });
 `
   };
@@ -227,7 +278,23 @@ function isRouteMethod(name?: string) {
   );
 }
 
-function getParameterCode(type?: string, generics?: string[]): string | undefined {
+const internalParams = [
+  'Path',
+  'Cookie',
+  'Body',
+  'BodyProp',
+  'Query',
+  'Header',
+  'Req',
+  'Rep'
+];
+
+function getParameterCode(
+  paramName: string,
+  config: KitaConfig,
+  type?: string,
+  generics?: string[]
+): string | undefined {
   generics ??= [];
 
   switch (type) {
@@ -272,9 +339,13 @@ function getParameterCode(type?: string, generics?: string[]): string | undefine
       return 'reply';
 
     default:
-      return `Config.parameterResolvers.${type}.apply(context, [req, reply, [${generics.join(
-        ','
-      )}]])`;
+      if (type && Object.keys(config.params).includes(type)) {
+        return paramName;
+      }
+
+      throw new Error(
+        `Unknown parameter type ${type}. Did you forget to include it in the \`params\` config?`
+      );
   }
 }
 

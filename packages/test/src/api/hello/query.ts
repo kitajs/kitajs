@@ -1,23 +1,16 @@
 import { Query, RouteContext } from '@kita/runtime';
-import { AuthParam } from '../../kita';
+import { AuthParam } from '../../params/auth';
 
-// export async function get(
-//   this: RouteContext,
-//   name: Query<'name'>,
-//   query: Query,
-//   custom: AuthParam
-// ) {
-//   console.log({ query, name, custom });
-//   return `Hello ${name}`;
-// }
-
-export async function post(
+export async function get(
   this: RouteContext,
   query1: Query<{ age: number }>,
   query2: Query<'name'>,
-  custom: AuthParam
+  custom: AuthParam<'jwt'>
 ) {
-  console.log({ query1, query2,  custom });
+  console.log({ query1, query2, custom });
+
+  if (custom === 'ok') {
+  }
 
   return `Hello ${query2}`;
 }
