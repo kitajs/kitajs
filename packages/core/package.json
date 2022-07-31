@@ -10,10 +10,5 @@
   "dependencies": {
     "cosmiconfig": "^7.0.1",
     "tslib": "^2.4.0"
-  },
-  "files": [
-    "src",
-    "dist",
-    "templates"
-  ]
+  }
 }

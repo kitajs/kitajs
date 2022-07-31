@@ -19,7 +19,7 @@ export type KitaConfig = {
     /**
      * The template path that the route will be rendered to.
      *
-     * @default '@kita/core/templates/default.hbs'
+     * @default '@kita/generator/templates/default.hbs'
      */
     template: string;
   };
@@ -31,6 +31,13 @@ export type KitaConfig = {
      * @default ['src/api/⁎⁎/⁎.ts','api/⁎⁎/⁎.ts']
      */
     glob: string[];
+
+    /**
+     * The regex to remove from the file path to get the controller name
+     *
+     * @default ^(?:src)?\/?(api\/?)
+     */
+    prefix: string;
   };
 
   params: {
@@ -47,19 +54,21 @@ export function createConfigExplorer() {
   return cosmiconfig('kita', { packageProp: 'kita' }).search();
 }
 
-export function mergeDefaults(config: Partial<KitaConfig>): KitaConfig {
+// TODO: Optimize this and extract defaults to a constant
+export function mergeDefaults(config?: Partial<KitaConfig>): KitaConfig {
   return {
     tsconfig: config?.tsconfig ?? './tsconfig.json',
 
     params: config?.params ?? {},
 
     controllers: {
-      glob: config?.controllers?.glob ?? ['src/api/**/*.ts', 'api/**/*.ts']
+      glob: config?.controllers?.glob ?? ['src/api/**/*.ts', 'api/**/*.ts'],
+      prefix: config?.controllers?.prefix ?? '(?:src)?/?(api/?)'
     },
 
     routes: {
       output: config?.routes?.output ?? './src/routes.ts',
-      template: config?.routes?.template ?? '@kita/core/templates/default.hbs'
+      template: config?.routes?.template ?? '@kita/generator/templates/default.hbs'
     }
   };
 }

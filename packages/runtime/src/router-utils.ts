@@ -6,7 +6,7 @@ const { kReplyHasStatusCode } = require('fastify/lib/symbols');
 
 export async function sendResponse<T>(
   this: RouteContext,
-  _: Req,
+  _request: Req,
   reply: Rep,
   promise: Promise<T> | T
 ): Promise<void> {

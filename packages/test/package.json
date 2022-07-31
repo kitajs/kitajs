@@ -1,18 +1,21 @@
 {
   "name": "@kita/tests",
   "version": "1.0.0",
+  "private": true,
   "author": "Arthur Fiorette <me@arthur.place>",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "../cli/dist/program.js generate"
+    "start": "kita generate && tsc && node dist/app",
+    "generate": "kita generate",
+    "generate:watch": "nodemon -w \"../generator/src\" -w \"./src\" -e ts -x \"kita generate\" -i \"src/routes.ts\""
   },
   "dependencies": {
+    "@fastify/cookie": "^7.2.0",
     "@kita/core": "*",
     "@kita/runtime": "*",
     "fastify": "^4.2.1",
-    "@fastify/cookie": "^7.2.0",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.0",
+    "nodemon": "^2.0.19"
   }
 }

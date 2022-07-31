@@ -1,0 +1,45 @@
+import type { RouteContext, ProvidedRouteContext } from '@kita/runtime';
+import { RouterUtils } from '@kita/runtime';
+import type { FastifyInstance } from 'fastify';
+
+{{#each imports.addons}}
+  {{this}}
+{{/each}}
+{{#each imports.controllers}}
+  {{this}}
+{{/each}}
+{{#each imports.params}}
+  {{this}}
+{{/each}}
+
+export const KitaConfig = Object.freeze({{json config}});
+
+export function applyRouter(fastify: FastifyInstance, providedContext: ProvidedRouteContext) {
+  const context: RouteContext = { ...providedContext, config: KitaConfig };
+
+  {{#each routes}}
+
+    fastify.{{method}}(
+      '{{path}}',
+      {{json config}},
+      async (request, reply) => {
+        {{#each parameters}}
+          {{#if helper}}
+
+            {{helper}}
+
+            if (reply.sent) {
+              return undefined as any;
+            }
+          {{/if}}
+        {{/each}}
+
+        const promise = {{controllerName}}.{{method}}.apply(context, [{{paramsToString parameters}}]);
+        
+        return RouterUtils.sendResponse.call(context, request, reply, promise);
+      }
+    );
+  {{/each}}
+};
+
+export const HBS_CONF = {{json this}};

@@ -1,18 +1,20 @@
 {
-  "name": "@kita/cli",
+  "name": "@kita/generator",
   "version": "1.0.0",
   "author": "Arthur Fiorette <me@arthur.place>",
   "license": "MIT",
-  "bin": {
-    "kita": "./bin"
-  },
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
-    "@kita/generator": "*",
-    "commander": "^9.4.0",
+    "@kita/core": "*",
+    "deepmerge": "^4.2.2",
+    "fastify": "^4.3.0",
     "glob": "^8.0.3",
+    "glob-promise": "^5.0.0",
+    "handlebars": "^4.7.7",
+    "minimatch": "^5.1.0",
     "prettier": "^2.7.1",
     "ts-json-schema-generator": "^1.0.0",
     "tslib": "^2.4.0",
@@ -21,5 +23,10 @@
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/prettier": "^2.6.4"
-  }
+  },
+  "files": [
+    "src",
+    "dist",
+    "templates"
+  ]
 }

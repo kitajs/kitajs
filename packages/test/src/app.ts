@@ -6,4 +6,4 @@ const app = fastify();
 
 applyRouter(app, {});
 
-app.listen({ port: 3000 });
+app.listen({ port: 3000 }).then(ip => console.log(ip));

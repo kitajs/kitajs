@@ -1,100 +1,142 @@
-import '@fastify/cookie';
-
 import type { RouteContext, ProvidedRouteContext } from '@kita/runtime';
 import { RouterUtils } from '@kita/runtime';
 import type { FastifyInstance } from 'fastify';
 
-import * as BodyController from './api/body';
-import * as Hello$nameController from './api/hello/[name]/index';
-import * as HelloQueryController from './api/hello/query';
+import '@fastify/cookie';
+import * as $name$Controller from './api/[name]';
+import AuthParam from './params/auth';
 
-import AuthParamResolver from './params/auth';
+export const KitaConfig = Object.freeze({
+  tsconfig: './tsconfig.json',
+  params: { AuthParam: './src/params/auth' },
+  controllers: { glob: ['src/api/**/*.ts', 'api/**/*.ts'], prefix: '(?:src)?/?(api/?)' },
+  routes: { output: './src/routes.ts', template: '@kita/generator/templates/default.hbs' }
+});
 
-export function applyRouter(app: FastifyInstance, providedContext: ProvidedRouteContext) {
-  const context: RouteContext = {
-    ...providedContext,
-    config: {
-      tsconfig: './tsconfig.json',
-      params: { AuthParam: './src/params/auth' },
-      controllers: { glob: ['src/api/**/*.ts', 'api/**/*.ts'] },
-      routes: {
-        output: './src/routes.ts',
-        template: '@kita/core/templates/default.hbs'
-      }
-    }
-  };
+export function applyRouter(
+  fastify: FastifyInstance,
+  providedContext: ProvidedRouteContext
+) {
+  const context: RouteContext = { ...providedContext, config: KitaConfig };
 
-  app.post(
-    '/body',
+  fastify.post(
+    '/:name',
     {
       schema: {
+        params: {
+          type: 'object',
+          properties: { name: { type: 'string' } },
+          required: ['name']
+        },
         body: {
-          $schema: 'http://json-schema.org/draft-07/schema#',
-          $ref: '#/definitions/def-structure--105-113--99-114--93-114--51-163--0-164',
-          definitions: {
-            'def-structure--105-113--99-114--93-114--51-163--0-164': {
-              type: 'object',
-              properties: { a: { type: 'number', const: 1 } },
-              required: ['a'],
-              additionalProperties: false
-            }
-          }
-        }
-      }
-    },
-    async (req, reply) => {
-      const promise = BodyController.post.call(context, req.body as any);
-
-      return RouterUtils.sendResponse.call(context, req, reply, promise);
-    }
-  );
-
-  app.get('/hello/:name/', { schema: {} }, async (req, reply) => {
-    const promise = Hello$nameController.get.call(context, (req.params as any)['name']);
-
-    return RouterUtils.sendResponse.call(context, req, reply, promise);
-  });
-
-  app.get(
-    '/hello/query',
-    {
-      schema: {
+          type: 'object',
+          properties: { path: {}, bodyProp: {} },
+          required: ['path', 'bodyProp']
+        },
         querystring: {
-          $schema: 'http://json-schema.org/draft-07/schema#',
-          $ref: '#/definitions/def-structure--166-181--159-182--149-182--99-343--0-344',
-          definitions: {
-            'def-structure--166-181--159-182--149-182--99-343--0-344': {
-              type: 'object',
-              properties: { age: { type: 'number' } },
-              required: ['age'],
-              additionalProperties: false
-            }
-          },
-          properties: {
-            name: {
-              $schema: 'http://json-schema.org/draft-07/schema#',
-              $ref: '#/definitions/def-%22name%22',
-              definitions: { 'def-"name"': { type: 'string', const: 'name' } }
-            }
-          }
+          type: 'object',
+          properties: { age: { type: 'string' }, paramQuery: { type: 'string' } },
+          required: ['age', 'paramQuery']
         }
       }
     },
-    async (req, reply) => {
-      const custom = await AuthParamResolver.call(context, req, reply, ['jwt']);
+    async (request, reply) => {
+      const param11 = await AuthParam.call(context, request, reply, ['jwt']);
 
       if (reply.sent) {
         return undefined as any;
       }
 
-      const promise = HelloQueryController.get.call(
-        context,
-        req.query as any,
-        (req.query as any)['name'],
-        custom
-      );
+      const param12 = await AuthParam.call(context, request, reply, ['basic']);
 
-      return RouterUtils.sendResponse.call(context, req, reply, promise);
+      if (reply.sent) {
+        return undefined as any;
+      }
+
+      const promise = $name$Controller.post.apply(context, [
+        (request.params as { name: string })['name'],
+        request.cookies?.cookie,
+        request.body as { age: number },
+        (request.body as { path: number }).path,
+        (request.body as { bodyProp: number }).bodyProp,
+        request.query as { age: number },
+        (request.query as { age: string })['age'],
+        (request.query as { paramQuery: string })['paramQuery'],
+        request,
+        reply,
+        param11,
+        param12
+      ]);
+
+      return RouterUtils.sendResponse.call(context, request, reply, promise);
     }
   );
 }
+
+export const HBS_CONF = {
+  config: {
+    tsconfig: './tsconfig.json',
+    params: { AuthParam: './src/params/auth' },
+    controllers: {
+      glob: ['src/api/**/*.ts', 'api/**/*.ts'],
+      prefix: '(?:src)?/?(api/?)'
+    },
+    routes: {
+      output: './src/routes.ts',
+      template: '@kita/generator/templates/default.hbs'
+    }
+  },
+  imports: {
+    controllers: ["import * as $name$Controller from './api/[name]';"],
+    params: ["import AuthParam from './params/auth';"],
+    addons: ["import '@fastify/cookie';"]
+  },
+  routes: [
+    {
+      method: 'post',
+      controllerName: '$name$Controller',
+      path: '/:name',
+      config: {
+        schema: {
+          params: {
+            type: 'object',
+            properties: { name: { type: 'string' } },
+            required: ['name']
+          },
+          body: {
+            type: 'object',
+            properties: { path: {}, bodyProp: {} },
+            required: ['path', 'bodyProp']
+          },
+          querystring: {
+            type: 'object',
+            properties: { age: { type: 'string' }, paramQuery: { type: 'string' } },
+            required: ['age', 'paramQuery']
+          }
+        }
+      },
+      parameters: [
+        { value: "(request.params as { name: string })['name']" },
+        { value: 'request.cookies?.cookie' },
+        { value: 'request.body as { age: number }' },
+        { value: '(request.body as { path: number }).path' },
+        { value: '(request.body as { bodyProp: number }).bodyProp' },
+        { value: 'request.query as { age: number }' },
+        { value: "(request.query as { age: string })['age']" },
+        { value: "(request.query as { paramQuery: string })['paramQuery']" },
+        { value: 'request' },
+        { value: 'reply' },
+        {
+          helper:
+            "const param11 = await AuthParam.call(context, request, reply, ['jwt']);",
+          value: 'param11'
+        },
+        {
+          helper:
+            "const param12 = await AuthParam.call(context, request, reply, ['basic']);",
+          value: 'param12'
+        }
+      ]
+    }
+  ]
+};
