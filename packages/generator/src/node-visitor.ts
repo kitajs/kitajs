@@ -52,8 +52,6 @@ export async function visitNode(
     const generics = (parameter.type as ts.NodeWithTypeArguments).typeArguments || [];
     const optional = parameter.questionToken !== undefined;
 
-    console.log({optional})
-
     switch (typename) {
       case 'Path':
         const generic = generics[0]?.getText(source);
