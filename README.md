@@ -1,8 +1,6 @@
-<p align="center">
-  <a href="https://github.com/arthurfiorette/kita">
-    <img src="./assets/kita.png" height="256">
-  </a>
-</p>
+<a href="https://github.com/arthurfiorette/kita">
+  <img src="./assets/kita.png" height="256">
+</a>
 
 <br />
  
