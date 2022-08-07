@@ -1,6 +1,5 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { Native } from './types';
-import type { KitaCpp } from './internal';
 
 //@ts-ignore unused
 export type Path<Name extends string = string> = string;
@@ -26,11 +25,5 @@ export type Req = FastifyRequest;
 export type Rep = FastifyReply;
 
 /** A custom parameter type. */
-export type CustomParameter<Result, Parameters extends Native[]> = Result & {
-  /**
-   * **THIS TYPE IS NOT AVAILABLE AT RUNTIME. IGNORE IT**
-   *
-   * @internal
-   */
-  [KitaCpp]: Parameters;
-};
+//@ts-ignore unused
+export type CustomParameter<Result, Parameters extends Native[]> = Result;

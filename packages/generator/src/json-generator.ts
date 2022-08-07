@@ -1,39 +1,37 @@
-import type { Config, NodeParser, Schema, TypeFormatter } from 'ts-json-schema-generator';
-import { createFormatter, createParser, SchemaGenerator } from 'ts-json-schema-generator';
+import {
+  Config,
+  Context,
+  createFormatter,
+  createParser,
+  Definition,
+  SchemaGenerator,
+  StringMap
+} from 'ts-json-schema-generator';
 import type ts from 'typescript';
 
-export class JsonGenerator {
-  private config: Config;
-  private typeFormatter!: TypeFormatter;
-  private nodeParser!: NodeParser;
-
-  // TODO: Make private
-  public generator: SchemaGenerator;
+export class SchemaStorage extends SchemaGenerator {
+  readonly definitions: StringMap<Definition> = {};
 
   constructor(tsconfig: string, program: ts.Program) {
-    this.config = {
-      tsconfig,
-      minify: true,
-      // TODO: ver se isso faz sentido
-      encodeRefs: false
-    };
+    const config: Config = { tsconfig, minify: true };
 
-    this.nodeParser = createParser(program, this.config);
-    this.typeFormatter = createFormatter(this.config);
-    this.generator = new SchemaGenerator(
-      program,
-      this.nodeParser,
-      this.typeFormatter,
-      this.config
-    );
+    const nodeParser = createParser(program, config);
+    const typeFormatter = createFormatter(config);
+
+    super(program, nodeParser, typeFormatter, config);
   }
 
-  public schema: Schema = {};
+  public consumeNode(node: ts.Node) {
+    const type = this.nodeParser.createType(node, new Context(node));
 
-  // TODO: https://github.com/vega/ts-json-schema-generator/issues/1338
-  async generateRef(_node: ts.Node) {
-    return { 
-      // $ref: '#/definitions//TODO'
-     };
+    if (!type) {
+      throw new Error(`Could not create type for node \`${node.getText()}\``);
+    }
+
+    // Includes this node into our recursive definition
+    this.appendRootChildDefinitions(type, this.definitions);
+
+    // Returns the reference type if it exists
+    return this.typeFormatter.getDefinition(type);
   }
 }

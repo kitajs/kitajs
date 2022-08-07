@@ -1,14 +1,19 @@
-import { KitaConfig } from '@kita/core';
+import type { KitaConfig } from '@kita/core';
 
 export function filterRoute(filepath: string, config: KitaConfig) {
   const filtered = filepath
     .replace(new RegExp(config.controllers.prefix), '')
-
     .replace(/\.ts$/, '');
 
   const routePath =
     '/' +
-    filtered.replace(/(\[.+?\])/g, (match) => `:${match.substring(1, match.length - 1)}`);
+    // replaces [param] syntax to :param
+    filtered
+      .replace(/(\[.+?\])/g, (match) => `:${match.substring(1, match.length - 1)}`)
+      // removes index from name
+      .replace(/\/?index\/?/gi, '/')
+      // remove trailing slash
+      .replace(/\/$/, '');
 
   const controllerName =
     (filtered

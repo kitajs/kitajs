@@ -1,5 +1,5 @@
 {
   "params": {
-    "AuthParam": "./src/params/auth"
+    "AuthParam": "./src/helpers/auth-param"
   }
 }

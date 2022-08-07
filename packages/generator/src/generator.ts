@@ -6,7 +6,7 @@ import ts from 'typescript';
 import { GeneratorResult } from './generator-data';
 import { compileTemplate } from './hbs/compile';
 import './hbs/helpers';
-import { JsonGenerator } from './json-generator';
+import { SchemaStorage } from './json-generator';
 import { visitNode } from './node-visitor';
 import { findControllerPaths } from './util/controller-paths';
 import { forEachChild } from './util/for-each-child-async';
@@ -20,8 +20,8 @@ export class KitaGenerator {
   private compilerOptions: ts.CompilerOptions;
 
   private controllerPaths!: string[];
-  private program!: ts.Program;
-  public jsonGenerator!: JsonGenerator;
+  public program!: ts.Program;
+  public schemaStorage!: SchemaStorage;
 
   private hbsTemplate!: HandlebarsTemplateDelegate<GeneratorResult>;
 
@@ -56,18 +56,18 @@ export class KitaGenerator {
     );
 
     kg.program = ts.createProgram(kg.controllerPaths, kg.compilerOptions);
-    kg.jsonGenerator = new JsonGenerator(kg.tsconfigPath, kg.program);
+    kg.schemaStorage = new SchemaStorage(kg.tsconfigPath, kg.program);
 
     return kg;
   }
 
   async generate() {
-    const data = new GeneratorResult(this.kitaConfig);
+    const result = new GeneratorResult(this.kitaConfig);
 
     {
       // Populate data with custom parameters resolvers.
       for (const [name, filepath] of Object.entries(this.kitaConfig.params)) {
-        data.addImport(
+        result.addImport(
           'params',
           // Should be default export
           `import ${name} from '${this.importablePath(filepath)}';`
@@ -76,6 +76,7 @@ export class KitaGenerator {
     }
 
     {
+      // Populate data with controllers and routes info.
       const sources = this.program.getSourceFiles().filter(
         (s) =>
           // Not a declaration file
@@ -84,16 +85,19 @@ export class KitaGenerator {
           this.kitaConfig.controllers.glob.some((glob) => minimatch(s.fileName, glob))
       );
 
-      // Populate data with controllers and routes info.
-
       await Promise.all(
         sources.map((src) =>
-          forEachChild(src, (node) => visitNode(node, src, this, data))
+          forEachChild(src, (node) => visitNode(node, src, this, result))
         )
       );
     }
 
-    return data;
+    {
+      // Saves the whole json schema
+      result.saveSchema(this.schemaStorage);
+    }
+
+    return result;
   }
 
   /** Returns a output importable path */
@@ -107,27 +111,33 @@ export class KitaGenerator {
   async generateFile(result: GeneratorResult) {
     const output = this.hbsTemplate(result);
 
-    const formatted = prettier.format(output, {
-      parser: 'typescript',
+    try {
+      const formatted = prettier.format(output, {
+        parser: 'typescript',
 
-      //TODO: Customize prettier config
-      arrowParens: 'always',
-      bracketSpacing: true,
-      endOfLine: 'lf',
-      insertPragma: false,
-      bracketSameLine: false,
-      jsxSingleQuote: false,
-      printWidth: 90,
-      proseWrap: 'always',
-      quoteProps: 'as-needed',
-      requirePragma: false,
-      semi: true,
-      singleQuote: true,
-      tabWidth: 2,
-      trailingComma: 'none',
-      useTabs: false
-    });
+        //TODO: Customize prettier config
+        arrowParens: 'always',
+        bracketSpacing: true,
+        endOfLine: 'lf',
+        insertPragma: false,
+        bracketSameLine: false,
+        jsxSingleQuote: false,
+        printWidth: 90,
+        proseWrap: 'always',
+        quoteProps: 'as-needed',
+        requirePragma: false,
+        semi: true,
+        singleQuote: true,
+        tabWidth: 2,
+        trailingComma: 'none',
+        useTabs: false
+      });
 
-    return formatted;
+      return formatted;
+    } catch (err) {
+      console.error('Emitted code is not valid!!!');
+
+      return output;
+    }
   }
 }

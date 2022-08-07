@@ -28,14 +28,14 @@ export type KitaConfig = {
     /**
      * The regex to match all files to parse
      *
-     * @default ['src/api/⁎⁎/⁎.ts','api/⁎⁎/⁎.ts']
+     * @default ['src/routes/⁎⁎/⁎.ts','routes/⁎⁎/⁎.ts']
      */
     glob: string[];
 
     /**
      * The regex to remove from the file path to get the controller name
      *
-     * @default ^(?:src)?\/?(api\/?)
+     * @default ^(?:src)?\/?(routes\/?)
      */
     prefix: string;
   };
@@ -62,8 +62,8 @@ export function mergeDefaults(config?: Partial<KitaConfig>): KitaConfig {
     params: config?.params ?? {},
 
     controllers: {
-      glob: config?.controllers?.glob ?? ['src/api/**/*.ts', 'api/**/*.ts'],
-      prefix: config?.controllers?.prefix ?? '(?:src)?/?(api/?)'
+      glob: config?.controllers?.glob ?? ['src/routes/**/*.ts', 'routes/**/*.ts'],
+      prefix: config?.controllers?.prefix ?? '(?:src)?/?(routes/?)'
     },
 
     routes: {

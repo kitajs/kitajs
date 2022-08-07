@@ -1,14 +1,21 @@
-import { KitaConfig } from '@kita/core';
-import type { RouteShorthandOptions } from 'fastify';
+import type { KitaConfig } from '@kita/core';
+import type { FastifySchema } from 'fastify';
+import type { Schema } from 'ts-json-schema-generator';
+import type { SchemaStorage } from './json-generator';
 
 export class GeneratorResult {
   readonly imports = {
     controllers: [] as string[],
     params: [] as string[],
-    addons: [] as string[]
+    addons: [`import '@fastify/swagger';`]
   };
 
   readonly routes = [] as Route[];
+
+  readonly schema: Schema = {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    definitions: {}
+  };
 
   constructor(readonly config: KitaConfig) {}
 
@@ -17,16 +24,22 @@ export class GeneratorResult {
       this.imports[type].push(importPath);
     }
   }
+
+  saveSchema(storage: SchemaStorage) {
+    this.schema.definitions = storage.definitions;
+  }
 }
 
 export type Route = {
   method: string;
   path: string;
-  config: RouteShorthandOptions;
-
+  schema: FastifySchema;
   controllerName: string;
-
   parameters: Parameter[];
+  /** the operation name */
+  operationId?: string;
+  /** A stringified js  containing all options that should be extended */
+  options: string;
 };
 
 export type Parameter = {

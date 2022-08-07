@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 import ts from 'typescript';
-import { KitaGenerator } from './generator';
-import { GeneratorResult, Route } from './generator-data';
+import type { KitaGenerator } from './generator';
+import type { GeneratorResult, Route } from './generator-data';
 import { filterRoute } from './util/route-name';
 import { unquote } from './util/unquote';
 
@@ -17,9 +17,11 @@ function isNodeExported(node: ts.Node): boolean {
 export async function visitNode(
   node: ts.Node,
   source: ts.SourceFile,
-  { kitaConfig, importablePath, jsonGenerator }: KitaGenerator,
+  { kitaConfig, importablePath, schemaStorage }: KitaGenerator,
   result: GeneratorResult
 ): Promise<void> {
+  const { controllerName, routePath } = filterRoute(source.fileName, kitaConfig);
+
   // Node is not a exported function.
   // TODO: Make it work with `export const get = () => {};`
   if (!isNodeExported(node) || node.kind !== ts.SyntaxKind.FunctionDeclaration) {
@@ -27,15 +29,19 @@ export async function visitNode(
   }
 
   const fn = node as ts.FunctionDeclaration;
+  const name = fn.name!.getText(source).toLowerCase();
 
-  const { controllerName, routePath } = filterRoute(source.fileName, kitaConfig);
+  if (!['get', 'post', 'put', 'delete', 'head', 'options', 'all'].includes(name)) {
+    return;
+  }
 
   const route: Route = {
     method: fn.name!.getText(source).toLowerCase(),
     controllerName,
     path: routePath,
-    config: {},
-    parameters: []
+    schema: {},
+    parameters: [],
+    options: ''
   };
 
   for (let index = 0; index < fn.parameters.length; index++) {
@@ -44,6 +50,35 @@ export async function visitNode(
     const name = parameter.name!.getText(source).trim();
 
     if (name === 'this') {
+      const type = parameter.type! as ts.NodeWithTypeArguments;
+
+      //@ts-ignore typings come with @fastify/swagger
+      route.schema.operationId = unquote(type.typeArguments![0]!.getText());
+
+      const options = type.typeArguments![1]!;
+
+      if (options) {
+        if (options.kind !== ts.SyntaxKind.TypeLiteral) {
+          throw new Error(
+            'You cannot reference another types in the Route type. For now, you will have to write it yourself.'
+          );
+        }
+
+        route.options = options
+          .getText()
+          // Include quotes on line breaks
+          .replace(/(?<!,)\s*\\n/g, ',')
+          // Removes typeof to imports
+          .replace(/typeof (\w+),?/g, `${controllerName}.$1`)
+          // Typescript types allows ; to be used as separators. This regex does not matches escaped ; (\;)
+          .replace(/(?<!\\);/g, ',')
+          // Removes the first { and last } of the string
+          .replace(/^\s*{|}\s*$/g, '')
+          .trim()
+          // Includes commas on line breaks, if not present
+          .replace(/(?<![,;])\n/g, ',');
+      }
+
       continue;
     }
 
@@ -63,13 +98,11 @@ export async function visitNode(
           }: string })['${pathName}']`
         });
 
-        route.config = deepmerge(route.config, {
-          schema: {
-            params: {
-              type: 'object',
-              properties: { [pathName]: { type: 'string' } },
-              required: optional ? [] : [pathName]
-            }
+        route.schema = deepmerge(route.schema, {
+          params: {
+            type: 'object',
+            properties: { [pathName]: { type: 'string' } },
+            required: optional ? [] : [pathName]
           }
         });
 
@@ -95,6 +128,11 @@ export async function visitNode(
           );
         }
 
+        // @ts-expect-error - any type is allowed
+        if (route.schema.body?.properties) {
+          throw new Error(`You cannot have Body and BodyProp in the same route.`);
+        }
+
         const bodyType = generics[0];
 
         if (!bodyType) {
@@ -103,8 +141,8 @@ export async function visitNode(
 
         route.parameters.push({ value: `request.body as ${bodyType.getText(source)}` });
 
-        route.config = deepmerge(route.config, {
-          schema: { body: await jsonGenerator.generateRef(bodyType) }
+        route.schema = deepmerge(route.schema, {
+          body: await schemaStorage.consumeNode(bodyType)
         });
 
         break;
@@ -115,6 +153,11 @@ export async function visitNode(
           throw new Error(
             `The HTTP specification does not allow the use of Body in GET requests.`
           );
+        }
+
+        // @ts-expect-error - any type is allowed
+        if (route.schema.body?.$ref) {
+          throw new Error(`You cannot have Body and BodyProp in the same route.`);
         }
 
         const propType = generics[0];
@@ -134,13 +177,11 @@ export async function visitNode(
           }: ${propType.getText(source)} }).${propName}`
         });
 
-        route.config = deepmerge(route.config, {
-          schema: {
-            body: {
-              type: 'object',
-              properties: { [propName]: await jsonGenerator.generateRef(propType) },
-              required: optional ? [] : [propName]
-            }
+        route.schema = deepmerge(route.schema, {
+          body: {
+            type: 'object',
+            properties: { [propName]: await schemaStorage.consumeNode(propType) },
+            required: optional ? [] : [propName]
           }
         });
 
@@ -150,15 +191,22 @@ export async function visitNode(
         const queryType = generics[0];
 
         const quotedQueryName = queryType
-          ? queryType.getText(source)
+          ? queryType.getFullText(source)
           : parameter.name.getText(source);
 
         if (
           !queryType ||
           // starts with quotes regex.
           // TODO: Make it more robust
-          quotedQueryName.match(/^['"]/)
+          quotedQueryName.match(/^['"`]/)
         ) {
+          // @ts-expect-error - any type is allowed
+          if (route.schema.querystring?.$ref) {
+            throw new Error(
+              `You cannot have Query or Query<'name'> and Query<{ name: string }> in the same route.`
+            );
+          }
+
           const queryName = unquote(quotedQueryName);
 
           route.parameters.push({
@@ -167,29 +215,32 @@ export async function visitNode(
             }: string })['${queryName}']`
           });
 
-          route.config = deepmerge(route.config, {
-            schema: {
-              querystring: {
-                type: 'object',
-                properties: { [queryName!]: { type: 'string' } },
-                required: optional ? [] : [queryName]
-              }
+          route.schema = deepmerge(route.schema, {
+            querystring: {
+              type: 'object',
+              properties: { [queryName!]: { type: 'string' } },
+              required: optional ? [] : [queryName]
             }
           });
 
           break;
         }
 
+        // @ts-expect-error - any type is allowed
+        if (route.schema.querystring?.properties) {
+          throw new Error(
+            `You cannot have Query or Query<'name'> and Query<{ name: string }> in the same route.`
+          );
+        }
+
         // Query is a whole object
 
         route.parameters.push({
-          value: `request.query as ${queryType.getFullText(source)}`
+          value: `request.query as ${quotedQueryName}`
         });
 
-        route.config = deepmerge(route.config, {
-          schema: {
-            querystring: await jsonGenerator.generateRef(queryType!)
-          }
+        route.schema = deepmerge(route.schema, {
+          querystring: await schemaStorage.consumeNode(queryType!)
         });
 
         break;
@@ -206,13 +257,11 @@ export async function visitNode(
           }: string })['${headerName}']`
         });
 
-        route.config = deepmerge(route.config, {
-          schema: {
-            headers: {
-              type: 'object',
-              properties: { [headerName]: { type: 'string' } },
-              required: optional ? [] : [headerName]
-            }
+        route.schema = deepmerge(route.schema, {
+          headers: {
+            type: 'object',
+            properties: { [headerName]: { type: 'string' } },
+            required: optional ? [] : [headerName]
           }
         });
 

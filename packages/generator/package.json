@@ -8,6 +8,7 @@
     "build": "tsc"
   },
   "dependencies": {
+    "fastify-plugin": "^4.1.0",
     "@kita/core": "*",
     "deepmerge": "^4.2.2",
     "fastify": "^4.3.0",

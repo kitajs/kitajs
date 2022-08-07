@@ -1,27 +1,39 @@
+// Required
 import type { RouteContext, ProvidedRouteContext } from '@kita/runtime';
-import { RouterUtils } from '@kita/runtime';
-import type { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
 
+// Addons
 {{#each imports.addons}}
   {{this}}
 {{/each}}
+
+// Controllers
 {{#each imports.controllers}}
   {{this}}
 {{/each}}
+
+// Param Resolvers
 {{#each imports.params}}
   {{this}}
 {{/each}}
 
 export const KitaConfig = Object.freeze({{json config}});
 
-export function applyRouter(fastify: FastifyInstance, providedContext: ProvidedRouteContext) {
-  const context: RouteContext = { ...providedContext, config: KitaConfig };
+export const KitaSchema = Object.freeze({{json schema}});
+
+export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
+  const context: RouteContext = { ...options.context, config: KitaConfig, fastify };
+
+  fastify.addSchema(KitaSchema);
 
   {{#each routes}}
 
     fastify.{{method}}(
       '{{path}}',
-      {{json config}},
+      {
+        schema: {{json schema}},
+        {{options}}
+      },
       async (request, reply) => {
         {{#each parameters}}
           {{#if helper}}
@@ -29,17 +41,28 @@ export function applyRouter(fastify: FastifyInstance, providedContext: ProvidedR
             {{helper}}
 
             if (reply.sent) {
-              return undefined as any;
+              return;
             }
           {{/if}}
         {{/each}}
 
-        const promise = {{controllerName}}.{{method}}.apply(context, [{{paramsToString parameters}}]);
+        const data = await {{controllerName}}.{{method}}.apply(context, [{{paramsToString parameters}}]);
         
-        return RouterUtils.sendResponse.call(context, request, reply, promise);
+        if (reply.sent) {
+          if (data) {
+            const error = new Error('Reply already sent, but controller returned data');
+            //@ts-expect-error - TODO: generate better error message
+            error.data = data;
+            throw error;
+          }
+
+          return;
+        }
+
+        return data
       }
     );
   {{/each}}
-};
+});
 
 export const HBS_CONF = {{json this}};

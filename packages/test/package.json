@@ -7,15 +7,17 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "kita generate && tsc && node dist/app",
+    "build": "tsc",
     "generate": "kita generate",
-    "generate:watch": "nodemon -w \"../generator/src\" -w \"./src\" -e ts -x \"kita generate\" -i \"src/routes.ts\""
+    "generate:watch": "nodemon -w \"../generator/src\" -w \"./src\" -w \"../cli/src\" -e ts -x \"kita generate\" -i \"src/routes.ts\""
   },
   "dependencies": {
-    "@fastify/cookie": "^7.2.0",
+    "@fastify/cookie": "^7.3.1",
+    "@fastify/swagger": "^7.4.1",
     "@kita/core": "*",
     "@kita/runtime": "*",
     "fastify": "^4.2.1",
-    "tslib": "^2.4.0",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "tslib": "^2.4.0"
   }
 }
