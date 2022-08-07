@@ -1,4 +1,4 @@
-import type { Kita } from './routes';
+import { Kita } from './routes';
 
 import fastify from 'fastify';
 

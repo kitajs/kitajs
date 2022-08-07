@@ -1,18 +1,35 @@
-# 🖥 Kita
+<p align="center">
+  <a href="https://github.com/arthurfiorette/kita">
+    <img src="./assets/kita.png" height="256">
+  </a>
+</p>
+
+<br />
+ 
+<h1>Kita</h1>
+
+<br />
 
 Kita is a semi-opinionated fastify based typescript framework that has 0 runtime bloat
 using code generation. It generates OpenAPI compliant routes, only requires functional
 programming patterns, is 100% testable and supports all the usual features of fastify.
 
+<br />
+
 > This framework is being slowly built because one of the main goals is developer
 > experience, so the API design is being carefully designed and tested by other
-> developers. A fast and lightweight architecture is also one of the initial requirements.
+> developers. A fast and lightweight architecture is also one of many initial
+> requirements.
+
+<br />
 
 **There's no documentation yet. For now, take a look at the [test](packages/test)
 package.**
 
 **If you want to understand how Kita achieves 0 runtime code and is 100% modular and open
 api compliant, see the [routes.ts](packages/test/src/routes.ts) generated file.**
+
+<br />
 
 ```ts
 // /routes/hello-world.ts
@@ -40,12 +57,14 @@ $ kita generate
 ```ts
 // /main.ts
 
-import { applyRouter } from './routes'; // Generated code
+import { Kita } from './routes'; // Generated code
 import fastify from 'fastify';
 
 const app = fastify();
 
-applyRouter(app, {});
+app.register(Kita, { context: {} });
 
 app.listen();
 ```
+
+<br />
