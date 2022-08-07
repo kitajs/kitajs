@@ -1,0 +1,19 @@
+{
+  "name": "kita",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A semi-opinionated fastify based typescript framework",
+  "authors": {
+    "name": "Arthur Fiorette",
+    "email": "kita@arthur.place"
+  },
+  "repository": "https://github.com/arthurfiorette/kita/kita",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}

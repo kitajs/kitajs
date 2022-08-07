@@ -18,7 +18,8 @@
   "scripts": {
     "format": "prettier --write .",
     "watch": "sh scripts/watch.sh",
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "docs": "cd packages/docs && yarn dev"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.7",
