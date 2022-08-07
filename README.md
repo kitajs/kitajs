@@ -1,5 +1,5 @@
 <a href="https://github.com/arthurfiorette/kita">
-  <img src="./assets/kita.png" height="256">
+  <img src="./assets/logo.png" height="256">
 </a>
 
 <br />
