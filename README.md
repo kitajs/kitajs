@@ -41,7 +41,7 @@ export function get(this: Route<'helloWorld'>) {
 ```ts
 // /routes/hello/[name].ts
 
-// Configurations done by typings!! (No runtime code = blazingly fast ⚡)
+// Configurations read from typings when compiling!! (No runtime code = blazingly fast ⚡)
 export function get(this: Route<'hello'>, name: Path<'name'>) {
   return `Hello ${name}`;
 }
