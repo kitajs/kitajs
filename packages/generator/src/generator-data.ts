@@ -1,4 +1,4 @@
-import type { KitaConfig } from '@kita/core';
+import type { KitaConfig } from '@kitajs/core';
 import type { FastifySchema } from 'fastify';
 import type { Schema } from 'ts-json-schema-generator';
 import type { SchemaStorage } from './json-generator';

@@ -1,5 +1,5 @@
 {
-  "name": "@kita/cli",
+  "name": "@kitajs/cli",
   "version": "1.0.0",
   "author": "Arthur Fiorette <me@arthur.place>",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@kita/generator": "*",
+    "@kitajs/generator": "*",
     "commander": "^9.4.0",
     "glob": "^8.0.3",
     "prettier": "^2.7.1",

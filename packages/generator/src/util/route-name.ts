@@ -1,4 +1,4 @@
-import type { KitaConfig } from '@kita/core';
+import type { KitaConfig } from '@kitajs/core';
 
 export function filterRoute(filepath: string, config: KitaConfig) {
   const filtered = filepath

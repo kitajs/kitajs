@@ -31,7 +31,7 @@ api compliant, see the [routes.ts](packages/test/src/routes.ts) generated file.*
 
 ```ts
 // /routes/hello-world.ts
-import type { Route } from '@kita/runtime';
+import type { Route } from '@kitajs/runtime';
 
 export function get(this: Route<'helloWorld'>) {
   return 'Hello World';

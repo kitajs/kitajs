@@ -1,4 +1,4 @@
-import { KitaGenerator } from '@kita/generator';
+import { KitaGenerator } from '@kitajs/generator';
 import fs from 'fs/promises';
 
 export async function generate() {

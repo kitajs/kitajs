@@ -1,4 +1,4 @@
-import type { Query, Route } from '@kita/runtime';
+import type { Query, Route } from '@kitajs/runtime';
 import type { preHandlerAsyncHookHandler } from 'fastify';
 import { hello } from '../services/hello-world';
 

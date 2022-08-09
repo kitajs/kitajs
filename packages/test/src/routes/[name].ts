@@ -1,4 +1,4 @@
-import type { Body, Cookie, Path, Query, Rep, Req, Route } from '@kita/runtime';
+import type { Body, Cookie, Path, Query, Rep, Req, Route } from '@kitajs/runtime';
 import type { AuthParam } from '../helpers/auth-param';
 
 // Commented code works, but not all together.

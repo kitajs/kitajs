@@ -1,5 +1,5 @@
 // Required
-import type { RouteContext, ProvidedRouteContext } from '@kita/runtime';
+import type { RouteContext, ProvidedRouteContext } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
 
 // Addons
@@ -20,7 +20,7 @@ export const KitaConfig = Object.freeze({
     glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
     prefix: '(?:src)?/?(routes/?)'
   },
-  routes: { output: './src/routes.ts', template: '@kita/generator/templates/default.hbs' }
+  routes: { output: './src/routes.ts', template: '@kitajs/generator/templates/default.hbs' }
 });
 
 export const KitaSchema = Object.freeze({
@@ -149,7 +149,7 @@ export const HBS_CONF = {
     },
     routes: {
       output: './src/routes.ts',
-      template: '@kita/generator/templates/default.hbs'
+      template: '@kitajs/generator/templates/default.hbs'
     }
   },
   imports: {

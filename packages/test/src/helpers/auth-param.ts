@@ -1,4 +1,4 @@
-import type { CustomParameter, Rep, Req, RouteContext } from '@kita/runtime';
+import type { CustomParameter, Rep, Req, RouteContext } from '@kitajs/runtime';
 
 type Result = 'ok' | 'error';
 type AuthMode = 'jwt' | 'basic';

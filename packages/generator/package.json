@@ -1,5 +1,5 @@
 {
-  "name": "@kita/generator",
+  "name": "@kitajs/generator",
   "version": "1.0.0",
   "author": "Arthur Fiorette <me@arthur.place>",
   "license": "MIT",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "fastify-plugin": "^4.1.0",
-    "@kita/core": "*",
+    "@kitajs/core": "*",
     "deepmerge": "^4.2.2",
     "fastify": "^4.3.0",
     "glob": "^8.0.3",

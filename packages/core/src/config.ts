@@ -19,7 +19,7 @@ export type KitaConfig = {
     /**
      * The template path that the route will be rendered to.
      *
-     * @default '@kita/generator/templates/default.hbs'
+     * @default '@kitajs/generator/templates/default.hbs'
      */
     template: string;
   };
@@ -68,7 +68,7 @@ export function mergeDefaults(config?: Partial<KitaConfig>): KitaConfig {
 
     routes: {
       output: config?.routes?.output ?? './src/routes.ts',
-      template: config?.routes?.template ?? '@kita/generator/templates/default.hbs'
+      template: config?.routes?.template ?? '@kitajs/generator/templates/default.hbs'
     }
   };
 }

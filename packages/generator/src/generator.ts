@@ -1,4 +1,4 @@
-import { createConfigExplorer, KitaConfig, mergeDefaults } from '@kita/core';
+import { createConfigExplorer, KitaConfig, mergeDefaults } from '@kitajs/core';
 import minimatch from 'minimatch';
 import path from 'node:path';
 import prettier from 'prettier';

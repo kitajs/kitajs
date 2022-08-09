@@ -1,5 +1,5 @@
 {
-  "name": "@kita/tests",
+  "name": "@kitajs/tests",
   "version": "1.0.0",
   "private": true,
   "author": "Arthur Fiorette <me@arthur.place>",
@@ -14,8 +14,8 @@
   "dependencies": {
     "@fastify/cookie": "^7.3.1",
     "@fastify/swagger": "^7.4.1",
-    "@kita/core": "*",
-    "@kita/runtime": "*",
+    "@kitajs/core": "*",
+    "@kitajs/runtime": "*",
     "fastify": "^4.2.1",
     "nodemon": "^2.0.19",
     "tslib": "^2.4.0"
