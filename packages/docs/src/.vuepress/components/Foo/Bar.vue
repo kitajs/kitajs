@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        msg: 'Hello this is <Foo-Bar>'
-      }
-    }
+export default {
+  data() {
+    return {
+      msg: 'Hello this is <Foo-Bar>'
+    };
   }
+};
 </script>

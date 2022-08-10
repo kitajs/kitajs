@@ -1,4 +1,4 @@
-const { description } = require('../../package')
+const { description } = require('../../package');
 
 module.exports = {
   /**
@@ -30,7 +30,7 @@ module.exports = {
     repo: 'https://github.com/arthurfiorette/kita',
     docsDir: 'packages/docs/src',
     docsBranch: 'main',
-    
+
     editLinks: true,
     editLinkText: 'Edit this page on Github',
 
@@ -39,7 +39,7 @@ module.exports = {
     nav: [
       {
         text: 'Guide',
-        link: '/guide/',
+        link: '/guide/'
       },
       {
         text: 'Config',
@@ -47,9 +47,7 @@ module.exports = {
       },
       {
         text: 'v0',
-        items: [
-          { text: 'v0', link: '/v0/' }
-        ]
+        items: [{ text: 'v0', link: '/v0/' }]
       }
     ],
 
@@ -58,12 +56,9 @@ module.exports = {
         {
           title: 'Guide',
           collapsable: false,
-          children: [
-            '',
-            'using-vue',
-          ]
+          children: ['', 'using-vue']
         }
-      ],
+      ]
     },
 
     themeConfig: {
@@ -74,8 +69,5 @@ module.exports = {
   /**
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
-  plugins: [
-    '@vuepress/plugin-back-to-top',
-    '@vuepress/plugin-medium-zoom',
-  ]
-}
+  plugins: ['@vuepress/plugin-back-to-top', '@vuepress/plugin-medium-zoom']
+};

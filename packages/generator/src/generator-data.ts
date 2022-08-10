@@ -12,10 +12,7 @@ export class GeneratorResult {
 
   readonly routes = [] as Route[];
 
-  readonly schema: Schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
-    definitions: {}
-  };
+  readonly schemas: Schema[] = [];
 
   constructor(readonly config: KitaConfig) {}
 
@@ -26,7 +23,7 @@ export class GeneratorResult {
   }
 
   saveSchema(storage: SchemaStorage) {
-    this.schema.definitions = storage.definitions;
+    this.schemas.push(...storage.getDefinitions());
   }
 }
 

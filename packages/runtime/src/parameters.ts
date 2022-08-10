@@ -10,11 +10,31 @@ export type Cookie<Name extends String> = string | number | boolean | undefined;
 export type Body<Obj> = Obj;
 
 //@ts-ignore unused
-export type BodyProp<T, Path extends string = string> = T;
+export type BodyProp<Type, Path extends string = string> = Type;
 
+/**
+ * @example
+ * ```ts
+ * export function get(
+ *   name: Query, // defaults to string
+ *   age: Query<number>, // custom type
+ *   { a, b }: Query<Extended>, // custom type `{ a: number; b: number }`;
+ *   _: Query<boolean, 'custom-naming'> // Name comes from splicit parameter
+ * ) {}
+ * ```
+ */
 //@ts-ignore unused
-export type Query<NameOrType = string> = NameOrType extends string ? string : NameOrType;
+export type Query<Type = string, Name = string> = Type extends string ? string : Type;
 
+/**
+ * @example
+ * ```ts
+ * export function get(
+ *   date: Header, // Date header (case insensitive)
+ *   cacheControl: Header<'Cache-Control'>, // Custom name (case insensitive)
+ * ) {}
+ * ```
+ */
 //@ts-ignore unused
 export type Header<Name extends String> = string;
 

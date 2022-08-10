@@ -2,18 +2,17 @@ import type { Query, Route } from '@kitajs/runtime';
 import type { preHandlerAsyncHookHandler } from 'fastify';
 import { hello } from '../services/hello-world';
 
+export type Extended = {
+  a: number;
+  b: number;
+};
+
 export async function get(
-  this: Route<
-    'listUser',
-    {
-      preHandler: typeof a;
-      bodyLimit: 1000;
-      config: { a: [{ 3: 923 }, ';'] };
-    }
-  >,
-  name: Query
+  this: Route<'listUser', { preHandler: typeof a }>,
+  age: Query<Extended>
 ) {
-  return hello(name);
+  console.log(age);
+  return hello(JSON.stringify(age));
 }
 
 // export async function errorHandler() {}

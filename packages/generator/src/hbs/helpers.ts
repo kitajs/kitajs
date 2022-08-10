@@ -8,3 +8,5 @@ Handlebars.registerHelper('json', (ctx) => JSON.stringify(ctx));
 Handlebars.registerHelper('paramsToString', (param: Parameter[]) =>
   param.map((p) => p.value).join(',')
 );
+Handlebars.registerHelper('uppercase', (str: string) => str.toUpperCase());
+Handlebars.registerHelper('lowercase', (str: string) => str.toLowerCase());

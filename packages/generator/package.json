@@ -8,10 +8,10 @@
     "build": "tsc"
   },
   "dependencies": {
-    "fastify-plugin": "^4.1.0",
     "@kitajs/core": "*",
     "deepmerge": "^4.2.2",
     "fastify": "^4.3.0",
+    "fastify-plugin": "^4.1.0",
     "glob": "^8.0.3",
     "glob-promise": "^5.0.0",
     "handlebars": "^4.7.7",

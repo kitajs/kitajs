@@ -17,32 +17,32 @@ import fp from 'fastify-plugin';
   {{this}}
 {{/each}}
 
-export const KitaConfig = Object.freeze({{json config}});
+/** The resultant config read from your kita config file. */
+export const KitaConfig = {{json config}};
 
-export const KitaSchema = Object.freeze({{json schema}});
-
+/** The fastify plugin to be registered. */
 export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
   const context: RouteContext = { ...options.context, config: KitaConfig, fastify };
 
-  fastify.addSchema(KitaSchema);
+  {{#each schemas}}
+    fastify.addSchema({{json this}});
 
-  {{#each routes}}
+  {{/each}}
 
-    fastify.{{method}}(
-      '{{path}}',
-      {
-        schema: {{json schema}},
-        {{options}}
-      },
-      async (request, reply) => {
+  {{#each routes}} 
+    fastify.route({
+      method: '{{uppercase method}}',
+      url: '{{path}}',
+      schema: {{json schema}},
+      handler: async (request, reply) => {
         {{#each parameters}}
           {{#if helper}}
-
             {{helper}}
 
             if (reply.sent) {
               return;
             }
+
           {{/if}}
         {{/each}}
 
@@ -60,9 +60,13 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         }
 
         return data
-      }
-    );
+      },
+      {{options}}
+    });
+    
   {{/each}}
+
+  return Promise.resolve();
 });
 
 export const HBS_CONF = {{json this}};

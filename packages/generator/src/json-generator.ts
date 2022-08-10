@@ -4,6 +4,7 @@ import {
   createFormatter,
   createParser,
   Definition,
+  Schema,
   SchemaGenerator,
   StringMap
 } from 'ts-json-schema-generator';
@@ -32,6 +33,15 @@ export class SchemaStorage extends SchemaGenerator {
     this.appendRootChildDefinitions(type, this.definitions);
 
     // Returns the reference type if it exists
-    return this.typeFormatter.getDefinition(type);
+    const definition = this.typeFormatter.getDefinition(type);
+
+    // Removes the definitions prefix, as all schemas are registered as $id's.
+    definition.$ref && (definition.$ref = definition.$ref.replace('#/definitions/', ''));
+
+    return definition;
+  }
+
+  public getDefinitions(): Schema[] {
+    return Object.entries(this.definitions).map(([key, def]) => ({ $id: key, ...def }));
   }
 }

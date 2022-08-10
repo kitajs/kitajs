@@ -44,12 +44,16 @@ export async function visitNode(
     options: ''
   };
 
+  let hasThis = false;
+
   for (let index = 0; index < fn.parameters.length; index++) {
     const parameter = fn.parameters[index]!;
 
     const name = parameter.name!.getText(source).trim();
 
     if (name === 'this') {
+      hasThis = true;
+
       const type = parameter.type! as ts.NodeWithTypeArguments;
 
       //@ts-ignore typings come with @fastify/swagger
@@ -76,7 +80,7 @@ export async function visitNode(
           .replace(/^\s*{|}\s*$/g, '')
           .trim()
           // Includes commas on line breaks, if not present
-          .replace(/(?<![,;])\n/g, ',');
+          .replace(/(?<![,;{}]\s*)\n/g, ',');
       }
 
       continue;
@@ -87,15 +91,20 @@ export async function visitNode(
     const generics = (parameter.type as ts.NodeWithTypeArguments).typeArguments || [];
     const optional = parameter.questionToken !== undefined;
 
+    const parameterType = `Parameters<typeof ${route.controllerName}.${route.method}>[${
+      hasThis ? index - 1 : index
+    }]`;
+
     switch (typename) {
       case 'Path':
         const generic = generics[0]?.getText(source);
         const pathName = generic ? unquote(generic) : parameter.name.getText(source);
 
         route.parameters.push({
-          value: `(request.params as { ${pathName}${
+          helper: ``,
+          value: `(request.params as { ['${pathName}']${
             optional ? '?' : ''
-          }: string })['${pathName}']`
+          }: ${parameterType} })['${pathName}']`
         });
 
         route.schema = deepmerge(route.schema, {
@@ -139,7 +148,7 @@ export async function visitNode(
           throw new Error('Body must have a property type');
         }
 
-        route.parameters.push({ value: `request.body as ${bodyType.getText(source)}` });
+        route.parameters.push({ value: `request.body as ${parameterType}` });
 
         route.schema = deepmerge(route.schema, {
           body: await schemaStorage.consumeNode(bodyType)
@@ -167,14 +176,19 @@ export async function visitNode(
         }
 
         const propNameGeneric = generics[1]?.getText(source);
+
+        if (propNameGeneric?.includes('.')) {
+          throw new Error(`You cannot have a dot in the property name.`);
+        }
+
         const propName = propNameGeneric
           ? unquote(propNameGeneric)
           : parameter.name.getText(source);
 
         route.parameters.push({
-          value: `(request.body as { ${propName}${
+          value: `(request.body as { ['${propName}']${
             optional ? '?' : ''
-          }: ${propType.getText(source)} }).${propName}`
+          }: ${parameterType} }).${propName}`
         });
 
         route.schema = deepmerge(route.schema, {
@@ -188,60 +202,64 @@ export async function visitNode(
         break;
 
       case 'Query':
-        const queryType = generics[0];
-
-        const quotedQueryName = queryType
-          ? queryType.getFullText(source)
+        const name = generics[1]
+          ? unquote(generics[1].getText(source))
           : parameter.name.getText(source);
 
-        if (
-          !queryType ||
-          // starts with quotes regex.
-          // TODO: Make it more robust
-          quotedQueryName.match(/^['"`]/)
-        ) {
+        const generics0Text = generics[0]?.getText(source);
+
+        const isRawType =
+          !generics[0] ||
+          generics0Text === 'number' ||
+          generics0Text === 'string' ||
+          generics0Text === 'boolean';
+
+        if (isRawType) {
           // @ts-expect-error - any type is allowed
           if (route.schema.querystring?.$ref) {
             throw new Error(
-              `You cannot have Query or Query<'name'> and Query<{ name: string }> in the same route.`
+              `You cannot have a named and a extended query object in the same method`
             );
           }
 
-          const queryName = unquote(quotedQueryName);
+          const type = generics0Text ?? 'string';
 
           route.parameters.push({
-            value: `(request.query as { ${queryName}${
+            value: `(request.query as { ['${name}']${
               optional ? '?' : ''
-            }: string })['${queryName}']`
+            }: ${type} })['${name}']`
           });
 
           route.schema = deepmerge(route.schema, {
             querystring: {
               type: 'object',
-              properties: { [queryName!]: { type: 'string' } },
-              required: optional ? [] : [queryName]
+              properties: { [name]: { type } },
+              required: optional ? [] : [name]
             }
           });
+        } else {
+          // @ts-expect-error - any type is allowed
+          if (route.schema.querystring?.properties) {
+            throw new Error(
+              `You cannot have a named and a extended query object in the same method`
+            );
+          }
 
-          break;
+          // @ts-expect-error - any type is allowed
+          if (route.schema.querystring?.$ref) {
+            throw new Error(
+              `You cannot have more than one extended query object in the same method`
+            );
+          }
+
+          route.parameters.push({
+            value: `(request.query as ${parameterType})`
+          });
+
+          route.schema = deepmerge(route.schema, {
+            querystring: await schemaStorage.consumeNode(generics[0]!)
+          });
         }
-
-        // @ts-expect-error - any type is allowed
-        if (route.schema.querystring?.properties) {
-          throw new Error(
-            `You cannot have Query or Query<'name'> and Query<{ name: string }> in the same route.`
-          );
-        }
-
-        // Query is a whole object
-
-        route.parameters.push({
-          value: `request.query as ${quotedQueryName}`
-        });
-
-        route.schema = deepmerge(route.schema, {
-          querystring: await schemaStorage.consumeNode(queryType!)
-        });
 
         break;
 
@@ -252,9 +270,9 @@ export async function visitNode(
           : parameter.name.getText(source);
 
         route.parameters.push({
-          value: `(request.headers as { ${headerName}${
+          value: `(request.headers as { ['${headerName}']${
             optional ? '?' : ''
-          }: string })['${headerName}']`
+          }: ${parameterType} })['${headerName}']`
         });
 
         route.schema = deepmerge(route.schema, {

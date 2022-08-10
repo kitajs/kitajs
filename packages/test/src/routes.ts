@@ -13,57 +13,47 @@ import * as $name$Controller from './routes/[name]';
 // Param Resolvers
 import AuthParam from './helpers/auth-param';
 
-export const KitaConfig = Object.freeze({
+/** The resultant config read from your kita config file. */
+export const KitaConfig = {
   tsconfig: './tsconfig.json',
   params: { AuthParam: './src/helpers/auth-param' },
   controllers: {
     glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
     prefix: '(?:src)?/?(routes/?)'
   },
-  routes: { output: './src/routes.ts', template: '@kitajs/generator/templates/default.hbs' }
-});
-
-export const KitaSchema = Object.freeze({
-  $schema: 'http://json-schema.org/draft-07/schema#',
-  definitions: {
-    'def-structure--311-326--305-327--297-327--136-751--0-752': {
-      type: 'object',
-      properties: { age: { type: 'number' } },
-      required: ['age'],
-      additionalProperties: false
-    },
-    'def-structure--423-438--416-439--328-439--136-751--0-752': {
-      type: 'object',
-      properties: { age: { type: 'number' } },
-      required: ['age'],
-      additionalProperties: false
-    }
+  routes: {
+    output: './src/routes.ts',
+    template: '@kitajs/generator/templates/default.hbs'
   }
-});
+};
 
+/** The fastify plugin to be registered. */
 export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
   const context: RouteContext = { ...options.context, config: KitaConfig, fastify };
 
-  fastify.addSchema(KitaSchema);
+  fastify.addSchema({
+    $id: 'B',
+    type: 'object',
+    properties: { a: { type: 'string' }, b: { type: 'number' } },
+    required: ['a', 'b'],
+    additionalProperties: false
+  });
 
-  fastify.get(
-    '/hello-world',
-    {
-      schema: {
-        operationId: 'listUser',
-        querystring: {
-          type: 'object',
-          properties: { name: { type: 'string' } },
-          required: ['name']
-        }
-      },
-      preHandler: HelloworldController.a,
-      bodyLimit: 1000,
-      config: { a: [{ 3: 923 }, ','] }
-    },
-    async (request, reply) => {
+  fastify.addSchema({
+    $id: 'Extended',
+    type: 'object',
+    properties: { a: { type: 'number' }, b: { type: 'number' } },
+    required: ['a', 'b'],
+    additionalProperties: false
+  });
+
+  fastify.route({
+    method: 'GET',
+    url: '/hello-world',
+    schema: { operationId: 'listUser', querystring: { $ref: 'Extended' } },
+    handler: async (request, reply) => {
       const data = await HelloworldController.get.apply(context, [
-        (request.query as { name: string })['name']
+        request.query as Parameters<typeof HelloworldController.get>[0]
       ]);
 
       if (reply.sent) {
@@ -78,28 +68,28 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       }
 
       return data;
-    }
-  );
-
-  fastify.post(
-    '/:name',
-    {
-      schema: {
-        operationId: 'postUser',
-        params: {
-          type: 'object',
-          properties: { name: { type: 'string' } },
-          required: ['name']
-        },
-        body: {
-          $ref: '#/definitions/def-structure--311-326--305-327--297-327--136-751--0-752'
-        },
-        querystring: {
-          $ref: '#/definitions/def-structure--423-438--416-439--328-439--136-751--0-752'
-        }
-      }
     },
-    async (request, reply) => {
+    preHandler: HelloworldController.a,
+    bodyLimit: 1000,
+    config: {
+      a: [{ 3: 923 }, ',']
+    }
+  });
+
+  fastify.route({
+    method: 'POST',
+    url: '/:name',
+    schema: {
+      operationId: 'postUser',
+      params: {
+        type: 'object',
+        properties: { name: { type: 'string' } },
+        required: ['name']
+      },
+      body: { $ref: 'B' },
+      querystring: { $ref: 'B' }
+    },
+    handler: async (request, reply) => {
       const param7 = await AuthParam.call(context, request, reply, ['jwt']);
 
       if (reply.sent) {
@@ -113,10 +103,12 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       }
 
       const data = await $name$Controller.post.apply(context, [
-        (request.params as { name: string })['name'],
+        (request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })[
+          'name'
+        ],
         request.cookies?.cookie,
-        request.body as { age: number },
-        request.query as { age: number },
+        request.body as Parameters<typeof $name$Controller.post>[2],
+        request.query as Parameters<typeof $name$Controller.post>[3],
         request,
         reply,
         param7,
@@ -136,7 +128,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
       return data;
     }
-  );
+  });
+
+  return Promise.resolve();
 });
 
 export const HBS_CONF = {
@@ -165,17 +159,12 @@ export const HBS_CONF = {
       method: 'get',
       controllerName: 'HelloworldController',
       path: '/hello-world',
-      schema: {
-        operationId: 'listUser',
-        querystring: {
-          type: 'object',
-          properties: { name: { type: 'string' } },
-          required: ['name']
-        }
-      },
-      parameters: [{ value: "(request.query as { name: string })['name']" }],
+      schema: { operationId: 'listUser', querystring: { $ref: 'Extended' } },
+      parameters: [
+        { value: '(request.query as Parameters<typeof HelloworldController.get>[0])' }
+      ],
       options:
-        "preHandler: HelloworldController.a,\n      bodyLimit: 1000,\n      config: { a: [{ 3: 923 }, ','] },"
+        "preHandler: HelloworldController.a,\n      bodyLimit: 1000,\n      config: { \n        a: [{ 3: 923 }, ','] },"
     },
     {
       method: 'post',
@@ -188,18 +177,18 @@ export const HBS_CONF = {
           properties: { name: { type: 'string' } },
           required: ['name']
         },
-        body: {
-          $ref: '#/definitions/def-structure--311-326--305-327--297-327--136-751--0-752'
-        },
-        querystring: {
-          $ref: '#/definitions/def-structure--423-438--416-439--328-439--136-751--0-752'
-        }
+        body: { $ref: 'B' },
+        querystring: { $ref: 'B' }
       },
       parameters: [
-        { value: "(request.params as { name: string })['name']" },
+        {
+          helper: '',
+          value:
+            "(request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })['name']"
+        },
         { value: 'request.cookies?.cookie' },
-        { value: 'request.body as { age: number }' },
-        { value: 'request.query as { age: number }' },
+        { value: 'request.body as Parameters<typeof $name$Controller.post>[2]' },
+        { value: '(request.query as Parameters<typeof $name$Controller.post>[3])' },
         { value: 'request' },
         { value: 'reply' },
         {
@@ -216,21 +205,20 @@ export const HBS_CONF = {
       options: ''
     }
   ],
-  schema: {
-    $schema: 'http://json-schema.org/draft-07/schema#',
-    definitions: {
-      'def-structure--311-326--305-327--297-327--136-751--0-752': {
-        type: 'object',
-        properties: { age: { type: 'number' } },
-        required: ['age'],
-        additionalProperties: false
-      },
-      'def-structure--423-438--416-439--328-439--136-751--0-752': {
-        type: 'object',
-        properties: { age: { type: 'number' } },
-        required: ['age'],
-        additionalProperties: false
-      }
+  schemas: [
+    {
+      $id: 'B',
+      type: 'object',
+      properties: { a: { type: 'string' }, b: { type: 'number' } },
+      required: ['a', 'b'],
+      additionalProperties: false
+    },
+    {
+      $id: 'Extended',
+      type: 'object',
+      properties: { a: { type: 'number' }, b: { type: 'number' } },
+      required: ['a', 'b'],
+      additionalProperties: false
     }
-  }
+  ]
 };
