@@ -1,7 +1,7 @@
 import type { CustomParameter, Rep, Req, RouteContext } from '@kitajs/runtime';
 
-type Result = 'ok' | 'error';
-type AuthMode = 'jwt' | 'basic';
+export type Result = 'ok' | 'error';
+export type AuthMode = 'jwt' | 'basic';
 
 export type AuthParam<Method extends AuthMode> = CustomParameter<Result, [Method]>;
 

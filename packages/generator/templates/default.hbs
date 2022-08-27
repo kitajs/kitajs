@@ -31,7 +31,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
   {{#each routes}} 
     fastify.route({
-      method: '{{uppercase method}}',
+      method: {{#if (isAllMethod method)}}['DELETE', 'GET', 'HEAD', 'PATCH', 'POST', 'PUT', 'OPTIONS']{{else}}'{{uppercase method}}'{{/if}},
       url: '{{path}}',
       schema: {{json schema}},
       handler: async (request, reply) => {
@@ -49,6 +49,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         const data = await {{controllerName}}.{{method}}.apply(context, [{{paramsToString parameters}}]);
         
         if (reply.sent) {
+          //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
           if (data) {
             const error = new Error('Reply already sent, but controller returned data');
             //@ts-expect-error - TODO: generate better error message
@@ -59,13 +60,14 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
           return;
         }
 
-        return data
+        return data;
       },
       {{options}}
     });
     
   {{/each}}
 
+  // Ensure this function remains a "async" function
   return Promise.resolve();
 });
 

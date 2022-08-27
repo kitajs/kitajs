@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@kitajs/generator": "*",
+    "chalk": "^4",
     "commander": "^9.4.0",
     "glob": "^8.0.3",
     "prettier": "^2.7.1",

@@ -1,5 +1,5 @@
 {
-  "name": "kita",
+  "name": "@kitajs/docs",
   "version": "0.0.1",
   "private": true,
   "description": "A semi-opinionated fastify based typescript framework",

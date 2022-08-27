@@ -29,14 +29,14 @@ export async function visitNode(
   }
 
   const fn = node as ts.FunctionDeclaration;
-  const name = fn.name!.getText(source).toLowerCase();
+  const name = fn.name!.getText(source);
 
-  if (!['get', 'post', 'put', 'delete', 'head', 'options', 'all'].includes(name)) {
+  if (!name.match(/^get|post|put|delete|all$/i)) {
     return;
   }
 
   const route: Route = {
-    method: fn.name!.getText(source).toLowerCase(),
+    method: name,
     controllerName,
     path: routePath,
     schema: {},
@@ -45,7 +45,6 @@ export async function visitNode(
   };
 
   let hasThis = false;
-
   for (let index = 0; index < fn.parameters.length; index++) {
     const parameter = fn.parameters[index]!;
 
@@ -57,7 +56,9 @@ export async function visitNode(
       const type = parameter.type! as ts.NodeWithTypeArguments;
 
       //@ts-ignore typings come with @fastify/swagger
-      route.schema.operationId = unquote(type.typeArguments![0]!.getText());
+      route.operationId = route.schema.operationId = unquote(
+        type.typeArguments![0]!.getText()
+      );
 
       const options = type.typeArguments![1]!;
 
@@ -320,6 +321,12 @@ export async function visitNode(
         );
     }
   }
+
+  const schema = await schemaStorage.consumeResponseType(fn, route);
+
+  route.schema = deepmerge(route.schema, {
+    response: { default: schema }
+  });
 
   result.addImport(
     'controllers',

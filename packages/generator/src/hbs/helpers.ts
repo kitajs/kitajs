@@ -10,3 +10,4 @@ Handlebars.registerHelper('paramsToString', (param: Parameter[]) =>
 );
 Handlebars.registerHelper('uppercase', (str: string) => str.toUpperCase());
 Handlebars.registerHelper('lowercase', (str: string) => str.toLowerCase());
+Handlebars.registerHelper('isAllMethod', (str: string) => str.toLowerCase() === 'all');

@@ -4,11 +4,10 @@ import fp from 'fastify-plugin';
 
 // Addons
 import '@fastify/swagger';
-import '@fastify/cookie';
 
 // Controllers
+import * as Helloworld2Controller from './routes/hello-world2';
 import * as HelloworldController from './routes/hello-world';
-import * as $name$Controller from './routes/[name]';
 
 // Param Resolvers
 import AuthParam from './helpers/auth-param';
@@ -32,31 +31,81 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   const context: RouteContext = { ...options.context, config: KitaConfig, fastify };
 
   fastify.addSchema({
-    $id: 'B',
+    $id: 'HelloWorldQuery',
     type: 'object',
-    properties: { a: { type: 'string' }, b: { type: 'number' } },
-    required: ['a', 'b'],
+    properties: { name: { type: 'string' }, age: { type: 'number' } },
+    required: ['name', 'age'],
     additionalProperties: false
   });
 
   fastify.addSchema({
-    $id: 'Extended',
+    $id: 'Helloworld2Controller_Get_Response',
     type: 'object',
-    properties: { a: { type: 'number' }, b: { type: 'number' } },
-    required: ['a', 'b'],
+    properties: { f: { $ref: 'Result' } },
+    required: ['f'],
+    additionalProperties: false
+  });
+
+  fastify.addSchema({ $id: 'Result', type: 'string', enum: ['ok', 'error'] });
+
+  fastify.addSchema({
+    $id: 'HelloworldController_Get_Response',
+    type: 'object',
+    properties: { a: { type: 'string' } },
+    required: ['a'],
+    additionalProperties: false
+  });
+
+  fastify.addSchema({
+    $id: 'HelloworldController_Post_Response',
+    type: 'object',
+    properties: { b: { type: 'string' } },
+    required: ['b'],
+    additionalProperties: false
+  });
+
+  fastify.addSchema({
+    $id: 'PR',
+    type: 'object',
+    properties: { c: { type: 'string' } },
+    required: ['c'],
+    additionalProperties: false
+  });
+
+  fastify.addSchema({
+    $id: 'DR',
+    type: 'object',
+    properties: { d: { type: 'string' } },
+    required: ['d'],
+    additionalProperties: false
+  });
+
+  fastify.addSchema({
+    $id: 'HWData',
+    type: 'object',
+    properties: { e: { type: 'string' } },
+    required: ['e'],
     additionalProperties: false
   });
 
   fastify.route({
     method: 'GET',
-    url: '/hello-world',
-    schema: { operationId: 'listUser', querystring: { $ref: 'Extended' } },
+    url: '/hello-world2',
+    schema: {
+      operationId: 'helloWorld6',
+      response: { default: { $ref: 'Helloworld2Controller_Get_Response' } }
+    },
     handler: async (request, reply) => {
-      const data = await HelloworldController.get.apply(context, [
-        request.query as Parameters<typeof HelloworldController.get>[0]
-      ]);
+      const param1 = await AuthParam.call(context, request, reply, ['jwt']);
 
       if (reply.sent) {
+        return;
+      }
+
+      const data = await Helloworld2Controller.Get.apply(context, [param1]);
+
+      if (reply.sent) {
+        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
         if (data) {
           const error = new Error('Reply already sent, but controller returned data');
           //@ts-expect-error - TODO: generate better error message
@@ -68,54 +117,53 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       }
 
       return data;
+    }
+  });
+
+  fastify.route({
+    method: 'GET',
+    url: '/hello-world',
+    schema: {
+      operationId: 'helloWorld1',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'HelloworldController_Get_Response' } }
     },
-    preHandler: HelloworldController.a,
-    bodyLimit: 1000,
-    config: {
-      a: [{ 3: 923 }, ',']
+    handler: async (request, reply) => {
+      const data = await HelloworldController.Get.apply(context, [
+        request.query as Parameters<typeof HelloworldController.Get>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        if (data) {
+          const error = new Error('Reply already sent, but controller returned data');
+          //@ts-expect-error - TODO: generate better error message
+          error.data = data;
+          throw error;
+        }
+
+        return;
+      }
+
+      return data;
     }
   });
 
   fastify.route({
     method: 'POST',
-    url: '/:name',
+    url: '/hello-world',
     schema: {
-      operationId: 'postUser',
-      params: {
-        type: 'object',
-        properties: { name: { type: 'string' } },
-        required: ['name']
-      },
-      body: { $ref: 'B' },
-      querystring: { $ref: 'B' }
+      operationId: 'helloWorld2',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'HelloworldController_Post_Response' } }
     },
     handler: async (request, reply) => {
-      const param7 = await AuthParam.call(context, request, reply, ['jwt']);
-
-      if (reply.sent) {
-        return;
-      }
-
-      const param8 = await AuthParam.call(context, request, reply, ['basic']);
-
-      if (reply.sent) {
-        return;
-      }
-
-      const data = await $name$Controller.post.apply(context, [
-        (request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })[
-          'name'
-        ],
-        request.cookies?.cookie,
-        request.body as Parameters<typeof $name$Controller.post>[2],
-        request.query as Parameters<typeof $name$Controller.post>[3],
-        request,
-        reply,
-        param7,
-        param8
+      const data = await HelloworldController.Post.apply(context, [
+        request.query as Parameters<typeof HelloworldController.Post>[0]
       ]);
 
       if (reply.sent) {
+        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
         if (data) {
           const error = new Error('Reply already sent, but controller returned data');
           //@ts-expect-error - TODO: generate better error message
@@ -130,6 +178,94 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     }
   });
 
+  fastify.route({
+    method: 'PUT',
+    url: '/hello-world',
+    schema: {
+      operationId: 'helloWorld3',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'PR' } }
+    },
+    handler: async (request, reply) => {
+      const data = await HelloworldController.Put.apply(context, [
+        request.query as Parameters<typeof HelloworldController.Put>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        if (data) {
+          const error = new Error('Reply already sent, but controller returned data');
+          //@ts-expect-error - TODO: generate better error message
+          error.data = data;
+          throw error;
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  fastify.route({
+    method: 'DELETE',
+    url: '/hello-world',
+    schema: {
+      operationId: 'helloWorld4',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'DR' } }
+    },
+    handler: async (request, reply) => {
+      const data = await HelloworldController.Delete.apply(context, [
+        request.query as Parameters<typeof HelloworldController.Delete>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        if (data) {
+          const error = new Error('Reply already sent, but controller returned data');
+          //@ts-expect-error - TODO: generate better error message
+          error.data = data;
+          throw error;
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  fastify.route({
+    method: 'POST',
+    url: '/hello-world2',
+    schema: {
+      operationId: 'helloWorld5',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'HWData' } }
+    },
+    handler: async (request, reply) => {
+      const data = await Helloworld2Controller.Post.apply(context, [
+        request.query as Parameters<typeof Helloworld2Controller.Post>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        if (data) {
+          const error = new Error('Reply already sent, but controller returned data');
+          //@ts-expect-error - TODO: generate better error message
+          error.data = data;
+          throw error;
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  // Ensure this function remains a "async" function
   return Promise.resolve();
 });
 
@@ -148,76 +284,156 @@ export const HBS_CONF = {
   },
   imports: {
     controllers: [
-      "import * as HelloworldController from './routes/hello-world';",
-      "import * as $name$Controller from './routes/[name]';"
+      "import * as Helloworld2Controller from './routes/hello-world2';",
+      "import * as HelloworldController from './routes/hello-world';"
     ],
     params: ["import AuthParam from './helpers/auth-param';"],
-    addons: ["import '@fastify/swagger';", "import '@fastify/cookie';"]
+    addons: ["import '@fastify/swagger';"]
   },
   routes: [
     {
-      method: 'get',
-      controllerName: 'HelloworldController',
-      path: '/hello-world',
-      schema: { operationId: 'listUser', querystring: { $ref: 'Extended' } },
-      parameters: [
-        { value: '(request.query as Parameters<typeof HelloworldController.get>[0])' }
-      ],
-      options:
-        "preHandler: HelloworldController.a,\n      bodyLimit: 1000,\n      config: { \n        a: [{ 3: 923 }, ','] },"
-    },
-    {
-      method: 'post',
-      controllerName: '$name$Controller',
-      path: '/:name',
+      method: 'Get',
+      controllerName: 'Helloworld2Controller',
+      path: '/hello-world2',
       schema: {
-        operationId: 'postUser',
-        params: {
-          type: 'object',
-          properties: { name: { type: 'string' } },
-          required: ['name']
-        },
-        body: { $ref: 'B' },
-        querystring: { $ref: 'B' }
+        operationId: 'helloWorld6',
+        response: { default: { $ref: 'Helloworld2Controller_Get_Response' } }
       },
       parameters: [
         {
-          helper: '',
-          value:
-            "(request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })['name']"
-        },
-        { value: 'request.cookies?.cookie' },
-        { value: 'request.body as Parameters<typeof $name$Controller.post>[2]' },
-        { value: '(request.query as Parameters<typeof $name$Controller.post>[3])' },
-        { value: 'request' },
-        { value: 'reply' },
-        {
           helper:
-            "const param7 = await AuthParam.call(context, request, reply, ['jwt']);",
-          value: 'param7'
-        },
-        {
-          helper:
-            "const param8 = await AuthParam.call(context, request, reply, ['basic']);",
-          value: 'param8'
+            "const param1 = await AuthParam.call(context, request, reply, ['jwt']);",
+          value: 'param1'
         }
       ],
-      options: ''
+      options: '',
+      operationId: 'helloWorld6'
+    },
+    {
+      method: 'Get',
+      controllerName: 'HelloworldController',
+      path: '/hello-world',
+      schema: {
+        operationId: 'helloWorld1',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'HelloworldController_Get_Response' } }
+      },
+      parameters: [
+        { value: '(request.query as Parameters<typeof HelloworldController.Get>[0])' }
+      ],
+      options: '',
+      operationId: 'helloWorld1'
+    },
+    {
+      method: 'Post',
+      controllerName: 'HelloworldController',
+      path: '/hello-world',
+      schema: {
+        operationId: 'helloWorld2',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'HelloworldController_Post_Response' } }
+      },
+      parameters: [
+        { value: '(request.query as Parameters<typeof HelloworldController.Post>[0])' }
+      ],
+      options: '',
+      operationId: 'helloWorld2'
+    },
+    {
+      method: 'Put',
+      controllerName: 'HelloworldController',
+      path: '/hello-world',
+      schema: {
+        operationId: 'helloWorld3',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'PR' } }
+      },
+      parameters: [
+        { value: '(request.query as Parameters<typeof HelloworldController.Put>[0])' }
+      ],
+      options: '',
+      operationId: 'helloWorld3'
+    },
+    {
+      method: 'Delete',
+      controllerName: 'HelloworldController',
+      path: '/hello-world',
+      schema: {
+        operationId: 'helloWorld4',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'DR' } }
+      },
+      parameters: [
+        { value: '(request.query as Parameters<typeof HelloworldController.Delete>[0])' }
+      ],
+      options: '',
+      operationId: 'helloWorld4'
+    },
+    {
+      method: 'Post',
+      controllerName: 'Helloworld2Controller',
+      path: '/hello-world2',
+      schema: {
+        operationId: 'helloWorld5',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'HWData' } }
+      },
+      parameters: [
+        { value: '(request.query as Parameters<typeof Helloworld2Controller.Post>[0])' }
+      ],
+      options: '',
+      operationId: 'helloWorld5'
     }
   ],
   schemas: [
     {
-      $id: 'B',
+      $id: 'HelloWorldQuery',
       type: 'object',
-      properties: { a: { type: 'string' }, b: { type: 'number' } },
-      required: ['a', 'b'],
+      properties: { name: { type: 'string' }, age: { type: 'number' } },
+      required: ['name', 'age'],
       additionalProperties: false
     },
     {
-      $id: 'Extended',
+      $id: 'Helloworld2Controller_Get_Response',
       type: 'object',
-      properties: { a: { type: 'number' }, b: { type: 'number' } },
-      required: ['a', 'b'],
+      properties: { f: { $ref: 'Result' } },
+      required: ['f'],
+      additionalProperties: false
+    },
+    { $id: 'Result', type: 'string', enum: ['ok', 'error'] },
+    {
+      $id: 'HelloworldController_Get_Response',
+      type: 'object',
+      properties: { a: { type: 'string' } },
+      required: ['a'],
+      additionalProperties: false
+    },
+    {
+      $id: 'HelloworldController_Post_Response',
+      type: 'object',
+      properties: { b: { type: 'string' } },
+      required: ['b'],
+      additionalProperties: false
+    },
+    {
+      $id: 'PR',
+      type: 'object',
+      properties: { c: { type: 'string' } },
+      required: ['c'],
+      additionalProperties: false
+    },
+    {
+      $id: 'DR',
+      type: 'object',
+      properties: { d: { type: 'string' } },
+      required: ['d'],
+      additionalProperties: false
+    },
+    {
+      $id: 'HWData',
+      type: 'object',
+      properties: { e: { type: 'string' } },
+      required: ['e'],
       additionalProperties: false
     }
   ]

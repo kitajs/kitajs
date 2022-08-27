@@ -1,18 +1,45 @@
 import type { Query, Route } from '@kitajs/runtime';
-import type { preHandlerAsyncHookHandler } from 'fastify';
+import type { HelloWorldQuery } from '../models/hello-world';
 import { hello } from '../services/hello-world';
 
-export type Extended = {
-  a: number;
-  b: number;
-};
+export async function Get(
+  this: Route<'helloWorld1'>,
+  { age, name }: Query<HelloWorldQuery>
+): Promise<{ a: string }> {
+  return {
+    a: hello(name, age)
+  };
+}
 
-export async function get(
-  this: Route<'listUser', { preHandler: typeof a }>,
-  age: Query<Extended>
+export async function Post(
+  this: Route<'helloWorld2'>,
+  { age, name }: Query<HelloWorldQuery>
 ) {
-  console.log(age);
-  return hello(JSON.stringify(age));
+  return {
+    b: hello(name, age)
+  };
+}
+
+export type PR = Promise<{ c: string }>;
+
+export async function Put(
+  this: Route<'helloWorld3'>,
+  { age, name }: Query<HelloWorldQuery>
+): PR {
+  return {
+    c: hello(name, age)
+  };
+}
+
+export type DR = { d: string };
+
+export async function Delete(
+  this: Route<'helloWorld4'>,
+  { age, name }: Query<HelloWorldQuery>
+): Promise<DR> {
+  return {
+    d: hello(name, age)
+  };
 }
 
 // export async function errorHandler() {}
@@ -25,7 +52,7 @@ export async function get(
 
 // export async function preValidation() {}
 
-export const a: preHandlerAsyncHookHandler = async () => {};
+// export async function preHandler() {}
 
 // export async function preSerialization() {}
 
