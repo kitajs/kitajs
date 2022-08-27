@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/arthurfiorette/kita.git"
   },
-  "author": "Arthur Fiorette <me@arthur.place>",
+  "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/arthurfiorette/kita/issues"

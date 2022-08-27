@@ -2,7 +2,7 @@
   "name": "@kitajs/tests",
   "version": "1.0.0",
   "private": true,
-  "author": "Arthur Fiorette <me@arthur.place>",
+  "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {

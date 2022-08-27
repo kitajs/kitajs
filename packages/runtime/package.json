@@ -1,9 +1,9 @@
 {
   "name": "@kitajs/runtime",
   "version": "1.0.0",
-  "author": "Arthur Fiorette <me@arthur.place>",
+  "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "./index.js",
   "scripts": {
     "build": "tsc"
   },
