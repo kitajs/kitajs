@@ -14,4 +14,4 @@ app.setErrorHandler((error, request, reply) => {
   reply.send(error);
 });
 
-app.listen({ port: 3000 }).then((ip) => console.log(ip));
+app.listen({ port: 3000 }).then((ip) => console.log(`${ip}/documentation`));
