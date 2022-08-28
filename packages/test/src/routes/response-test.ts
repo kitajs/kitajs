@@ -3,7 +3,7 @@ import type { HelloWorldQuery } from '../models/hello-world';
 import { hello } from '../services/hello-world';
 
 export async function Get(
-  this: Route<'helloWorld1'>,
+  this: Route<'withTypedPromiseResponse'>,
   { age, name }: Query<HelloWorldQuery>
 ): Promise<{ a: string }> {
   return {
@@ -12,7 +12,7 @@ export async function Get(
 }
 
 export async function Post(
-  this: Route<'helloWorld2'>,
+  this: Route<'withInferredResponse'>,
   { age, name }: Query<HelloWorldQuery>
 ) {
   return {
@@ -23,7 +23,7 @@ export async function Post(
 export type PR = Promise<{ c: string }>;
 
 export async function Put(
-  this: Route<'helloWorld3'>,
+  this: Route<'withPromiseTypeAlias'>,
   { age, name }: Query<HelloWorldQuery>
 ): PR {
   return {
@@ -34,7 +34,7 @@ export async function Put(
 export type DR = { d: string };
 
 export async function Delete(
-  this: Route<'helloWorld4'>,
+  this: Route<'withTypeAliasPromise'>,
   { age, name }: Query<HelloWorldQuery>
 ): Promise<DR> {
   return {

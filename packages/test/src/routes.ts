@@ -4,10 +4,12 @@ import fp from 'fastify-plugin';
 
 // Addons
 import '@fastify/swagger';
+import '@fastify/cookie';
 
 // Controllers
-import * as Helloworld2Controller from './routes/hello-world2';
-import * as HelloworldController from './routes/hello-world';
+import * as Responsetypes2Controller from './routes/response-types-2';
+import * as ResponsetestController from './routes/response-test';
+import * as $name$Controller from './routes/[name]';
 
 // Param Resolvers
 import AuthParam from './helpers/auth-param';
@@ -31,6 +33,14 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   const context: RouteContext = { ...options.context, config: KitaConfig, fastify };
 
   fastify.addSchema({
+    $id: 'NameQuery',
+    type: 'object',
+    properties: { name: { type: 'string' } },
+    required: ['name'],
+    additionalProperties: false
+  });
+
+  fastify.addSchema({
     $id: 'HelloWorldQuery',
     type: 'object',
     properties: { name: { type: 'string' }, age: { type: 'number' } },
@@ -39,7 +49,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   });
 
   fastify.addSchema({
-    $id: 'Helloworld2Controller_Get_Response',
+    $id: 'Responsetypes2Controller_Get_Response',
     type: 'object',
     properties: { f: { $ref: 'Result' } },
     required: ['f'],
@@ -49,7 +59,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({ $id: 'Result', type: 'string', enum: ['ok', 'error'] });
 
   fastify.addSchema({
-    $id: 'HelloworldController_Get_Response',
+    $id: 'ResponsetestController_Get_Response',
     type: 'object',
     properties: { a: { type: 'string' } },
     required: ['a'],
@@ -57,7 +67,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   });
 
   fastify.addSchema({
-    $id: 'HelloworldController_Post_Response',
+    $id: 'ResponsetestController_Post_Response',
     type: 'object',
     properties: { b: { type: 'string' } },
     required: ['b'],
@@ -88,12 +98,27 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     additionalProperties: false
   });
 
+  fastify.addSchema({
+    $id: '$name$Controller_post_Response',
+    type: 'object',
+    properties: {
+      path: { type: 'string' },
+      cookie: { type: 'string' },
+      body: { $ref: 'NameQuery' },
+      query: { $ref: 'NameQuery' },
+      authJwt: { $ref: 'Result' },
+      authBasic: { $ref: 'Result' }
+    },
+    required: ['path', 'cookie', 'body', 'query', 'authJwt', 'authBasic'],
+    additionalProperties: false
+  });
+
   fastify.route({
     method: 'GET',
-    url: '/hello-world2',
+    url: '/response-types-2',
     schema: {
-      operationId: 'helloWorld6',
-      response: { default: { $ref: 'Helloworld2Controller_Get_Response' } }
+      operationId: 'withCustomParameterResponse',
+      response: { default: { $ref: 'Responsetypes2Controller_Get_Response' } }
     },
     handler: async (request, reply) => {
       const param1 = await AuthParam.call(context, request, reply, ['jwt']);
@@ -102,15 +127,12 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         return;
       }
 
-      const data = await Helloworld2Controller.Get.apply(context, [param1]);
+      const data = await Responsetypes2Controller.Get.apply(context, [param1]);
 
       if (reply.sent) {
-        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        //@ts-ignore - When Responsetypes2Controller.Get() returns nothing, typescript gets mad.
         if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-          //@ts-expect-error - TODO: generate better error message
-          error.data = data;
-          throw error;
+          throw Helpers.replyAlreadySent(data);
         }
 
         return;
@@ -122,24 +144,21 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
   fastify.route({
     method: 'GET',
-    url: '/hello-world',
+    url: '/response-test',
     schema: {
-      operationId: 'helloWorld1',
+      operationId: 'withTypedPromiseResponse',
       querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'HelloworldController_Get_Response' } }
+      response: { default: { $ref: 'ResponsetestController_Get_Response' } }
     },
     handler: async (request, reply) => {
-      const data = await HelloworldController.Get.apply(context, [
-        request.query as Parameters<typeof HelloworldController.Get>[0]
+      const data = await ResponsetestController.Get.apply(context, [
+        request.query as Parameters<typeof ResponsetestController.Get>[0]
       ]);
 
       if (reply.sent) {
-        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        //@ts-ignore - When ResponsetestController.Get() returns nothing, typescript gets mad.
         if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-          //@ts-expect-error - TODO: generate better error message
-          error.data = data;
-          throw error;
+          throw Helpers.replyAlreadySent(data);
         }
 
         return;
@@ -151,24 +170,21 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
   fastify.route({
     method: 'POST',
-    url: '/hello-world',
+    url: '/response-test',
     schema: {
-      operationId: 'helloWorld2',
+      operationId: 'withInferredResponse',
       querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'HelloworldController_Post_Response' } }
+      response: { default: { $ref: 'ResponsetestController_Post_Response' } }
     },
     handler: async (request, reply) => {
-      const data = await HelloworldController.Post.apply(context, [
-        request.query as Parameters<typeof HelloworldController.Post>[0]
+      const data = await ResponsetestController.Post.apply(context, [
+        request.query as Parameters<typeof ResponsetestController.Post>[0]
       ]);
 
       if (reply.sent) {
-        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        //@ts-ignore - When ResponsetestController.Post() returns nothing, typescript gets mad.
         if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-          //@ts-expect-error - TODO: generate better error message
-          error.data = data;
-          throw error;
+          throw Helpers.replyAlreadySent(data);
         }
 
         return;
@@ -180,24 +196,21 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
   fastify.route({
     method: 'PUT',
-    url: '/hello-world',
+    url: '/response-test',
     schema: {
-      operationId: 'helloWorld3',
+      operationId: 'withPromiseTypeAlias',
       querystring: { $ref: 'HelloWorldQuery' },
       response: { default: { $ref: 'PR' } }
     },
     handler: async (request, reply) => {
-      const data = await HelloworldController.Put.apply(context, [
-        request.query as Parameters<typeof HelloworldController.Put>[0]
+      const data = await ResponsetestController.Put.apply(context, [
+        request.query as Parameters<typeof ResponsetestController.Put>[0]
       ]);
 
       if (reply.sent) {
-        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        //@ts-ignore - When ResponsetestController.Put() returns nothing, typescript gets mad.
         if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-          //@ts-expect-error - TODO: generate better error message
-          error.data = data;
-          throw error;
+          throw Helpers.replyAlreadySent(data);
         }
 
         return;
@@ -209,24 +222,21 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
   fastify.route({
     method: 'DELETE',
-    url: '/hello-world',
+    url: '/response-test',
     schema: {
-      operationId: 'helloWorld4',
+      operationId: 'withTypeAliasPromise',
       querystring: { $ref: 'HelloWorldQuery' },
       response: { default: { $ref: 'DR' } }
     },
     handler: async (request, reply) => {
-      const data = await HelloworldController.Delete.apply(context, [
-        request.query as Parameters<typeof HelloworldController.Delete>[0]
+      const data = await ResponsetestController.Delete.apply(context, [
+        request.query as Parameters<typeof ResponsetestController.Delete>[0]
       ]);
 
       if (reply.sent) {
-        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        //@ts-ignore - When ResponsetestController.Delete() returns nothing, typescript gets mad.
         if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-          //@ts-expect-error - TODO: generate better error message
-          error.data = data;
-          throw error;
+          throw Helpers.replyAlreadySent(data);
         }
 
         return;
@@ -238,24 +248,74 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
   fastify.route({
     method: 'POST',
-    url: '/hello-world2',
+    url: '/response-types-2',
     schema: {
-      operationId: 'helloWorld5',
+      operationId: 'withImportedResponseType',
       querystring: { $ref: 'HelloWorldQuery' },
       response: { default: { $ref: 'HWData' } }
     },
     handler: async (request, reply) => {
-      const data = await Helloworld2Controller.Post.apply(context, [
-        request.query as Parameters<typeof Helloworld2Controller.Post>[0]
+      const data = await Responsetypes2Controller.Post.apply(context, [
+        request.query as Parameters<typeof Responsetypes2Controller.Post>[0]
       ]);
 
       if (reply.sent) {
-        //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+        //@ts-ignore - When Responsetypes2Controller.Post() returns nothing, typescript gets mad.
         if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-          //@ts-expect-error - TODO: generate better error message
-          error.data = data;
-          throw error;
+          throw Helpers.replyAlreadySent(data);
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  fastify.route({
+    method: 'POST',
+    url: '/:name',
+    schema: {
+      operationId: 'postUser',
+      params: {
+        type: 'object',
+        properties: { name: { type: 'string' } },
+        required: ['name']
+      },
+      body: { $ref: 'NameQuery' },
+      querystring: { $ref: 'NameQuery' },
+      response: { default: { $ref: '$name$Controller_post_Response' } }
+    },
+    handler: async (request, reply) => {
+      const param7 = await AuthParam.call(context, request, reply, ['jwt']);
+
+      if (reply.sent) {
+        return;
+      }
+
+      const param8 = await AuthParam.call(context, request, reply, ['basic']);
+
+      if (reply.sent) {
+        return;
+      }
+
+      const data = await $name$Controller.post.apply(context, [
+        (request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })[
+          'name'
+        ],
+        request.cookies?.cookie!,
+        request.body as Parameters<typeof $name$Controller.post>[2],
+        request.query as Parameters<typeof $name$Controller.post>[3],
+        request,
+        reply,
+        param7,
+        param8
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - When $name$Controller.post() returns nothing, typescript gets mad.
+        if (data) {
+          throw Helpers.replyAlreadySent(data);
         }
 
         return;
@@ -269,6 +329,19 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   return Promise.resolve();
 });
 
+/** Internal helpers to this template */
+export const Helpers = {
+  replyAlreadySent(data: any) {
+    const error = new Error('Reply already sent, but controller returned data');
+
+    //@ts-expect-error - include data in error to help debugging
+    error.data = data;
+
+    return error;
+  }
+};
+
+/** Handlebars data for hydration, just for debugging purposes. */
 export const HBS_CONF = {
   config: {
     tsconfig: './tsconfig.json',
@@ -284,20 +357,21 @@ export const HBS_CONF = {
   },
   imports: {
     controllers: [
-      "import * as Helloworld2Controller from './routes/hello-world2';",
-      "import * as HelloworldController from './routes/hello-world';"
+      "import * as Responsetypes2Controller from './routes/response-types-2';",
+      "import * as ResponsetestController from './routes/response-test';",
+      "import * as $name$Controller from './routes/[name]';"
     ],
     params: ["import AuthParam from './helpers/auth-param';"],
-    addons: ["import '@fastify/swagger';"]
+    addons: ["import '@fastify/swagger';", "import '@fastify/cookie';"]
   },
   routes: [
     {
       method: 'Get',
-      controllerName: 'Helloworld2Controller',
-      path: '/hello-world2',
+      controllerName: 'Responsetypes2Controller',
+      path: '/response-types-2',
       schema: {
-        operationId: 'helloWorld6',
-        response: { default: { $ref: 'Helloworld2Controller_Get_Response' } }
+        operationId: 'withCustomParameterResponse',
+        response: { default: { $ref: 'Responsetypes2Controller_Get_Response' } }
       },
       parameters: [
         {
@@ -307,85 +381,143 @@ export const HBS_CONF = {
         }
       ],
       options: '',
-      operationId: 'helloWorld6'
+      controllerFile: 'src/routes/response-types-2.ts:17:26',
+      operationId: 'withCustomParameterResponse'
     },
     {
       method: 'Get',
-      controllerName: 'HelloworldController',
-      path: '/hello-world',
+      controllerName: 'ResponsetestController',
+      path: '/response-test',
       schema: {
-        operationId: 'helloWorld1',
+        operationId: 'withTypedPromiseResponse',
         querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'HelloworldController_Get_Response' } }
+        response: { default: { $ref: 'ResponsetestController_Get_Response' } }
       },
       parameters: [
-        { value: '(request.query as Parameters<typeof HelloworldController.Get>[0])' }
+        { value: '(request.query as Parameters<typeof ResponsetestController.Get>[0])' }
       ],
       options: '',
-      operationId: 'helloWorld1'
+      controllerFile: 'src/routes/response-test.ts:5:26',
+      operationId: 'withTypedPromiseResponse'
     },
     {
       method: 'Post',
-      controllerName: 'HelloworldController',
-      path: '/hello-world',
+      controllerName: 'ResponsetestController',
+      path: '/response-test',
       schema: {
-        operationId: 'helloWorld2',
+        operationId: 'withInferredResponse',
         querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'HelloworldController_Post_Response' } }
+        response: { default: { $ref: 'ResponsetestController_Post_Response' } }
       },
       parameters: [
-        { value: '(request.query as Parameters<typeof HelloworldController.Post>[0])' }
+        { value: '(request.query as Parameters<typeof ResponsetestController.Post>[0])' }
       ],
       options: '',
-      operationId: 'helloWorld2'
+      controllerFile: 'src/routes/response-test.ts:14:27',
+      operationId: 'withInferredResponse'
     },
     {
       method: 'Put',
-      controllerName: 'HelloworldController',
-      path: '/hello-world',
+      controllerName: 'ResponsetestController',
+      path: '/response-test',
       schema: {
-        operationId: 'helloWorld3',
+        operationId: 'withPromiseTypeAlias',
         querystring: { $ref: 'HelloWorldQuery' },
         response: { default: { $ref: 'PR' } }
       },
       parameters: [
-        { value: '(request.query as Parameters<typeof HelloworldController.Put>[0])' }
+        { value: '(request.query as Parameters<typeof ResponsetestController.Put>[0])' }
       ],
       options: '',
-      operationId: 'helloWorld3'
+      controllerFile: 'src/routes/response-test.ts:25:26',
+      operationId: 'withPromiseTypeAlias'
     },
     {
       method: 'Delete',
-      controllerName: 'HelloworldController',
-      path: '/hello-world',
+      controllerName: 'ResponsetestController',
+      path: '/response-test',
       schema: {
-        operationId: 'helloWorld4',
+        operationId: 'withTypeAliasPromise',
         querystring: { $ref: 'HelloWorldQuery' },
         response: { default: { $ref: 'DR' } }
       },
       parameters: [
-        { value: '(request.query as Parameters<typeof HelloworldController.Delete>[0])' }
+        {
+          value: '(request.query as Parameters<typeof ResponsetestController.Delete>[0])'
+        }
       ],
       options: '',
-      operationId: 'helloWorld4'
+      controllerFile: 'src/routes/response-test.ts:36:29',
+      operationId: 'withTypeAliasPromise'
     },
     {
       method: 'Post',
-      controllerName: 'Helloworld2Controller',
-      path: '/hello-world2',
+      controllerName: 'Responsetypes2Controller',
+      path: '/response-types-2',
       schema: {
-        operationId: 'helloWorld5',
+        operationId: 'withImportedResponseType',
         querystring: { $ref: 'HelloWorldQuery' },
         response: { default: { $ref: 'HWData' } }
       },
       parameters: [
-        { value: '(request.query as Parameters<typeof Helloworld2Controller.Post>[0])' }
+        {
+          value: '(request.query as Parameters<typeof Responsetypes2Controller.Post>[0])'
+        }
       ],
       options: '',
-      operationId: 'helloWorld5'
+      controllerFile: 'src/routes/response-types-2.ts:6:27',
+      operationId: 'withImportedResponseType'
+    },
+    {
+      method: 'post',
+      controllerName: '$name$Controller',
+      path: '/:name',
+      schema: {
+        operationId: 'postUser',
+        params: {
+          type: 'object',
+          properties: { name: { type: 'string' } },
+          required: ['name']
+        },
+        body: { $ref: 'NameQuery' },
+        querystring: { $ref: 'NameQuery' },
+        response: { default: { $ref: '$name$Controller_post_Response' } }
+      },
+      parameters: [
+        {
+          helper: '',
+          value:
+            "(request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })['name']"
+        },
+        { value: 'request.cookies?.cookie!' },
+        { value: 'request.body as Parameters<typeof $name$Controller.post>[2]' },
+        { value: '(request.query as Parameters<typeof $name$Controller.post>[3])' },
+        { value: 'request' },
+        { value: 'reply' },
+        {
+          helper:
+            "const param7 = await AuthParam.call(context, request, reply, ['jwt']);",
+          value: 'param7'
+        },
+        {
+          helper:
+            "const param8 = await AuthParam.call(context, request, reply, ['basic']);",
+          value: 'param8'
+        }
+      ],
+      options: '',
+      controllerFile: 'src/routes/[name].ts:7:27',
+      operationId: 'postUser'
     }
   ],
   schemas: [
+    {
+      $id: 'NameQuery',
+      type: 'object',
+      properties: { name: { type: 'string' } },
+      required: ['name'],
+      additionalProperties: false
+    },
     {
       $id: 'HelloWorldQuery',
       type: 'object',
@@ -394,7 +526,7 @@ export const HBS_CONF = {
       additionalProperties: false
     },
     {
-      $id: 'Helloworld2Controller_Get_Response',
+      $id: 'Responsetypes2Controller_Get_Response',
       type: 'object',
       properties: { f: { $ref: 'Result' } },
       required: ['f'],
@@ -402,14 +534,14 @@ export const HBS_CONF = {
     },
     { $id: 'Result', type: 'string', enum: ['ok', 'error'] },
     {
-      $id: 'HelloworldController_Get_Response',
+      $id: 'ResponsetestController_Get_Response',
       type: 'object',
       properties: { a: { type: 'string' } },
       required: ['a'],
       additionalProperties: false
     },
     {
-      $id: 'HelloworldController_Post_Response',
+      $id: 'ResponsetestController_Post_Response',
       type: 'object',
       properties: { b: { type: 'string' } },
       required: ['b'],
@@ -434,6 +566,20 @@ export const HBS_CONF = {
       type: 'object',
       properties: { e: { type: 'string' } },
       required: ['e'],
+      additionalProperties: false
+    },
+    {
+      $id: '$name$Controller_post_Response',
+      type: 'object',
+      properties: {
+        path: { type: 'string' },
+        cookie: { type: 'string' },
+        body: { $ref: 'NameQuery' },
+        query: { $ref: 'NameQuery' },
+        authJwt: { $ref: 'Result' },
+        authBasic: { $ref: 'Result' }
+      },
+      required: ['path', 'cookie', 'body', 'query', 'authJwt', 'authBasic'],
       additionalProperties: false
     }
   ]

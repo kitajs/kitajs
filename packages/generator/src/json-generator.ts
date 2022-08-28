@@ -4,33 +4,33 @@ import {
   createFormatter,
   createParser,
   Definition,
-  Schema,
   SchemaGenerator,
-  StringMap
-} from 'ts-json-schema-generator';
-import type ts from 'typescript';
+  StringMap,
+  ts,
+  Schema
+} from '@kitajs/ts-json-schema-generator';
 import type { Route } from './generator-data';
-import { buildFormatterAugmentor, buildParserAugmentor } from './ts-json/argumentors';
 import { getReturnType } from './util/type-resolver';
 
 export class SchemaStorage extends SchemaGenerator {
   readonly definitions: StringMap<Definition> = {};
 
   constructor(tsconfig: string, override readonly program: ts.Program) {
-    const config: Config = { tsconfig, minify: true };
+    const config: Config = {
+      tsconfig,
+      minify: true,
+      useDefinitions: false,
+      encodeRefs: false
+    };
 
-    const nodeParser = createParser(
-      program,
-      config,
-      buildParserAugmentor(program.getTypeChecker())
-    );
+    const nodeParser = createParser(program, config);
 
-    const typeFormatter = createFormatter(config, buildFormatterAugmentor());
+    const typeFormatter = createFormatter(config);
 
     super(program, nodeParser, typeFormatter, config);
   }
 
-  public consumeNode(node: ts.Node) {
+  public consumeNode(node: ts.Node): Schema {
     const type = this.nodeParser.createType(node, new Context(node));
 
     if (!type) {
@@ -44,10 +44,8 @@ export class SchemaStorage extends SchemaGenerator {
     return this.typeFormatter.getDefinition(type);
   }
 
-  public consumeResponseType(node: ts.SignatureDeclaration, route: Route) {
-    const id = route.operationId || route.controllerName + route.method;
-
-    const returnType = getReturnType(node, this.program.getTypeChecker(), id);
+  public consumeResponseType(node: ts.SignatureDeclaration, route: Route): Schema {
+    const returnType = getReturnType(node, this.program.getTypeChecker());
 
     const type = this.nodeParser.createType(returnType, new Context(node));
 

@@ -35,13 +35,18 @@ export async function visitNode(
     return;
   }
 
+  const { character, line } = source.getLineAndCharacterOfPosition(
+    fn.parameters[0]?.pos || fn.name?.pos || fn.pos
+  );
+
   const route: Route = {
     method: name,
     controllerName,
     path: routePath,
     schema: {},
     parameters: [],
-    options: ''
+    options: '',
+    controllerFile: `${source.fileName}:${line + 1}:${character}`
   };
 
   let hasThis = false;
@@ -125,7 +130,7 @@ export async function visitNode(
         const paramName = parameter.name.getText(source);
 
         route.parameters.push({
-          value: `request.cookies?.${paramName}`
+          value: `request.cookies?.${paramName}!`
         });
 
         break;

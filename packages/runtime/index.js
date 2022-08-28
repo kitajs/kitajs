@@ -9,3 +9,5 @@
 
 /** @type {import('./dist/index')} */
 module.exports = {};
+
+//# sourceMappingURL=dist/index.js.map

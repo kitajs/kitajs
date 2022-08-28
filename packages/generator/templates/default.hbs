@@ -49,12 +49,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         const data = await {{controllerName}}.{{method}}.apply(context, [{{paramsToString parameters}}]);
         
         if (reply.sent) {
-          //@ts-ignore - Possible "An expression of type 'void' cannot be tested for truthiness. ts(1345)"
+          //@ts-ignore - When {{controllerName}}.{{method}}() returns nothing, typescript gets mad.
           if (data) {
-            const error = new Error('Reply already sent, but controller returned data');
-            //@ts-expect-error - TODO: generate better error message
-            error.data = data;
-            throw error;
+            throw Helpers.replyAlreadySent(data);
           }
 
           return;
@@ -71,4 +68,17 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   return Promise.resolve();
 });
 
+/** Internal helpers to this template */
+export const Helpers = {
+  replyAlreadySent(data: any) {
+    const error = new Error('Reply already sent, but controller returned data');
+    
+    //@ts-expect-error - include data in error to help debugging
+    error.data = data;
+    
+    return error;
+  }
+}
+
+/** Handlebars data for hydration, just for debugging purposes. */
 export const HBS_CONF = {{json this}};

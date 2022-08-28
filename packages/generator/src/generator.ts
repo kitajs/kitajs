@@ -92,6 +92,19 @@ export class KitaGenerator {
       );
     }
 
+    // Checks for duplicate operationIds.
+    {
+      const duplicates = result.routes.filter(
+        (r, i, arr) => arr.findIndex((r2) => r2.operationId === r.operationId) !== i
+      );
+
+      for (const duplicate of duplicates) {
+        throw new Error(
+          `Duplicate operationId "${duplicate.operationId}" at ${duplicate.controllerFile}`
+        );
+      }
+    }
+
     {
       // Saves the whole json schema
       result.saveSchema(this.schemaStorage);

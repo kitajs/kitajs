@@ -4,8 +4,9 @@ import type { Native } from './types';
 //@ts-ignore unused
 export type Path<Name extends string = string> = string;
 
+/** **The usage of this parameter requires `@fastify/cookies` set up!** */
 //@ts-ignore unused
-export type Cookie<Name extends String> = string | number | boolean | undefined;
+export type Cookie<Name> = string;
 
 export type Body<Obj> = Obj;
 

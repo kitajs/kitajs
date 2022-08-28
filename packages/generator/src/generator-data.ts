@@ -25,6 +25,10 @@ export class GeneratorResult {
   saveSchema(storage: SchemaStorage) {
     this.schemas.push(...storage.getDefinitions());
   }
+
+  hasOperationId(operationId: string) {
+    return this.routes.find(route => route.operationId === operationId);
+  }
 }
 
 export type Route = {
@@ -37,6 +41,7 @@ export type Route = {
   operationId?: string;
   /** A stringified js  containing all options that should be extended */
   options: string;
+  controllerFile: string;
 };
 
 export type Parameter = {
