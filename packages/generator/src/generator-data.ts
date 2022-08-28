@@ -27,7 +27,7 @@ export class GeneratorResult {
   }
 
   hasOperationId(operationId: string) {
-    return this.routes.find(route => route.operationId === operationId);
+    return this.routes.find((route) => route.operationId === operationId);
   }
 }
 
