@@ -22,7 +22,7 @@ export const KitaConfig = {{json config}};
 
 /** The fastify plugin to be registered. */
 export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
-  const context: RouteContext = { ...options.context, config: KitaConfig, fastify };
+  const context: RouteContext = { config: KitaConfig, fastify, ...options.context };
 
   {{#each schemas}}
     fastify.addSchema({{json this}});
