@@ -17,12 +17,11 @@ export function filterRoute(filepath: string, config: KitaConfig) {
 
   const controllerName =
     (filtered
-      // remove dashes
-      .replace(/-/g, '')
       // transform params
       .replace(/\[|\]/g, '$')
-      // camel case paths
+      // camel case paths or dash case paths
       .split('/')
+      .flatMap((p) => p.split('-'))
       .map((i) => i.charAt(0).toUpperCase() + i.slice(1))
       .join('') ||
       // Defaults to Index

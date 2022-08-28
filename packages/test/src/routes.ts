@@ -7,8 +7,8 @@ import '@fastify/swagger';
 import '@fastify/cookie';
 
 // Controllers
-import * as Responsetypes2Controller from './routes/response-types-2';
-import * as ResponsetestController from './routes/response-test';
+import * as ResponseTypes2Controller from './routes/response-types-2';
+import * as ResponseTypesController from './routes/response-types';
 import * as $name$Controller from './routes/[name]';
 
 // Param Resolvers
@@ -30,7 +30,7 @@ export const KitaConfig = {
 
 /** The fastify plugin to be registered. */
 export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
-  const context: RouteContext = { ...options.context, config: KitaConfig, fastify };
+  const context: RouteContext = { config: KitaConfig, fastify, ...options.context };
 
   fastify.addSchema({
     $id: 'NameQuery',
@@ -49,7 +49,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   });
 
   fastify.addSchema({
-    $id: 'Responsetypes2Controller_Get_Response',
+    $id: 'ResponseTypes2Controller_Get_Response',
     type: 'object',
     properties: { f: { $ref: 'Result' } },
     required: ['f'],
@@ -59,7 +59,15 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({ $id: 'Result', type: 'string', enum: ['ok', 'error'] });
 
   fastify.addSchema({
-    $id: 'ResponsetestController_Get_Response',
+    $id: 'HWData',
+    type: 'object',
+    properties: { e: { type: 'string' } },
+    required: ['e'],
+    additionalProperties: false
+  });
+
+  fastify.addSchema({
+    $id: 'ResponseTypesController_Get_Response',
     type: 'object',
     properties: { a: { type: 'string' } },
     required: ['a'],
@@ -67,7 +75,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   });
 
   fastify.addSchema({
-    $id: 'ResponsetestController_Post_Response',
+    $id: 'ResponseTypesController_Post_Response',
     type: 'object',
     properties: { b: { type: 'string' } },
     required: ['b'],
@@ -91,14 +99,6 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   });
 
   fastify.addSchema({
-    $id: 'HWData',
-    type: 'object',
-    properties: { e: { type: 'string' } },
-    required: ['e'],
-    additionalProperties: false
-  });
-
-  fastify.addSchema({
     $id: '$name$Controller_post_Response',
     type: 'object',
     properties: {
@@ -118,7 +118,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     url: '/response-types-2',
     schema: {
       operationId: 'withCustomParameterResponse',
-      response: { default: { $ref: 'Responsetypes2Controller_Get_Response' } }
+      response: { default: { $ref: 'ResponseTypes2Controller_Get_Response' } }
     },
     handler: async (request, reply) => {
       const param1 = await AuthParam.call(context, request, reply, ['jwt']);
@@ -127,114 +127,10 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         return;
       }
 
-      const data = await Responsetypes2Controller.Get.apply(context, [param1]);
+      const data = await ResponseTypes2Controller.Get.apply(context, [param1]);
 
       if (reply.sent) {
-        //@ts-ignore - When Responsetypes2Controller.Get() returns nothing, typescript gets mad.
-        if (data) {
-          throw Helpers.replyAlreadySent(data);
-        }
-
-        return;
-      }
-
-      return data;
-    }
-  });
-
-  fastify.route({
-    method: 'GET',
-    url: '/response-test',
-    schema: {
-      operationId: 'withTypedPromiseResponse',
-      querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'ResponsetestController_Get_Response' } }
-    },
-    handler: async (request, reply) => {
-      const data = await ResponsetestController.Get.apply(context, [
-        request.query as Parameters<typeof ResponsetestController.Get>[0]
-      ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When ResponsetestController.Get() returns nothing, typescript gets mad.
-        if (data) {
-          throw Helpers.replyAlreadySent(data);
-        }
-
-        return;
-      }
-
-      return data;
-    }
-  });
-
-  fastify.route({
-    method: 'POST',
-    url: '/response-test',
-    schema: {
-      operationId: 'withInferredResponse',
-      querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'ResponsetestController_Post_Response' } }
-    },
-    handler: async (request, reply) => {
-      const data = await ResponsetestController.Post.apply(context, [
-        request.query as Parameters<typeof ResponsetestController.Post>[0]
-      ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When ResponsetestController.Post() returns nothing, typescript gets mad.
-        if (data) {
-          throw Helpers.replyAlreadySent(data);
-        }
-
-        return;
-      }
-
-      return data;
-    }
-  });
-
-  fastify.route({
-    method: 'PUT',
-    url: '/response-test',
-    schema: {
-      operationId: 'withPromiseTypeAlias',
-      querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'PR' } }
-    },
-    handler: async (request, reply) => {
-      const data = await ResponsetestController.Put.apply(context, [
-        request.query as Parameters<typeof ResponsetestController.Put>[0]
-      ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When ResponsetestController.Put() returns nothing, typescript gets mad.
-        if (data) {
-          throw Helpers.replyAlreadySent(data);
-        }
-
-        return;
-      }
-
-      return data;
-    }
-  });
-
-  fastify.route({
-    method: 'DELETE',
-    url: '/response-test',
-    schema: {
-      operationId: 'withTypeAliasPromise',
-      querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'DR' } }
-    },
-    handler: async (request, reply) => {
-      const data = await ResponsetestController.Delete.apply(context, [
-        request.query as Parameters<typeof ResponsetestController.Delete>[0]
-      ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When ResponsetestController.Delete() returns nothing, typescript gets mad.
+        //@ts-ignore - When ResponseTypes2Controller.Get() returns nothing, typescript gets mad.
         if (data) {
           throw Helpers.replyAlreadySent(data);
         }
@@ -255,12 +151,116 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       response: { default: { $ref: 'HWData' } }
     },
     handler: async (request, reply) => {
-      const data = await Responsetypes2Controller.Post.apply(context, [
-        request.query as Parameters<typeof Responsetypes2Controller.Post>[0]
+      const data = await ResponseTypes2Controller.Post.apply(context, [
+        request.query as Parameters<typeof ResponseTypes2Controller.Post>[0]
       ]);
 
       if (reply.sent) {
-        //@ts-ignore - When Responsetypes2Controller.Post() returns nothing, typescript gets mad.
+        //@ts-ignore - When ResponseTypes2Controller.Post() returns nothing, typescript gets mad.
+        if (data) {
+          throw Helpers.replyAlreadySent(data);
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  fastify.route({
+    method: 'GET',
+    url: '/response-types',
+    schema: {
+      operationId: 'withTypedPromiseResponse',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'ResponseTypesController_Get_Response' } }
+    },
+    handler: async (request, reply) => {
+      const data = await ResponseTypesController.Get.apply(context, [
+        request.query as Parameters<typeof ResponseTypesController.Get>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - When ResponseTypesController.Get() returns nothing, typescript gets mad.
+        if (data) {
+          throw Helpers.replyAlreadySent(data);
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  fastify.route({
+    method: 'POST',
+    url: '/response-types',
+    schema: {
+      operationId: 'withInferredResponse',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'ResponseTypesController_Post_Response' } }
+    },
+    handler: async (request, reply) => {
+      const data = await ResponseTypesController.Post.apply(context, [
+        request.query as Parameters<typeof ResponseTypesController.Post>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - When ResponseTypesController.Post() returns nothing, typescript gets mad.
+        if (data) {
+          throw Helpers.replyAlreadySent(data);
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  fastify.route({
+    method: 'PUT',
+    url: '/response-types',
+    schema: {
+      operationId: 'withPromiseTypeAlias',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'PR' } }
+    },
+    handler: async (request, reply) => {
+      const data = await ResponseTypesController.Put.apply(context, [
+        request.query as Parameters<typeof ResponseTypesController.Put>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - When ResponseTypesController.Put() returns nothing, typescript gets mad.
+        if (data) {
+          throw Helpers.replyAlreadySent(data);
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  fastify.route({
+    method: 'DELETE',
+    url: '/response-types',
+    schema: {
+      operationId: 'withTypeAliasPromise',
+      querystring: { $ref: 'HelloWorldQuery' },
+      response: { default: { $ref: 'DR' } }
+    },
+    handler: async (request, reply) => {
+      const data = await ResponseTypesController.Delete.apply(context, [
+        request.query as Parameters<typeof ResponseTypesController.Delete>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - When ResponseTypesController.Delete() returns nothing, typescript gets mad.
         if (data) {
           throw Helpers.replyAlreadySent(data);
         }
@@ -276,7 +276,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     method: 'POST',
     url: '/:name',
     schema: {
-      operationId: 'postUser',
+      operationId: 'fullExample',
       params: {
         type: 'object',
         properties: { name: { type: 'string' } },
@@ -357,8 +357,8 @@ export const HBS_CONF = {
   },
   imports: {
     controllers: [
-      "import * as Responsetypes2Controller from './routes/response-types-2';",
-      "import * as ResponsetestController from './routes/response-test';",
+      "import * as ResponseTypes2Controller from './routes/response-types-2';",
+      "import * as ResponseTypesController from './routes/response-types';",
       "import * as $name$Controller from './routes/[name]';"
     ],
     params: ["import AuthParam from './helpers/auth-param';"],
@@ -367,11 +367,11 @@ export const HBS_CONF = {
   routes: [
     {
       method: 'Get',
-      controllerName: 'Responsetypes2Controller',
+      controllerName: 'ResponseTypes2Controller',
       path: '/response-types-2',
       schema: {
         operationId: 'withCustomParameterResponse',
-        response: { default: { $ref: 'Responsetypes2Controller_Get_Response' } }
+        response: { default: { $ref: 'ResponseTypes2Controller_Get_Response' } }
       },
       parameters: [
         {
@@ -385,74 +385,8 @@ export const HBS_CONF = {
       operationId: 'withCustomParameterResponse'
     },
     {
-      method: 'Get',
-      controllerName: 'ResponsetestController',
-      path: '/response-test',
-      schema: {
-        operationId: 'withTypedPromiseResponse',
-        querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'ResponsetestController_Get_Response' } }
-      },
-      parameters: [
-        { value: '(request.query as Parameters<typeof ResponsetestController.Get>[0])' }
-      ],
-      options: '',
-      controllerFile: 'src/routes/response-test.ts:5:26',
-      operationId: 'withTypedPromiseResponse'
-    },
-    {
       method: 'Post',
-      controllerName: 'ResponsetestController',
-      path: '/response-test',
-      schema: {
-        operationId: 'withInferredResponse',
-        querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'ResponsetestController_Post_Response' } }
-      },
-      parameters: [
-        { value: '(request.query as Parameters<typeof ResponsetestController.Post>[0])' }
-      ],
-      options: '',
-      controllerFile: 'src/routes/response-test.ts:14:27',
-      operationId: 'withInferredResponse'
-    },
-    {
-      method: 'Put',
-      controllerName: 'ResponsetestController',
-      path: '/response-test',
-      schema: {
-        operationId: 'withPromiseTypeAlias',
-        querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'PR' } }
-      },
-      parameters: [
-        { value: '(request.query as Parameters<typeof ResponsetestController.Put>[0])' }
-      ],
-      options: '',
-      controllerFile: 'src/routes/response-test.ts:25:26',
-      operationId: 'withPromiseTypeAlias'
-    },
-    {
-      method: 'Delete',
-      controllerName: 'ResponsetestController',
-      path: '/response-test',
-      schema: {
-        operationId: 'withTypeAliasPromise',
-        querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'DR' } }
-      },
-      parameters: [
-        {
-          value: '(request.query as Parameters<typeof ResponsetestController.Delete>[0])'
-        }
-      ],
-      options: '',
-      controllerFile: 'src/routes/response-test.ts:36:29',
-      operationId: 'withTypeAliasPromise'
-    },
-    {
-      method: 'Post',
-      controllerName: 'Responsetypes2Controller',
+      controllerName: 'ResponseTypes2Controller',
       path: '/response-types-2',
       schema: {
         operationId: 'withImportedResponseType',
@@ -461,7 +395,7 @@ export const HBS_CONF = {
       },
       parameters: [
         {
-          value: '(request.query as Parameters<typeof Responsetypes2Controller.Post>[0])'
+          value: '(request.query as Parameters<typeof ResponseTypes2Controller.Post>[0])'
         }
       ],
       options: '',
@@ -469,11 +403,77 @@ export const HBS_CONF = {
       operationId: 'withImportedResponseType'
     },
     {
+      method: 'Get',
+      controllerName: 'ResponseTypesController',
+      path: '/response-types',
+      schema: {
+        operationId: 'withTypedPromiseResponse',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'ResponseTypesController_Get_Response' } }
+      },
+      parameters: [
+        { value: '(request.query as Parameters<typeof ResponseTypesController.Get>[0])' }
+      ],
+      options: '',
+      controllerFile: 'src/routes/response-types.ts:5:26',
+      operationId: 'withTypedPromiseResponse'
+    },
+    {
+      method: 'Post',
+      controllerName: 'ResponseTypesController',
+      path: '/response-types',
+      schema: {
+        operationId: 'withInferredResponse',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'ResponseTypesController_Post_Response' } }
+      },
+      parameters: [
+        { value: '(request.query as Parameters<typeof ResponseTypesController.Post>[0])' }
+      ],
+      options: '',
+      controllerFile: 'src/routes/response-types.ts:14:27',
+      operationId: 'withInferredResponse'
+    },
+    {
+      method: 'Put',
+      controllerName: 'ResponseTypesController',
+      path: '/response-types',
+      schema: {
+        operationId: 'withPromiseTypeAlias',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'PR' } }
+      },
+      parameters: [
+        { value: '(request.query as Parameters<typeof ResponseTypesController.Put>[0])' }
+      ],
+      options: '',
+      controllerFile: 'src/routes/response-types.ts:25:26',
+      operationId: 'withPromiseTypeAlias'
+    },
+    {
+      method: 'Delete',
+      controllerName: 'ResponseTypesController',
+      path: '/response-types',
+      schema: {
+        operationId: 'withTypeAliasPromise',
+        querystring: { $ref: 'HelloWorldQuery' },
+        response: { default: { $ref: 'DR' } }
+      },
+      parameters: [
+        {
+          value: '(request.query as Parameters<typeof ResponseTypesController.Delete>[0])'
+        }
+      ],
+      options: '',
+      controllerFile: 'src/routes/response-types.ts:36:29',
+      operationId: 'withTypeAliasPromise'
+    },
+    {
       method: 'post',
       controllerName: '$name$Controller',
       path: '/:name',
       schema: {
-        operationId: 'postUser',
+        operationId: 'fullExample',
         params: {
           type: 'object',
           properties: { name: { type: 'string' } },
@@ -507,7 +507,7 @@ export const HBS_CONF = {
       ],
       options: '',
       controllerFile: 'src/routes/[name].ts:7:27',
-      operationId: 'postUser'
+      operationId: 'fullExample'
     }
   ],
   schemas: [
@@ -526,7 +526,7 @@ export const HBS_CONF = {
       additionalProperties: false
     },
     {
-      $id: 'Responsetypes2Controller_Get_Response',
+      $id: 'ResponseTypes2Controller_Get_Response',
       type: 'object',
       properties: { f: { $ref: 'Result' } },
       required: ['f'],
@@ -534,14 +534,21 @@ export const HBS_CONF = {
     },
     { $id: 'Result', type: 'string', enum: ['ok', 'error'] },
     {
-      $id: 'ResponsetestController_Get_Response',
+      $id: 'HWData',
+      type: 'object',
+      properties: { e: { type: 'string' } },
+      required: ['e'],
+      additionalProperties: false
+    },
+    {
+      $id: 'ResponseTypesController_Get_Response',
       type: 'object',
       properties: { a: { type: 'string' } },
       required: ['a'],
       additionalProperties: false
     },
     {
-      $id: 'ResponsetestController_Post_Response',
+      $id: 'ResponseTypesController_Post_Response',
       type: 'object',
       properties: { b: { type: 'string' } },
       required: ['b'],
@@ -559,13 +566,6 @@ export const HBS_CONF = {
       type: 'object',
       properties: { d: { type: 'string' } },
       required: ['d'],
-      additionalProperties: false
-    },
-    {
-      $id: 'HWData',
-      type: 'object',
-      properties: { e: { type: 'string' } },
-      required: ['e'],
       additionalProperties: false
     },
     {
