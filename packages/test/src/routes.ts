@@ -35,7 +35,11 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({
     $id: 'NameQuery',
     type: 'object',
-    properties: { name: { type: 'string' } },
+    properties: {
+      name: {
+        type: 'string'
+      }
+    },
     required: ['name'],
     additionalProperties: false
   });
@@ -43,7 +47,14 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({
     $id: 'HelloWorldQuery',
     type: 'object',
-    properties: { name: { type: 'string' }, age: { type: 'number' } },
+    properties: {
+      name: {
+        type: 'string'
+      },
+      age: {
+        type: 'number'
+      }
+    },
     required: ['name', 'age'],
     additionalProperties: false
   });
@@ -51,17 +62,29 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({
     $id: 'ResponseTypes2Controller_Get_Response',
     type: 'object',
-    properties: { f: { $ref: 'Result' } },
+    properties: {
+      f: {
+        $ref: 'Result'
+      }
+    },
     required: ['f'],
     additionalProperties: false
   });
 
-  fastify.addSchema({ $id: 'Result', type: 'string', enum: ['ok', 'error'] });
+  fastify.addSchema({
+    $id: 'Result',
+    type: 'string',
+    enum: ['ok', 'error']
+  });
 
   fastify.addSchema({
     $id: 'HWData',
     type: 'object',
-    properties: { e: { type: 'string' } },
+    properties: {
+      e: {
+        type: 'string'
+      }
+    },
     required: ['e'],
     additionalProperties: false
   });
@@ -69,7 +92,11 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({
     $id: 'ResponseTypesController_Get_Response',
     type: 'object',
-    properties: { a: { type: 'string' } },
+    properties: {
+      a: {
+        type: 'string'
+      }
+    },
     required: ['a'],
     additionalProperties: false
   });
@@ -77,7 +104,11 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({
     $id: 'ResponseTypesController_Post_Response',
     type: 'object',
-    properties: { b: { type: 'string' } },
+    properties: {
+      b: {
+        type: 'string'
+      }
+    },
     required: ['b'],
     additionalProperties: false
   });
@@ -85,7 +116,11 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({
     $id: 'PR',
     type: 'object',
-    properties: { c: { type: 'string' } },
+    properties: {
+      c: {
+        type: 'string'
+      }
+    },
     required: ['c'],
     additionalProperties: false
   });
@@ -93,7 +128,11 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.addSchema({
     $id: 'DR',
     type: 'object',
-    properties: { d: { type: 'string' } },
+    properties: {
+      d: {
+        type: 'string'
+      }
+    },
     required: ['d'],
     additionalProperties: false
   });
@@ -102,12 +141,24 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     $id: '$name$Controller_post_Response',
     type: 'object',
     properties: {
-      path: { type: 'string' },
-      cookie: { type: 'string' },
-      body: { $ref: 'NameQuery' },
-      query: { $ref: 'NameQuery' },
-      authJwt: { $ref: 'Result' },
-      authBasic: { $ref: 'Result' }
+      path: {
+        type: 'string'
+      },
+      cookie: {
+        type: 'string'
+      },
+      body: {
+        $ref: 'NameQuery'
+      },
+      query: {
+        $ref: 'NameQuery'
+      },
+      authJwt: {
+        $ref: 'Result'
+      },
+      authBasic: {
+        $ref: 'Result'
+      }
     },
     required: ['path', 'cookie', 'body', 'query', 'authJwt', 'authBasic'],
     additionalProperties: false

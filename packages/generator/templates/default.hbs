@@ -25,7 +25,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   const context: RouteContext = { config: KitaConfig, fastify, ...options.context };
 
   {{#each schemas}}
-    fastify.addSchema({{json this}});
+    fastify.addSchema({{jsonf this}});
 
   {{/each}}
 
