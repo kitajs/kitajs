@@ -6,7 +6,10 @@ program
   .command('generate')
   .description('Generates code for all your controllers')
   .action(() => {
-    generate().catch(catchKitaError);
+    generate().catch((err) => {
+      catchKitaError(err);
+      process.exit(1);
+    });
   });
 
 program.parse();

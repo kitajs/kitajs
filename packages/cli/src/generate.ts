@@ -23,10 +23,6 @@ const PRETTIER_OPTIONS: prettier.Options = {
   useTabs: false
 };
 
-process.on('unhandledRejection', (err) => {
-  console.log('unhandled', err)
-});
-
 export async function generate() {
   const start = Date.now();
 
