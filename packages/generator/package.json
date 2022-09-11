@@ -16,9 +16,8 @@
     "glob-promise": "^5.0.0",
     "handlebars": "^4.7.7",
     "minimatch": "^5.1.0",
-    "prettier": "^2.7.1",
     "tslib": "^2.4.0",
-    "typescript": "~4.7.4"
+    "typescript": "*"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",

@@ -11,7 +11,7 @@ app.register(Kita, { context: {} });
 
 app.setErrorHandler((error, request, reply) => {
   console.log(error);
-  reply.send(error);
+  reply.send(JSON.stringify(error, null, 2));
 });
 
 app.listen({ port: 3000 }).then((ip) => console.log(`${ip}/documentation`));

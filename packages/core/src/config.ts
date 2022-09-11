@@ -1,4 +1,5 @@
 import { cosmiconfig } from 'cosmiconfig';
+import deepmerge from 'deepmerge';
 
 export type KitaConfig = {
   /**
@@ -15,14 +16,14 @@ export type KitaConfig = {
      * @default './src/routes.ts'
      */
     output: string;
-
-    /**
-     * The template path that the route will be rendered to.
-     *
-     * @default '@kitajs/generator/templates/default.hbs'
-     */
-    template: string;
   };
+
+  /**
+   * The base import for all templates to be resolved.
+   *
+   * @default '@kita/generator/templates'
+   */
+  templates: string;
 
   controllers: {
     /**
@@ -33,9 +34,9 @@ export type KitaConfig = {
     glob: string[];
 
     /**
-     * The regex to remove from the file path to get the controller name
+     * The regex to extract the route controller pathname from the absolute path
      *
-     * @default ^(?:src)?\/?(routes\/?)
+     * @default /(?:.*src)?\/?(?:routes\/?)/
      */
     prefix: string;
   };
@@ -54,21 +55,19 @@ export function createConfigExplorer() {
   return cosmiconfig('kita', { packageProp: 'kita' }).search();
 }
 
-// TODO: Optimize this and extract defaults to a constant
+export const ConfigDefaults: KitaConfig = {
+  params: {},
+  tsconfig: './tsconfig.json',
+  templates: '@kitajs/generator/templates',
+  controllers: {
+    glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
+    prefix: '(?:.*src)?\/?(?:routes\/?)'
+  },
+  routes: {
+    output: './src/routes.ts'
+  }
+} ;
+
 export function mergeDefaults(config?: Partial<KitaConfig>): KitaConfig {
-  return {
-    tsconfig: config?.tsconfig ?? './tsconfig.json',
-
-    params: config?.params ?? {},
-
-    controllers: {
-      glob: config?.controllers?.glob ?? ['src/routes/**/*.ts', 'routes/**/*.ts'],
-      prefix: config?.controllers?.prefix ?? '(?:src)?/?(routes/?)'
-    },
-
-    routes: {
-      output: config?.routes?.output ?? './src/routes.ts',
-      template: config?.routes?.template ?? '@kitajs/generator/templates/default.hbs'
-    }
-  };
+  return deepmerge(ConfigDefaults, config || {});
 }

@@ -1,0 +1,31 @@
+fastify.route({
+  method: {{#if (isAllMethod method)}}['DELETE', 'GET', 'HEAD', 'PATCH', 'POST', 'PUT', 'OPTIONS']{{else}}'{{method}}'{{/if}},
+  url: '{{path}}',
+  schema: {{json schema}},
+  handler: async (request, reply) => {
+    {{#each parameters}}
+      {{#if helper}}
+        {{helper}}
+
+        if (reply.sent) {
+          return;
+        }
+       {{/if}}
+    {{/each}}
+
+    const data = await {{controllerName}}.{{controllerMethod}}.apply(context, [{{paramsToString parameters}}]);
+    
+    if (reply.sent) {
+      //@ts-ignore - When {{controllerName}}.{{controllerMethod}}() returns nothing, typescript gets mad.
+      if (data) {
+        throw Helpers.replyAlreadySent(data);
+      }
+
+      return;
+    }
+
+    return data;
+  },
+  {{options}}
+});
+ 

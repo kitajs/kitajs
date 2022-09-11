@@ -1,19 +1,7 @@
-// Required
 import type { RouteContext, ProvidedRouteContext } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
-
-// Addons
-{{#each imports.addons}}
-  {{this}}
-{{/each}}
-
-// Controllers
-{{#each imports.controllers}}
-  {{this}}
-{{/each}}
-
-// Param Resolvers
-{{#each imports.params}}
+import '@fastify/swagger';
+{{#each imports}}
   {{this}}
 {{/each}}
 
@@ -30,38 +18,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   {{/each}}
 
   {{#each routes}} 
-    fastify.route({
-      method: {{#if (isAllMethod method)}}['DELETE', 'GET', 'HEAD', 'PATCH', 'POST', 'PUT', 'OPTIONS']{{else}}'{{uppercase method}}'{{/if}},
-      url: '{{path}}',
-      schema: {{json schema}},
-      handler: async (request, reply) => {
-        {{#each parameters}}
-          {{#if helper}}
-            {{helper}}
-
-            if (reply.sent) {
-              return;
-            }
-
-          {{/if}}
-        {{/each}}
-
-        const data = await {{controllerName}}.{{method}}.apply(context, [{{paramsToString parameters}}]);
-        
-        if (reply.sent) {
-          //@ts-ignore - When {{controllerName}}.{{method}}() returns nothing, typescript gets mad.
-          if (data) {
-            throw Helpers.replyAlreadySent(data);
-          }
-
-          return;
-        }
-
-        return data;
-      },
-      {{options}}
-    });
-    
+    {{route.template}}
   {{/each}}
 
   // Ensure this function remains a "async" function

@@ -1,15 +1,11 @@
-import ts from 'typescript';
+import { ts } from '@kitajs/ts-json-schema-generator';
+import { KitaError } from '../errors';
 
 export function readTsconfig(path: string) {
   const { config, error } = ts.readConfigFile(path, ts.sys.readFile);
 
   if (error) {
-    const error = new Error(`Failed to read tsconfig file: ${path}`);
-
-    //@ts-expect-error - TODO: better error handling
-    error.info = error;
-
-    throw error;
+    throw KitaError(`Failed to read tsconfig file.`, path, { info: error });
   }
 
   return config;

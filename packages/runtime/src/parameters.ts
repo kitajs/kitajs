@@ -6,7 +6,7 @@ export type Path<Name extends string = string> = string;
 
 /** **The usage of this parameter requires `@fastify/cookies` set up!** */
 //@ts-ignore unused
-export type Cookie<Name> = string;
+export type Cookie<Name> = string | undefined;
 
 export type Body<Obj> = Obj;
 
@@ -48,3 +48,33 @@ export type Rep = FastifyReply;
 /** A custom parameter type. */
 //@ts-ignore unused
 export type CustomParameter<Result, Parameters extends Native[]> = Result;
+
+/**
+ * The parameter type of the connection.
+ *
+ * **NOTE**: Only works on `WebSocket` routes
+ *
+ * @example
+ * export function ws(
+ *   this: Route<'subscribeUsers'>,
+ *   conn: Conn,
+ *   req: Req,
+ * ) {}
+ */
+//@ts-ignore - may not be used / present
+export type Conn = import('@fastify/websocket').SocketStream;
+
+/**
+ * The parameter type of the websocket connection.
+ *
+ * **NOTE**: Only works on `WebSocket` routes
+ *
+ * @example
+ * export function ws(
+ *   this: Route<'subscribeUsers'>,
+ *   socket: Sock,
+ *   req: Req,
+ * ) {}
+ */
+//@ts-ignore - may not be used / present
+export type Sock = import('@fastify/websocket').SocketStream['socket'];

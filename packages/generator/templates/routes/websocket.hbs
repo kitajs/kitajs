@@ -1,0 +1,21 @@
+fastify.route({
+  method: 'GET',
+  url: '{{path}}',
+  schema: {{json schema}},
+  websocket: true,
+  handler: async (request, reply) => {
+    {{#each parameters}}
+      {{#if helper}}
+        {{helper}}
+
+        if (reply.sent) {
+          return;
+        }
+       {{/if}}
+    {{/each}}
+
+    return {{controllerName}}.ws.apply(context, [{{paramsToString parameters}}]);
+  },
+  {{options}}
+});
+ 

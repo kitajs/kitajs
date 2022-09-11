@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "cosmiconfig": "^7.0.1",
+    "deepmerge": "^4.2.2",
     "tslib": "^2.4.0"
   }
 }

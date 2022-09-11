@@ -1,14 +1,14 @@
-import type { Body, Cookie, Path, Query, Rep, Req, Route } from '@kitajs/runtime';
-import type { AuthParam } from '../helpers/auth-param';
-import type { NameQuery } from '../models/hello-world';
+import type { Cookie, Path, Query, Rep, Req, Route } from '@kitajs/runtime';
+import type { AuthParam } from './helpers/auth-param';
+import type { NameQuery } from './models/hello-world';
 
 // Commented code works, but not all together.
 
-export async function post(
+export async function get(
   this: Route<'fullExample'>,
   path: Path<'name'>,
   cookie: Cookie<'cache-control'>,
-  body: Body<NameQuery>,
+  // body: Body<NameQuery>,
   // namedBodyProp: BodyProp<number, 'path'>,
   // bodyProp: BodyProp<number>,
   query: Query<NameQuery>,
@@ -22,7 +22,7 @@ export async function post(
   return {
     path,
     cookie,
-    body,
+    // body,
     // namedBodyProp,
     // bodyProp,
     query,
