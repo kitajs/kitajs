@@ -4,16 +4,16 @@ type KitaError = {
   [key: string]: any;
 };
 
-export function KitaError(message: string, path: string): KitaError;
+export function KitaError(message: string, path: string | string[]): KitaError;
 export function KitaError(message: string, additional?: Record<string, any>): KitaError;
 export function KitaError(
   message: string,
-  path: string,
+  path: string | string[],
   additional?: Record<string, any>
 ): KitaError;
 export function KitaError(
   message: string,
-  additionalOrPath?: Record<string, any> | string,
+  additionalOrPath?: Record<string, any> | string | string[],
   additional?: Record<string, any>
 ): KitaError {
   return {
@@ -21,8 +21,10 @@ export function KitaError(
     message:
       typeof additionalOrPath === 'string'
         ? `${message}\n  at ${additionalOrPath}`
+        : Array.isArray(additionalOrPath)
+        ? `${message}\n  at ${additionalOrPath.join('\n and ')}`
         : message,
-    ...(typeof additionalOrPath === 'object' ? additionalOrPath : {}),
+    ...(typeof additionalOrPath === 'object' && !Array.isArray(additionalOrPath) ? additionalOrPath : {}),
     ...additional
   } as const;
 }

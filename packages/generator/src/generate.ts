@@ -1,4 +1,5 @@
 import minimatch from 'minimatch';
+import { KitaError } from './errors';
 import type { KitaGenerator } from './generator';
 import { NodeResolver } from './nodes/base';
 
@@ -28,6 +29,18 @@ export async function generateAst(kita: KitaGenerator) {
       }
 
       route.template = await kita.loadRenderer(route.templatePath).then((r) => r(route));
+
+      if (route.operationId) {
+        // Searches for different route operationIds
+        const search = kita.ast.routes.find((r) => r.operationId === route.operationId);
+
+        if (search) {
+          throw KitaError(
+            `Duplicate operationId \`${route.operationId}\``,
+            [search.controllerPath, route.controllerPath],
+          );
+        }
+      }
 
       kita.ast.routes.push(route);
     }
