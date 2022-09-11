@@ -10,8 +10,8 @@
   "dependencies": {
     "@kitajs/core": "*",
     "deepmerge": "^4.2.2",
-    "fastify": "^4.3.0",
-    "fastify-plugin": "^4.1.0",
+    "fastify": "^4.5.3",
+    "fastify-plugin": "^4.2.1",
     "glob": "^8.0.3",
     "glob-promise": "^5.0.0",
     "handlebars": "^4.7.7",
@@ -20,8 +20,8 @@
     "typescript": "*"
   },
   "devDependencies": {
-    "@types/glob": "^7.2.0",
-    "@types/prettier": "^2.6.4"
+    "@types/glob": "^8.0.0",
+    "@types/prettier": "^2.7.0"
   },
   "files": [
     "src",

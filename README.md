@@ -21,11 +21,11 @@ programming patterns, is 100% testable and supports all the usual features of fa
 
 <br />
 
-**There's no documentation yet. For now, take a look at the [test](packages/test)
+**There's no documentation yet. For now, take a look at the [test](packages/test-package)
 package.**
 
 **If you want to understand how Kita achieves 0 runtime code and is 100% modular and open
-api compliant, see the [routes.ts](packages/test/src/routes.ts) generated file.**
+api compliant, see the [routes.ts](packages/test-package/src/routes.ts) generated file.**
 
 <br />
 

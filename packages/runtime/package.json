@@ -10,7 +10,7 @@
   "dependencies": {
     "@fastify/websocket": "^7.0.1",
     "@kitajs/core": "*",
-    "fastify": "^4.2.1",
+    "fastify": "^4.5.3",
     "tslib": "^2.4.0"
   }
 }

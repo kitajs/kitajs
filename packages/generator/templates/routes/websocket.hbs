@@ -5,6 +5,7 @@ fastify.get(
     websocket: true,
     {{options}}
   },
+  //@ts-ignore - unused
   async (connection, request) => {
     {{#each parameters}}
       {{#if helper}}
