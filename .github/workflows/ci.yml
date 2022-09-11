@@ -20,13 +20,13 @@ jobs:
           cache: 'yarn'
 
       - name: Install packages
-        run: yarn install --prefer-offline
-
-      - name: Test
-        run: yarn workspace @kitajs/tests test
+        run: yarn
 
       - name: Build
         run: yarn build
+
+      - name: Test
+        run: yarn workspace @kitajs/tests test
 
       - name: Publish to Codecov
         uses: codecov/codecov-action@v3
