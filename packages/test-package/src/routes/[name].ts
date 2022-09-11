@@ -11,15 +11,14 @@ import type {
 import type { AuthParam } from '../helpers/auth-param';
 import type { NameQuery } from '../models/hello-world';
 
-
 /**
  * @description route description 1
- * 
+ *
  * @security default
  * @security admin [read-user, write user, 4, 76]
- * 
+ *
  * @tag test tag 1
- * 
+ *
  * @summary route summary 1
  */
 export async function put(
@@ -50,12 +49,12 @@ export async function put(
 
 /**
  * @description route description 2
- * 
+ *
  * @security default
  * @security admin [read-user, write user, 4, 76]
- * 
+ *
  * @tag test tag 2
- * 
+ *
  * @summary route summary 2
  */
 export async function post(
