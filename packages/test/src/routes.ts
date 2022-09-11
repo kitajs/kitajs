@@ -104,11 +104,6 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   });
 
   fastify.addSchema({
-    $id: 'nameResponse',
-    type: 'null'
-  });
-
-  fastify.addSchema({
     $id: 'fullExampleExclusiveQueryResponse',
     type: 'number'
   });
@@ -119,7 +114,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   });
 
   fastify.route({
-    method: 'GET',
+    method: 'PUT',
     url: '/:name',
     schema: {
       operationId: 'fullExampleUsingBody',
@@ -146,7 +141,11 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         required: ['paramQuery', 'typedQuery', 'namedQuery', 'typedAndNamedQuery'],
         additionalProperties: false
       },
-      response: { default: { $ref: 'fullExampleUsingBodyResponse' } }
+      response: { default: { $ref: 'fullExampleUsingBodyResponse' } },
+      description: 'route description 1',
+      security: [{ default: [] }, { admin: ['read-user', 'write user', '4', '76'] }],
+      tags: ['test tag 1'],
+      summary: 'route summary 1'
     },
     handler: async (request, reply) => {
       const authJwt = await AuthParam.call(context, request, reply, ['jwt']);
@@ -160,13 +159,13 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         return;
       }
 
-      const data = await $name$Controller.get.apply(context, [
-        (request.params as { ['name']: Parameters<typeof $name$Controller.get>[0] })[
+      const data = await $name$Controller.put.apply(context, [
+        (request.params as { ['name']: Parameters<typeof $name$Controller.put>[0] })[
           'name'
         ],
         request.cookies?.cookie,
-        (request.body as { ['path']: Parameters<typeof $name$Controller.get>[2] }).path,
-        (request.body as { ['bodyProp']: Parameters<typeof $name$Controller.get>[3] })
+        (request.body as { ['path']: Parameters<typeof $name$Controller.put>[2] }).path,
+        (request.body as { ['bodyProp']: Parameters<typeof $name$Controller.put>[3] })
           .bodyProp,
         (request.query as { ['paramQuery']: string })['paramQuery'],
         (request.query as { ['typedQuery']: boolean })['typedQuery'],
@@ -179,7 +178,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       ]);
 
       if (reply.sent) {
-        //@ts-ignore - When $name$Controller.get() returns nothing, typescript gets mad.
+        //@ts-ignore - When $name$Controller.put() returns nothing, typescript gets mad.
         if (data) {
           throw Helpers.replyAlreadySent(data);
         }
@@ -204,7 +203,11 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       },
       body: { $ref: 'NameQuery' },
       querystring: { $ref: 'NameQuery' },
-      response: { default: { $ref: 'fullExampleExclusiveQueryResponse' } }
+      response: { default: { $ref: 'fullExampleExclusiveQueryResponse' } },
+      description: 'route description 2',
+      security: [{ default: [] }, { admin: ['read-user', 'write user', '4', '76'] }],
+      tags: ['test tag 2'],
+      summary: 'route summary 2'
     },
     handler: async (request, reply) => {
       const authJwt = await AuthParam.call(context, request, reply, ['jwt']);
@@ -250,7 +253,8 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     schema: {
       operationId: 'withTypedPromiseResponse',
       querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'withTypedPromiseResponseResponse' } }
+      response: { default: { $ref: 'withTypedPromiseResponseResponse' } },
+      tags: ['Response Test']
     },
     handler: async (request, reply) => {
       const data = await ResponseTypesController.Get.apply(context, [
@@ -276,7 +280,8 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     schema: {
       operationId: 'withInferredResponse',
       querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'withInferredResponseResponse' } }
+      response: { default: { $ref: 'withInferredResponseResponse' } },
+      tags: ['Response Test']
     },
     handler: async (request, reply) => {
       const data = await ResponseTypesController.Post.apply(context, [
@@ -303,7 +308,8 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     schema: {
       operationId: 'withPromiseTypeAlias',
       querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'PR' } }
+      response: { default: { $ref: 'PR' } },
+      tags: ['Response Test']
     },
     handler: async (request, reply) => {
       const data = await ResponseTypesController.Put.apply(context, [
@@ -329,7 +335,8 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     schema: {
       operationId: 'withTypeAliasPromise',
       querystring: { $ref: 'HelloWorldQuery' },
-      response: { default: { $ref: 'DR' } }
+      response: { default: { $ref: 'DR' } },
+      tags: ['Response Test']
     },
     handler: async (request, reply) => {
       const data = await ResponseTypesController.Delete.apply(context, [
@@ -352,7 +359,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.get(
     '/ws',
     {
-      schema: { operationId: 'name', response: { default: { $ref: 'nameResponse' } } },
+      schema: { hide: true, operationId: 'name' },
       websocket: true
     },
     async (connection, request) => {
@@ -397,21 +404,21 @@ export const HBS_CONF = {
       templatePath: 'routes/rest.hbs',
       controllerName: '$name$Controller',
       url: '/:name',
-      controllerPath: 'src/routes/[name].ts:16:21',
-      controllerMethod: 'get',
+      controllerPath: 'src/routes/[name].ts:25:21',
+      controllerMethod: 'put',
       parameters: [
         {
           value:
-            "(request.params as { ['name']: Parameters<typeof $name$Controller.get>[0] })['name']"
+            "(request.params as { ['name']: Parameters<typeof $name$Controller.put>[0] })['name']"
         },
         { value: 'request.cookies?.cookie' },
         {
           value:
-            "(request.body as { ['path']: Parameters<typeof $name$Controller.get>[2] }).path"
+            "(request.body as { ['path']: Parameters<typeof $name$Controller.put>[2] }).path"
         },
         {
           value:
-            "(request.body as { ['bodyProp']: Parameters<typeof $name$Controller.get>[3] }).bodyProp"
+            "(request.body as { ['bodyProp']: Parameters<typeof $name$Controller.put>[3] }).bodyProp"
         },
         { value: "(request.query as { ['paramQuery']: string })['paramQuery']" },
         { value: "(request.query as { ['typedQuery']: boolean })['typedQuery']" },
@@ -458,18 +465,22 @@ export const HBS_CONF = {
           required: ['paramQuery', 'typedQuery', 'namedQuery', 'typedAndNamedQuery'],
           additionalProperties: false
         },
-        response: { default: { $ref: 'fullExampleUsingBodyResponse' } }
+        response: { default: { $ref: 'fullExampleUsingBodyResponse' } },
+        description: 'route description 1',
+        security: [{ default: [] }, { admin: ['read-user', 'write user', '4', '76'] }],
+        tags: ['test tag 1'],
+        summary: 'route summary 1'
       },
-      method: 'GET',
+      method: 'PUT',
       operationId: 'fullExampleUsingBody',
       template:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"$ref":"def-number"},"bodyProp":{"$ref":"def-number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false},"response":{"default":{"$ref":"fullExampleUsingBodyResponse"}}},\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n\n    const data = await $name$Controller.get.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.get>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof $name$Controller.get>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof $name$Controller.get>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.get() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});\n '
+        'fastify.route({\n  method: \'PUT\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"$ref":"def-number"},"bodyProp":{"$ref":"def-number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false},"response":{"default":{"$ref":"fullExampleUsingBodyResponse"}},"description":"route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1"},\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n\n    const data = await $name$Controller.put.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof $name$Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof $name$Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.put() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     },
     {
       templatePath: 'routes/rest.hbs',
       controllerName: '$name$Controller',
       url: '/:name',
-      controllerPath: 'src/routes/[name].ts:42:21',
+      controllerPath: 'src/routes/[name].ts:61:21',
       controllerMethod: 'post',
       parameters: [
         {
@@ -502,18 +513,22 @@ export const HBS_CONF = {
         },
         body: { $ref: 'NameQuery' },
         querystring: { $ref: 'NameQuery' },
-        response: { default: { $ref: 'fullExampleExclusiveQueryResponse' } }
+        response: { default: { $ref: 'fullExampleExclusiveQueryResponse' } },
+        description: 'route description 2',
+        security: [{ default: [] }, { admin: ['read-user', 'write user', '4', '76'] }],
+        tags: ['test tag 2'],
+        summary: 'route summary 2'
       },
       method: 'POST',
       operationId: 'fullExampleExclusiveQuery',
       template:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"},"response":{"default":{"$ref":"fullExampleExclusiveQueryResponse"}}},\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n\n    const data = await $name$Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof $name$Controller.post>[2],(request.query as Parameters<typeof $name$Controller.post>[3]),request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.post() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});\n '
+        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"},"response":{"default":{"$ref":"fullExampleExclusiveQueryResponse"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2"},\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n\n    const data = await $name$Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof $name$Controller.post>[2],(request.query as Parameters<typeof $name$Controller.post>[3]),request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.post() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     },
     {
       templatePath: 'routes/rest.hbs',
       controllerName: 'ResponseTypesController',
       url: '/response-types',
-      controllerPath: 'src/routes/response-types.ts:5:21',
+      controllerPath: 'src/routes/response-types.ts:6:21',
       controllerMethod: 'Get',
       parameters: [
         { value: '(request.query as Parameters<typeof ResponseTypesController.Get>[0])' }
@@ -521,18 +536,19 @@ export const HBS_CONF = {
       schema: {
         operationId: 'withTypedPromiseResponse',
         querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'withTypedPromiseResponseResponse' } }
+        response: { default: { $ref: 'withTypedPromiseResponseResponse' } },
+        tags: ['Response Test']
       },
       method: 'GET',
       operationId: 'withTypedPromiseResponse',
       template:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypedPromiseResponse","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"withTypedPromiseResponseResponse"}}},\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Get.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Get>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Get() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});\n '
+        'fastify.route({\n  method: \'GET\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypedPromiseResponse","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"withTypedPromiseResponseResponse"}},"tags":["Response Test"]},\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Get.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Get>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Get() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     },
     {
       templatePath: 'routes/rest.hbs',
       controllerName: 'ResponseTypesController',
       url: '/response-types',
-      controllerPath: 'src/routes/response-types.ts:14:21',
+      controllerPath: 'src/routes/response-types.ts:16:21',
       controllerMethod: 'Post',
       parameters: [
         { value: '(request.query as Parameters<typeof ResponseTypesController.Post>[0])' }
@@ -540,19 +556,20 @@ export const HBS_CONF = {
       schema: {
         operationId: 'withInferredResponse',
         querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'withInferredResponseResponse' } }
+        response: { default: { $ref: 'withInferredResponseResponse' } },
+        tags: ['Response Test']
       },
       method: 'POST',
       operationId: 'withInferredResponse',
       options: 'preHandler: ResponseTypesController.preHandler',
       template:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/response-types\',\n  schema: {"operationId":"withInferredResponse","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"withInferredResponseResponse"}}},\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Post.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Post>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Post() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  preHandler: ResponseTypesController.preHandler\n});\n '
+        'fastify.route({\n  method: \'POST\',\n  url: \'/response-types\',\n  schema: {"operationId":"withInferredResponse","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"withInferredResponseResponse"}},"tags":["Response Test"]},\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Post.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Post>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Post() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  preHandler: ResponseTypesController.preHandler\n});'
     },
     {
       templatePath: 'routes/rest.hbs',
       controllerName: 'ResponseTypesController',
       url: '/response-types',
-      controllerPath: 'src/routes/response-types.ts:25:21',
+      controllerPath: 'src/routes/response-types.ts:28:21',
       controllerMethod: 'Put',
       parameters: [
         { value: '(request.query as Parameters<typeof ResponseTypesController.Put>[0])' }
@@ -560,18 +577,19 @@ export const HBS_CONF = {
       schema: {
         operationId: 'withPromiseTypeAlias',
         querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'PR' } }
+        response: { default: { $ref: 'PR' } },
+        tags: ['Response Test']
       },
       method: 'PUT',
       operationId: 'withPromiseTypeAlias',
       template:
-        'fastify.route({\n  method: \'PUT\',\n  url: \'/response-types\',\n  schema: {"operationId":"withPromiseTypeAlias","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"PR"}}},\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Put.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Put>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Put() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});\n '
+        'fastify.route({\n  method: \'PUT\',\n  url: \'/response-types\',\n  schema: {"operationId":"withPromiseTypeAlias","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"PR"}},"tags":["Response Test"]},\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Put.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Put>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Put() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     },
     {
       templatePath: 'routes/rest.hbs',
       controllerName: 'ResponseTypesController',
       url: '/response-types',
-      controllerPath: 'src/routes/response-types.ts:36:21',
+      controllerPath: 'src/routes/response-types.ts:40:21',
       controllerMethod: 'Delete',
       parameters: [
         {
@@ -581,12 +599,13 @@ export const HBS_CONF = {
       schema: {
         operationId: 'withTypeAliasPromise',
         querystring: { $ref: 'HelloWorldQuery' },
-        response: { default: { $ref: 'DR' } }
+        response: { default: { $ref: 'DR' } },
+        tags: ['Response Test']
       },
       method: 'DELETE',
       operationId: 'withTypeAliasPromise',
       template:
-        'fastify.route({\n  method: \'DELETE\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypeAliasPromise","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"DR"}}},\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Delete.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Delete>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Delete() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});\n '
+        'fastify.route({\n  method: \'DELETE\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypeAliasPromise","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"DR"}},"tags":["Response Test"]},\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Delete.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Delete>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Delete() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     },
     {
       templatePath: 'routes/websocket.hbs',
@@ -598,13 +617,13 @@ export const HBS_CONF = {
         { value: 'connection.socket' },
         { value: 'request as Parameters<typeof WsController.ws>[2]' }
       ],
-      schema: { operationId: 'name', response: { default: { $ref: 'nameResponse' } } },
+      schema: { hide: true, operationId: 'name' },
       websocket: true,
       controllerMethod: 'ws',
       method: 'GET',
       operationId: 'name',
       template:
-        'fastify.get(\n  \'/ws\',\n  {\n    schema: {"operationId":"name","response":{"default":{"$ref":"nameResponse"}}},\n    websocket: true,\n    \n  },\n  async (connection, request) => {\n\n    return WsController.ws.apply(context, [connection as Parameters<typeof WsController.ws>[0],connection.socket,request as Parameters<typeof WsController.ws>[2]]);\n  }\n);\n '
+        'fastify.get(\n  \'/ws\',\n  {\n    schema: {"hide":true,"operationId":"name"},\n    websocket: true,\n    \n  },\n  async (connection, request) => {\n\n    return WsController.ws.apply(context, [connection as Parameters<typeof WsController.ws>[0],connection.socket,request as Parameters<typeof WsController.ws>[2]]);\n  }\n);'
     }
   ],
   schemas: [
@@ -651,7 +670,6 @@ export const HBS_CONF = {
       required: ['d'],
       additionalProperties: false
     },
-    { $id: 'nameResponse', type: 'null' },
     { $id: 'fullExampleExclusiveQueryResponse', type: 'number' },
     { $id: 'fullExampleUsingBodyResponse', type: 'number' }
   ],

@@ -1,5 +1,4 @@
 import { ts } from '@kitajs/ts-json-schema-generator';
-import deepmerge from 'deepmerge';
 import { ParamResolver } from '../parameters/base';
 import type { BaseRoute } from '../routes/base';
 import type { WebsocketRoute } from '../routes/websocket';
@@ -34,7 +33,10 @@ export class WebsocketResolver extends NodeResolver {
       url: routePath,
       controllerPath: `${source.fileName}:${line + 1}:${character}`,
       parameters: [],
-      schema: {},
+      schema: {
+        // @ts-ignore - Swagger UI should not display websocket routes.
+        hide: true
+      },
       websocket: true,
       controllerMethod: 'ws',
       method: 'GET'
@@ -55,12 +57,6 @@ export class WebsocketResolver extends NodeResolver {
         route.parameters.push(parameter);
       }
     }
-
-    // Response type detection
-    const schema = await kita.schemaStorage.consumeResponseType(node, route);
-    route.schema = deepmerge(route.schema, {
-      response: { default: schema }
-    });
 
     // Add controller import to the result
     kita.ast.addImport(

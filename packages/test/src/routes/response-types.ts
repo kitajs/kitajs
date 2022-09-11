@@ -2,6 +2,7 @@ import type { Query, Route } from '@kitajs/runtime';
 import type { HelloWorldQuery } from '../models/hello-world';
 import { hello } from '../services/hello-world';
 
+/** @tag Response Test */
 export async function Get(
   this: Route<'withTypedPromiseResponse'>,
   { age, name }: Query<HelloWorldQuery>
@@ -11,6 +12,7 @@ export async function Get(
   };
 }
 
+/** @tag Response Test */
 export async function Post(
   this: Route<'withInferredResponse', { preHandler: typeof preHandler }>,
   { age, name }: Query<HelloWorldQuery>
@@ -22,6 +24,7 @@ export async function Post(
 
 export type PR = Promise<{ c: string }>;
 
+/** @tag Response Test */
 export async function Put(
   this: Route<'withPromiseTypeAlias'>,
   { age, name }: Query<HelloWorldQuery>
@@ -33,6 +36,7 @@ export async function Put(
 
 export type DR = { d: string };
 
+/** @tag Response Test */
 export async function Delete(
   this: Route<'withTypeAliasPromise'>,
   { age, name }: Query<HelloWorldQuery>

@@ -14,7 +14,7 @@ export class BodyResolver extends ParamResolver {
     inferredType,
     kita
   }: ParamData): Promise<Parameter | undefined> {
-    if (route.method === 'get') {
+    if (route.method === 'GET') {
       throw KitaError(
         `The HTTP specification does not allow the use of Body in GET requests.`,
         route.controllerPath

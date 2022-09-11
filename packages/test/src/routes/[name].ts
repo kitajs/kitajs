@@ -11,9 +11,18 @@ import type {
 import type { AuthParam } from '../helpers/auth-param';
 import type { NameQuery } from '../models/hello-world';
 
-// Commented code works, but not all together.
 
-export async function get(
+/**
+ * @description route description 1
+ * 
+ * @security default
+ * @security admin [read-user, write user, 4, 76]
+ * 
+ * @tag test tag 1
+ * 
+ * @summary route summary 1
+ */
+export async function put(
   this: Route<'fullExampleUsingBody'>,
 
   path: Path<'name'>,
@@ -39,6 +48,16 @@ export async function get(
   return 1;
 }
 
+/**
+ * @description route description 2
+ * 
+ * @security default
+ * @security admin [read-user, write user, 4, 76]
+ * 
+ * @tag test tag 2
+ * 
+ * @summary route summary 2
+ */
 export async function post(
   this: Route<'fullExampleExclusiveQuery'>,
 

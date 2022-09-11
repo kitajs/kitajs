@@ -5,6 +5,7 @@ import type { BaseRoute } from '../routes/base';
 import type { RestRoute } from '../routes/rest';
 import { findRouteName } from '../util/string';
 import { NodeData, NodeInfo, NodeResolver } from './base';
+import { KitaError } from '../errors';
 
 export class RestResolver extends NodeResolver {
   override supports({ node }: NodeInfo): boolean {
@@ -65,6 +66,9 @@ export class RestResolver extends NodeResolver {
       response: { default: schema }
     });
 
+    // Parse JSDoc tags
+    ts.getJSDocTags(node).forEach((tag) => this.parseTag(tag, route));
+
     // Add controller import to the result
     kita.ast.addImport(
       `import * as ${route.controllerName} from '${kita.importablePath(
@@ -73,5 +77,72 @@ export class RestResolver extends NodeResolver {
     );
 
     return route;
+  }
+
+  /**
+   * Custom parse info for each of this route's tags
+   */
+  parseTag(tag: ts.JSDocTag, route: BaseRoute): any {
+    const name = tag.tagName.getText().toLowerCase();
+    const comment =
+      typeof tag.comment === 'string'
+        ? tag.comment.trim()
+        : ts.getTextOfJSDocComment(tag.comment)?.trim();
+
+    if (!comment) {
+      throw KitaError(`@${name} tag must have a comment.`, route.controllerPath);
+    }
+
+    switch (name) {
+      case 'security':
+        const match = comment.match(/^(.+?)(?: \[(.+)\])?$/)!;
+
+        if (!match) {
+          throw KitaError(
+            `@${name} tag should follow \`@security <securityName> [<params>]?\` format.`,
+            route.controllerPath
+          );
+        }
+
+        const secName = match[1]!;
+        const secParams = match[2] ? match[2].split(',').map((p) => p.trim()) : [];
+
+        route.schema = deepmerge(route.schema, {
+          security: [{ [secName]: secParams }]
+        });
+
+        break;
+
+      case 'tag':
+        route.schema = deepmerge(route.schema, {
+          tags: [comment]
+        });
+
+        break;
+
+      case 'summary':
+        //@ts-ignore - any type is valid
+        if (route.schema.summary) {
+          throw KitaError(`@${name} tag is already defined.`, route.controllerPath);
+        }
+
+        route.schema = deepmerge(route.schema, {
+          summary: comment
+        });
+
+        break;
+
+      case 'description':
+        //@ts-ignore - any type is valid
+        if (route.schema.description) {
+          throw KitaError(`@${name} tag is already defined.`, route.controllerPath);
+        }
+
+        route.schema = deepmerge(route.schema, {
+          description: comment
+        });
+
+        break;
+    }
   }
 }
