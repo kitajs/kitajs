@@ -1,4 +1,4 @@
-import type { Parameter } from "../parameter";
+import type { Parameter } from '../parameter';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class RepResolver extends ParamResolver {

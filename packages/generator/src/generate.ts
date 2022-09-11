@@ -35,10 +35,10 @@ export async function generateAst(kita: KitaGenerator) {
         const search = kita.ast.routes.find((r) => r.operationId === route.operationId);
 
         if (search) {
-          throw KitaError(
-            `Duplicate operationId \`${route.operationId}\``,
-            [search.controllerPath, route.controllerPath],
-          );
+          throw KitaError(`Duplicate operationId \`${route.operationId}\``, [
+            search.controllerPath,
+            route.controllerPath
+          ]);
         }
       }
 

@@ -60,7 +60,7 @@ export interface BaseRoute {
    *
    * @example `/users/create`
    */
-  route: string;
+  url: string;
 
   /**
    * The controller http method.

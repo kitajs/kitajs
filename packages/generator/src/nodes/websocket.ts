@@ -31,7 +31,7 @@ export class WebsocketResolver extends NodeResolver {
     const route: WebsocketRoute = {
       templatePath: 'routes/websocket.hbs',
       controllerName,
-      route: routePath,
+      url: routePath,
       controllerPath: `${source.fileName}:${line + 1}:${character}`,
       parameters: [],
       schema: {},
@@ -41,8 +41,20 @@ export class WebsocketResolver extends NodeResolver {
     };
 
     // Parameters detection
-    const parameters = await ParamResolver.resolveFunction(kita, route, node);
-    route.parameters.push(...parameters);
+    // Needs to process each parameter in their expected order
+    for (const [index, param] of node.parameters.entries()) {
+      const parameter = await ParamResolver.resolveParameter(
+        kita,
+        route,
+        node,
+        param,
+        index
+      );
+
+      if (parameter) {
+        route.parameters.push(parameter);
+      }
+    }
 
     // Response type detection
     const schema = await kita.schemaStorage.consumeResponseType(node, route);

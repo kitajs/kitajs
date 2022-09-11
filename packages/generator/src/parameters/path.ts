@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import type { Parameter } from "../parameter";
+import type { Parameter } from '../parameter';
 import { unquote } from '../util/string';
 import { ParamInfo, ParamData, ParamResolver } from './base';
 

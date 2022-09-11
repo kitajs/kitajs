@@ -1,4 +1,4 @@
-import { createKitaGenerator, generateAst } from '@kitajs/generator';
+import { createKitaGenerator, errorCount, generateAst } from '@kitajs/generator';
 import chalk from 'chalk/';
 import fs from 'fs/promises';
 import path from 'path';
@@ -32,9 +32,11 @@ export async function generate() {
   const ast = await generateAst(generator);
 
   console.log(
-    `\n 🗃️   Read ${chalk.yellowBright(
-      ast.schemas.length
-    )} schemas and ${chalk.yellowBright(ast.routes.length)} routes.`
+    `\n 🗃️   Read ${chalk.yellowBright(ast.schemas.length)} schemas, ${chalk.yellowBright(
+      ast.routes.length
+    )} routes and threw ${(errorCount === 0 ? chalk.greenBright : chalk.red)(
+      errorCount
+    )} errors.`
   );
 
   let file = await generator.loadRenderer('output.hbs').then((r) => r(ast));

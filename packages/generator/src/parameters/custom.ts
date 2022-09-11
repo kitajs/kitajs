@@ -1,4 +1,4 @@
-import type { Parameter } from "../parameter";
+import type { Parameter } from '../parameter';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class CustomResolver extends ParamResolver {
@@ -15,7 +15,7 @@ export class CustomResolver extends ParamResolver {
       value: paramName,
       helper: `const ${paramName} = await ${typeName}.call(context, request, reply, [${
         generics?.map((n) => n.getText()).join(', ') || ''
-      }]);`,
+      }]);`
     };
   }
 }

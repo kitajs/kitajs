@@ -27,7 +27,10 @@ export function isNodeExported(node: ts.Node): boolean {
 }
 
 export function isNodeType(node: ts.Node) {
-  return node.kind === ts.SyntaxKind.TypeAliasDeclaration || node.kind === ts.SyntaxKind.InterfaceDeclaration;
+  return (
+    node.kind === ts.SyntaxKind.TypeAliasDeclaration ||
+    node.kind === ts.SyntaxKind.InterfaceDeclaration
+  );
 }
 
 /**

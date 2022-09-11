@@ -45,10 +45,9 @@ export abstract class NodeResolver {
         return;
       }
 
-      const resolver = NodeResolver.resolvers.find((resolver) => {
-        const res = resolver.supports({ node });
-        return res;
-      });
+      const resolver = NodeResolver.resolvers.find((resolver) =>
+        resolver.supports({ node })
+      );
 
       // Ignore nodes that are not supported. We could throw an error here, but sometimes
       // Route<{}> configs imports custom named objects that has their name not included in some

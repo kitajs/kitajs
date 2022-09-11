@@ -1,7 +1,7 @@
-import deepmerge from 'deepmerge';
 import { ts } from '@kitajs/ts-json-schema-generator';
+import deepmerge from 'deepmerge';
 import { KitaError } from '../errors';
-import type { Parameter } from "../parameter";
+import type { Parameter } from '../parameter';
 import { unquote } from '../util/string';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
@@ -18,44 +18,39 @@ export class QueryResolver extends ParamResolver {
     paramName,
     optional
   }: ParamData): Promise<Parameter | undefined> {
-    const name = generics[1] ? unquote(generics[1].getText()) : paramName;
-    const firstGenerics = generics[0]?.getText();
+    const {
+      name: queryName,
+      type: queryType,
+      simple
+    } = this.findNameAndType(generics, paramName);
 
-    // raw type
-    if (
-      !generics[0] ||
-      firstGenerics === 'number' ||
-      firstGenerics === 'string' ||
-      firstGenerics === 'boolean'
-    ) {
+    if (simple) {
       // @ts-expect-error - any type is allowed
       if (route.schema.querystring?.$ref) {
         throw KitaError(
           `You cannot have a named and a extended query object in the same method`,
-          route.controllerPath
+          [paramName, route.controllerPath]
         );
       }
-
-      const queryType = firstGenerics ?? 'string';
 
       route.schema = deepmerge(route.schema, {
         querystring: {
           type: 'object',
-          properties: { [name]: { type: queryType } },
-          required: optional ? [] : [name],
+          properties: { [queryName]: { type: queryType } },
+          required: optional ? [] : [queryName],
           additionalProperties: false
         }
       });
 
-      const type = `{ ['${name}']${optional ? '?' : ''}: ${queryType} }`;
-      return { value: `(request.query as ${type})['${name}']` };
+      const type = `{ ['${queryName}']${optional ? '?' : ''}: ${queryType} }`;
+      return { value: `(request.query as ${type})['${queryName}']` };
     }
 
     // @ts-expect-error - any type is allowed
     if (route.schema.querystring?.properties) {
       throw KitaError(
         `You cannot have a named and a extended query object in the same method`,
-        route.controllerPath
+        [paramName, route.controllerPath]
       );
     }
 
@@ -63,7 +58,7 @@ export class QueryResolver extends ParamResolver {
     if (route.schema.querystring?.$ref) {
       throw KitaError(
         `You cannot have more than one extended query object in the same method`,
-        route.controllerPath
+        [paramName, route.controllerPath]
       );
     }
 
@@ -72,5 +67,27 @@ export class QueryResolver extends ParamResolver {
     });
 
     return { value: `(request.query as ${inferredType})` };
+  }
+
+  findNameAndType(generics: ts.NodeArray<ts.TypeNode>, paramName: string) {
+    if (!generics[0]) {
+      return { name: paramName, type: 'string', simple: true };
+    }
+
+    if (generics[0].getText().match(/^['`"]/g)) {
+      return { name: unquote(generics[0].getText()), type: 'string', simple: true };
+    }
+
+    const simple = generics[0].getText().match(/^(string|number|boolean)$/);
+
+    if (!generics[1]) {
+      return {
+        name: paramName,
+        type: generics[0].getText(),
+        simple
+      };
+    }
+
+    return { name: unquote(generics[1].getText()), type: generics[0].getText(), simple };
   }
 }

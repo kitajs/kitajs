@@ -1,15 +1,16 @@
+import { catchKitaError, errorCount } from '@kitajs/generator';
 import { program } from 'commander';
 import { generate } from './generate';
-import { catchKitaError } from '@kitajs/generator';
+
+process.on('unhandledRejection', catchKitaError);
 
 program
   .command('generate')
   .description('Generates code for all your controllers')
   .action(() => {
-    generate().catch((err) => {
-      catchKitaError(err);
-      process.exit(1);
-    });
+    generate()
+      .catch(catchKitaError)
+      .then(() => errorCount > 0 && process.exit(1));
   });
 
 program.parse();

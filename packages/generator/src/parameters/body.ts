@@ -1,6 +1,6 @@
 import deepmerge from 'deepmerge';
 import { KitaError } from '../errors';
-import type { Parameter } from "../parameter";
+import type { Parameter } from '../parameter';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class BodyResolver extends ParamResolver {

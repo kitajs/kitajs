@@ -1,9 +1,9 @@
 import type { KitaConfig } from '@kitajs/core';
 import type { ts } from '@kitajs/ts-json-schema-generator';
 import type { KitaGenerator } from '..//generator';
-import { catchKitaError, KitaError } from '../errors';
-import type { BaseRoute } from '../routes/base';
+import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
+import type { BaseRoute } from '../routes/base';
 
 /** Names provided to {@link ParamResolver.supports} predicate. */
 export interface ParamInfo {
@@ -90,46 +90,38 @@ export abstract class ParamResolver {
   static readonly resolvers: ParamResolver[] = [];
 
   /** Tries to resolve all parameters for a function. */
-  static readonly resolveFunction = async (
+  static readonly resolveParameter = (
     kita: KitaGenerator,
     route: BaseRoute,
-    fn: ts.FunctionDeclaration
-  ): Promise<Parameter[]> => {
-    return (
-      Promise.all(
-        fn.parameters.map((param, index) => {
-          const paramName = param.name.getText().trim();
-          const typeName = param.type?.getFirstToken()?.getText();
+    fn: ts.FunctionDeclaration,
+    param: ts.ParameterDeclaration,
+    index: number
+  ) => {
+    const paramName = param.name.getText().trim();
+    const typeName = param.type?.getFirstToken()?.getText();
 
-          const resolver = this.resolvers.find((resolver) =>
-            resolver.supports({ paramName, typeName, config: kita.config })
-          );
-
-          if (!resolver) {
-            throw KitaError(`Unknown parameter ${paramName}.`, route.controllerPath);
-          }
-
-          // This must always appear as the first parameter
-          const hasThis = fn.parameters[0]?.name.getText() === 'this';
-          const parameterIndex = index - (hasThis ? 1 : 0);
-
-          return resolver
-            .resolve({
-              paramName,
-              typeName,
-              route,
-              fn,
-              param,
-              generics: (param.type as ts.NodeWithTypeArguments)?.typeArguments,
-              optional: !!param.questionToken,
-              inferredType: `Parameters<typeof ${route.controllerName}.${route.controllerMethod}>[${parameterIndex}]`,
-              kita
-            })
-            .catch(catchKitaError);
-        })
-      )
-        // Remove undefined values
-        .then((params) => params.filter((param): param is Parameter => !!param))
+    const resolver = this.resolvers.find((resolver) =>
+      resolver.supports({ paramName, typeName, config: kita.config })
     );
+
+    if (!resolver) {
+      throw KitaError(`Unknown parameter ${paramName}.`, route.controllerPath);
+    }
+
+    // This must always appear as the first parameter
+    const hasThis = fn.parameters[0]?.name.getText() === 'this';
+    const parameterIndex = index - (hasThis ? 1 : 0);
+
+    return resolver.resolve({
+      paramName,
+      typeName,
+      route,
+      fn,
+      param,
+      generics: (param.type as ts.NodeWithTypeArguments)?.typeArguments,
+      optional: !!param.questionToken,
+      inferredType: `Parameters<typeof ${route.controllerName}.${route.controllerMethod}>[${parameterIndex}]`,
+      kita
+    });
   };
 }

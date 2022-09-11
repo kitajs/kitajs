@@ -24,7 +24,9 @@ export function KitaError(
         : Array.isArray(additionalOrPath)
         ? `${message}\n  at ${additionalOrPath.join('\n and ')}`
         : message,
-    ...(typeof additionalOrPath === 'object' && !Array.isArray(additionalOrPath) ? additionalOrPath : {}),
+    ...(typeof additionalOrPath === 'object' && !Array.isArray(additionalOrPath)
+      ? additionalOrPath
+      : {}),
     ...additional
   } as const;
 }
@@ -33,7 +35,13 @@ export function isKitaError(error: any): error is KitaError {
   return !!error?.__KITA_ERROR__;
 }
 
+/** Used to track if this execution threw any error */
+export let errorCount = 0;
+
 export const catchKitaError = (err: any) => {
+  // Error counting is done on catch blocks because some errors may have been caught and handled.
+  errorCount += 1;
+
   if (isKitaError(err)) {
     const { __KITA_ERROR__, message, ...rest } = err;
     console.log(`\n ❌   ${message}`);

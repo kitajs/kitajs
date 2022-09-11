@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import type { Parameter } from "../parameter";
+import type { Parameter } from '../parameter';
 
 Handlebars.registerHelper('values', (ctx) => Object.values(ctx));
 Handlebars.registerHelper('keys', (ctx) => Object.keys(ctx));

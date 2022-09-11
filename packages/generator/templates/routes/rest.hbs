@@ -1,6 +1,6 @@
 fastify.route({
   method: {{#if (isAllMethod method)}}['DELETE', 'GET', 'HEAD', 'PATCH', 'POST', 'PUT', 'OPTIONS']{{else}}'{{method}}'{{/if}},
-  url: '{{path}}',
+  url: '{{url}}',
   schema: {{json schema}},
   handler: async (request, reply) => {
     {{#each parameters}}

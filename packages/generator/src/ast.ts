@@ -4,7 +4,7 @@ import type { Schema } from '@kitajs/ts-json-schema-generator';
 
 /**
  * This class is used to store all the data read from all codes.
- * 
+ *
  * A abstract syntax tree created f
  */
 export class KitaAST {

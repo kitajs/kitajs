@@ -8,6 +8,7 @@ export type Path<Name extends string = string> = string;
 //@ts-ignore unused
 export type Cookie<Name> = string | undefined;
 
+/** Cannot be used with BodyProp */
 export type Body<Obj> = Obj;
 
 //@ts-ignore unused
@@ -19,13 +20,20 @@ export type BodyProp<Type, Path extends string = string> = Type;
  * export function get(
  *   name: Query, // defaults to string
  *   age: Query<number>, // custom type
- *   { a, b }: Query<Extended>, // custom type `{ a: number; b: number }`;
- *   _: Query<boolean, 'custom-naming'> // Name comes from splicit parameter
+ *   ageString: Query<'age'>, // custom name
+ *   customNamed: Query<boolean, 'custom-naming'> // Custom type and name
+ *   extended: Query<Extended>, // custom type. If this mode is used, it must be the only query parameter
  * ) {}
  * ```
  */
 //@ts-ignore unused
-export type Query<Type = string, Name = string> = Type extends string ? string : Type;
+export type Query<
+  Type = string,
+  //@ts-ignore unused
+  Name extends Type extends string
+    ? 'Name must be the second parameter'
+    : string = Type extends string ? 'Name must be the second parameter' : string
+> = Type extends string ? string : Type;
 
 /**
  * @example

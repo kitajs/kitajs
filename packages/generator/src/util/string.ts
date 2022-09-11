@@ -10,7 +10,7 @@ export function opt(optional = false) {
 
 export function findRouteName(filepath: string, config: KitaConfig) {
   const strip = filepath
-   // Strips any possible regex that the user might have added
+    // Strips any possible regex that the user might have added
     .replace(new RegExp(config.controllers.prefix), '')
     // Removes possible .ts extension
     .replace(/\.(t|j)sx?$/, '')

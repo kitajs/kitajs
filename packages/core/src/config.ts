@@ -61,12 +61,12 @@ export const ConfigDefaults: KitaConfig = {
   templates: '@kitajs/generator/templates',
   controllers: {
     glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
-    prefix: '(?:.*src)?\/?(?:routes\/?)'
+    prefix: '(?:.*src)?/?(?:routes/?)'
   },
   routes: {
     output: './src/routes.ts'
   }
-} ;
+};
 
 export function mergeDefaults(config?: Partial<KitaConfig>): KitaConfig {
   return deepmerge(ConfigDefaults, config || {});

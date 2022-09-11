@@ -1,6 +1,6 @@
 import { KitaError } from '../errors';
 import type { WebsocketRoute } from '../routes/websocket';
-import type { Parameter } from "../parameter";
+import type { Parameter } from '../parameter';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class ConnResolver extends ParamResolver {
