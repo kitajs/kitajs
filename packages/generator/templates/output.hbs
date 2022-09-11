@@ -17,8 +17,8 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
   {{/each}}
 
-  {{#each routes}} 
-    {{route.template}}
+  {{#each routes}}
+    {{template}}
   {{/each}}
 
   // Ensure this function remains a "async" function

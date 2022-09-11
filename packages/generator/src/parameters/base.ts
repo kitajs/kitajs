@@ -109,6 +109,10 @@ export abstract class ParamResolver {
             throw KitaError(`Unknown parameter ${paramName}.`, route.controllerPath);
           }
 
+          // This must always appear as the first parameter
+          const hasThis = fn.parameters[0]?.name.getText() === 'this';
+          const parameterIndex = index - (hasThis ? 1 : 0);
+
           return resolver
             .resolve({
               paramName,
@@ -118,7 +122,7 @@ export abstract class ParamResolver {
               param,
               generics: (param.type as ts.NodeWithTypeArguments)?.typeArguments,
               optional: !!param.questionToken,
-              inferredType: `Parameters<typeof ${route.controllerName}.${route.controllerPath}>[${index}]`,
+              inferredType: `Parameters<typeof ${route.controllerName}.${route.controllerMethod}>[${parameterIndex}]`,
               kita
             })
             .catch(catchKitaError);
