@@ -1,5 +1,5 @@
 import { createKitaGenerator, errorCount, generateAst } from '@kitajs/generator';
-import chalk from 'chalk/';
+import chalk from 'chalk';
 import fs from 'fs/promises';
 import path from 'path';
 import prettier from 'prettier';
