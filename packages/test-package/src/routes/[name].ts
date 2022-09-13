@@ -12,7 +12,7 @@ import type { AuthParam } from '../helpers/auth-param';
 import type { NameQuery } from '../models/hello-world';
 
 /**
- * @description route description 1
+ * Route description 1
  *
  * @security default
  * @security admin [read-user, write user, 4, 76]
