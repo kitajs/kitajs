@@ -69,5 +69,5 @@ export const ConfigDefaults: KitaConfig = {
 };
 
 export function mergeDefaults(config?: Partial<KitaConfig>): KitaConfig {
-  return deepmerge(ConfigDefaults, config || {});
+  return deepmerge(ConfigDefaults, config || {}, { arrayMerge: (_, b) => b });
 }
