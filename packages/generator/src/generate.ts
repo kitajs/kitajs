@@ -1,7 +1,7 @@
 import minimatch from 'minimatch';
 import { KitaError } from './errors';
 import type { KitaGenerator } from './generator';
-import { NodeResolver } from './nodes/base';
+import { NodeResolver } from './node-resolvers/base';
 
 export async function generateAst(kita: KitaGenerator) {
   // Adds custom parameter resolver imports

@@ -1,6 +1,6 @@
 import type { KitaConfig } from '@kitajs/core';
 import type { ts } from '@kitajs/ts-json-schema-generator';
-import type { KitaGenerator } from '..//generator';
+import type { KitaGenerator } from '../generator';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
 import type { BaseRoute } from '../routes/base';

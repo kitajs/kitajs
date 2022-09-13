@@ -1,6 +1,6 @@
 // Registers
-import './nodes/register';
-import './parameters/register';
+import './node-resolvers/register';
+import './param-resolvers/register';
 import './handlebars/helpers';
 
 // Principal classes
@@ -13,6 +13,6 @@ export * from './generator';
 export * from './errors';
 
 // Allows for custom nodes and routes registration
-export * from './nodes/base';
-export * from './parameters/base';
+export * from './node-resolvers/base';
+export * from './param-resolvers/base';
 export * from './routes/base';

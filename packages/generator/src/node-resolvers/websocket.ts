@@ -1,5 +1,5 @@
 import { ts } from '@kitajs/ts-json-schema-generator';
-import { ParamResolver } from '../parameters/base';
+import { ParamResolver } from '../param-resolvers/base';
 import type { BaseRoute } from '../routes/base';
 import type { WebsocketRoute } from '../routes/websocket';
 import { findRouteName } from '../util/string';

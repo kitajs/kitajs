@@ -1,6 +1,6 @@
 import deepmerge from 'deepmerge';
 import { ts } from '@kitajs/ts-json-schema-generator';
-import { ParamResolver } from '../parameters/base';
+import { ParamResolver } from '../param-resolvers/base';
 import type { BaseRoute } from '../routes/base';
 import type { RestRoute } from '../routes/rest';
 import { findRouteName } from '../util/string';
@@ -65,6 +65,12 @@ export class RestResolver extends NodeResolver {
     route.schema = deepmerge(route.schema, {
       response: { default: schema }
     });
+
+    //@ts-expect-error - TODO: Find correct ts.getJsDoc method
+    const description = node.jsDoc?.[0]?.comment;
+    if (description) {
+      route.schema = deepmerge(route.schema, { description });
+    }
 
     // Parse JSDoc tags
     ts.getJSDocTags(node).forEach((tag) => this.parseTag(tag, route));
@@ -135,7 +141,8 @@ export class RestResolver extends NodeResolver {
       case 'description':
         //@ts-ignore - any type is valid
         if (route.schema.description) {
-          throw KitaError(`@${name} tag is already defined.`, route.controllerPath);
+          //@ts-ignore - any type is valid
+          throw KitaError(`A description for this route is already defined. (${route.schema.description})`, route.controllerPath);
         }
 
         route.schema = deepmerge(route.schema, {
