@@ -7,42 +7,50 @@ import * as ParametersReqRepController from './routes/parameters/req-rep';
 export const KitaConfig = {
   params: {},
   tsconfig: './tsconfig.json',
-  templates: '@kitajs/generator/templates',
   controllers: {
     glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
     prefix: '(?:.*src)?/?(?:routes/?)'
   },
-  routes: { output: './src/routes.ts' }
+  routes: { output: './src/routes.ts', format: { parser: 'typescript' } }
 };
 
 /** The fastify plugin to be registered. */
 export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
-  const context: RouteContext = { config: KitaConfig, fastify, ...options.context };
+  const context: RouteContext = {
+    config: KitaConfig,
+    fastify,
+    ...options.context
+  };
 
   fastify.addSchema({
-    $id: 'ParametersReqRepControllerPOSTResponse',
+    $id: 'ParametersReqRepController.postResponse',
     type: 'null'
   });
 
   fastify.addSchema({
-    $id: 'ParametersReqRepControllerPUTResponse',
+    $id: 'ParametersReqRepController.putResponse',
     type: 'null'
   });
 
   fastify.addSchema({
-    $id: 'ParametersReqRepControllerDELETEResponse',
+    $id: 'ParametersReqRepController.DeleteResponse',
     type: 'string'
   });
 
   fastify.addSchema({
-    $id: 'ParametersReqRepControllerGETResponse',
+    $id: 'ParametersReqRepController.getResponse',
     type: 'string'
   });
 
   fastify.route({
     method: 'GET',
     url: '/parameters/req-rep',
-    schema: { response: { default: { $ref: 'ParametersReqRepControllerGETResponse' } } },
+    schema: {
+      operationId: 'ParametersReqRepController.get',
+      response: {
+        default: { $ref: 'ParametersReqRepController.getResponse' }
+      }
+    },
     //@ts-ignore - unused
     handler: async (request, reply) => {
       const data = await ParametersReqRepController.get.apply(context, [request, reply]);
@@ -50,7 +58,12 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       if (reply.sent) {
         //@ts-ignore - When ParametersReqRepController.get() returns nothing, typescript gets mad.
         if (data) {
-          throw Helpers.replyAlreadySent(data);
+          const error = new Error('Reply already sent, but controller returned data');
+
+          //@ts-expect-error - include data in error to help debugging
+          error.data = data;
+
+          return error;
         }
 
         return;
@@ -63,7 +76,12 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.route({
     method: 'POST',
     url: '/parameters/req-rep',
-    schema: { response: { default: { $ref: 'ParametersReqRepControllerPOSTResponse' } } },
+    schema: {
+      operationId: 'ParametersReqRepController.post',
+      response: {
+        default: { $ref: 'ParametersReqRepController.postResponse' }
+      }
+    },
     //@ts-ignore - unused
     handler: async (request, reply) => {
       const data = await ParametersReqRepController.post.apply(context, [reply]);
@@ -71,7 +89,12 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       if (reply.sent) {
         //@ts-ignore - When ParametersReqRepController.post() returns nothing, typescript gets mad.
         if (data) {
-          throw Helpers.replyAlreadySent(data);
+          const error = new Error('Reply already sent, but controller returned data');
+
+          //@ts-expect-error - include data in error to help debugging
+          error.data = data;
+
+          return error;
         }
 
         return;
@@ -84,7 +107,12 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.route({
     method: 'PUT',
     url: '/parameters/req-rep',
-    schema: { response: { default: { $ref: 'ParametersReqRepControllerPUTResponse' } } },
+    schema: {
+      operationId: 'ParametersReqRepController.put',
+      response: {
+        default: { $ref: 'ParametersReqRepController.putResponse' }
+      }
+    },
     //@ts-ignore - unused
     handler: async (request, reply) => {
       const data = await ParametersReqRepController.put.apply(context, [reply]);
@@ -92,7 +120,12 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       if (reply.sent) {
         //@ts-ignore - When ParametersReqRepController.put() returns nothing, typescript gets mad.
         if (data) {
-          throw Helpers.replyAlreadySent(data);
+          const error = new Error('Reply already sent, but controller returned data');
+
+          //@ts-expect-error - include data in error to help debugging
+          error.data = data;
+
+          return error;
         }
 
         return;
@@ -106,7 +139,10 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     method: 'DELETE',
     url: '/parameters/req-rep',
     schema: {
-      response: { default: { $ref: 'ParametersReqRepControllerDELETEResponse' } }
+      operationId: 'ParametersReqRepController.Delete',
+      response: {
+        default: { $ref: 'ParametersReqRepController.DeleteResponse' }
+      }
     },
     //@ts-ignore - unused
     handler: async (request, reply) => {
@@ -115,7 +151,12 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       if (reply.sent) {
         //@ts-ignore - When ParametersReqRepController.Delete() returns nothing, typescript gets mad.
         if (data) {
-          throw Helpers.replyAlreadySent(data);
+          const error = new Error('Reply already sent, but controller returned data');
+
+          //@ts-expect-error - include data in error to help debugging
+          error.data = data;
+
+          return error;
         }
 
         return;
@@ -129,93 +170,88 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   return Promise.resolve();
 });
 
-/** Internal helpers to this template */
-export const Helpers = {
-  replyAlreadySent(data: any) {
-    const error = new Error('Reply already sent, but controller returned data');
-
-    //@ts-expect-error - include data in error to help debugging
-    error.data = data;
-
-    return error;
-  }
-};
-
 /** Handlebars data for hydration, just for debugging purposes. */
 export const HBS_CONF = {
   config: {
     params: {},
     tsconfig: './tsconfig.json',
-    templates: '@kitajs/generator/templates',
     controllers: {
       glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
       prefix: '(?:.*src)?/?(?:routes/?)'
     },
-    routes: { output: './src/routes.ts' }
+    routes: { output: './src/routes.ts', format: { parser: 'typescript' } }
   },
   routes: [
     {
-      templatePath: 'routes/rest.hbs',
+      controllerMethod: 'get',
+      method: 'GET',
       controllerName: 'ParametersReqRepController',
       url: '/parameters/req-rep',
       controllerPath: 'src/routes/parameters/req-rep.ts:3:15',
-      controllerMethod: 'get',
       parameters: [{ value: 'request' }, { value: 'reply' }],
       schema: {
-        response: { default: { $ref: 'ParametersReqRepControllerGETResponse' } }
+        operationId: 'ParametersReqRepController.get',
+        response: {
+          default: { $ref: 'ParametersReqRepController.getResponse' }
+        }
       },
-      method: 'GET',
-      template:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/parameters/req-rep\',\n  schema: {"response":{"default":{"$ref":"ParametersReqRepControllerGETResponse"}}},\n  //@ts-ignore - unused\n  handler: async (request, reply) => {\n\n    const data = await ParametersReqRepController.get.apply(context, [request,reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ParametersReqRepController.get() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+      rendered:
+        'fastify.route({\n  method: \'GET\',\n  url: \'/parameters/req-rep\',\n  schema: {"operationId":"ParametersReqRepController.get","response":{"default":{"$ref":"ParametersReqRepController.getResponse"}}},\n  //@ts-ignore - unused\n  handler: async (request, reply) => {\n\n    const data = await ParametersReqRepController.get.apply(context, [request,reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ParametersReqRepController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     },
     {
-      templatePath: 'routes/rest.hbs',
+      controllerMethod: 'post',
+      method: 'POST',
       controllerName: 'ParametersReqRepController',
       url: '/parameters/req-rep',
       controllerPath: 'src/routes/parameters/req-rep.ts:9:15',
-      controllerMethod: 'post',
       parameters: [{ value: 'reply' }],
       schema: {
-        response: { default: { $ref: 'ParametersReqRepControllerPOSTResponse' } }
+        operationId: 'ParametersReqRepController.post',
+        response: {
+          default: { $ref: 'ParametersReqRepController.postResponse' }
+        }
       },
-      method: 'POST',
-      template:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/parameters/req-rep\',\n  schema: {"response":{"default":{"$ref":"ParametersReqRepControllerPOSTResponse"}}},\n  //@ts-ignore - unused\n  handler: async (request, reply) => {\n\n    const data = await ParametersReqRepController.post.apply(context, [reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ParametersReqRepController.post() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+      rendered:
+        'fastify.route({\n  method: \'POST\',\n  url: \'/parameters/req-rep\',\n  schema: {"operationId":"ParametersReqRepController.post","response":{"default":{"$ref":"ParametersReqRepController.postResponse"}}},\n  //@ts-ignore - unused\n  handler: async (request, reply) => {\n\n    const data = await ParametersReqRepController.post.apply(context, [reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ParametersReqRepController.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     },
     {
-      templatePath: 'routes/rest.hbs',
+      controllerMethod: 'put',
+      method: 'PUT',
       controllerName: 'ParametersReqRepController',
       url: '/parameters/req-rep',
       controllerPath: 'src/routes/parameters/req-rep.ts:13:15',
-      controllerMethod: 'put',
       parameters: [{ value: 'reply' }],
       schema: {
-        response: { default: { $ref: 'ParametersReqRepControllerPUTResponse' } }
+        operationId: 'ParametersReqRepController.put',
+        response: {
+          default: { $ref: 'ParametersReqRepController.putResponse' }
+        }
       },
-      method: 'PUT',
-      template:
-        'fastify.route({\n  method: \'PUT\',\n  url: \'/parameters/req-rep\',\n  schema: {"response":{"default":{"$ref":"ParametersReqRepControllerPUTResponse"}}},\n  //@ts-ignore - unused\n  handler: async (request, reply) => {\n\n    const data = await ParametersReqRepController.put.apply(context, [reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ParametersReqRepController.put() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+      rendered:
+        'fastify.route({\n  method: \'PUT\',\n  url: \'/parameters/req-rep\',\n  schema: {"operationId":"ParametersReqRepController.put","response":{"default":{"$ref":"ParametersReqRepController.putResponse"}}},\n  //@ts-ignore - unused\n  handler: async (request, reply) => {\n\n    const data = await ParametersReqRepController.put.apply(context, [reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ParametersReqRepController.put() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     },
     {
-      templatePath: 'routes/rest.hbs',
+      controllerMethod: 'Delete',
+      method: 'DELETE',
       controllerName: 'ParametersReqRepController',
       url: '/parameters/req-rep',
       controllerPath: 'src/routes/parameters/req-rep.ts:17:15',
-      controllerMethod: 'Delete',
       parameters: [{ value: 'reply' }],
       schema: {
-        response: { default: { $ref: 'ParametersReqRepControllerDELETEResponse' } }
+        operationId: 'ParametersReqRepController.Delete',
+        response: {
+          default: { $ref: 'ParametersReqRepController.DeleteResponse' }
+        }
       },
-      method: 'DELETE',
-      template:
-        'fastify.route({\n  method: \'DELETE\',\n  url: \'/parameters/req-rep\',\n  schema: {"response":{"default":{"$ref":"ParametersReqRepControllerDELETEResponse"}}},\n  //@ts-ignore - unused\n  handler: async (request, reply) => {\n\n    const data = await ParametersReqRepController.Delete.apply(context, [reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ParametersReqRepController.Delete() returns nothing, typescript gets mad.\n      if (data) {\n        throw Helpers.replyAlreadySent(data);\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+      rendered:
+        'fastify.route({\n  method: \'DELETE\',\n  url: \'/parameters/req-rep\',\n  schema: {"operationId":"ParametersReqRepController.Delete","response":{"default":{"$ref":"ParametersReqRepController.DeleteResponse"}}},\n  //@ts-ignore - unused\n  handler: async (request, reply) => {\n\n    const data = await ParametersReqRepController.Delete.apply(context, [reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ParametersReqRepController.Delete() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
     }
   ],
   schemas: [
-    { $id: 'ParametersReqRepControllerPOSTResponse', type: 'null' },
-    { $id: 'ParametersReqRepControllerPUTResponse', type: 'null' },
-    { $id: 'ParametersReqRepControllerDELETEResponse', type: 'string' },
-    { $id: 'ParametersReqRepControllerGETResponse', type: 'string' }
+    { $id: 'ParametersReqRepController.postResponse', type: 'null' },
+    { $id: 'ParametersReqRepController.putResponse', type: 'null' },
+    { $id: 'ParametersReqRepController.DeleteResponse', type: 'string' },
+    { $id: 'ParametersReqRepController.getResponse', type: 'string' }
   ],
   imports: ["import * as ParametersReqRepController from './routes/parameters/req-rep';"]
 };

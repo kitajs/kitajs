@@ -1,4 +1,4 @@
-import type { KitaConfig } from '@kitajs/core';
+import type { KitaConfig } from '@kitajs/generator';
 import type { FastifyInstance, RouteShorthandOptions } from 'fastify';
 
 /** Global interface that can be overridden to include your own types */

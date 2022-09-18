@@ -7,7 +7,7 @@ export type QueueItem<T = any> = { name: string; data: T; promise: Deferred<T> }
 export const kWorkerQueueItem = Symbol('workerQueueItem');
 export type kWorkerQueueItem = typeof kWorkerQueueItem;
 
-console.log(__filename)
+console.log(__filename);
 
 declare module 'worker_threads' {
   interface Worker {

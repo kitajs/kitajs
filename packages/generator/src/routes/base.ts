@@ -1,83 +1,72 @@
-import type { FastifySchema } from 'fastify';
-import type { Parameter } from '../parameter';
+import type ts from 'typescript';
+import { catchKitaError } from '../errors';
+import type { KitaGenerator } from '../generator';
+import type { Route } from '../route';
+import { isNodeExported, isTypeOnlyNode } from '../util/node';
 
-/**
- * The base route is just an abstract class to wrap any possible route that can be generated.
- */
-export interface BaseRoute {
+export type CreationData<N extends ts.Node> = {
   /**
-   * The name of the source controller.
+   * The initial node.
    *
-   * @example `UserController`
+   * **Its actually internal type has to be forced by the `supports()` call.**
    */
-  controllerName: string;
+  node: N;
 
   /**
-   * The full path to the original controller method.
-   *
-   * @example `/usr/file.ts:1:2`
+   * The main kita generator
    */
-  controllerPath: string;
+  kita: KitaGenerator;
 
   /**
-   * The method of the controller. To be used as `Controller.<METHOD>()`
-   *
-   * @example `get`
+   * The source of the provided node
    */
-  controllerMethod: string;
+  source: ts.SourceFile;
+};
+
+export abstract class RouteResolver<N extends ts.Node = ts.Node> {
+  /**
+   *  Returns true if this resolver supports this route mode
+   */
+  abstract supports(node: ts.Node): boolean;
 
   /**
-   * All possible parameters for this route.
+   * Resolves the provided creation data into a route object
    */
-  parameters: Parameter[];
+  abstract resolve(data: CreationData<N>): Promise<Route | undefined>;
 
   /**
-   * The path to be concatenated with the provided config.templates path.
-   *
-   * @example
-   * ```ts
-   * config.templates = '@kita/generator/templates'
-   * templatePath = 'routes/rest.hbs'
-   * result = '@kita/generator/templates/routes/rest.hbs'
-   * ```
+   * Resolves the provided node into a possible route object.
    */
-  templatePath: string;
+  static async resolveNode(
+    node: ts.Node,
+    source: ts.SourceFile,
+    kita: KitaGenerator
+  ): Promise<Route | undefined> {
+    if (!isNodeExported(node) || isTypeOnlyNode(node)) {
+      return;
+    }
 
-  /**
-   * The compiled and generated string from the provided template path.
-   *
-   * This is only created when this BaseRoute is added to the AST routes.
-   */
-  template?: string;
+    const resolver = kita.routes.find((resolver) => resolver.supports(node));
 
-  /**
-   * The fastify schema for this route.
-   */
-  schema: FastifySchema;
+    // Ignore nodes that are not supported. We could throw an error here, but sometimes
+    // Route configs imports custom named objects (E.g: `Route<{ preHandler: typeof customFn }>`)
+    // that has their name not included in some list we would create.
+    if (!resolver) {
+      return;
+    }
 
-  /**
-   * The controller http route.
-   *
-   * @example `/users/create`
-   */
-  url: string;
-
-  /**
-   * The controller http method.
-   *
-   * @example `get`
-   */
-  method: string;
-
-  /**
-   * The open api operation id.
-   *
-   * @example `createUsers`
-   */
-  operationId?: string;
-
-  /**
-   * A jsonified string for the fastify route options
-   */
-  options?: string;
+    return (
+      resolver
+        .resolve({
+          // Correct typecast
+          node: node as typeof resolver extends RouteResolver<infer U>
+            ? U
+            : typeof resolver,
+          source,
+          kita
+        })
+        // A custom catch here to allows multiple parameters errors throw at once.
+        .catch(catchKitaError)
+    );
+  }
 }

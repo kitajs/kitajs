@@ -3,24 +3,22 @@
   "version": "1.0.0",
   "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
+  "main": "./bin.js",
   "bin": {
-    "kita": "./bin"
+    "kita": "./bin.js"
   },
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
+    "deepmerge": "^4.2.2",
+    "tslib": "^2.4.0",
     "@kitajs/generator": "*",
+    "@kitajs/runtime": "*",
     "chalk": "^4",
     "commander": "^9.4.0",
-    "glob": "^8.0.3",
     "prettier": "^2.7.1",
-    "ts-json-schema-generator": "^1.0.0",
-    "tslib": "^2.4.0",
+    "@types/prettier": "^2.7.0",
     "typescript": "~4.8.3"
-  },
-  "devDependencies": {
-    "@types/glob": "^8.0.0",
-    "@types/prettier": "^2.7.0"
   }
 }

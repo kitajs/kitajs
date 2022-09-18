@@ -8,20 +8,19 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@kitajs/core": "*",
     "deepmerge": "^4.2.2",
-    "fastify": "^4.5.3",
-    "fastify-plugin": "^4.2.1",
     "glob": "^8.0.3",
+    "ts-json-schema-generator": "^1.0.0",
     "glob-promise": "^5.0.0",
     "handlebars": "^4.7.7",
     "minimatch": "^5.1.0",
     "tslib": "^2.4.0",
-    "typescript": "*"
+    "fastify": "^4.5.3",
+    "typescript": "*",
+    "@types/prettier": "^2.7.0"
   },
   "devDependencies": {
-    "@types/glob": "^8.0.0",
-    "@types/prettier": "^2.7.0"
+    "@types/glob": "^8.0.0"
   },
   "files": [
     "src",

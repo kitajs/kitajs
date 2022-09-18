@@ -9,14 +9,13 @@ import {
   SchemaGenerator,
   ts
 } from '@kitajs/ts-json-schema-generator';
-import { KitaError } from './errors';
 import type { KitaAST } from './ast';
-import type { BaseRoute } from './routes/base';
+import { KitaError } from './errors';
+import type { Route } from './route';
 import { getReturnType } from './util/node';
-import { capitalize } from './util/string';
 
 export class SchemaStorage extends SchemaGenerator {
-  private readonly definitions: Record<string, Definition> = {};
+  protected readonly definitions: Record<string, Definition> = {};
 
   constructor(tsconfig: string, override readonly program: ts.Program) {
     const config: Config = { tsconfig };
@@ -43,7 +42,7 @@ export class SchemaStorage extends SchemaGenerator {
   /**
    * Saves and returns a function response type respective json schema.
    */
-  consumeResponseType(node: ts.SignatureDeclaration, route: BaseRoute): Schema {
+  consumeResponseType(node: ts.SignatureDeclaration, route: Route): Schema {
     const returnType = getReturnType(node, this.program.getTypeChecker());
 
     const type = this.nodeParser.createType(returnType, new Context(node));
@@ -53,9 +52,7 @@ export class SchemaStorage extends SchemaGenerator {
     }
 
     //@ts-expect-error - Defines a return type name to avoid uri-reference problem
-    type.name ??= `${
-      route.operationId ?? `${route.controllerName}${capitalize(route.method)}`
-    }Response`;
+    type.name ??= `${route.schema.operationId}Response`;
 
     // Includes this node into our recursive definition
     this.appendRootChildDefinitions(type, this.definitions);
@@ -67,7 +64,7 @@ export class SchemaStorage extends SchemaGenerator {
   /**
    * Transforms a json schema {@link BaseType} into a reference json object (`{ $ref: '<name>' }`).
    */
-  private getDefinition(type: BaseType): Schema {
+  protected getDefinition(type: BaseType): Schema {
     const def = this.typeFormatter.getDefinition(type);
 
     // See https://github.com/vega/ts-json-schema-generator/pull/1386

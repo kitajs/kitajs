@@ -1,6 +1,6 @@
-import type { KitaConfig } from '@kitajs/core';
-import type { BaseRoute } from './routes/base';
+import type { KitaConfig } from './config';
 import type { Schema } from '@kitajs/ts-json-schema-generator';
+import type { Route } from './route';
 
 /**
  * This class is used to store all the data read from all codes.
@@ -13,7 +13,7 @@ export class KitaAST {
     readonly config: KitaConfig,
 
     /** All generated routes */
-    readonly routes: BaseRoute[] = [],
+    readonly routes: Route[] = [],
 
     /** All generated schemas */
     readonly schemas: Schema[] = [],
@@ -22,6 +22,7 @@ export class KitaAST {
     readonly imports: string[] = []
   ) {}
 
+  /** Adds a import if not already added. */
   addImport(importPath: string) {
     if (!this.imports.includes(importPath)) {
       this.imports.push(importPath);

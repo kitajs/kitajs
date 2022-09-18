@@ -1,5 +1,0 @@
-{
-  "params": {
-    "AuthParam": "./src/helpers/auth-param"
-  }
-}

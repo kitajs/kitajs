@@ -9,8 +9,9 @@
   },
   "dependencies": {
     "@fastify/websocket": "^7.0.1",
-    "@kitajs/core": "*",
+    "@kitajs/generator": "*",
     "fastify": "^4.5.3",
+    "fastify-plugin": "^4.2.1",
     "tslib": "^2.4.0"
   }
 }

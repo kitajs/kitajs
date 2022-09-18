@@ -30,25 +30,17 @@ api compliant, see the [routes.ts](packages/test-package/src/routes.ts) generate
 <br />
 
 ```ts
-// /routes/hello-world.ts
-import type { Route } from '@kitajs/runtime';
-
-export function get(this: Route<'helloWorld'>) {
-  return 'Hello World';
-}
-```
-
-```ts
 // /routes/hello/[name].ts
 
-// Configurations read from typings when compiling!! (No runtime code = blazingly fast ⚡)
-export function get(this: Route<'hello'>, name: Path<'name'>) {
+// Configurations read from typings at compile time!!
+// (No runtime code == blazingly fast ⚡⚡)
+export function get(this: Route<'helloWorld'>, name: Path<'name'> = 'World') {
   return `Hello ${name}`;
 }
 ```
 
 ```sh
-# The magic happens here
+# Magic happens here 🪄
 $ kita generate
 ```
 

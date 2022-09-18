@@ -11,6 +11,7 @@ fastify.route({
         if (reply.sent) {
           return;
         }
+        
        {{/if}}
     {{/each}}
 
@@ -19,7 +20,12 @@ fastify.route({
     if (reply.sent) {
       //@ts-ignore - When {{controllerName}}.{{controllerMethod}}() returns nothing, typescript gets mad.
       if (data) {
-        throw Helpers.replyAlreadySent(data);
+        const error = new Error('Reply already sent, but controller returned data');
+    
+        //@ts-expect-error - include data in error to help debugging
+        error.data = data;
+        
+        return error;
       }
 
       return;

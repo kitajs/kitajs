@@ -1,9 +1,9 @@
-import type { KitaConfig } from '@kitajs/core';
+import type { KitaConfig } from '../config';
 import type { ts } from '@kitajs/ts-json-schema-generator';
-import type { KitaGenerator } from '../generator';
 import { KitaError } from '../errors';
+import type { KitaGenerator } from '../generator';
 import type { Parameter } from '../parameter';
-import type { BaseRoute } from '../routes/base';
+import type { Route } from '../route';
 
 /** Names provided to {@link ParamResolver.supports} predicate. */
 export interface ParamInfo {
@@ -26,7 +26,7 @@ export interface ParamInfo {
 /**
  * All possible information that a ParamResolver might need.
  */
-export interface ParamData<R extends BaseRoute = BaseRoute> {
+export interface ParamData<R extends Route = Route> {
   /**
    *  The current route info for this parameter
    */
@@ -92,7 +92,7 @@ export abstract class ParamResolver {
   /** Tries to resolve all parameters for a function. */
   static readonly resolveParameter = (
     kita: KitaGenerator,
-    route: BaseRoute,
+    route: Route,
     fn: ts.FunctionDeclaration,
     param: ts.ParameterDeclaration,
     index: number
@@ -119,7 +119,7 @@ export abstract class ParamResolver {
       fn,
       param,
       generics: (param.type as ts.NodeWithTypeArguments)?.typeArguments,
-      optional: !!param.questionToken,
+      optional: !!param.questionToken || !!param.initializer,
       inferredType: `Parameters<typeof ${route.controllerName}.${route.controllerMethod}>[${parameterIndex}]`,
       kita
     });

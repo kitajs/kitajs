@@ -1,4 +1,4 @@
-import type { KitaConfig } from '@kitajs/core';
+import type { KitaConfig } from '../config';
 
 export function unquote(str: string) {
   return str.replace(/['"`](.*?)['"`]/g, '$1');
@@ -44,5 +44,5 @@ export function findRouteName(filepath: string, config: KitaConfig) {
 }
 
 export function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }

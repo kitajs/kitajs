@@ -18,25 +18,13 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   {{/each}}
 
   {{#each routes}}
-    {{template}}
+    {{rendered}}
 
   {{/each}}
 
   // Ensure this function remains a "async" function
   return Promise.resolve();
 });
-
-/** Internal helpers to this template */
-export const Helpers = {
-  replyAlreadySent(data: any) {
-    const error = new Error('Reply already sent, but controller returned data');
-    
-    //@ts-expect-error - include data in error to help debugging
-    error.data = data;
-    
-    return error;
-  }
-}
 
 /** Handlebars data for hydration, just for debugging purposes. */
 export const HBS_CONF = {{json this}};

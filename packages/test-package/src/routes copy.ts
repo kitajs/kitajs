@@ -1,10 +1,12 @@
+//@ts-nocheck
+
 import type { RouteContext, ProvidedRouteContext } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
 import '@fastify/swagger';
 import AuthParam from './helpers/auth-param';
 import '@fastify/cookie';
 import * as ResponseTypesController from './routes/response-types';
-import * as WsController from './routes/ws';
+import * as WsController from './routes/ping';
 import * as $name$Controller from './routes/[name]';
 
 /** The resultant config read from your kita config file. */
@@ -403,7 +405,7 @@ const { parentPort, workerData } = require('node:worker_threads');
   }
 };
 
-import { Worker ,} from 'node:worker_threads';
+import { Worker } from 'node:worker_threads';
 
 new Promise((resolve, reject) => {
   const worker = new Worker(Helpers.workerCode('$name$', 'post', '$name$.controller'), {

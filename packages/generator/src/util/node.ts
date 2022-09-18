@@ -26,7 +26,10 @@ export function isNodeExported(node: ts.Node): boolean {
   return false;
 }
 
-export function isNodeType(node: ts.Node) {
+/**
+ * Returns true if the provided node is `interface A {}` or `type A = {}`.
+ */
+export function isTypeOnlyNode(node: ts.Node) {
   return (
     node.kind === ts.SyntaxKind.TypeAliasDeclaration ||
     node.kind === ts.SyntaxKind.InterfaceDeclaration

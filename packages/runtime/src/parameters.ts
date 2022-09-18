@@ -21,8 +21,10 @@ export type BodyProp<Type, Path extends string = string> = Type;
  *   name: Query, // defaults to string
  *   age: Query<number>, // custom type
  *   ageString: Query<'age'>, // custom name
- *   customNamed: Query<boolean, 'custom-naming'> // Custom type and name
- *   extended: Query<Extended>, // custom type. If this mode is used, it must be the only query parameter
+ *   customNamed: Query<boolean, 'custom-naming'>, // Custom type and name
+ *
+ *   // If this mode is used, it **MUST BE THE ONLY ONE** query parameter
+ *   extended: Query<Extended>, // custom type. (not string | number | boolean)
  * ) {}
  * ```
  */
@@ -36,11 +38,13 @@ export type Query<
 > = Type extends string ? string : Type;
 
 /**
+ * **Headers are case insensitive!**
+ *
  * @example
  * ```ts
  * export function get(
- *   date: Header, // Date header (case insensitive)
- *   cacheControl: Header<'Cache-Control'>, // Custom name (case insensitive)
+ *   date: Header, // Date header
+ *   cacheControl: Header<'Cache-Control'>, // Custom name
  * ) {}
  * ```
  */
@@ -71,18 +75,3 @@ export type CustomParameter<Result, Parameters extends Native[]> = Result;
  */
 //@ts-ignore - may not be used / present
 export type Conn = import('@fastify/websocket').SocketStream;
-
-/**
- * The parameter type of the websocket connection.
- *
- * **NOTE**: Only works on `WebSocket` routes
- *
- * @example
- * export function ws(
- *   this: Route<'subscribeUsers'>,
- *   socket: Sock,
- *   req: Req,
- * ) {}
- */
-//@ts-ignore - may not be used / present
-export type Sock = import('@fastify/websocket').SocketStream['socket'];

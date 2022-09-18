@@ -35,7 +35,7 @@ export function isKitaError(error: any): error is KitaError {
   return !!error?.__KITA_ERROR__;
 }
 
-/** Used to track if this execution threw any error */
+/** Used to keep track of the amount of thrown errors happened during this whole process execution. */
 export let errorCount = 0;
 
 export const catchKitaError = (err: any) => {
