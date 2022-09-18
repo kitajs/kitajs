@@ -1,16 +1,30 @@
 import type { RouteContext, ProvidedRouteContext } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
 import '@fastify/swagger';
+import type { KitaConfig } from '@kitajs/generator';
 {{#each imports}}
   {{this}}
 {{/each}}
 
-/** The resultant config read from your kita config file. */
-export const KitaConfig = {{json config}};
+/**
+ * This is the resolved config that was used during code generation. JIC its needed at runtime.
+ */
+export const config = {{json config}} as KitaConfig;
 
-/** The fastify plugin to be registered. */
+/**
+ * The Kita generated fastify plugin. Registering it into your fastify instance will
+ * automatically register all routes, schemas and controllers.
+ *
+ * @example
+ * ```ts
+ * import { Kita } from './routes'; // this file
+ * import app from './fastify-app';
+ * 
+ * app.register(Kita, { context: { ... } })
+ * ```
+ */
 export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
-  const context: RouteContext = { config: KitaConfig, fastify, ...options.context };
+  const context: RouteContext = { config, fastify, ...options.context };
 
   {{#each schemas}}
     fastify.addSchema({{jsonf this}});
@@ -26,5 +40,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   return Promise.resolve();
 });
 
-/** Handlebars data for hydration, just for debugging purposes. */
+/**
+ * The extracted data from your controllers and configurations for this template hydration. It is here just for debugging purposes.
+ */
 export const HBS_CONF = {{json this}};
