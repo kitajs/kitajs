@@ -1,12 +1,17 @@
 import {
   BaseType,
+  BooleanType,
   Config,
   Context,
   createFormatter,
   createParser,
   Definition,
+  DefinitionType,
+  NullType,
+  NumberType,
   Schema,
   SchemaGenerator,
+  StringType,
   ts
 } from '@kitajs/ts-json-schema-generator';
 import type { KitaAST } from './ast';
@@ -28,6 +33,13 @@ export class SchemaStorage extends SchemaGenerator {
   consumeNode(node: ts.Node): Schema {
     const type = this.nodeParser.createType(node, new Context(node));
 
+    // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
+    const native = this.getNativeType(type);
+
+    if (native) {
+      return { type: native.getId() as 'string' };
+    }
+
     if (!type) {
       throw KitaError(`Could not create type for node \`${node.getText()}\``);
     }
@@ -45,10 +57,20 @@ export class SchemaStorage extends SchemaGenerator {
   consumeResponseType(node: ts.SignatureDeclaration, route: Route): Schema {
     const returnType = getReturnType(node, this.program.getTypeChecker());
 
-    const type = this.nodeParser.createType(returnType, new Context(node));
+    const type = this.nodeParser.createType(
+      returnType,
+      new Context(node)
+    ) as DefinitionType;
 
     if (!type) {
       throw KitaError(`Could not create type for node \`${returnType.getText()}\``);
+    }
+
+    // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
+    const native = this.getNativeType(type);
+
+    if (native) {
+      return { type: native.getId() as 'string' };
     }
 
     //@ts-expect-error - Defines a return type name to avoid uri-reference problem
@@ -59,6 +81,28 @@ export class SchemaStorage extends SchemaGenerator {
 
     // Returns reference to this node
     return this.getDefinition(type);
+  }
+
+  /**
+   *  Returns itself it the provided type is a {@link NumberType},
+   *
+   *
+   */
+  protected getNativeType(type: BaseType) {
+    if (type instanceof DefinitionType) {
+      type = type.getType();
+    }
+
+    if (
+      type instanceof NumberType ||
+      type instanceof StringType ||
+      type instanceof NullType ||
+      type instanceof BooleanType
+    ) {
+      return type;
+    }
+
+    return undefined;
   }
 
   /**

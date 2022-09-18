@@ -47,8 +47,6 @@ export class RestResolver extends RouteResolver<ts.FunctionDeclaration> {
       rendered: ''
     };
 
-    route.schema.operationId = `${route.controllerName}.${route.controllerMethod}`;
-
     // Needs to process each parameter in their expected order
     for (const [index, param] of node.parameters.entries()) {
       const parameter = await ParamResolver.resolveParameter(

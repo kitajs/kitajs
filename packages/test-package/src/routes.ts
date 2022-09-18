@@ -39,11 +39,6 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
     const context: RouteContext = { config, fastify, ...options.context };
 
     fastify.addSchema({
-      $id: "HelloWorldController.getResponse",
-      type: "string",
-    });
-
-    fastify.addSchema({
       $id: "HelloWorldQuery",
       type: "object",
       properties: {
@@ -56,11 +51,6 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
       },
       required: ["name", "age"],
       additionalProperties: false,
-    });
-
-    fastify.addSchema({
-      $id: "def-number",
-      type: "number",
     });
 
     fastify.addSchema({
@@ -123,16 +113,6 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
       additionalProperties: false,
     });
 
-    fastify.addSchema({
-      $id: "fullExampleExclusiveQueryResponse",
-      type: "number",
-    });
-
-    fastify.addSchema({
-      $id: "fullExampleUsingBodyResponse",
-      type: "number",
-    });
-
     fastify.route({
       method: "PUT",
       url: "/:name",
@@ -147,8 +127,8 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
         body: {
           type: "object",
           properties: {
-            path: { $ref: "def-number" },
-            bodyProp: { $ref: "def-number" },
+            path: { type: "number" },
+            bodyProp: { type: "number" },
           },
           required: ["path", "bodyProp"],
           additionalProperties: false,
@@ -169,7 +149,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
           ],
           additionalProperties: false,
         },
-        response: { default: { $ref: "fullExampleUsingBodyResponse" } },
+        response: { default: { type: "number" } },
         description: "Route description 1",
         security: [
           { default: [] },
@@ -256,7 +236,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
         },
         body: { $ref: "NameQuery" },
         querystring: { $ref: "NameQuery" },
-        response: { default: { $ref: "fullExampleExclusiveQueryResponse" } },
+        response: { default: { type: "number" } },
         description: "route description 2",
         security: [
           { default: [] },
@@ -320,14 +300,14 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
       method: "GET",
       url: "/hello-world",
       schema: {
-        operationId: "HelloWorldController.get",
+        operationId: "HelloWorldControllerGet",
         querystring: {
           type: "object",
           properties: { name: { type: "string" } },
           required: [],
           additionalProperties: false,
         },
-        response: { default: { $ref: "HelloWorldController.getResponse" } },
+        response: { default: { type: "string" } },
         description: "Hello world rest API endpoint.",
       },
       //@ts-ignore - we may have unused params
@@ -587,8 +567,8 @@ export const HBS_CONF = {
         body: {
           type: "object",
           properties: {
-            path: { $ref: "def-number" },
-            bodyProp: { $ref: "def-number" },
+            path: { type: "number" },
+            bodyProp: { type: "number" },
           },
           required: ["path", "bodyProp"],
           additionalProperties: false,
@@ -609,7 +589,7 @@ export const HBS_CONF = {
           ],
           additionalProperties: false,
         },
-        response: { default: { $ref: "fullExampleUsingBodyResponse" } },
+        response: { default: { type: "number" } },
         description: "Route description 1",
         security: [
           { default: [] },
@@ -619,7 +599,7 @@ export const HBS_CONF = {
         summary: "route summary 1",
       },
       rendered:
-        'fastify.route({\n  method: \'PUT\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"$ref":"def-number"},"bodyProp":{"$ref":"def-number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false},"response":{"default":{"$ref":"fullExampleUsingBodyResponse"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    const data = await $name$Controller.put.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof $name$Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof $name$Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.put() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'PUT\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false},"response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    const data = await $name$Controller.put.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof $name$Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof $name$Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.put() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
       operationId: "fullExampleUsingBody",
     },
     {
@@ -664,7 +644,7 @@ export const HBS_CONF = {
         },
         body: { $ref: "NameQuery" },
         querystring: { $ref: "NameQuery" },
-        response: { default: { $ref: "fullExampleExclusiveQueryResponse" } },
+        response: { default: { type: "number" } },
         description: "route description 2",
         security: [
           { default: [] },
@@ -674,7 +654,7 @@ export const HBS_CONF = {
         summary: "route summary 2",
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"},"response":{"default":{"$ref":"fullExampleExclusiveQueryResponse"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    const data = await $name$Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof $name$Controller.post>[2],(request.query as Parameters<typeof $name$Controller.post>[3]),request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"},"response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    const data = await $name$Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof $name$Controller.post>[2],(request.query as Parameters<typeof $name$Controller.post>[3]),request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
       operationId: "fullExampleExclusiveQuery",
     },
     {
@@ -687,18 +667,18 @@ export const HBS_CONF = {
         { value: "(request.query as { ['name']?: string })['name']" },
       ],
       schema: {
-        operationId: "HelloWorldController.get",
+        operationId: "HelloWorldControllerGet",
         querystring: {
           type: "object",
           properties: { name: { type: "string" } },
           required: [],
           additionalProperties: false,
         },
-        response: { default: { $ref: "HelloWorldController.getResponse" } },
+        response: { default: { type: "string" } },
         description: "Hello world rest API endpoint.",
       },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/hello-world\',\n  schema: {"operationId":"HelloWorldController.get","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false},"response":{"default":{"$ref":"HelloWorldController.getResponse"}},"description":"Hello world rest API endpoint."},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await HelloWorldController.get.apply(context, [(request.query as { [\'name\']?: string })[\'name\']]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When HelloWorldController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'GET\',\n  url: \'/hello-world\',\n  schema: {"operationId":"HelloWorldControllerGet","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false},"response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint."},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await HelloWorldController.get.apply(context, [(request.query as { [\'name\']?: string })[\'name\']]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When HelloWorldController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
     },
     {
       controllerMethod: "ws",
@@ -806,7 +786,6 @@ export const HBS_CONF = {
     },
   ],
   schemas: [
-    { $id: "HelloWorldController.getResponse", type: "string" },
     {
       $id: "HelloWorldQuery",
       type: "object",
@@ -814,7 +793,6 @@ export const HBS_CONF = {
       required: ["name", "age"],
       additionalProperties: false,
     },
-    { $id: "def-number", type: "number" },
     {
       $id: "NameQuery",
       type: "object",
@@ -850,8 +828,6 @@ export const HBS_CONF = {
       required: ["d"],
       additionalProperties: false,
     },
-    { $id: "fullExampleExclusiveQueryResponse", type: "number" },
-    { $id: "fullExampleUsingBodyResponse", type: "number" },
   ],
   imports: [
     "import AuthParam from './helpers/auth-param';",
