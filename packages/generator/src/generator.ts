@@ -116,6 +116,9 @@ export class KitaGenerator {
 
     // Include all generated definitions into the output file.
     this.schemaStorage.applyDefinitions(this.ast);
+
+    // Sort routes by path
+    this.ast.imports.sort();
   }
 
   /** You can override this method to code your own way to generate this route string */

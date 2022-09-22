@@ -1,13 +1,12 @@
 import type { RouteContext, ProvidedRouteContext } from "@kitajs/runtime";
 import fp from "fastify-plugin";
 import "@fastify/swagger";
-import type { KitaConfig } from "@kitajs/generator";
-import AuthParam from "./helpers/auth-param";
 import "@fastify/cookie";
+import * as $name$Controller from "./routes/[name]";
 import * as HelloWorldController from "./routes/hello-world";
 import * as PingController from "./routes/ping";
 import * as ResponseTypesController from "./routes/response-types";
-import * as $name$Controller from "./routes/[name]";
+import AuthParam from "./helpers/auth-param";
 
 /**
  * This is the resolved config that was used during code generation. JIC its needed at runtime.
@@ -20,7 +19,7 @@ export const config = {
     prefix: "(?:.*src)?/?(?:routes/?)",
   },
   routes: { output: "./src/routes.ts", format: { parser: "typescript" } },
-} as KitaConfig;
+};
 
 /**
  * The Kita generated fastify plugin. Registering it into your fastify instance will
@@ -830,11 +829,11 @@ export const HBS_CONF = {
     },
   ],
   imports: [
-    "import AuthParam from './helpers/auth-param';",
     "import '@fastify/cookie';",
+    "import * as $name$Controller from './routes/[name]';",
     "import * as HelloWorldController from './routes/hello-world';",
     "import * as PingController from './routes/ping';",
     "import * as ResponseTypesController from './routes/response-types';",
-    "import * as $name$Controller from './routes/[name]';",
+    "import AuthParam from './helpers/auth-param';",
   ],
 };

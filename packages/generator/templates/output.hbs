@@ -1,7 +1,6 @@
 import type { RouteContext, ProvidedRouteContext } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
 import '@fastify/swagger';
-import type { KitaConfig } from '@kitajs/generator';
 {{#each imports}}
   {{this}}
 {{/each}}
@@ -9,7 +8,7 @@ import type { KitaConfig } from '@kitajs/generator';
 /**
  * This is the resolved config that was used during code generation. JIC its needed at runtime.
  */
-export const config = {{json config}} as KitaConfig;
+export const config = {{json config}};
 
 /**
  * The Kita generated fastify plugin. Registering it into your fastify instance will
