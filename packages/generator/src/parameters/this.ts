@@ -1,4 +1,5 @@
 import { ts } from '@kitajs/ts-json-schema-generator';
+import type { TypeQueryNode } from 'typescript';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
 import { unquote } from '../util/string';
@@ -20,6 +21,12 @@ export class ThisResolver extends ParamResolver {
     const options = generics[1];
 
     if (options) {
+      // Complete external config, useful for more complex types
+      if (options.kind === ts.SyntaxKind.TypeQuery) {
+        route.options = `...${route.controllerName}.${(options as TypeQueryNode).exprName.getText()}`;
+        return;
+      }
+
       if (options.kind !== ts.SyntaxKind.TypeLiteral) {
         throw KitaError(
           `A Route "this" type cannot have a reference to another type.`,
@@ -44,8 +51,8 @@ export class ThisResolver extends ParamResolver {
       text = text.replace(/^\s*{|}\s*$/g, '');
       // Removes "border" spaces
       text = text.trim();
-      // Replaces typeof declarations to a direct route import
-      text = text.replace(/typeof (\w+)(?:,|;)?/g, `${route.controllerName}.$1`);
+      // Replaces `typeof localMethod` to `ControllerName.localMethod`
+      text = text.replace(/typeof (\w+);?/g, `${route.controllerName}.$1`);
       // Typescript types allows ; to be used as separators. This regex does not matches escaped ; (\;)
       text = text.replace(/(?<!\\);/g, ',');
       // Includes commas on line breaks, if not present

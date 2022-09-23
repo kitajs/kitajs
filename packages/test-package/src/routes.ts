@@ -6,6 +6,7 @@ import * as $name$Controller from "./routes/[name]";
 import * as HelloWorldController from "./routes/hello-world";
 import * as PingController from "./routes/ping";
 import * as ResponseTypesController from "./routes/response-types";
+import * as ThisController from "./routes/this";
 import AuthParam from "./helpers/auth-param";
 
 /**
@@ -490,6 +491,38 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
       },
     });
 
+    fastify.route({
+      method: "GET",
+      url: "/this",
+      schema: {
+        operationId: "getId",
+        response: { default: { type: "string" } },
+      },
+      //@ts-ignore - we may have unused params
+      handler: async (request, reply) => {
+        const data = await ThisController.get.apply(context, [reply]);
+
+        if (reply.sent) {
+          //@ts-ignore - When ThisController.get() returns nothing, typescript gets mad.
+          if (data) {
+            const error = new Error(
+              "Reply already sent, but controller returned data"
+            );
+
+            //@ts-expect-error - include data in error to help debugging
+            error.data = data;
+
+            return error;
+          }
+
+          return;
+        }
+
+        return data;
+      },
+      onRequest: [...ThisController.auth, ...ThisController.auth2],
+    });
+
     // Ensure this function remains a "async" function
     return Promise.resolve();
   }
@@ -783,6 +816,22 @@ export const HBS_CONF = {
         'fastify.route({\n  method: \'DELETE\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypeAliasPromise","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"DR"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Delete.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Delete>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Delete() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
       operationId: "withTypeAliasPromise",
     },
+    {
+      controllerMethod: "get",
+      method: "GET",
+      controllerName: "ThisController",
+      url: "/this",
+      controllerPath: "src/routes/this.ts:4:15",
+      parameters: [{ value: "reply" }],
+      schema: {
+        operationId: "getId",
+        response: { default: { type: "string" } },
+      },
+      rendered:
+        'fastify.route({\n  method: \'GET\',\n  url: \'/this\',\n  schema: {"operationId":"getId","response":{"default":{"type":"string"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ThisController.get.apply(context, [reply]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ThisController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  onRequest: [...ThisController.auth, ...ThisController.auth2]\n});',
+      operationId: "getId",
+      options: "onRequest: [...ThisController.auth, ...ThisController.auth2]",
+    },
   ],
   schemas: [
     {
@@ -834,6 +883,7 @@ export const HBS_CONF = {
     "import * as HelloWorldController from './routes/hello-world';",
     "import * as PingController from './routes/ping';",
     "import * as ResponseTypesController from './routes/response-types';",
+    "import * as ThisController from './routes/this';",
     "import AuthParam from './helpers/auth-param';",
   ],
 };
