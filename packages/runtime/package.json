@@ -8,10 +8,15 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@fastify/websocket": "^7.0.1",
     "@kitajs/generator": "*",
     "fastify": "^4.5.3",
     "fastify-plugin": "^4.2.1",
     "tslib": "^2.4.0"
+  },
+  "peerDependencies": {
+    "@fastify/websocket": "^7"
+  },
+  "devDependencies": {
+    "@fastify/websocket": "^7.0.1"
   }
 }
