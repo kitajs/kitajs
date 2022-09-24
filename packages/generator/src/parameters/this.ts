@@ -23,7 +23,10 @@ export class ThisResolver extends ParamResolver {
     if (options) {
       // Complete external config, useful for more complex types
       if (options.kind === ts.SyntaxKind.TypeQuery) {
-        route.options = `...${route.controllerName}.${(options as TypeQueryNode).exprName.getText()}`;
+        route.options = `...${route.controllerName}.${(
+          options as TypeQueryNode
+        ).exprName.getText()}`;
+
         return;
       }
 
@@ -58,7 +61,8 @@ export class ThisResolver extends ParamResolver {
       // Includes commas on line breaks, if not present
       text = text.replace(/(?<![,;{}]\s*)\n/g, ',');
 
-      route.options = text;
+      route.options ??= '';
+      route.options += text;
     }
 
     return undefined;

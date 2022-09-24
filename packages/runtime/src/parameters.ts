@@ -41,12 +41,10 @@ export type Query<
  * **Headers are case insensitive!**
  *
  * @example
- * ```ts
  * export function get(
  *   date: Header, // Date header
  *   cacheControl: Header<'Cache-Control'>, // Custom name
  * ) {}
- * ```
  */
 //@ts-ignore unused
 export type Header<Name extends String> = string;

@@ -1,5 +1,6 @@
 import type { KitaConfig } from '../config';
 
+/** Removes enclosing quotes  */
 export function unquote(str: string) {
   return str.replace(/['"`](.*?)['"`]/g, '$1');
 }

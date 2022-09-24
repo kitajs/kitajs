@@ -86,9 +86,6 @@ export abstract class ParamResolver {
   /** Resolves the provided parameter into a {@link Parameter} object. */
   abstract resolve(data: ParamData): Promise<Parameter | undefined>;
 
-  /** All registered resolvers */
-  static readonly resolvers: ParamResolver[] = [];
-
   /** Tries to resolve all parameters for a function. */
   static readonly resolveParameter = (
     kita: KitaGenerator,
@@ -100,7 +97,7 @@ export abstract class ParamResolver {
     const paramName = param.name.getText().trim();
     const typeName = param.type?.getFirstToken()?.getText();
 
-    const resolver = this.resolvers.find((resolver) =>
+    const resolver = kita.params.find((resolver) =>
       resolver.supports({ paramName, typeName, config: kita.config })
     );
 

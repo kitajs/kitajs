@@ -1,6 +1,4 @@
 // Registers
-import './node-resolvers/register';
-import './parameters/register';
 import './handlebars/helpers';
 
 // Principal classes and types
