@@ -43,14 +43,12 @@ export interface KitaConfig {
     prefix: string;
   };
 
-  params: {
-    /**
-     * The parameter name and its path
-     *
-     * @default {}
-     */
-    [name: string]: string;
-  };
+  /**
+   * The parameter name and its path
+   *
+   * @default {}
+   */
+  params: Record<string, string>;
 
   // Want more listeners? Create a PR!
   // :)
@@ -64,13 +62,47 @@ export interface KitaConfig {
    *
    * ```ts
    * module.exports = {
-   *   onCreate(kg) {
-   *    kg.routes.push(new CustomRouterThatIWrote());
+   *   onCreate({ routes }) {
+   *    routes.push(new CustomRouterThatIWrote());
    *   }
    * }
    * ```
    */
-  onCreate?: (kg: KitaGenerator) => void;
+   onCreate?: (kg: KitaGenerator) => void;
+
+   /**
+   * Called when the generator finished building / updating its routes AST.
+   * 
+   * You can use this to modify the AST before it gets emitted.
+   *
+   * @example
+   *
+   * ```ts
+   * module.exports = {
+   *   onAstUpdate({ ast }) {
+   *    ast.addImport(`import './custom-code`);
+   *   }
+   * }
+   * ```
+   */
+  onAstUpdate?: (kg: KitaGenerator) => void | Promise<void>;
+
+  /**
+   * Returns a custom generator, instead of the default {@link KitaGenerator}.
+   * 
+   * @example
+   *
+   * ```ts
+   * const { KitaGenerator } = require('@kitajs/generator');
+   * 
+   * module.exports = {
+   *   customGenerator: class CustomGenerator extends KitaGenerator {
+   *      // ... custom code
+   *    }
+   *  }
+   * ```
+   */
+   customGenerator?: typeof KitaGenerator;
 }
 
 export const DefaultConfig: KitaConfig = {

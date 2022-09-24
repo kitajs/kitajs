@@ -44,9 +44,9 @@ export class KitaGenerator {
     readonly rootPath: string,
     readonly config: KitaConfig,
     readonly controllerPaths: string[],
-    readonly tsconfigPath = path.join(rootPath, config.tsconfig),
+    readonly tsconfigPath = path.resolve(rootPath, config.tsconfig),
     readonly tsconfig = readTsconfig(tsconfigPath),
-    readonly outputPath = path.join(rootPath, config.routes.output),
+    readonly outputPath = path.resolve(rootPath, config.routes.output),
     readonly outputFolder = path.dirname(outputPath),
     readonly program = ts.createProgram(
       controllerPaths,
@@ -119,6 +119,8 @@ export class KitaGenerator {
 
     // Sort routes by path
     this.ast.imports.sort();
+
+    await this.config.onAstUpdate?.(this);
   }
 
   /** You can override this method to code your own way to generate this route string */
@@ -128,6 +130,6 @@ export class KitaGenerator {
       'utf-8'
     );
 
-    return Handlebars.compile(str, { noEscape: true, data: true })(this.ast);
+    return Handlebars.compile(str, { noEscape: true })(this.ast);
   }
 }

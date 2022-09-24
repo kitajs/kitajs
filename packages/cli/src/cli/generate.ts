@@ -26,7 +26,7 @@ export async function generate(options: Record<string, any>) {
   const cfg: KitaConfig = importConfig(cfgPath);
 
   const controllersPaths = await findControllerPaths(cfg.controllers.glob, root);
-  const kita = new KitaGenerator(root, cfg, controllersPaths);
+  const kita = new (cfg.customGenerator || KitaGenerator)(root, cfg, controllersPaths);
 
   log('🔬', 'Introspecting code...');
 
