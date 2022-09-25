@@ -1,9 +1,6 @@
 import fastify from 'fastify';
+import { Kita } from './routes';
 
-export function createApp(Kita: typeof import('./routes').Kita) {
-  const app = fastify();
+export const app = fastify();
 
-  app.register(Kita, { context: {} });
-
-  return app;
-}
+app.register(Kita, { context: {} });

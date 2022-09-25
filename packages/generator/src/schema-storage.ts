@@ -97,7 +97,8 @@ export class SchemaStorage extends SchemaGenerator {
       type instanceof NumberType ||
       type instanceof StringType ||
       type instanceof NullType ||
-      type instanceof BooleanType
+      type instanceof BooleanType ||
+      type instanceof NullType
     ) {
       return type;
     }

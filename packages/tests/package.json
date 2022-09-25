@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "kita generate && jest --coverage"
   },
   "dependencies": {
     "@kitajs/cli": "*",
