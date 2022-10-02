@@ -10,7 +10,7 @@
   "dependencies": {
     "deepmerge": "^4.2.2",
     "glob": "^8.0.3",
-    "ts-json-schema-generator": "^1.0.0",
+    "@kitajs/ts-json-schema-generator": "^1.0.0",
     "glob-promise": "^5.0.0",
     "handlebars": "^4.7.7",
     "minimatch": "^5.1.0",
