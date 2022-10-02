@@ -25,6 +25,10 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Link kita binary
+        run: npm link . --force
+        working-directory: packages/cli
+
       - name: Test
         run: yarn workspace @kitajs/tests test
 

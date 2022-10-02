@@ -8,16 +8,16 @@
     "build": "tsc"
   },
   "dependencies": {
-    "deepmerge": "^4.2.2",
-    "glob": "^8.0.3",
     "@kitajs/ts-json-schema-generator": "^1.0.0",
+    "@types/prettier": "^2.7.0",
+    "deepmerge": "^4.2.2",
+    "fastify": "^4.5.3",
+    "glob": "^8.0.3",
     "glob-promise": "^5.0.0",
     "handlebars": "^4.7.7",
     "minimatch": "^5.1.0",
     "tslib": "^2.4.0",
-    "fastify": "^4.5.3",
-    "typescript": "*",
-    "@types/prettier": "^2.7.0"
+    "typescript": "*"
   },
   "devDependencies": {
     "@types/glob": "^8.0.0"

@@ -11,14 +11,14 @@
     "build": "tsc"
   },
   "dependencies": {
-    "deepmerge": "^4.2.2",
-    "tslib": "^2.4.0",
     "@kitajs/generator": "*",
     "@kitajs/runtime": "*",
+    "@types/prettier": "^2.7.0",
     "chalk": "^4",
     "commander": "^9.4.0",
+    "deepmerge": "^4.2.2",
     "prettier": "^2.7.1",
-    "@types/prettier": "^2.7.0",
+    "tslib": "^2.4.0",
     "typescript": "~4.8.3"
   }
 }
