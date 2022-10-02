@@ -1,8 +1,10 @@
-import { ts } from '@kitajs/ts-json-schema-generator';
+import { Context, ts } from '@kitajs/ts-json-schema-generator';
 import deepmerge from 'deepmerge';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
+import type { SchemaStorage } from '../schema-storage';
 import { unquote } from '../util/string';
+import { asPrimitiveType } from '../util/type';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class QueryResolver extends ParamResolver {
@@ -22,7 +24,7 @@ export class QueryResolver extends ParamResolver {
       name: queryName,
       type: queryType,
       simple
-    } = this.findNameAndType(generics, paramName);
+    } = this.findNameAndType(generics, paramName, kita.schemaStorage);
 
     if (simple) {
       // @ts-expect-error - any type is allowed
@@ -69,7 +71,11 @@ export class QueryResolver extends ParamResolver {
     return { value: `(request.query as ${inferredType})` };
   }
 
-  findNameAndType(generics: ts.NodeArray<ts.TypeNode>, paramName: string) {
+  findNameAndType(
+    generics: ts.NodeArray<ts.TypeNode>,
+    paramName: string,
+    schemaStorage: SchemaStorage
+  ) {
     if (!generics[0]) {
       return { name: paramName, type: 'string', simple: true };
     }
@@ -78,16 +84,13 @@ export class QueryResolver extends ParamResolver {
       return { name: unquote(generics[0].getText()), type: 'string', simple: true };
     }
 
-    const simple = generics[0].getText().match(/^(string|number|boolean)$/);
-
-    if (!generics[1]) {
-      return {
-        name: paramName,
-        type: generics[0].getText(),
-        simple
-      };
-    }
-
-    return { name: unquote(generics[1].getText()), type: generics[0].getText(), simple };
+    return {
+      name: !generics[1] ? paramName : unquote(generics[1].getText()),
+      type: generics[0].getText(),
+      // Lookup as a json schema to allow custom primitive types, like (string | number[])[], for example.
+      simple: !!asPrimitiveType(
+        schemaStorage.nodeParser.createType(generics[0]!, new Context(generics[0]!))
+      )
+    };
   }
 }

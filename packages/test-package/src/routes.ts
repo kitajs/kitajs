@@ -5,6 +5,7 @@ import '@fastify/cookie';
 import * as $name$Controller from './routes/[name]';
 import * as HelloWorldController from './routes/hello-world';
 import * as PingController from './routes/ping';
+import * as PrimitiveTypesController from './routes/primitive-types';
 import * as ResponseTypesController from './routes/response-types';
 import * as ThisController from './routes/this';
 import AuthParam from './helpers/auth-param';
@@ -13,13 +14,33 @@ import AuthParam from './helpers/auth-param';
  * This is the resolved config that was used during code generation. JIC its needed at runtime.
  */
 export const config = {
-  params: { AuthParam: './src/helpers/auth-param' },
+  params: { AuthParam: '/www/kita/packages/test-package/src/helpers/auth-param' },
   tsconfig: './tsconfig.json',
   controllers: {
     glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
     prefix: '(?:.*src)?/?(?:routes/?)'
   },
-  routes: { output: './src/routes.ts', format: { parser: 'typescript' } }
+  routes: {
+    output: '/www/kita/packages/test-package/src/routes.ts',
+    format: {
+      parser: 'typescript',
+      arrowParens: 'always',
+      bracketSpacing: true,
+      endOfLine: 'lf',
+      insertPragma: false,
+      bracketSameLine: false,
+      jsxSingleQuote: false,
+      printWidth: 90,
+      proseWrap: 'always',
+      quoteProps: 'as-needed',
+      requirePragma: false,
+      semi: true,
+      singleQuote: true,
+      tabWidth: 2,
+      trailingComma: 'none',
+      useTabs: false
+    }
+  }
 };
 
 /**
@@ -36,6 +57,23 @@ export const config = {
  */
 export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
   const context: RouteContext = { config, fastify, ...options.context };
+
+  fastify.addSchema({
+    $id: 'def-structure--294-308--287-309--285-309--239-329--0-330',
+    type: 'object',
+    properties: {
+      a: {
+        type: 'number',
+        const: 1
+      },
+      b: {
+        type: 'number',
+        const: 2
+      }
+    },
+    required: ['a', 'b'],
+    additionalProperties: false
+  });
 
   fastify.addSchema({
     $id: 'HelloWorldQuery',
@@ -125,10 +163,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       },
       body: {
         type: 'object',
-        properties: {
-          path: { type: 'number' },
-          bodyProp: { type: 'number' }
-        },
+        properties: { path: { type: 'number' }, bodyProp: { type: 'number' } },
         required: ['path', 'bodyProp'],
         additionalProperties: false
       },
@@ -164,22 +199,13 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       }
 
       const data = await $name$Controller.put.apply(context, [
-        (
-          request.params as {
-            ['name']: Parameters<typeof $name$Controller.put>[0];
-          }
-        )['name'],
+        (request.params as { ['name']: Parameters<typeof $name$Controller.put>[0] })[
+          'name'
+        ],
         request.cookies?.cookie,
-        (
-          request.body as {
-            ['path']: Parameters<typeof $name$Controller.put>[2];
-          }
-        ).path,
-        (
-          request.body as {
-            ['bodyProp']: Parameters<typeof $name$Controller.put>[3];
-          }
-        ).bodyProp,
+        (request.body as { ['path']: Parameters<typeof $name$Controller.put>[2] }).path,
+        (request.body as { ['bodyProp']: Parameters<typeof $name$Controller.put>[3] })
+          .bodyProp,
         (request.query as { ['paramQuery']: string })['paramQuery'],
         (request.query as { ['typedQuery']: boolean })['typedQuery'],
         (request.query as { ['namedQuery']: string })['namedQuery'],
@@ -242,11 +268,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       }
 
       const data = await $name$Controller.post.apply(context, [
-        (
-          request.params as {
-            ['name']: Parameters<typeof $name$Controller.post>[0];
-          }
-        )['name'],
+        (request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })[
+          'name'
+        ],
         request.cookies?.cookie,
         request.body as Parameters<typeof $name$Controller.post>[2],
         request.query as Parameters<typeof $name$Controller.post>[3],
@@ -325,6 +349,83 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
       ]);
     }
   );
+
+  fastify.route({
+    method: 'POST',
+    url: '/primitive-types',
+    schema: {
+      operationId: 'PrimitiveTypesControllerPost',
+      body: { type: 'array', items: { type: ['string', 'number'] } },
+      querystring: {
+        type: 'object',
+        properties: {
+          param: { type: 'string | undefined' },
+          parm2: { type: 'boolean | number | null' }
+        },
+        required: ['param', 'parm2'],
+        additionalProperties: false
+      },
+      response: { default: { type: 'boolean' } },
+      description: 'primitive complex queries'
+    },
+    //@ts-ignore - we may have unused params
+    handler: async (request, reply) => {
+      const data = await PrimitiveTypesController.post.apply(context, [
+        request.body as Parameters<typeof PrimitiveTypesController.post>[0],
+        (request.query as { ['param']: string | undefined })['param'],
+        (request.query as { ['parm2']: boolean | number | null })['parm2']
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - When PrimitiveTypesController.post() returns nothing, typescript gets mad.
+        if (data) {
+          const error = new Error('Reply already sent, but controller returned data');
+
+          //@ts-expect-error - include data in error to help debugging
+          error.data = data;
+
+          return error;
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
+
+  fastify.route({
+    method: 'GET',
+    url: '/primitive-types',
+    schema: {
+      operationId: 'PrimitiveTypesControllerGet',
+      querystring: { $ref: 'def-structure--294-308--287-309--285-309--239-329--0-330' },
+      response: { default: { type: 'boolean' } },
+      description: 'extended queries'
+    },
+    //@ts-ignore - we may have unused params
+    handler: async (request, reply) => {
+      const data = await PrimitiveTypesController.get.apply(context, [
+        request.query as Parameters<typeof PrimitiveTypesController.get>[0]
+      ]);
+
+      if (reply.sent) {
+        //@ts-ignore - When PrimitiveTypesController.get() returns nothing, typescript gets mad.
+        if (data) {
+          const error = new Error('Reply already sent, but controller returned data');
+
+          //@ts-expect-error - include data in error to help debugging
+          error.data = data;
+
+          return error;
+        }
+
+        return;
+      }
+
+      return data;
+    }
+  });
 
   fastify.route({
     method: 'GET',
@@ -462,10 +563,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.route({
     method: 'GET',
     url: '/this',
-    schema: {
-      operationId: 'getId',
-      response: { default: { type: 'boolean' } }
-    },
+    schema: { operationId: 'getId', response: { default: { type: 'boolean' } } },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
       const data = await ThisController.get.apply(context, []);
@@ -492,10 +590,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   fastify.route({
     method: 'POST',
     url: '/this',
-    schema: {
-      operationId: 'withSubTypeofs',
-      response: { default: { type: 'boolean' } }
-    },
+    schema: { operationId: 'withSubTypeofs', response: { default: { type: 'boolean' } } },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
       const data = await ThisController.post.apply(context, []);
@@ -528,13 +623,33 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
  */
 export const HBS_CONF = {
   config: {
-    params: { AuthParam: './src/helpers/auth-param' },
+    params: { AuthParam: '/www/kita/packages/test-package/src/helpers/auth-param' },
     tsconfig: './tsconfig.json',
     controllers: {
       glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
       prefix: '(?:.*src)?/?(?:routes/?)'
     },
-    routes: { output: './src/routes.ts', format: { parser: 'typescript' } }
+    routes: {
+      output: '/www/kita/packages/test-package/src/routes.ts',
+      format: {
+        parser: 'typescript',
+        arrowParens: 'always',
+        bracketSpacing: true,
+        endOfLine: 'lf',
+        insertPragma: false,
+        bracketSameLine: false,
+        jsxSingleQuote: false,
+        printWidth: 90,
+        proseWrap: 'always',
+        quoteProps: 'as-needed',
+        requirePragma: false,
+        semi: true,
+        singleQuote: true,
+        tabWidth: 2,
+        trailingComma: 'none',
+        useTabs: false
+      }
+    }
   },
   routes: [
     {
@@ -557,15 +672,9 @@ export const HBS_CONF = {
           value:
             "(request.body as { ['bodyProp']: Parameters<typeof $name$Controller.put>[3] }).bodyProp"
         },
-        {
-          value: "(request.query as { ['paramQuery']: string })['paramQuery']"
-        },
-        {
-          value: "(request.query as { ['typedQuery']: boolean })['typedQuery']"
-        },
-        {
-          value: "(request.query as { ['namedQuery']: string })['namedQuery']"
-        },
+        { value: "(request.query as { ['paramQuery']: string })['paramQuery']" },
+        { value: "(request.query as { ['typedQuery']: boolean })['typedQuery']" },
+        { value: "(request.query as { ['namedQuery']: string })['namedQuery']" },
         {
           value:
             "(request.query as { ['typedAndNamedQuery']: boolean })['typedAndNamedQuery']"
@@ -593,10 +702,7 @@ export const HBS_CONF = {
         },
         body: {
           type: 'object',
-          properties: {
-            path: { type: 'number' },
-            bodyProp: { type: 'number' }
-          },
+          properties: { path: { type: 'number' }, bodyProp: { type: 'number' } },
           required: ['path', 'bodyProp'],
           additionalProperties: false
         },
@@ -633,12 +739,8 @@ export const HBS_CONF = {
             "(request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })['name']"
         },
         { value: 'request.cookies?.cookie' },
-        {
-          value: 'request.body as Parameters<typeof $name$Controller.post>[2]'
-        },
-        {
-          value: '(request.query as Parameters<typeof $name$Controller.post>[3])'
-        },
+        { value: 'request.body as Parameters<typeof $name$Controller.post>[2]' },
+        { value: '(request.query as Parameters<typeof $name$Controller.post>[3])' },
         { value: 'request' },
         { value: 'reply' },
         {
@@ -707,15 +809,60 @@ export const HBS_CONF = {
       operationId: 'name'
     },
     {
+      controllerMethod: 'post',
+      method: 'POST',
+      controllerName: 'PrimitiveTypesController',
+      url: '/primitive-types',
+      controllerPath: 'src/routes/primitive-types.ts:4:15',
+      parameters: [
+        { value: 'request.body as Parameters<typeof PrimitiveTypesController.post>[0]' },
+        { value: "(request.query as { ['param']: string | undefined })['param']" },
+        { value: "(request.query as { ['parm2']: boolean | number | null })['parm2']" }
+      ],
+      schema: {
+        operationId: 'PrimitiveTypesControllerPost',
+        body: { type: 'array', items: { type: ['string', 'number'] } },
+        querystring: {
+          type: 'object',
+          properties: {
+            param: { type: 'string | undefined' },
+            parm2: { type: 'boolean | number | null' }
+          },
+          required: ['param', 'parm2'],
+          additionalProperties: false
+        },
+        response: { default: { type: 'boolean' } },
+        description: 'primitive complex queries'
+      },
+      rendered:
+        'fastify.route({\n  method: \'POST\',\n  url: \'/primitive-types\',\n  schema: {"operationId":"PrimitiveTypesControllerPost","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"type":"string | undefined"},"parm2":{"type":"boolean | number | null"}},"required":["param","parm2"],"additionalProperties":false},"response":{"default":{"type":"boolean"}},"description":"primitive complex queries"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await PrimitiveTypesController.post.apply(context, [request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: string | undefined })[\'param\'],(request.query as { [\'parm2\']: boolean | number | null })[\'parm2\']]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When PrimitiveTypesController.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+    },
+    {
+      controllerMethod: 'get',
+      method: 'GET',
+      controllerName: 'PrimitiveTypesController',
+      url: '/primitive-types',
+      controllerPath: 'src/routes/primitive-types.ts:13:15',
+      parameters: [
+        { value: '(request.query as Parameters<typeof PrimitiveTypesController.get>[0])' }
+      ],
+      schema: {
+        operationId: 'PrimitiveTypesControllerGet',
+        querystring: { $ref: 'def-structure--294-308--287-309--285-309--239-329--0-330' },
+        response: { default: { type: 'boolean' } },
+        description: 'extended queries'
+      },
+      rendered:
+        'fastify.route({\n  method: \'GET\',\n  url: \'/primitive-types\',\n  schema: {"operationId":"PrimitiveTypesControllerGet","querystring":{"$ref":"def-structure--294-308--287-309--285-309--239-329--0-330"},"response":{"default":{"type":"boolean"}},"description":"extended queries"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await PrimitiveTypesController.get.apply(context, [(request.query as Parameters<typeof PrimitiveTypesController.get>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When PrimitiveTypesController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+    },
+    {
       controllerMethod: 'Get',
       method: 'GET',
       controllerName: 'ResponseTypesController',
       url: '/response-types',
       controllerPath: 'src/routes/response-types.ts:6:21',
       parameters: [
-        {
-          value: '(request.query as Parameters<typeof ResponseTypesController.Get>[0])'
-        }
+        { value: '(request.query as Parameters<typeof ResponseTypesController.Get>[0])' }
       ],
       schema: {
         operationId: 'withTypedPromiseResponse',
@@ -734,9 +881,7 @@ export const HBS_CONF = {
       url: '/response-types',
       controllerPath: 'src/routes/response-types.ts:16:21',
       parameters: [
-        {
-          value: '(request.query as Parameters<typeof ResponseTypesController.Post>[0])'
-        }
+        { value: '(request.query as Parameters<typeof ResponseTypesController.Post>[0])' }
       ],
       schema: {
         operationId: 'withInferredResponse',
@@ -756,9 +901,7 @@ export const HBS_CONF = {
       url: '/response-types',
       controllerPath: 'src/routes/response-types.ts:28:21',
       parameters: [
-        {
-          value: '(request.query as Parameters<typeof ResponseTypesController.Put>[0])'
-        }
+        { value: '(request.query as Parameters<typeof ResponseTypesController.Put>[0])' }
       ],
       schema: {
         operationId: 'withPromiseTypeAlias',
@@ -798,10 +941,7 @@ export const HBS_CONF = {
       url: '/this',
       controllerPath: 'src/routes/this.ts:11:15',
       parameters: [],
-      schema: {
-        operationId: 'getId',
-        response: { default: { type: 'boolean' } }
-      },
+      schema: { operationId: 'getId', response: { default: { type: 'boolean' } } },
       rendered:
         'fastify.route({\n  method: \'GET\',\n  url: \'/this\',\n  schema: {"operationId":"getId","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ThisController.get.apply(context, []);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ThisController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  ...ThisController.getConfig\n});',
       operationId: 'getId',
@@ -825,6 +965,13 @@ export const HBS_CONF = {
     }
   ],
   schemas: [
+    {
+      $id: 'def-structure--294-308--287-309--285-309--239-329--0-330',
+      type: 'object',
+      properties: { a: { type: 'number', const: 1 }, b: { type: 'number', const: 2 } },
+      required: ['a', 'b'],
+      additionalProperties: false
+    },
     {
       $id: 'HelloWorldQuery',
       type: 'object',
@@ -873,6 +1020,7 @@ export const HBS_CONF = {
     "import * as $name$Controller from './routes/[name]';",
     "import * as HelloWorldController from './routes/hello-world';",
     "import * as PingController from './routes/ping';",
+    "import * as PrimitiveTypesController from './routes/primitive-types';",
     "import * as ResponseTypesController from './routes/response-types';",
     "import * as ThisController from './routes/this';",
     "import AuthParam from './helpers/auth-param';"

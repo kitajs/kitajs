@@ -1,18 +1,20 @@
 import {
+  ArrayType,
   BaseType,
-  BooleanType,
   Config,
   Context,
   createFormatter,
   createParser,
   Definition,
   DefinitionType,
-  NullType,
-  NumberType,
+  NodeParser,
+  OptionalType,
+  PrimitiveType,
   Schema,
   SchemaGenerator,
-  StringType,
-  ts
+  ts,
+  UndefinedType,
+  UnionType
 } from '@kitajs/ts-json-schema-generator';
 import type { KitaAST } from './ast';
 import { KitaError } from './errors';
@@ -20,10 +22,11 @@ import type { Route } from './route';
 import { getReturnType } from './util/node';
 
 export class SchemaStorage extends SchemaGenerator {
+  public override readonly nodeParser!: NodeParser;
   protected readonly definitions: Record<string, Definition> = {};
 
   constructor(tsconfig: string, override readonly program: ts.Program) {
-    const config: Config = { tsconfig };
+    const config: Config = { tsconfig, encodeRefs: false };
     super(program, createParser(program, config), createFormatter(config), config);
   }
 
@@ -33,15 +36,15 @@ export class SchemaStorage extends SchemaGenerator {
   consumeNode(node: ts.Node): Schema {
     const type = this.nodeParser.createType(node, new Context(node));
 
-    // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
-    const native = this.getNativeType(type);
-
-    if (native) {
-      return { type: native.getId() as 'string' };
-    }
-
     if (!type) {
       throw KitaError(`Could not create type for node \`${node.getText()}\``);
+    }
+
+    // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
+    const native = this.asPrimitiveType(type);
+
+    if (native) {
+      return this.getDefinition(native);
     }
 
     // Includes this node into our recursive definition
@@ -57,20 +60,17 @@ export class SchemaStorage extends SchemaGenerator {
   consumeResponseType(node: ts.SignatureDeclaration, route: Route): Schema {
     const returnType = getReturnType(node, this.program.getTypeChecker());
 
-    const type = this.nodeParser.createType(
-      returnType,
-      new Context(node)
-    ) as DefinitionType;
+    const type = this.nodeParser.createType(returnType, new Context(node));
 
     if (!type) {
       throw KitaError(`Could not create type for node \`${returnType.getText()}\``);
     }
 
     // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
-    const native = this.getNativeType(type);
+    const native = this.asPrimitiveType(type);
 
     if (native) {
-      return { type: native.getId() as 'string' };
+      return this.getDefinition(native);
     }
 
     //@ts-expect-error - Defines a return type name to avoid uri-reference problem
@@ -84,23 +84,33 @@ export class SchemaStorage extends SchemaGenerator {
   }
 
   /**
-   *  Returns itself it the provided type is a {@link NumberType},
-   *
-   *
+   *  Tries to resolve the provided type into a primitive type, if it is one.
    */
-  protected getNativeType(type: BaseType) {
+  protected asPrimitiveType(type: BaseType): BaseType | undefined {
     if (type instanceof DefinitionType) {
       type = type.getType();
     }
 
-    if (
-      type instanceof NumberType ||
-      type instanceof StringType ||
-      type instanceof NullType ||
-      type instanceof BooleanType ||
-      type instanceof NullType
-    ) {
+    if (type instanceof PrimitiveType || type instanceof UndefinedType) {
       return type;
+    }
+
+    if (type instanceof OptionalType) {
+      if (this.asPrimitiveType(type.getType())) {
+        return type;
+      }
+    }
+
+    if (type instanceof UnionType) {
+      if (type.getTypes().every((t) => this.asPrimitiveType(t))) {
+        return type;
+      }
+    }
+
+    if (type instanceof ArrayType) {
+      if (this.asPrimitiveType(type.getItem())) {
+        return type;
+      }
     }
 
     return undefined;
