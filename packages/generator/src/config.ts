@@ -24,7 +24,7 @@ export interface KitaConfig {
     /**
      * If the generated code should be formatted with prettier
      */
-    format: false | Prettier.Options;
+    format: false | Prettier.Options | Record<string, unknown>;
   };
 
   controllers: {
