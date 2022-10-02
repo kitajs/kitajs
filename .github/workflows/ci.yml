@@ -26,7 +26,7 @@ jobs:
         run: yarn build
 
       - name: Link kita binary
-        run: npm link . --force
+        run: npm i -g
         working-directory: packages/cli
 
       - name: Test
