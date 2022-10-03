@@ -619,9 +619,10 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 });
 
 /**
- * The extracted data from your controllers and configurations for this template hydration. It is here just for debugging purposes.
+ * The extracted data from your controllers and configurations for this template hydration.
+ * In case you need some metadata at runtime, this is the place to look.
  */
-export const HBS_CONF = {
+export const KitaAST = {
   config: {
     params: { AuthParam: '/www/kita/packages/test-package/src/helpers/auth-param' },
     tsconfig: './tsconfig.json',

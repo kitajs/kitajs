@@ -53,7 +53,7 @@ export type Header<Name extends String> = string;
 export type Req = FastifyRequest;
 
 /** The Fastify reply type */
-export type Rep = FastifyReply;
+export type Rep = Omit<FastifyReply, 'send'>;
 
 /** A custom parameter type. */
 //@ts-ignore unused
@@ -62,7 +62,7 @@ export type CustomParameter<Result, Parameters extends Native[]> = Result;
 /**
  * The parameter type of the connection.
  *
- * **NOTE**: Only works on `WebSocket` routes
+ * **NOTE**: Only works on `WebSocket` routes.
  *
  * @example
  * export function ws(
