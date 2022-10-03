@@ -10,15 +10,4 @@ describe('Tests with request and response parameters', () => {
     expect(headers.test).toBe(true);
     expect(body).toBe('GET');
   });
-
-  it('custom res.send', async () => {
-    const res = await app.inject({
-      method: 'POST',
-      url: '/req-rep'
-    }); 
-
-    console.log(res)
-
-    expect(res.body).toBe('Custom send without return clause');
-  });
 });
