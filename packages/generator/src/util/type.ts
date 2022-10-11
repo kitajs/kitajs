@@ -4,19 +4,25 @@ import {
   DefinitionType,
   OptionalType,
   PrimitiveType,
+  ReferenceType,
   UndefinedType,
-  UnionType
+  UnionType,
+  VoidType
 } from '@kitajs/ts-json-schema-generator';
 
 /**
  * Tries to resolve the provided type into a primitive type, if it is one.
  */
 export function asPrimitiveType(type: BaseType): BaseType | undefined {
-  if (type instanceof DefinitionType) {
+  if (type instanceof DefinitionType || type instanceof ReferenceType) {
     type = type.getType();
   }
 
-  if (type instanceof PrimitiveType || type instanceof UndefinedType) {
+  if (
+    type instanceof PrimitiveType ||
+    type instanceof UndefinedType ||
+    type instanceof VoidType
+  ) {
     return type;
   }
 

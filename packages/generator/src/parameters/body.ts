@@ -4,6 +4,8 @@ import type { Parameter } from '../parameter';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class BodyResolver extends ParamResolver {
+  static override serializable = true;
+
   override supports({ typeName }: ParamInfo): boolean {
     return typeName === 'Body';
   }

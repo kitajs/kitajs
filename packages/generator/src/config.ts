@@ -68,11 +68,11 @@ export interface KitaConfig {
    * }
    * ```
    */
-   onCreate?: (kg: KitaGenerator) => void;
+  onCreate?: (kg: KitaGenerator) => void;
 
-   /**
+  /**
    * Called when the generator finished building / updating its routes AST.
-   * 
+   *
    * You can use this to modify the AST before it gets emitted.
    *
    * @example
@@ -89,12 +89,12 @@ export interface KitaConfig {
 
   /**
    * Returns a custom generator, instead of the default {@link KitaGenerator}.
-   * 
+   *
    * @example
    *
    * ```ts
    * const { KitaGenerator } = require('@kitajs/generator');
-   * 
+   *
    * module.exports = {
    *   customGenerator: class CustomGenerator extends KitaGenerator {
    *      // ... custom code
@@ -102,7 +102,7 @@ export interface KitaConfig {
    *  }
    * ```
    */
-   customGenerator?: typeof KitaGenerator;
+  customGenerator?: typeof KitaGenerator;
 }
 
 export const DefaultConfig: KitaConfig = {

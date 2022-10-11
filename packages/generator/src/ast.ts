@@ -1,5 +1,5 @@
-import type { KitaConfig } from './config';
 import type { Schema } from '@kitajs/ts-json-schema-generator';
+import type { KitaConfig } from './config';
 import type { Route } from './route';
 
 /**
@@ -19,7 +19,10 @@ export class KitaAST {
     readonly schemas: Schema[] = [],
 
     /** All needed imports */
-    readonly imports: string[] = []
+    readonly imports: string[] = [],
+
+    /** If any route is async */
+    public hasAsync = false
   ) {}
 
   /** Adds a import if not already added. */

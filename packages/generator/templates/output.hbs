@@ -1,3 +1,41 @@
+/**
+ * The extracted data from your controllers and configurations for this template hydration. 
+ * In case you need some metadata at runtime, this is the place to look.
+ */
+export const KitaAST = {{json this}};
+
+{{#if hasAsync}}  
+  /**
+   * The filename to be used when creating a Piscina instance.
+   * 
+   * @example
+   * import { filename } from './routes';
+   * const piscina = new Piscina({ filename });
+   */
+  export const filename = __filename;
+
+  //@ts-ignore - Piscina may not be available because no async route was found.
+  if (require('piscina')?.isWorkerThread) {
+    {{#each routes}}
+      {{#if async}}
+        let {{controllerName}}: Record<string, Function>;
+
+        module.exports.{{operationId}} = async (args: any[]) => {
+          // lazy loads {{controllerName}}.
+          if (!{{controllerName}}) {
+            {{controllerName}} = require('{{importablePath}}');
+          }
+
+          return {{controllerName}}.{{controllerMethod}}!.apply(undefined, args);
+        };
+      {{/if}}
+    {{/each}}
+
+    //@ts-expect-error - NodeJS modules are wrapped into a function, so this return will work.
+    return;
+  }
+{{/if}}
+
 import type { RouteContext, ProvidedRouteContext } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
 import '@fastify/swagger';
@@ -38,9 +76,3 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   // Ensure this function remains a "async" function
   return Promise.resolve();
 });
-
-/**
- * The extracted data from your controllers and configurations for this template hydration. 
- * In case you need some metadata at runtime, this is the place to look.
- */
-export const KitaAST = {{json this}};

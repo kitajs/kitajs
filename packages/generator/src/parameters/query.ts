@@ -8,6 +8,8 @@ import { asPrimitiveType } from '../util/type';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class QueryResolver extends ParamResolver {
+  static override serializable = true;
+
   override supports({ typeName }: ParamInfo): boolean {
     return typeName === 'Query';
   }
@@ -23,7 +25,8 @@ export class QueryResolver extends ParamResolver {
     const {
       name: queryName,
       type: queryType,
-      simple
+      simple,
+      definition
     } = this.findNameAndType(generics, paramName, kita.schemaStorage);
 
     if (simple) {
@@ -38,7 +41,7 @@ export class QueryResolver extends ParamResolver {
       route.schema = deepmerge(route.schema, {
         querystring: {
           type: 'object',
-          properties: { [queryName]: { type: queryType } },
+          properties: { [queryName]: definition },
           required: optional ? [] : [queryName],
           additionalProperties: false
         }
@@ -77,20 +80,35 @@ export class QueryResolver extends ParamResolver {
     schemaStorage: SchemaStorage
   ) {
     if (!generics[0]) {
-      return { name: paramName, type: 'string', simple: true };
+      return {
+        name: paramName,
+        type: 'string',
+        simple: true,
+        definition: { type: 'string' }
+      };
     }
 
     if (generics[0].getText().match(/^['`"]/g)) {
-      return { name: unquote(generics[0].getText()), type: 'string', simple: true };
+      return {
+        name: unquote(generics[0].getText()),
+        type: 'string',
+        simple: true,
+        definition: { type: 'string' }
+      };
     }
+
+    const type = generics[0].getText();
+
+    // Lookup as a json schema to allow custom primitive types, like (string | number[])[], for example.
+    const primitive = asPrimitiveType(
+      schemaStorage.nodeParser.createType(generics[0], new Context(generics[0]!))
+    );
 
     return {
       name: !generics[1] ? paramName : unquote(generics[1].getText()),
-      type: generics[0].getText(),
-      // Lookup as a json schema to allow custom primitive types, like (string | number[])[], for example.
-      simple: !!asPrimitiveType(
-        schemaStorage.nodeParser.createType(generics[0]!, new Context(generics[0]!))
-      )
+      type,
+      simple: !!primitive,
+      definition: primitive ? schemaStorage.getDefinition(primitive) : { type }
     };
   }
 }

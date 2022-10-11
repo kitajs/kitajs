@@ -65,10 +65,23 @@ export interface Route {
   rendered: string;
 }
 
-/** The route generated from a WebsocketResolver has a websocket */
+/** The route generated from a WebsocketResolver */
 export type WebsocketRoute = Route & {
   websocket: true;
+
   controllerMethod: 'ws';
+
   method: 'GET';
+
   schema: { hide: true };
+};
+
+/** The rouge generated from a AsyncResolver  */
+export type AsyncRoute = Route & {
+  async: true;
+
+  schema: FastifySchema & { operationId: string };
+
+  /** The complete path to the controller be lazy imported */
+  importablePath: string;
 };

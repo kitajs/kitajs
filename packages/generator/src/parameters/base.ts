@@ -80,6 +80,11 @@ export interface ParamData<R extends Route = Route> {
  * The base parameter resolver is the main way to implement a custom parameter resolver.
  */
 export abstract class ParamResolver {
+  /**
+   * Marks a parameter as a `v8.serializable` standard compatible object.
+   */
+  public static serializable = false;
+
   /** Returns true if this resolver supports this parameter */
   abstract supports(names: ParamInfo): boolean;
 
@@ -92,7 +97,9 @@ export abstract class ParamResolver {
     route: Route,
     fn: ts.FunctionDeclaration,
     param: ts.ParameterDeclaration,
-    index: number
+    index: number,
+    /** If the selected parameter is valid and can proceed to resolve the parameter */
+    predicate?: (res: ParamResolver) => boolean
   ) => {
     const paramName = param.name.getText().trim();
     const typeName = param.type?.getFirstToken()?.getText();
@@ -103,6 +110,10 @@ export abstract class ParamResolver {
 
     if (!resolver) {
       throw KitaError(`Unknown parameter ${paramName}.`, route.controllerPath);
+    }
+
+    if (predicate && !predicate(resolver)) {
+      return undefined;
     }
 
     // This must always appear as the first parameter

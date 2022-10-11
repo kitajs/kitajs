@@ -16,12 +16,13 @@
     "@fastify/swagger": "^7.5.1",
     "@fastify/websocket": "^7.0.1",
     "@kitajs/cli": "*",
-    "@kitajs/runtime": "*",
     "@kitajs/generator": "*",
+    "@kitajs/runtime": "*",
     "@types/ws": "^8.5.3",
     "fast-defer": "^1.1.7",
     "fastify": "^4.5.3",
     "nodemon": "^2.0.19",
+    "piscina": "^3.2.0",
     "tslib": "^2.4.0",
     "ws": "^8.8.1"
   }

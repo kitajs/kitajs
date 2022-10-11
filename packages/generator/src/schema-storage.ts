@@ -1,25 +1,20 @@
 import {
-  ArrayType,
   BaseType,
   Config,
   Context,
   createFormatter,
   createParser,
   Definition,
-  DefinitionType,
   NodeParser,
-  OptionalType,
-  PrimitiveType,
   Schema,
   SchemaGenerator,
-  ts,
-  UndefinedType,
-  UnionType
+  ts
 } from '@kitajs/ts-json-schema-generator';
 import type { KitaAST } from './ast';
 import { KitaError } from './errors';
 import type { Route } from './route';
 import { getReturnType } from './util/node';
+import { asPrimitiveType } from './util/type';
 
 export class SchemaStorage extends SchemaGenerator {
   public override readonly nodeParser!: NodeParser;
@@ -41,7 +36,7 @@ export class SchemaStorage extends SchemaGenerator {
     }
 
     // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
-    const native = this.asPrimitiveType(type);
+    const native = asPrimitiveType(type);
 
     if (native) {
       return this.getDefinition(native);
@@ -67,7 +62,7 @@ export class SchemaStorage extends SchemaGenerator {
     }
 
     // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
-    const native = this.asPrimitiveType(type);
+    const native = asPrimitiveType(type);
 
     if (native) {
       return this.getDefinition(native);
@@ -84,42 +79,9 @@ export class SchemaStorage extends SchemaGenerator {
   }
 
   /**
-   *  Tries to resolve the provided type into a primitive type, if it is one.
-   */
-  protected asPrimitiveType(type: BaseType): BaseType | undefined {
-    if (type instanceof DefinitionType) {
-      type = type.getType();
-    }
-
-    if (type instanceof PrimitiveType || type instanceof UndefinedType) {
-      return type;
-    }
-
-    if (type instanceof OptionalType) {
-      if (this.asPrimitiveType(type.getType())) {
-        return type;
-      }
-    }
-
-    if (type instanceof UnionType) {
-      if (type.getTypes().every((t) => this.asPrimitiveType(t))) {
-        return type;
-      }
-    }
-
-    if (type instanceof ArrayType) {
-      if (this.asPrimitiveType(type.getItem())) {
-        return type;
-      }
-    }
-
-    return undefined;
-  }
-
-  /**
    * Transforms a json schema {@link BaseType} into a reference json object (`{ $ref: '<name>' }`).
    */
-  protected getDefinition(type: BaseType): Schema {
+  getDefinition(type: BaseType): Schema {
     const def = this.typeFormatter.getDefinition(type);
 
     // See https://github.com/vega/ts-json-schema-generator/pull/1386

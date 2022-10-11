@@ -6,6 +6,9 @@ import { unquote } from '../util/string';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class ThisResolver extends ParamResolver {
+  // This parameter is serializable because it does not generates any ast real world parameter.
+  static override serializable = true;
+
   override supports({ paramName }: ParamInfo): boolean {
     return paramName === 'this';
   }

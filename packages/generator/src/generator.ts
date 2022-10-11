@@ -19,13 +19,18 @@ import { RepResolver } from './parameters/rep';
 import { ReqResolver } from './parameters/req';
 import { ThisResolver } from './parameters/this';
 import { RouteResolver } from './routes/base';
+import { AsyncResolver } from './routes/async';
 import { RestResolver } from './routes/rest';
 import { WebsocketResolver } from './routes/websocket';
 import { SchemaStorage } from './schema-storage';
 import { readTsconfig } from './util/tsconfig';
 
 export class KitaGenerator {
-  readonly routes: RouteResolver[] = [new RestResolver(), new WebsocketResolver()];
+  readonly routes: RouteResolver[] = [
+    new AsyncResolver(),
+    new RestResolver(),
+    new WebsocketResolver()
+  ];
   readonly params: ParamResolver[] = [
     new ThisResolver(),
     new ConnResolver(),

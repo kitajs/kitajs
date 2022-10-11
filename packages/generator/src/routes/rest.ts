@@ -39,7 +39,7 @@ export class RestResolver extends RouteResolver<ts.FunctionDeclaration> {
       method: fnName.toUpperCase(),
       controllerName: rName.controllerName,
       url: rName.routePath,
-      controllerPath: `${source.fileName}:${pos.line + 1}:${pos.character}`,
+      controllerPath: `${source.fileName}:${pos.line + 1}`,
       parameters: [],
       schema: {
         operationId: `${rName.controllerName}${capitalize(fnName)}`

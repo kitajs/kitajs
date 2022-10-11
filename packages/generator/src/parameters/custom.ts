@@ -2,6 +2,9 @@ import type { Parameter } from '../parameter';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class CustomResolver extends ParamResolver {
+  /** Custom resolvers should handle themselves to be serializable if they need to be. */
+  static override serializable = true;
+
   override supports({ typeName, config }: ParamInfo): boolean {
     return !!typeName && !!config.params[typeName];
   }

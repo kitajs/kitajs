@@ -1,0 +1,21 @@
+fastify.route({
+  method: {{#if (isAllMethod method)}}['DELETE', 'GET', 'HEAD', 'PATCH', 'POST', 'PUT', 'OPTIONS']{{else}}'{{method}}'{{/if}},
+  url: '{{url}}',
+  schema: {{json schema}},
+  //@ts-ignore - we may have unused params
+  handler: async (request, reply) => {
+    {{#each parameters}}
+      {{#if helper}}
+        {{helper}}
+
+        if (reply.sent) {
+          return;
+        }
+        
+       {{/if}}
+    {{/each}}
+
+    return context.piscina!.run([{{paramsToString parameters}}], { name: '{{operationId}}' });
+  },
+  {{options}}
+});

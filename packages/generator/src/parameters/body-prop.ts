@@ -5,6 +5,8 @@ import { opt, unquote } from '../util/string';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class BodyPropResolver extends ParamResolver {
+  static override serializable = true;
+
   override supports({ typeName }: ParamInfo): boolean {
     return typeName === 'BodyProp';
   }

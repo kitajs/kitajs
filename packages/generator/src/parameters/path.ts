@@ -4,6 +4,8 @@ import { unquote } from '../util/string';
 import { ParamInfo, ParamData, ParamResolver } from './base';
 
 export class PathResolver extends ParamResolver {
+  static override serializable = true;
+
   override supports({ typeName }: ParamInfo): boolean {
     return typeName === 'Path';
   }
