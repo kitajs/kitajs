@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@kitajs/generator": "*",
-    "fastify": "^4.5.3",
+    "fastify": "^4.8.1",
     "fastify-plugin": "^4.2.1",
     "tslib": "^2.4.0"
   },
