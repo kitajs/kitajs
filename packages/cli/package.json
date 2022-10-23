@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/cli",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
   "main": "./bin.js",

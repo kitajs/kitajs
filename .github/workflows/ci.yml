@@ -18,6 +18,7 @@ jobs:
         with:
           node-version: '16'
           cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: Install packages
         run: yarn
