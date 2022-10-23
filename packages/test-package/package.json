@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/test-package",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",

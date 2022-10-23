@@ -29,7 +29,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish to NPM
-        run: npm publish --access public
+      - name: Test
+        run: npm run test
+
+      - name: Create release PR or publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: npm run release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

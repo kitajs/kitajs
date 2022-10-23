@@ -1,7 +1,7 @@
 {
   "name": "@kitajs/monorepo",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arthurfiorette/kita.git"
@@ -19,7 +19,10 @@
     "format": "prettier --write .",
     "watch": "sh scripts/watch.sh",
     "build": "turbo run build",
-    "docs": "cd packages/docs && yarn dev"
+    "test": "turbo run test",
+    "docs": "cd packages/docs && yarn dev",
+    "version": "changeset version",
+    "release": "changeset publish"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.7",
