@@ -24,3 +24,14 @@ export function post(
 
 export const auth = [onRequest];
 export const auth2 = [onRequest];
+
+//
+
+export function Delete(
+  this: Route<
+    'withImport',
+    { onRequest: typeof import('../helpers/on-request').myCustomHook }
+  >
+) {
+  return true;
+}

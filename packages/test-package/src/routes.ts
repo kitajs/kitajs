@@ -675,6 +675,33 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     onRequest: [...ThisController.auth, ...ThisController.auth2]
   });
 
+  fastify.route({
+    method: 'DELETE',
+    url: '/this',
+    schema: { operationId: 'withImport', response: { default: { type: 'boolean' } } },
+    //@ts-ignore - we may have unused params
+    handler: async (request, reply) => {
+      const data = await ThisController.Delete.apply(context, []);
+
+      if (reply.sent) {
+        //@ts-ignore - When ThisController.Delete() returns nothing, typescript gets mad.
+        if (data) {
+          const error = new Error('Reply already sent, but controller returned data');
+
+          //@ts-expect-error - include data in error to help debugging
+          error.data = data;
+
+          return error;
+        }
+
+        return;
+      }
+
+      return data;
+    },
+    onRequest: require('./helpers/on-request').myCustomHook
+  });
+
   // Ensure this function remains a "async" function
   return Promise.resolve();
 });
@@ -1050,6 +1077,19 @@ export const KitaAST = {
         'fastify.route({\n  method: \'POST\',\n  url: \'/this\',\n  schema: {"operationId":"withSubTypeofs","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ThisController.post.apply(context, []);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ThisController.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  onRequest: [...ThisController.auth, ...ThisController.auth2]\n});',
       operationId: 'withSubTypeofs',
       options: 'onRequest: [...ThisController.auth, ...ThisController.auth2]'
+    },
+    {
+      controllerMethod: 'Delete',
+      method: 'DELETE',
+      controllerName: 'ThisController',
+      url: '/this',
+      controllerPath: 'src/routes/this.ts:30',
+      parameters: [],
+      schema: { operationId: 'withImport', response: { default: { type: 'boolean' } } },
+      rendered:
+        'fastify.route({\n  method: \'DELETE\',\n  url: \'/this\',\n  schema: {"operationId":"withImport","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ThisController.Delete.apply(context, []);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ThisController.Delete() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  onRequest: require(\'./helpers/on-request\').myCustomHook\n});',
+      operationId: 'withImport',
+      options: "onRequest: require('./helpers/on-request').myCustomHook"
     }
   ],
   schemas: [

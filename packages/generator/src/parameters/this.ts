@@ -4,6 +4,7 @@ import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
 import { unquote } from '../util/string';
 import { ParamData, ParamInfo, ParamResolver } from './base';
+import path from 'path';
 
 export class ThisResolver extends ParamResolver {
   // This parameter is serializable because it does not generates any ast real world parameter.
@@ -13,7 +14,11 @@ export class ThisResolver extends ParamResolver {
     return paramName === 'this';
   }
 
-  override async resolve({ generics, route }: ParamData): Promise<Parameter | undefined> {
+  override async resolve({
+    generics,
+    route,
+    kita
+  }: ParamData): Promise<Parameter | undefined> {
     if (!generics || generics.length < 1) {
       throw KitaError(`Missing generics for the "this" parameter.`, route.controllerPath);
     }
@@ -57,6 +62,13 @@ export class ThisResolver extends ParamResolver {
       text = text.replace(/^\s*{|}\s*$/g, '');
       // Removes "border" spaces
       text = text.trim();
+      // Replaces `typeof import('...')` with require('...')
+      text = text.replace(/typeof import\(['"](.*?)['"]\)/g, (_, importPath) => {
+        return `require('${kita.importablePath(
+          // dirname supports paths with line numbers (e.g. /path/to/file.ts:1:2 -> /path/to)
+          path.resolve(path.dirname(route.controllerPath), importPath) 
+        )}')`;
+      });
       // Replaces `typeof localMethod` to `ControllerName.localMethod`
       text = text.replace(/typeof (\w+);?/g, `${route.controllerName}.$1`);
       // Typescript types allows ; to be used as separators. This regex does not matches escaped ; (\;)
