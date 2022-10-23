@@ -1,4 +1,4 @@
-import { ts } from '@kitajs/ts-json-schema-generator';
+import { ts } from 'ts-json-schema-generator';
 import type { TypeQueryNode } from 'typescript';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';

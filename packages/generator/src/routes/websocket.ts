@@ -1,12 +1,12 @@
 import fs from 'fs';
+import Handlebars from 'handlebars';
 import path from 'node:path';
+import { ts } from 'ts-json-schema-generator';
 import type { Node } from 'typescript';
-import ts from 'typescript';
 import { ParamResolver } from '../parameters/base';
 import type { WebsocketRoute } from '../route';
 import { findRouteName } from '../util/string';
 import { CreationData, RouteResolver } from './base';
-import Handlebars from 'handlebars';
 
 const templatePath = path.resolve(__dirname, '../../templates/websocket.hbs');
 const templateStr = fs.readFileSync(templatePath, 'utf-8');

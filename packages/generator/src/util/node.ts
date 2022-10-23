@@ -1,4 +1,4 @@
-import { ts } from '@kitajs/ts-json-schema-generator';
+import { ts } from 'ts-json-schema-generator';
 
 export function getNodeSource(node: ts.Node, source: ts.SourceFile) {
   const { character, line } = source.getLineAndCharacterOfPosition(

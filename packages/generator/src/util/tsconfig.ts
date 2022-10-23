@@ -1,4 +1,4 @@
-import { ts } from '@kitajs/ts-json-schema-generator';
+import { ts } from 'ts-json-schema-generator';
 import { KitaError } from '../errors';
 
 export function readTsconfig(path: string) {

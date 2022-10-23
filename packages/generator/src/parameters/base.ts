@@ -1,5 +1,5 @@
+import type { ts } from 'ts-json-schema-generator';
 import type { KitaConfig } from '../config';
-import type { ts } from '@kitajs/ts-json-schema-generator';
 import { KitaError } from '../errors';
 import type { KitaGenerator } from '../generator';
 import type { Parameter } from '../parameter';

@@ -8,7 +8,6 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@kitajs/ts-json-schema-generator": "^1.0.0",
     "@types/prettier": "^2.7.0",
     "deepmerge": "^4.2.2",
     "fastify": "^4.8.1",
@@ -16,6 +15,7 @@
     "glob-promise": "^5.0.0",
     "handlebars": "^4.7.7",
     "minimatch": "^5.1.0",
+    "ts-json-schema-generator": "^1.2.0-next.1",
     "tslib": "^2.4.0",
     "typescript": "*"
   },

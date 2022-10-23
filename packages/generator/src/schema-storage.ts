@@ -9,7 +9,7 @@ import {
   Schema,
   SchemaGenerator,
   ts
-} from '@kitajs/ts-json-schema-generator';
+} from 'ts-json-schema-generator';
 import type { KitaAST } from './ast';
 import { KitaError } from './errors';
 import type { Route } from './route';

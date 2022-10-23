@@ -1,4 +1,4 @@
-import type { Schema } from '@kitajs/ts-json-schema-generator';
+import type { Schema } from 'ts-json-schema-generator';
 import type { KitaConfig } from './config';
 import type { Route } from './route';
 

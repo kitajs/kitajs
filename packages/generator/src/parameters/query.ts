@@ -1,5 +1,5 @@
-import { Context, ts } from '@kitajs/ts-json-schema-generator';
 import deepmerge from 'deepmerge';
+import { Context, ts } from 'ts-json-schema-generator';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
 import type { SchemaStorage } from '../schema-storage';

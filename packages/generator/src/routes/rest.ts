@@ -1,13 +1,13 @@
 import deepmerge from 'deepmerge';
 import fs from 'fs';
+import Handlebars from 'handlebars';
 import path from 'node:path';
-import ts from 'typescript';
+import { ts } from 'ts-json-schema-generator';
 import { KitaError } from '../errors';
 import { ParamResolver } from '../parameters/base';
 import type { Route } from '../route';
 import { capitalize, findRouteName } from '../util/string';
-import { RouteResolver, CreationData } from './base';
-import Handlebars from 'handlebars';
+import { CreationData, RouteResolver } from './base';
 
 const templatePath = path.resolve(__dirname, '../../templates/rest.hbs');
 const templateStr = fs.readFileSync(templatePath, 'utf-8');

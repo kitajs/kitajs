@@ -1,4 +1,4 @@
-import type ts from 'typescript';
+import type { ts } from 'ts-json-schema-generator';
 import { catchKitaError } from '../errors';
 import type { KitaGenerator } from '../generator';
 import type { Route } from '../route';

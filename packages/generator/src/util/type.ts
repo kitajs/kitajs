@@ -8,7 +8,7 @@ import {
   UndefinedType,
   UnionType,
   VoidType
-} from '@kitajs/ts-json-schema-generator';
+} from 'ts-json-schema-generator';
 
 /**
  * Tries to resolve the provided type into a primitive type, if it is one.
