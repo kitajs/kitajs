@@ -17,6 +17,6 @@
     "@fastify/websocket": "^7"
   },
   "devDependencies": {
-    "@fastify/websocket": "^7.0.1"
+    "@fastify/websocket": "^7.1.1"
   }
 }
