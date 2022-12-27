@@ -15,23 +15,7 @@ fastify.route({
        {{/if}}
     {{/each}}
 
-    const data = await {{controllerName}}.{{controllerMethod}}.apply(context, [{{paramsToString parameters}}]);
-    
-    if (reply.sent) {
-      //@ts-ignore - When {{controllerName}}.{{controllerMethod}}() returns nothing, typescript gets mad.
-      if (data) {
-        const error = new Error('Reply already sent, but controller returned data');
-    
-        //@ts-expect-error - include data in error to help debugging
-        error.data = data;
-        
-        return error;
-      }
-
-      return;
-    }
-
-    return data;
+    return {{controllerName}}.{{controllerMethod}}.apply(context, [{{paramsToString parameters}}]);
   },
   {{options}}
 });

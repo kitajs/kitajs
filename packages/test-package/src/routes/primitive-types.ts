@@ -4,7 +4,6 @@ import type { Body, Query } from '@kitajs/runtime';
 export function post(
   body: Body<(string | number)[]>,
   param: Query<string | undefined>,
-  // FIXME: PrimitiveUnionTypeFormatter generates type: [] instead of anyOf declarations
   parm2: Query<boolean | number | null>
 ) {
   return true;

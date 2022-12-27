@@ -84,7 +84,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
   const context: RouteContext = { config, fastify, ...options.context };
 
   fastify.addSchema({
-    $id: 'def-structure--383-397--376-398--374-398--328-418--0-419',
+    $id: 'def-structure--294-308--287-309--285-309--239-329--0-330',
     type: 'object',
     properties: {
       a: {
@@ -223,7 +223,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         return;
       }
 
-      const data = await $name$Controller.put.apply(context, [
+      return $name$Controller.put.apply(context, [
         (request.params as { ['name']: Parameters<typeof $name$Controller.put>[0] })[
           'name'
         ],
@@ -240,22 +240,6 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         authJwt,
         authBasic
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When $name$Controller.put() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     }
   });
 
@@ -292,7 +276,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         return;
       }
 
-      const data = await $name$Controller.post.apply(context, [
+      return $name$Controller.post.apply(context, [
         (request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })[
           'name'
         ],
@@ -304,22 +288,6 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
         authJwt,
         authBasic
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When $name$Controller.post() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     }
   });
 
@@ -339,23 +307,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     schema: { operationId: 'syncTest', response: { default: { type: 'null' } } },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await AsyncController.post.apply(context, []);
-
-      if (reply.sent) {
-        //@ts-ignore - When AsyncController.post() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
+      return AsyncController.post.apply(context, []);
     }
   });
 
@@ -375,25 +327,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await HelloWorldController.get.apply(context, [
+      return HelloWorldController.get.apply(context, [
         (request.query as { ['name']?: string })['name']
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When HelloWorldController.get() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     }
   });
 
@@ -431,27 +367,11 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await PrimitiveTypesController.post.apply(context, [
+      return PrimitiveTypesController.post.apply(context, [
         request.body as Parameters<typeof PrimitiveTypesController.post>[0],
         (request.query as { ['param']: string | undefined })['param'],
         (request.query as { ['parm2']: boolean | number | null })['parm2']
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When PrimitiveTypesController.post() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     }
   });
 
@@ -460,31 +380,15 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     url: '/primitive-types',
     schema: {
       operationId: 'PrimitiveTypesControllerGet',
-      querystring: { $ref: 'def-structure--383-397--376-398--374-398--328-418--0-419' },
+      querystring: { $ref: 'def-structure--294-308--287-309--285-309--239-329--0-330' },
       response: { default: { type: 'boolean' } },
       description: 'extended queries'
     },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await PrimitiveTypesController.get.apply(context, [
+      return PrimitiveTypesController.get.apply(context, [
         request.query as Parameters<typeof PrimitiveTypesController.get>[0]
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When PrimitiveTypesController.get() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     }
   });
 
@@ -499,25 +403,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await ResponseTypesController.Get.apply(context, [
+      return ResponseTypesController.Get.apply(context, [
         request.query as Parameters<typeof ResponseTypesController.Get>[0]
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When ResponseTypesController.Get() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     }
   });
 
@@ -532,25 +420,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await ResponseTypesController.Post.apply(context, [
+      return ResponseTypesController.Post.apply(context, [
         request.query as Parameters<typeof ResponseTypesController.Post>[0]
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When ResponseTypesController.Post() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     },
     preHandler: ResponseTypesController.preHandler
   });
@@ -566,25 +438,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await ResponseTypesController.Put.apply(context, [
+      return ResponseTypesController.Put.apply(context, [
         request.query as Parameters<typeof ResponseTypesController.Put>[0]
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When ResponseTypesController.Put() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     }
   });
 
@@ -599,25 +455,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await ResponseTypesController.Delete.apply(context, [
+      return ResponseTypesController.Delete.apply(context, [
         request.query as Parameters<typeof ResponseTypesController.Delete>[0]
       ]);
-
-      if (reply.sent) {
-        //@ts-ignore - When ResponseTypesController.Delete() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
     }
   });
 
@@ -627,23 +467,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     schema: { operationId: 'getId', response: { default: { type: 'boolean' } } },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await ThisController.get.apply(context, []);
-
-      if (reply.sent) {
-        //@ts-ignore - When ThisController.get() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
+      return ThisController.get.apply(context, []);
     },
     ...ThisController.getConfig
   });
@@ -654,23 +478,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     schema: { operationId: 'withSubTypeofs', response: { default: { type: 'boolean' } } },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await ThisController.post.apply(context, []);
-
-      if (reply.sent) {
-        //@ts-ignore - When ThisController.post() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
+      return ThisController.post.apply(context, []);
     },
     onRequest: [...ThisController.auth, ...ThisController.auth2]
   });
@@ -681,23 +489,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
     schema: { operationId: 'withImport', response: { default: { type: 'boolean' } } },
     //@ts-ignore - we may have unused params
     handler: async (request, reply) => {
-      const data = await ThisController.Delete.apply(context, []);
-
-      if (reply.sent) {
-        //@ts-ignore - When ThisController.Delete() returns nothing, typescript gets mad.
-        if (data) {
-          const error = new Error('Reply already sent, but controller returned data');
-
-          //@ts-expect-error - include data in error to help debugging
-          error.data = data;
-
-          return error;
-        }
-
-        return;
-      }
-
-      return data;
+      return ThisController.Delete.apply(context, []);
     },
     onRequest: require('./helpers/on-request').myCustomHook
   });
@@ -813,7 +605,7 @@ export const KitaAST = {
         summary: 'route summary 1'
       },
       rendered:
-        'fastify.route({\n  method: \'PUT\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false},"response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    const data = await $name$Controller.put.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof $name$Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof $name$Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.put() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'PUT\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false},"response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    return $name$Controller.put.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof $name$Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof $name$Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n  },\n  \n});',
       operationId: 'fullExampleUsingBody'
     },
     {
@@ -860,7 +652,7 @@ export const KitaAST = {
         summary: 'route summary 2'
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"},"response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    const data = await $name$Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof $name$Controller.post>[2],(request.query as Parameters<typeof $name$Controller.post>[3]),request,reply,authJwt,authBasic]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When $name$Controller.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"},"response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, [\'jwt\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, [\'basic\']);\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    return $name$Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof $name$Controller.post>[2],(request.query as Parameters<typeof $name$Controller.post>[3]),request,reply,authJwt,authBasic]);\n  },\n  \n});',
       operationId: 'fullExampleExclusiveQuery'
     },
     {
@@ -886,7 +678,7 @@ export const KitaAST = {
       parameters: [],
       schema: { operationId: 'syncTest', response: { default: { type: 'null' } } },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/async\',\n  schema: {"operationId":"syncTest","response":{"default":{"type":"null"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await AsyncController.post.apply(context, []);\n    \n    if (reply.sent) {\n      //@ts-ignore - When AsyncController.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'POST\',\n  url: \'/async\',\n  schema: {"operationId":"syncTest","response":{"default":{"type":"null"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return AsyncController.post.apply(context, []);\n  },\n  \n});',
       operationId: 'syncTest'
     },
     {
@@ -908,7 +700,7 @@ export const KitaAST = {
         description: 'Hello world rest API endpoint.'
       },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/hello-world\',\n  schema: {"operationId":"HelloWorldControllerGet","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false},"response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint."},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await HelloWorldController.get.apply(context, [(request.query as { [\'name\']?: string })[\'name\']]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When HelloWorldController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+        'fastify.route({\n  method: \'GET\',\n  url: \'/hello-world\',\n  schema: {"operationId":"HelloWorldControllerGet","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false},"response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint."},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return HelloWorldController.get.apply(context, [(request.query as { [\'name\']?: string })[\'name\']]);\n  },\n  \n});'
     },
     {
       controllerMethod: 'ws',
@@ -950,25 +742,25 @@ export const KitaAST = {
         description: 'primitive complex queries'
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/primitive-types\',\n  schema: {"operationId":"PrimitiveTypesControllerPost","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"anyOf":[{"type":"string"},{"not":{}}]},"parm2":{"type":["boolean","number","null"]}},"required":["param","parm2"],"additionalProperties":false},"response":{"default":{"type":"boolean"}},"description":"primitive complex queries"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await PrimitiveTypesController.post.apply(context, [request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: string | undefined })[\'param\'],(request.query as { [\'parm2\']: boolean | number | null })[\'parm2\']]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When PrimitiveTypesController.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+        'fastify.route({\n  method: \'POST\',\n  url: \'/primitive-types\',\n  schema: {"operationId":"PrimitiveTypesControllerPost","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"anyOf":[{"type":"string"},{"not":{}}]},"parm2":{"type":["boolean","number","null"]}},"required":["param","parm2"],"additionalProperties":false},"response":{"default":{"type":"boolean"}},"description":"primitive complex queries"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return PrimitiveTypesController.post.apply(context, [request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: string | undefined })[\'param\'],(request.query as { [\'parm2\']: boolean | number | null })[\'parm2\']]);\n  },\n  \n});'
     },
     {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'PrimitiveTypesController',
       url: '/primitive-types',
-      controllerPath: 'src/routes/primitive-types.ts:14',
+      controllerPath: 'src/routes/primitive-types.ts:13',
       parameters: [
         { value: '(request.query as Parameters<typeof PrimitiveTypesController.get>[0])' }
       ],
       schema: {
         operationId: 'PrimitiveTypesControllerGet',
-        querystring: { $ref: 'def-structure--383-397--376-398--374-398--328-418--0-419' },
+        querystring: { $ref: 'def-structure--294-308--287-309--285-309--239-329--0-330' },
         response: { default: { type: 'boolean' } },
         description: 'extended queries'
       },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/primitive-types\',\n  schema: {"operationId":"PrimitiveTypesControllerGet","querystring":{"$ref":"def-structure--383-397--376-398--374-398--328-418--0-419"},"response":{"default":{"type":"boolean"}},"description":"extended queries"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await PrimitiveTypesController.get.apply(context, [(request.query as Parameters<typeof PrimitiveTypesController.get>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When PrimitiveTypesController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});'
+        'fastify.route({\n  method: \'GET\',\n  url: \'/primitive-types\',\n  schema: {"operationId":"PrimitiveTypesControllerGet","querystring":{"$ref":"def-structure--294-308--287-309--285-309--239-329--0-330"},"response":{"default":{"type":"boolean"}},"description":"extended queries"},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return PrimitiveTypesController.get.apply(context, [(request.query as Parameters<typeof PrimitiveTypesController.get>[0])]);\n  },\n  \n});'
     },
     {
       controllerMethod: 'Get',
@@ -986,7 +778,7 @@ export const KitaAST = {
         tags: ['Response Test']
       },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypedPromiseResponse","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"withTypedPromiseResponseResponse"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Get.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Get>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'GET\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypedPromiseResponse","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"withTypedPromiseResponseResponse"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ResponseTypesController.Get.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Get>[0])]);\n  },\n  \n});',
       operationId: 'withTypedPromiseResponse'
     },
     {
@@ -1005,7 +797,7 @@ export const KitaAST = {
         tags: ['Response Test']
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/response-types\',\n  schema: {"operationId":"withInferredResponse","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"withInferredResponseResponse"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Post.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Post>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  preHandler: ResponseTypesController.preHandler\n});',
+        'fastify.route({\n  method: \'POST\',\n  url: \'/response-types\',\n  schema: {"operationId":"withInferredResponse","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"withInferredResponseResponse"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ResponseTypesController.Post.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Post>[0])]);\n  },\n  preHandler: ResponseTypesController.preHandler\n});',
       operationId: 'withInferredResponse',
       options: 'preHandler: ResponseTypesController.preHandler'
     },
@@ -1025,7 +817,7 @@ export const KitaAST = {
         tags: ['Response Test']
       },
       rendered:
-        'fastify.route({\n  method: \'PUT\',\n  url: \'/response-types\',\n  schema: {"operationId":"withPromiseTypeAlias","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"PR"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Put.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Put>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Put() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'PUT\',\n  url: \'/response-types\',\n  schema: {"operationId":"withPromiseTypeAlias","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"PR"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ResponseTypesController.Put.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Put>[0])]);\n  },\n  \n});',
       operationId: 'withPromiseTypeAlias'
     },
     {
@@ -1046,7 +838,7 @@ export const KitaAST = {
         tags: ['Response Test']
       },
       rendered:
-        'fastify.route({\n  method: \'DELETE\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypeAliasPromise","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"DR"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ResponseTypesController.Delete.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Delete>[0])]);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ResponseTypesController.Delete() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  \n});',
+        'fastify.route({\n  method: \'DELETE\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypeAliasPromise","querystring":{"$ref":"HelloWorldQuery"},"response":{"default":{"$ref":"DR"}},"tags":["Response Test"]},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ResponseTypesController.Delete.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Delete>[0])]);\n  },\n  \n});',
       operationId: 'withTypeAliasPromise'
     },
     {
@@ -1058,7 +850,7 @@ export const KitaAST = {
       parameters: [],
       schema: { operationId: 'getId', response: { default: { type: 'boolean' } } },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/this\',\n  schema: {"operationId":"getId","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ThisController.get.apply(context, []);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ThisController.get() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  ...ThisController.getConfig\n});',
+        'fastify.route({\n  method: \'GET\',\n  url: \'/this\',\n  schema: {"operationId":"getId","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ThisController.get.apply(context, []);\n  },\n  ...ThisController.getConfig\n});',
       operationId: 'getId',
       options: '...ThisController.getConfig'
     },
@@ -1074,7 +866,7 @@ export const KitaAST = {
         response: { default: { type: 'boolean' } }
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/this\',\n  schema: {"operationId":"withSubTypeofs","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ThisController.post.apply(context, []);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ThisController.post() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  onRequest: [...ThisController.auth, ...ThisController.auth2]\n});',
+        'fastify.route({\n  method: \'POST\',\n  url: \'/this\',\n  schema: {"operationId":"withSubTypeofs","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ThisController.post.apply(context, []);\n  },\n  onRequest: [...ThisController.auth, ...ThisController.auth2]\n});',
       operationId: 'withSubTypeofs',
       options: 'onRequest: [...ThisController.auth, ...ThisController.auth2]'
     },
@@ -1087,14 +879,14 @@ export const KitaAST = {
       parameters: [],
       schema: { operationId: 'withImport', response: { default: { type: 'boolean' } } },
       rendered:
-        'fastify.route({\n  method: \'DELETE\',\n  url: \'/this\',\n  schema: {"operationId":"withImport","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    const data = await ThisController.Delete.apply(context, []);\n    \n    if (reply.sent) {\n      //@ts-ignore - When ThisController.Delete() returns nothing, typescript gets mad.\n      if (data) {\n        const error = new Error(\'Reply already sent, but controller returned data\');\n    \n        //@ts-expect-error - include data in error to help debugging\n        error.data = data;\n        \n        return error;\n      }\n\n      return;\n    }\n\n    return data;\n  },\n  onRequest: require(\'./helpers/on-request\').myCustomHook\n});',
+        'fastify.route({\n  method: \'DELETE\',\n  url: \'/this\',\n  schema: {"operationId":"withImport","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ThisController.Delete.apply(context, []);\n  },\n  onRequest: require(\'./helpers/on-request\').myCustomHook\n});',
       operationId: 'withImport',
       options: "onRequest: require('./helpers/on-request').myCustomHook"
     }
   ],
   schemas: [
     {
-      $id: 'def-structure--383-397--376-398--374-398--328-418--0-419',
+      $id: 'def-structure--294-308--287-309--285-309--239-329--0-330',
       type: 'object',
       properties: { a: { type: 'number', const: 1 }, b: { type: 'number', const: 2 } },
       required: ['a', 'b'],
