@@ -10,7 +10,7 @@
   "dependencies": {
     "@types/prettier": "^2.7.0",
     "deepmerge": "^4.2.2",
-    "fastify": "^4.8.1",
+    "fastify": "^4.10.2",
     "glob": "^8.0.3",
     "glob-promise": "^5.0.0",
     "handlebars": "^4.7.7",
