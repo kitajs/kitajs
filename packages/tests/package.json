@@ -14,7 +14,7 @@
     "@kitajs/runtime": "*",
     "@types/jest": "^29.0.1",
     "eval": "^0.1.8",
-    "fastify": "^4.8.1",
+    "fastify": "^4.10.2",
     "jest": "^29.0.3",
     "ts-jest": "^29.0.0",
     "ts-node": "^10.9.1",
