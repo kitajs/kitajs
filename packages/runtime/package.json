@@ -10,8 +10,8 @@
   "dependencies": {
     "@kitajs/generator": "*",
     "fastify": "^4.10.2",
-    "fastify-plugin": "^4.2.1",
-    "tslib": "^2.4.0"
+    "fastify-plugin": "^4.4.0",
+    "tslib": "^2.4.1"
   },
   "peerDependencies": {
     "@fastify/websocket": "^7"
