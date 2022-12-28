@@ -11,6 +11,7 @@ export * from './config';
 export * from './generator';
 export * from './errors';
 export * from './util/paths';
+export * from './util/string';
 
 // Allows for custom nodes and routes registration
 export * from './routes/base';

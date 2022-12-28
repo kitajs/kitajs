@@ -1,13 +1,22 @@
-import { app } from '../src/app';
+import type { Rep, Req } from '@kitajs/runtime';
+import { testRoute } from './setup';
 
-describe('Tests with request and response parameters', () => {
-  it('Req works', async () => {
-    const { body, headers } = await app.inject({
-      method: 'GET',
-      url: '/req-rep'
-    });
+export function get(req: Req, rep: Rep) {
+  expect(req.headers.custom).toBe('test');
 
-    expect(headers.test).toBe(true);
-    expect(body).toBe('GET');
-  });
+  rep.header('custom', 'test2');
+}
+
+testRoute({
+  fn: get,
+  exports,
+  __filename,
+  inject: {
+    headers: {
+      custom: 'test'
+    }
+  },
+  onResponse(res) {
+    expect(res.headers.custom).toBe('test2');
+  }
 });

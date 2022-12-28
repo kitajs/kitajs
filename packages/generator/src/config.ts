@@ -1,6 +1,7 @@
 import deepmerge from 'deepmerge';
 import type { KitaGenerator } from './generator';
 import type * as Prettier from 'prettier';
+import type { DeepPartial } from '@kitajs/runtime';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
@@ -118,8 +119,10 @@ export const DefaultConfig: KitaConfig = {
   }
 };
 
-export function mergeDefaults(config?: Partial<KitaConfig>): KitaConfig {
-  return deepmerge(DefaultConfig, config || {}, { arrayMerge: (_, b) => b });
+export function mergeDefaults(config?: DeepPartial<KitaConfig>) {
+  return deepmerge(DefaultConfig, config || {}, {
+    arrayMerge: (_, b) => b
+  }) as KitaConfig;
 }
 
 export function importConfig(path: string) {

@@ -16,7 +16,7 @@ export function findRouteName(filepath: string, config: KitaConfig) {
     // Removes possible .ts extension
     .replace(/\.(t|j)sx?$/, '')
     // Replaces spaces with dashes
-    .replace(/\s/g, '-');
+    .replace(/\s|\./g, '-');
 
   return {
     routePath: `/${

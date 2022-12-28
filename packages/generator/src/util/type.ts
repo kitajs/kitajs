@@ -2,6 +2,7 @@ import {
   ArrayType,
   BaseType,
   DefinitionType,
+  LiteralType,
   OptionalType,
   PrimitiveType,
   ReferenceType,
@@ -21,7 +22,8 @@ export function asPrimitiveType(type: BaseType): BaseType | undefined {
   if (
     type instanceof PrimitiveType ||
     type instanceof UndefinedType ||
-    type instanceof VoidType
+    type instanceof VoidType ||
+    type instanceof LiteralType
   ) {
     return type;
   }

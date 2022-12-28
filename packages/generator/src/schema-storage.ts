@@ -21,7 +21,14 @@ export class SchemaStorage extends SchemaGenerator {
   protected readonly definitions: Record<string, Definition> = {};
 
   constructor(tsconfig: string, override readonly program: ts.Program) {
-    const config: Config = { tsconfig, encodeRefs: false };
+    const config: Config = {
+      tsconfig,
+      encodeRefs: true,
+      sortProps: true,
+      strictTuples: true,
+      jsDoc: 'extended',
+    };
+
     super(program, createParser(program, config), createFormatter(config), config);
   }
 
@@ -99,7 +106,7 @@ export class SchemaStorage extends SchemaGenerator {
    */
   applyDefinitions(ast: KitaAST) {
     for (const [key, def] of Object.entries(this.definitions)) {
-      ast.schemas.push({ $id: key, ...def });
+      ast.schemas.push({ $id: encodeURI(key), ...def });
     }
   }
 }
