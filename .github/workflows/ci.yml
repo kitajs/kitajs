@@ -21,7 +21,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
 
       - name: Install packages
-        run: yarn
+        run: yarn install --prefer-offline
 
       - name: Build
         run: yarn build
