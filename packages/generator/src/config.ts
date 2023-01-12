@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 import type { KitaGenerator } from './generator';
 import type * as Prettier from 'prettier';
-import type { DeepPartial } from '@kitajs/runtime';
+import type { DeepPartial } from './types';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
