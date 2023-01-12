@@ -71,7 +71,7 @@ export class KitaTestBuilder extends Promise<{
       // Creates the fastify instance and registers the routes
       const app = fastify({ ajv: { customOptions: { allowUnionTypes: true } } });
       app.register(Kita, { context });
-      
+
       return res({
         app,
         Kita,

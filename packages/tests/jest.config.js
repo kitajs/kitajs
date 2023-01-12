@@ -9,6 +9,6 @@ module.exports = {
   roots: ['<rootDir>/packages'],
   coverageDirectory: '<rootDir>/coverage',
   moduleNameMapper: {
-    '^@kitajs/(.*)$': '<rootDir>/packages/$1/src',
+    '^@kitajs/(.*)$': '<rootDir>/packages/$1/src'
   }
 };

@@ -66,7 +66,7 @@ export class ThisResolver extends ParamResolver {
       text = text.replace(/typeof import\(['"](.*?)['"]\)/g, (_, importPath) => {
         return `require('${kita.importablePath(
           // dirname supports paths with line numbers (e.g. /path/to/file.ts:1:2 -> /path/to)
-          path.resolve(path.dirname(route.controllerPath), importPath) 
+          path.resolve(path.dirname(route.controllerPath), importPath)
         )}')`;
       });
       // Replaces `typeof localMethod` to `ControllerName.localMethod`

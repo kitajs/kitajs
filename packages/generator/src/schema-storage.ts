@@ -26,7 +26,7 @@ export class SchemaStorage extends SchemaGenerator {
       encodeRefs: true,
       sortProps: true,
       strictTuples: true,
-      jsDoc: 'extended',
+      jsDoc: 'extended'
     };
 
     super(program, createParser(program, config), createFormatter(config), config);

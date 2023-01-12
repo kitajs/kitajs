@@ -33,8 +33,10 @@ export type Query<
   Type = string,
   //@ts-ignore unused
   Name extends Type extends string
-    ? 'Name must be the second parameter. For string type values, use Query<\'name\'> instead.'
-    : string = Type extends string ? 'Name must be the second parameter. For string type values, use Query<\'name\'> instead.' : string
+    ? "Name must be the second parameter. For string type values, use Query<'name'> instead."
+    : string = Type extends string
+    ? "Name must be the second parameter. For string type values, use Query<'name'> instead."
+    : string
 > = Type extends string ? string : Type;
 
 /**
