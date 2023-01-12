@@ -16,9 +16,9 @@ export class CustomResolver extends ParamResolver {
   }: ParamData): Promise<Parameter | undefined> {
     return {
       value: paramName,
-      helper: `const ${paramName} = await ${typeName}.call(context, request, reply, [${
-        generics?.map((n) => n.getText()).join(', ') || ''
-      }]);`
+      helper: `const ${paramName} = await ${typeName}.call(context, request, reply${
+        !generics ? '' : `, ${generics.map((n) => n.getText()).join(', ')}`
+      });`
     };
   }
 }

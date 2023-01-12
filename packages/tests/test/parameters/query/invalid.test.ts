@@ -1,5 +1,5 @@
 import type { Query } from '@kitajs/runtime';
-import { KitaTestBuilder } from '../builder';
+import { KitaTestBuilder } from '../../builder';
 
 type Extended = {
   a: string;
@@ -11,7 +11,7 @@ export function get(age: Query<number>, extended: Query<Extended>) {
 }
 
 describe('query will throw', () => {
-  const test = KitaTestBuilder.build(__filename, exports, {});
+  const test = KitaTestBuilder.build(__filename, exports);
 
   it('logs error on creation', async () => {
     const consoleLogMock = jest.spyOn(console, 'log').mockImplementation();

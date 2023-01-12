@@ -51,15 +51,79 @@ export type Query<
 //@ts-ignore unused
 export type Header<Name extends String> = string;
 
-/** The Fastify request type */
+/**
+ * The Fastify request type
+ *
+ * @example
+ * export function get(
+ *  req: Req,
+ * ) {
+ *   const myHeader = req.headers['my-header'];
+ * }
+ */
 export type Req = FastifyRequest;
 
-/** The Fastify reply type */
+/**
+ * The Fastify reply type
+ *
+ * @example
+ * export function get(
+ *  rep: Rep,
+ * ) {
+ *   rep.setHeader('my-header', 123)
+ * }
+ */
 export type Rep = Omit<FastifyReply, 'send'>;
 
-/** A custom parameter type. */
+/**
+ * A custom parameter that will resolve to whatever the configuration sets it to.
+ *
+ * @example
+ * // my parameter file
+ *
+ * export type MyParameter = CustomParameter<string> // string return type
+ *
+ * export default function (
+ *   this: RouteContext,
+ *   _req: Req,
+ *   _rep: Rep,
+ * ) {}
+ *
+ * // my parameter with config file
+ *
+ * // applied in the generics order
+ * export type MyParameterWithConfig<A extends number, B extends number> = CustomParameter<{ sum: number }, [A, B]>;
+ *
+ * export default function (
+ *   this: RouteContext,
+ *   _req: Req,
+ *   _rep: Rep,
+ *   a: number,
+ *   b: number
+ * ) {
+ *  return { sum: a + b };
+ * }
+ *
+ * // routes file
+ *
+ * export function get(
+ *   param: MyParameter,
+ *   param2: MyParameterWithConfig<1, 2>
+ * ) {}
+ *
+ * // in the kita.config.js
+ *
+ * const path = require('path');
+ *
+ * module.exports = {
+ *   params: {
+ *    MyParameter: path.resolve(__dirname, 'path to resolver'),
+ *    MyParameterWithConfig: path.resolve(__dirname, 'path to resolver'),
+ *  },
+ * };
+ */
 //@ts-ignore unused
-export type CustomParameter<Result, Parameters extends Native[]> = Result;
+export type CustomParameter<Result, Parameters extends Native[] = []> = Result;
 
 /**
  * The parameter type of the connection.

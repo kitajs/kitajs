@@ -120,9 +120,7 @@ export const DefaultConfig: KitaConfig = {
 };
 
 export function mergeDefaults(config?: DeepPartial<KitaConfig>) {
-  return deepmerge(DefaultConfig, config || {}, {
-    arrayMerge: (_, b) => b
-  }) as KitaConfig;
+  return deepmerge(DefaultConfig, config || {}, { arrayMerge: (_, b) => b }) as KitaConfig;
 }
 
 export function importConfig(path: string) {

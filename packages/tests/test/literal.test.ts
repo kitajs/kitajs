@@ -1,5 +1,5 @@
 import type { Body, Query } from '@kitajs/runtime';
-import { KitaTestBuilder } from '../builder';
+import { KitaTestBuilder } from './builder';
 
 /** post because of body */
 export function post(_1: Body<{ a: true }>, _2: Query<false>, _3: Query<'1' | '2'>) {
@@ -9,7 +9,7 @@ export function post(_1: Body<{ a: true }>, _2: Query<false>, _3: Query<'1' | '2
 }
 
 describe('Tests literal types', () => {
-  const test = KitaTestBuilder.build(__filename, exports, {});
+  const test = KitaTestBuilder.build(__filename, exports);
 
   it('should work', async () => {
     const response = await test.inject(post, {

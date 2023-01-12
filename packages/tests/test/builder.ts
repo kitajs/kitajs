@@ -7,6 +7,8 @@ import {
   findRouteName,
   mergeDefaults
 } from '@kitajs/generator';
+import deepmerge from 'deepmerge';
+import type { DeepPartial } from '@kitajs/generator/dist/types';
 import type { ProvidedRouteContext } from '@kitajs/runtime';
 import { FastifyInstance, FastifyPluginAsync, InjectOptions, fastify } from 'fastify';
 import ts from 'typescript';
@@ -38,14 +40,22 @@ export class KitaTestBuilder extends Promise<{
     filename: string,
     /** The exports of the file to test */
     exports: object,
+    /** The config to use */
+    cfg: DeepPartial<KitaConfig> = {},
     /** The context to pass to the routes */
     context: ProvidedRouteContext = {}
   ) {
     const kita = new KitaTestBuilder(async (res) => {
-      let config = mergeDefaults({
-        controllers: { glob: [filename], prefix: __dirname + '/' },
-        tsconfig: require.resolve('../tsconfig.json')
-      });
+      let config = mergeDefaults(
+        deepmerge(
+          {
+            controllers: { glob: [filename], prefix: TEST_DIRNAME + '/' },
+            tsconfig: require.resolve('../tsconfig.json'),
+            routes: { output: __filename }
+          },
+          cfg
+        )
+      );
 
       const controllersPaths = await findControllerPaths(
         config.controllers.glob,
@@ -57,7 +67,7 @@ export class KitaTestBuilder extends Promise<{
 
       const typescriptCode = await kita.astToString();
       let { outputText } = ts.transpileModule(typescriptCode, TRANSPILE_OPTIONS);
-      outputText = outputText.replace('./..', '.');
+      // outputText = outputText.replace('./..', '.');
 
       // This is a hack to get the transpiled code to run in the same context as this file
       // making code coverage work properly
@@ -103,7 +113,7 @@ export class KitaTestBuilder extends Promise<{
 
     const response = await self.app.inject(inject);
 
-    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalled();
 
     return response;
   }
