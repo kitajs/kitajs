@@ -88,7 +88,12 @@ export class QueryResolver extends ParamResolver {
       };
     }
 
-    if (generics[0].getText().match(/^['`"]/g)) {
+    if (
+      // sometimes you may find a union type with literals, like '1' | '2'.
+      // this case is not a simple type, so we need to check for it.
+      generics[0].kind === ts.SyntaxKind.LiteralType &&
+      generics[0].getText().match(/^['`"]/g)
+    ) {
       return {
         name: unquote(generics[0].getText()),
         type: 'string',

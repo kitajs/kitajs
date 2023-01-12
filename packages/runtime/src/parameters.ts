@@ -23,7 +23,7 @@ export type BodyProp<Type, Path extends string = string> = Type;
  *   ageString: Query<'age'>, // custom name
  *   customNamed: Query<boolean, 'custom-naming'>, // Custom type and name
  *
- *   // If this mode is used, it **MUST BE THE ONLY ONE** query parameter
+ *   // If this mode is used, it **MUST BE THE ONLY** query parameter
  *   extended: Query<Extended>, // custom type. (not string | number | boolean)
  * ) {}
  * ```
@@ -33,8 +33,8 @@ export type Query<
   Type = string,
   //@ts-ignore unused
   Name extends Type extends string
-    ? 'Name must be the second parameter'
-    : string = Type extends string ? 'Name must be the second parameter' : string
+    ? 'Name must be the second parameter. For string type values, use Query<\'name\'> instead.'
+    : string = Type extends string ? 'Name must be the second parameter. For string type values, use Query<\'name\'> instead.' : string
 > = Type extends string ? string : Type;
 
 /**
