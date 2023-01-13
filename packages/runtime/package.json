@@ -7,6 +7,14 @@
   "scripts": {
     "build": "tsc"
   },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "dist",
+    "src",
+    "tsconfig.json",
+    "CHANGELOG.md"
+  ],
   "dependencies": {
     "@kitajs/generator": "*",
     "fastify": "^4.10.2",
