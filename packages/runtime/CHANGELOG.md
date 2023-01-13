@@ -1,5 +1,11 @@
 # @kitajs/runtime
 
+## 1.0.2
+
+### Patch Changes
+
+- 86c4c9f: fix: fixed build files
+
 ## 1.0.1
 
 ### Patch Changes
