@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
   "main": "./bin.js",
@@ -10,6 +10,14 @@
   "scripts": {
     "build": "tsc"
   },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "dist",
+    "src",
+    "tsconfig.json",
+    "CHANGELOG.md"
+  ],
   "dependencies": {
     "@kitajs/generator": "*",
     "@kitajs/runtime": "*",

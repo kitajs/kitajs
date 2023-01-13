@@ -1,5 +1,11 @@
 # @kitajs/cli
 
+## 1.0.2
+
+### Patch Changes
+
+- fixed build
+
 ## 1.0.1
 
 ### Patch Changes
