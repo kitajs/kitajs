@@ -71,6 +71,8 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
     return Promise.resolve();
   },
   {
+    name: 'Kita',
+    fastify: '4.x',
     // Ensure prefixes are applied to all routes
     encapsulate: true
   }
