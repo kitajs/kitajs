@@ -17,14 +17,14 @@
   ],
   "dependencies": {
     "@kitajs/generator": "*",
-    "fastify": "^4.10.2",
-    "fastify-plugin": "^4.4.0",
+    "fastify": "^4.11.0",
+    "fastify-plugin": "^4.5.0",
     "tslib": "^2.4.1"
   },
   "peerDependencies": {
     "@fastify/websocket": "^7"
   },
   "devDependencies": {
-    "@fastify/websocket": "^7.1.1"
+    "@fastify/websocket": "^7.1.2"
   }
 }
