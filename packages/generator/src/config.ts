@@ -2,6 +2,7 @@ import deepmerge from 'deepmerge';
 import type { KitaGenerator } from './generator';
 import type * as Prettier from 'prettier';
 import type { DeepPartial } from './types';
+import { KitaError } from './errors';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
@@ -120,13 +121,23 @@ export const DefaultConfig: KitaConfig = {
 };
 
 export function mergeDefaults(config?: DeepPartial<KitaConfig>) {
-  return deepmerge(DefaultConfig, config || {}, { arrayMerge: (_, b) => b }) as KitaConfig;
+  return deepmerge(DefaultConfig, config || {}, {
+    arrayMerge: (_, b) => b
+  }) as KitaConfig;
 }
 
 export function importConfig(path: string) {
   try {
     return mergeDefaults(require(path));
-  } catch (e) {
-    return DefaultConfig;
+  } catch (e: any) {
+    // The provided path is not a valid config file
+    if (
+      e.code === 'MODULE_NOT_FOUND' &&
+      e.message.includes(`Cannot find module '${path}'`)
+    ) {
+      return DefaultConfig;
+    }
+
+    throw KitaError('Could not import config file\n' + e.message);
   }
 }
