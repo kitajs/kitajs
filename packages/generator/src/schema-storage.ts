@@ -2,12 +2,13 @@ import {
   BaseType,
   Config,
   Context,
-  createFormatter,
-  createParser,
   Definition,
   NodeParser,
   Schema,
   SchemaGenerator,
+  TypeFormatter,
+  createFormatter,
+  createParser,
   ts
 } from 'ts-json-schema-generator';
 import type { KitaAST } from './ast';
@@ -18,6 +19,7 @@ import { asPrimitiveType } from './util/type';
 
 export class SchemaStorage extends SchemaGenerator {
   public override readonly nodeParser!: NodeParser;
+  public override readonly typeFormatter!: TypeFormatter;
   protected readonly definitions: Record<string, Definition> = {};
 
   constructor(tsconfig: string, override readonly program: ts.Program) {
@@ -30,6 +32,35 @@ export class SchemaStorage extends SchemaGenerator {
     };
 
     super(program, createParser(program, config), createFormatter(config), config);
+
+    // This is a workaround to move the response definition field to the end of the object
+    // It's necessary for when the response references another definition that was not yet defined
+    // throwing a reference error because the referenced definition was going to be defined after
+    // the response definition
+    const getChildren = this.typeFormatter.getChildren;
+    this.typeFormatter.getChildren = (type: BaseType) => {
+      const children = getChildren.call(this.typeFormatter, type);
+
+      // the type is always the first child
+      const first = children.shift();
+      first && children.push(first);
+
+      return children;
+    };
+
+    // This was included in the PR, but it was out of scope, so this
+    // still needs to be done manually.
+    // See https://github.com/vega/ts-json-schema-generator/pull/1386
+    const getDefinition = this.typeFormatter.getDefinition;
+    this.typeFormatter.getDefinition = (type: BaseType) => {
+      const def = getDefinition.call(this.typeFormatter, type);
+
+      if (def.$ref) {
+        def.$ref = def.$ref.replace('#/definitions/', '');
+      }
+
+      return def;
+    };
   }
 
   /**
@@ -46,14 +77,14 @@ export class SchemaStorage extends SchemaGenerator {
     const native = asPrimitiveType(type);
 
     if (native) {
-      return this.getDefinition(native);
+      return this.typeFormatter.getDefinition(native);
     }
 
     // Includes this node into our recursive definition
     this.appendRootChildDefinitions(type, this.definitions);
 
     // Returns reference to this node
-    return this.getDefinition(type);
+    return this.typeFormatter.getDefinition(type);
   }
 
   /**
@@ -72,7 +103,7 @@ export class SchemaStorage extends SchemaGenerator {
     const native = asPrimitiveType(type);
 
     if (native) {
-      return this.getDefinition(native);
+      return this.typeFormatter.getDefinition(native);
     }
 
     //@ts-expect-error - Defines a return type name to avoid uri-reference problem
@@ -82,23 +113,7 @@ export class SchemaStorage extends SchemaGenerator {
     this.appendRootChildDefinitions(type, this.definitions);
 
     // Returns reference to this node
-    return this.getDefinition(type);
-  }
-
-  /**
-   * Transforms a json schema {@link BaseType} into a reference json object (`{ $ref: '<name>' }`).
-   */
-  getDefinition(type: BaseType): Schema {
-    const def = this.typeFormatter.getDefinition(type);
-
-    // See https://github.com/vega/ts-json-schema-generator/pull/1386
-    // This was included in the PR, but it was out of scope, so this
-    // still needs to be done manually.
-    if (def.$ref) {
-      def.$ref = def.$ref.replace('#/definitions/', '');
-    }
-
-    return def;
+    return this.typeFormatter.getDefinition(type);
   }
 
   /**

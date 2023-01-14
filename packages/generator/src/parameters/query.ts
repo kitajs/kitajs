@@ -113,7 +113,7 @@ export class QueryResolver extends ParamResolver {
       name: !generics[1] ? paramName : unquote(generics[1].getText()),
       type,
       simple: !!primitive,
-      definition: primitive ? schemaStorage.getDefinition(primitive) : { type }
+      definition: primitive ? schemaStorage.typeFormatter.getDefinition(primitive) : { type }
     };
   }
 }
