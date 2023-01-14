@@ -23,7 +23,7 @@ import { RouteResolver } from './routes/base';
 import { RestResolver } from './routes/rest';
 import { WebsocketResolver } from './routes/websocket';
 import { SchemaStorage } from './schema-storage';
-import { readTsconfig } from './util/tsconfig';
+import { readCompilerOptions } from './util/tsconfig';
 
 export class KitaGenerator {
   readonly routes: RouteResolver[] = [
@@ -50,12 +50,12 @@ export class KitaGenerator {
     readonly config: KitaConfig,
     readonly controllerPaths: string[],
     readonly tsconfigPath = path.resolve(rootPath, config.tsconfig),
-    readonly tsconfig = readTsconfig(tsconfigPath),
+    readonly compilerOptions = readCompilerOptions(tsconfigPath),
     readonly outputPath = path.resolve(rootPath, config.routes.output),
     readonly outputFolder = path.dirname(outputPath),
     readonly program = ts.createProgram(
       controllerPaths,
-      (tsconfig.compilerOptions ??= {})
+      compilerOptions
     ),
     readonly schemaStorage = new SchemaStorage(tsconfigPath, program),
     readonly ast = new KitaAST(config)
