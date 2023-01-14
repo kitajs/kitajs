@@ -496,6 +496,8 @@ export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => 
 
   // Ensure this function remains a "async" function
   return Promise.resolve();
+}, {
+  encapsulate: true
 });
 
 /**

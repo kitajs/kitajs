@@ -6,9 +6,8 @@ import fastify from 'fastify';
 const app = fastify();
 
 app.register(require('@fastify/cookie'));
+
 app.register(require('@fastify/swagger'), {
-  exposeRoute: true,
-  staticCSP: true,
   openapi: {
     info: {
       title: 'Test swagger',
@@ -29,6 +28,15 @@ app.register(require('@fastify/swagger'), {
         }
       }
     }
+  }
+});
+
+app.register(require('@fastify/swagger-ui'), {
+  routePrefix: '/',
+  staticCSP: true,
+  transformSpecificationClone: true,
+  uiConfig: {
+    docExpansion: 'full'
   }
 });
 

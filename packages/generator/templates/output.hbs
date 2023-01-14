@@ -53,22 +53,28 @@ export const config = {{json config}};
  * app.register(Kita, { context: { ... } })
  * ```
  */
-export const Kita = fp<{ context: ProvidedRouteContext }>((fastify, options) => {
-  const context: RouteContext = { config, fastify, ...options.context };
+export const Kita = fp<{ context: ProvidedRouteContext }>(
+  (fastify, options) => {
+    const context: RouteContext = { config, fastify, ...options.context };
 
-  {{#each schemas}}
-    fastify.addSchema({{jsonf this}});
+    {{#each schemas}}
+      fastify.addSchema({{jsonf this}});
 
-  {{/each}}
+    {{/each}}
 
-  {{#each routes}}
-    {{rendered}}
+    {{#each routes}}
+      {{rendered}}
 
-  {{/each}}
+    {{/each}}
 
-  // Ensure this function remains a "async" function
-  return Promise.resolve();
-});
+    // Ensure this function remains a "async" function
+    return Promise.resolve();
+  },
+  {
+    // Ensure prefixes are applied to all routes
+    encapsulate: true
+  }
+);
 
 /**
  * The extracted data from your controllers and configurations for this template hydration. 
