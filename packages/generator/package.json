@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
   "main": "dist/index.js",

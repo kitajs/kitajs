@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/runtime",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
   "main": "./index.js",
@@ -16,7 +16,7 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@kitajs/generator": "*",
+    "@kitajs/generator": "^1",
     "fastify": "^4.11.0",
     "fastify-plugin": "^4.5.0",
     "tslib": "^2.4.1"

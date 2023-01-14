@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
   "main": "./bin.js",
@@ -19,8 +19,8 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@kitajs/generator": "*",
-    "@kitajs/runtime": "*",
+    "@kitajs/generator": "^1",
+    "@kitajs/runtime": "^1",
     "@types/prettier": "^2.7.2",
     "chalk": "^4",
     "commander": "^9.4.0",

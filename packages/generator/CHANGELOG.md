@@ -1,5 +1,15 @@
 # @kitajs/generator
 
+## 1.0.2
+
+### Patch Changes
+
+- 17c75fa: fixed kita plugin route prefix
+- 1edf50c: fixed typescript config import
+- 42b7927: replace #/definitions/ for everyone
+- 17a35e8: dependencies update
+- 8bb9051: warn on config errors
+
 ## 1.0.1
 
 ### Patch Changes

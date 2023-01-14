@@ -1,5 +1,18 @@
 # @kitajs/cli
 
+## 1.0.3
+
+### Patch Changes
+
+- 17a35e8: dependencies update
+- Updated dependencies [17c75fa]
+- Updated dependencies [1edf50c]
+- Updated dependencies [42b7927]
+- Updated dependencies [17a35e8]
+- Updated dependencies [8bb9051]
+  - @kitajs/generator@1.0.2
+  - @kitajs/runtime@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes
