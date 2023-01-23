@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.3
+
+### Patch Changes
+
+- 7c835d4: correct this configuration handling and schema support
+
 ## 1.0.2
 
 ### Patch Changes

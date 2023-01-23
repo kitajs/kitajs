@@ -1,5 +1,14 @@
 # @kitajs/tests
 
+## 1.0.3
+
+### Patch Changes
+
+- 7c835d4: correct this configuration handling and schema support
+- Updated dependencies [7c835d4]
+  - @kitajs/generator@1.0.3
+  - @kitajs/cli@1.0.4
+
 ## 1.0.2
 
 ### Patch Changes
