@@ -31,6 +31,7 @@ export class KitaGenerator {
     new RestResolver(),
     new WebsocketResolver()
   ];
+
   readonly params: ParamResolver[] = [
     new ThisResolver(),
     new ConnResolver(),
@@ -54,7 +55,7 @@ export class KitaGenerator {
     readonly outputPath = path.resolve(rootPath, config.routes.output),
     readonly outputFolder = path.dirname(outputPath),
     readonly program = ts.createProgram(controllerPaths, compilerOptions),
-    readonly schemaStorage = new SchemaStorage(tsconfigPath, program),
+    readonly schemaStorage = new SchemaStorage(tsconfigPath,config.schema.generator, program),
     readonly ast = new KitaAST(config)
   ) {
     config.onCreate?.(this);
@@ -114,6 +115,10 @@ export class KitaGenerator {
             route.controllerPath
           ]);
         }
+      }
+
+      for (const [resp, schema] of Object.entries(this.config.schema.responses)) {
+        (route.schema.response as Record<string, unknown>)[resp] ??= schema;
       }
 
       this.ast.routes.push(route);

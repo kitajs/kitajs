@@ -22,15 +22,8 @@ export class SchemaStorage extends SchemaGenerator {
   public override readonly typeFormatter!: TypeFormatter;
   protected readonly definitions: Record<string, Definition> = {};
 
-  constructor(tsconfig: string, override readonly program: ts.Program) {
-    const config: Config = {
-      tsconfig,
-      encodeRefs: true,
-      sortProps: true,
-      strictTuples: true,
-      jsDoc: 'extended'
-    };
-
+  constructor(tsconfig: string, config: Config, override readonly program: ts.Program) {
+    config.tsconfig ??= tsconfig;
     super(program, createParser(program, config), createFormatter(config), config);
 
     // This is a workaround to move the response definition field to the end of the object

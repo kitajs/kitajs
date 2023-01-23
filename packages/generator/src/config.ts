@@ -29,6 +29,33 @@ export interface KitaConfig {
     format: false | Prettier.Options | Record<string, unknown>;
   };
 
+  schema: {
+    /**
+     * General response types to append on all routes schemas.
+     * 
+     * @see https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/#serialization
+     *
+     * @default {}
+     */
+    responses: {
+      [key: string | number]: any;
+    };
+
+    /**
+     * The default response status to use for generated response types.
+     *
+     * @default 'default'
+     */
+    defaultResponse: string;
+
+    /**
+     * The config to the ts-json-schema-generator that is used to generate schemas from typescript AST.
+     *
+     * @default { encodeRefs: true, sortProps: true, strictTuples: true, jsDoc: 'extended' }
+     */
+    generator: import('ts-json-schema-generator').Config;
+  };
+
   controllers: {
     /**
      * The regex to match all files to parse
@@ -117,6 +144,16 @@ export const DefaultConfig: KitaConfig = {
   routes: {
     output: './src/routes.ts',
     format: { parser: 'typescript' }
+  },
+  schema: {
+    defaultResponse: 'default',
+    responses: {},
+    generator: {
+      encodeRefs: true,
+      sortProps: true,
+      strictTuples: true,
+      jsDoc: 'extended'
+    }
   }
 };
 
