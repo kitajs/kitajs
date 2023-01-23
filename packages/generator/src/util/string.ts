@@ -76,7 +76,7 @@ export function prepareTypeAsObject(
     type = type.replace(/typeof (\w+);?/g, `${route.controllerName}.$1`);
   }
 
-  // Replaces the last semicolon with a comma
+  // Replaces the last semicolon with a comma of each line
   type = type.replace(/(?<!\\)[;,]\s*$/gm, ',');
 
   // Removes trilling spaces
