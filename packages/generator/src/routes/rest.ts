@@ -49,7 +49,9 @@ export class RestResolver extends RouteResolver<ts.FunctionDeclaration> {
 
     // Response type detection
     const schema = await kita.schemaStorage.consumeResponseType(node, route);
-    route.schema = deepmerge(route.schema, { response: { [kita.config.schema.defaultResponse]: schema } });
+    route.schema = deepmerge(route.schema, {
+      response: { [kita.config.schema.defaultResponse]: schema }
+    });
 
     //@ts-expect-error - TODO: Find correct ts.getJsDoc method
     route.schema = deepmerge(route.schema, { description: node.jsDoc?.[0]?.comment });
@@ -79,6 +81,10 @@ export class RestResolver extends RouteResolver<ts.FunctionDeclaration> {
         source.fileName
       )}';`
     );
+
+    for (const [resp, schema] of Object.entries(kita.config.schema.responses)) {
+      (route.schema.response as Record<string, unknown>)[resp] ??= schema;
+    }
 
     route.rendered = HbsTemplate(route);
 

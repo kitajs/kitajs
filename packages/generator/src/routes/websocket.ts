@@ -66,6 +66,10 @@ export class WebsocketResolver extends RouteResolver<ts.FunctionDeclaration> {
       )}';`
     );
 
+    for (const [resp, schema] of Object.entries(kita.config.schema.responses)) {
+      (route.schema.response as Record<string, unknown>)[resp] ??= schema;
+    }
+
     route.rendered = HbsTemplate(route);
 
     return route;
