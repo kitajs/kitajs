@@ -9,7 +9,7 @@ export default function (
   this: RouteContext,
   _req: Req,
   _rep: Rep,
-  params: [AuthMode]
+  authMode: AuthMode
 ): AuthParam<any> {
-  return params[0] === 'jwt' ? 'ok' : 'error';
+  return authMode === 'jwt' ? 'ok' : 'error';
 }

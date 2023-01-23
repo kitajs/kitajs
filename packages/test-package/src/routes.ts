@@ -22,7 +22,7 @@ if (require('piscina')?.isWorkerThread) {
   return;
 }
 
-import type { RouteContext, ProvidedRouteContext } from '@kitajs/runtime';
+import type { RouteContext, ProvidedRouteContext, KitaConfig } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
 import '@fastify/swagger';
 import '@fastify/cookie';
@@ -77,7 +77,7 @@ export const config = {
       tsconfig: '/www/kita/packages/test-package/tsconfig.json'
     }
   }
-};
+} as KitaConfig;
 
 /**
  * The Kita generated fastify plugin. Registering it into your fastify instance will
