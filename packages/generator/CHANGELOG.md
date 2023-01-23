@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.5
+
+### Patch Changes
+
+- 4ebe064: constant config to prevent literal errors
+
 ## 1.0.4
 
 ### Patch Changes

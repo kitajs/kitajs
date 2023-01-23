@@ -1,5 +1,13 @@
 # @kitajs/runtime
 
+## 1.0.4
+
+### Patch Changes
+
+- 4ebe064: constant config to prevent literal errors
+- Updated dependencies [4ebe064]
+  - @kitajs/generator@1.0.5
+
 ## 1.0.3
 
 ### Patch Changes
