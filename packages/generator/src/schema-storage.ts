@@ -100,7 +100,11 @@ export class SchemaStorage extends SchemaGenerator {
     }
 
     //@ts-expect-error - Defines a return type name to avoid uri-reference problem
-    type.name ??= `${route.schema.operationId}Response`;
+    type.name ??=
+      // Caso for uma referencia de tipo, use o nome do tipo
+      returnType.kind === ts.SyntaxKind.TypeReference
+        ? (returnType as ts.TypeReferenceNode).typeName.getText()
+        : `${route.schema.operationId}Response`;
 
     // Includes this node into our recursive definition
     this.appendRootChildDefinitions(type, this.definitions);

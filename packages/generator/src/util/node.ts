@@ -55,6 +55,7 @@ export function getReturnType(
   return typeChecker.typeToTypeNode(
     implicitType,
     undefined,
+    // TODO: Find documentation for what flags we should have been using
     ts.NodeBuilderFlags.NoTruncation
   ) as ts.TypeNode;
 }
