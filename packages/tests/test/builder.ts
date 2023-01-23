@@ -14,6 +14,7 @@ import { FastifyInstance, FastifyPluginAsync, InjectOptions, fastify } from 'fas
 import ts from 'typescript';
 
 const TEST_DIRNAME = __dirname;
+const TEST_FILENAME = __filename;
 
 const TRANSPILE_OPTIONS: ts.TranspileOptions = {
   compilerOptions: {
@@ -51,7 +52,7 @@ export class KitaTestBuilder extends Promise<{
           {
             controllers: { glob: [filename], prefix: TEST_DIRNAME + '/' },
             tsconfig: require.resolve('../tsconfig.json'),
-            routes: { output: __filename }
+            routes: { output: TEST_FILENAME },
           },
           cfg
         )
@@ -62,12 +63,11 @@ export class KitaTestBuilder extends Promise<{
         TEST_DIRNAME
       );
 
-      const kita = new KitaGenerator(__dirname, config, controllersPaths);
+      const kita = new KitaGenerator(TEST_DIRNAME, config, controllersPaths);
       await kita.updateAst();
 
       const typescriptCode = await kita.astToString();
       let { outputText } = ts.transpileModule(typescriptCode, TRANSPILE_OPTIONS);
-      // outputText = outputText.replace('./..', '.');
 
       // This is a hack to get the transpiled code to run in the same context as this file
       // making code coverage work properly

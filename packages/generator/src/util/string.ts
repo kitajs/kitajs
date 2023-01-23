@@ -1,4 +1,5 @@
 import type { KitaConfig } from '../config';
+import path from 'path';
 
 /** Removes enclosing quotes  */
 export function unquote(str: string) {
@@ -46,4 +47,46 @@ export function findRouteName(filepath: string, config: KitaConfig) {
 
 export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+/** Treats a type string to be a valid javascript oject*/
+export function prepareTypeAsObject(
+  type: string,
+  route?: {
+    controllerPath: string;
+    controllerName: string;
+    preparePath: (path: string) => string;
+  }
+) {
+  if (route) {
+    // Replaces `typeof import('...')` with require('...')
+    type = type.replace(
+      /typeof import\(['"](.*?)['"]\)/g,
+      (_, importPath) =>
+        `require('${route.preparePath(
+          path.resolve(
+            // controllerPath supports paths with line numbers (e.g. /path/to/file.ts:1:2 -> /path/to)
+            path.dirname(route.controllerPath),
+            importPath
+          )
+        )}')`
+    );
+
+    // Replaces `typeof localMethod` to `ControllerName.localMethod`
+    type = type.replace(/typeof (\w+);?/g, `${route.controllerName}.$1`);
+  }
+
+  // Replaces the last semicolon with a comma
+  type = type.replace(/(?<!\\)[;,]\s*$/gm, ',');
+
+  // Removes trilling spaces
+  type = type.trim();
+
+  // Removes the last semicolon or comma
+  type = type.replace(/(?<!\\)[,;]\s*$/, '');
+
+  // Fixes escaped semicolons
+  type = type.replace(/\\([;,]\s*)/gm, '$1');
+
+  return type;
 }

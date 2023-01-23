@@ -53,6 +53,13 @@ export class AsyncResolver extends RouteResolver<ts.FunctionDeclaration> {
       async: true
     };
 
+    // Response type detection
+    const schema = await kita.schemaStorage.consumeResponseType(node, route);
+    route.schema = deepmerge(route.schema, { response: { default: schema } });
+
+    //@ts-expect-error - TODO: Find correct ts.getJsDoc method
+    route.schema = deepmerge(route.schema, { description: node.jsDoc?.[0]?.comment });
+
     // Needs to process each parameter in their expected order
     for (const [index, param] of node.parameters.entries()) {
       const parameter = await ParamResolver.resolveParameter(
@@ -80,16 +87,8 @@ export class AsyncResolver extends RouteResolver<ts.FunctionDeclaration> {
       }
     }
 
-    // Response type detection
-    const schema = await kita.schemaStorage.consumeResponseType(node, route);
-    route.schema = deepmerge(route.schema, { response: { default: schema } });
-
-    //@ts-expect-error - TODO: Find correct ts.getJsDoc method
-    route.schema = deepmerge(route.schema, { description: node.jsDoc?.[0]?.comment });
-
-    route.rendered = HbsTemplate(route);
-
     kita.ast.hasAsync = true;
+    route.rendered = HbsTemplate(route);
 
     return route;
   }

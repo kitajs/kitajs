@@ -24,7 +24,6 @@ export function post(
 }
 
 describe('tests custom parameters', () => {
-
   const test = KitaTestBuilder.build(__filename, exports, {
     params: {
       RandomNumber: path.resolve(__dirname, './random-number'),

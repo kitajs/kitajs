@@ -1,10 +1,10 @@
+import deepmerge from 'deepmerge';
 import { ts } from 'ts-json-schema-generator';
 import type { TypeQueryNode } from 'typescript';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
-import { unquote } from '../util/string';
+import { prepareTypeAsObject, unquote } from '../util/string';
 import { ParamData, ParamInfo, ParamResolver } from './base';
-import path from 'path';
 
 export class ThisResolver extends ParamResolver {
   // This parameter is serializable because it does not generates any ast real world parameter.
@@ -45,39 +45,53 @@ export class ThisResolver extends ParamResolver {
         );
       }
 
-      let text = options.getText();
-
-      if (text.includes('keyof')) {
+      if (options.getText().includes('keyof')) {
         throw KitaError(
           `A Route "this" options type cannot use the "keyof" keyword.`,
           route.controllerPath
         );
       }
 
-      //
-      // A lot of regexes to transform a valid typescript type into a evaluable javascript object.
-      //
+      let rootProperties: string[] = [];
 
-      // Removes the first { and last } of the string
-      text = text.replace(/^\s*{|}\s*$/g, '');
-      // Removes "border" spaces
-      text = text.trim();
-      // Replaces `typeof import('...')` with require('...')
-      text = text.replace(/typeof import\(['"](.*?)['"]\)/g, (_, importPath) => {
-        return `require('${kita.importablePath(
-          // dirname supports paths with line numbers (e.g. /path/to/file.ts:1:2 -> /path/to)
-          path.resolve(path.dirname(route.controllerPath), importPath)
-        )}')`;
-      });
-      // Replaces `typeof localMethod` to `ControllerName.localMethod`
-      text = text.replace(/typeof (\w+);?/g, `${route.controllerName}.$1`);
-      // Typescript types allows ; to be used as separators. This regex does not matches escaped ; (\;)
-      text = text.replace(/(?<!\\);/g, ',');
-      // Includes commas on line breaks, if not present
-      text = text.replace(/(?<![,;{}]\s*)\n/g, ',');
+      for (const member of (options as ts.TypeLiteralNode).members) {
+        const name = member.name?.getText();
 
-      route.options ??= '';
-      route.options += text;
+        // Merges the schema property into the route schema
+        if (name === 'schema') {
+          const schemaText = prepareTypeAsObject(
+            (member as ts.PropertySignature).type!.getText()
+          );
+
+          // Uses eval to transform the typescript type into a javascript object
+          try {
+            let schema = {};
+            eval(`schema = ${schemaText}`);
+            route.schema = deepmerge(route.schema, schema);
+          } catch (error) {
+            throw KitaError(
+              `A Route "this" schema type cannot be evaluated.`,
+              route.controllerPath,
+              { schema: schemaText, error }
+            );
+          }
+
+          continue;
+        }
+
+        rootProperties.push(
+          prepareTypeAsObject(member.getText(), {
+            controllerName: route.controllerName,
+            controllerPath: route.controllerPath,
+            preparePath: kita.importablePath.bind(kita)
+          })
+        );
+      }
+
+      // Prevent empty string options parameter
+      if (rootProperties.length) {
+        route.options = rootProperties.join(', ');
+      }
     }
 
     return undefined;

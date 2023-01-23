@@ -1,14 +1,6 @@
 import type { Query } from '@kitajs/runtime';
 import { KitaTestBuilder } from '../../builder';
 
-// *   name: Query, // defaults to string
-// *   age: Query<number>, // custom type
-// *   ageString: Query<'age'>, // custom name
-// *   customNamed: Query<boolean, 'custom-naming'>, // Custom type and name
-// *
-// *   // If this mode is used, it **MUST BE THE ONLY** query parameter
-// *   extended: Query<Extended>, // custom type. (not string | number | boolean)
-
 export function get(
   name: Query, // defaults to string
   age: Query<number>, // custom type

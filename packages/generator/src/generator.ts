@@ -53,10 +53,7 @@ export class KitaGenerator {
     readonly compilerOptions = readCompilerOptions(tsconfigPath),
     readonly outputPath = path.resolve(rootPath, config.routes.output),
     readonly outputFolder = path.dirname(outputPath),
-    readonly program = ts.createProgram(
-      controllerPaths,
-      compilerOptions
-    ),
+    readonly program = ts.createProgram(controllerPaths, compilerOptions),
     readonly schemaStorage = new SchemaStorage(tsconfigPath, program),
     readonly ast = new KitaAST(config)
   ) {
@@ -69,8 +66,11 @@ export class KitaGenerator {
   importablePath(p: string) {
     return `./${path.relative(
       this.outputFolder,
-      // remove possible .ts extension
-      path.resolve(this.rootPath, p.replace(/\.ts$/, ''))
+      path.resolve(
+        this.rootPath,
+        // remove possible .ts extension
+        p.replace(/\.(t|j)sx?$/, '')
+      )
     )}`;
   }
 

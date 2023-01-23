@@ -56,7 +56,7 @@ export class SchemaStorage extends SchemaGenerator {
       const def = getDefinition.call(this.typeFormatter, type);
 
       if (def.$ref) {
-        def.$ref = def.$ref.replace('#/definitions/', '');
+        def.$ref = def.$ref.replace(/\#\/definitions\//g, '');
       }
 
       return def;
