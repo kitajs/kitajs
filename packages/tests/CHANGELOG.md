@@ -1,5 +1,14 @@
 # @kitajs/tests
 
+## 1.0.4
+
+### Patch Changes
+
+- 9f5fbca: more config options
+- Updated dependencies [9f5fbca]
+- Updated dependencies [9f5fbca]
+  - @kitajs/generator@1.0.4
+
 ## 1.0.3
 
 ### Patch Changes
