@@ -1,8 +1,8 @@
 import deepmerge from 'deepmerge';
-import type { KitaGenerator } from './generator';
 import type * as Prettier from 'prettier';
-import type { DeepPartial } from './types';
 import { KitaError } from './errors';
+import type { KitaGenerator } from './generator';
+import type { DeepPartial } from './types';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
@@ -32,7 +32,7 @@ export interface KitaConfig {
   schema: {
     /**
      * General response types to append on all routes schemas.
-     * 
+     *
      * @see https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/#serialization
      *
      * @default {}
@@ -157,10 +157,21 @@ export const DefaultConfig: KitaConfig = {
   }
 };
 
-export function mergeDefaults(config?: DeepPartial<KitaConfig>) {
-  return deepmerge(DefaultConfig, config || {}, {
-    arrayMerge: (_, b) => b
-  }) as KitaConfig;
+export function mergeDefaults(config: DeepPartial<KitaConfig> = {}) {
+  if (config?.controllers?.glob) {
+    if (!Array.isArray(config.controllers.glob)) {
+      throw KitaError('controllers.glob must be an array of strings', {
+        controllers: config.controllers
+      });
+    }
+  }
+
+  return deepmerge<KitaConfig>(
+    DefaultConfig,
+    // validated config
+    config as KitaConfig,
+    { arrayMerge: (_, b) => b }
+  );
 }
 
 export function importConfig(path: string) {
