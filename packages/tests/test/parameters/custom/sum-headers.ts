@@ -5,7 +5,7 @@ export type SumHeaders<
   HeaderAName extends string = string,
   HeaderBName extends string = string
 > = CustomParameter<
-  ReturnType extends 'string' ? string : number,
+  { value: ReturnType extends 'string' ? string : number },
   [ReturnType, HeaderAName, HeaderBName]
 >;
 
@@ -16,11 +16,11 @@ export default function (
   returnType: 'string' | 'number',
   headerAName: string,
   headerBName: string
-) {
+): SumHeaders<'string' | 'number'> {
   const headerA = headers[headerAName];
   const headerB = headers[headerBName];
 
   const sum = Number(headerA) + Number(headerB);
 
-  return returnType === 'string' ? String(sum) : sum;
+  return { value: returnType === 'string' ? String(sum) : sum };
 }

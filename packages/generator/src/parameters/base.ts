@@ -1,4 +1,4 @@
-import type { ts } from 'ts-json-schema-generator';
+import { ts } from 'ts-json-schema-generator';
 import type { KitaConfig } from '../config';
 import { KitaError } from '../errors';
 import type { KitaGenerator } from '../generator';
@@ -101,7 +101,11 @@ export abstract class ParamResolver {
     /** If the selected parameter is valid and can proceed to resolve the parameter */
     predicate?: (res: ParamResolver) => boolean
   ) => {
-    const paramName = param.name.getText().trim();
+    const paramName =
+      // We may find a parameter with a destructuring pattern or similar syntaxes
+      param.name.kind === ts.SyntaxKind.Identifier
+        ? param.name.getText().trim()
+        : `param${index}`;
     const typeName = param.type?.getFirstToken()?.getText();
 
     const resolver = kita.params.find((resolver) =>

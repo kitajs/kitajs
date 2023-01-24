@@ -8,7 +8,7 @@ export function get(
   randomNumber: RandomNumber
 ) {
   return {
-    headerSum,
+    headerSum: headerSum.value,
     randomNumber
   };
 }
@@ -18,8 +18,14 @@ export function post(
   randomNumber: RandomNumber
 ) {
   return {
-    headerSum,
+    headerSum: headerSum.value,
     randomNumber
+  };
+}
+
+export function put({ value }: SumHeaders<'number', 'header-c', 'header-d'>) {
+  return {
+    value
   };
 }
 
@@ -65,5 +71,17 @@ describe('tests custom parameters', () => {
     expect(headerSum).toBe(7);
     expect(randomNumber).toBeGreaterThanOrEqual(0);
     expect(randomNumber).toBeLessThanOrEqual(1);
+  });
+
+  it('expects destructured param work with custom name', async () => {
+    const { KitaAST } = await test;
+
+    const put = KitaAST.routes.find((route) => route.method === 'PUT')!;
+
+    expect(put).toBeDefined();
+
+    expect(put.parameters).toHaveLength(1);
+    expect(put.parameters[0]!.value).not.toBe('{ value }');
+    expect(put.parameters[0]!.value).toMatch(/param\d/g);
   });
 });
