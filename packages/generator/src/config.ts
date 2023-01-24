@@ -3,6 +3,7 @@ import type * as Prettier from 'prettier';
 import { KitaError } from './errors';
 import type { KitaGenerator } from './generator';
 import type { DeepPartial } from './types';
+import type { SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
@@ -53,7 +54,12 @@ export interface KitaConfig {
      *
      * @default { encodeRefs: true, sortProps: true, strictTuples: true, jsDoc: 'extended' }
      */
-    generator: import('ts-json-schema-generator').Config;
+    generator: import('ts-json-schema-generator').Config & {
+      /** Extra parsers to handle ts.Nodes into Schema Nodes */
+      parsers: SubNodeParser[];
+      /** Extra formatters to handle Schema Nodes into json schemas */
+      formatters: SubTypeFormatter[];
+    };
   };
 
   controllers: {
@@ -152,7 +158,9 @@ export const DefaultConfig: KitaConfig = {
       encodeRefs: true,
       sortProps: true,
       strictTuples: true,
-      jsDoc: 'extended'
+      jsDoc: 'extended',
+      parsers: [],
+      formatters: []
     }
   }
 };

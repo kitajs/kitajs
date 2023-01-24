@@ -1,6 +1,5 @@
 import {
   BaseType,
-  Config,
   Context,
   Definition,
   NodeParser,
@@ -12,6 +11,7 @@ import {
   ts
 } from 'ts-json-schema-generator';
 import type { KitaAST } from './ast';
+import type { KitaConfig } from './config';
 import { KitaError } from './errors';
 import type { Route } from './route';
 import { getReturnType } from './util/node';
@@ -22,9 +22,31 @@ export class SchemaStorage extends SchemaGenerator {
   public override readonly typeFormatter!: TypeFormatter;
   protected readonly definitions: Record<string, Definition> = {};
 
-  constructor(tsconfig: string, config: Config, override readonly program: ts.Program) {
-    config.tsconfig ??= tsconfig;
-    super(program, createParser(program, config), createFormatter(config), config);
+  constructor({ tsconfig, schema }: KitaConfig, override readonly program: ts.Program) {
+    const config = {
+      tsconfig,
+      ...schema.generator,
+      parsers: undefined,
+      formatters: undefined
+    };
+
+    super(
+      program,
+
+      createParser(program, config, (mut) => {
+        for (const parser of schema.generator.parsers) {
+          mut.addNodeParser(parser);
+        }
+      }),
+
+      createFormatter(config, (mut) => {
+        for (const formatter of schema.generator.formatters) {
+          mut.addTypeFormatter(formatter);
+        }
+      }),
+
+      config
+    );
 
     // This is a workaround to move the response definition field to the end of the object
     // It's necessary for when the response references another definition that was not yet defined
@@ -86,7 +108,7 @@ export class SchemaStorage extends SchemaGenerator {
   consumeResponseType(node: ts.SignatureDeclaration, route: Route): Schema {
     const returnType = getReturnType(node, this.program.getTypeChecker());
 
-    const type = this.nodeParser.createType(returnType, new Context(node));
+    let type = this.nodeParser.createType(returnType, new Context(node));
 
     if (!type) {
       throw KitaError(`Could not create type for node \`${returnType.getText()}\``);

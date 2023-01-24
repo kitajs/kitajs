@@ -55,11 +55,7 @@ export class KitaGenerator {
     readonly outputPath = path.resolve(rootPath, config.routes.output),
     readonly outputFolder = path.dirname(outputPath),
     readonly program = ts.createProgram(controllerPaths, compilerOptions),
-    readonly schemaStorage = new SchemaStorage(
-      tsconfigPath,
-      config.schema.generator,
-      program
-    ),
+    readonly schemaStorage = new SchemaStorage(config, program),
     readonly ast = new KitaAST(config)
   ) {
     config.onCreate?.(this);

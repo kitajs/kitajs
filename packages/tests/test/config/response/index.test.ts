@@ -29,16 +29,18 @@ describe('this options variations', () => {
     expect(route).toBeDefined();
 
     expect(route.schema.response).toStrictEqual({
-      '2xx': { $ref: 'Resp' },
+      '2xx': { $ref: 'ConfigResponseIndexTest' + 'Controller' + 'Get' + 'Response' },
       '3xx': { description: 'Redirect' }
     });
 
-    const respSchema = KitaAST.schemas.find((s) => s.$id === 'Resp');
+    const respSchema = KitaAST.schemas.find(
+      (s) => s.$id === 'ConfigResponseIndexTest' + 'Controller' + 'Get' + 'Response'
+    );
 
     expect(respSchema).toBeDefined();
 
     expect(respSchema).toStrictEqual({
-      $id: 'Resp',
+      $id: 'ConfigResponseIndexTest' + 'Controller' + 'Get' + 'Response',
       type: 'object',
       properties: {
         a: {
