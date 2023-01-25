@@ -24,6 +24,7 @@ export type BodyProp<Type, Path extends string = string> = Type;
  *   customNamed: Query<boolean, 'custom-naming'>, // Custom type and name
  *
  *   // If this mode is used, it **MUST BE THE ONLY** query parameter
+ *   // Note, fastify only supports objects with native values, deep objects are not supported.
  *   extended: Query<Extended>, // custom type. (not string | number | boolean)
  * ) {}
  * ```
@@ -37,7 +38,11 @@ export type Query<
     : string = Type extends string
     ? "Name must be the second parameter. For string type values, use Query<'name'> instead."
     : string
-> = Type extends string ? string : Type;
+> = Type extends string
+  ? string
+  : Type extends Native | { [key in keyof Type]: Native }
+  ? Type
+  : 'Complex queries cannot have deep objects. Did you mean Body?';
 
 /**
  * **Headers are case insensitive!**
