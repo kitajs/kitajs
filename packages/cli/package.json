@@ -19,7 +19,7 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@kitajs/generator": "^1.0.3",
+    "@kitajs/generator": "^1",
     "@kitajs/runtime": "^1",
     "@types/prettier": "^2.7.2",
     "chalk": "^4",

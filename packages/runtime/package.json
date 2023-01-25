@@ -16,7 +16,7 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@kitajs/generator": "^1.0.5",
+    "@kitajs/generator": "^1",
     "fastify": "^4.11.0",
     "fastify-plugin": "^4.5.0",
     "tslib": "^2.4.1"
