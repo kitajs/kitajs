@@ -74,7 +74,8 @@ export const config = {
       sortProps: true,
       strictTuples: true,
       jsDoc: 'extended',
-      tsconfig: '/www/kita/packages/test-package/tsconfig.json'
+      parsers: [],
+      formatters: []
     }
   }
 } as KitaConfig;
@@ -561,7 +562,8 @@ export const KitaAST = {
         sortProps: true,
         strictTuples: true,
         jsDoc: 'extended',
-        tsconfig: '/www/kita/packages/test-package/tsconfig.json'
+        parsers: [],
+        formatters: []
       }
     }
   },
