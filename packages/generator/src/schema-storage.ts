@@ -22,10 +22,10 @@ export class SchemaStorage extends SchemaGenerator {
   public override readonly typeFormatter!: TypeFormatter;
   protected readonly definitions: Record<string, Definition> = {};
 
-  constructor({ tsconfig, schema }: KitaConfig, override readonly program: ts.Program) {
+  constructor(private kitaConfig: KitaConfig, override readonly program: ts.Program) {
     const config = {
-      tsconfig,
-      ...schema.generator,
+      tsconfig: kitaConfig.tsconfig,
+      ...kitaConfig.schema.generator,
       parsers: undefined,
       formatters: undefined
     };
@@ -34,13 +34,13 @@ export class SchemaStorage extends SchemaGenerator {
       program,
 
       createParser(program, config, (mut) => {
-        for (const parser of schema.generator.parsers) {
+        for (const parser of kitaConfig.schema.generator.parsers) {
           mut.addNodeParser(parser);
         }
       }),
 
       createFormatter(config, (mut) => {
-        for (const formatter of schema.generator.formatters) {
+        for (const formatter of kitaConfig.schema.generator.formatters) {
           mut.addTypeFormatter(formatter);
         }
       }),
@@ -136,7 +136,10 @@ export class SchemaStorage extends SchemaGenerator {
    */
   applyDefinitions(ast: KitaAST) {
     for (const [key, def] of Object.entries(this.definitions)) {
-      ast.schemas.push({ $id: encodeURI(key), ...def });
+      ast.schemas.push({
+        $id: this.kitaConfig.schema.generator.encodeRefs ? encodeURIComponent(key) : key,
+        ...def
+      });
     }
   }
 }

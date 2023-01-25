@@ -14,8 +14,8 @@ export function findRouteName(filepath: string, config: KitaConfig) {
   const strip = filepath
     // Strips any possible regex that the user might have added
     .replace(new RegExp(config.controllers.prefix), '')
-    // Removes possible .ts extension
-    .replace(/\.(t|j)sx?$/, '')
+      // keeps everything before first . (removes extensions like .test.ts or .js)
+      .split('.')[0]!
     // Replaces spaces with dashes
     .replace(/\s|\./g, '-');
 

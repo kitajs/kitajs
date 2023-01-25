@@ -7,9 +7,9 @@ import {
   findRouteName,
   mergeDefaults
 } from '@kitajs/generator';
-import deepmerge from 'deepmerge';
 import type { DeepPartial } from '@kitajs/generator/dist/types';
 import type { ProvidedRouteContext } from '@kitajs/runtime';
+import deepmerge from 'deepmerge';
 import { FastifyInstance, FastifyPluginAsync, InjectOptions, fastify } from 'fastify';
 import ts from 'typescript';
 
@@ -46,13 +46,16 @@ export class KitaTestBuilder extends Promise<{
     /** The context to pass to the routes */
     context: ProvidedRouteContext = {}
   ) {
+    // escapes path variables
+    filename = filename.replace(/(\[|\])/g, '\\$1');
+
     const kita = new KitaTestBuilder(async (res) => {
       let config = mergeDefaults(
         deepmerge(
           {
             controllers: { glob: [filename], prefix: TEST_DIRNAME + '/' },
             tsconfig: require.resolve('../tsconfig.json'),
-            routes: { output: TEST_FILENAME },
+            routes: { output: TEST_FILENAME }
           },
           cfg
         )

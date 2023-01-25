@@ -1,8 +1,19 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { Native } from './types';
 
+/**
+ * @example
+ * ```ts
+ * // routes/[name]/[age].ts
+ *
+ * export function get(
+ *   name: Path,
+ *   age: Path<'age', number>
+ * ) {}
+ * ```
+ */
 //@ts-ignore unused
-export type Path<Name extends string = string> = string;
+export type Path<Name extends string = string, Type extends Native = string> = Type;
 
 /** **The usage of this parameter requires `@fastify/cookies` set up!** */
 //@ts-ignore unused

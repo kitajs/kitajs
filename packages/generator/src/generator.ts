@@ -54,6 +54,7 @@ export class KitaGenerator {
     readonly compilerOptions = readCompilerOptions(tsconfigPath),
     readonly outputPath = path.resolve(rootPath, config.routes.output),
     readonly outputFolder = path.dirname(outputPath),
+    // TODO: Use ts.createIncrementalProgram to faster builds??
     readonly program = ts.createProgram(controllerPaths, compilerOptions),
     readonly schemaStorage = new SchemaStorage(config, program),
     readonly ast = new KitaAST(config)
