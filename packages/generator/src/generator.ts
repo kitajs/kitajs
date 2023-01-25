@@ -65,14 +65,17 @@ export class KitaGenerator {
    * An util method that resolves the provided path into a relative path to the output file.
    */
   importablePath(p: string) {
-    return `./${path.relative(
-      this.outputFolder,
-      path.resolve(
-        this.rootPath,
-        // remove possible .ts extension
-        p.replace(/\.(t|j)sx?$/, '')
+    return `./${path
+      .relative(
+        this.outputFolder,
+        path.resolve(
+          this.rootPath,
+          // remove possible .ts extension
+          p.replace(/\.(t|j)sx?$/, '')
+        )
       )
-    )}`;
+      // replace windows backslashes with forward slashes
+      .replace(/\\/g, '/')}`;
   }
 
   async updateAst() {
