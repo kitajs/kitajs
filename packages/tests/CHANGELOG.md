@@ -1,5 +1,17 @@
 # @kitajs/tests
 
+## 1.0.5
+
+### Patch Changes
+
+- 41a7ca5: support for parameter destructuration
+- 991ecfb: added custom parsers and formatters
+- Updated dependencies [b1a2557]
+- Updated dependencies [41a7ca5]
+- Updated dependencies [991ecfb]
+- Updated dependencies [2c474f5]
+  - @kitajs/generator@1.0.6
+
 ## 1.0.4
 
 ### Patch Changes

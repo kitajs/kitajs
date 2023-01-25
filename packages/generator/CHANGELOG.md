@@ -1,5 +1,14 @@
 # @kitajs/generator
 
+## 1.0.6
+
+### Patch Changes
+
+- b1a2557: fix other responses
+- 41a7ca5: support for parameter destructuration
+- 991ecfb: added custom parsers and formatters
+- 2c474f5: windows backslash bug
+
 ## 1.0.5
 
 ### Patch Changes
