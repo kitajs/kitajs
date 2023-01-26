@@ -1,4 +1,5 @@
 import {
+  AnnotatedType,
   ArrayType,
   BaseType,
   DefinitionType,
@@ -16,7 +17,7 @@ import {
  */
 export function asPrimitiveType(type: BaseType): BaseType | undefined {
   if (type instanceof DefinitionType || type instanceof ReferenceType) {
-    type = type.getType();
+    return asPrimitiveType(type.getType());
   }
 
   if (
@@ -28,7 +29,7 @@ export function asPrimitiveType(type: BaseType): BaseType | undefined {
     return type;
   }
 
-  if (type instanceof OptionalType) {
+  if (type instanceof OptionalType || type instanceof AnnotatedType) {
     if (asPrimitiveType(type.getType())) {
       return type;
     }
