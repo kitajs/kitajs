@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.7
+
+### Patch Changes
+
+- 4a0dd3a: path types support
+
 ## 1.0.6
 
 ### Patch Changes

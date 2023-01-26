@@ -1,5 +1,15 @@
 # @kitajs/runtime
 
+## 1.0.5
+
+### Patch Changes
+
+- 4a0dd3a: path types support
+- 59d3078: fixed inter dependencies
+- 6ffb967: added deep query objects
+- Updated dependencies [4a0dd3a]
+  - @kitajs/generator@1.0.7
+
 ## 1.0.4
 
 ### Patch Changes

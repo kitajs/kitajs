@@ -1,5 +1,16 @@
 # @kitajs/cli
 
+## 1.0.5
+
+### Patch Changes
+
+- 59d3078: fixed inter dependencies
+- Updated dependencies [4a0dd3a]
+- Updated dependencies [59d3078]
+- Updated dependencies [6ffb967]
+  - @kitajs/generator@1.0.7
+  - @kitajs/runtime@1.0.5
+
 ## 1.0.4
 
 ### Patch Changes

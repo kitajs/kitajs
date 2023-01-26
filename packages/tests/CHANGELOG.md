@@ -1,5 +1,18 @@
 # @kitajs/tests
 
+## 1.0.6
+
+### Patch Changes
+
+- 4a0dd3a: path types support
+- 6ffb967: added deep query objects
+- Updated dependencies [4a0dd3a]
+- Updated dependencies [59d3078]
+- Updated dependencies [6ffb967]
+  - @kitajs/generator@1.0.7
+  - @kitajs/runtime@1.0.5
+  - @kitajs/cli@1.0.5
+
 ## 1.0.5
 
 ### Patch Changes
