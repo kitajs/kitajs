@@ -1,5 +1,5 @@
 import type { ts } from 'ts-json-schema-generator';
-import { catchKitaError } from '../errors';
+import { KitaError, catchKitaError } from '../errors';
 import type { KitaGenerator } from '../generator';
 import type { Route } from '../route';
 import { isNodeExported, isTypeOnlyNode } from '../util/node';
@@ -64,6 +64,33 @@ export abstract class RouteResolver<N extends ts.Node = ts.Node> {
             : typeof resolver,
           source,
           kita
+        })
+        .then((route) => {
+          if (!route) {
+            return;
+          }
+
+          const matches = source.fileName.match(/\[([^\/]+?)\]/g);
+
+          if (!matches) {
+            return route;
+          }
+
+          // First item on array is the full match, so we skip it
+          for (const param of matches) {
+            // removes [ and ] from the string
+            const name = param.slice(1, -1);
+
+            //@ts-expect-error - We know that the params is a type object
+            if (!route.schema.params?.properties?.[name]) {
+              throw KitaError(
+                `No \`Path<'${name}'>\` parameter was used on a route that needs parameters. Maybe you placed the file in the wrong folder?`,
+                [route.controllerPath]
+              );
+            }
+          }
+
+          return route;
         })
         // A custom catch here to allows multiple parameters errors throw at once.
         .catch(catchKitaError)
