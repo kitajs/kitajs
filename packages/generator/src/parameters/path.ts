@@ -21,6 +21,10 @@ export class PathResolver extends ParamResolver {
     optional,
     kita
   }: ParamData): Promise<Parameter | undefined> {
+    if (optional) {
+      throw KitaError('Path parameters cannot be optional', route.controllerPath);
+    }
+
     const generic = generics?.[0]?.getText();
     const pathName = generic ? unquote(generic) : paramName;
 
@@ -47,12 +51,12 @@ export class PathResolver extends ParamResolver {
       params: {
         type: 'object',
         properties: { [pathName]: jsonSchema },
-        required: optional ? [] : [pathName],
+        required: [pathName],
         additionalProperties: false
       }
     });
 
-    const type = `{ ['${pathName}']${optional ? '?' : ''}: ${inferredType} }`;
+    const type = `{ ['${pathName}']: ${inferredType} }`;
     return { value: `(request.params as ${type})['${pathName}']` };
   }
 }
