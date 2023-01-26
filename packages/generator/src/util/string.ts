@@ -33,7 +33,7 @@ export function findRouteName(filepath: string, config: KitaConfig) {
     controllerName: `${
       // transform params
       strip
-        .replace(/\[|\]/g, '$')
+        .replace(/\[|\]/g, '_')
         // camel case paths or dash case paths
         .split('/')
         .flatMap((p) => p.split('-'))
