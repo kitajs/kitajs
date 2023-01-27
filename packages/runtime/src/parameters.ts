@@ -51,7 +51,7 @@ export type Query<
     : string
 > = Type extends string
   ? string
-  : Type extends Native | { [key in keyof Type]: Native }
+  : Type extends Native | Native[] | { [key in keyof Type]: Native | Native[] }
   ? Type
   : 'Complex queries cannot have deep objects. Did you mean Body?';
 

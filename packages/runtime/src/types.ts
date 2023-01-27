@@ -2,4 +2,4 @@
 export type MaybePromise<T> = T | Promise<T>;
 
 /** A native typescript type. */
-export type Native = string | number | boolean | null | undefined;
+export type Native = string | number | boolean | null | undefined | URL | RegExp | Date;
