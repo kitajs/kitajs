@@ -1,5 +1,14 @@
 # @kitajs/generator
 
+## 1.0.8
+
+### Patch Changes
+
+- 379c18e: formatting
+- 1d1ae58: handle annotated types as primitives
+- 0c6752b: unused path warnings
+- e2f6939: ts-json-schema-generator to next
+
 ## 1.0.7
 
 ### Patch Changes

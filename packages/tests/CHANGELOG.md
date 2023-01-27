@@ -1,5 +1,20 @@
 # @kitajs/tests
 
+## 1.0.7
+
+### Patch Changes
+
+- 379c18e: formatting
+- 1d1ae58: handle annotated types as primitives
+- 560bd45: fixed deep query problem
+- Updated dependencies [379c18e]
+- Updated dependencies [1d1ae58]
+- Updated dependencies [0c6752b]
+- Updated dependencies [560bd45]
+- Updated dependencies [e2f6939]
+  - @kitajs/generator@1.0.8
+  - @kitajs/runtime@1.0.6
+
 ## 1.0.6
 
 ### Patch Changes

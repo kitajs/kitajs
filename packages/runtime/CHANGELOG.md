@@ -1,5 +1,16 @@
 # @kitajs/runtime
 
+## 1.0.6
+
+### Patch Changes
+
+- 560bd45: fixed deep query problem
+- Updated dependencies [379c18e]
+- Updated dependencies [1d1ae58]
+- Updated dependencies [0c6752b]
+- Updated dependencies [e2f6939]
+  - @kitajs/generator@1.0.8
+
 ## 1.0.5
 
 ### Patch Changes
