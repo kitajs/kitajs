@@ -130,6 +130,8 @@ export class KitaGenerator {
     // Sort routes by path
     this.ast.imports.sort();
 
+    this.ast.loadControllers();
+
     await this.config.onAstUpdate?.(this);
   }
 

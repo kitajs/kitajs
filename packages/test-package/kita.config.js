@@ -7,6 +7,9 @@ module.exports = {
   },
   routes: {
     format: require('../../.prettierrc.js'),
-    output: path.resolve(__dirname, './src/routes.ts')
+    output: path.resolve(__dirname, './src/routes.ts'),
+    exportAST: true,
+    exportConfig: true,
+    exportControllers: true
   }
 };

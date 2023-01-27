@@ -29,6 +29,7 @@ export class KitaTestBuilder extends Promise<{
   config: KitaConfig;
   KitaAST: KitaAST;
   app: FastifyInstance;
+  exported: unknown;
 }> {
   private filename!: string;
   private exports!: any;
@@ -55,7 +56,7 @@ export class KitaTestBuilder extends Promise<{
           {
             controllers: { glob: [filename], prefix: TEST_DIRNAME + '/' },
             tsconfig: require.resolve('../tsconfig.json'),
-            routes: { output: TEST_FILENAME }
+            routes: { output: TEST_FILENAME, exportAST: true, exportConfig: true }
           },
           cfg
         )
@@ -77,7 +78,7 @@ export class KitaTestBuilder extends Promise<{
       const exports: any = {};
       eval(outputText);
 
-      config = exports.config;
+      config = exports.ResolvedConfig;
       const Kita = exports.Kita as FastifyPluginAsync<{ context: ProvidedRouteContext }>;
       const KitaAST = exports.KitaAST as KitaAST;
 
@@ -89,7 +90,8 @@ export class KitaTestBuilder extends Promise<{
         app,
         Kita,
         config,
-        KitaAST
+        KitaAST,
+        exported: exports
       });
     });
 

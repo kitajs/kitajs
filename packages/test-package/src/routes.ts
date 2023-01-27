@@ -26,59 +26,14 @@ import type { RouteContext, ProvidedRouteContext, KitaConfig } from '@kitajs/run
 import fp from 'fastify-plugin';
 import '@fastify/swagger';
 import '@fastify/cookie';
-import * as $name$Controller from './routes/[name]';
 import * as AsyncController from './routes/async';
 import * as HelloWorldController from './routes/hello-world';
 import * as PingController from './routes/ping';
 import * as PrimitiveTypesController from './routes/primitive-types';
 import * as ResponseTypesController from './routes/response-types';
 import * as ThisController from './routes/this';
+import * as _name_Controller from './routes/[name]';
 import AuthParam from './helpers/auth-param';
-
-/**
- * This is the resolved config that was used during code generation. JIC its needed at runtime.
- */
-export const config = {
-  params: { AuthParam: '/www/kita/packages/test-package/src/helpers/auth-param' },
-  tsconfig: './tsconfig.json',
-  controllers: {
-    glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
-    prefix: '(?:.*src)?/?(?:routes/?)'
-  },
-  routes: {
-    output: '/www/kita/packages/test-package/src/routes.ts',
-    format: {
-      parser: 'typescript',
-      arrowParens: 'always',
-      bracketSpacing: true,
-      endOfLine: 'lf',
-      insertPragma: false,
-      bracketSameLine: false,
-      jsxSingleQuote: false,
-      printWidth: 90,
-      proseWrap: 'always',
-      quoteProps: 'as-needed',
-      requirePragma: false,
-      semi: true,
-      singleQuote: true,
-      tabWidth: 2,
-      trailingComma: 'none',
-      useTabs: false
-    }
-  },
-  schema: {
-    defaultResponse: 'default',
-    responses: {},
-    generator: {
-      encodeRefs: true,
-      sortProps: true,
-      strictTuples: true,
-      jsDoc: 'extended',
-      parsers: [],
-      formatters: []
-    }
-  }
-} as KitaConfig;
 
 /**
  * The Kita generated fastify plugin. Registering it into your fastify instance will
@@ -94,7 +49,54 @@ export const config = {
  */
 export const Kita = fp<{ context: ProvidedRouteContext }>(
   (fastify, options) => {
-    const context: RouteContext = { config, fastify, ...options.context };
+    const context: RouteContext = {
+      config: {
+        params: { AuthParam: '/www/kita/packages/test-package/src/helpers/auth-param' },
+        tsconfig: './tsconfig.json',
+        controllers: {
+          glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
+          prefix: '(?:.*src)?/?(?:routes/?)'
+        },
+        routes: {
+          output: '/www/kita/packages/test-package/src/routes.ts',
+          format: {
+            parser: 'typescript',
+            arrowParens: 'always',
+            bracketSpacing: true,
+            endOfLine: 'lf',
+            insertPragma: false,
+            bracketSameLine: false,
+            jsxSingleQuote: false,
+            printWidth: 90,
+            proseWrap: 'always',
+            quoteProps: 'as-needed',
+            requirePragma: false,
+            semi: true,
+            singleQuote: true,
+            tabWidth: 2,
+            trailingComma: 'none',
+            useTabs: false
+          },
+          exportAST: true,
+          exportConfig: false,
+          exportControllers: true
+        },
+        schema: {
+          defaultResponse: 'default',
+          responses: {},
+          generator: {
+            encodeRefs: true,
+            sortProps: true,
+            strictTuples: true,
+            jsDoc: 'extended',
+            parsers: [],
+            formatters: []
+          }
+        }
+      } as KitaConfig,
+      fastify,
+      ...options.context
+    };
 
     fastify.addSchema({
       $id: 'ResponseTypesControllerGetResponse',
@@ -236,13 +238,13 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
           return;
         }
 
-        return $name$Controller.put.apply(context, [
-          (request.params as { ['name']: Parameters<typeof $name$Controller.put>[0] })[
+        return _name_Controller.put.apply(context, [
+          (request.params as { ['name']: Parameters<typeof _name_Controller.put>[0] })[
             'name'
           ],
           request.cookies?.cookie,
-          (request.body as { ['path']: Parameters<typeof $name$Controller.put>[2] }).path,
-          (request.body as { ['bodyProp']: Parameters<typeof $name$Controller.put>[3] })
+          (request.body as { ['path']: Parameters<typeof _name_Controller.put>[2] }).path,
+          (request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] })
             .bodyProp,
           (request.query as { ['paramQuery']: string })['paramQuery'],
           (request.query as { ['typedQuery']: boolean })['typedQuery'],
@@ -289,13 +291,13 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
           return;
         }
 
-        return $name$Controller.post.apply(context, [
-          (request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })[
+        return _name_Controller.post.apply(context, [
+          (request.params as { ['name']: Parameters<typeof _name_Controller.post>[0] })[
             'name'
           ],
           request.cookies?.cookie,
-          request.body as Parameters<typeof $name$Controller.post>[2],
-          request.query as Parameters<typeof $name$Controller.post>[3],
+          request.body as Parameters<typeof _name_Controller.post>[2],
+          request.query as Parameters<typeof _name_Controller.post>[3],
           request,
           reply,
           authJwt,
@@ -522,6 +524,19 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
 );
 
 /**
+ * All controllers used by generated routes.
+ */
+export const KitaControllers = {
+  _name_Controller,
+  AsyncController,
+  HelloWorldController,
+  PingController,
+  PrimitiveTypesController,
+  ResponseTypesController,
+  ThisController
+};
+
+/**
  * The extracted data from your controllers and configurations for this template hydration.
  * In case you need some metadata at runtime, this is the place to look.
  */
@@ -552,7 +567,10 @@ export const KitaAST = {
         tabWidth: 2,
         trailingComma: 'none',
         useTabs: false
-      }
+      },
+      exportAST: true,
+      exportConfig: false,
+      exportControllers: true
     },
     schema: {
       defaultResponse: 'default',
@@ -571,22 +589,22 @@ export const KitaAST = {
     {
       controllerMethod: 'put',
       method: 'PUT',
-      controllerName: '$name$Controller',
+      controllerName: '_name_Controller',
       url: '/:name',
       controllerPath: 'src/routes/[name].ts:24',
       parameters: [
         {
           value:
-            "(request.params as { ['name']: Parameters<typeof $name$Controller.put>[0] })['name']"
+            "(request.params as { ['name']: Parameters<typeof _name_Controller.put>[0] })['name']"
         },
         { value: 'request.cookies?.cookie' },
         {
           value:
-            "(request.body as { ['path']: Parameters<typeof $name$Controller.put>[2] }).path"
+            "(request.body as { ['path']: Parameters<typeof _name_Controller.put>[2] }).path"
         },
         {
           value:
-            "(request.body as { ['bodyProp']: Parameters<typeof $name$Controller.put>[3] }).bodyProp"
+            "(request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] }).bodyProp"
         },
         { value: "(request.query as { ['paramQuery']: string })['paramQuery']" },
         { value: "(request.query as { ['typedQuery']: boolean })['typedQuery']" },
@@ -639,23 +657,23 @@ export const KitaAST = {
         }
       },
       rendered:
-        'fastify.route({\n  method: \'PUT\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    return $name$Controller.put.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof $name$Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof $name$Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n  },\n  \n});',
+        'fastify.route({\n  method: \'PUT\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    return _name_Controller.put.apply(context, [(request.params as { [\'name\']: Parameters<typeof _name_Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof _name_Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n  },\n  \n});',
       operationId: 'fullExampleUsingBody'
     },
     {
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: '$name$Controller',
+      controllerName: '_name_Controller',
       url: '/:name',
       controllerPath: 'src/routes/[name].ts:60',
       parameters: [
         {
           value:
-            "(request.params as { ['name']: Parameters<typeof $name$Controller.post>[0] })['name']"
+            "(request.params as { ['name']: Parameters<typeof _name_Controller.post>[0] })['name']"
         },
         { value: 'request.cookies?.cookie' },
-        { value: 'request.body as Parameters<typeof $name$Controller.post>[2]' },
-        { value: '(request.query as Parameters<typeof $name$Controller.post>[3])' },
+        { value: 'request.body as Parameters<typeof _name_Controller.post>[2]' },
+        { value: '(request.query as Parameters<typeof _name_Controller.post>[3])' },
         { value: 'request' },
         { value: 'reply' },
         {
@@ -685,7 +703,7 @@ export const KitaAST = {
         querystring: { $ref: 'NameQuery' }
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    return $name$Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof $name$Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof $name$Controller.post>[2],(request.query as Parameters<typeof $name$Controller.post>[3]),request,reply,authJwt,authBasic]);\n  },\n  \n});',
+        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    return _name_Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof _name_Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof _name_Controller.post>[2],(request.query as Parameters<typeof _name_Controller.post>[3]),request,reply,authJwt,authBasic]);\n  },\n  \n});',
       operationId: 'fullExampleExclusiveQuery'
     },
     {
@@ -970,14 +988,23 @@ export const KitaAST = {
   ],
   imports: [
     "import '@fastify/cookie';",
-    "import * as $name$Controller from './routes/[name]';",
     "import * as AsyncController from './routes/async';",
     "import * as HelloWorldController from './routes/hello-world';",
     "import * as PingController from './routes/ping';",
     "import * as PrimitiveTypesController from './routes/primitive-types';",
     "import * as ResponseTypesController from './routes/response-types';",
     "import * as ThisController from './routes/this';",
+    "import * as _name_Controller from './routes/[name]';",
     "import AuthParam from './helpers/auth-param';"
+  ],
+  controllers: [
+    '_name_Controller',
+    'AsyncController',
+    'HelloWorldController',
+    'PingController',
+    'PrimitiveTypesController',
+    'ResponseTypesController',
+    'ThisController'
   ],
   hasAsync: true
 };

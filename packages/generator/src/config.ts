@@ -28,6 +28,29 @@ export interface KitaConfig {
      * If the generated code should be formatted with prettier
      */
     format: false | Prettier.Options | Record<string, unknown>;
+
+    /**
+     * If the generated code should include the whole ast as a KitaAST object
+     *
+     * @default false
+     */
+    exportAST: boolean;
+
+    /**
+     * If the generated code should include the resolved config object as a 
+     * ResolvedConfig object
+     *
+     * @default false
+     */
+    exportConfig: boolean;
+
+    /**
+     * If the generated code should include a object with all the controllers
+     * as properties, useful for calling them manually.
+     *
+     * @default false
+     */
+    exportControllers: boolean;
   };
 
   schema: {
@@ -149,7 +172,10 @@ export const DefaultConfig: KitaConfig = {
   },
   routes: {
     output: './src/routes.ts',
-    format: { parser: 'typescript' }
+    format: { parser: 'typescript' },
+    exportAST: false,
+    exportConfig: false,
+    exportControllers: false
   },
   schema: {
     defaultResponse: 'default',

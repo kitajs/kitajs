@@ -21,6 +21,9 @@ export class KitaAST {
     /** All needed imports */
     readonly imports: string[] = [],
 
+    /** All controllers imports */
+    public controllers: string[] = [],
+
     /** If any route is async */
     public hasAsync = false
   ) {}
@@ -30,5 +33,12 @@ export class KitaAST {
     if (!this.imports.includes(importPath)) {
       this.imports.push(importPath);
     }
+  }
+
+  /** Adds a controller if not already added. */
+  loadControllers() {
+    this.controllers = this.routes
+      .map((r) => r.controllerName)
+      .filter((value, index, self) => self.indexOf(value) === index);
   }
 }

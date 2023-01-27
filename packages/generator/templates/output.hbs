@@ -37,11 +37,6 @@ import '@fastify/swagger';
 {{/each}}
 
 /**
- * This is the resolved config that was used during code generation. JIC its needed at runtime.
- */
-export const config = {{json config}} as KitaConfig;
-
-/**
  * The Kita generated fastify plugin. Registering it into your fastify instance will
  * automatically register all routes, schemas and controllers.
  *
@@ -55,7 +50,7 @@ export const config = {{json config}} as KitaConfig;
  */
 export const Kita = fp<{ context: ProvidedRouteContext }>(
   (fastify, options) => {
-    const context: RouteContext = { config, fastify, ...options.context };
+    const context: RouteContext = { config: {{#if config.routes.exportConfig}}ResolvedConfig{{else}}{{json config}} as KitaConfig{{/if}}, fastify, ...options.context };
 
     {{#each schemas}}
       fastify.addSchema({{jsonf this}});
@@ -78,8 +73,28 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
   }
 );
 
-/**
- * The extracted data from your controllers and configurations for this template hydration. 
- * In case you need some metadata at runtime, this is the place to look.
- */
-export const KitaAST = {{json this}};
+{{#if config.routes.exportConfig}}
+  /**
+  * This is the resolved config that was used during code generation. JIC its needed at runtime.
+  */
+  export const ResolvedConfig = {{json config}} as KitaConfig;
+{{/if}}
+
+{{#if config.routes.exportControllers}}
+  /**
+  * All controllers used by generated routes.
+  */
+  export const KitaControllers = {
+    {{#each controllers}}
+      {{this}},
+    {{/each}}
+  };
+{{/if}}
+
+{{#if config.routes.exportAST}}
+  /**
+   * The extracted data from your controllers and configurations for this template hydration. 
+   * In case you need some metadata at runtime, this is the place to look.
+   */
+  export const KitaAST = {{json this}};
+{{/if}}
