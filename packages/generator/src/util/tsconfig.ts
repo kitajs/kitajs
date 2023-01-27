@@ -12,7 +12,11 @@ export function readCompilerOptions(tsconfigPath: string) {
   config.compilerOptions ??= {};
   const { dir, base } = path.parse(tsconfigPath);
 
-  const { options, errors } = ts.convertCompilerOptionsFromJson(config.compilerOptions, dir, base);
+  const { options, errors } = ts.convertCompilerOptionsFromJson(
+    config.compilerOptions,
+    dir,
+    base
+  );
 
   if (errors.length) {
     throw KitaError(`Failed to parse tsconfig file.`, tsconfigPath, { info: errors });

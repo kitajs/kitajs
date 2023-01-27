@@ -50,12 +50,12 @@ describe('should parse name and age correctly', () => {
     const { KitaAST } = await test;
 
     const queryGetSchema = KitaAST.schemas.find(
-      (s) => s.$id === 'ParametersPath%24age%24%24name%24ControllerGetResponse'
+      (s) => s.$id === 'ParametersPath_age__name_ControllerGetResponse'
     )!;
 
     expect(queryGetSchema).toBeDefined();
     expect(queryGetSchema).toStrictEqual({
-      $id: 'ParametersPath%24age%24%24name%24ControllerGetResponse',
+      $id: 'ParametersPath_age__name_ControllerGetResponse',
       type: 'object',
       properties: { name: { type: 'string' }, age: { type: 'number' } },
       required: ['name', 'age'],
@@ -63,12 +63,12 @@ describe('should parse name and age correctly', () => {
     });
 
     const queryPostSchema = KitaAST.schemas.find(
-      (s) => s.$id === 'ParametersPath%24age%24%24name%24ControllerPostResponse'
+      (s) => s.$id === 'ParametersPath_age__name_ControllerPostResponse'
     )!;
-    
+
     expect(queryPostSchema).toBeDefined();
     expect(queryPostSchema).toStrictEqual({
-      $id: 'ParametersPath%24age%24%24name%24ControllerPostResponse',
+      $id: 'ParametersPath_age__name_ControllerPostResponse',
       type: 'object',
       properties: {
         name: { type: 'string' },

@@ -53,7 +53,7 @@ describe('this options variations', () => {
 
     expect(getRoute).toBeDefined();
     expect(getRoute.schema.operationId).toBe('getname');
-    
+
     let code;
     eval(`code = { ${getRoute.options?.replace(/\.\/parameters\/this/g, '.')} }`);
 
@@ -63,14 +63,8 @@ describe('this options variations', () => {
       withoutTrailingComma: {},
       withDefaultImport: require('./code'),
       withAImport: require('./code').a,
-      withABimports: [
-        require('./code').a,
-        require('./code').b
-      ],
-      withABimportsAndComma: [
-        require('./code').a,
-        require('./code').b
-      ],
+      withABimports: [require('./code').a, require('./code').b],
+      withABimportsAndComma: [require('./code').a, require('./code').b],
       withABandRestImports: [...require('./code').array, 4, 5, 6],
       withMultilineString: `                       This;
 string,
