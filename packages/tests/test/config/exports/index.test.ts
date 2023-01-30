@@ -20,20 +20,31 @@ describe('tests exports functions', () => {
   });
 
   it('should have KitaControllers', async () => {
-    const { exported } = await KitaTestBuilder.build(__filename, exports, {
+    const { exported, KitaAST } = await KitaTestBuilder.build(__filename, exports, {
       routes: { exportControllers: true }
     });
 
-    expect(exported).toHaveProperty('KitaControllers');
+    for (const route of KitaAST.routes) {
+      expect(exported).toHaveProperty(route.controllerName);
+    }
   });
 
-  it('should NOT have AST, config and controllers', async () => {
+  it('should NOT have Controllers', async () => {
+    const { exported, KitaAST } = await KitaTestBuilder.build(__filename, exports, {
+      routes: { exportAST: true, exportControllers: false }
+    });
+
+    for (const route of KitaAST.routes) {
+      expect(exported).not.toHaveProperty(route.controllerName);
+    }
+  });
+
+  it('should NOT have AST and Config', async () => {
     const { exported } = await KitaTestBuilder.build(__filename, exports, {
       routes: { exportAST: false, exportConfig: false, exportControllers: false }
     });
 
     expect(exported).not.toHaveProperty('KitaAST');
     expect(exported).not.toHaveProperty('ResolvedConfig');
-    expect(exported).not.toHaveProperty('KitaControllers');
   });
 });

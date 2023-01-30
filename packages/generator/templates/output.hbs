@@ -81,14 +81,9 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
 {{/if}}
 
 {{#if config.routes.exportControllers}}
-  /**
-  * All controllers used by generated routes.
-  */
-  export const KitaControllers = {
-    {{#each controllers}}
-      {{this}},
-    {{/each}}
-  };
+  {{#each controllers}}
+    {{this}}
+  {{/each}}
 {{/if}}
 
 {{#if config.routes.exportAST}}

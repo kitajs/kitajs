@@ -1,6 +1,7 @@
 import type { Schema } from 'ts-json-schema-generator';
 import type { KitaConfig } from './config';
 import type { Route } from './route';
+import type { KitaGenerator } from './generator';
 
 /**
  * This class is used to store all the data read from all codes.
@@ -21,7 +22,7 @@ export class KitaAST {
     /** All needed imports */
     readonly imports: string[] = [],
 
-    /** All controllers imports */
+    /** All controllers exports */
     public controllers: string[] = [],
 
     /** If any route is async */
@@ -36,9 +37,15 @@ export class KitaAST {
   }
 
   /** Adds a controller if not already added. */
-  loadControllers() {
-    this.controllers = this.routes
-      .map((r) => r.controllerName)
-      .filter((value, index, self) => self.indexOf(value) === index);
+  loadControllers(importablePath: KitaGenerator['importablePath']) {
+    for (const route of this.routes) {
+      const exportPath = `export * as ${route.controllerName} from '${importablePath(
+        route.controllerPath.split(':')[0]!
+      )}';`;
+
+      if (!this.controllers.includes(exportPath)) {
+        this.controllers.push(exportPath);
+      }
+    }
   }
 }

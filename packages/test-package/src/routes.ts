@@ -49,54 +49,7 @@ import AuthParam from './helpers/auth-param';
  */
 export const Kita = fp<{ context: ProvidedRouteContext }>(
   (fastify, options) => {
-    const context: RouteContext = {
-      config: {
-        params: { AuthParam: '/www/kita/packages/test-package/src/helpers/auth-param' },
-        tsconfig: './tsconfig.json',
-        controllers: {
-          glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
-          prefix: '(?:.*src)?/?(?:routes/?)'
-        },
-        routes: {
-          output: '/www/kita/packages/test-package/src/routes.ts',
-          format: {
-            parser: 'typescript',
-            arrowParens: 'always',
-            bracketSpacing: true,
-            endOfLine: 'lf',
-            insertPragma: false,
-            bracketSameLine: false,
-            jsxSingleQuote: false,
-            printWidth: 90,
-            proseWrap: 'always',
-            quoteProps: 'as-needed',
-            requirePragma: false,
-            semi: true,
-            singleQuote: true,
-            tabWidth: 2,
-            trailingComma: 'none',
-            useTabs: false
-          },
-          exportAST: true,
-          exportConfig: false,
-          exportControllers: true
-        },
-        schema: {
-          defaultResponse: 'default',
-          responses: {},
-          generator: {
-            encodeRefs: true,
-            sortProps: true,
-            strictTuples: true,
-            jsDoc: 'extended',
-            parsers: [],
-            formatters: []
-          }
-        }
-      } as KitaConfig,
-      fastify,
-      ...options.context
-    };
+    const context: RouteContext = { config: ResolvedConfig, fastify, ...options.context };
 
     fastify.addSchema({
       $id: 'ResponseTypesControllerGetResponse',
@@ -524,17 +477,60 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
 );
 
 /**
- * All controllers used by generated routes.
+ * This is the resolved config that was used during code generation. JIC its needed at runtime.
  */
-export const KitaControllers = {
-  _name_Controller,
-  AsyncController,
-  HelloWorldController,
-  PingController,
-  PrimitiveTypesController,
-  ResponseTypesController,
-  ThisController
-};
+export const ResolvedConfig = {
+  params: { AuthParam: '/www/kita/packages/test-package/src/helpers/auth-param' },
+  tsconfig: './tsconfig.json',
+  controllers: {
+    glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
+    prefix: '(?:.*src)?/?(?:routes/?)'
+  },
+  routes: {
+    output: '/www/kita/packages/test-package/src/routes.ts',
+    format: {
+      parser: 'typescript',
+      arrowParens: 'always',
+      bracketSpacing: true,
+      endOfLine: 'lf',
+      insertPragma: false,
+      bracketSameLine: false,
+      jsxSingleQuote: false,
+      printWidth: 90,
+      proseWrap: 'always',
+      quoteProps: 'as-needed',
+      requirePragma: false,
+      semi: true,
+      singleQuote: true,
+      tabWidth: 2,
+      trailingComma: 'none',
+      useTabs: false
+    },
+    exportAST: true,
+    exportConfig: true,
+    exportControllers: true
+  },
+  schema: {
+    defaultResponse: 'default',
+    responses: {},
+    generator: {
+      encodeRefs: true,
+      sortProps: true,
+      strictTuples: true,
+      jsDoc: 'extended',
+      parsers: [],
+      formatters: []
+    }
+  }
+} as KitaConfig;
+
+export * as _name_Controller from './routes/[name]';
+export * as AsyncController from './routes/async';
+export * as HelloWorldController from './routes/hello-world';
+export * as PingController from './routes/ping';
+export * as PrimitiveTypesController from './routes/primitive-types';
+export * as ResponseTypesController from './routes/response-types';
+export * as ThisController from './routes/this';
 
 /**
  * The extracted data from your controllers and configurations for this template hydration.
@@ -569,7 +565,7 @@ export const KitaAST = {
         useTabs: false
       },
       exportAST: true,
-      exportConfig: false,
+      exportConfig: true,
       exportControllers: true
     },
     schema: {
@@ -998,13 +994,13 @@ export const KitaAST = {
     "import AuthParam from './helpers/auth-param';"
   ],
   controllers: [
-    '_name_Controller',
-    'AsyncController',
-    'HelloWorldController',
-    'PingController',
-    'PrimitiveTypesController',
-    'ResponseTypesController',
-    'ThisController'
+    "export * as _name_Controller from './routes/[name]';",
+    "export * as AsyncController from './routes/async';",
+    "export * as HelloWorldController from './routes/hello-world';",
+    "export * as PingController from './routes/ping';",
+    "export * as PrimitiveTypesController from './routes/primitive-types';",
+    "export * as ResponseTypesController from './routes/response-types';",
+    "export * as ThisController from './routes/this';"
   ],
   hasAsync: true
 };

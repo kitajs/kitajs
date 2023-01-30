@@ -65,8 +65,8 @@ export class KitaGenerator {
   /**
    * An util method that resolves the provided path into a relative path to the output file.
    */
-  importablePath(p: string) {
-    return `./${path
+  importablePath = (p: string) =>
+    `./${path
       .relative(
         this.outputFolder,
         path.resolve(
@@ -77,7 +77,6 @@ export class KitaGenerator {
       )
       // replace windows backslashes with forward slashes
       .replace(/\\/g, '/')}`;
-  }
 
   async updateAst() {
     // Adds custom parameter resolver imports
@@ -130,7 +129,7 @@ export class KitaGenerator {
     // Sort routes by path
     this.ast.imports.sort();
 
-    this.ast.loadControllers();
+    this.ast.loadControllers(this.importablePath);
 
     await this.config.onAstUpdate?.(this);
   }
