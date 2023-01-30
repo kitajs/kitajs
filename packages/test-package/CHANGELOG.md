@@ -1,5 +1,13 @@
 # @kitajs/test-package
 
+## 1.0.5
+
+### Patch Changes
+
+- 8a5a4f8: better controller exports
+- Updated dependencies [8a5a4f8]
+  - @kitajs/generator@1.0.10
+
 ## 1.0.4
 
 ### Patch Changes
