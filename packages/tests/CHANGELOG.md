@@ -1,5 +1,13 @@
 # @kitajs/tests
 
+## 1.0.8
+
+### Patch Changes
+
+- eb27b77: added customizable exports
+- Updated dependencies [eb27b77]
+  - @kitajs/generator@1.0.9
+
 ## 1.0.7
 
 ### Patch Changes

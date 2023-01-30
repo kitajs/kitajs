@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.9
+
+### Patch Changes
+
+- eb27b77: added customizable exports
+
 ## 1.0.8
 
 ### Patch Changes
