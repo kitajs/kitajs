@@ -1,5 +1,13 @@
 # @kitajs/generator
 
+## 1.0.11
+
+### Patch Changes
+
+- c29a360: improved schema storage
+- 8d2dd2c: gitignore warning on generated
+- 0af8d29: avoid problems with sourcefile detection
+
 ## 1.0.10
 
 ### Patch Changes

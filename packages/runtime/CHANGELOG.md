@@ -1,5 +1,15 @@
 # @kitajs/runtime
 
+## 1.0.7
+
+### Patch Changes
+
+- 0af8d29: avoid problems with sourcefile detection
+- Updated dependencies [c29a360]
+- Updated dependencies [8d2dd2c]
+- Updated dependencies [0af8d29]
+  - @kitajs/generator@1.0.11
+
 ## 1.0.6
 
 ### Patch Changes
