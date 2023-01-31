@@ -1,9 +1,8 @@
 import deepmerge from 'deepmerge';
-import { ArrayType, Context, Definition } from 'ts-json-schema-generator';
+import { ArrayType, Definition } from 'ts-json-schema-generator';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
 import { unquote } from '../util/string';
-import { asPrimitiveType } from '../util/type';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class PathResolver extends ParamResolver {
@@ -33,18 +32,13 @@ export class PathResolver extends ParamResolver {
 
     if (pathGenericType) {
       // Lookup as a json schema to allow custom primitive types, like (string | number[]), for example.
-      const primitive = asPrimitiveType(
-        kita.schemaStorage.nodeParser.createType(
-          pathGenericType,
-          new Context(pathGenericType)
-        )
-      );
+      const primitive = kita.schemaStorage.asPrimitive(pathGenericType);
 
       if (!primitive || primitive instanceof ArrayType) {
         throw KitaError('Path type must be a non array literal', route.controllerPath);
       }
 
-      jsonSchema = kita.schemaStorage.typeFormatter.getDefinition(primitive);
+      jsonSchema = kita.schemaStorage.getDefinition(primitive);
     }
 
     route.schema = deepmerge(route.schema, {

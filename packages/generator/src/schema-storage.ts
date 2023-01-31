@@ -2,15 +2,12 @@ import {
   BaseType,
   Context,
   Definition,
-  NodeParser,
   Schema,
   SchemaGenerator,
-  TypeFormatter,
   createFormatter,
   createParser,
   ts
 } from 'ts-json-schema-generator';
-import type { KitaAST } from './ast';
 import type { KitaConfig } from './config';
 import { KitaError } from './errors';
 import type { Route } from './route';
@@ -18,8 +15,6 @@ import { getReturnType } from './util/node';
 import { asPrimitiveType } from './util/type';
 
 export class SchemaStorage extends SchemaGenerator {
-  public override readonly nodeParser!: NodeParser;
-  public override readonly typeFormatter!: TypeFormatter;
   protected readonly definitions: Record<string, Definition> = {};
 
   constructor(private kitaConfig: KitaConfig, override readonly program: ts.Program) {
@@ -48,38 +43,27 @@ export class SchemaStorage extends SchemaGenerator {
       config
     );
 
-    // This is a workaround to move the response definition field to the end of the object
-    // It's necessary for when the response references another definition that was not yet defined
-    // throwing a reference error because the referenced definition was going to be defined after
-    // the response definition
-    const getChildren = this.typeFormatter.getChildren;
-    this.typeFormatter.getChildren = (type: BaseType) => {
-      const children = getChildren.call(this.typeFormatter, type);
+    {
+      // This is a workaround to move the response definition field to the end of the object
+      // It's necessary for when the response references another definition that was not yet defined
+      // throwing a reference error because the referenced definition was going to be defined after
+      // the response definition
+      const getChildren = this.typeFormatter.getChildren.bind(this.typeFormatter);
 
-      // the type is always the first child
-      const first = children.shift();
-      first && children.push(first);
+      this.typeFormatter.getChildren = (type: BaseType) => {
+        const children = getChildren(type);
 
-      return children;
-    };
+        // the type is always the first child
+        const first = children.shift();
+        first && children.push(first);
 
-    // This was included in the PR, but it was out of scope, so this
-    // still needs to be done manually.
-    // See https://github.com/vega/ts-json-schema-generator/pull/1386
-    const getDefinition = this.typeFormatter.getDefinition;
-    this.typeFormatter.getDefinition = (type: BaseType) => {
-      const def = getDefinition.call(this.typeFormatter, type);
-
-      if (def.$ref) {
-        def.$ref = def.$ref.replace(/\#\/definitions\//g, '');
-      }
-
-      return def;
-    };
+        return children;
+      };
+    }
   }
 
   /**
-   * Saves and returns a ts.Node respective json schema.
+   * Saves and returns a {@link ts.Node}'s respective json schema.
    */
   consumeNode(node: ts.Node): Schema {
     const type = this.nodeParser.createType(node, new Context(node));
@@ -88,37 +72,41 @@ export class SchemaStorage extends SchemaGenerator {
       throw KitaError(`Could not create type for node \`${node.getText()}\``);
     }
 
-    // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
-    const native = asPrimitiveType(type);
+    {
+      // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
+      const native = asPrimitiveType(type);
 
-    if (native) {
-      return this.typeFormatter.getDefinition(native);
+      if (native) {
+        return this.getDefinition(native);
+      }
     }
 
     // Includes this node into our recursive definition
     this.appendRootChildDefinitions(type, this.definitions);
 
     // Returns reference to this node
-    return this.typeFormatter.getDefinition(type);
+    return this.getDefinition(type);
   }
 
   /**
-   * Saves and returns a function response type respective json schema.
+   * Saves and returns a function's response type respective json schema.
    */
   consumeResponseType(node: ts.SignatureDeclaration, route: Route): Schema {
     const returnType = getReturnType(node, this.program.getTypeChecker());
 
-    let type = this.nodeParser.createType(returnType, new Context(node));
+    const type = this.nodeParser.createType(returnType, new Context(node));
 
     if (!type) {
       throw KitaError(`Could not create type for node \`${returnType.getText()}\``);
     }
 
-    // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
-    const native = asPrimitiveType(type);
+    {
+      // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
+      const native = asPrimitiveType(type);
 
-    if (native) {
-      return this.typeFormatter.getDefinition(native);
+      if (native) {
+        return this.getDefinition(native);
+      }
     }
 
     //@ts-expect-error - Defines a return type name to avoid uri-reference problem
@@ -128,18 +116,37 @@ export class SchemaStorage extends SchemaGenerator {
     this.appendRootChildDefinitions(type, this.definitions);
 
     // Returns reference to this node
-    return this.typeFormatter.getDefinition(type);
+    return this.getDefinition(type);
   }
 
   /**
-   * Apply all generated definitions to the provided AST.
+   * Get definition for a base type without the `#/definitions/` prefix.
+   *
+   * This was a proposed option in ts-json-schema-generator, buy ruled out as out of scope.
+   * @see  https://github.com/vega/ts-json-schema-generator/pull/1386
    */
-  applyDefinitions(ast: KitaAST) {
-    for (const [key, def] of Object.entries(this.definitions)) {
-      ast.schemas.push({
-        $id: this.kitaConfig.schema.generator.encodeRefs ? encodeURIComponent(key) : key,
-        ...def
-      });
+  getDefinition(type: BaseType) {
+    const def = this.typeFormatter.getDefinition(type);
+
+    if (def.$ref) {
+      def.$ref = def.$ref.replace(/\#\/definitions\//g, '');
     }
+
+    return def;
+  }
+
+  /**
+   * Tries to parse the provided type into his absolute primitive version
+   */
+  asPrimitive(type: ts.Node) {
+    return asPrimitiveType(this.nodeParser.createType(type, new Context(type)));
+  }
+
+  getDefinitions() {
+    return Object.entries(this.definitions).map(([key, def]) => ({
+      // Encode the definition key if the option is enabled
+      $id: this.kitaConfig.schema.generator.encodeRefs ? encodeURIComponent(key) : key,
+      ...def
+    }));
   }
 }

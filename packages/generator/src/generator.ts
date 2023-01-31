@@ -125,7 +125,7 @@ export class KitaGenerator {
     }
 
     // Include all generated definitions into the output file.
-    this.schemaStorage.applyDefinitions(this.ast);
+    this.ast.schemas.push(...this.schemaStorage.getDefinitions());
 
     // Sort routes by path
     this.ast.imports.sort();

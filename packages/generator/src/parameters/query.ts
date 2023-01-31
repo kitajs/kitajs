@@ -1,10 +1,9 @@
 import deepmerge from 'deepmerge';
-import { Context, ts } from 'ts-json-schema-generator';
+import { ts } from 'ts-json-schema-generator';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
 import type { SchemaStorage } from '../schema-storage';
 import { unquote } from '../util/string';
-import { asPrimitiveType } from '../util/type';
 import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class QueryResolver extends ParamResolver {
@@ -105,17 +104,13 @@ export class QueryResolver extends ParamResolver {
     const type = generics[0].getText();
 
     // Lookup as a json schema to allow custom primitive types, like (string | number[])[], for example.
-    const primitive = asPrimitiveType(
-      schemaStorage.nodeParser.createType(generics[0], new Context(generics[0]!))
-    );
+    const primitive = schemaStorage.asPrimitive(generics[0]);
 
     return {
       name: !generics[1] ? paramName : unquote(generics[1].getText()),
       type,
       simple: !!primitive,
-      definition: primitive
-        ? schemaStorage.typeFormatter.getDefinition(primitive)
-        : { type }
+      definition: primitive ? schemaStorage.getDefinition(primitive) : { type }
     };
   }
 }
