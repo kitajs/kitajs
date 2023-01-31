@@ -1,5 +1,12 @@
 # @kitajs/generator
 
+## 1.0.12
+
+### Patch Changes
+
+- d8a01d1: funding notice
+- f1f8a0e: fixed #/definitions prefix removal
+
 ## 1.0.11
 
 ### Patch Changes

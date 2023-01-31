@@ -1,5 +1,15 @@
 # @kitajs/cli
 
+## 1.0.6
+
+### Patch Changes
+
+- d8a01d1: funding notice
+- Updated dependencies [d8a01d1]
+- Updated dependencies [f1f8a0e]
+  - @kitajs/generator@1.0.12
+  - @kitajs/runtime@1.0.8
+
 ## 1.0.5
 
 ### Patch Changes
