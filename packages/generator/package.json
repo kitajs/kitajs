@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc"
   },
+  "funding": "https://github.com/sponsors/arthurfiorette",
   "dependencies": {
     "@types/prettier": "^2.7.2",
     "deepmerge": "^4.2.2",
