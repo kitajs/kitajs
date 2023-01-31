@@ -1,5 +1,4 @@
 import Handlebars from 'handlebars';
-import minimatch from 'minimatch';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { ts } from 'ts-json-schema-generator';
@@ -85,13 +84,15 @@ export class KitaGenerator {
     }
 
     // Populate data with controllers and routes info.
-    const routeSources = this.program.getSourceFiles().filter(
-      (s) =>
-        // Not a declaration file
-        !s.isDeclarationFile &&
-        // Not a controller file
-        this.config.controllers.glob.some((glob) => minimatch(s.fileName, glob))
-    );
+    const routeSources = this.controllerPaths.map((p) => {
+      const sf = this.program.getSourceFile(p);
+
+      if (!sf) {
+        throw KitaError('Source file not found', [p]);
+      }
+
+      return sf;
+    });
 
     const promises = [] as ReturnType<RouteResolver['resolve']>[];
 
