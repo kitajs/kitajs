@@ -37,7 +37,7 @@ export interface KitaConfig {
     exportAST: boolean;
 
     /**
-     * If the generated code should include the resolved config object as a 
+     * If the generated code should include the resolved config object as a
      * ResolvedConfig object
      *
      * @default false
