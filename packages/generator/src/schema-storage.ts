@@ -1,10 +1,10 @@
 import {
-  BaseType,
   Context,
   Definition,
   Schema,
   SchemaGenerator,
   createFormatter,
+  BaseType,
   createParser,
   ts
 } from 'ts-json-schema-generator';
@@ -50,7 +50,7 @@ export class SchemaStorage extends SchemaGenerator {
       // the response definition
       const getChildren = this.typeFormatter.getChildren.bind(this.typeFormatter);
 
-      this.typeFormatter.getChildren = (type: BaseType) => {
+      this.typeFormatter.getChildren = (type) => {
         const children = getChildren(type);
 
         // the type is always the first child
@@ -58,6 +58,23 @@ export class SchemaStorage extends SchemaGenerator {
         first && children.push(first);
 
         return children;
+      };
+    }
+
+    // Get definition for a base type without the `#/definitions/` prefix.
+    //
+    // This was a proposed option in ts-json-schema-generator, buy ruled out as out of scope.
+    // See https://github.com/vega/ts-json-schema-generator/pull/1386
+    {
+      const getDefinition = this.typeFormatter.getDefinition.bind(this.typeFormatter);
+      this.typeFormatter.getDefinition = (type) => {
+        const def = getDefinition(type);
+
+        if (def.$ref) {
+          def.$ref = def.$ref.replace(/^\#\/definitions\//g, '');
+        }
+
+        return def;
       };
     }
   }
@@ -121,18 +138,9 @@ export class SchemaStorage extends SchemaGenerator {
 
   /**
    * Get definition for a base type without the `#/definitions/` prefix.
-   *
-   * This was a proposed option in ts-json-schema-generator, buy ruled out as out of scope.
-   * @see  https://github.com/vega/ts-json-schema-generator/pull/1386
    */
   getDefinition(type: BaseType) {
-    const def = this.typeFormatter.getDefinition(type);
-
-    if (def.$ref) {
-      def.$ref = def.$ref.replace(/\#\/definitions\//g, '');
-    }
-
-    return def;
+    return this.typeFormatter.getDefinition(type);
   }
 
   /**
