@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.16
+
+### Patch Changes
+
+- 2630dd0: fixed async routes
+
 ## 1.0.15
 
 ### Patch Changes
