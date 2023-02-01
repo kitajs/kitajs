@@ -1,5 +1,12 @@
 # @kitajs/generator
 
+## 1.0.15
+
+### Patch Changes
+
+- 98673ab: support tsconfig extends
+- efc064f: better jsdoc support
+
 ## 1.0.14
 
 ### Patch Changes
