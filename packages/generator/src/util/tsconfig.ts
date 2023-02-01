@@ -9,13 +9,12 @@ export function readCompilerOptions(tsconfigPath: string) {
     throw KitaError(`Failed to read tsconfig file.`, tsconfigPath, { info: error });
   }
 
-  config.compilerOptions ??= {};
-  const { dir, base } = path.parse(tsconfigPath);
-
-  const { options, errors } = ts.convertCompilerOptionsFromJson(
-    config.compilerOptions,
-    dir,
-    base
+  const { options, errors } = ts.parseJsonConfigFileContent(
+    config,
+    ts.sys,
+    path.dirname(tsconfigPath),
+    undefined,
+    tsconfigPath
   );
 
   if (errors.length) {

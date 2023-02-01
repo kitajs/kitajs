@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig1.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}

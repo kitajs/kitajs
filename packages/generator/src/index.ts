@@ -13,6 +13,7 @@ export * from './errors';
 export * from './util/paths';
 export * from './util/string';
 export * from './util/node';
+export * from './util/tsconfig';
 
 // Allows for custom nodes and routes registration
 export * from './routes/base';
