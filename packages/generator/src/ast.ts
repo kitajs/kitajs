@@ -40,7 +40,7 @@ export class KitaAST {
   loadControllers(importablePath: KitaGenerator['importablePath']) {
     for (const route of this.routes) {
       const exportPath = `export * as ${route.controllerName} from '${importablePath(
-        route.controllerPath.split(':')[0]!
+        route.controllerPath.replace(/:\d+?$/, '')
       )}';`;
 
       if (!this.controllers.includes(exportPath)) {
