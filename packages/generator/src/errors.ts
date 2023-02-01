@@ -24,9 +24,11 @@ export function KitaError(
         : Array.isArray(additionalOrPath)
         ? `${message}\n  at ${additionalOrPath.join('\n and ')}`
         : message,
+
     ...(typeof additionalOrPath === 'object' && !Array.isArray(additionalOrPath)
       ? additionalOrPath
       : {}),
+
     ...additional
   } as const;
 }

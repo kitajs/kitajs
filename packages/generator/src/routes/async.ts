@@ -8,6 +8,7 @@ import { ParamResolver } from '../parameters/base';
 import type { AsyncRoute } from '../route';
 import { capitalize, findRouteName } from '../util/string';
 import { CreationData, RouteResolver } from './base';
+import { applyJsDoc } from '../util/jsdoc';
 
 const templatePath = path.resolve(__dirname, '../../templates/async.hbs');
 const templateStr = fs.readFileSync(templatePath, 'utf-8');
@@ -25,7 +26,9 @@ export class AsyncResolver extends RouteResolver<ts.FunctionDeclaration> {
       // This parameter is required
       fn.parameters[0]?.name.getText() === 'this' &&
       // type is AsyncRoute
-      fn.parameters[0]?.type?.getFirstToken()?.getText() === 'AsyncRoute'
+      fn.parameters[0].type?.getFirstToken()?.getText() === 'AsyncRoute' &&
+      // its name is a valid http method
+      !!fn.name?.getText()?.match(/^get|post|put|delete|all$/i)
     );
   }
 
@@ -61,6 +64,10 @@ export class AsyncResolver extends RouteResolver<ts.FunctionDeclaration> {
 
     //@ts-expect-error - TODO: Find correct ts.getJsDoc method
     route.schema = deepmerge(route.schema, { description: node.jsDoc?.[0]?.comment });
+
+    for (const tag of ts.getJSDocTags(node)) {
+      applyJsDoc(tag, route);
+    }
 
     // Needs to process each parameter in their expected order
     for (const [index, param] of node.parameters.entries()) {
