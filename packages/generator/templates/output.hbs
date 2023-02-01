@@ -19,7 +19,7 @@
 
         module.exports.{{operationId}} = async (args: any[]) => {
           if (!controllers['{{controllerName}}']) {
-            controllers['{{controllerName}}'] = require('./{{controllerName}}');
+            controllers['{{controllerName}}'] = require('./{{importablePath}}');
           }
 
           return controllers['{{controllerName}}']!.{{controllerMethod}}!.apply(undefined, args);
