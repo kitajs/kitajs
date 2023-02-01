@@ -1,5 +1,14 @@
 # @kitajs/cli
 
+## 1.0.8
+
+### Patch Changes
+
+- build code
+- Updated dependencies
+  - @kitajs/generator@1.0.14
+  - @kitajs/runtime@1.0.10
+
 ## 1.0.7
 
 ### Patch Changes
