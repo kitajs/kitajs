@@ -1,5 +1,12 @@
 # @kitajs/generator
 
+## 1.0.13
+
+### Patch Changes
+
+- 953fa2f: updated dependencies
+- 4637dc5: fixed importable path
+
 ## 1.0.12
 
 ### Patch Changes
