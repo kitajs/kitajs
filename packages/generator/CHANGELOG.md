@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.18
+
+### Patch Changes
+
+- fixed import type problem
+
 ## 1.0.17
 
 ### Patch Changes

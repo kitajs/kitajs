@@ -36,6 +36,7 @@ import type { RouteContext, ProvidedRouteContext, KitaConfig } from '@kitajs/run
 import fp from 'fastify-plugin';
 import '@fastify/swagger';
 {{#each imports}}
+  //@ts-ignore - we may have import type errors
   {{this}}
 {{/each}}
 
