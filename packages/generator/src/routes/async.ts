@@ -100,6 +100,13 @@ export class AsyncResolver extends RouteResolver<ts.FunctionDeclaration> {
       (route.schema.response as Record<string, unknown>)[resp] ??= schema;
     }
 
+    // Add controller import to the result to allow it to import types
+    kita.ast.addImport(
+      `import * as ${route.controllerName} from '${kita.importablePath(
+        source.fileName
+      )}';`
+    );
+
     kita.ast.hasAsync = true;
     route.rendered = HbsTemplate(route);
 
