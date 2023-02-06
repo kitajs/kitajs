@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/arthurfiorette/kita">
-    <img src="./assets/hello-world.png">
+    <img src="assets/landing.png">
   </a>
 </div>
 
@@ -11,7 +11,7 @@
 <br />
 <br />
 
-Kita is a semi-opinionated fastify based typescript framework that has 0 runtime bloat
+Kita is a semi-opinionated fastify based typescript framework without runtime bloat
 using code generation. It generates OpenAPI compliant routes, only requires functional
 programming patterns, is 100% testable and supports all the usual features of fastify.
 
