@@ -1,31 +1,31 @@
 {
   "name": "@kitajs/monorepo",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/arthurfiorette/kita#readme",
+  "bugs": {
+    "url": "https://github.com/arthurfiorette/kita/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arthurfiorette/kita.git"
   },
-  "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/arthurfiorette/kita/issues"
-  },
-  "homepage": "https://github.com/arthurfiorette/kita#readme",
+  "author": "Arthur Fiorette <kita@arthur.place>",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "format": "prettier --write .",
-    "watch": "sh scripts/watch.sh",
     "build": "turbo run build",
-    "test": "turbo run test",
     "docs": "cd packages/docs && yarn dev",
+    "format": "prettier --write .",
+    "release": "changeset publish",
+    "test": "turbo run test",
     "version": "changeset version",
-    "release": "changeset publish"
+    "watch": "sh scripts/watch.sh"
   },
   "devDependencies": {
-    "@arthurfiorette/prettier-config": "^1.0.7",
+    "@arthurfiorette/prettier-config": "^1.0.8",
     "@changesets/cli": "^2.26.0",
     "prettier": "^2.8.3",
     "turbo": "^1.7.0",

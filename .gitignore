@@ -2,3 +2,7 @@ node_modules
 .turbo
 dist
 coverage
+
+# tests files
+*.kita.json
+*.kita.ts
