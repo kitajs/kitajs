@@ -1,6 +1,6 @@
-<div align="right">
+<div align="center">
   <a href="https://github.com/arthurfiorette/kita">
-    <img src="./assets/logo.png" height="172">
+    <img src="./assets/hello-world.png">
   </a>
 </div>
 
@@ -21,21 +21,5 @@ programming patterns, is 100% testable and supports all the usual features of fa
 > experience, so the API design is being carefully designed and tested by other
 > developers. A fast and lightweight architecture is also one of many initial
 > requirements.
-
-<br />
-
-```ts
-// routes/hello-world.ts
-
-export function get(name: Query = 'world') {
-  return `Hello ${name}!`;
-}
-```
-
-```sh
-# Magic happens here 🪄
-$ kita generate
-> Exporting code to src/routes.ts
-```
 
 <br />
