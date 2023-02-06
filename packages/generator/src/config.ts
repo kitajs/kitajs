@@ -26,7 +26,7 @@ export interface KitaConfig {
 
     /**
      * If the generated code should be formatted with prettier
-     * 
+     *
      * @default { parser: 'typescript' }
      */
     format: false | Prettier.Options | Record<string, unknown>;

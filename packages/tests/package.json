@@ -1,9 +1,9 @@
 {
   "name": "@kitajs/tests",
-  "private": true,
   "version": "1.0.11",
-  "author": "Arthur Fiorette <kita@arthur.place>",
+  "private": true,
   "license": "MIT",
+  "author": "Arthur Fiorette <kita@arthur.place>",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --verbose --coverage"

@@ -1,8 +1,8 @@
 import {
   errorCount,
   findControllerPaths,
-  KitaConfig,
   importConfig,
+  KitaConfig,
   KitaGenerator
 } from '@kitajs/generator';
 import chalk from 'chalk';

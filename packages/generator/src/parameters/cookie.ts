@@ -1,5 +1,5 @@
 import type { Parameter } from '../parameter';
-import { ParamInfo, ParamData, ParamResolver } from './base';
+import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class CookieResolver extends ParamResolver {
   static override serializable = true;

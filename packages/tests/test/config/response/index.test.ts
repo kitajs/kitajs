@@ -21,7 +21,7 @@ describe('this options variations', () => {
     }
   });
 
- it('works', async () => {
+  it('works', async () => {
     const { KitaAST } = await test;
 
     const route = KitaAST.routes[0]!;

@@ -9,7 +9,7 @@ export function get(this: Route<'priority'>) {}
 describe('this options variations', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
- it('tests get function', async () => {
+  it('tests get function', async () => {
     const { KitaAST } = await test;
 
     expect(KitaAST.routes).toHaveLength(1);

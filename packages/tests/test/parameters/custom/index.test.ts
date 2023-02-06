@@ -25,7 +25,7 @@ describe('tests custom parameters', () => {
     }
   });
 
- it.concurrent('tests simple', async () => {
+  it.concurrent('tests simple', async () => {
     const simple = await test.inject(get, {
       method: 'GET',
       url: '/parameters/custom'
@@ -34,7 +34,7 @@ describe('tests custom parameters', () => {
     expect(simple.body).toBe('Hello from simple!');
   });
 
- it.concurrent('tests simple', async () => {
+  it.concurrent('tests simple', async () => {
     const complex = await test.inject(post, {
       method: 'POST',
       url: '/parameters/custom'
@@ -43,7 +43,7 @@ describe('tests custom parameters', () => {
     expect(complex.body).toBe('yes');
   });
 
- it.concurrent('tests simple', async () => {
+  it.concurrent('tests simple', async () => {
     const schema = await test.inject(put, {
       method: 'PUT',
       url: '/parameters/custom',

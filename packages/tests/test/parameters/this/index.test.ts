@@ -20,7 +20,7 @@ export function put(
 describe('this options variations', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
- it('works', async () => {
+  it('works', async () => {
     const { KitaAST } = await test;
 
     expect(KitaAST.routes).toHaveLength(3);

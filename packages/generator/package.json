@@ -1,13 +1,18 @@
 {
   "name": "@kitajs/generator",
   "version": "1.0.18",
-  "author": "Arthur Fiorette <kita@arthur.place>",
+  "funding": "https://github.com/sponsors/arthurfiorette",
   "license": "MIT",
+  "author": "Arthur Fiorette <kita@arthur.place>",
   "main": "dist/index.js",
+  "files": [
+    "src",
+    "dist",
+    "templates"
+  ],
   "scripts": {
     "build": "tsc"
   },
-  "funding": "https://github.com/sponsors/arthurfiorette",
   "dependencies": {
     "@types/prettier": "^2.7.2",
     "deepmerge": "^4.3.0",
@@ -21,10 +26,5 @@
   },
   "devDependencies": {
     "@types/glob": "^8.0.1"
-  },
-  "files": [
-    "src",
-    "dist",
-    "templates"
-  ]
+  }
 }

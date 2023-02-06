@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 import type { Parameter } from '../parameter';
 import { unquote } from '../util/string';
-import { ParamInfo, ParamData, ParamResolver } from './base';
+import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class HeaderResolver extends ParamResolver {
   static override serializable = true;

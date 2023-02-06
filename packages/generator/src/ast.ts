@@ -1,7 +1,7 @@
 import type { Schema } from 'ts-json-schema-generator';
 import type { KitaConfig } from './config';
-import type { Route } from './route';
 import type { KitaGenerator } from './generator';
+import type { Route } from './route';
 
 /**
  * This class is used to store all the data read from all codes.

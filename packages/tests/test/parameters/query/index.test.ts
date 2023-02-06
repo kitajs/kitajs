@@ -16,7 +16,7 @@ export function get(
 describe('Query', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
- it.concurrent('works', async () => {
+  it.concurrent('works', async () => {
     const response = await test.inject(get, {
       query: {
         name: 'Arthur',

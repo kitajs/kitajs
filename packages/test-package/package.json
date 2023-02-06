@@ -2,14 +2,14 @@
   "name": "@kitajs/test-package",
   "version": "1.0.6",
   "private": true,
-  "author": "Arthur Fiorette <kita@arthur.place>",
   "license": "MIT",
+  "author": "Arthur Fiorette <kita@arthur.place>",
   "main": "dist/index.js",
   "scripts": {
-    "start": "kita generate && tsc && node dist/app",
     "build": "tsc",
     "generate": "kita generate",
-    "generate:watch": "nodemon -w \"../generator/src\" -w \"./src\" -w \"../cli/src\" -e ts -x \"kita generate\" -i \"src/routes.ts\""
+    "generate:watch": "nodemon -w \"../generator/src\" -w \"./src\" -w \"../cli/src\" -e ts -x \"kita generate\" -i \"src/routes.ts\"",
+    "start": "kita generate && tsc && node dist/app"
   },
   "dependencies": {
     "@fastify/cookie": "^8.1.0",

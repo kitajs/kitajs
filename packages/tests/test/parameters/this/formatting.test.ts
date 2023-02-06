@@ -47,7 +47,7 @@ newlines`
 describe('this options variations', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
- it('works', async () => {
+  it('works', async () => {
     const { KitaAST } = await test;
     const getRoute = KitaAST.routes[0]!;
 

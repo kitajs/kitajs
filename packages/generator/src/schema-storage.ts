@@ -1,11 +1,11 @@
 import {
+  BaseType,
   Context,
+  createFormatter,
+  createParser,
   Definition,
   Schema,
   SchemaGenerator,
-  createFormatter,
-  BaseType,
-  createParser,
   ts
 } from 'ts-json-schema-generator';
 import type { KitaConfig } from './config';

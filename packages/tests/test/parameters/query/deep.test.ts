@@ -51,7 +51,7 @@ describe('should warn about deep query objects', () => {
       properties: {
         a: {
           type: 'object',
-          properties: { b: { type: 'number' }},
+          properties: { b: { type: 'number' } },
           required: ['b'],
           additionalProperties: false
         }

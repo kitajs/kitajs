@@ -11,7 +11,7 @@ export function post(_1: Body<{ a: true }>, _2: Query<false>, _3: Query<'1' | '2
 describe('Tests literal types', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
- it.concurrent('should work', async () => {
+  it.concurrent('should work', async () => {
     const response = await test.inject(post, {
       payload: { a: true },
       query: { _2: 'false', _3: '1' }
@@ -20,7 +20,7 @@ describe('Tests literal types', () => {
     expect(response.statusCode).toBe(200); // no content
   });
 
- it.concurrent('should fail because of different literal at _3', async () => {
+  it.concurrent('should fail because of different literal at _3', async () => {
     const response = await test.inject(post, {
       payload: { a: true },
       query: {

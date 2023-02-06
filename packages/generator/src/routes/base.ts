@@ -1,5 +1,5 @@
 import type { ts } from 'ts-json-schema-generator';
-import { KitaError, catchKitaError } from '../errors';
+import { catchKitaError, KitaError } from '../errors';
 import type { KitaGenerator } from '../generator';
 import type { Route } from '../route';
 import { isNodeExported, isTypeOnlyNode } from '../util/node';

@@ -1,4 +1,4 @@
-import type { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export type ComplexParam<Option extends boolean> = Option extends true ? 'yes' : 'no';
 

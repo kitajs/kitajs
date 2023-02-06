@@ -1,5 +1,5 @@
-import type { KitaConfig } from '../config';
 import path from 'path';
+import type { KitaConfig } from '../config';
 
 /** Removes enclosing quotes  */
 export function unquote(str: string) {

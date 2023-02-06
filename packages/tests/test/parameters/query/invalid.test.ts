@@ -13,7 +13,7 @@ export function get(age: Query<number>, extended: Query<Extended>) {
 describe('query will throw', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
- it.concurrent('logs error on creation', async () => {
+  it.concurrent('logs error on creation', async () => {
     const consoleLogMock = jest.spyOn(console, 'log').mockImplementation();
 
     await test;
@@ -26,7 +26,7 @@ describe('query will throw', () => {
     consoleLogMock.mockRestore();
   });
 
- it.concurrent('should not have the get route ast', async () => {
+  it.concurrent('should not have the get route ast', async () => {
     const { KitaAST } = await test;
     expect(KitaAST.routes).toHaveLength(0);
   });

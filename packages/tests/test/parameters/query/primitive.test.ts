@@ -22,7 +22,7 @@ export function get(
 describe('Query', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
- it('works', async () => {
+  it('works', async () => {
     const response = await test.inject(get, {
       url:
         '/parameters/query/primitive?' +

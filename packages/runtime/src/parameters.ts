@@ -1,4 +1,3 @@
-import type { FastifySchema } from 'fastify';
 import type { Native, ShallowNative } from './types';
 
 /**
@@ -85,7 +84,9 @@ export type BodyProp<Type, Path extends string = string> = Type;
 export type Query<
   Type extends ShallowNative<Type> = string,
   //@ts-ignore unused
-  Name extends Type extends Native | Native[] ? string : 'Cannot use name on complex types' = string
+  Name extends Type extends Native | Native[]
+    ? string
+    : 'Cannot use name on complex types' = string
 > = Type;
 
 /**

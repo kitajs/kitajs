@@ -11,7 +11,7 @@ export function post(
 describe('body prop tests', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
- it('should work', async () => {
+  it('should work', async () => {
     const { KitaAST } = await test;
 
     expect(KitaAST.routes).toHaveLength(1);
