@@ -16,7 +16,7 @@ export function put(name: Path, notAge: Path<number | string, 'age'>) {
 describe('should parse name and age correctly', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
-  it('should work', async () => {
+ it.concurrent('should work', async () => {
     const response = await test.inject(get, {
       url: `/parameters/path/${18}/${'Arthur'}`
     });
@@ -27,7 +27,7 @@ describe('should parse name and age correctly', () => {
     });
   });
 
-  it('should work with age string', async () => {
+ it.concurrent('should work with age string', async () => {
     const response = await test.inject(post, {
       url: `/parameters/path/${'18'}/${'Arthur'}`
     });
@@ -38,7 +38,7 @@ describe('should parse name and age correctly', () => {
     });
   });
 
-  it('should throw on type error', async () => {
+ it.concurrent('should throw on type error', async () => {
     const response = await test.inject(get, {
       url: `/parameters/path/${'Not a number'}/${'Arthur'}`
     });
@@ -50,7 +50,7 @@ describe('should parse name and age correctly', () => {
     });
   });
 
-  it('ensures correct schema definition', async () => {
+ it.concurrent('ensures correct schema definition', async () => {
     const { KitaAST } = await test;
 
     const queryGetSchema = KitaAST.schemas.find(

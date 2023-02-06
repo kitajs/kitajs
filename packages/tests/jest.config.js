@@ -11,8 +11,7 @@ module.exports = {
   moduleNameMapper: {
     '^@kitajs/(.*)$': '<rootDir>/packages/$1/src'
   },
-  coveragePathIgnorePatterns: [
-    '<rootDir>/packages/tests',
-    'node_modules'
-  ]
+  coveragePathIgnorePatterns: ['<rootDir>/packages/tests', 'node_modules'],
+  testTimeout: 10000,
+  maxConcurrency: 1000
 };

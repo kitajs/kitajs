@@ -2,11 +2,10 @@ import type { Query } from '@kitajs/runtime';
 import { KitaTestBuilder } from '../../builder';
 
 type Deep = {
-  a: {
-    b: number;
-  };
+  a: { b: number };
 };
 
+//@ts-expect-error - should warn about deep query objects
 export function get(query: Query<Deep>) {
   return query;
 }
@@ -29,7 +28,7 @@ export function post(query: Query<NotDeep>) {
 describe('should warn about deep query objects', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
-  it('should warn about deep query objects', async () => {
+  it.concurrent('should work for deep objects but tsc will warn', async () => {
     const { KitaAST } = await test;
 
     const postRoute = KitaAST.routes.find((r) => r.method === 'GET')!;
@@ -37,13 +36,32 @@ describe('should warn about deep query objects', () => {
     expect(postRoute).toBeDefined();
     expect(postRoute.schema.response).toStrictEqual({
       default: {
-        type: 'string',
-        const: 'Complex queries cannot have deep objects. Did you mean Body?'
+        $ref: 'ParametersQueryDeepControllerGetResponse'
       }
+    });
+
+    const response = KitaAST.schemas.find(
+      (s) => s.$id === 'ParametersQueryDeepControllerGetResponse'
+    )!;
+
+    expect(response).toBeDefined();
+    expect(response).toMatchObject({
+      $id: 'ParametersQueryDeepControllerGetResponse',
+      type: 'object',
+      properties: {
+        a: {
+          type: 'object',
+          properties: { b: { type: 'number' }},
+          required: ['b'],
+          additionalProperties: false
+        }
+      },
+      required: ['a'],
+      additionalProperties: false
     });
   });
 
-  it('should not warn about non deep query objects', async () => {
+  it.concurrent('should not warn about non deep query objects', async () => {
     const { KitaAST } = await test;
 
     const postRoute = KitaAST.routes.find((r) => r.method === 'POST')!;

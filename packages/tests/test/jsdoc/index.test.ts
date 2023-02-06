@@ -22,7 +22,7 @@ export function post(this: Route<'notOperationId'>) {}
 describe('this options variations', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
-  it('tests get function', async () => {
+ it('tests get function', async () => {
     const { KitaAST } = await test;
 
     const route = KitaAST.routes.find((r) => r.schema.operationId === 'operationid');
