@@ -9,6 +9,9 @@ Handlebars.registerHelper('lowercase', (str: string) => str.toLowerCase());
 Handlebars.registerHelper('json', (ctx) => JSON.stringify(ctx));
 Handlebars.registerHelper('jsonf', (ctx) => JSON.stringify(ctx, null, 2));
 Handlebars.registerHelper('isAllMethod', (str: string) => str.toLowerCase() === 'all');
-Handlebars.registerHelper('paramsToString', (param: Parameter[]) =>
-  param.map((p) => p.value).join(',')
+Handlebars.registerHelper('paramsToString', (params: Parameter[]) =>
+  params.map((p) => p.value || p).join(',')
+);
+Handlebars.registerHelper('hasSchemaTransformers', (params: Parameter[]) =>
+  params.some((p) => p.schemaTransformer)
 );

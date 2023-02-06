@@ -1,9 +1,26 @@
-fastify.route({
-  method: {{#if (isAllMethod method)}}['DELETE', 'GET', 'HEAD', 'PATCH', 'POST', 'PUT', 'OPTIONS']{{else}}'{{method}}'{{/if}},
-  url: '{{url}}',
-  schema: {{json schema}},
+fastify.{{lowercase method}}(
+  '{{url}}',
+  {
+    schema: 
+    {{#if (hasSchemaTransformers parameters)}}
+      await Promise.resolve({{json schema}})
+      {{#each parameters}}
+        {{#if schemaTransformer}}
+          .then(
+            schema => {{schemaTransformer}}.transformSchema(
+              schema {{#if schemaTransformerOptions}}, {{paramsToString schemaTransformerOptions}} {{/if}}
+            )
+          )
+        {{/if}}
+      {{/each}}
+    {{else}}
+      {{json schema}}
+    {{/if}}
+    ,
+    {{options}}
+  },
   //@ts-ignore - we may have unused params
-  handler: async (request, reply) => {
+  async (request, reply) => {
     {{#each parameters}}
       {{#if helper}}
         {{helper}}
@@ -11,11 +28,10 @@ fastify.route({
         if (reply.sent) {
           return;
         }
-        
+
        {{/if}}
     {{/each}}
 
-    return {{controllerName}}.{{controllerMethod}}.apply(context, [{{paramsToString parameters}}]);
-  },
-  {{options}}
-});
+    return {{controllerName}}.{{controllerMethod}}({{paramsToString parameters}});
+  }
+);

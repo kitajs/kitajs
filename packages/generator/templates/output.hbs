@@ -2,6 +2,8 @@
 // It should be in your .gitignore and NOT be committed to source control.
 
 {{#if hasAsync}}  
+  import Piscina from 'piscina';
+
   /**
    * The filename to be used when creating a Piscina instance.
    * 
@@ -11,7 +13,7 @@
    */
   export const filename = __filename;
 
-  if (require('piscina')?.isWorkerThread) {
+  if (Piscina.isWorkerThread) {
     const controllers: Record<string, Record<string, Function>> = {};
 
     {{#each routes}}
@@ -52,9 +54,13 @@ import '@fastify/swagger';
  * app.register(Kita, { context: { ... } })
  * ```
  */
-export const Kita = fp<{ context: ProvidedRouteContext }>(
-  (fastify, options) => {
-    const context: RouteContext = { config: {{#if config.routes.exportConfig}}ResolvedConfig{{else}}{{json config}} as KitaConfig{{/if}}, fastify, ...options.context };
+export const Kita = fp<{ {{#if hasAsync}} piscina: Piscina{{/if}} }>(
+  //@ts-ignore - options may not be used
+  async (fastify, options) => {
+    {{#if hasAsync}}
+      // Default piscina instance, you can override it in the options.
+      options.piscina ??= new Piscina({ filename: __filename });
+    {{/if}}
 
     {{#each schemas}}
       fastify.addSchema({{jsonf this}});
@@ -65,9 +71,6 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
       {{rendered}}
 
     {{/each}}
-
-    // Ensure this function remains a "async" function
-    return Promise.resolve();
   },
   {
     name: 'Kita',

@@ -1,16 +1,16 @@
-/* istanbul ignore file */
 import {
+  findControllerPaths,
+  findRouteName,
   KitaAST,
   KitaConfig,
   KitaGenerator,
-  findControllerPaths,
-  findRouteName,
   mergeDefaults
 } from '@kitajs/generator';
 import type { DeepPartial } from '@kitajs/generator/dist/types';
-import type { ProvidedRouteContext } from '@kitajs/runtime';
 import deepmerge from 'deepmerge';
-import { FastifyInstance, FastifyPluginAsync, InjectOptions, fastify } from 'fastify';
+import { fastify, FastifyInstance, FastifyPluginAsync, InjectOptions } from 'fastify';
+import fs from 'fs/promises';
+import prettier from 'prettier';
 import ts from 'typescript';
 
 const TEST_DIRNAME = __dirname;
@@ -25,7 +25,7 @@ const TRANSPILE_OPTIONS: ts.TranspileOptions = {
 };
 
 export class KitaTestBuilder extends Promise<{
-  Kita: FastifyPluginAsync<{ context: ProvidedRouteContext }>;
+  Kita: FastifyPluginAsync;
   config: KitaConfig;
   KitaAST: KitaAST;
   app: FastifyInstance;
@@ -39,16 +39,14 @@ export class KitaTestBuilder extends Promise<{
    */
   static build(
     /** The file to test */
-    filename: string,
+    originalFilename: string,
     /** The exports of the file to test */
     exports: object,
     /** The config to use */
-    cfg: DeepPartial<KitaConfig> = {},
-    /** The context to pass to the routes */
-    context: ProvidedRouteContext = {}
+    cfg: DeepPartial<KitaConfig> = {}
   ) {
     // escapes path variables
-    filename = filename.replace(/(\[|\])/g, '\\$1');
+    const filename = originalFilename.replace(/(\[|\])/g, '\\$1');
 
     const kita = new KitaTestBuilder(async (res) => {
       let config = mergeDefaults(
@@ -56,7 +54,11 @@ export class KitaTestBuilder extends Promise<{
           {
             controllers: { glob: [filename], prefix: TEST_DIRNAME + '/' },
             tsconfig: require.resolve('../tsconfig.json'),
-            routes: { output: TEST_FILENAME, exportAST: true, exportConfig: true }
+            routes: {
+              output: TEST_FILENAME,
+              exportAST: true,
+              exportConfig: true
+            }
           },
           cfg
         )
@@ -71,6 +73,19 @@ export class KitaTestBuilder extends Promise<{
       await kita.updateAst();
 
       const typescriptCode = await kita.astToString();
+
+      if (!process.env.CI) {
+        // writes output to .kita.ts file
+        await fs.writeFile(
+          originalFilename.replace('.test.ts', '.kita.ts'),
+          `//@ts-nocheck\n` +
+            prettier.format(typescriptCode, {
+              parser: 'typescript',
+              ...require('../../../.prettierrc.js')
+            })
+        );
+      }
+
       let { outputText } = ts.transpileModule(typescriptCode, TRANSPILE_OPTIONS);
 
       // This is a hack to get the transpiled code to run in the same context as this file
@@ -79,12 +94,12 @@ export class KitaTestBuilder extends Promise<{
       eval(outputText);
 
       config = exports.ResolvedConfig;
-      const Kita = exports.Kita as FastifyPluginAsync<{ context: ProvidedRouteContext }>;
+      const Kita = exports.Kita as FastifyPluginAsync;
       const KitaAST = exports.KitaAST as KitaAST;
 
       // Creates the fastify instance and registers the routes
       const app = fastify({ ajv: { customOptions: { allowUnionTypes: true } } });
-      app.register(Kita, { context });
+      app.register(Kita);
 
       return res({
         app,

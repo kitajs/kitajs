@@ -10,5 +10,9 @@ module.exports = {
   coverageDirectory: '<rootDir>/coverage',
   moduleNameMapper: {
     '^@kitajs/(.*)$': '<rootDir>/packages/$1/src'
-  }
+  },
+  coveragePathIgnorePatterns: [
+    '<rootDir>/packages/tests',
+    'node_modules'
+  ]
 };

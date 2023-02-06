@@ -12,13 +12,23 @@ export class CustomResolver extends ParamResolver {
   override async resolve({
     generics,
     paramName,
-    typeName
+    typeName,
+    kita
   }: ParamData): Promise<Parameter | undefined> {
+    const resolver = kita.config.params[typeName!];
+    const transformer = Array.isArray(resolver) && resolver[1].schemaTransformer;
+
     return {
       value: paramName,
-      helper: `const ${paramName} = await ${typeName}.call(context, request, reply${
+
+      helper: `const ${paramName} = await ${typeName}.resolver(request, reply${
         !generics ? '' : `, ${generics.map((n) => n.getText()).join(', ')}`
-      });`
+      });`,
+
+      schemaTransformer: transformer ? typeName : undefined,
+
+      schemaTransformerOptions:
+        transformer && generics ? generics.map((n) => n.getText()) : undefined
     };
   }
 }

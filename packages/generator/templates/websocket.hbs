@@ -1,7 +1,22 @@
-fastify.get(
+fastify.{{lowercase method}}(
   '{{url}}',
   {
-    schema: {{json schema}},
+    schema: 
+    {{#if (hasSchemaTransformers parameters)}}
+      await Promise.resolve({{json schema}})
+      {{#each parameters}}
+        {{#if schemaTransformer}}
+          .then(
+            schema => {{schemaTransformer}}.transformSchema(
+              schema {{#if schemaTransformerOptions}}, {{paramsToString schemaTransformerOptions}} {{/if}}
+            )
+          )
+        {{/if}}
+      {{/each}}
+    {{else}}
+      {{json schema}}
+    {{/if}}
+    ,
     websocket: true,
     {{options}}
   },
@@ -14,10 +29,10 @@ fastify.get(
         if (reply.sent) {
           return;
         }
-        
+
        {{/if}}
     {{/each}}
 
-    return {{controllerName}}.ws.apply(context, [{{paramsToString parameters}}]);
+    return {{controllerName}}.{{controllerMethod}}({{paramsToString parameters}});
   }
 );
