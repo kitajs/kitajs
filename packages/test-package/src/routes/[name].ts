@@ -42,7 +42,7 @@ export async function put(
  */
 export async function post(
   this: Route<'fullExampleExclusiveQuery'>,
-  path: Path<'name'>,
+  path: Path<string, 'name'>,
   cookie: Cookie<'cache-control'>,
   body: Body<NameQuery>,
   exclusive: Query<NameQuery>,
