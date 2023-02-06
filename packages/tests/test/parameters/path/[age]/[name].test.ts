@@ -1,12 +1,16 @@
 import type { Path } from '@kitajs/runtime';
 import { KitaTestBuilder } from '../../../builder';
 
-export function get(name: Path, age: Path<'age', number>) {
+export function get(name: Path, age: Path<number>) {
   return { name, age };
 }
 
-export function post(name: Path, age: Path<'age', number | string>) {
+export function post(name: Path, age: Path<number | string>) {
   return { name, age };
+}
+
+export function put(name: Path, notAge: Path<number | string, 'age'>) {
+  return { name, notAge };
 }
 
 describe('should parse name and age correctly', () => {

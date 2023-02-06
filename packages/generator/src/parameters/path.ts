@@ -24,18 +24,26 @@ export class PathResolver extends ParamResolver {
       throw KitaError('Path parameters cannot be optional', route.controllerPath);
     }
 
-    const generic = generics?.[0]?.getText();
-    const pathName = generic ? unquote(generic) : paramName;
+    const genericPath = generics?.[1]?.getText();
+
+    const pathName = genericPath ? unquote(genericPath) : paramName;
+    const pathType = generics?.[0];
 
     let jsonSchema: Definition = { type: 'string' };
-    const pathGenericType = generics?.[1];
 
-    if (pathGenericType) {
+    if (pathType) {
       // Lookup as a json schema to allow custom primitive types, like (string | number[]), for example.
-      const primitive = kita.schemaStorage.asPrimitive(pathGenericType);
+      const primitive = kita.schemaStorage.asPrimitive(pathType);
 
-      if (!primitive || primitive instanceof ArrayType) {
-        throw KitaError('Path type must be a non array literal', route.controllerPath);
+      if (!primitive) {
+        throw KitaError('Path type must be a primitive type', route.controllerPath);
+      }
+
+      if (primitive instanceof ArrayType) {
+        throw KitaError(
+          'Path type must be a non array primitive type',
+          route.controllerPath
+        );
       }
 
       jsonSchema = kita.schemaStorage.getDefinition(primitive);

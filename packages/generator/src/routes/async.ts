@@ -6,9 +6,9 @@ import { ts } from 'ts-json-schema-generator';
 import { KitaError } from '../errors';
 import { ParamResolver } from '../parameters/base';
 import type { AsyncRoute } from '../route';
+import { applyJsDoc } from '../util/jsdoc';
 import { capitalize, findRouteName } from '../util/string';
 import { CreationData, RouteResolver } from './base';
-import { applyJsDoc } from '../util/jsdoc';
 
 const templatePath = path.resolve(__dirname, '../../templates/async.hbs');
 const templateStr = fs.readFileSync(templatePath, 'utf-8');
@@ -22,14 +22,11 @@ export class AsyncResolver extends RouteResolver<ts.FunctionDeclaration> {
 
     const fn = node as ts.FunctionDeclaration;
 
-    return (
-      // This parameter is required
-      fn.parameters[0]?.name.getText() === 'this' &&
-      // type is AsyncRoute
-      fn.parameters[0].type?.getFirstToken()?.getText() === 'AsyncRoute' &&
-      // its name is a valid http method
-      !!fn.name?.getText()?.match(/^get|post|put|delete|all$/i)
-    );
+    if (!fn.name?.getText()?.match(/^get|post|put|delete|all$/i)) {
+      return false;
+    }
+
+    return fn.parameters[0]?.type?.getFirstToken()?.getText() === 'AsyncRoute';
   }
 
   override async resolve({

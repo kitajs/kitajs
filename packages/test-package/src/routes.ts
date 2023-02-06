@@ -1,3 +1,8 @@
+// This file contains hardcoded paths to controllers ans schemas.
+// It should be in your .gitignore and NOT be committed to source control.
+
+import Piscina from 'piscina';
+
 /**
  * The filename to be used when creating a Piscina instance.
  *
@@ -7,12 +12,12 @@
  */
 export const filename = __filename;
 
-if (require('piscina')?.isWorkerThread) {
+if (Piscina.isWorkerThread) {
   const controllers: Record<string, Record<string, Function>> = {};
 
   module.exports.asyncTest = async (args: any[]) => {
     if (!controllers['AsyncController']) {
-      controllers['AsyncController'] = require('./AsyncController');
+      controllers['AsyncController'] = require('./routes/async');
     }
 
     return controllers['AsyncController']!.get!.apply(undefined, args);
@@ -22,17 +27,24 @@ if (require('piscina')?.isWorkerThread) {
   return;
 }
 
-import type { RouteContext, ProvidedRouteContext, KitaConfig } from '@kitajs/runtime';
-import fp from 'fastify-plugin';
 import '@fastify/swagger';
+import type { KitaConfig } from '@kitajs/runtime';
+import fp from 'fastify-plugin';
+//@ts-ignore - we may have import type errors
 import '@fastify/cookie';
+//@ts-ignore - we may have import type errors
 import * as AsyncController from './routes/async';
+//@ts-ignore - we may have import type errors
 import * as HelloWorldController from './routes/hello-world';
-import * as PingController from './routes/ping';
+//@ts-ignore - we may have import type errors
 import * as PrimitiveTypesController from './routes/primitive-types';
+//@ts-ignore - we may have import type errors
 import * as ResponseTypesController from './routes/response-types';
+//@ts-ignore - we may have import type errors
 import * as ThisController from './routes/this';
+//@ts-ignore - we may have import type errors
 import * as _name_Controller from './routes/[name]';
+//@ts-ignore - we may have import type errors
 import AuthParam from './helpers/auth-param';
 
 /**
@@ -47,9 +59,10 @@ import AuthParam from './helpers/auth-param';
  * app.register(Kita, { context: { ... } })
  * ```
  */
-export const Kita = fp<{ context: ProvidedRouteContext }>(
+export const Kita = fp<{ piscina: Piscina }>(
   (fastify, options) => {
-    const context: RouteContext = { config: ResolvedConfig, fastify, ...options.context };
+    // Default piscina instance, you can override it in the options.
+    options.piscina ??= new Piscina({ filename: __filename });
 
     fastify.addSchema({
       $id: 'ResponseTypesControllerGetResponse',
@@ -100,7 +113,7 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
     });
 
     fastify.addSchema({
-      $id: 'def-structure--294-308--287-309--285-309--239-329--0-330',
+      $id: 'def-structure--371-385--364-386--361-386--286-406--0-407',
       type: 'object',
       properties: {
         a: {
@@ -143,95 +156,28 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
       additionalProperties: false
     });
 
-    fastify.route({
-      method: 'PUT',
-      url: '/:name',
-      schema: {
-        operationId: 'fullExampleUsingBody',
-        response: { default: { type: 'number' } },
-        description: 'Route description 1',
-        security: [{ default: [] }, { admin: ['read-user', 'write user', '4', '76'] }],
-        tags: ['test tag 1'],
-        summary: 'route summary 1',
-        params: {
-          type: 'object',
-          properties: { name: { type: 'string' } },
-          required: ['name'],
-          additionalProperties: false
-        },
-        body: {
-          type: 'object',
-          properties: { path: { type: 'number' }, bodyProp: { type: 'number' } },
-          required: ['path', 'bodyProp'],
-          additionalProperties: false
-        },
-        querystring: {
-          type: 'object',
-          properties: {
-            paramQuery: { type: 'string' },
-            typedQuery: { type: 'boolean' },
-            namedQuery: { type: 'string' },
-            typedAndNamedQuery: { type: 'boolean' }
+    fastify.POST(
+      '/:name',
+      {
+        schema: {
+          operationId: 'fullExampleExclusiveQuery',
+          response: { default: { type: 'number' } },
+          description: 'route description 2',
+          security: [{ default: [] }, { admin: ['read-user', 'write user', '4', '76'] }],
+          tags: ['test tag 2'],
+          summary: 'route summary 2',
+          params: {
+            type: 'object',
+            properties: { name: { type: 'string' } },
+            required: ['name'],
+            additionalProperties: false
           },
-          required: ['paramQuery', 'typedQuery', 'namedQuery', 'typedAndNamedQuery'],
-          additionalProperties: false
+          body: { $ref: 'NameQuery' },
+          querystring: { $ref: 'NameQuery' }
         }
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
-        const authJwt = await AuthParam.call(context, request, reply, 'jwt');
-
-        if (reply.sent) {
-          return;
-        }
-
-        const authBasic = await AuthParam.call(context, request, reply, 'basic');
-
-        if (reply.sent) {
-          return;
-        }
-
-        return _name_Controller.put.apply(context, [
-          (request.params as { ['name']: Parameters<typeof _name_Controller.put>[0] })[
-            'name'
-          ],
-          request.cookies?.cookie,
-          (request.body as { ['path']: Parameters<typeof _name_Controller.put>[2] }).path,
-          (request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] })
-            .bodyProp,
-          (request.query as { ['paramQuery']: string })['paramQuery'],
-          (request.query as { ['typedQuery']: boolean })['typedQuery'],
-          (request.query as { ['namedQuery']: string })['namedQuery'],
-          (request.query as { ['typedAndNamedQuery']: boolean })['typedAndNamedQuery'],
-          request,
-          reply,
-          authJwt,
-          authBasic
-        ]);
-      }
-    });
-
-    fastify.route({
-      method: 'POST',
-      url: '/:name',
-      schema: {
-        operationId: 'fullExampleExclusiveQuery',
-        response: { default: { type: 'number' } },
-        description: 'route description 2',
-        security: [{ default: [] }, { admin: ['read-user', 'write user', '4', '76'] }],
-        tags: ['test tag 2'],
-        summary: 'route summary 2',
-        params: {
-          type: 'object',
-          properties: { name: { type: 'string' } },
-          required: ['name'],
-          additionalProperties: false
-        },
-        body: { $ref: 'NameQuery' },
-        querystring: { $ref: 'NameQuery' }
-      },
-      //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         const authJwt = await AuthParam.call(context, request, reply, 'jwt');
 
         if (reply.sent) {
@@ -257,213 +203,213 @@ export const Kita = fp<{ context: ProvidedRouteContext }>(
           authBasic
         ]);
       }
-    });
+    );
 
-    fastify.route({
-      method: 'GET',
-      url: '/async',
-      schema: { operationId: 'asyncTest', response: { default: { type: 'null' } } },
+    fastify.GET(
+      '/async',
+      {
+        schema: { operationId: 'asyncTest', response: { default: { type: 'null' } } }
+      },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
-        return context.piscina!.run([], { name: 'asyncTest' });
+      async (request, reply) => {
+        return options.piscina.run([], { name: 'asyncTest' });
       }
-    });
+    );
 
-    fastify.route({
-      method: 'POST',
-      url: '/async',
-      schema: { operationId: 'syncTest', response: { default: { type: 'null' } } },
+    fastify.POST(
+      '/async',
+      {
+        schema: { operationId: 'syncTest', response: { default: { type: 'null' } } }
+      },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return AsyncController.post.apply(context, []);
       }
-    });
+    );
 
-    fastify.route({
-      method: 'GET',
-      url: '/hello-world',
-      schema: {
-        operationId: 'HelloWorldControllerGet',
-        response: { default: { type: 'string' } },
-        description: 'Hello world rest API endpoint.',
-        querystring: {
-          type: 'object',
-          properties: { name: { type: 'string' } },
-          required: [],
-          additionalProperties: false
+    fastify.GET(
+      '/hello-world',
+      {
+        schema: {
+          operationId: 'HelloWorldControllerGet',
+          response: { default: { type: 'string' } },
+          description: 'Hello world rest API endpoint.',
+          querystring: {
+            type: 'object',
+            properties: { name: { type: 'string' } },
+            required: [],
+            additionalProperties: false
+          }
         }
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return HelloWorldController.get.apply(context, [
           (request.query as { ['name']?: string })['name']
         ]);
       }
-    });
-
-    fastify.get(
-      '/ping',
-      {
-        schema: { hide: true, operationId: 'name' },
-        websocket: true
-      },
-      //@ts-ignore - we may have unused params
-      async (connection, request) => {
-        return PingController.ws.apply(context, [
-          connection as Parameters<typeof PingController.ws>[0]
-        ]);
-      }
     );
 
-    fastify.route({
-      method: 'POST',
-      url: '/primitive-types',
-      schema: {
-        operationId: 'PrimitiveTypesControllerPost',
-        response: { default: { type: 'boolean' } },
-        description: 'primitive complex queries',
-        body: { type: 'array', items: { type: ['string', 'number'] } },
-        querystring: {
-          type: 'object',
-          properties: {
-            param: { anyOf: [{ type: 'string' }, { not: {} }] },
-            parm2: { type: ['boolean', 'number', 'null'] }
-          },
-          required: ['param', 'parm2'],
-          additionalProperties: false
+    fastify.POST(
+      '/primitive-types',
+      {
+        schema: {
+          operationId: 'primitiveComplexQuery',
+          response: { default: { type: 'boolean' } },
+          description: 'primitive complex queries',
+          body: { type: 'array', items: { type: ['string', 'number'] } },
+          querystring: {
+            type: 'object',
+            properties: {
+              param: { anyOf: [{ type: 'string' }, { not: {} }] },
+              parm2: { type: ['boolean', 'number', 'null'] }
+            },
+            required: ['param', 'parm2'],
+            additionalProperties: false
+          }
         }
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return PrimitiveTypesController.post.apply(context, [
           request.body as Parameters<typeof PrimitiveTypesController.post>[0],
           (request.query as { ['param']: string | undefined })['param'],
           (request.query as { ['parm2']: boolean | number | null })['parm2']
         ]);
       }
-    });
+    );
 
-    fastify.route({
-      method: 'GET',
-      url: '/primitive-types',
-      schema: {
-        operationId: 'PrimitiveTypesControllerGet',
-        response: { default: { type: 'boolean' } },
-        description: 'extended queries',
-        querystring: { $ref: 'def-structure--294-308--287-309--285-309--239-329--0-330' }
+    fastify.GET(
+      '/primitive-types',
+      {
+        schema: {
+          operationId: 'extendedQuery',
+          response: { default: { type: 'boolean' } },
+          description: 'extended queries',
+          querystring: {
+            $ref: 'def-structure--371-385--364-386--361-386--286-406--0-407'
+          }
+        }
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return PrimitiveTypesController.get.apply(context, [
           request.query as Parameters<typeof PrimitiveTypesController.get>[0]
         ]);
       }
-    });
+    );
 
-    fastify.route({
-      method: 'GET',
-      url: '/response-types',
-      schema: {
-        operationId: 'withTypedPromiseResponse',
-        response: { default: { $ref: 'ResponseTypesControllerGetResponse' } },
-        tags: ['Response Test'],
-        querystring: { $ref: 'HelloWorldQuery' }
+    fastify.GET(
+      '/response-types',
+      {
+        schema: {
+          operationId: 'withTypedPromiseResponse',
+          response: { default: { $ref: 'ResponseTypesControllerGetResponse' } },
+          tags: ['Response Test'],
+          querystring: { $ref: 'HelloWorldQuery' }
+        }
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return ResponseTypesController.Get.apply(context, [
           request.query as Parameters<typeof ResponseTypesController.Get>[0]
         ]);
       }
-    });
+    );
 
-    fastify.route({
-      method: 'POST',
-      url: '/response-types',
-      schema: {
-        operationId: 'withInferredResponse',
-        response: { default: { $ref: 'ResponseTypesControllerPostResponse' } },
-        tags: ['Response Test'],
-        querystring: { $ref: 'HelloWorldQuery' }
+    fastify.POST(
+      '/response-types',
+      {
+        schema: {
+          operationId: 'withInferredResponse',
+          response: { default: { $ref: 'ResponseTypesControllerPostResponse' } },
+          tags: ['Response Test'],
+          querystring: { $ref: 'HelloWorldQuery' }
+        },
+        preHandler: ResponseTypesController.preHandler
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return ResponseTypesController.Post.apply(context, [
           request.query as Parameters<typeof ResponseTypesController.Post>[0]
         ]);
-      },
-      preHandler: ResponseTypesController.preHandler
-    });
+      }
+    );
 
-    fastify.route({
-      method: 'PUT',
-      url: '/response-types',
-      schema: {
-        operationId: 'withPromiseTypeAlias',
-        response: { default: { $ref: 'PR' } },
-        tags: ['Response Test'],
-        querystring: { $ref: 'HelloWorldQuery' }
+    fastify.PUT(
+      '/response-types',
+      {
+        schema: {
+          operationId: 'withPromiseTypeAlias',
+          response: { default: { $ref: 'PR' } },
+          tags: ['Response Test'],
+          querystring: { $ref: 'HelloWorldQuery' }
+        }
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return ResponseTypesController.Put.apply(context, [
           request.query as Parameters<typeof ResponseTypesController.Put>[0]
         ]);
       }
-    });
+    );
 
-    fastify.route({
-      method: 'DELETE',
-      url: '/response-types',
-      schema: {
-        operationId: 'withTypeAliasPromise',
-        response: { default: { $ref: 'DR' } },
-        tags: ['Response Test'],
-        querystring: { $ref: 'HelloWorldQuery' }
+    fastify.DELETE(
+      '/response-types',
+      {
+        schema: {
+          operationId: 'withTypeAliasPromise',
+          response: { default: { $ref: 'DR' } },
+          tags: ['Response Test'],
+          querystring: { $ref: 'HelloWorldQuery' }
+        }
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return ResponseTypesController.Delete.apply(context, [
           request.query as Parameters<typeof ResponseTypesController.Delete>[0]
         ]);
       }
-    });
+    );
 
-    fastify.route({
-      method: 'GET',
-      url: '/this',
-      schema: { operationId: 'getId', response: { default: { type: 'boolean' } } },
+    fastify.GET(
+      '/this',
+      {
+        schema: { operationId: 'getId', response: { default: { type: 'boolean' } } },
+        ...ThisController.getConfig
+      },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return ThisController.get.apply(context, []);
-      },
-      ...ThisController.getConfig
-    });
+      }
+    );
 
-    fastify.route({
-      method: 'POST',
-      url: '/this',
-      schema: {
-        operationId: 'withSubTypeofs',
-        response: { default: { type: 'boolean' } }
+    fastify.POST(
+      '/this',
+      {
+        schema: {
+          operationId: 'withSubTypeofs',
+          response: { default: { type: 'boolean' } }
+        },
+        onRequest: [...ThisController.auth, ...ThisController.auth2]
       },
       //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
+      async (request, reply) => {
         return ThisController.post.apply(context, []);
-      },
-      onRequest: [...ThisController.auth, ...ThisController.auth2]
-    });
+      }
+    );
 
-    fastify.route({
-      method: 'DELETE',
-      url: '/this',
-      schema: { operationId: 'withImport', response: { default: { type: 'boolean' } } },
-      //@ts-ignore - we may have unused params
-      handler: async (request, reply) => {
-        return ThisController.Delete.apply(context, []);
+    fastify.DELETE(
+      '/this',
+      {
+        schema: { operationId: 'withImport', response: { default: { type: 'boolean' } } },
+        onRequest: require('./helpers/on-request').myCustomHook
       },
-      onRequest: require('./helpers/on-request').myCustomHook
-    });
+      //@ts-ignore - we may have unused params
+      async (request, reply) => {
+        return ThisController.Delete.apply(context, []);
+      }
+    );
 
     // Ensure this function remains a "async" function
     return Promise.resolve();
@@ -504,7 +450,13 @@ export const ResolvedConfig = {
       singleQuote: true,
       tabWidth: 2,
       trailingComma: 'none',
-      useTabs: false
+      useTabs: false,
+      vueIndentScriptAndStyle: false,
+      plugins: [
+        '/www/kita/node_modules/prettier-plugin-packagejson/lib/index.js',
+        '/www/kita/node_modules/prettier-plugin-jsdoc/dist/index.js',
+        '/www/kita/node_modules/prettier-plugin-organize-imports/index.js'
+      ]
     },
     exportAST: true,
     exportConfig: true,
@@ -524,13 +476,12 @@ export const ResolvedConfig = {
   }
 } as KitaConfig;
 
-export * as _name_Controller from './routes/[name]';
 export * as AsyncController from './routes/async';
 export * as HelloWorldController from './routes/hello-world';
-export * as PingController from './routes/ping';
 export * as PrimitiveTypesController from './routes/primitive-types';
 export * as ResponseTypesController from './routes/response-types';
 export * as ThisController from './routes/this';
+export * as _name_Controller from './routes/[name]';
 
 /**
  * The extracted data from your controllers and configurations for this template hydration.
@@ -562,7 +513,13 @@ export const KitaAST = {
         singleQuote: true,
         tabWidth: 2,
         trailingComma: 'none',
-        useTabs: false
+        useTabs: false,
+        vueIndentScriptAndStyle: false,
+        plugins: [
+          '/www/kita/node_modules/prettier-plugin-packagejson/lib/index.js',
+          '/www/kita/node_modules/prettier-plugin-jsdoc/dist/index.js',
+          '/www/kita/node_modules/prettier-plugin-organize-imports/index.js'
+        ]
       },
       exportAST: true,
       exportConfig: true,
@@ -583,85 +540,11 @@ export const KitaAST = {
   },
   routes: [
     {
-      controllerMethod: 'put',
-      method: 'PUT',
-      controllerName: '_name_Controller',
-      url: '/:name',
-      controllerPath: 'src/routes/[name].ts:24',
-      parameters: [
-        {
-          value:
-            "(request.params as { ['name']: Parameters<typeof _name_Controller.put>[0] })['name']"
-        },
-        { value: 'request.cookies?.cookie' },
-        {
-          value:
-            "(request.body as { ['path']: Parameters<typeof _name_Controller.put>[2] }).path"
-        },
-        {
-          value:
-            "(request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] }).bodyProp"
-        },
-        { value: "(request.query as { ['paramQuery']: string })['paramQuery']" },
-        { value: "(request.query as { ['typedQuery']: boolean })['typedQuery']" },
-        { value: "(request.query as { ['namedQuery']: string })['namedQuery']" },
-        {
-          value:
-            "(request.query as { ['typedAndNamedQuery']: boolean })['typedAndNamedQuery']"
-        },
-        { value: 'request' },
-        { value: 'reply' },
-        {
-          value: 'authJwt',
-          helper: "const authJwt = await AuthParam.call(context, request, reply, 'jwt');"
-        },
-        {
-          value: 'authBasic',
-          helper:
-            "const authBasic = await AuthParam.call(context, request, reply, 'basic');"
-        }
-      ],
-      schema: {
-        operationId: 'fullExampleUsingBody',
-        response: { default: { type: 'number' } },
-        description: 'Route description 1',
-        security: [{ default: [] }, { admin: ['read-user', 'write user', '4', '76'] }],
-        tags: ['test tag 1'],
-        summary: 'route summary 1',
-        params: {
-          type: 'object',
-          properties: { name: { type: 'string' } },
-          required: ['name'],
-          additionalProperties: false
-        },
-        body: {
-          type: 'object',
-          properties: { path: { type: 'number' }, bodyProp: { type: 'number' } },
-          required: ['path', 'bodyProp'],
-          additionalProperties: false
-        },
-        querystring: {
-          type: 'object',
-          properties: {
-            paramQuery: { type: 'string' },
-            typedQuery: { type: 'boolean' },
-            namedQuery: { type: 'string' },
-            typedAndNamedQuery: { type: 'boolean' }
-          },
-          required: ['paramQuery', 'typedQuery', 'namedQuery', 'typedAndNamedQuery'],
-          additionalProperties: false
-        }
-      },
-      rendered:
-        'fastify.route({\n  method: \'PUT\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"namedQuery":{"type":"string"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","namedQuery","typedAndNamedQuery"],"additionalProperties":false}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    return _name_Controller.put.apply(context, [(request.params as { [\'name\']: Parameters<typeof _name_Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof _name_Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'namedQuery\']: string })[\'namedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic]);\n  },\n  \n});',
-      operationId: 'fullExampleUsingBody'
-    },
-    {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: '_name_Controller',
       url: '/:name',
-      controllerPath: 'src/routes/[name].ts:60',
+      controllerPath: 'src/routes/[name].ts:43',
       parameters: [
         {
           value:
@@ -699,7 +582,7 @@ export const KitaAST = {
         querystring: { $ref: 'NameQuery' }
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/:name\',\n  schema: {"operationId":"fullExampleExclusiveQuery","response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n        const authBasic = await AuthParam.call(context, request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n        \n\n    return _name_Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof _name_Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof _name_Controller.post>[2],(request.query as Parameters<typeof _name_Controller.post>[3]),request,reply,authJwt,authBasic]);\n  },\n  \n});',
+        'fastify.POST(\n  \'/:name\',\n  {\n    schema: {"operationId":"fullExampleExclusiveQuery","response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.call(context, request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.call(context, request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.post.apply(context, [(request.params as { [\'name\']: Parameters<typeof _name_Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof _name_Controller.post>[2],(request.query as Parameters<typeof _name_Controller.post>[3]),request,reply,authJwt,authBasic]);\n  }\n);',
       operationId: 'fullExampleExclusiveQuery'
     },
     {
@@ -711,7 +594,7 @@ export const KitaAST = {
       parameters: [],
       schema: { operationId: 'asyncTest', response: { default: { type: 'null' } } },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/async\',\n  schema: {"operationId":"asyncTest","response":{"default":{"type":"null"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return context.piscina!.run([], { name: \'asyncTest\' });\n  },\n  \n});',
+        'fastify.GET(\n  \'/async\',\n  {\n    schema: {"operationId":"asyncTest","response":{"default":{"type":"null"}}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return options.piscina.run([], { name: \'asyncTest\' });\n  }\n);',
       importablePath: './routes/async',
       async: true,
       operationId: 'asyncTest'
@@ -725,7 +608,7 @@ export const KitaAST = {
       parameters: [],
       schema: { operationId: 'syncTest', response: { default: { type: 'null' } } },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/async\',\n  schema: {"operationId":"syncTest","response":{"default":{"type":"null"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return AsyncController.post.apply(context, []);\n  },\n  \n});',
+        'fastify.POST(\n  \'/async\',\n  {\n    schema: {"operationId":"syncTest","response":{"default":{"type":"null"}}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return AsyncController.post.apply(context, []);\n  }\n);',
       operationId: 'syncTest'
     },
     {
@@ -747,20 +630,7 @@ export const KitaAST = {
         }
       },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/hello-world\',\n  schema: {"operationId":"HelloWorldControllerGet","response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint.","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return HelloWorldController.get.apply(context, [(request.query as { [\'name\']?: string })[\'name\']]);\n  },\n  \n});'
-    },
-    {
-      controllerMethod: 'ws',
-      method: 'GET',
-      controllerName: 'PingController',
-      url: '/ping',
-      controllerPath: 'src/routes/ping.ts:6',
-      parameters: [{ value: 'connection as Parameters<typeof PingController.ws>[0]' }],
-      schema: { hide: true, operationId: 'name' },
-      rendered:
-        'fastify.get(\n  \'/ping\',\n  {\n    schema: {"hide":true,"operationId":"name"},\n    websocket: true,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (connection, request) => {\n\n    return PingController.ws.apply(context, [connection as Parameters<typeof PingController.ws>[0]]);\n  }\n);',
-      websocket: true,
-      operationId: 'name'
+        'fastify.GET(\n  \'/hello-world\',\n  {\n    schema: {"operationId":"HelloWorldControllerGet","response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint.","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return HelloWorldController.get.apply(context, [(request.query as { [\'name\']?: string })[\'name\']]);\n  }\n);'
     },
     {
       controllerMethod: 'post',
@@ -774,7 +644,7 @@ export const KitaAST = {
         { value: "(request.query as { ['parm2']: boolean | number | null })['parm2']" }
       ],
       schema: {
-        operationId: 'PrimitiveTypesControllerPost',
+        operationId: 'primitiveComplexQuery',
         response: { default: { type: 'boolean' } },
         description: 'primitive complex queries',
         body: { type: 'array', items: { type: ['string', 'number'] } },
@@ -789,25 +659,27 @@ export const KitaAST = {
         }
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/primitive-types\',\n  schema: {"operationId":"PrimitiveTypesControllerPost","response":{"default":{"type":"boolean"}},"description":"primitive complex queries","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"anyOf":[{"type":"string"},{"not":{}}]},"parm2":{"type":["boolean","number","null"]}},"required":["param","parm2"],"additionalProperties":false}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return PrimitiveTypesController.post.apply(context, [request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: string | undefined })[\'param\'],(request.query as { [\'parm2\']: boolean | number | null })[\'parm2\']]);\n  },\n  \n});'
+        'fastify.POST(\n  \'/primitive-types\',\n  {\n    schema: {"operationId":"primitiveComplexQuery","response":{"default":{"type":"boolean"}},"description":"primitive complex queries","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"anyOf":[{"type":"string"},{"not":{}}]},"parm2":{"type":["boolean","number","null"]}},"required":["param","parm2"],"additionalProperties":false}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return PrimitiveTypesController.post.apply(context, [request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: string | undefined })[\'param\'],(request.query as { [\'parm2\']: boolean | number | null })[\'parm2\']]);\n  }\n);',
+      operationId: 'primitiveComplexQuery'
     },
     {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'PrimitiveTypesController',
       url: '/primitive-types',
-      controllerPath: 'src/routes/primitive-types.ts:13',
+      controllerPath: 'src/routes/primitive-types.ts:14',
       parameters: [
         { value: '(request.query as Parameters<typeof PrimitiveTypesController.get>[0])' }
       ],
       schema: {
-        operationId: 'PrimitiveTypesControllerGet',
+        operationId: 'extendedQuery',
         response: { default: { type: 'boolean' } },
         description: 'extended queries',
-        querystring: { $ref: 'def-structure--294-308--287-309--285-309--239-329--0-330' }
+        querystring: { $ref: 'def-structure--371-385--364-386--361-386--286-406--0-407' }
       },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/primitive-types\',\n  schema: {"operationId":"PrimitiveTypesControllerGet","response":{"default":{"type":"boolean"}},"description":"extended queries","querystring":{"$ref":"def-structure--294-308--287-309--285-309--239-329--0-330"}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return PrimitiveTypesController.get.apply(context, [(request.query as Parameters<typeof PrimitiveTypesController.get>[0])]);\n  },\n  \n});'
+        'fastify.GET(\n  \'/primitive-types\',\n  {\n    schema: {"operationId":"extendedQuery","response":{"default":{"type":"boolean"}},"description":"extended queries","querystring":{"$ref":"def-structure--371-385--364-386--361-386--286-406--0-407"}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return PrimitiveTypesController.get.apply(context, [(request.query as Parameters<typeof PrimitiveTypesController.get>[0])]);\n  }\n);',
+      operationId: 'extendedQuery'
     },
     {
       controllerMethod: 'Get',
@@ -825,7 +697,7 @@ export const KitaAST = {
         querystring: { $ref: 'HelloWorldQuery' }
       },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypedPromiseResponse","response":{"default":{"$ref":"ResponseTypesControllerGetResponse"}},"tags":["Response Test"],"querystring":{"$ref":"HelloWorldQuery"}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ResponseTypesController.Get.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Get>[0])]);\n  },\n  \n});',
+        'fastify.GET(\n  \'/response-types\',\n  {\n    schema: {"operationId":"withTypedPromiseResponse","response":{"default":{"$ref":"ResponseTypesControllerGetResponse"}},"tags":["Response Test"],"querystring":{"$ref":"HelloWorldQuery"}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return ResponseTypesController.Get.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Get>[0])]);\n  }\n);',
       operationId: 'withTypedPromiseResponse'
     },
     {
@@ -844,7 +716,7 @@ export const KitaAST = {
         querystring: { $ref: 'HelloWorldQuery' }
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/response-types\',\n  schema: {"operationId":"withInferredResponse","response":{"default":{"$ref":"ResponseTypesControllerPostResponse"}},"tags":["Response Test"],"querystring":{"$ref":"HelloWorldQuery"}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ResponseTypesController.Post.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Post>[0])]);\n  },\n  preHandler: ResponseTypesController.preHandler\n});',
+        'fastify.POST(\n  \'/response-types\',\n  {\n    schema: {"operationId":"withInferredResponse","response":{"default":{"$ref":"ResponseTypesControllerPostResponse"}},"tags":["Response Test"],"querystring":{"$ref":"HelloWorldQuery"}},\n    preHandler: ResponseTypesController.preHandler\n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return ResponseTypesController.Post.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Post>[0])]);\n  }\n);',
       operationId: 'withInferredResponse',
       options: 'preHandler: ResponseTypesController.preHandler'
     },
@@ -864,7 +736,7 @@ export const KitaAST = {
         querystring: { $ref: 'HelloWorldQuery' }
       },
       rendered:
-        'fastify.route({\n  method: \'PUT\',\n  url: \'/response-types\',\n  schema: {"operationId":"withPromiseTypeAlias","response":{"default":{"$ref":"PR"}},"tags":["Response Test"],"querystring":{"$ref":"HelloWorldQuery"}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ResponseTypesController.Put.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Put>[0])]);\n  },\n  \n});',
+        'fastify.PUT(\n  \'/response-types\',\n  {\n    schema: {"operationId":"withPromiseTypeAlias","response":{"default":{"$ref":"PR"}},"tags":["Response Test"],"querystring":{"$ref":"HelloWorldQuery"}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return ResponseTypesController.Put.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Put>[0])]);\n  }\n);',
       operationId: 'withPromiseTypeAlias'
     },
     {
@@ -885,7 +757,7 @@ export const KitaAST = {
         querystring: { $ref: 'HelloWorldQuery' }
       },
       rendered:
-        'fastify.route({\n  method: \'DELETE\',\n  url: \'/response-types\',\n  schema: {"operationId":"withTypeAliasPromise","response":{"default":{"$ref":"DR"}},"tags":["Response Test"],"querystring":{"$ref":"HelloWorldQuery"}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ResponseTypesController.Delete.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Delete>[0])]);\n  },\n  \n});',
+        'fastify.DELETE(\n  \'/response-types\',\n  {\n    schema: {"operationId":"withTypeAliasPromise","response":{"default":{"$ref":"DR"}},"tags":["Response Test"],"querystring":{"$ref":"HelloWorldQuery"}},\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return ResponseTypesController.Delete.apply(context, [(request.query as Parameters<typeof ResponseTypesController.Delete>[0])]);\n  }\n);',
       operationId: 'withTypeAliasPromise'
     },
     {
@@ -897,7 +769,7 @@ export const KitaAST = {
       parameters: [],
       schema: { operationId: 'getId', response: { default: { type: 'boolean' } } },
       rendered:
-        'fastify.route({\n  method: \'GET\',\n  url: \'/this\',\n  schema: {"operationId":"getId","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ThisController.get.apply(context, []);\n  },\n  ...ThisController.getConfig\n});',
+        'fastify.GET(\n  \'/this\',\n  {\n    schema: {"operationId":"getId","response":{"default":{"type":"boolean"}}},\n    ...ThisController.getConfig\n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return ThisController.get.apply(context, []);\n  }\n);',
       operationId: 'getId',
       options: '...ThisController.getConfig'
     },
@@ -913,7 +785,7 @@ export const KitaAST = {
         response: { default: { type: 'boolean' } }
       },
       rendered:
-        'fastify.route({\n  method: \'POST\',\n  url: \'/this\',\n  schema: {"operationId":"withSubTypeofs","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ThisController.post.apply(context, []);\n  },\n  onRequest: [...ThisController.auth, ...ThisController.auth2]\n});',
+        'fastify.POST(\n  \'/this\',\n  {\n    schema: {"operationId":"withSubTypeofs","response":{"default":{"type":"boolean"}}},\n    onRequest: [...ThisController.auth, ...ThisController.auth2]\n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return ThisController.post.apply(context, []);\n  }\n);',
       operationId: 'withSubTypeofs',
       options: 'onRequest: [...ThisController.auth, ...ThisController.auth2]'
     },
@@ -926,7 +798,7 @@ export const KitaAST = {
       parameters: [],
       schema: { operationId: 'withImport', response: { default: { type: 'boolean' } } },
       rendered:
-        'fastify.route({\n  method: \'DELETE\',\n  url: \'/this\',\n  schema: {"operationId":"withImport","response":{"default":{"type":"boolean"}}},\n  //@ts-ignore - we may have unused params\n  handler: async (request, reply) => {\n\n    return ThisController.Delete.apply(context, []);\n  },\n  onRequest: require(\'./helpers/on-request\').myCustomHook\n});',
+        'fastify.DELETE(\n  \'/this\',\n  {\n    schema: {"operationId":"withImport","response":{"default":{"type":"boolean"}}},\n    onRequest: require(\'./helpers/on-request\').myCustomHook\n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return ThisController.Delete.apply(context, []);\n  }\n);',
       operationId: 'withImport',
       options: "onRequest: require('./helpers/on-request').myCustomHook"
     }
@@ -961,7 +833,7 @@ export const KitaAST = {
       additionalProperties: false
     },
     {
-      $id: 'def-structure--294-308--287-309--285-309--239-329--0-330',
+      $id: 'def-structure--371-385--364-386--361-386--286-406--0-407',
       type: 'object',
       properties: { a: { type: 'number', const: 1 }, b: { type: 'number', const: 2 } },
       required: ['a', 'b'],
@@ -986,7 +858,6 @@ export const KitaAST = {
     "import '@fastify/cookie';",
     "import * as AsyncController from './routes/async';",
     "import * as HelloWorldController from './routes/hello-world';",
-    "import * as PingController from './routes/ping';",
     "import * as PrimitiveTypesController from './routes/primitive-types';",
     "import * as ResponseTypesController from './routes/response-types';",
     "import * as ThisController from './routes/this';",
@@ -997,7 +868,6 @@ export const KitaAST = {
     "export * as _name_Controller from './routes/[name]';",
     "export * as AsyncController from './routes/async';",
     "export * as HelloWorldController from './routes/hello-world';",
-    "export * as PingController from './routes/ping';",
     "export * as PrimitiveTypesController from './routes/primitive-types';",
     "export * as ResponseTypesController from './routes/response-types';",
     "export * as ThisController from './routes/this';"

@@ -1,7 +1,7 @@
-import { Kita, filename } from './routes';
+import { filename, Kita } from './routes';
 
-import Piscina from 'piscina';
 import fastify from 'fastify';
+import Piscina from 'piscina';
 
 const app = fastify();
 
@@ -41,9 +41,7 @@ app.register(require('@fastify/swagger-ui'), {
 });
 
 app.register(Kita, {
-  context: {
-    piscina: new Piscina({ filename })
-  }
+  piscina: new Piscina({ filename })
 });
 
 app.setErrorHandler((error, request, reply) => {

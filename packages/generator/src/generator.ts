@@ -8,14 +8,13 @@ import { KitaError } from './errors';
 import type { ParamResolver } from './parameters/base';
 import { BodyResolver } from './parameters/body';
 import { BodyPropResolver } from './parameters/body-prop';
-import { ConnResolver } from './parameters/conn';
+import { ConnResolver } from './parameters/connection';
 import { CookieResolver } from './parameters/cookie';
 import { CustomResolver } from './parameters/custom';
+import { FastifyResolver } from './parameters/fastify';
 import { HeaderResolver } from './parameters/header';
 import { PathResolver } from './parameters/path';
 import { QueryResolver } from './parameters/query';
-import { RepResolver } from './parameters/rep';
-import { ReqResolver } from './parameters/req';
 import { ThisResolver } from './parameters/this';
 import { AsyncResolver } from './routes/async';
 import { RouteResolver } from './routes/base';
@@ -27,8 +26,8 @@ import { readCompilerOptions } from './util/tsconfig';
 export class KitaGenerator {
   readonly routes: RouteResolver[] = [
     new AsyncResolver(),
-    new RestResolver(),
-    new WebsocketResolver()
+    new WebsocketResolver(),
+    new RestResolver()
   ];
 
   readonly params: ParamResolver[] = [
@@ -40,8 +39,7 @@ export class KitaGenerator {
     new BodyPropResolver(),
     new QueryResolver(),
     new HeaderResolver(),
-    new ReqResolver(),
-    new RepResolver(),
+    new FastifyResolver(),
     new CustomResolver()
   ];
 
@@ -79,8 +77,12 @@ export class KitaGenerator {
 
   async updateAst() {
     // Adds custom parameter resolver imports
-    for (const [name, filepath] of Object.entries(this.config.params)) {
-      this.ast.addImport(`import ${name} from '${this.importablePath(filepath)}';`);
+    for (const [name, param] of Object.entries(this.config.params)) {
+      this.ast.addImport(
+        `import * as ${name} from '${this.importablePath(
+          Array.isArray(param) ? param[0] : param
+        )}';`
+      );
     }
 
     // Populate data with controllers and routes info.

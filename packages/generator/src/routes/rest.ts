@@ -21,11 +21,9 @@ export class RestResolver extends RouteResolver<ts.FunctionDeclaration> {
 
     const fn = node as ts.FunctionDeclaration;
 
-    return (
-      fn.parameters[0]?.type?.getFirstToken()?.getText() !== 'AsyncRoute' &&
-      // its name is a valid http method
-      !!fn.name?.getText()?.match(/^get|post|put|delete|all$/i)
-    );
+    // Allows this parameter to not be defined as this is the last
+    // resolver and should try to catch as many routes as possible.
+    return !!fn.name?.getText()?.match(/^get|post|put|delete|all$/i);
   }
 
   override async resolve({

@@ -15,4 +15,14 @@ export interface Parameter {
    * @example `req.params.id`
    */
   value: string;
+
+  /**
+   * The name of import to use schema transformers
+   */
+  schemaTransformer?: string;
+
+  /**
+   * The name of import to use schema transformers
+   */
+  schemaTransformerOptions?: string[];
 }

@@ -1,9 +1,9 @@
 import deepmerge from 'deepmerge';
 import type * as Prettier from 'prettier';
+import type { SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
 import { KitaError } from './errors';
 import type { KitaGenerator } from './generator';
 import type { DeepPartial } from './types';
-import type { SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
@@ -26,6 +26,8 @@ export interface KitaConfig {
 
     /**
      * If the generated code should be formatted with prettier
+     * 
+     * @default { parser: 'typescript' }
      */
     format: false | Prettier.Options | Record<string, unknown>;
 
@@ -106,7 +108,20 @@ export interface KitaConfig {
    *
    * @default {}
    */
-  params: Record<string, string>;
+  params: Record<
+    string,
+    | string
+    | [
+        import: string,
+        config: {
+          /**
+           * Enable this to use the schema transformer. It is a exported function called `schemaTransformer` that
+           *  receives and returns a json schema object and
+           */
+          schemaTransformer?: boolean;
+        }
+      ]
+  >;
 
   // Want more listeners? Create a PR!
   // :)

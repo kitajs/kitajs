@@ -14,14 +14,17 @@ const HbsTemplate = Handlebars.compile(templateStr, { noEscape: true });
 
 export class WebsocketResolver extends RouteResolver<ts.FunctionDeclaration> {
   override supports(node: Node): boolean {
-    return !!(
-      // its a function
-      (
-        node.kind === ts.SyntaxKind.FunctionDeclaration &&
-        // its fn name is ws
-        (node as ts.FunctionDeclaration).name?.getText()?.match(/^ws$/i)
-      )
-    );
+    if (node.kind !== ts.SyntaxKind.FunctionDeclaration) {
+      return false;
+    }
+
+    const fn = node as ts.FunctionDeclaration;
+
+    if (!fn.name?.getText()?.match(/^get|post|put|delete|all$/i)) {
+      return false;
+    }
+
+    return fn.parameters[0]?.type?.getFirstToken()?.getText() === 'WebsocketRoute';
   }
 
   override async resolve({

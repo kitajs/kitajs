@@ -5,7 +5,7 @@ import { ParamData, ParamInfo, ParamResolver } from './base';
 
 export class ConnResolver extends ParamResolver {
   override supports({ typeName }: ParamInfo): boolean {
-    return typeName === 'Conn';
+    return typeName === 'Connection';
   }
 
   override async resolve({
@@ -14,7 +14,7 @@ export class ConnResolver extends ParamResolver {
   }: ParamData<WebsocketRoute>): Promise<Parameter | undefined> {
     if (!route.websocket) {
       throw KitaError(
-        `The Conn parameter is only available for websocket routes.`,
+        `The Connection parameter is only available for websocket routes.`,
         route.controllerPath
       );
     }

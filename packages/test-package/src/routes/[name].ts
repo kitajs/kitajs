@@ -1,13 +1,5 @@
-import type {
-  BodyProp,
-  Cookie,
-  Path,
-  Query,
-  Rep,
-  Req,
-  Body,
-  Route
-} from '@kitajs/runtime';
+import type { Body, BodyProp, Cookie, Path, Query, Route } from '@kitajs/runtime';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { AuthParam } from '../helpers/auth-param';
 import type { NameQuery } from '../models/hello-world';
 
@@ -23,24 +15,15 @@ import type { NameQuery } from '../models/hello-world';
  */
 export async function put(
   this: Route<'fullExampleUsingBody'>,
-
-  path: Path<'name'>,
-
+  path: Path<string, 'name'>,
   cookie: Cookie<'cache-control'>,
-
-  // body: Body<NameQuery>,
   namedBodyProp: BodyProp<number, 'path'>,
   bodyProp: BodyProp<number>,
-
   paramQuery: Query,
   typedQuery: Query<boolean>,
-  namedQuery: Query<'namedQuery'>,
   typedAndNamedQuery: Query<boolean, 'typedAndNamedQuery'>,
-  // exclusive: Query<NameQuery>,
-
-  _req: Req,
-  _rep: Rep,
-
+  req: FastifyRequest,
+  rep: FastifyReply,
   authJwt: AuthParam<'jwt'>,
   authBasic: AuthParam<'basic'>
 ) {
@@ -59,24 +42,12 @@ export async function put(
  */
 export async function post(
   this: Route<'fullExampleExclusiveQuery'>,
-
   path: Path<'name'>,
-
   cookie: Cookie<'cache-control'>,
-
   body: Body<NameQuery>,
-  // namedBodyProp: BodyProp<number, 'path'>,
-  // bodyProp: BodyProp<number>,
-
-  // paramQuery: Query,
-  // typedQuery: Query<boolean>,
-  // namedQuery: Query<'named'>,
-  // typedAndNamedQuery: Query<boolean, 'customName'>,
   exclusive: Query<NameQuery>,
-
-  _req: Req,
-  _rep: Rep,
-
+  req: FastifyRequest,
+  rep: FastifyReply,
   authJwt: AuthParam<'jwt'>,
   authBasic: AuthParam<'basic'>
 ) {

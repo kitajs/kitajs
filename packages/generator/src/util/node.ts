@@ -1,9 +1,10 @@
 import { ts } from 'ts-json-schema-generator';
 
-export function getNodeSource(node: ts.Node, source: ts.SourceFile) {
+export function getNodeSource(node: ts.Node, source = node.getSourceFile()) {
   const { character, line } = source.getLineAndCharacterOfPosition(
     (node as ts.FunctionDeclaration).name?.pos ?? node.pos
   );
+
   return `${source.fileName}:${line + 1}:${character}`;
 }
 
