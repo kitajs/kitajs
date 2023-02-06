@@ -86,7 +86,7 @@ export type Query<
   //@ts-ignore unused
   Name extends Type extends Native | Native[]
     ? string
-    : 'Cannot use name on complex types' = string
+    : 'Cannot use name on complex types' = any
 > = Type;
 
 /**
