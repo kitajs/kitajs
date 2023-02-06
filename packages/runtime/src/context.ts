@@ -1,28 +1,24 @@
-import type { KitaConfig } from '@kitajs/generator';
-import type { FastifyInstance, RouteShorthandOptions } from 'fastify';
-
-/** Global interface that can be overridden to include your own types */
-export interface RouteContext {
-  config: KitaConfig;
-  fastify: FastifyInstance;
-  //@ts-ignore- maybe piscina is not installed
-  piscina?: import('piscina');
-}
-
-/** The context that your code modified the type. */
-export type ProvidedRouteContext = Omit<RouteContext, 'config' | 'fastify'>;
+import type { RouteShorthandOptions } from 'fastify';
 
 //@ts-expect-error - ignore unused
 export type Route<
   OperationId extends string,
   Config extends RouteShorthandOptions = {}
-> = RouteContext;
+> = void;
 
 /**
- * Async routes only supports I/O data to be used.
+ * ### Async routes only supports transferable data to be used.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#things_that_dont_work_with_structured_clone
  */
 //@ts-expect-error - ignore unused
 export type AsyncRoute<
   OperationId extends string,
   Config extends RouteShorthandOptions = {}
-> = undefined;
+> = void;
+
+/**
+ * WS routes uses a different parameter called Connection
+ */
+//@ts-expect-error - ignore unused
+export type WebsocketRoute<Config extends RouteShorthandOptions = {}> = void;
