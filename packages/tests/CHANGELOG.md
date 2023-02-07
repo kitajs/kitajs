@@ -1,5 +1,13 @@
 # @kitajs/tests
 
+## 1.0.13
+
+### Patch Changes
+
+- 4fbe49a: optional query values
+- Updated dependencies [4fbe49a]
+  - @kitajs/runtime@1.0.12
+
 ## 1.0.12
 
 ### Patch Changes
