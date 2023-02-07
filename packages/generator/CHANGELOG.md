@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.19
+
+### Patch Changes
+
+- 99ef85d: parameters refactor
+
 ## 1.0.18
 
 ### Patch Changes

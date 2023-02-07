@@ -1,5 +1,14 @@
 # @kitajs/cli
 
+## 1.0.9
+
+### Patch Changes
+
+- 99ef85d: parameters refactor
+- Updated dependencies [99ef85d]
+  - @kitajs/generator@1.0.19
+  - @kitajs/runtime@1.0.11
+
 ## 1.0.8
 
 ### Patch Changes
