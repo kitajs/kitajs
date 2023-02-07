@@ -26,27 +26,19 @@ describe('tests custom parameters', () => {
   });
 
   it.concurrent('tests simple', async () => {
-    const simple = await test.inject(get, {
-      method: 'GET',
-      url: '/parameters/custom'
-    });
+    const simple = await test.inject(get);
 
     expect(simple.body).toBe('Hello from simple!');
   });
 
   it.concurrent('tests simple', async () => {
-    const complex = await test.inject(post, {
-      method: 'POST',
-      url: '/parameters/custom'
-    });
+    const complex = await test.inject(post);
 
     expect(complex.body).toBe('yes');
   });
 
   it.concurrent('tests simple', async () => {
     const schema = await test.inject(put, {
-      method: 'PUT',
-      url: '/parameters/custom',
       headers: {
         'x-abc': '1'
       }
