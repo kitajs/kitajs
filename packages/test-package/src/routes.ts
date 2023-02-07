@@ -707,7 +707,7 @@ export const KitaAST = {
       method: 'GET',
       controllerName: 'HelloWorldController',
       url: '/hello-world',
-      controllerPath: 'src/routes/hello-world.ts:6',
+      controllerPath: 'src/routes/hello-world.ts:4',
       parameters: [{ value: "(request.query as { ['name']?: string })['name']" }],
       schema: {
         operationId: 'HelloWorldControllerGet',

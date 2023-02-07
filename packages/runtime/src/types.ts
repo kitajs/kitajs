@@ -10,4 +10,4 @@ export type Native = string | number | boolean | null | undefined | URL | RegExp
 export type ShallowNative<Type = any> =
   | Native
   | Native[]
-  | Record<keyof Type, Native | Native[]>;
+  | { [key in keyof Type]?: Native | Native[] };
