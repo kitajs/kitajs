@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.21
+
+### Patch Changes
+
+- 6bc16fb: fixed query infer type
+
 ## 1.0.20
 
 ### Patch Changes
