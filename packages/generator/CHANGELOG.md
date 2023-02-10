@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.20
+
+### Patch Changes
+
+- 9803541: allows enums and union as primitives
+
 ## 1.0.19
 
 ### Patch Changes

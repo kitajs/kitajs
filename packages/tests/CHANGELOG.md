@@ -1,5 +1,13 @@
 # @kitajs/tests
 
+## 1.0.14
+
+### Patch Changes
+
+- 9803541: allows enums and union as primitives
+- Updated dependencies [9803541]
+  - @kitajs/generator@1.0.20
+
 ## 1.0.13
 
 ### Patch Changes
