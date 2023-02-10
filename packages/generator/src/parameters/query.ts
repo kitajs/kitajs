@@ -41,7 +41,7 @@ export class QueryResolver extends ParamResolver {
           type: 'object',
           properties: { [queryName]: definition },
           required: optional ? [] : [queryName],
-          additionalProperties: false
+          additionalProperties: kita.config.schema.generator.additionalProperties
         }
       });
 
