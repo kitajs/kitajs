@@ -23,7 +23,6 @@ export class QueryResolver extends ParamResolver {
   }: ParamData): Promise<Parameter | undefined> {
     const {
       name: queryName,
-      type: queryType,
       simple,
       definition
     } = this.findNameAndType(generics, paramName, kita.schemaStorage);
@@ -46,7 +45,7 @@ export class QueryResolver extends ParamResolver {
         }
       });
 
-      const type = `{ ['${queryName}']${optional ? '?' : ''}: ${queryType} }`;
+      const type = `{ ['${queryName}']${optional ? '?' : ''}: ${inferredType} }`;
       return { value: `(request.query as ${type})['${queryName}']` };
     }
 
@@ -81,7 +80,6 @@ export class QueryResolver extends ParamResolver {
     if (!generics[0]) {
       return {
         name: paramName,
-        type: 'string',
         simple: true,
         definition: { type: 'string' }
       };
@@ -95,7 +93,6 @@ export class QueryResolver extends ParamResolver {
     ) {
       return {
         name: unquote(generics[0].getText()),
-        type: 'string',
         simple: true,
         definition: { type: 'string' }
       };
@@ -108,7 +105,6 @@ export class QueryResolver extends ParamResolver {
 
     return {
       name: !generics[1] ? paramName : unquote(generics[1].getText()),
-      type,
       simple: !!primitive,
       definition: primitive ? schemaStorage.getDefinition(primitive) : { type }
     };
