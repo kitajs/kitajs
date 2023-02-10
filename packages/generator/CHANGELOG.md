@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.22
+
+### Patch Changes
+
+- 68f64dc: fixed query literals
+
 ## 1.0.21
 
 ### Patch Changes
