@@ -13,5 +13,13 @@ module.exports = {
   },
   coveragePathIgnorePatterns: ['<rootDir>/packages/tests', 'node_modules'],
   testTimeout: 10000,
-  maxConcurrency: 1000
+  maxConcurrency: 1000,
+  transform: {
+    '^.+\\.m?[tj]sx?$': [
+      'ts-jest',
+      {
+        isolatedModules: true
+      }
+    ]
+  }
 };

@@ -133,7 +133,12 @@ export class KitaTestBuilder extends Promise<{
 
     const response = await self.app.inject(inject);
 
-    expect(spy).toHaveBeenCalled();
+    try {
+      expect(spy).toHaveBeenCalled();
+    } catch (err) {
+      console.log(response.json());
+      throw err;
+    }
 
     return response;
   }

@@ -1,13 +1,20 @@
 import type { Query } from '@kitajs/runtime';
 import { KitaTestBuilder } from '../../builder';
 
+enum MyEnum {
+  A = 'a',
+  B = 'B'
+}
+
 export function get(
   a: Query<Date>,
   b: Query<URL>,
   c: Query<RegExp>,
   aArr: Query<Date[]>,
   bArr: Query<URL[]>,
-  cArr: Query<RegExp[]>
+  cArr: Query<RegExp[]>,
+  enumArr: Query<MyEnum[]>,
+  unionArr: Query<('c' | 'D')[]>
 ) {
   return {
     a,
@@ -15,7 +22,9 @@ export function get(
     c,
     aArr,
     bArr,
-    cArr
+    cArr,
+    enumArr,
+    unionArr
   };
 }
 
@@ -34,13 +43,18 @@ describe('Query', () => {
         '&bArr=https://example.com' +
         '&bArr=https://example.com' +
         '&cArr=/[a-z]/' +
-        '&cArr=/[a-z]/',
+        '&cArr=/[a-z]/' +
+        '&enumArr=a' +
+        '&enumArr=B' +
+        '&unionArr=c' +
+        '&unionArr=D',
       payload: { a: new Date() }
     });
 
     expect(response.statusCode).toBe(200);
 
-    const { a, b, c, aArr, bArr, cArr } = response.json<ReturnType<typeof get>>();
+    const { a, b, c, aArr, bArr, cArr, unionArr, enumArr } =
+      response.json<ReturnType<typeof get>>();
 
     expect(a).toBe('2023-01-26T14:23:20.631Z');
     expect(b).toBe('https://example.com');
@@ -48,5 +62,8 @@ describe('Query', () => {
     expect(aArr).toEqual(['2023-01-26T14:23:20.631Z', '2023-01-26T14:23:20.631Z']);
     expect(bArr).toEqual(['https://example.com', 'https://example.com']);
     expect(cArr).toEqual(['/[a-z]/', '/[a-z]/']);
+    expect(cArr).toEqual(['/[a-z]/', '/[a-z]/']);
+    expect(enumArr).toEqual(['a', 'B']);
+    expect(unionArr).toEqual(['c', 'D']);
   });
 });

@@ -1,12 +1,16 @@
 import {
+  AliasType,
   AnnotatedType,
   ArrayType,
   BaseType,
   DefinitionType,
+  EnumType,
+  IntersectionType,
   LiteralType,
   OptionalType,
   PrimitiveType,
   ReferenceType,
+  TupleType,
   UndefinedType,
   UnionType,
   VoidType
@@ -16,7 +20,11 @@ import {
  * Tries to resolve the provided type into a primitive type, if it is one.
  */
 export function asPrimitiveType(type: BaseType): BaseType | undefined {
-  if (type instanceof DefinitionType || type instanceof ReferenceType) {
+  if (
+    type instanceof DefinitionType ||
+    type instanceof ReferenceType ||
+    type instanceof AliasType
+  ) {
     return asPrimitiveType(type.getType());
   }
 
@@ -35,7 +43,12 @@ export function asPrimitiveType(type: BaseType): BaseType | undefined {
     }
   }
 
-  if (type instanceof UnionType) {
+  if (
+    type instanceof UnionType ||
+    type instanceof IntersectionType ||
+    type instanceof EnumType ||
+    type instanceof TupleType
+  ) {
     if (type.getTypes().every((t) => asPrimitiveType(t))) {
       return type;
     }
