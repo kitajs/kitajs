@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.0.23
+
+### Patch Changes
+
+- 9316a57: support additionalProperties
+
 ## 1.0.22
 
 ### Patch Changes
