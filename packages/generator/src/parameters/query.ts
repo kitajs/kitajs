@@ -81,24 +81,11 @@ export class QueryResolver extends ParamResolver {
       return {
         name: paramName,
         simple: true,
-        definition: { type: 'string' }
+        definition: {
+          type: 'string'
+        }
       };
     }
-
-    if (
-      // sometimes you may find a union type with literals, like '1' | '2'.
-      // this case is not a simple type, so we need to check for it.
-      generics[0].kind === ts.SyntaxKind.LiteralType &&
-      generics[0].getText().match(/^['`"]/g)
-    ) {
-      return {
-        name: unquote(generics[0].getText()),
-        simple: true,
-        definition: { type: 'string' }
-      };
-    }
-
-    const type = generics[0].getText();
 
     // Lookup as a json schema to allow custom primitive types, like (string | number[])[], for example.
     const primitive = schemaStorage.asPrimitive(generics[0]);
@@ -106,7 +93,9 @@ export class QueryResolver extends ParamResolver {
     return {
       name: !generics[1] ? paramName : unquote(generics[1].getText()),
       simple: !!primitive,
-      definition: primitive ? schemaStorage.getDefinition(primitive) : { type }
+      definition: primitive
+        ? schemaStorage.getDefinition(primitive)
+        : schemaStorage.consumeNode(generics[0]!)
     };
   }
 }

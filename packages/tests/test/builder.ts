@@ -8,7 +8,13 @@ import {
 } from '@kitajs/generator';
 import type { DeepPartial } from '@kitajs/generator/dist/types';
 import deepmerge from 'deepmerge';
-import { fastify, FastifyInstance, FastifyPluginAsync, InjectOptions } from 'fastify';
+import {
+  fastify,
+  FastifyInstance,
+  FastifyPluginAsync,
+  InjectOptions,
+  LightMyRequestResponse
+} from 'fastify';
 import fs from 'fs/promises';
 import prettier from 'prettier';
 import ts from 'typescript';
@@ -116,12 +122,14 @@ export class KitaTestBuilder extends Promise<{
     return kita;
   }
 
-  async inject(
+  async inject<F extends (...args: any) => any>(
     /** the route to test */
-    fn: Function,
+    fn: F,
     /** params for the request */
     inject: InjectOptions = {}
-  ) {
+  ): Promise<
+    Omit<LightMyRequestResponse, 'json'> & { json: () => Awaited<ReturnType<F>> }
+  > {
     const self = await this;
 
     // Sets the default values for the inject options

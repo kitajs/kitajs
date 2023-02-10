@@ -211,9 +211,21 @@ export const Kita = fp<{ piscina: Piscina }>(
           (request.body as { ['path']: Parameters<typeof _name_Controller.put>[2] }).path,
           (request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] })
             .bodyProp,
-          (request.query as { ['paramQuery']: string })['paramQuery'],
-          (request.query as { ['typedQuery']: boolean })['typedQuery'],
-          (request.query as { ['typedAndNamedQuery']: boolean })['typedAndNamedQuery'],
+          (
+            request.query as {
+              ['paramQuery']: Parameters<typeof _name_Controller.put>[4];
+            }
+          )['paramQuery'],
+          (
+            request.query as {
+              ['typedQuery']: Parameters<typeof _name_Controller.put>[5];
+            }
+          )['typedQuery'],
+          (
+            request.query as {
+              ['typedAndNamedQuery']: Parameters<typeof _name_Controller.put>[6];
+            }
+          )['typedAndNamedQuery'],
           request,
           reply,
           authJwt,
@@ -310,7 +322,11 @@ export const Kita = fp<{ piscina: Piscina }>(
       },
       //@ts-ignore - we may have unused params
       async (request, reply) => {
-        return HelloWorldController.get((request.query as { ['name']?: string })['name']);
+        return HelloWorldController.get(
+          (
+            request.query as { ['name']?: Parameters<typeof HelloWorldController.get>[0] }
+          )['name']
+        );
       }
     );
 
@@ -337,8 +353,16 @@ export const Kita = fp<{ piscina: Piscina }>(
       async (request, reply) => {
         return PrimitiveTypesController.post(
           request.body as Parameters<typeof PrimitiveTypesController.post>[0],
-          (request.query as { ['param']: string | undefined })['param'],
-          (request.query as { ['parm2']: boolean | number | null })['parm2']
+          (
+            request.query as {
+              ['param']: Parameters<typeof PrimitiveTypesController.post>[1];
+            }
+          )['param'],
+          (
+            request.query as {
+              ['parm2']: Parameters<typeof PrimitiveTypesController.post>[2];
+            }
+          )['parm2']
         );
       }
     );
@@ -580,11 +604,17 @@ export const KitaAST = {
           value:
             "(request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] }).bodyProp"
         },
-        { value: "(request.query as { ['paramQuery']: string })['paramQuery']" },
-        { value: "(request.query as { ['typedQuery']: boolean })['typedQuery']" },
         {
           value:
-            "(request.query as { ['typedAndNamedQuery']: boolean })['typedAndNamedQuery']"
+            "(request.query as { ['paramQuery']: Parameters<typeof _name_Controller.put>[4] })['paramQuery']"
+        },
+        {
+          value:
+            "(request.query as { ['typedQuery']: Parameters<typeof _name_Controller.put>[5] })['typedQuery']"
+        },
+        {
+          value:
+            "(request.query as { ['typedAndNamedQuery']: Parameters<typeof _name_Controller.put>[6] })['typedAndNamedQuery']"
         },
         { value: 'request' },
         { value: 'reply' },
@@ -628,7 +658,7 @@ export const KitaAST = {
         }
       },
       rendered:
-        'fastify.put(\n  \'/:name\',\n  {\n    schema: \n      {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","typedAndNamedQuery"],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.resolver(request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.resolver(request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.put((request.params as { [\'name\']: Parameters<typeof _name_Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof _name_Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: string })[\'paramQuery\'],(request.query as { [\'typedQuery\']: boolean })[\'typedQuery\'],(request.query as { [\'typedAndNamedQuery\']: boolean })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic);\n  }\n);',
+        'fastify.put(\n  \'/:name\',\n  {\n    schema: \n      {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","typedAndNamedQuery"],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.resolver(request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.resolver(request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.put((request.params as { [\'name\']: Parameters<typeof _name_Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof _name_Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: Parameters<typeof _name_Controller.put>[4] })[\'paramQuery\'],(request.query as { [\'typedQuery\']: Parameters<typeof _name_Controller.put>[5] })[\'typedQuery\'],(request.query as { [\'typedAndNamedQuery\']: Parameters<typeof _name_Controller.put>[6] })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic);\n  }\n);',
       operationId: 'fullExampleUsingBody'
     },
     {
@@ -708,7 +738,12 @@ export const KitaAST = {
       controllerName: 'HelloWorldController',
       url: '/hello-world',
       controllerPath: 'src/routes/hello-world.ts:4',
-      parameters: [{ value: "(request.query as { ['name']?: string })['name']" }],
+      parameters: [
+        {
+          value:
+            "(request.query as { ['name']?: Parameters<typeof HelloWorldController.get>[0] })['name']"
+        }
+      ],
       schema: {
         operationId: 'HelloWorldControllerGet',
         response: { default: { type: 'string' } },
@@ -721,7 +756,7 @@ export const KitaAST = {
         }
       },
       rendered:
-        'fastify.get(\n  \'/hello-world\',\n  {\n    schema: \n      {"operationId":"HelloWorldControllerGet","response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint.","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return HelloWorldController.get((request.query as { [\'name\']?: string })[\'name\']);\n  }\n);'
+        'fastify.get(\n  \'/hello-world\',\n  {\n    schema: \n      {"operationId":"HelloWorldControllerGet","response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint.","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return HelloWorldController.get((request.query as { [\'name\']?: Parameters<typeof HelloWorldController.get>[0] })[\'name\']);\n  }\n);'
     },
     {
       controllerMethod: 'post',
@@ -731,8 +766,14 @@ export const KitaAST = {
       controllerPath: 'src/routes/primitive-types.ts:4',
       parameters: [
         { value: 'request.body as Parameters<typeof PrimitiveTypesController.post>[0]' },
-        { value: "(request.query as { ['param']: string | undefined })['param']" },
-        { value: "(request.query as { ['parm2']: boolean | number | null })['parm2']" }
+        {
+          value:
+            "(request.query as { ['param']: Parameters<typeof PrimitiveTypesController.post>[1] })['param']"
+        },
+        {
+          value:
+            "(request.query as { ['parm2']: Parameters<typeof PrimitiveTypesController.post>[2] })['parm2']"
+        }
       ],
       schema: {
         operationId: 'PrimitiveTypesControllerPost',
@@ -750,7 +791,7 @@ export const KitaAST = {
         }
       },
       rendered:
-        'fastify.post(\n  \'/primitive-types\',\n  {\n    schema: \n      {"operationId":"PrimitiveTypesControllerPost","response":{"default":{"type":"boolean"}},"description":"primitive complex queries","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"anyOf":[{"type":"string"},{"not":{}}]},"parm2":{"type":["boolean","number","null"]}},"required":["param","parm2"],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return PrimitiveTypesController.post(request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: string | undefined })[\'param\'],(request.query as { [\'parm2\']: boolean | number | null })[\'parm2\']);\n  }\n);'
+        'fastify.post(\n  \'/primitive-types\',\n  {\n    schema: \n      {"operationId":"PrimitiveTypesControllerPost","response":{"default":{"type":"boolean"}},"description":"primitive complex queries","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"anyOf":[{"type":"string"},{"not":{}}]},"parm2":{"type":["boolean","number","null"]}},"required":["param","parm2"],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return PrimitiveTypesController.post(request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: Parameters<typeof PrimitiveTypesController.post>[1] })[\'param\'],(request.query as { [\'parm2\']: Parameters<typeof PrimitiveTypesController.post>[2] })[\'parm2\']);\n  }\n);'
     },
     {
       controllerMethod: 'get',

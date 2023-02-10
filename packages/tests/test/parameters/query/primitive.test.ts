@@ -31,7 +31,7 @@ export function get(
 describe('Query', () => {
   const test = KitaTestBuilder.build(__filename, exports);
 
-  it('works', async () => {
+  it.concurrent('parsing works', async () => {
     const response = await test.inject(get, {
       url:
         '/parameters/query/primitive?' +
@@ -53,8 +53,7 @@ describe('Query', () => {
 
     expect(response.statusCode).toBe(200);
 
-    const { a, b, c, aArr, bArr, cArr, unionArr, enumArr } =
-      response.json<ReturnType<typeof get>>();
+    const { a, b, c, aArr, bArr, cArr, unionArr, enumArr } = response.json();
 
     expect(a).toBe('2023-01-26T14:23:20.631Z');
     expect(b).toBe('https://example.com');
@@ -65,5 +64,50 @@ describe('Query', () => {
     expect(cArr).toEqual(['/[a-z]/', '/[a-z]/']);
     expect(enumArr).toEqual(['a', 'B']);
     expect(unionArr).toEqual(['c', 'D']);
+  });
+
+  it.concurrent('tests AST', async () => {
+    const { KitaAST } = await test;
+
+    const route = KitaAST.routes[0]!;
+
+    expect(route).toBeDefined();
+
+    expect(route.schema.querystring).toStrictEqual({
+      type: 'object',
+      properties: {
+        a: { type: 'string', format: 'date-time' },
+        b: { type: 'string', format: 'uri' },
+        c: { type: 'string', format: 'regex' },
+        aArr: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'date-time'
+          }
+        },
+        bArr: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'uri'
+          }
+        },
+        cArr: {
+          type: 'array',
+          items: { type: 'string', format: 'regex' }
+        },
+        enumArr: {
+          type: 'array',
+          items: { type: 'string', enum: ['a', 'B'] }
+        },
+        unionArr: {
+          type: 'array',
+          items: { type: 'string', enum: ['c', 'D'] }
+        }
+      },
+      required: ['a', 'b', 'c', 'aArr', 'bArr', 'cArr', 'enumArr', 'unionArr'],
+      additionalProperties: false
+    });
   });
 });

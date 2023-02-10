@@ -4,12 +4,14 @@ import { KitaTestBuilder } from '../../builder';
 export function get(
   name: Query, // defaults to string
   age: Query<number>, // custom type
-  customNamed: Query<boolean, 'custom-naming'> // Custom type and name
+  customNamed: Query<boolean, 'custom-naming'>, // Custom type and name
+  literal: Query<'a'>
 ) {
   return {
     name,
     age,
-    customNamed
+    customNamed,
+    literal
   };
 }
 
@@ -21,13 +23,14 @@ describe('Query', () => {
       query: {
         name: 'Arthur',
         age: '12',
-        'custom-naming': 'true'
+        'custom-naming': 'true',
+        literal: 'a'
       }
     });
 
     expect(response.statusCode).toBe(200);
 
-    const { age, customNamed, name } = response.json<ReturnType<typeof get>>();
+    const { age, customNamed, name, literal } = response.json();
 
     expect(name).toBe('Arthur');
 
@@ -36,5 +39,8 @@ describe('Query', () => {
 
     expect(typeof customNamed).toBe('boolean');
     expect(customNamed).toBe(true);
+
+    expect(typeof literal).toBe('string');
+    expect(literal).toBe('a');
   });
 });

@@ -21,7 +21,7 @@ describe('should parse name and age correctly', () => {
       url: `/parameters/path/${18}/${'Arthur'}`
     });
 
-    expect(response.json<ReturnType<typeof get>>()).toStrictEqual({
+    expect(response.json()).toStrictEqual({
       name: 'Arthur',
       age: 18
     });
@@ -32,7 +32,7 @@ describe('should parse name and age correctly', () => {
       url: `/parameters/path/${'18'}/${'Arthur'}`
     });
 
-    expect(response.json<ReturnType<typeof get>>()).toStrictEqual({
+    expect(response.json()).toStrictEqual({
       name: 'Arthur',
       age: '18' // allows string and number
     });
@@ -43,7 +43,7 @@ describe('should parse name and age correctly', () => {
       url: `/parameters/path/${'Not a number'}/${'Arthur'}`
     });
 
-    expect(response.json<ReturnType<typeof get>>()).toStrictEqual({
+    expect(response.json()).toStrictEqual({
       error: 'Internal Server Error',
       message: '"age" is required!',
       statusCode: 500
