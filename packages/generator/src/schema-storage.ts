@@ -150,7 +150,7 @@ export class SchemaStorage extends SchemaGenerator {
     return asPrimitiveType(this.nodeParser.createType(type, new Context(type)));
   }
 
-  getDefinitions() {
+  getDefinitions(): Definition[] {
     return Object.entries(this.definitions).map(([key, def]) => ({
       // Encode the definition key if the option is enabled
       $id: this.kitaConfig.schema.generator.encodeRefs ? encodeURIComponent(key) : key,

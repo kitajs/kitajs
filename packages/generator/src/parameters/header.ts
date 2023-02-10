@@ -14,7 +14,7 @@ export class HeaderResolver extends ParamResolver {
     generics,
     paramName,
     optional,
-    route,
+    route,kita,
     inferredType
   }: ParamData): Promise<Parameter | undefined> {
     const headerNameGeneric = generics?.[0]?.getText();
@@ -26,7 +26,7 @@ export class HeaderResolver extends ParamResolver {
         type: 'object',
         properties: { [headerName]: { type: 'string' } },
         required: optional ? [] : [headerName],
-        additionalProperties: false
+        additionalProperties: kita.config.schema.generator.additionalProperties
       }
     });
 

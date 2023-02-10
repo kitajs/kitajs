@@ -215,6 +215,14 @@ export function mergeDefaults(config: DeepPartial<KitaConfig> = {}) {
     }
   }
 
+  // Removes additionalProperties property from schemas if this is the default value
+  if (
+    config.schema?.generator &&
+    config.schema.generator.additionalProperties !== false
+  ) {
+    config.schema.generator.additionalProperties = undefined;
+  }
+
   return deepmerge<KitaConfig>(
     DefaultConfig,
     // validated config

@@ -49,7 +49,7 @@ export class BodyPropResolver extends ParamResolver {
         type: 'object',
         properties: { [unquoted]: await kita.schemaStorage.consumeNode(propType) },
         required: optional ? [] : [unquoted],
-        additionalProperties: false
+        additionalProperties: kita.config.schema.generator.additionalProperties
       }
     });
 

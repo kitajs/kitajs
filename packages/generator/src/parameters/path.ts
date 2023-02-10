@@ -54,7 +54,7 @@ export class PathResolver extends ParamResolver {
         type: 'object',
         properties: { [pathName]: jsonSchema },
         required: [pathName],
-        additionalProperties: false
+        additionalProperties: kita.config.schema.generator.additionalProperties
       }
     });
 
