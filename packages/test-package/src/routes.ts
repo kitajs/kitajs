@@ -168,14 +168,12 @@ export const Kita = fp<{ piscina: Piscina }>(
           params: {
             type: 'object',
             properties: { name: { type: 'string' } },
-            required: ['name'],
-            additionalProperties: false
+            required: ['name']
           },
           body: {
             type: 'object',
             properties: { path: { type: 'number' }, bodyProp: { type: 'number' } },
-            required: ['path', 'bodyProp'],
-            additionalProperties: false
+            required: ['path', 'bodyProp']
           },
           querystring: {
             type: 'object',
@@ -247,8 +245,7 @@ export const Kita = fp<{ piscina: Piscina }>(
           params: {
             type: 'object',
             properties: { name: { type: 'string' } },
-            required: ['name'],
-            additionalProperties: false
+            required: ['name']
           },
           body: { $ref: 'NameQuery' },
           querystring: { $ref: 'NameQuery' }
@@ -637,14 +634,12 @@ export const KitaAST = {
         params: {
           type: 'object',
           properties: { name: { type: 'string' } },
-          required: ['name'],
-          additionalProperties: false
+          required: ['name']
         },
         body: {
           type: 'object',
           properties: { path: { type: 'number' }, bodyProp: { type: 'number' } },
-          required: ['path', 'bodyProp'],
-          additionalProperties: false
+          required: ['path', 'bodyProp']
         },
         querystring: {
           type: 'object',
@@ -658,7 +653,7 @@ export const KitaAST = {
         }
       },
       rendered:
-        'fastify.put(\n  \'/:name\',\n  {\n    schema: \n      {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"],"additionalProperties":false},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","typedAndNamedQuery"],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.resolver(request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.resolver(request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.put((request.params as { [\'name\']: Parameters<typeof _name_Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof _name_Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: Parameters<typeof _name_Controller.put>[4] })[\'paramQuery\'],(request.query as { [\'typedQuery\']: Parameters<typeof _name_Controller.put>[5] })[\'typedQuery\'],(request.query as { [\'typedAndNamedQuery\']: Parameters<typeof _name_Controller.put>[6] })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic);\n  }\n);',
+        'fastify.put(\n  \'/:name\',\n  {\n    schema: \n      {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"]},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"]},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","typedAndNamedQuery"],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.resolver(request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.resolver(request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.put((request.params as { [\'name\']: Parameters<typeof _name_Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof _name_Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: Parameters<typeof _name_Controller.put>[4] })[\'paramQuery\'],(request.query as { [\'typedQuery\']: Parameters<typeof _name_Controller.put>[5] })[\'typedQuery\'],(request.query as { [\'typedAndNamedQuery\']: Parameters<typeof _name_Controller.put>[6] })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic);\n  }\n);',
       operationId: 'fullExampleUsingBody'
     },
     {
@@ -696,14 +691,13 @@ export const KitaAST = {
         params: {
           type: 'object',
           properties: { name: { type: 'string' } },
-          required: ['name'],
-          additionalProperties: false
+          required: ['name']
         },
         body: { $ref: 'NameQuery' },
         querystring: { $ref: 'NameQuery' }
       },
       rendered:
-        'fastify.post(\n  \'/:name\',\n  {\n    schema: \n      {"operationId":"fullExampleExclusiveQuery","response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"],"additionalProperties":false},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.resolver(request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.resolver(request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.post((request.params as { [\'name\']: Parameters<typeof _name_Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof _name_Controller.post>[2],(request.query as Parameters<typeof _name_Controller.post>[3]),request,reply,authJwt,authBasic);\n  }\n);',
+        'fastify.post(\n  \'/:name\',\n  {\n    schema: \n      {"operationId":"fullExampleExclusiveQuery","response":{"default":{"type":"number"}},"description":"route description 2","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 2"],"summary":"route summary 2","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"]},"body":{"$ref":"NameQuery"},"querystring":{"$ref":"NameQuery"}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.resolver(request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.resolver(request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.post((request.params as { [\'name\']: Parameters<typeof _name_Controller.post>[0] })[\'name\'],request.cookies?.cookie,request.body as Parameters<typeof _name_Controller.post>[2],(request.query as Parameters<typeof _name_Controller.post>[3]),request,reply,authJwt,authBasic);\n  }\n);',
       operationId: 'fullExampleExclusiveQuery'
     },
     {
