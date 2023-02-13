@@ -26,6 +26,7 @@
     "@fastify/websocket": "^7.1.2"
   },
   "peerDependencies": {
-    "@fastify/websocket": "^7"
+    "@fastify/websocket": "^7",
+    "fastify-plugin": "^4"
   }
 }
