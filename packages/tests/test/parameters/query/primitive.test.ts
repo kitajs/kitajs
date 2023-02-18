@@ -106,8 +106,7 @@ describe('Query', () => {
           items: { type: 'string', enum: ['c', 'D'] }
         }
       },
-      required: ['a', 'b', 'c', 'aArr', 'bArr', 'cArr', 'enumArr', 'unionArr'],
-      additionalProperties: false
+      required: ['a', 'b', 'c', 'aArr', 'bArr', 'cArr', 'enumArr', 'unionArr']
     });
   });
 });

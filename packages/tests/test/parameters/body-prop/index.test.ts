@@ -26,7 +26,6 @@ describe('body prop tests', () => {
         age: { type: 'number' }
       },
       required: ['name', 'age'],
-      additionalProperties: false
     });
 
     expect(post.schema.body).toStrictEqual({
@@ -36,7 +35,6 @@ describe('body prop tests', () => {
         name: { type: 'string' }
       },
       required: ['body'],
-      additionalProperties: false
     });
   });
 });
