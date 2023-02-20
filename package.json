@@ -16,19 +16,23 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "docs": "cd packages/docs && yarn dev",
+    "build": "pnpm -r --parallel build",
+    "docs": "cd packages/docs && pnpm dev",
     "format": "prettier --write .",
     "release": "changeset publish",
-    "test": "turbo run test",
+    "test": "pnpm -r --parallel test",
     "version": "changeset version",
-    "watch": "sh scripts/watch.sh"
+    "watch": "sh scripts/watch.sh",
+    "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.8",
     "@changesets/cli": "^2.26.0",
     "prettier": "^2.8.3",
-    "turbo": "^1.7.0",
     "typescript": "~4.9.5"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7"
   }
 }
