@@ -10,7 +10,7 @@ export function opt(optional = false) {
   return optional ? '?' : ('' as const);
 }
 
-export function findRouteName(filepath: string, config: KitaConfig) {
+export function findUrlAndController(filepath: string, config: KitaConfig) {
   const strip = filepath
     // Strips any possible regex that the user might have added
     .replace(new RegExp(config.controllers.prefix), '')
@@ -20,7 +20,7 @@ export function findRouteName(filepath: string, config: KitaConfig) {
     .replace(/\s|\./g, '-');
 
   return {
-    routePath: `/${
+    url: `/${
       // replaces [param] syntax to :param
       strip
         .replace(/(\[.+?\])/g, (match) => `:${match.substring(1, match.length - 1)}`)
@@ -30,7 +30,7 @@ export function findRouteName(filepath: string, config: KitaConfig) {
         .replace(/\/$/, '')
     }`,
 
-    controllerName: `${
+    controller: `${
       // transform params
       strip
         .replace(/\[|\]/g, '_')

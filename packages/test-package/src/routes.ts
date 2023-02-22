@@ -182,8 +182,7 @@ export const Kita = fp<{ piscina: Piscina }>(
               typedQuery: { type: 'boolean' },
               typedAndNamedQuery: { type: 'boolean' }
             },
-            required: ['paramQuery', 'typedQuery', 'typedAndNamedQuery'],
-            additionalProperties: false
+            required: ['paramQuery', 'typedQuery', 'typedAndNamedQuery']
           }
         }
       },
@@ -312,8 +311,7 @@ export const Kita = fp<{ piscina: Piscina }>(
           querystring: {
             type: 'object',
             properties: { name: { type: 'string' } },
-            required: [],
-            additionalProperties: false
+            required: []
           }
         }
       },
@@ -341,8 +339,7 @@ export const Kita = fp<{ piscina: Piscina }>(
               param: { anyOf: [{ type: 'string' }, { not: {} }] },
               parm2: { type: ['boolean', 'number', 'null'] }
             },
-            required: ['param', 'parm2'],
-            additionalProperties: false
+            required: ['param', 'parm2']
           }
         }
       },
@@ -496,9 +493,9 @@ export const ResolvedConfig = {
       useTabs: false,
       vueIndentScriptAndStyle: false,
       plugins: [
-        '/www/kita/node_modules/prettier-plugin-packagejson/lib/index.js',
-        '/www/kita/node_modules/prettier-plugin-jsdoc/dist/index.js',
-        '/www/kita/node_modules/prettier-plugin-organize-imports/index.js'
+        '/www/kita/node_modules/.pnpm/prettier-plugin-packagejson@2.4.2_prettier@2.8.3/node_modules/prettier-plugin-packagejson/lib/index.js',
+        '/www/kita/node_modules/.pnpm/prettier-plugin-jsdoc@0.4.2_prettier@2.8.3/node_modules/prettier-plugin-jsdoc/dist/index.js',
+        '/www/kita/node_modules/.pnpm/prettier-plugin-organize-imports@3.2.2_prettier@2.8.3_typescript@4.9.5/node_modules/prettier-plugin-organize-imports/index.js'
       ]
     },
     exportAST: true,
@@ -558,9 +555,9 @@ export const KitaAST = {
         useTabs: false,
         vueIndentScriptAndStyle: false,
         plugins: [
-          '/www/kita/node_modules/prettier-plugin-packagejson/lib/index.js',
-          '/www/kita/node_modules/prettier-plugin-jsdoc/dist/index.js',
-          '/www/kita/node_modules/prettier-plugin-organize-imports/index.js'
+          '/www/kita/node_modules/.pnpm/prettier-plugin-packagejson@2.4.2_prettier@2.8.3/node_modules/prettier-plugin-packagejson/lib/index.js',
+          '/www/kita/node_modules/.pnpm/prettier-plugin-jsdoc@0.4.2_prettier@2.8.3/node_modules/prettier-plugin-jsdoc/dist/index.js',
+          '/www/kita/node_modules/.pnpm/prettier-plugin-organize-imports@3.2.2_prettier@2.8.3_typescript@4.9.5/node_modules/prettier-plugin-organize-imports/index.js'
         ]
       },
       exportAST: true,
@@ -648,12 +645,11 @@ export const KitaAST = {
             typedQuery: { type: 'boolean' },
             typedAndNamedQuery: { type: 'boolean' }
           },
-          required: ['paramQuery', 'typedQuery', 'typedAndNamedQuery'],
-          additionalProperties: false
+          required: ['paramQuery', 'typedQuery', 'typedAndNamedQuery']
         }
       },
       rendered:
-        'fastify.put(\n  \'/:name\',\n  {\n    schema: \n      {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"]},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"]},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","typedAndNamedQuery"],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.resolver(request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.resolver(request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.put((request.params as { [\'name\']: Parameters<typeof _name_Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof _name_Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: Parameters<typeof _name_Controller.put>[4] })[\'paramQuery\'],(request.query as { [\'typedQuery\']: Parameters<typeof _name_Controller.put>[5] })[\'typedQuery\'],(request.query as { [\'typedAndNamedQuery\']: Parameters<typeof _name_Controller.put>[6] })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic);\n  }\n);',
+        'fastify.put(\n  \'/:name\',\n  {\n    schema: \n      {"operationId":"fullExampleUsingBody","response":{"default":{"type":"number"}},"description":"Route description 1","security":[{"default":[]},{"admin":["read-user","write user","4","76"]}],"tags":["test tag 1"],"summary":"route summary 1","params":{"type":"object","properties":{"name":{"type":"string"}},"required":["name"]},"body":{"type":"object","properties":{"path":{"type":"number"},"bodyProp":{"type":"number"}},"required":["path","bodyProp"]},"querystring":{"type":"object","properties":{"paramQuery":{"type":"string"},"typedQuery":{"type":"boolean"},"typedAndNamedQuery":{"type":"boolean"}},"required":["paramQuery","typedQuery","typedAndNamedQuery"]}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n        const authJwt = await AuthParam.resolver(request, reply, \'jwt\');\n\n        if (reply.sent) {\n          return;\n        }\n\n        const authBasic = await AuthParam.resolver(request, reply, \'basic\');\n\n        if (reply.sent) {\n          return;\n        }\n\n\n    return _name_Controller.put((request.params as { [\'name\']: Parameters<typeof _name_Controller.put>[0] })[\'name\'],request.cookies?.cookie,(request.body as { [\'path\']: Parameters<typeof _name_Controller.put>[2] }).path,(request.body as { [\'bodyProp\']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,(request.query as { [\'paramQuery\']: Parameters<typeof _name_Controller.put>[4] })[\'paramQuery\'],(request.query as { [\'typedQuery\']: Parameters<typeof _name_Controller.put>[5] })[\'typedQuery\'],(request.query as { [\'typedAndNamedQuery\']: Parameters<typeof _name_Controller.put>[6] })[\'typedAndNamedQuery\'],request,reply,authJwt,authBasic);\n  }\n);',
       operationId: 'fullExampleUsingBody'
     },
     {
@@ -745,12 +741,11 @@ export const KitaAST = {
         querystring: {
           type: 'object',
           properties: { name: { type: 'string' } },
-          required: [],
-          additionalProperties: false
+          required: []
         }
       },
       rendered:
-        'fastify.get(\n  \'/hello-world\',\n  {\n    schema: \n      {"operationId":"HelloWorldControllerGet","response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint.","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return HelloWorldController.get((request.query as { [\'name\']?: Parameters<typeof HelloWorldController.get>[0] })[\'name\']);\n  }\n);'
+        'fastify.get(\n  \'/hello-world\',\n  {\n    schema: \n      {"operationId":"HelloWorldControllerGet","response":{"default":{"type":"string"}},"description":"Hello world rest API endpoint.","querystring":{"type":"object","properties":{"name":{"type":"string"}},"required":[]}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return HelloWorldController.get((request.query as { [\'name\']?: Parameters<typeof HelloWorldController.get>[0] })[\'name\']);\n  }\n);'
     },
     {
       controllerMethod: 'post',
@@ -780,12 +775,11 @@ export const KitaAST = {
             param: { anyOf: [{ type: 'string' }, { not: {} }] },
             parm2: { type: ['boolean', 'number', 'null'] }
           },
-          required: ['param', 'parm2'],
-          additionalProperties: false
+          required: ['param', 'parm2']
         }
       },
       rendered:
-        'fastify.post(\n  \'/primitive-types\',\n  {\n    schema: \n      {"operationId":"PrimitiveTypesControllerPost","response":{"default":{"type":"boolean"}},"description":"primitive complex queries","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"anyOf":[{"type":"string"},{"not":{}}]},"parm2":{"type":["boolean","number","null"]}},"required":["param","parm2"],"additionalProperties":false}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return PrimitiveTypesController.post(request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: Parameters<typeof PrimitiveTypesController.post>[1] })[\'param\'],(request.query as { [\'parm2\']: Parameters<typeof PrimitiveTypesController.post>[2] })[\'parm2\']);\n  }\n);'
+        'fastify.post(\n  \'/primitive-types\',\n  {\n    schema: \n      {"operationId":"PrimitiveTypesControllerPost","response":{"default":{"type":"boolean"}},"description":"primitive complex queries","body":{"type":"array","items":{"type":["string","number"]}},"querystring":{"type":"object","properties":{"param":{"anyOf":[{"type":"string"},{"not":{}}]},"parm2":{"type":["boolean","number","null"]}},"required":["param","parm2"]}}\n    ,\n    \n  },\n  //@ts-ignore - we may have unused params\n  async (request, reply) => {\n\n    return PrimitiveTypesController.post(request.body as Parameters<typeof PrimitiveTypesController.post>[0],(request.query as { [\'param\']: Parameters<typeof PrimitiveTypesController.post>[1] })[\'param\'],(request.query as { [\'parm2\']: Parameters<typeof PrimitiveTypesController.post>[2] })[\'parm2\']);\n  }\n);'
     },
     {
       controllerMethod: 'get',

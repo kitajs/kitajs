@@ -1,4 +1,5 @@
 import { ts } from 'ts-json-schema-generator';
+import type { ParameterParser } from '../v2/parameter-parser';
 
 export function getNodeSource(node: ts.Node, source = node.getSourceFile()) {
   const { character, line } = source.getLineAndCharacterOfPosition(
@@ -59,4 +60,20 @@ export function getReturnType(
     // TODO: Find documentation for what flags we should have been using
     ts.NodeBuilderFlags.NoTruncation
   ) as ts.TypeNode;
+}
+
+/**
+ * Transforms an iterable of parameters into an array of promises.
+ */
+export function parametersToAsyncArray(
+  parameters: ts.NodeArray<ts.ParameterDeclaration>,
+  parser: ParameterParser
+) {
+  return Array.from(parameters).map((param, index) =>
+    Promise.resolve(parser.supports(param)).then((supports) => ({
+      param,
+      index,
+      supports
+    }))
+  );
 }

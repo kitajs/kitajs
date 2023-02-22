@@ -5,7 +5,7 @@ import { ts } from 'ts-json-schema-generator';
 import type { Node } from 'typescript';
 import { ParamResolver } from '../parameters/base';
 import type { WebsocketRoute } from '../route';
-import { findRouteName } from '../util/string';
+import { findUrlAndController } from '../util/string';
 import { CreationData, RouteResolver } from './base';
 
 const templatePath = path.resolve(__dirname, '../../templates/websocket.hbs');
@@ -33,12 +33,12 @@ export class WebsocketResolver extends RouteResolver<ts.FunctionDeclaration> {
     source
   }: CreationData<ts.FunctionDeclaration>): Promise<WebsocketRoute | undefined> {
     const pos = source.getLineAndCharacterOfPosition(node.name?.pos ?? node.pos);
-    const rName = findRouteName(source.fileName, kita.config);
+    const rName = findUrlAndController(source.fileName, kita.config);
 
     const route: WebsocketRoute = {
       controllerMethod: 'ws',
       method: 'GET',
-      controllerName: rName.controllerName,
+      controllerName: rName.controller,
       url: rName.routePath,
       controllerPath: `${source.fileName}:${pos.line + 1}`,
       parameters: [],

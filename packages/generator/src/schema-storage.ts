@@ -108,7 +108,7 @@ export class SchemaStorage extends SchemaGenerator {
   /**
    * Saves and returns a function's response type respective json schema.
    */
-  consumeResponseType(node: ts.SignatureDeclaration, route: Route): Schema {
+  consumeResponseType(node: ts.SignatureDeclaration, operationId: string): Schema {
     const returnType = getReturnType(node, this.program.getTypeChecker());
 
     const type = this.nodeParser.createType(returnType, new Context(node));
@@ -127,7 +127,7 @@ export class SchemaStorage extends SchemaGenerator {
     }
 
     //@ts-expect-error - Defines a return type name to avoid uri-reference problem
-    type.name ??= `${route.schema.operationId}Response`;
+    type.name ??= `${operationId}Response`;
 
     // Includes this node into our recursive definition
     this.appendRootChildDefinitions(type, this.definitions);
@@ -139,7 +139,7 @@ export class SchemaStorage extends SchemaGenerator {
   /**
    * Get definition for a base type without the `#/definitions/` prefix.
    */
-  getDefinition(type: BaseType) {
+  getDefinition(type: BaseType): Definition {
     return this.typeFormatter.getDefinition(type);
   }
 

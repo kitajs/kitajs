@@ -3,7 +3,13 @@ import { filename, Kita } from './routes';
 import fastify from 'fastify';
 import Piscina from 'piscina';
 
-const app = fastify();
+const app = fastify({
+  ajv: {
+    customOptions: {
+      allowUnionTypes: true
+    }
+  }
+});
 
 app.register(require('@fastify/cookie'));
 
@@ -37,7 +43,8 @@ app.register(require('@fastify/swagger-ui'), {
   transformSpecificationClone: true,
   uiConfig: {
     docExpansion: 'full'
-  }
+  },
+  prefix: '/'
 });
 
 app.register(Kita, {

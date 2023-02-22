@@ -1,12 +1,12 @@
 import deepmerge from 'deepmerge';
 import { ts } from 'ts-json-schema-generator';
 import { KitaError } from '../errors';
-import type { Route } from '../route';
+import type { BaseRoute } from '../v2/base-route';
 
 /**
  * Custom parse info for each of this this's tags
  */
-export function applyJsDoc(tag: ts.JSDocTag, route: Route): void {
+export function applyJsDoc(tag: ts.JSDocTag, route: BaseRoute): void {
   const { name, value } = parseJSDocTag(tag, route.controllerPath);
 
   switch (name) {
@@ -64,7 +64,10 @@ export function applyJsDoc(tag: ts.JSDocTag, route: Route): void {
       break;
 
     case 'operationid':
-      route.schema.operationId = value;
+      if ('operationId' in route.schema) {
+        route.schema.operationId = value;
+      }
+
       break;
 
     default:

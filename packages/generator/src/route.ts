@@ -16,12 +16,6 @@ export interface Route {
    */
   controllerPath: string;
 
-  /**
-   * The method of the controller. To be used as `Controller.<METHOD>()`
-   *
-   * @example `get`
-   */
-  controllerMethod: string;
 
   /**
    * All possible parameters for this route.
@@ -47,12 +41,6 @@ export interface Route {
    */
   url: string;
 
-  /**
-   * The controller http method.
-   *
-   * @example `get`
-   */
-  method: string;
 
   /**
    * A "jsonified" string for the fastify route options

@@ -7,7 +7,7 @@ import { KitaError } from '../errors';
 import { ParamResolver } from '../parameters/base';
 import type { AsyncRoute } from '../route';
 import { applyJsDoc } from '../util/jsdoc';
-import { capitalize, findRouteName } from '../util/string';
+import { capitalize, findUrlAndController } from '../util/string';
 import { CreationData, RouteResolver } from './base';
 
 const templatePath = path.resolve(__dirname, '../../templates/async.hbs');
@@ -36,17 +36,17 @@ export class AsyncResolver extends RouteResolver<ts.FunctionDeclaration> {
   }: CreationData<ts.FunctionDeclaration>): Promise<AsyncRoute | undefined> {
     const fnName = node.name?.getText()!;
     const pos = source.getLineAndCharacterOfPosition(node.name?.pos ?? node.pos);
-    const rName = findRouteName(source.fileName, kita.config);
+    const rName = findUrlAndController(source.fileName, kita.config);
 
     const route: AsyncRoute = {
       controllerMethod: fnName,
       method: fnName.toUpperCase(),
-      controllerName: rName.controllerName,
+      controllerName: rName.controller,
       url: rName.routePath,
       controllerPath: `${source.fileName}:${pos.line + 1}`,
       parameters: [],
       schema: {
-        operationId: `${rName.controllerName}${capitalize(fnName)}`
+        operationId: `${rName.controller}${capitalize(fnName)}`
       },
       rendered: '',
       importablePath: kita.importablePath(source.fileName),
