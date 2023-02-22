@@ -1,5 +1,14 @@
 # @kitajs/runtime
 
+## 1.0.13
+
+### Patch Changes
+
+- 588b4c6: added fastify-plugin to peers
+- Updated dependencies [3c84758]
+- Updated dependencies [e897f47]
+  - @kitajs/generator@1.0.24
+
 ## 1.0.12
 
 ### Patch Changes
