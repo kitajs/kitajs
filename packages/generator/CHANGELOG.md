@@ -1,5 +1,12 @@
 # @kitajs/generator
 
+## 1.0.24
+
+### Patch Changes
+
+- 3c84758: fixed query additionalProperties
+- e897f47: removed return
+
 ## 1.0.23
 
 ### Patch Changes
