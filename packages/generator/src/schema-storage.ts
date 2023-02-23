@@ -79,11 +79,25 @@ export class SchemaStorage extends SchemaGenerator {
     }
   }
 
+  createType(node: ts.Node, stack: string[]) {
+    try {
+      return this.nodeParser.createType(node, new Context(node));
+    } catch (error) {
+      throw KitaError(
+        `Could not create type for node \`${
+          node.getSourceFile() ? node.getText() : '<unknown>'
+        }\``,
+        stack,
+        { error, node }
+      );
+    }
+  }
+
   /**
    * Saves and returns a {@link ts.Node}'s respective json schema.
    */
-  consumeNode(node: ts.Node): Schema {
-    const type = this.nodeParser.createType(node, new Context(node));
+  consumeNode(node: ts.Node, stack: string[]): Schema {
+    const type = this.createType(node, stack);
 
     if (!type) {
       throw KitaError(`Could not create type for node \`${node.getText()}\``);
@@ -111,7 +125,7 @@ export class SchemaStorage extends SchemaGenerator {
   consumeResponseType(node: ts.SignatureDeclaration, route: Route): Schema {
     const returnType = getReturnType(node, this.program.getTypeChecker());
 
-    const type = this.nodeParser.createType(returnType, new Context(node));
+    const type = this.createType(returnType, [route.controllerPath]);
 
     if (!type) {
       throw KitaError(`Could not create type for node \`${returnType.getText()}\``);
@@ -146,8 +160,8 @@ export class SchemaStorage extends SchemaGenerator {
   /**
    * Tries to parse the provided type into his absolute primitive version
    */
-  asPrimitive(type: ts.Node) {
-    return asPrimitiveType(this.nodeParser.createType(type, new Context(type)));
+  asPrimitive(type: ts.Node, stack: string[]) {
+    return asPrimitiveType(this.createType(type, stack));
   }
 
   getDefinitions(): Definition[] {

@@ -47,7 +47,7 @@ export class BodyPropResolver extends ParamResolver {
     route.schema = deepmerge(route.schema, {
       body: {
         type: 'object',
-        properties: { [unquoted]: await kita.schemaStorage.consumeNode(propType) },
+        properties: { [unquoted]: await kita.schemaStorage.consumeNode(propType, [paramName, route.controllerPath]) },
         required: optional ? [] : [unquoted],
         additionalProperties: kita.config.schema.generator.additionalProperties
       }

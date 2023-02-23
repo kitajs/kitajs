@@ -33,7 +33,10 @@ export class PathResolver extends ParamResolver {
 
     if (pathType) {
       // Lookup as a json schema to allow custom primitive types, like (string | number[]), for example.
-      const primitive = kita.schemaStorage.asPrimitive(pathType);
+      const primitive = kita.schemaStorage.asPrimitive(pathType, [
+        paramName,
+        route.controllerPath
+      ]);
 
       if (!primitive) {
         throw KitaError('Path type must be a primitive type', route.controllerPath);
