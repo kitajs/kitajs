@@ -1,5 +1,5 @@
 import { ts } from 'ts-json-schema-generator';
-import type { ParameterParser } from '../v2/parameter-parser';
+import type { ParameterParser } from '../v2/parsers';
 
 export function getNodeSource(node: ts.Node, source = node.getSourceFile()) {
   const { character, line } = source.getLineAndCharacterOfPosition(

@@ -16,7 +16,6 @@ export interface Route {
    */
   controllerPath: string;
 
-
   /**
    * All possible parameters for this route.
    */
@@ -40,7 +39,6 @@ export interface Route {
    * @example `/users/create`
    */
   url: string;
-
 
   /**
    * A "jsonified" string for the fastify route options

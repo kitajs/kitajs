@@ -207,12 +207,10 @@ export const DefaultConfig: KitaConfig = {
 };
 
 export function mergeDefaults(config: DeepPartial<KitaConfig> = {}) {
-  if (config?.controllers?.glob) {
-    if (!Array.isArray(config.controllers.glob)) {
-      throw KitaError('controllers.glob must be an array of strings', {
-        controllers: config.controllers
-      });
-    }
+  if (config?.controllers?.glob && !Array.isArray(config.controllers.glob)) {
+    throw KitaError('controllers.glob must be an array of strings', {
+      controllers: config.controllers
+    });
   }
 
   // Removes additionalProperties property from schemas if this is the default value

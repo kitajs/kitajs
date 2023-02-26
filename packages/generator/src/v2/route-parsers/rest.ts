@@ -2,40 +2,33 @@ import ts from 'typescript';
 import type { KitaConfig } from '../../config';
 import type { SchemaStorage } from '../../schema-storage';
 import { applyJsDoc } from '../../util/jsdoc';
-import { isNodeExported, isTypeOnlyNode, parametersToAsyncArray } from '../../util/node';
+import { isNodeExported, isTypeOnlyNode } from '../../util/node';
 import { findUrlAndController } from '../../util/string';
-import type { BaseRoute } from '../base-route';
-import type { ParameterParser } from '../parameter-parser';
-import { RouteParser } from '../route-parser';
+import type { BaseRoute } from '../bases';
+import { ParameterResolverNotFound } from '../errors';
+import type { ParameterParser, RouteParser } from '../parsers';
 import { RestRoute } from '../routes/rest';
+import { mergeSchema } from '../schema/helpers';
 
-export class RestRouteParser extends RouteParser {
+export class RestRouteParser implements RouteParser {
   constructor(
     readonly config: KitaConfig,
     readonly schemaStorage: SchemaStorage,
     readonly paramParser: ParameterParser
-  ) {
-    super();
-  }
+  ) {}
 
   supports(node: ts.Node): boolean {
     if (!isNodeExported(node) || isTypeOnlyNode(node)) {
       return false;
     }
 
-    const fd = node as ts.FunctionDeclaration;
-
-    if (
-      node.kind !== ts.SyntaxKind.FunctionDeclaration ||
-      !fd.name ||
-      !node.getSourceFile()
-    ) {
+    if (!ts.isFunctionDeclaration(node) || !node.name || !node.getSourceFile()) {
       return false;
     }
 
     // Allows this parameter to not be defined as this is the last
     // resolver and should try to catch as many routes as possible.
-    if (!fd.name.getText().match(/^get|post|put|delete|all$/i)) {
+    if (!node.name.getText().match(/^get|post|put|delete|all$/i)) {
       return false;
     }
 
@@ -58,23 +51,23 @@ export class RestRouteParser extends RouteParser {
 
     // Adds response types
     {
-      route.mergeSchema({
+      mergeSchema(route, {
         response: {
           [this.config.schema.defaultResponse]: this.schemaStorage.consumeResponseType(
             node,
-            route.schema.operationId
+            route.schema.operationId!
           )
         }
       });
 
       for (const [resp, schema] of Object.entries(this.config.schema.responses)) {
-        (route.schema.response as Record<string, unknown>)[resp] ??= schema;
+        mergeSchema(route, { response: { [resp]: schema } });
       }
     }
 
     // TODO: Improve jsdoc parsing
     {
-      route.mergeSchema({
+      mergeSchema(route, {
         //@ts-expect-error - TODO: Find correct ts.getJsDoc method
         description: node.jsDoc?.[0]?.comment
       });
@@ -84,13 +77,12 @@ export class RestRouteParser extends RouteParser {
       }
     }
 
-    // Parsers parameters assyncronously
-    for await (const { index, param, supports } of parametersToAsyncArray(
-      node.parameters,
-      this.paramParser
-    )) {
+    // TODO: Transform this to an async iterator to handle parameters asynchronously
+    for (const [index, param] of node.parameters.entries()) {
+      const supports = await this.paramParser.supports(param);
+
       if (!supports) {
-        continue;
+        throw new ParameterResolverNotFound(param);
       }
 
       route.parameters[index] = await this.paramParser.parse(param, index, route, node);

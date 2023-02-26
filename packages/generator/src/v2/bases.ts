@@ -1,73 +1,82 @@
-import deepmerge from 'deepmerge';
-import type { FastifySchema } from 'fastify';
-import type { Definition } from 'ts-json-schema-generator';
-import type { BaseParameter } from './base-parameter';
+import type { RouteSchema } from './schema';
+
+/**
+ * A parameter is a representation of a route parameter.
+ */
+export interface BaseParameter {
+  /**
+   * The resolved parameter text to be evaluated
+   *
+   * @example `req.params.id`
+   */
+  value: string;
+
+  /**
+   * Any code that needs to be executed before, to this parameter work
+   *
+   * @example `const resolved = await CustomParameterResolver.resolve(param)`
+   */
+  helper?: string;
+}
 
 /**
  * A route is a representation of a endpoint http method.
  */
-export abstract class BaseRoute {
+export interface BaseRoute {
   /**
    * The name of the source controller.
    *
    * @example `UserController`
    */
-  abstract controllerName: string;
+  controllerName: string;
 
   /**
    * The full path to the original controller method.
    *
    * @example `/usr/file.ts:1:2`
    */
-  abstract controllerPrettyPath: string;
+  controllerPrettyPath: string;
 
   /**
    * The full **IMPORTABLE** path to the original controller method.
    *
    * @example `/usr/file.ts`
    */
-  abstract controllerPath: string;
+  controllerPath: string;
 
   /**
    * The method of the controller. To be used as `Controller.<METHOD>()`
    *
    * @example `get`
    */
-  abstract controllerMethod: string;
+  controllerMethod: string;
 
   /**
    * All possible parameters for this route.
    */
-  abstract parameters: BaseParameter[];
+  parameters: BaseParameter[];
 
   /**
    * The controller http path.
    *
    * @example `/users/create`
    */
-  abstract url: string;
+  url: string;
 
   /**
    * The controller http method.
    *
    * @example `get`
    */
-  abstract method: string;
+  method: string;
 
   /**
    * A "jsonified" string for the fastify route options
    */
-  abstract options: string | object | undefined;
+  options: string | object | undefined;
 
   /**
    * The fastify schema for this route.
    */
-  abstract schema: FastifySchema;
-
-  /**
-   * Merges the current schema with the given schema.
-   */
-  mergeSchema(schema: Partial<this['schema'] | Definition>) {
-    this.schema = deepmerge(this.schema, schema);
-  }
+  schema: RouteSchema;
 }

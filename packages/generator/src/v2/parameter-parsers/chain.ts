@@ -1,13 +1,14 @@
 import type ts from 'typescript';
-import type { BaseParameter } from '../base-parameter';
-import type { BaseRoute } from '../base-route';
+import type { BaseParameter, BaseRoute } from '../bases';
 import { ParameterResolverNotFound } from '../errors';
-import { ParameterParser } from '../parameter-parser';
+import type { ParameterParser } from '../parsers';
 
-export class ChainParameterParser extends ParameterParser {
+export class ChainParameterParser implements ParameterParser {
   private readonly parsers: ParameterParser[] = [];
 
-  /** A simple node cache to increase the performance at parse() when getting the correct parser.  */
+  /**
+   * A simple node cache to increase the performance at parse() when getting the correct parser
+   */
   private readonly cache = new WeakMap<ts.ParameterDeclaration, ParameterParser>();
 
   /**
@@ -19,6 +20,12 @@ export class ChainParameterParser extends ParameterParser {
   }
 
   async supports(node: ts.ParameterDeclaration): Promise<boolean> {
+    // Checks if the cache already has the node
+    if (this.cache.get(node)) {
+      return true;
+    }
+
+    // Check if this underlying parser supports the node
     for (const parser of this.parsers) {
       if (await parser.supports(node)) {
         this.cache.set(node, parser);

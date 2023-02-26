@@ -1,12 +1,14 @@
 import type ts from 'typescript';
-import type { BaseRoute } from '../base-route';
+import type { BaseRoute } from '../bases';
 import { RouteResolverNotFound } from '../errors';
-import { RouteParser } from '../route-parser';
+import type { RouteParser } from '../parsers';
 
-export class ChainRouteParser extends RouteParser {
+export class ChainRouteParser implements RouteParser {
   private readonly parsers: RouteParser[] = [];
 
-  /** A simple node cache to increase the performance at parse() when getting the correct parser.  */
+  /**
+   * A simple node cache to increase the performance at parse() when getting the correct parser.
+   */
   private readonly cache = new WeakMap<ts.Node, RouteParser>();
 
   /**
@@ -18,6 +20,12 @@ export class ChainRouteParser extends RouteParser {
   }
 
   async supports(node: ts.Node): Promise<boolean> {
+    // Checks if the cache already has the node
+    if (this.cache.get(node)) {
+      return true;
+    }
+
+    // Check if this underlying parser supports the node
     for (const parser of this.parsers) {
       if (await parser.supports(node)) {
         this.cache.set(node, parser);

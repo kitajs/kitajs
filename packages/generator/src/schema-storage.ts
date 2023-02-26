@@ -10,7 +10,6 @@ import {
 } from 'ts-json-schema-generator';
 import type { KitaConfig } from './config';
 import { KitaError } from './errors';
-import type { Route } from './route';
 import { getReturnType } from './util/node';
 import { asPrimitiveType } from './util/type';
 

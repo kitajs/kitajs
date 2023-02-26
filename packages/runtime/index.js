@@ -9,4 +9,4 @@
 /** @type {import('./dist/index')} */
 module.exports = Object.freeze({});
 
-//# sourceMappingURL=dist/index.js.map
+// # sourceMappingURL=dist/index.js.map
