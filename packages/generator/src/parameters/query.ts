@@ -25,7 +25,12 @@ export class QueryResolver extends ParamResolver {
       name: queryName,
       simple,
       definition
-    } = this.findNameAndType(generics, paramName, kita.schemaStorage);
+    } = this.findNameAndType(
+      generics,
+      paramName,
+      kita.schemaStorage,
+      route.controllerPath
+    );
 
     if (simple) {
       // @ts-expect-error - any type is allowed
@@ -66,7 +71,10 @@ export class QueryResolver extends ParamResolver {
     }
 
     route.schema = deepmerge(route.schema, {
-      querystring: await kita.schemaStorage.consumeNode(generics[0]!)
+      querystring: await kita.schemaStorage.consumeNode(generics[0]!, [
+        paramName,
+        route.controllerPath
+      ])
     });
 
     return { value: `(request.query as ${inferredType})` };
@@ -75,7 +83,8 @@ export class QueryResolver extends ParamResolver {
   findNameAndType(
     generics: ts.NodeArray<ts.TypeNode>,
     paramName: string,
-    schemaStorage: SchemaStorage
+    schemaStorage: SchemaStorage,
+    controllerPath: string
   ) {
     if (!generics[0]) {
       return {
@@ -88,14 +97,14 @@ export class QueryResolver extends ParamResolver {
     }
 
     // Lookup as a json schema to allow custom primitive types, like (string | number[])[], for example.
-    const primitive = schemaStorage.asPrimitive(generics[0]);
+    const primitive = schemaStorage.asPrimitive(generics[0], [paramName, controllerPath]);
 
     return {
       name: !generics[1] ? paramName : unquote(generics[1].getText()),
       simple: !!primitive,
       definition: primitive
         ? schemaStorage.getDefinition(primitive)
-        : schemaStorage.consumeNode(generics[0]!)
+        : schemaStorage.consumeNode(generics[0]!, [paramName, controllerPath])
     };
   }
 }

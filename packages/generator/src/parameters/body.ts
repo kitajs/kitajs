@@ -14,6 +14,7 @@ export class BodyResolver extends ParamResolver {
     route,
     generics,
     inferredType,
+    paramName,
     kita
   }: ParamData): Promise<Parameter | undefined> {
     if (route.method === 'GET') {
@@ -38,7 +39,10 @@ export class BodyResolver extends ParamResolver {
     const bodyType = generics[0]!;
 
     route.schema = deepmerge(route.schema, {
-      body: await kita.schemaStorage.consumeNode(bodyType)
+      body: await kita.schemaStorage.consumeNode(bodyType, [
+        paramName,
+        route.controllerPath
+      ])
     });
 
     return { value: `request.body as ${inferredType}` };
