@@ -75,7 +75,7 @@ export class SchemaBuilder {
       const primitive = this.toPrimitive(type);
 
       if (primitive) {
-        return this.toPrimitive(primitive);
+        return this.getDefinition(primitive);
       }
     }
 

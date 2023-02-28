@@ -9,7 +9,7 @@ export class RestRoute implements BaseRoute {
   controllerMethod: string;
   parameters: BaseParameter[];
   url: string;
-  method: string;
+  method: Uppercase<string>;
   options: string | object | undefined;
   schema: RouteSchema;
 
@@ -21,7 +21,7 @@ export class RestRoute implements BaseRoute {
     pos: ts.LineAndCharacter
   ) {
     this.controllerMethod = nodeName;
-    this.method = nodeName.toUpperCase();
+    this.method = nodeName.toUpperCase() as Uppercase<string>;
     this.controllerName = controllerName;
     this.url = url;
     this.parameters = [];

@@ -38,9 +38,9 @@ export class ChainParameterParser implements ParameterParser {
 
   parse(
     param: ts.ParameterDeclaration,
-    index: number,
     route: BaseRoute,
-    routeNode: ts.FunctionDeclaration
+    routeNode: ts.FunctionDeclaration,
+    paramIndex: number
   ): BaseParameter | Promise<BaseParameter> {
     const parser = this.cache.get(param);
 
@@ -48,6 +48,6 @@ export class ChainParameterParser implements ParameterParser {
       throw new ParameterResolverNotFound(param);
     }
 
-    return parser.parse(param, index, route, routeNode);
+    return parser.parse(param, route, routeNode, paramIndex);
   }
 }

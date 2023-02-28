@@ -15,9 +15,9 @@ export interface ParameterParser {
    */
   parse(
     param: ts.ParameterDeclaration,
-    index: number,
     route: BaseRoute,
-    routeNode: ts.FunctionDeclaration
+    routeNode: ts.FunctionDeclaration,
+    index: number,
   ): BaseParameter | Promise<BaseParameter>;
 }
 

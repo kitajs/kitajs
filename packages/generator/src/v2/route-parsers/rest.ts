@@ -1,6 +1,5 @@
 import ts from 'typescript';
 import type { KitaConfig } from '../../config';
-import type { SchemaStorage } from '../../schema-storage';
 import { applyJsDoc } from '../../util/jsdoc';
 import { isNodeExported, isTypeOnlyNode } from '../../util/node';
 import { findUrlAndController } from '../../util/string';
@@ -8,12 +7,13 @@ import type { BaseRoute } from '../bases';
 import { ParameterResolverNotFound } from '../errors';
 import type { ParameterParser, RouteParser } from '../parsers';
 import { RestRoute } from '../routes/rest';
+import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 
 export class RestRouteParser implements RouteParser {
   constructor(
     readonly config: KitaConfig,
-    readonly schemaStorage: SchemaStorage,
+    readonly schema: SchemaBuilder,
     readonly paramParser: ParameterParser
   ) {}
 
@@ -53,9 +53,9 @@ export class RestRouteParser implements RouteParser {
     {
       mergeSchema(route, {
         response: {
-          [this.config.schema.defaultResponse]: this.schemaStorage.consumeResponseType(
+          [this.config.schema.defaultResponse]: this.schema.consumeNodeSchema(
             node,
-            route.schema.operationId!
+            `${route.schema.operationId}Response`
           )
         }
       });
@@ -85,7 +85,7 @@ export class RestRouteParser implements RouteParser {
         throw new ParameterResolverNotFound(param);
       }
 
-      route.parameters[index] = await this.paramParser.parse(param, index, route, node);
+      route.parameters[index] = await this.paramParser.parse(param, route, node, index);
     }
 
     return route;

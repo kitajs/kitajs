@@ -68,7 +68,7 @@ export interface BaseRoute {
    *
    * @example `get`
    */
-  method: string;
+  method: Uppercase<string>;
 
   /**
    * A "jsonified" string for the fastify route options
