@@ -1,6 +1,6 @@
 import type ts from 'typescript';
 import type { KitaConfig } from '../../config';
-import type { BaseParameter, BaseRoute } from '../bases';
+import type { BaseParameter, BaseRoute } from '../models';
 import {
   BodyInGetRequestError,
   InvalidParameterUsageError,
@@ -12,7 +12,7 @@ import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { getParameterGenerics, getParameterName, isParamOptional } from '../util/nodes';
 
-export class BodyParameterParser implements ParameterParser {
+export class BodyPropParameterParser implements ParameterParser {
   constructor(readonly config: KitaConfig, readonly schema: SchemaBuilder) {}
 
   supports(param: ts.ParameterDeclaration): boolean | Promise<boolean> {

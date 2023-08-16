@@ -7,6 +7,6 @@
 //
 
 /** @type {import('./dist/index')} */
-module.exports = Object.freeze({});
+module.exports = require('./generated/index');
 
 // # sourceMappingURL=dist/index.js.map

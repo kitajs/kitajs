@@ -2,8 +2,9 @@ import deepmerge from 'deepmerge';
 import type * as Prettier from 'prettier';
 import type { SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
 import { KitaError } from './errors';
-import type { KitaGenerator } from './generator';
 import type { DeepPartial } from './types';
+import type { Kita } from './v2/kita';
+import type { ParameterParser, RouteParser } from './v2/parsers';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
@@ -30,29 +31,6 @@ export interface KitaConfig {
      * @default { parser: 'typescript' }
      */
     format: false | Prettier.Options | Record<string, unknown>;
-
-    /**
-     * If the generated code should include the whole ast as a KitaAST object
-     *
-     * @default false
-     */
-    exportAST: boolean;
-
-    /**
-     * If the generated code should include the resolved config object as a
-     * ResolvedConfig object
-     *
-     * @default false
-     */
-    exportConfig: boolean;
-
-    /**
-     * If the generated code should include a object with all the controllers
-     * as properties, useful for calling them manually.
-     *
-     * @default false
-     */
-    exportControllers: boolean;
   };
 
   schema: {
@@ -103,94 +81,45 @@ export interface KitaConfig {
     prefix: string;
   };
 
-  /**
-   * The parameter name and its path
-   *
-   * @default {}
-   */
-  params: Record<
-    string,
-    | string
-    | [
-        import: string,
-        config: {
-          /**
-           * Enable this to use the schema transformer. It is a exported function called `schemaTransformer` that
-           *  receives and returns a json schema object and
-           */
-          schemaTransformer?: boolean;
-        }
-      ]
-  >;
 
-  // Want more listeners? Create a PR!
-  // :)
+  providers: {
+    /**
+     * The regex to match all files to parse
+     *
+     * @default ['src/providers/⁎⁎/⁎.ts','providers/⁎⁎/⁎.ts']
+     */
+    glob: string[];
+  };
 
   /**
-   * Customize directly the kita generator, when it is created.
-   *
-   * Here you can add custom routes or custom parameters.
-   *
-   * @example
-   *
-   * ```ts
-   * module.exports = {
-   *   onCreate({ routes }) {
-   *    routes.push(new CustomRouterThatIWrote());
-   *   }
-   * }
-   * ```
+   * Here you can add custom code to be executed before the generator starts. Add listeners,
+   * modify the config, etc.
    */
-  onCreate?: (kg: KitaGenerator) => void;
+  hook?: (kita: Kita) => void | Promise<void>;
 
   /**
-   * Called when the generator finished building / updating its routes AST.
-   *
-   * You can use this to modify the AST before it gets emitted.
-   *
-   * @example
-   *
-   * ```ts
-   * module.exports = {
-   *   onAstUpdate({ ast }) {
-   *    ast.addImport(`import './custom-code`);
-   *   }
-   * }
-   * ```
+   * Use this callback to include new parameter parsers.
    */
-  onAstUpdate?: (kg: KitaGenerator) => void | Promise<void>;
+  parameterParserAugmentor?: (parser: ParameterParser) => void | Promise<void>;
 
   /**
-   * Returns a custom generator, instead of the default {@link KitaGenerator}.
-   *
-   * @example
-   *
-   * ```ts
-   * const { KitaGenerator } = require('@kitajs/generator');
-   *
-   * module.exports = {
-   *   customGenerator: class CustomGenerator extends KitaGenerator {
-   *      // ... custom code
-   *    }
-   *  }
-   * ```
+   * Use this callback to include new route parsers.
    */
-  customGenerator?: typeof KitaGenerator;
+  routeParserAugmentor?: (parser: RouteParser) => void | Promise<void>;
 }
 
 export const DefaultConfig: KitaConfig = {
-  params: {},
   tsconfig: './tsconfig.json',
   controllers: {
     glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
     prefix: '(?:.*src)?/?(?:routes/?)'
   },
+  providers: {
+    glob: ['src/providers/**/*.ts', 'providers/**/*.ts']
+  },
   routes: {
     output: './src/routes.ts',
     format: { parser: 'typescript' },
-    exportAST: false,
-    exportConfig: false,
-    exportControllers: false
   },
   schema: {
     defaultResponse: 'default',

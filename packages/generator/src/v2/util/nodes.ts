@@ -15,9 +15,7 @@ export function getParameterTypeName(param: ts.ParameterDeclaration) {
  * @param genericIndex If the provided parameter is a NodeWithTypeArguments, which generic we should use?
  */
 export function getParameterName(node: ts.ParameterDeclaration, genericIndex: number) {
-  const genericNode = (node.type as ts.NodeWithTypeArguments)?.typeArguments?.[
-    genericIndex
-  ];
+  const genericNode = (node.type as ts.NodeWithTypeArguments)?.typeArguments?.[genericIndex];
 
   // The user overridden the name of the parameter with a string literal
   if (genericNode) {
@@ -47,6 +45,35 @@ export function hasThisParameter(fn: ts.FunctionDeclaration) {
   return fn.parameters[0]?.name.getText() === 'this';
 }
 
+/**
+ * Returns true if the parameter is optional or has a initializer.
+ */
 export function isParamOptional(param: ts.ParameterDeclaration) {
   return !!param.questionToken || !!param.initializer;
+}
+
+/**
+ * Finds the return type of a declaration or creates one if it doesn't exist.
+ */
+export function getReturnType(node: ts.SignatureDeclaration, typeChecker: ts.TypeChecker) {
+  if (node.type) {
+    return node.type;
+  }
+
+  const signature = typeChecker.getSignatureFromDeclaration(node);
+  const implicitType = typeChecker.getReturnTypeOfSignature(signature!);
+
+  return typeChecker.typeToTypeNode(
+    implicitType,
+    undefined,
+    // TODO: Find documentation for what flags we should have been using
+    ts.NodeBuilderFlags.NoTruncation
+  )!;
+}
+
+/**
+ * Returns true if the provided node is a default export function.
+ */
+export function isDefaultExportFunction(node: ts.Node): node is ts.FunctionDeclaration {
+  return ts.isExportAssignment(node) && !!node.modifiers?.some(ts.isDefaultClause) && ts.isFunctionDeclaration(node);
 }

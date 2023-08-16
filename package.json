@@ -22,14 +22,14 @@
     "release": "changeset publish",
     "test": "pnpm -r --parallel test",
     "version": "changeset version",
-    "watch": "sh scripts/watch.sh",
+    "watch": " p -r --parallel build --watch",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.8",
     "@changesets/cli": "^2.26.0",
     "prettier": "^2.8.3",
-    "typescript": "^4.9.5"
+    "typescript": "^5.1.3"
   },
   "packageManager": "pnpm@7.27.0",
   "engines": {

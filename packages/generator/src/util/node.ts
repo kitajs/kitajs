@@ -1,4 +1,4 @@
-import { ts } from 'ts-json-schema-generator';
+import ts from 'typescript';
 import type { ParameterParser } from '../v2/parsers';
 
 export function getNodeSource(node: ts.Node, source = node.getSourceFile()) {

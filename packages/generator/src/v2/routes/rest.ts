@@ -1,6 +1,6 @@
 import type ts from 'typescript';
-import type { BaseParameter, BaseRoute } from '../bases';
-import type { RouteSchema } from '../schema';
+import { BaseParameter, BaseRoute } from '../models';
+import { RouteSchema } from '../schema';
 
 export class RestRoute implements BaseRoute {
   controllerName: string;
@@ -10,16 +10,10 @@ export class RestRoute implements BaseRoute {
   parameters: BaseParameter[];
   url: string;
   method: Uppercase<string>;
-  options: string | object | undefined;
+  options: string | undefined;
   schema: RouteSchema;
 
-  constructor(
-    nodeName: string,
-    url: string,
-    controllerName: string,
-    controllerPath: string,
-    pos: ts.LineAndCharacter
-  ) {
+  constructor(nodeName: string, url: string, controllerName: string, controllerPath: string, pos: ts.LineAndCharacter) {
     this.controllerMethod = nodeName;
     this.method = nodeName.toUpperCase() as Uppercase<string>;
     this.controllerName = controllerName;

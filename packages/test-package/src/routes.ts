@@ -1,7 +1,7 @@
 // This file contains hardcoded paths to controllers ans schemas.
 // It should be in your .gitignore and NOT be committed to source control.
 
-import Piscina from 'piscina';
+import Piscina from 'debug';
 
 /**
  * The filename to be used when creating a Piscina instance.

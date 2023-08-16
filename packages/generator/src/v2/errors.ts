@@ -8,64 +8,74 @@ import type ts from 'typescript';
  * class.
  */
 export abstract class KitaError extends Error {
+  /**
+   * This property can be mutated at runtime by the user to indicate that the
+   * error has been resolved or handled.
+   */
+  public suppress = false;
+
   // We may use line breaks in the code to improve readability, but we don't want
   // to show them to the user, so we remove them.
-  constructor(message: string) {
-    super(message.replace(/^\s+|\s+$/gm, ''));
+  constructor(readonly code: number, message: string) {
+    super(`${message.replace(/^\s+|\s+$/gm, '')}. kita(${code})`);
+  }
+
+  /** Removes parent property from node to avoid extensive errors */
+  protected removeParentNode(node: ts.Node) {
+    //@ts-expect-error
+    node.parent = '<redacted>';
   }
 }
 
 export class RouteResolverNotFound extends KitaError {
   constructor(readonly node: ts.Node) {
-    super(`Could not resolve a route parser for the given node`);
+    super(1, `Could not resolve a route parser for the given node`);
+    this.removeParentNode(node);
   }
 }
 
 export class ParameterResolverNotFound extends KitaError {
   constructor(readonly node: ts.ParameterDeclaration) {
-    super(`Could not resolve a parameter parser for the given node`);
+    super(2, `Could not resolve a parameter parser for the given node`);
+    this.removeParentNode(node);
   }
 }
 
 export class CannotResolveParameterError extends KitaError {
   constructor(readonly node: ts.ParameterDeclaration) {
     super(
+      3,
       `Could not resolve the 3rd parameter name because you are using a
        destructuring pattern and not providing a name through a 
        string literal`
     );
+    this.removeParentNode(node);
   }
 }
 
 export class CannotCreateNodeType extends KitaError {
   constructor(readonly node: ts.Node) {
-    super(
-      `Could not create type for node \`${
-        node.getSourceFile() ? node.getText() : '<unknown>'
-      }\``
-    );
+    super(4, `Could not create type for node \`${node.getSourceFile() ? node.getText() : '<unknown>'}\``);
+    this.removeParentNode(node);
   }
 }
 
 export class MultipleDefinitionsError extends KitaError {
   constructor(readonly typename: string) {
-    super(`Type "${typename}" has multiple definitions.`);
+    super(5, `Type "${typename}" has multiple definitions.`);
   }
 }
 
 export class BodyInGetRequestError extends KitaError {
   constructor() {
-    super(`You cannot use any Body dependent code in a GET request.`);
+    super(6, `You cannot use any Body dependent code in a GET request.`);
   }
 }
 
 export class ParameterConflictError extends KitaError {
-  constructor(
-    readonly existing: string,
-    readonly attempt: string,
-    readonly schema: unknown
-  ) {
+  constructor(readonly existing: string, readonly attempt: string, readonly schema: unknown) {
     super(
+      7,
       `You cannot use ${attempt} when ${existing} is already used in
        the same route.`
     );
@@ -74,6 +84,40 @@ export class ParameterConflictError extends KitaError {
 
 export class InvalidParameterUsageError extends KitaError {
   constructor(readonly param: string, readonly usage: string) {
-    super(`Invalid parameter usage for ${param}: ${usage}`);
+    super(8, `Invalid parameter usage for ${param}: ${usage}`);
+  }
+}
+
+export class SourceFileNotFoundError extends KitaError {
+  constructor(readonly path: string, readonly importReason?: string) {
+    super(9, `Source file not found: ${path}`);
+  }
+}
+
+export class CannotReadTsconfigError extends KitaError {
+  constructor(readonly path: string, readonly error: ts.Diagnostic) {
+    super(10, `Cannot read tsconfig file: ${path}`);
+  }
+}
+
+export class CannotParseTsconfigError extends KitaError {
+  constructor(readonly path: string, readonly errors: ts.Diagnostic[]) {
+    super(11, `Cannot parse tsconfig file: ${path}`);
+  }
+}
+
+export class DuplicateOperationIdError extends KitaError {
+  public override suppress = true;
+
+  constructor(readonly operationId: string, readonly previousPath: string, readonly duplicatePath: string) {
+    super(12, `Duplicate operationId: ${operationId}`);
+  }
+}
+
+export class DuplicateProviderType extends KitaError {
+  public override suppress = true;
+
+  constructor(readonly type: string, readonly pathA: string, readonly pathB: string) {
+    super(13, `Found duplicate provider type: ${type}`);
   }
 }

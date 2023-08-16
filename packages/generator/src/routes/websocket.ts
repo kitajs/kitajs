@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Handlebars from 'handlebars';
 import path from 'node:path';
-import { ts } from 'ts-json-schema-generator';
+import ts from 'typescript';
 import type { Node } from 'typescript';
 import { ParamResolver } from '../parameters/base';
 import type { WebsocketRoute } from '../route';

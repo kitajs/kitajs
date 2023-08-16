@@ -1,5 +1,5 @@
 import type ts from 'typescript';
-import type { BaseParameter, BaseRoute } from './bases';
+import type { BaseParameter, BaseRoute } from './models';
 
 /**
  * A parameter parser is responsible for parsing a node into a parameter.

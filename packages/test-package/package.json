@@ -6,7 +6,7 @@
   "author": "Arthur Fiorette <kita@arthur.place>",
   "main": "dist/index.js",
   "scripts": {
-    "build": "kita generate && tsc",
+    "build1": "kita generate && tsc",
     "generate": "kita generate",
     "generate:watch": "nodemon -w \"../generator/src\" -w \"./src\" -w \"../cli/src\" -e ts -x \"kita generate\" -i \"src/routes.ts\"",
     "start": "kita generate && tsc && node dist/app"

@@ -15,6 +15,7 @@ import {
   OptionalType,
   PrimitiveType,
   ReferenceType,
+  Schema,
   TupleType,
   TypeFormatter,
   UndefinedType,
@@ -67,7 +68,7 @@ export class SchemaBuilder {
   /**
    * Saves and returns a {@link ts.Node}'s respective json schema.
    */
-  consumeNodeSchema(node: ts.Node, overrideName?: string) {
+  consumeNodeSchema(node: ts.Node, overrideName?: string): Schema {
     const type = this.createTypeSchema(node);
 
     {
@@ -147,7 +148,7 @@ export class SchemaBuilder {
   /**
    * Get definition for a base type without the `#/definitions/` prefix.
    */
-  getDefinition(type: BaseType) {
+  getDefinition(type: BaseType): Schema {
     return this.formatter.getDefinition(type);
   }
 

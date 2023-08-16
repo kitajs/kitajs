@@ -1,6 +1,6 @@
 import type ts from 'typescript';
 import type { KitaConfig } from '../../config';
-import type { BaseParameter, BaseRoute } from '../bases';
+import type { BaseParameter, BaseRoute } from '../models';
 import { HeaderParameter } from '../parameters/header';
 import type { ParameterParser } from '../parsers';
 import { mergeSchema } from '../schema/helpers';

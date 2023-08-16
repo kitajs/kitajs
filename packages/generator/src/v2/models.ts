@@ -17,6 +17,23 @@ export interface BaseParameter {
    * @example `const resolved = await CustomParameterResolver.resolve(param)`
    */
   helper?: string;
+
+  /**
+   * If this parameters needs any additional imports.
+   */
+  imports?: string[];
+
+  /**
+   * Any code that needs to be executed before, to this parameter work
+   *
+   * @example CustomParameterResolver`
+   */
+  providerName?: string;
+
+  /**
+   * If this route has a schema transformer attached to it. It may or may not have a configuration
+   */
+  schemaTransformer?: boolean
 }
 
 /**
@@ -73,10 +90,34 @@ export interface BaseRoute {
   /**
    * A "jsonified" string for the fastify route options
    */
-  options: string | object | undefined;
+  options: string | undefined;
 
   /**
    * The fastify schema for this route.
    */
   schema: RouteSchema;
+}
+
+export interface BaseProvider {
+  /**
+   * The path to the provider route
+   */
+  providerPath: string;
+
+  /**
+   * If this provider has a schema transformer attached to it
+   */
+  schemaTransformer: boolean;
+
+  /**
+   * The type of the provider
+   *
+   * @example MyCustomProvider
+   */
+  type: string;
+
+  /**
+   * All possible parameters for this route.
+   */
+  parameters: BaseParameter[];
 }

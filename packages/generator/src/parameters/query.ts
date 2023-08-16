@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import { ts } from 'ts-json-schema-generator';
+import ts from 'typescript';
 import { KitaError } from '../errors';
 import type { Parameter } from '../parameter';
 import type { SchemaStorage } from '../schema-storage';

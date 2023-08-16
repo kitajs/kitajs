@@ -1,10 +1,10 @@
 import type ts from 'typescript';
-import type { BaseRoute } from '../bases';
+import type { BaseRoute } from '../models';
 import { RouteResolverNotFound } from '../errors';
 import type { RouteParser } from '../parsers';
 
 export class ChainRouteParser implements RouteParser {
-  private readonly parsers: RouteParser[] = [];
+  private readonly parsers = new Set<RouteParser>();
 
   /**
    * A simple node cache to increase the performance at parse() when getting the correct parser.
@@ -14,8 +14,8 @@ export class ChainRouteParser implements RouteParser {
   /**
    * Adds a parser to this chain.
    */
-  addParser(...parser: RouteParser[]) {
-    this.parsers.push(...parser);
+  addParser(parser: RouteParser) {
+    this.parsers.add(parser);
     return this;
   }
 

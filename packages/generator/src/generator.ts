@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { ts } from 'ts-json-schema-generator';
+import ts from 'typescript';
 import { KitaAST } from './ast';
 import type { KitaConfig } from './config';
 import { KitaError } from './errors';

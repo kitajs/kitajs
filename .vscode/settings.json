@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["Augmentor", "deepmerge", "fastify", "Fastify", "kita", "kitajs"]
+  "cSpell.words": [
+    "Augmentor",
+    "deepmerge",
+    "fastify",
+    "Fastify",
+    "kita",
+    "kitajs"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

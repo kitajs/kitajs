@@ -1,3 +1,5 @@
+import 'source-map-support/register';
+
 // Registers
 import './handlebars/helpers';
 
@@ -16,3 +18,4 @@ export * from './util/node';
 export * from './util/paths';
 export * from './util/string';
 export * from './util/tsconfig';
+export * from './v2/index';

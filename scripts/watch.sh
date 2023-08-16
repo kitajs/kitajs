@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-yarn --cwd ./packages/cli build --watch &
-yarn --cwd ./packages/runtime build --watch &
-yarn --cwd ./packages/generator build --watch &
-yarn --cwd ./packages/test-package build --watch &
-
-wait

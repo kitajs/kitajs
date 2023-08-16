@@ -3,18 +3,20 @@ import type { KitaConfig } from '../../config';
 import { applyJsDoc } from '../../util/jsdoc';
 import { isNodeExported, isTypeOnlyNode } from '../../util/node';
 import { findUrlAndController } from '../../util/string';
-import type { BaseRoute } from '../bases';
+import type { BaseRoute } from '../models';
 import { ParameterResolverNotFound } from '../errors';
 import type { ParameterParser, RouteParser } from '../parsers';
-import { RestRoute } from '../routes/rest';
 import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
+import { getReturnType } from '../util/nodes';
+import { RestRoute } from '../routes/rest';
 
 export class RestRouteParser implements RouteParser {
   constructor(
     readonly config: KitaConfig,
     readonly schema: SchemaBuilder,
-    readonly paramParser: ParameterParser
+    readonly paramParser: ParameterParser,
+    readonly typeChecker: ts.TypeChecker
   ) {}
 
   supports(node: ts.Node): boolean {
@@ -54,7 +56,7 @@ export class RestRouteParser implements RouteParser {
       mergeSchema(route, {
         response: {
           [this.config.schema.defaultResponse]: this.schema.consumeNodeSchema(
-            node,
+            getReturnType(node, this.typeChecker),
             `${route.schema.operationId}Response`
           )
         }

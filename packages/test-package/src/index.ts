@@ -37,6 +37,10 @@ app.register(require('@fastify/swagger'), {
   }
 });
 
+app.decorate(
+  
+)
+
 app.register(require('@fastify/swagger-ui'), {
   routePrefix: '/',
   staticCSP: true,

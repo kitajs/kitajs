@@ -1,5 +1,5 @@
 import path from 'path';
-import { ts } from 'ts-json-schema-generator';
+import ts from 'typescript';
 import { KitaError } from '../errors';
 
 export function readCompilerOptions(tsconfigPath: string) {

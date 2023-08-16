@@ -1,4 +1,4 @@
-import type { BaseParameter } from '../bases';
+import type { BaseParameter } from '../models';
 import { kRequestParam } from '../constants';
 import { buildAccessProperty } from '../util/syntax';
 

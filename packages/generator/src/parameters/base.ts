@@ -1,4 +1,4 @@
-import { ts } from 'ts-json-schema-generator';
+import ts from 'typescript';
 import type { KitaConfig } from '../config';
 import { KitaError } from '../errors';
 import type { KitaGenerator } from '../generator';

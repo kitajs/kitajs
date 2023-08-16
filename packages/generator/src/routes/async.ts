@@ -2,7 +2,7 @@ import deepmerge from 'deepmerge';
 import fs from 'fs';
 import Handlebars from 'handlebars';
 import path from 'node:path';
-import { ts } from 'ts-json-schema-generator';
+import ts from 'typescript';
 import { KitaError } from '../errors';
 import { ParamResolver } from '../parameters/base';
 import type { AsyncRoute } from '../route';

@@ -1,10 +1,10 @@
 import type ts from 'typescript';
-import type { BaseParameter, BaseRoute } from '../bases';
+import type { BaseParameter, BaseRoute } from '../models';
 import { ParameterResolverNotFound } from '../errors';
 import type { ParameterParser } from '../parsers';
 
 export class ChainParameterParser implements ParameterParser {
-  private readonly parsers: ParameterParser[] = [];
+  private readonly parsers = new Set<ParameterParser>();
 
   /**
    * A simple node cache to increase the performance at parse() when getting the correct parser
@@ -14,8 +14,8 @@ export class ChainParameterParser implements ParameterParser {
   /**
    * Adds a parser to this chain.
    */
-  addParser(...parsers: ParameterParser[]) {
-    this.parsers.push(...parsers);
+  addParser(parser: ParameterParser) {
+    this.parsers.add(parser);
     return this;
   }
 

@@ -1,11 +1,11 @@
 import deepmerge from 'deepmerge';
 import type { TypeFormatter } from 'ts-json-schema-generator';
-import type { BaseRoute } from '../bases';
+import type { BaseRoute } from '../models';
 
 /**
  * Combines a route schema with a new schema.
  */
-export function mergeSchema(route: BaseRoute, schema: BaseRoute['schema']) {
+export function mergeSchema(route: BaseRoute, schema: Partial<BaseRoute['schema']>) {
   route.schema = deepmerge(route.schema, schema);
 }
 
