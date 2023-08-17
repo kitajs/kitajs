@@ -2,6 +2,7 @@ import type ts from 'typescript';
 import type { BaseRoute } from '../models';
 import { RouteResolverNotFound } from '../errors';
 import type { RouteParser } from '../parsers';
+import { toPrettySource } from '../util/nodes';
 
 export class ChainRouteParser implements RouteParser {
   private readonly parsers = new Set<RouteParser>();
@@ -40,7 +41,7 @@ export class ChainRouteParser implements RouteParser {
     const parser = this.cache.get(node);
 
     if (!parser) {
-      throw new RouteResolverNotFound(node);
+      throw new RouteResolverNotFound(toPrettySource(node));
     }
 
     return parser.parse(node);

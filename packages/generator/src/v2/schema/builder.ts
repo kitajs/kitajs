@@ -26,6 +26,7 @@ import type ts from 'typescript';
 import type { KitaConfig } from '../../config';
 import { CannotCreateNodeType, MultipleDefinitionsError } from '../errors';
 import { correctFormatterChildrenOrder, removeFormatterDefinitions } from './helpers';
+import { toPrettySource } from '../util/nodes';
 
 export class SchemaBuilder {
   /** All definitions read from this schema builder */
@@ -61,7 +62,7 @@ export class SchemaBuilder {
     try {
       return this.parser.createType(node, new Context(node));
     } catch (error) {
-      throw new CannotCreateNodeType(node);
+      throw new CannotCreateNodeType(toPrettySource(node));
     }
   }
 

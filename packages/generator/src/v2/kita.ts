@@ -38,13 +38,17 @@ export class Kita extends (EventEmitter as new () => TypedEmitter<KitaEvents>) {
 
       // Typescript program
       this.compilerOptions = readCompilerOptions(tsconfig);
-      this.program = ts.createProgram(this.controllerPaths, this.compilerOptions);
+      this.program = ts.createProgram(
+        // Adds both providers and controllers
+        this.controllerPaths.concat(this.providerPaths),
+        this.compilerOptions
+      );
 
       // Json schema
       this.schemaBuilder = new SchemaBuilder(config, this.program);
 
       // Parsing
-      this.parameterParser = buildParameterParser(config, this.schemaBuilder);
+      this.parameterParser = buildParameterParser(config, this.schemaBuilder, this);
       this.routeParser = buildRouteParser(
         config,
         this.schemaBuilder,
@@ -102,12 +106,12 @@ export class Kita extends (EventEmitter as new () => TypedEmitter<KitaEvents>) {
     return routes;
   }
 
-  public buildProviders() {
+  public async buildProviders() {
     const sources = this.traverser.findSources(this.providerPaths);
 
     for (const source of sources) {
       try {
-        const provider = parseProvider(source);
+        const provider = await parseProvider(source, this.parameterParser);
 
         // Handle duplicate provider types
         if (this.providers.has(provider.type)) {
@@ -126,6 +130,8 @@ export class Kita extends (EventEmitter as new () => TypedEmitter<KitaEvents>) {
         this.handle(error);
       }
     }
+
+    return this.providers;
   }
 
   /**

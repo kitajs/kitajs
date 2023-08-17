@@ -13,6 +13,9 @@ import { mergeSchema } from '../schema/helpers';
 import { getParameterGenerics, getParameterName, isParamOptional } from '../util/nodes';
 
 export class BodyPropParameterParser implements ParameterParser {
+  /** Only on known routes */
+  agnostic = false;
+
   constructor(readonly config: KitaConfig, readonly schema: SchemaBuilder) {}
 
   supports(param: ts.ParameterDeclaration): boolean | Promise<boolean> {

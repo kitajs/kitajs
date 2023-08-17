@@ -17,46 +17,36 @@ export abstract class KitaError extends Error {
   // We may use line breaks in the code to improve readability, but we don't want
   // to show them to the user, so we remove them.
   constructor(readonly code: number, message: string) {
-    super(`${message.replace(/^\s+|\s+$/gm, '')}. kita(${code})`);
-  }
-
-  /** Removes parent property from node to avoid extensive errors */
-  protected removeParentNode(node: ts.Node) {
-    //@ts-expect-error
-    node.parent = '<redacted>';
+    super(message.replace(/^\s+|\s+$/gm, ''));
   }
 }
 
 export class RouteResolverNotFound extends KitaError {
-  constructor(readonly node: ts.Node) {
+  constructor(readonly path: string) {
     super(1, `Could not resolve a route parser for the given node`);
-    this.removeParentNode(node);
   }
 }
 
 export class ParameterResolverNotFound extends KitaError {
-  constructor(readonly node: ts.ParameterDeclaration) {
+  constructor(readonly path: string) {
     super(2, `Could not resolve a parameter parser for the given node`);
-    this.removeParentNode(node);
   }
 }
 
 export class CannotResolveParameterError extends KitaError {
-  constructor(readonly node: ts.ParameterDeclaration) {
+  constructor(readonly path: string) {
     super(
       3,
-      `Could not resolve the 3rd parameter name because you are using a
+      `Could not resolve the parameter name because you are using a
        destructuring pattern and not providing a name through a 
        string literal`
     );
-    this.removeParentNode(node);
   }
 }
 
 export class CannotCreateNodeType extends KitaError {
-  constructor(readonly node: ts.Node) {
-    super(4, `Could not create type for node \`${node.getSourceFile() ? node.getText() : '<unknown>'}\``);
-    this.removeParentNode(node);
+  constructor(readonly path: string) {
+    super(4, 'Could not create type node for specified type');
   }
 }
 
@@ -107,17 +97,50 @@ export class CannotParseTsconfigError extends KitaError {
 }
 
 export class DuplicateOperationIdError extends KitaError {
-  public override suppress = true;
-
   constructor(readonly operationId: string, readonly previousPath: string, readonly duplicatePath: string) {
     super(12, `Duplicate operationId: ${operationId}`);
   }
 }
 
 export class DuplicateProviderType extends KitaError {
-  public override suppress = true;
-
   constructor(readonly type: string, readonly pathA: string, readonly pathB: string) {
     super(13, `Found duplicate provider type: ${type}`);
+  }
+}
+
+export class NoProviderExported extends KitaError {
+  constructor(readonly path: string) {
+    super(
+      14,
+      `No default function exported at ${path}. You must export a default
+      function on every file matching the provider glob.`
+    );
+  }
+}
+
+export class UntypedProvider extends KitaError {
+  constructor(readonly path: string) {
+    super(
+      15,
+      `
+      The default export at ${path} needs to have a return type declared.
+    `
+    );
+  }
+}
+
+export class UntypedPromise extends KitaError {
+  constructor(readonly path: string) {
+    super(16, `You cannot use an untyped promise as a return type at ${path}.`);
+  }
+}
+
+export class AgnosticRouteConflict extends KitaError {
+  constructor(readonly path: string) {
+    super(
+      17,
+      `You cannot use dependent routes within agnostic contexts. You are
+       probably using an unsupported route parameter within a provider.`
+    );
   }
 }

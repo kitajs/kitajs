@@ -1,4 +1,3 @@
-import { kReplyParam, kRequestParam } from '../constants';
 import type { BaseParameter, BaseProvider } from '../models';
 import { format } from '../util/generation';
 import { joinParameters } from '../util/syntax';
@@ -22,10 +21,7 @@ export class CustomParameter implements BaseParameter {
 
     this.helper = format(/* ts */ `
       ${joinParameters(provider.parameters)}
-
-      const ${this.value} = await ${this.providerName}(${kRequestParam}, ${kReplyParam}${provider.parameters
-      .map((p) => p.value)
-      .join(',')});
+      const ${this.value} = await ${this.providerName}(${provider.parameters.map((p) => p.value).join(',')});
     `);
   }
 }

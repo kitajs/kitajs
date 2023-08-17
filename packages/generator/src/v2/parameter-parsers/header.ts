@@ -7,6 +7,9 @@ import { mergeSchema } from '../schema/helpers';
 import { getParameterName, isParamOptional } from '../util/nodes';
 
 export class HeaderParameterParser implements ParameterParser {
+  /** Headers are present in every type of request */
+  agnostic = false;
+
   constructor(readonly config: KitaConfig) {}
 
   supports(param: ts.ParameterDeclaration): boolean | Promise<boolean> {

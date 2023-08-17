@@ -33,7 +33,7 @@ export interface BaseParameter {
   /**
    * If this route has a schema transformer attached to it. It may or may not have a configuration
    */
-  schemaTransformer?: boolean
+  schemaTransformer?: boolean;
 }
 
 /**
@@ -115,6 +115,11 @@ export interface BaseProvider {
    * @example MyCustomProvider
    */
   type: string;
+
+  /**
+   * If this provider is async
+   */
+  async: boolean;
 
   /**
    * All possible parameters for this route.

@@ -4,5 +4,5 @@
     "outDir": "./dist",
     "noUnusedParameters": false
   },
-  "include": ["src", "routes.ts", "routes.ts"]
+  "include": ["src"]
 }

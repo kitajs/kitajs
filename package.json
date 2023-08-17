@@ -22,7 +22,7 @@
     "release": "changeset publish",
     "test": "pnpm -r --parallel test",
     "version": "changeset version",
-    "watch": " p -r --parallel build --watch",
+    "watch": "pnpm -r --parallel build --watch",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {

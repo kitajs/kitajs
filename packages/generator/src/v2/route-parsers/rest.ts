@@ -3,13 +3,13 @@ import type { KitaConfig } from '../../config';
 import { applyJsDoc } from '../../util/jsdoc';
 import { isNodeExported, isTypeOnlyNode } from '../../util/node';
 import { findUrlAndController } from '../../util/string';
-import type { BaseRoute } from '../models';
 import { ParameterResolverNotFound } from '../errors';
+import type { BaseRoute } from '../models';
 import type { ParameterParser, RouteParser } from '../parsers';
+import { RestRoute } from '../routes/rest';
 import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
-import { getReturnType } from '../util/nodes';
-import { RestRoute } from '../routes/rest';
+import { getReturnType, toPrettySource } from '../util/nodes';
 
 export class RestRouteParser implements RouteParser {
   constructor(
@@ -84,7 +84,7 @@ export class RestRouteParser implements RouteParser {
       const supports = await this.paramParser.supports(param);
 
       if (!supports) {
-        throw new ParameterResolverNotFound(param);
+        throw new ParameterResolverNotFound(  toPrettySource(param));
       }
 
       route.parameters[index] = await this.paramParser.parse(param, route, node, index);

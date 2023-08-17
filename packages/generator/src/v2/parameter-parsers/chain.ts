@@ -1,9 +1,13 @@
 import type ts from 'typescript';
+import { AgnosticRouteConflict, ParameterResolverNotFound } from '../errors';
 import type { BaseParameter, BaseRoute } from '../models';
-import { ParameterResolverNotFound } from '../errors';
 import type { ParameterParser } from '../parsers';
+import { toPrettySource } from '../util/nodes';
 
 export class ChainParameterParser implements ParameterParser {
+  /** Chain will always be agnostic, since it does nothing by its own */
+  agnostic = true;
+
   private readonly parsers = new Set<ParameterParser>();
 
   /**
@@ -38,14 +42,18 @@ export class ChainParameterParser implements ParameterParser {
 
   parse(
     param: ts.ParameterDeclaration,
-    route: BaseRoute,
+    route: BaseRoute | null,
     routeNode: ts.FunctionDeclaration,
     paramIndex: number
   ): BaseParameter | Promise<BaseParameter> {
     const parser = this.cache.get(param);
 
     if (!parser) {
-      throw new ParameterResolverNotFound(param);
+      throw new ParameterResolverNotFound( toPrettySource(param));
+    }
+
+    if (!parser.agnostic && !route) {
+      throw new AgnosticRouteConflict( toPrettySource(param));
     }
 
     return parser.parse(param, route, routeNode, paramIndex);

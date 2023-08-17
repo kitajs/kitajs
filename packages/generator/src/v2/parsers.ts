@@ -6,18 +6,26 @@ import type { BaseParameter, BaseRoute } from './models';
  */
 export interface ParameterParser {
   /**
+   * If this parser supports every type of router.
+   * This means that it can be resolved into another side functions, like providers.
+   */
+  agnostic: boolean;
+
+  /**
    * If this parser supports the given node.
    */
   supports(param: ts.ParameterDeclaration): boolean | Promise<boolean>;
 
   /**
    * Parses the given node into de desired result.
+   * 
+   * @param route The route that this parameter belongs to or null if it's {@link agnostic}
    */
   parse(
     param: ts.ParameterDeclaration,
-    route: BaseRoute,
+    route: BaseRoute | null,
     routeNode: ts.FunctionDeclaration,
-    index: number,
+    index: number
   ): BaseParameter | Promise<BaseParameter>;
 }
 

@@ -19,3 +19,5 @@ export * from './util/paths';
 export * from './util/string';
 export * from './util/tsconfig';
 export * from './v2/index';
+
+export * as V2 from './v2'
