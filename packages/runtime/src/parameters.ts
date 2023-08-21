@@ -31,9 +31,7 @@ export type Path<
  * ```
  */
 //@ts-ignore - may not be used / present
-export type Cookie<Name extends string, Type extends Native = string> =
-  | string
-  | undefined;
+export type Cookie<Name extends string, Type extends Native = string> = string | undefined;
 
 /**
  * - Cannot be used with {@link BodyProp}.
@@ -84,9 +82,7 @@ export type BodyProp<Type, Path extends string = string> = Type;
 export type Query<
   Type extends ShallowNative<Type> = string,
   //@ts-ignore unused
-  Name extends Type extends Native | Native[]
-    ? string
-    : 'Cannot use name on complex types' = any
+  Name extends Type extends Native | Native[] ? string : 'Cannot use name on complex types' = any
 > = Type;
 
 /**

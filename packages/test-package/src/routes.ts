@@ -201,13 +201,10 @@ export const Kita = fp<{ piscina: Piscina }>(
         }
 
         return _name_Controller.put(
-          (request.params as { ['name']: Parameters<typeof _name_Controller.put>[0] })[
-            'name'
-          ],
+          (request.params as { ['name']: Parameters<typeof _name_Controller.put>[0] })['name'],
           request.cookies?.cookie,
           (request.body as { ['path']: Parameters<typeof _name_Controller.put>[2] }).path,
-          (request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] })
-            .bodyProp,
+          (request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] }).bodyProp,
           (
             request.query as {
               ['paramQuery']: Parameters<typeof _name_Controller.put>[4];
@@ -265,9 +262,7 @@ export const Kita = fp<{ piscina: Piscina }>(
         }
 
         return _name_Controller.post(
-          (request.params as { ['name']: Parameters<typeof _name_Controller.post>[0] })[
-            'name'
-          ],
+          (request.params as { ['name']: Parameters<typeof _name_Controller.post>[0] })['name'],
           request.cookies?.cookie,
           request.body as Parameters<typeof _name_Controller.post>[2],
           request.query as Parameters<typeof _name_Controller.post>[3],
@@ -318,9 +313,7 @@ export const Kita = fp<{ piscina: Piscina }>(
       //@ts-ignore - we may have unused params
       async (request, reply) => {
         return HelloWorldController.get(
-          (
-            request.query as { ['name']?: Parameters<typeof HelloWorldController.get>[0] }
-          )['name']
+          (request.query as { ['name']?: Parameters<typeof HelloWorldController.get>[0] })['name']
         );
       }
     );
@@ -375,9 +368,7 @@ export const Kita = fp<{ piscina: Piscina }>(
       },
       //@ts-ignore - we may have unused params
       async (request, reply) => {
-        return PrimitiveTypesController.get(
-          request.query as Parameters<typeof PrimitiveTypesController.get>[0]
-        );
+        return PrimitiveTypesController.get(request.query as Parameters<typeof PrimitiveTypesController.get>[0]);
       }
     );
 
@@ -393,9 +384,7 @@ export const Kita = fp<{ piscina: Piscina }>(
       },
       //@ts-ignore - we may have unused params
       async (request, reply) => {
-        return ResponseTypesController.Get(
-          request.query as Parameters<typeof ResponseTypesController.Get>[0]
-        );
+        return ResponseTypesController.Get(request.query as Parameters<typeof ResponseTypesController.Get>[0]);
       }
     );
 
@@ -412,9 +401,7 @@ export const Kita = fp<{ piscina: Piscina }>(
       },
       //@ts-ignore - we may have unused params
       async (request, reply) => {
-        return ResponseTypesController.Post(
-          request.query as Parameters<typeof ResponseTypesController.Post>[0]
-        );
+        return ResponseTypesController.Post(request.query as Parameters<typeof ResponseTypesController.Post>[0]);
       }
     );
 
@@ -430,9 +417,7 @@ export const Kita = fp<{ piscina: Piscina }>(
       },
       //@ts-ignore - we may have unused params
       async (request, reply) => {
-        return ResponseTypesController.Put(
-          request.query as Parameters<typeof ResponseTypesController.Put>[0]
-        );
+        return ResponseTypesController.Put(request.query as Parameters<typeof ResponseTypesController.Put>[0]);
       }
     );
 
@@ -448,9 +433,7 @@ export const Kita = fp<{ piscina: Piscina }>(
       },
       //@ts-ignore - we may have unused params
       async (request, reply) => {
-        return ResponseTypesController.Delete(
-          request.query as Parameters<typeof ResponseTypesController.Delete>[0]
-        );
+        return ResponseTypesController.Delete(request.query as Parameters<typeof ResponseTypesController.Delete>[0]);
       }
     );
   },
@@ -516,11 +499,11 @@ export const ResolvedConfig = {
   }
 } as KitaConfig;
 
+export * as _name_Controller from './routes/[name]';
 export * as AsyncController from './routes/async';
 export * as HelloWorldController from './routes/hello-world';
 export * as PrimitiveTypesController from './routes/primitive-types';
 export * as ResponseTypesController from './routes/response-types';
-export * as _name_Controller from './routes/[name]';
 
 /**
  * The extracted data from your controllers and configurations for this template hydration.
@@ -586,25 +569,20 @@ export const KitaAST = {
       controllerPath: 'src/routes/[name].ts:16',
       parameters: [
         {
-          value:
-            "(request.params as { ['name']: Parameters<typeof _name_Controller.put>[0] })['name']"
+          value: "(request.params as { ['name']: Parameters<typeof _name_Controller.put>[0] })['name']"
         },
         { value: 'request.cookies?.cookie' },
         {
-          value:
-            "(request.body as { ['path']: Parameters<typeof _name_Controller.put>[2] }).path"
+          value: "(request.body as { ['path']: Parameters<typeof _name_Controller.put>[2] }).path"
         },
         {
-          value:
-            "(request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] }).bodyProp"
+          value: "(request.body as { ['bodyProp']: Parameters<typeof _name_Controller.put>[3] }).bodyProp"
         },
         {
-          value:
-            "(request.query as { ['paramQuery']: Parameters<typeof _name_Controller.put>[4] })['paramQuery']"
+          value: "(request.query as { ['paramQuery']: Parameters<typeof _name_Controller.put>[4] })['paramQuery']"
         },
         {
-          value:
-            "(request.query as { ['typedQuery']: Parameters<typeof _name_Controller.put>[5] })['typedQuery']"
+          value: "(request.query as { ['typedQuery']: Parameters<typeof _name_Controller.put>[5] })['typedQuery']"
         },
         {
           value:
@@ -660,8 +638,7 @@ export const KitaAST = {
       controllerPath: 'src/routes/[name].ts:43',
       parameters: [
         {
-          value:
-            "(request.params as { ['name']: Parameters<typeof _name_Controller.post>[0] })['name']"
+          value: "(request.params as { ['name']: Parameters<typeof _name_Controller.post>[0] })['name']"
         },
         { value: 'request.cookies?.cookie' },
         { value: 'request.body as Parameters<typeof _name_Controller.post>[2]' },
@@ -730,8 +707,7 @@ export const KitaAST = {
       controllerPath: 'src/routes/hello-world.ts:4',
       parameters: [
         {
-          value:
-            "(request.query as { ['name']?: Parameters<typeof HelloWorldController.get>[0] })['name']"
+          value: "(request.query as { ['name']?: Parameters<typeof HelloWorldController.get>[0] })['name']"
         }
       ],
       schema: {
@@ -756,12 +732,10 @@ export const KitaAST = {
       parameters: [
         { value: 'request.body as Parameters<typeof PrimitiveTypesController.post>[0]' },
         {
-          value:
-            "(request.query as { ['param']: Parameters<typeof PrimitiveTypesController.post>[1] })['param']"
+          value: "(request.query as { ['param']: Parameters<typeof PrimitiveTypesController.post>[1] })['param']"
         },
         {
-          value:
-            "(request.query as { ['parm2']: Parameters<typeof PrimitiveTypesController.post>[2] })['parm2']"
+          value: "(request.query as { ['parm2']: Parameters<typeof PrimitiveTypesController.post>[2] })['parm2']"
         }
       ],
       schema: {
@@ -787,9 +761,7 @@ export const KitaAST = {
       controllerName: 'PrimitiveTypesController',
       url: '/primitive-types',
       controllerPath: 'src/routes/primitive-types.ts:13',
-      parameters: [
-        { value: '(request.query as Parameters<typeof PrimitiveTypesController.get>[0])' }
-      ],
+      parameters: [{ value: '(request.query as Parameters<typeof PrimitiveTypesController.get>[0])' }],
       schema: {
         operationId: 'PrimitiveTypesControllerGet',
         response: { default: { type: 'boolean' } },
@@ -805,9 +777,7 @@ export const KitaAST = {
       controllerName: 'ResponseTypesController',
       url: '/response-types',
       controllerPath: 'src/routes/response-types.ts:6',
-      parameters: [
-        { value: '(request.query as Parameters<typeof ResponseTypesController.Get>[0])' }
-      ],
+      parameters: [{ value: '(request.query as Parameters<typeof ResponseTypesController.Get>[0])' }],
       schema: {
         operationId: 'withTypedPromiseResponse',
         response: { default: { $ref: 'ResponseTypesControllerGetResponse' } },
@@ -824,9 +794,7 @@ export const KitaAST = {
       controllerName: 'ResponseTypesController',
       url: '/response-types',
       controllerPath: 'src/routes/response-types.ts:16',
-      parameters: [
-        { value: '(request.query as Parameters<typeof ResponseTypesController.Post>[0])' }
-      ],
+      parameters: [{ value: '(request.query as Parameters<typeof ResponseTypesController.Post>[0])' }],
       schema: {
         operationId: 'withInferredResponse',
         response: { default: { $ref: 'ResponseTypesControllerPostResponse' } },
@@ -844,9 +812,7 @@ export const KitaAST = {
       controllerName: 'ResponseTypesController',
       url: '/response-types',
       controllerPath: 'src/routes/response-types.ts:28',
-      parameters: [
-        { value: '(request.query as Parameters<typeof ResponseTypesController.Put>[0])' }
-      ],
+      parameters: [{ value: '(request.query as Parameters<typeof ResponseTypesController.Put>[0])' }],
       schema: {
         operationId: 'withPromiseTypeAlias',
         response: { default: { $ref: 'PR' } },

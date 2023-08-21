@@ -1,11 +1,7 @@
 import type ts from 'typescript';
 import type { KitaConfig } from '../config';
+import { BodyInGetRequestError, InvalidParameterUsageError, ParameterConflictError } from '../errors';
 import type { BaseParameter, BaseRoute } from '../models';
-import {
-  BodyInGetRequestError,
-  InvalidParameterUsageError,
-  ParameterConflictError
-} from '../errors';
 import { BodyPropParameter } from '../parameters/body-prop';
 import type { ParameterParser } from '../parsers';
 import type { SchemaBuilder } from '../schema/builder';
@@ -35,10 +31,7 @@ export class BodyPropParameterParser implements ParameterParser {
     const [type] = getParameterGenerics(param);
 
     if (!type) {
-      throw new InvalidParameterUsageError(
-        'BodyProp',
-        'You must specify a type for the BodyProp parameter.'
-      );
+      throw new InvalidParameterUsageError('BodyProp', 'You must specify a type for the BodyProp parameter.');
     }
 
     const name = getParameterName(param, 1);

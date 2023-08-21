@@ -19,11 +19,11 @@
     "build": "pnpm -r --parallel build",
     "docs": "cd packages/docs && pnpm dev",
     "format": "prettier --write .",
+    "preinstall": "npx only-allow pnpm",
     "release": "changeset publish",
     "test": "pnpm -r --parallel test",
     "version": "changeset version",
-    "watch": "pnpm -r --parallel build --watch",
-    "preinstall": "npx only-allow pnpm"
+    "watch": "pnpm -r --parallel build --watch"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.8",

@@ -7,10 +7,7 @@ const { version } = require('../package.json');
 
 // process.on('unhandledRejection', catchKitaError);
 
-program
-  .name('kita')
-  .version(version, '-v, --version')
-  .description('The CLI tool for generating Kita typescript code.');
+program.name('kita').version(version, '-v, --version').description('The CLI tool for generating Kita typescript code.');
 
 // program
 //   .command('generate')
@@ -30,6 +27,6 @@ program
 //   .option('-c, --config <path>', 'The path to the config file', 'kita.config.js')
 //   .action(run);
 
-program.command('dev').action(dev)
+program.command('dev').action(dev);
 
 program.parse();

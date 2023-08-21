@@ -25,8 +25,8 @@ import {
 import type ts from 'typescript';
 import type { KitaConfig } from '../config';
 import { CannotCreateNodeTypeError, MultipleDefinitionsError } from '../errors';
-import { correctFormatterChildrenOrder, removeFormatterDefinitions } from './helpers';
 import { toPrettySource } from '../util/nodes';
+import { correctFormatterChildrenOrder, removeFormatterDefinitions } from './helpers';
 
 export class SchemaBuilder {
   /** All definitions read from this schema builder */
@@ -108,11 +108,7 @@ export class SchemaBuilder {
     }
 
     // Type wrappers
-    if (
-      type instanceof DefinitionType ||
-      type instanceof ReferenceType ||
-      type instanceof AliasType
-    ) {
+    if (type instanceof DefinitionType || type instanceof ReferenceType || type instanceof AliasType) {
       return this.toPrimitive(type.getType());
     }
 

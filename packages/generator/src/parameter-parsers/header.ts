@@ -16,10 +16,7 @@ export class HeaderParameterParser implements ParameterParser {
     return param.type?.getFirstToken()?.getText() === 'Header';
   }
 
-  parse(
-    param: ts.ParameterDeclaration,
-    route: BaseRoute
-  ): BaseParameter | Promise<BaseParameter> {
+  parse(param: ts.ParameterDeclaration, route: BaseRoute): BaseParameter | Promise<BaseParameter> {
     const name = getParameterName(param, 0);
     const optional = isParamOptional(param);
 

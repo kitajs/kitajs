@@ -1,10 +1,7 @@
 import type { BodyProp } from '@kitajs/runtime';
 import { KitaTestBuilder } from '../../builder';
 
-export function post(
-  body: BodyProp<{ name: string; age: number }>,
-  named?: BodyProp<string, 'name'>
-) {
+export function post(body: BodyProp<{ name: string; age: number }>, named?: BodyProp<string, 'name'>) {
   return `Hello ${body.name || named}!`;
 }
 
@@ -25,7 +22,7 @@ describe('body prop tests', () => {
         name: { type: 'string' },
         age: { type: 'number' }
       },
-      required: ['name', 'age'],
+      required: ['name', 'age']
     });
 
     expect(post.schema.body).toStrictEqual({
@@ -34,7 +31,7 @@ describe('body prop tests', () => {
         body: { $ref: body.$id },
         name: { type: 'string' }
       },
-      required: ['body'],
+      required: ['body']
     });
   });
 });

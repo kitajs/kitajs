@@ -51,7 +51,7 @@ export type ChainParser<T> = T & {
   /**
    * A simple node cache to increase the performance at parse() when getting the correct parser. You shouldn't need to
    * use this directly.
-   * 
+   *
    * @internal
    */
   readonly cache: WeakMap<object, T>;

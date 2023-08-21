@@ -53,9 +53,7 @@ describe('should parse name and age correctly', () => {
   it.concurrent('ensures correct schema definition', async () => {
     const { KitaAST } = await test;
 
-    const queryGetSchema = KitaAST.schemas.find(
-      (s) => s.$id === 'ParametersPath_age__name_ControllerGetResponse'
-    )!;
+    const queryGetSchema = KitaAST.schemas.find((s) => s.$id === 'ParametersPath_age__name_ControllerGetResponse')!;
 
     expect(queryGetSchema).toBeDefined();
     expect(queryGetSchema).toStrictEqual({
@@ -66,9 +64,7 @@ describe('should parse name and age correctly', () => {
       additionalProperties: false
     });
 
-    const queryPostSchema = KitaAST.schemas.find(
-      (s) => s.$id === 'ParametersPath_age__name_ControllerPostResponse'
-    )!;
+    const queryPostSchema = KitaAST.schemas.find((s) => s.$id === 'ParametersPath_age__name_ControllerPostResponse')!;
 
     expect(queryPostSchema).toBeDefined();
     expect(queryPostSchema).toStrictEqual({

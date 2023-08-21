@@ -40,9 +40,7 @@ describe('should warn about deep query objects', () => {
       }
     });
 
-    const response = KitaAST.schemas.find(
-      (s) => s.$id === 'ParametersQueryDeepControllerGetResponse'
-    )!;
+    const response = KitaAST.schemas.find((s) => s.$id === 'ParametersQueryDeepControllerGetResponse')!;
 
     expect(response).toBeDefined();
     expect(response).toMatchObject({
@@ -71,9 +69,7 @@ describe('should warn about deep query objects', () => {
       default: { $ref: 'ParametersQueryDeepControllerPostResponse' }
     });
 
-    const response = KitaAST.schemas.find(
-      (s) => s.$id === 'ParametersQueryDeepControllerPostResponse'
-    )!;
+    const response = KitaAST.schemas.find((s) => s.$id === 'ParametersQueryDeepControllerPostResponse')!;
 
     expect(postRoute.schema.response).toBeDefined();
 

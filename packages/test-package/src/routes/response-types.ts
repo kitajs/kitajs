@@ -25,10 +25,7 @@ export async function Post(
 export type PR = Promise<{ c: string }>;
 
 /** @tag Response Test */
-export async function Put(
-  this: Route<'withPromiseTypeAlias'>,
-  { age, name }: Query<HelloWorldQuery>
-): PR {
+export async function Put(this: Route<'withPromiseTypeAlias'>, { age, name }: Query<HelloWorldQuery>): PR {
   return {
     c: hello(name, age)
   };
@@ -37,10 +34,7 @@ export async function Put(
 export type DR = { d: string };
 
 /** @tag Response Test */
-export async function Delete(
-  this: Route<'withTypeAliasPromise'>,
-  { age, name }: Query<HelloWorldQuery>
-): Promise<DR> {
+export async function Delete(this: Route<'withTypeAliasPromise'>, { age, name }: Query<HelloWorldQuery>): Promise<DR> {
   return {
     d: hello(name, age)
   };

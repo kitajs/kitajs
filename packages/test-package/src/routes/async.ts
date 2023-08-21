@@ -1,6 +1,6 @@
 import type { AsyncRoute, Route } from '@kitajs/runtime';
-import { isMainThread } from 'worker_threads';
 import Piscina from 'piscina';
+import { isMainThread } from 'worker_threads';
 
 export function get(this: AsyncRoute<'asyncTest'>) {
   console.log({ isMainThread, isWorkerThread: Piscina.isWorkerThread });

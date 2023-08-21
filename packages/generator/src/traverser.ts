@@ -18,8 +18,6 @@ export class AstTraverser {
       );
   }
 
- 
-
   /**
    * Attempts to find each controller his respective source file.
    */

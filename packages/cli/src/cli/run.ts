@@ -2,8 +2,7 @@ import { importConfig, Kita } from '@kitajs/generator';
 import path from 'node:path';
 
 export async function run(options: Record<string, any>) {
-  const configPath =
-    process.env.KITA_CONFIG || path.resolve(process.cwd(), options.config);
+  const configPath = process.env.KITA_CONFIG || path.resolve(process.cwd(), options.config);
 
   const root = path.dirname(configPath);
   const config = importConfig(configPath);

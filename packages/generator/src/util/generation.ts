@@ -33,6 +33,6 @@ export function join<I>(items: I[], mapper: (t: I) => string, filter?: (t: I) =>
 /**
  * Render a code block if a condition is true.
  */
-export function If(check: unknown, truthy: string | undefined = undefined, falsy = ''):string {
+export function If(check: unknown, truthy: string | undefined = undefined, falsy = ''): string {
   return check ? truthy ?? String(check) : falsy;
 }

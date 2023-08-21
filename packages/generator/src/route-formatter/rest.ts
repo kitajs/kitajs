@@ -2,7 +2,7 @@ import { kReplyParam, kRequestParam } from '../constants';
 import type { RouteFormatter } from '../formatters';
 import type { BaseRoute } from '../models';
 import { RestRoute } from '../routes/rest';
-import { format, If, join } from '../util/generation';
+import { If, format, join } from '../util/generation';
 import { joinParameters } from '../util/syntax';
 
 export class RestRouteFormatter implements RouteFormatter {

@@ -1,4 +1,4 @@
-import { Kita,  mergeDefaults } from '@kitajs/generator';
+import { Kita, mergeDefaults } from '@kitajs/generator';
 
 export async function dev() {
   const kita = new Kita(

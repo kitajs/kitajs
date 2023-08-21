@@ -33,9 +33,7 @@ describe('this options variations', () => {
       '3xx': { description: 'Redirect' }
     });
 
-    const respSchema = KitaAST.schemas.find(
-      (s) => s.$id === 'ConfigResponseIndex' + 'Controller' + 'Get' + 'Response'
-    );
+    const respSchema = KitaAST.schemas.find((s) => s.$id === 'ConfigResponseIndex' + 'Controller' + 'Get' + 'Response');
 
     expect(respSchema).toBeDefined();
 

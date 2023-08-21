@@ -1,10 +1,4 @@
-import {
-  errorCount,
-  findControllerPaths,
-  importConfig,
-  KitaConfig,
-  KitaGenerator
-} from '@kitajs/generator';
+import { errorCount, findControllerPaths, importConfig, KitaConfig, KitaGenerator } from '@kitajs/generator';
 import chalk from 'chalk';
 import fs from 'fs/promises';
 import path from 'path';
@@ -43,11 +37,7 @@ export async function generate(options: Record<string, any>) {
     try {
       code = prettier.format(code, cfg.routes.format);
     } catch (err) {
-      log(
-        '❌',
-        'Prettier could not format the output file. Maybe it has an invalid syntax?',
-        err
-      );
+      log('❌', 'Prettier could not format the output file. Maybe it has an invalid syntax?', err);
     }
   }
 

@@ -8,13 +8,7 @@ import {
 } from '@kitajs/generator';
 import type { DeepPartial } from '@kitajs/generator/dist/types';
 import deepmerge from 'deepmerge';
-import {
-  fastify,
-  FastifyInstance,
-  FastifyPluginAsync,
-  InjectOptions,
-  LightMyRequestResponse
-} from 'fastify';
+import { fastify, FastifyInstance, FastifyPluginAsync, InjectOptions, LightMyRequestResponse } from 'fastify';
 import fs from 'fs/promises';
 import prettier from 'prettier';
 import ts from 'typescript';
@@ -70,10 +64,7 @@ export class KitaTestBuilder extends Promise<{
         )
       );
 
-      const controllersPaths = await findControllerPaths(
-        config.controllers.glob,
-        TEST_DIRNAME
-      );
+      const controllersPaths = await findControllerPaths(config.controllers.glob, TEST_DIRNAME);
 
       const kita = new KitaGenerator(TEST_DIRNAME, config, controllersPaths);
       await kita.updateAst();
@@ -127,9 +118,7 @@ export class KitaTestBuilder extends Promise<{
     fn: F,
     /** params for the request */
     inject: InjectOptions = {}
-  ): Promise<
-    Omit<LightMyRequestResponse, 'json'> & { json: () => Awaited<ReturnType<F>> }
-  > {
+  ): Promise<Omit<LightMyRequestResponse, 'json'> & { json: () => Awaited<ReturnType<F>> }> {
     const self = await this;
 
     // Sets the default values for the inject options

@@ -1,19 +1,11 @@
-import {
-  errorCount,
-  findControllerPaths,
-  importConfig,
-  KitaConfig,
-  KitaGenerator
-} from '@kitajs/generator';
+import { errorCount, findControllerPaths, importConfig, KitaConfig, KitaGenerator } from '@kitajs/generator';
 import path from 'path';
 
 export async function output(options: Record<string, any>) {
   const cfgPath = process.env.KITA_CONFIG || path.resolve(process.cwd(), options.config);
 
   if (!cfgPath.match(/\.js$/)) {
-    console.error(
-      'Kita does not support typescript config files yet. Please use a javascript config file.'
-    );
+    console.error('Kita does not support typescript config files yet. Please use a javascript config file.');
 
     process.exit(1);
   }

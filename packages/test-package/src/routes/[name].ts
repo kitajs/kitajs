@@ -19,7 +19,7 @@ export async function put(
   cookie: Cookie<'cache-control'>,
   namedBodyProp: BodyProp<number, 'path'>,
   bodyProp: BodyProp<number>,
-  paramQuery: Query,  
+  paramQuery: Query,
   typedQuery: Query<boolean>,
   typedAndNamedQuery: Query<boolean, 'typedAndNamedQuery'>,
   req: FastifyRequest,
