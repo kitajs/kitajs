@@ -1,34 +1,27 @@
-import type { Parameter } from '../parameter';
-import { ParamData, ParamInfo, ParamResolver } from './base';
+import type { BaseParameter, BaseProvider } from '../models';
+import { format } from '../util/generation';
+import { joinParameters } from '../util/syntax';
 
-export class CustomResolver extends ParamResolver {
-  /** Custom resolvers should handle themselves to be serializable if they need to be. */
-  static override serializable = true;
+export class CustomParameter implements BaseParameter {
+  value: string;
+  helper?: string | undefined;
+  imports?: string[] | undefined;
+  providerName?: string;
 
-  override supports({ typeName, config }: ParamInfo): boolean {
-    return !!typeName && !!config.params[typeName];
-  }
+  constructor(
+    readonly index: number,
+    readonly provider: BaseProvider,
+    readonly helperParams: string[] | undefined,
+    readonly schemaTransformer: boolean
+  ) {
+    this.providerName = `Resolver${index}`;
+    this.value = `param${index}`;
 
-  override async resolve({
-    generics,
-    paramName,
-    typeName,
-    kita
-  }: ParamData): Promise<Parameter | undefined> {
-    const resolver = kita.config.params[typeName!];
-    const transformer = Array.isArray(resolver) && resolver[1].schemaTransformer;
+    this.imports = [format(/* ts */ `import ${this.providerName} from "${provider.providerPath}";`)];
 
-    return {
-      value: paramName,
-
-      helper: `const ${paramName} = await ${typeName}.resolver(request, reply${
-        !generics ? '' : `, ${generics.map((n) => n.getText()).join(', ')}`
-      });`,
-
-      schemaTransformer: transformer ? typeName : undefined,
-
-      schemaTransformerOptions:
-        transformer && generics ? generics.map((n) => n.getText()) : undefined
-    };
+    this.helper = format(/* ts */ `
+      ${joinParameters(provider.parameters)}
+      const ${this.value} = await ${this.providerName}(${provider.parameters.map((p) => p.value).join(',')});
+    `);
   }
 }

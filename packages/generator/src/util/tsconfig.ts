@@ -1,12 +1,12 @@
 import path from 'path';
 import ts from 'typescript';
-import { KitaError } from '../errors';
+import { CannotParseTsconfigError, CannotReadTsconfigError } from '../errors';
 
 export function readCompilerOptions(tsconfigPath: string) {
   const { config, error } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
 
   if (error) {
-    throw KitaError(`Failed to read tsconfig file.`, tsconfigPath, { info: error });
+    throw new CannotReadTsconfigError(tsconfigPath, error);
   }
 
   const { options, errors } = ts.parseJsonConfigFileContent(
@@ -18,7 +18,7 @@ export function readCompilerOptions(tsconfigPath: string) {
   );
 
   if (errors.length) {
-    throw KitaError(`Failed to parse tsconfig file.`, tsconfigPath, { info: errors });
+    throw new CannotParseTsconfigError(tsconfigPath, errors);
   }
 
   return options;

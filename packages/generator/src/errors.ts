@@ -1,60 +1,164 @@
-type KitaError = {
-  __KITA_ERROR__: true;
-  message: string;
-  [key: string]: any;
-};
+import ts from 'typescript';
 
-export function KitaError(message: string, path: string | string[]): KitaError;
-export function KitaError(message: string, additional?: Record<string, any>): KitaError;
-export function KitaError(
-  message: string,
-  path: string | string[],
-  additional?: Record<string, any>
-): KitaError;
-export function KitaError(
-  message: string,
-  additionalOrPath?: Record<string, any> | string | string[],
-  additional?: Record<string, any>
-): KitaError {
-  return {
-    __KITA_ERROR__: true,
-    message:
-      typeof additionalOrPath === 'string'
-        ? `${message}\n  at ${additionalOrPath}`
-        : Array.isArray(additionalOrPath)
-        ? `${message}\n  at ${additionalOrPath.join('\n and ')}`
-        : message,
+/**
+ * A KitaError instance is thrown when something goes wrong during the
+ * parsing, resolving or generation process.
+ *
+ * All errors that you can expect to be thrown by Kita are subclasses of this
+ * class.
+ */
+export abstract class KitaError extends Error {
+  /**
+   * This property can be mutated at runtime by the user to indicate that the
+   * error has been resolved or handled.
+   */
+  public suppress = false;
 
-    ...(typeof additionalOrPath === 'object' && !Array.isArray(additionalOrPath)
-      ? additionalOrPath
-      : {}),
-
-    ...additional
-  } as const;
-}
-
-export function isKitaError(error: any): error is KitaError {
-  return !!error?.__KITA_ERROR__;
-}
-
-/** Used to keep track of the amount of thrown errors happened during this whole process execution. */
-export let errorCount = 0;
-
-export const catchKitaError = (err: any) => {
-  // Error counting is done on catch blocks because some errors may have been caught and handled.
-  errorCount += 1;
-
-  if (isKitaError(err)) {
-    const { __KITA_ERROR__, message, ...rest } = err;
-    console.log(`\n ❌   ${message}`);
-
-    if (Object.keys(rest).length > 0) {
-      console.log(rest);
-    }
-  } else {
-    console.error('\n ❌   Error while generating code.');
-    console.error(err);
+  // We may use line breaks in the code to improve readability, but we don't want
+  // to show them to the user, so we remove them.
+  constructor(readonly code: number, message: string) {
+    // multiline trim
+    super(message.replace(/^\s+|\s+$/gm, ''));
   }
+}
 
-  return undefined;
-};
+export class RouteResolverNotFoundError extends KitaError {
+  constructor(readonly path: string) {
+    super(1, `Could not resolve a route parser for the given node`);
+  }
+}
+
+export class ParameterResolverNotFoundError extends KitaError {
+  constructor(readonly path: string) {
+    super(2, `Could not resolve a parameter parser for the given node`);
+  }
+}
+
+export class CannotResolveParameterError extends KitaError {
+  constructor(readonly path: string) {
+    super(
+      3,
+      `Could not resolve the parameter name because you are using a
+       destructuring pattern and not providing a name through a 
+       string literal`
+    );
+  }
+}
+
+export class CannotCreateNodeTypeError extends KitaError {
+  constructor(readonly path: string) {
+    super(4, 'Could not create type node for specified type');
+  }
+}
+
+export class MultipleDefinitionsError extends KitaError {
+  constructor(readonly typename: string) {
+    super(5, `Type "${typename}" has multiple definitions.`);
+  }
+}
+
+export class BodyInGetRequestError extends KitaError {
+  constructor() {
+    super(6, `You cannot use any Body dependent code in a GET request.`);
+  }
+}
+
+export class ParameterConflictError extends KitaError {
+  constructor(readonly existing: string, readonly attempt: string, readonly schema: unknown) {
+    super(
+      7,
+      `You cannot use ${attempt} when ${existing} is already used in
+       the same route.`
+    );
+  }
+}
+
+export class InvalidParameterUsageError extends KitaError {
+  constructor(readonly param: string, readonly usage: string) {
+    super(8, `Invalid parameter usage for ${param}: ${usage}`);
+  }
+}
+
+export class SourceFileNotFoundError extends KitaError {
+  constructor(readonly path: string, readonly importReason?: string) {
+    super(9, `Source file not found: ${path}`);
+  }
+}
+
+export class CannotReadTsconfigError extends KitaError {
+  constructor(readonly path: string, readonly error: ts.Diagnostic) {
+    super(10, `Cannot read tsconfig file: ${path}`);
+  }
+}
+
+export class CannotParseTsconfigError extends KitaError {
+  constructor(readonly path: string, readonly errors: ts.Diagnostic[]) {
+    super(11, `Cannot parse tsconfig file: ${path}`);
+  }
+}
+
+export class DuplicateOperationIdError extends KitaError {
+  constructor(readonly operationId: string, readonly previousPath: string, readonly duplicatePath: string) {
+    super(12, `Duplicate operationId: ${operationId}`);
+  }
+}
+
+export class DuplicateProviderTypeError extends KitaError {
+  constructor(readonly type: string, readonly pathA: string, readonly pathB: string) {
+    super(13, `Found duplicate provider type: ${type}`);
+  }
+}
+
+export class NoProviderExportedError extends KitaError {
+  constructor(readonly path: string) {
+    super(
+      14,
+      `No default function exported at ${path}. You must export a default
+      function on every file matching the provider glob.`
+    );
+  }
+}
+
+export class UntypedProviderError extends KitaError {
+  constructor(readonly path: string) {
+    super(15, `The provider default export needs to have a explicit return type declared.`);
+  }
+}
+
+export class UntypedPromiseError extends KitaError {
+  constructor(readonly path: string) {
+    super(16, `You cannot use an untyped promise as a return type at ${path}.`);
+  }
+}
+
+export class AgnosticRouteConflictError extends KitaError {
+  constructor(readonly path: string) {
+    super(
+      17,
+      `You cannot use dependent routes within agnostic contexts. You are
+       probably using an unsupported route parameter within a provider.`
+    );
+  }
+}
+
+export class JsdocAlreadyDefinedError extends KitaError {
+  constructor(readonly tagname: string, readonly path: string) {
+    super(
+      18,
+      `You are trying to use a JSDoc tag on a node that already had this value
+      explicit set.`
+    );
+  }
+}
+
+export class EmptyJsdocError extends KitaError {
+  constructor(readonly tagname: string, readonly path: string) {
+    super(19, `You forgot to provide a value for this JSDoc tag.`);
+  }
+}
+
+export class InvalidConfigError extends KitaError {
+  constructor(message: string, readonly config?: unknown) {
+    super(20, message);
+  }
+}

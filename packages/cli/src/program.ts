@@ -9,7 +9,7 @@ const { version } = require('../package.json');
 
 program
   .name('kita')
-  .version(version)
+  .version(version, '-v, --version')
   .description('The CLI tool for generating Kita typescript code.');
 
 // program

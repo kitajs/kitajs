@@ -1,7 +1,7 @@
-import { V2, mergeDefaults } from '@kitajs/generator';
+import { Kita,  mergeDefaults } from '@kitajs/generator';
 
 export async function dev() {
-  const kita = new V2.Kita(
+  const kita = new Kita(
     './tsconfig.json',
     mergeDefaults({
       providers: {

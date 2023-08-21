@@ -1,4 +1,4 @@
-import { Header } from '@kitajs/runtime';
+import { RouteSchema } from '@kitajs/generator/dist/schema';
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 
 export type Authorized = {a :1}
@@ -8,12 +8,12 @@ export default async function (
   request: FastifyRequest,
   response: FastifyReply,
   fastify: FastifyInstance
-): Promise<Authorized> {
+): Promise<{a:1}> {
   return {
     a: 1
   };
 }
 
-export function transformSchema(schema: any) {
+export function transformSchema(schema: RouteSchema) {
 
 }

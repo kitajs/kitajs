@@ -1,10 +1,10 @@
 import deepmerge from 'deepmerge';
 import type * as Prettier from 'prettier';
 import type { SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
-import { KitaError } from './errors';
-import type { DeepPartial } from './types';
-import type { Kita } from './v2/kita';
-import type { ParameterParser, RouteParser } from './v2/parsers';
+import type { PartialDeep } from 'type-fest';
+import { InvalidConfigError } from './errors';
+import type { Kita } from './kita';
+import type { ChainParser, ParameterParser, RouteParser } from './parsers';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
@@ -81,7 +81,6 @@ export interface KitaConfig {
     prefix: string;
   };
 
-
   providers: {
     /**
      * The regex to match all files to parse
@@ -95,17 +94,17 @@ export interface KitaConfig {
    * Here you can add custom code to be executed before the generator starts. Add listeners,
    * modify the config, etc.
    */
-  hook?: (kita: Kita) => void | Promise<void>;
+  hook?(kita: Kita): void | Promise<void>;
 
   /**
    * Use this callback to include new parameter parsers.
    */
-  parameterParserAugmentor?: (parser: ParameterParser) => void | Promise<void>;
+  parameterParserAugmentor?(parser: ChainParser<ParameterParser>): void | Promise<void>;
 
   /**
    * Use this callback to include new route parsers.
    */
-  routeParserAugmentor?: (parser: RouteParser) => void | Promise<void>;
+  routeParserAugmentor?(parser: ChainParser<RouteParser>): void | Promise<void>;
 }
 
 export const DefaultConfig: KitaConfig = {
@@ -119,7 +118,7 @@ export const DefaultConfig: KitaConfig = {
   },
   routes: {
     output: './src/routes.ts',
-    format: { parser: 'typescript' },
+    format: { parser: 'typescript' }
   },
   schema: {
     defaultResponse: 'default',
@@ -135,41 +134,20 @@ export const DefaultConfig: KitaConfig = {
   }
 };
 
-export function mergeDefaults(config: DeepPartial<KitaConfig> = {}) {
+export function mergeDefaults(config: PartialDeep<KitaConfig> = {}) {
   if (config?.controllers?.glob && !Array.isArray(config.controllers.glob)) {
-    throw KitaError('controllers.glob must be an array of strings', {
-      controllers: config.controllers
-    });
+    throw new InvalidConfigError('controllers.glob must be an array of strings', config);
   }
 
   // Removes additionalProperties property from schemas if this is the default value
-  if (
-    config.schema?.generator &&
-    config.schema.generator.additionalProperties !== false
-  ) {
+  if (config.schema?.generator && config.schema.generator.additionalProperties !== false) {
     config.schema.generator.additionalProperties = undefined;
   }
 
   return deepmerge<KitaConfig>(
     DefaultConfig,
-    // validated config
+    // Validated config
     config as KitaConfig,
     { arrayMerge: (_, b) => b }
   );
-}
-
-export function importConfig(path: string) {
-  try {
-    return mergeDefaults(require(path));
-  } catch (e: any) {
-    // The provided path is not a valid config file
-    if (
-      e.code === 'MODULE_NOT_FOUND' &&
-      e.message.includes(`Cannot find module '${path}'`)
-    ) {
-      return DefaultConfig;
-    }
-
-    throw KitaError('Could not import config file\n' + e.message);
-  }
 }

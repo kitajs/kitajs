@@ -1,94 +1,26 @@
-import deepmerge from 'deepmerge';
-import fs from 'fs';
-import Handlebars from 'handlebars';
-import path from 'node:path';
-import ts from 'typescript';
-import { ParamResolver } from '../parameters/base';
-import type { Route } from '../route';
-import { applyJsDoc } from '../util/jsdoc';
-import { capitalize, findUrlAndController } from '../util/string';
-import { CreationData, RouteResolver } from './base';
+import type ts from 'typescript';
+import { BaseParameter, BaseRoute } from '../models';
+import { RouteSchema } from '../schema';
 
-const templatePath = path.resolve(__dirname, '../../templates/rest.hbs');
-const templateStr = fs.readFileSync(templatePath, 'utf-8');
-const HbsTemplate = Handlebars.compile(templateStr, { noEscape: true });
+export class RestRoute implements BaseRoute {
+  controllerName: string;
+  controllerPrettyPath: string;
+  controllerPath: string;
+  controllerMethod: string;
+  parameters: BaseParameter[];
+  url: string;
+  method: Uppercase<string>;
+  options: string | undefined;
+  schema: RouteSchema;
 
-export class RestResolver extends RouteResolver<ts.FunctionDeclaration> {
-  override supports(node: ts.Node): boolean {
-    if (node.kind !== ts.SyntaxKind.FunctionDeclaration) {
-      return false;
-    }
-
-    const fn = node as ts.FunctionDeclaration;
-
-    // Allows this parameter to not be defined as this is the last
-    // resolver and should try to catch as many routes as possible.
-    return !!fn.name?.getText()?.match(/^get|post|put|delete|all$/i);
-  }
-
-  override async resolve({
-    kita,
-    node,
-    source
-  }: CreationData<ts.FunctionDeclaration>): Promise<Route | undefined> {
-    const fnName = node.name?.getText()!;
-    const pos = source.getLineAndCharacterOfPosition(node.name?.pos ?? node.pos);
-    const rName = findUrlAndController(source.fileName, kita.config);
-
-    const route: Route = {
-      controllerMethod: fnName,
-      method: fnName.toUpperCase(),
-      controllerName: rName.controller,
-      url: rName.routePath,
-      controllerPath: `${source.fileName}:${pos.line + 1}`,
-      parameters: [],
-      schema: {
-        operationId: `${rName.controller}${capitalize(fnName)}`
-      },
-      rendered: ''
-    };
-
-    // Response type detection
-    const schema = await kita.schemaStorage.consumeResponseType(node, route);
-    route.schema = deepmerge(route.schema, {
-      response: { [kita.config.schema.defaultResponse]: schema }
-    });
-
-    //@ts-expect-error - TODO: Find correct ts.getJsDoc method
-    route.schema = deepmerge(route.schema, { description: node.jsDoc?.[0]?.comment });
-
-    for (const tag of ts.getJSDocTags(node)) {
-      applyJsDoc(tag, route);
-    }
-
-    // Needs to process each parameter in their expected order
-    for (const [index, param] of node.parameters.entries()) {
-      const parameter = await ParamResolver.resolveParameter(
-        kita,
-        route,
-        node,
-        param,
-        index
-      );
-
-      if (parameter) {
-        route.parameters.push(parameter);
-      }
-    }
-
-    // Add controller import to the result
-    kita.ast.addImport(
-      `import * as ${route.controllerName} from '${kita.importablePath(
-        source.fileName
-      )}';`
-    );
-
-    for (const [resp, schema] of Object.entries(kita.config.schema.responses)) {
-      (route.schema.response as Record<string, unknown>)[resp] ??= schema;
-    }
-
-    route.rendered = HbsTemplate(route);
-
-    return route;
+  constructor(nodeName: string, url: string, controllerName: string, controllerPath: string, pos: ts.LineAndCharacter) {
+    this.controllerMethod = nodeName;
+    this.method = nodeName.toUpperCase() as Uppercase<string>;
+    this.controllerName = controllerName;
+    this.url = url;
+    this.parameters = [];
+    this.controllerPath = controllerPath;
+    this.controllerPrettyPath = `${controllerPath}:${pos.line + 1}`;
+    this.schema = { operationId: `${this.method.toLowerCase()}${this.controllerName}` };
   }
 }

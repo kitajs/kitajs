@@ -1,38 +1,23 @@
-import { KitaError } from '../errors';
-import type { Parameter } from '../parameter';
-import { ParamData, ParamInfo, ParamResolver } from './base';
+import { kFastifyParam, kReplyParam, kRequestParam } from '../constants';
+import type { BaseParameter } from '../models';
 
-export class FastifyResolver extends ParamResolver {
-  override supports({ typeName }: ParamInfo): boolean {
-    return (
-      typeName === 'FastifyRequest' ||
-      typeName === 'FastifyReply' ||
-      typeName === 'FastifyInstance'
-    );
-  }
+export class FastifyParameter implements BaseParameter {
+  value: string;
+  helper?: string | undefined;
 
-  override async resolve({
-    route,
-    typeName,
-    inferredType
-  }: ParamData): Promise<Parameter | undefined> {
+  constructor(typeName: string) {
     switch (typeName) {
       case 'FastifyRequest':
-        return {
-          value: 'websocket' in route ? `request as ${inferredType}` : 'request'
-        };
+        this.value = kRequestParam;
+        break;
 
       case 'FastifyReply':
-        return {
-          value: 'websocket' in route ? `reply as ${inferredType}` : 'reply'
-        };
+        this.value = kReplyParam;
+        break;
 
       case 'FastifyInstance':
-        return {
-          value: 'websocket' in route ? `fastify as ${inferredType}` : 'fastify'
-        };
+        this.value = kFastifyParam;
+        break;
     }
-
-    throw KitaError('Unknown Fastify type', route.controllerPath);
   }
 }

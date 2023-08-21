@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
+    "@types/node": "^20.5.0",
+    "type-fest": "^4.2.0",
     "typescript": "^5.1.6"
   }
 }

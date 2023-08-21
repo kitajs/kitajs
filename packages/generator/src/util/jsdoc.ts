@@ -1,7 +1,8 @@
 import deepmerge from 'deepmerge';
 import ts from 'typescript';
-import { KitaError } from '../errors';
-import type { BaseRoute } from '../v2/models';
+import { EmptyJsdocError, JsdocAlreadyDefinedError } from '../errors';
+import type { BaseRoute } from '../models';
+import { RouteSchema } from '../schema';
 
 /**
  * Custom parse info for each of this this's tags
@@ -33,7 +34,7 @@ export function applyJsDoc(tag: ts.JSDocTag, route: BaseRoute): void {
     case 'summary':
       //@ts-ignore - any type is valid
       if (route.schema.summary) {
-        throw KitaError(`@${name} tag is already defined.`, route.controllerPath);
+        throw new JsdocAlreadyDefinedError(name, route.controllerPath);
       }
 
       route.schema = deepmerge(route.schema, {
@@ -45,14 +46,10 @@ export function applyJsDoc(tag: ts.JSDocTag, route: BaseRoute): void {
     case 'description':
       //@ts-ignore - any type is valid
       if (route.schema.description) {
-        throw KitaError(
-          //@ts-ignore - any type is valid
-          `A description for this this is already defined. (${route.schema.description})`,
-          route.controllerPath
-        );
+        throw new JsdocAlreadyDefinedError(name, route.controllerPath);
       }
 
-      route.schema = deepmerge(route.schema, {
+      route.schema = deepmerge<RouteSchema>(route.schema, {
         description: value
       });
 
@@ -71,7 +68,7 @@ export function applyJsDoc(tag: ts.JSDocTag, route: BaseRoute): void {
       break;
 
     default:
-      console.error(`@${name} tag is not supported.\n`, route.controllerPath);
+    // TODO: Should we warn on unused tags?
   }
 }
 
@@ -79,15 +76,11 @@ export function applyJsDoc(tag: ts.JSDocTag, route: BaseRoute): void {
  * Gets name and value of a JSDoc tag
  */
 function parseJSDocTag(tag: ts.JSDocTag, controllerPath: string) {
-  const name = tag.tagName.text.toLowerCase();
-
-  const value =
-    typeof tag.comment === 'string'
-      ? tag.comment.trim()
-      : ts.getTextOfJSDocComment(tag.comment)?.trim();
+  const name = tag.tagName.text.trim().toLowerCase();
+  const value = typeof tag.comment === 'string' ? tag.comment.trim() : ts.getTextOfJSDocComment(tag.comment)?.trim();
 
   if (!value) {
-    throw KitaError(`@${name} tag must have a comment.`, controllerPath);
+    throw new EmptyJsdocError(name, controllerPath);
   }
 
   return { name, value };
