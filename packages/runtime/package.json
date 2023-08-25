@@ -8,25 +8,14 @@
   "files": [
     "index.js",
     "index.d.ts",
-    "dist",
-    "src",
-    "tsconfig.json",
+    "generated",
     "CHANGELOG.md"
   ],
-  "scripts": {
-    "build": "tsc"
-  },
   "dependencies": {
-    "@kitajs/generator": "^1.0.24",
-    "fastify": "^4.12.0",
-    "fastify-plugin": "^4.5.0",
-    "tslib": "^2.5.0"
-  },
-  "devDependencies": {
-    "@fastify/websocket": "^7.1.2"
+    "@kitajs/common": "^1.1.0"
   },
   "peerDependencies": {
-    "@fastify/websocket": "^7",
+    "@fastify/websocket": ">=7",
     "fastify-plugin": "^4"
   }
 }

@@ -1,0 +1,31 @@
+{
+  "name": "@kitajs/common",
+  "version": "1.1.0",
+  "funding": "https://github.com/sponsors/arthurfiorette",
+  "license": "MIT",
+  "author": "Arthur Fiorette <kita@arthur.place>",
+  "main": "dist/index.js",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "deepmerge": "^4.3.1",
+    "emittery": "^1.0.1",
+    "glob": "^10.3.3",
+    "tslib": "^2.6.1",
+    "type-fest": "^4.2.0",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0"
+  },
+  "peerDependencies": {
+    "@fastify/websocket": ">=7",
+    "fastify": "^4",
+    "ts-json-schema-generator": "^1"
+  }
+}

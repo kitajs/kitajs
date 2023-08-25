@@ -63,6 +63,10 @@ export const Kita = fp<{ piscina: Piscina }>(
     // Default piscina instance, you can override it in the options.
     options.piscina ??= new Piscina({ filename: __filename });
 
+    fastify.route({
+      method
+    })
+
     fastify.addSchema({
       $id: 'ResponseTypesControllerGetResponse',
       type: 'object',
@@ -227,6 +231,10 @@ export const Kita = fp<{ piscina: Piscina }>(
         );
       }
     );
+
+    fastify.route({
+      
+    })
 
     fastify.post(
       '/:name',

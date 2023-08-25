@@ -2,11 +2,8 @@
 // This is the source code of the @kitajs/runtime package. There's
 // nothing here...
 //
-// You are probably looking for the generated code. It shows its
-// path when running `kita generate`.
+// You are probably looking for the generated code in the generated folder.
 //
 
-/** @type {import('./dist/index')} */
-module.exports = require('./generated/index');
-
-// # sourceMappingURL=dist/index.js.map
+/** @type {import('./')} */
+module.exports = require('./generated/index.js');

@@ -133,6 +133,11 @@ export function unwrapPromiseType(type: ts.TypeNode) {
   return type;
 }
 
+/**
+ * Returns a pretty path for the provided node.
+ * 
+ * @example `src/controllers/users.ts:12:3`
+ */
 export function toPrettySource(node: ts.Node) {
   const source = node.getSourceFile();
   const pos = source.getLineAndCharacterOfPosition(node.getStart());

@@ -56,15 +56,3 @@ export class ChainParameterParser implements ChainParser<ParameterParser> {
     return parser.parse(param, route, routeNode, paramIndex);
   }
 }
-
-// [chain]
-//  - supports()
-//  - parse()
-//
-
-// [chain]
-//  - addParser()
-//  (body)
-//  (body-prop)
-//  (header)
-//  (fastify)

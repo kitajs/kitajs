@@ -30,35 +30,31 @@ export class Kita extends KitaEmitter {
   constructor(readonly tsconfig: string, readonly config: KitaConfig, readonly cwd: string) {
     super();
 
-    try {
-      this.controllerPaths = globSync(config.controllers.glob, { cwd });
-      this.providerPaths = globSync(config.providers.glob, { cwd });
+    this.controllerPaths = globSync(config.controllers.glob, { cwd });
+    this.providerPaths = globSync(config.providers.glob, { cwd });
 
-      // Typescript program
-      this.compilerOptions = readCompilerOptions(tsconfig);
-      this.program = ts.createProgram(
-        // Adds both providers and controllers
-        this.controllerPaths.concat(this.providerPaths),
-        this.compilerOptions
-      );
+    // Typescript program
+    this.compilerOptions = readCompilerOptions(tsconfig);
+    this.program = ts.createProgram(
+      // Adds both providers and controllers
+      this.controllerPaths.concat(this.providerPaths),
+      this.compilerOptions
+    );
 
-      // Json schema
-      this.schemaBuilder = new SchemaBuilder(config, this.program);
+    // Json schema
+    this.schemaBuilder = new SchemaBuilder(config, this.program);
 
-      // Parsing
-      this.parameterParser = buildParameterParser(config, this.schemaBuilder, this);
-      this.routeParser = buildRouteParser(
-        config,
-        this.schemaBuilder,
-        this.parameterParser,
-        this.program.getTypeChecker()
-      );
+    // Parsing
+    this.parameterParser = buildParameterParser(config, this.schemaBuilder, this);
+    this.routeParser = buildRouteParser(
+      config,
+      this.schemaBuilder,
+      this.parameterParser,
+      this.program.getTypeChecker()
+    );
 
-      // Ast parsing
-      this.traverser = new AstTraverser(this.routeParser, this.program);
-    } catch (error) {
-      this.handle(error);
-    }
+    // Ast parsing
+    this.traverser = new AstTraverser(this.routeParser, this.program);
   }
 
   public async buildRoutes() {
