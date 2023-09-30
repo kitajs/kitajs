@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -p tsconfig.build.json",
+    "test": "tsc; node --test dist/test"
   },
   "dependencies": {
     "@kitajs/common": "*",

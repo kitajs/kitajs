@@ -3,7 +3,7 @@ import { Promisable } from 'type-fest';
 /**
  * A simple parser interface.
  */
-export interface Parser<T = unknown, R = unknown, Args extends unknown[] = []> {
+export interface Parser<T = unknown, R = unknown, Args extends unknown[] = unknown[]> {
   /**
    * If this parser supports the given node.
    */

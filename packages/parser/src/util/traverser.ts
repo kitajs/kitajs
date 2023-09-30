@@ -10,9 +10,13 @@ import ts from 'typescript';
 import { toPrettySource } from './nodes';
 
 /**
- * Traverse each source file for the given path and yields the result of the provided parser or an error.
+ * Traverse each statement of a source file for the given path and yields the result of the provided parser or an error.
  */
-export async function* traverseSources<R>(program: ts.Program, parser: Parser<ts.Statement, R, []>, files: string[]) {
+export async function* traverseStatements<R>(
+  program: ts.Program,
+  parser: Parser<ts.Statement, R, []>,
+  files: string[]
+) {
   for (const file of files) {
     const sourceFile = program.getSourceFile(file);
 
@@ -29,6 +33,28 @@ export async function* traverseSources<R>(program: ts.Program, parser: Parser<ts
           // This allows us to keep parsing even if some routes fail
           .catch((err) => (err instanceof Error ? err : new UnknownKitaError(err)));
       }
+    }
+  }
+}
+
+/**
+ * Traverse each source file for the given path and yields the result of the provided parser or an error.
+ */
+export async function* traverseSource<R>(program: ts.Program, parser: Parser<ts.SourceFile, R, []>, files: string[]) {
+  for (const file of files) {
+    const sourceFile = program.getSourceFile(file);
+
+    if (!sourceFile) {
+      throw new SourceFileNotFoundError(file);
+    }
+
+    const supports = await parser.supports(sourceFile);
+
+    if (supports) {
+      yield Promise.resolve(parser.parse(sourceFile))
+        // Also returns errors as values to be handled by the caller
+        // This allows us to keep parsing even if some routes fail
+        .catch((err) => (err instanceof Error ? err : new UnknownKitaError(err)));
     }
   }
 }

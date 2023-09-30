@@ -1,10 +1,9 @@
+import { KitaConfig, ParameterParser, Route } from '@kitajs/common';
 import type ts from 'typescript';
-import type { KitaConfig } from '../config';
-import type { BaseParameter, BaseRoute } from '../models';
-import { HeaderParameter } from '../parameters/header';
-import type { ParameterParser } from '../parsers';
 import { mergeSchema } from '../schema/helpers';
+import { kRequestParam } from '../util/constants';
 import { getParameterName, isParamOptional } from '../util/nodes';
+import { buildAccessProperty } from '../util/syntax';
 
 export class HeaderParameterParser implements ParameterParser {
   /** Headers are present in every type of request */
@@ -12,11 +11,11 @@ export class HeaderParameterParser implements ParameterParser {
 
   constructor(readonly config: KitaConfig) {}
 
-  supports(param: ts.ParameterDeclaration): boolean | Promise<boolean> {
+  supports(param: ts.ParameterDeclaration) {
     return param.type?.getFirstToken()?.getText() === 'Header';
   }
 
-  parse(param: ts.ParameterDeclaration, route: BaseRoute): BaseParameter | Promise<BaseParameter> {
+  parse(param: ts.ParameterDeclaration, route: Route) {
     const name = getParameterName(param, 0);
     const optional = isParamOptional(param);
 
@@ -29,6 +28,8 @@ export class HeaderParameterParser implements ParameterParser {
       }
     });
 
-    return new HeaderParameter(name);
+    return {
+      value: buildAccessProperty(kRequestParam, 'headers', name.toLowerCase())
+    };
   }
 }

@@ -1,12 +1,17 @@
+import {
+  BodyInGetRequestError,
+  InvalidParameterUsageError,
+  KitaConfig,
+  Parameter,
+  ParameterConflictError,
+  ParameterParser,
+  Route
+} from '@kitajs/common';
 import type ts from 'typescript';
-import type { KitaConfig } from '../config';
-import { BodyInGetRequestError, InvalidParameterUsageError, ParameterConflictError } from '../errors';
-import type { BaseParameter, BaseRoute } from '../models';
-import { BodyPropParameter } from '../parameters/body-prop';
-import type { ParameterParser } from '../parsers';
 import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { getParameterGenerics, getParameterName, isParamOptional } from '../util/nodes';
+import { buildAccessProperty } from '../util/syntax';
 
 export class BodyPropParameterParser implements ParameterParser {
   /** Only on known routes */
@@ -14,11 +19,11 @@ export class BodyPropParameterParser implements ParameterParser {
 
   constructor(readonly config: KitaConfig, readonly schema: SchemaBuilder) {}
 
-  supports(param: ts.ParameterDeclaration): boolean | Promise<boolean> {
+  supports(param: ts.ParameterDeclaration) {
     return param.type?.getFirstToken()?.getText() === 'BodyProp';
   }
 
-  async parse(param: ts.ParameterDeclaration, route: BaseRoute): Promise<BaseParameter> {
+  async parse(param: ts.ParameterDeclaration, route: Route): Promise<Parameter> {
     if (route.method === 'GET') {
       throw new BodyInGetRequestError();
     }
@@ -55,6 +60,8 @@ export class BodyPropParameterParser implements ParameterParser {
       }
     });
 
-    return new BodyPropParameter(name);
+    return {
+      value: buildAccessProperty('request', 'body', name)
+    };
   }
 }

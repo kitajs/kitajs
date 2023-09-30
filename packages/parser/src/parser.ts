@@ -16,7 +16,7 @@ import ts from 'typescript';
 import { buildParameterParser } from './parameter-parsers';
 import { buildRouteParser } from './route-parsers';
 import { SchemaBuilder } from './schema/builder';
-import { traverseSources } from './util/traverser';
+import { traverseSource, traverseStatements } from './util/traverser';
 
 export class KitaParser {
   readonly compilerOptions: ts.CompilerOptions;
@@ -68,7 +68,7 @@ export class KitaParser {
   }
 
   async parseRoutes() {
-    for await (const route of traverseSources(this.program, this.routeParser, this.controllerPaths)) {
+    for await (const route of traverseStatements(this.program, this.routeParser, this.controllerPaths)) {
       if (this.handlePossibleError(route)) {
         continue;
       }
@@ -93,7 +93,7 @@ export class KitaParser {
   }
 
   async parseProviders() {
-    for await (const provider of traverseSources(this.program, this.providerParser, this.providerPaths)) {
+    for await (const provider of traverseSource(this.program, this.providerParser, this.providerPaths)) {
       if (this.handlePossibleError(provider)) {
         continue;
       }

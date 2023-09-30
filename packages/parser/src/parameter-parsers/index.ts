@@ -1,6 +1,5 @@
-import type { KitaConfig } from '../config';
-import { Kita } from '../kita';
-import type { ParameterParser } from '../parsers';
+import { KitaConfig, ParameterParser } from '@kitajs/common';
+import { KitaParser } from '../parser';
 import type { SchemaBuilder } from '../schema/builder';
 import { BodyPropParameterParser } from './body-prop';
 import { ChainParameterParser } from './chain';
@@ -8,7 +7,7 @@ import { ProviderParameterParser } from './custom';
 import { FastifyParameterParser } from './fastify';
 import { HeaderParameterParser } from './header';
 
-export function buildParameterParser(config: KitaConfig, schema: SchemaBuilder, kita: Kita): ParameterParser {
+export function buildParameterParser(config: KitaConfig, schema: SchemaBuilder, parser: KitaParser): ParameterParser {
   const chain = new ChainParameterParser();
 
   // Adds custom parsers defined by the user
@@ -17,7 +16,7 @@ export function buildParameterParser(config: KitaConfig, schema: SchemaBuilder, 
   // Adds default parsers
   chain
     .add(new BodyPropParameterParser(config, schema))
-    .add(new ProviderParameterParser(kita))
+    .add(new ProviderParameterParser(parser))
     .add(new FastifyParameterParser())
     .add(new HeaderParameterParser(config));
 

@@ -3,7 +3,7 @@ import type ts from 'typescript';
 import { toPrettySource } from '../util/nodes';
 
 export class ChainProviderParser extends ChainParser<ProviderParser> implements ProviderParser {
-  async parse(node: ts.Node): Promise<Provider> {
+  async parse(node: ts.SourceFile): Promise<Provider> {
     const parser = super.cache.get(node);
 
     if (!parser) {
