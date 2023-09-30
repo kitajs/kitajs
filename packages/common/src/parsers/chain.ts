@@ -1,7 +1,7 @@
 import { predicateRace } from '../util';
 import { Parser } from './parser';
 
-export abstract class ChainParser<P extends Parser<object, unknown, unknown[]>> implements Pick<Parser<P>, 'supports'> {
+export abstract class ChainParser<P extends Parser<object>> implements Pick<Parser<P>, 'supports'> {
   /**
    * All the parsers in this chain.
    */
