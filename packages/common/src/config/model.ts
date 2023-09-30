@@ -42,13 +42,6 @@ export interface KitaConfig {
     };
 
     /**
-     * The default response status to use for generated response types.
-     *
-     * @default 'default'
-     */
-    defaultResponse: string;
-
-    /**
      * The config to the ts-json-schema-generator that is used to generate schemas from typescript AST.
      *
      * @default { encodeRefs: true, sortProps: true, strictTuples: true, jsDoc: 'extended' }

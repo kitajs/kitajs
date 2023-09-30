@@ -30,7 +30,7 @@ export class ParameterConflictError extends KitaError {
 export class InvalidParameterUsageError extends KitaError {
   code = 403;
 
-  constructor(readonly parameter: string, readonly usage: string) {
+  constructor(readonly parameter: string, readonly usage: string, readonly path: string) {
     super(`Invalid parameter usage for this parameter`);
   }
 }
@@ -70,5 +70,13 @@ export class JsdocAlreadyDefinedError extends KitaError {
       `You are trying to use a JSDoc tag on a node that already had this value
       explicit set.`
     );
+  }
+}
+
+export class QueryMixError extends KitaError {
+  code = 408;
+
+  constructor(readonly path: string) {
+    super(`You are mixing primitive and deep query types inside the same route.`);
   }
 }

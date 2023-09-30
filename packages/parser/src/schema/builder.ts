@@ -67,7 +67,7 @@ export class SchemaBuilder {
   }
 
   /**
-   * Saves and returns a {@link ts.Node}'s respective json schema.
+   * Saves and returns a {@linkcode ts.Node}'s respective json schema.
    */
   consumeNodeSchema(node: ts.TypeNode, overrideName?: string): Schema {
     const type = this.createTypeSchema(node);
@@ -77,7 +77,7 @@ export class SchemaBuilder {
       const primitive = this.toPrimitive(type);
 
       if (primitive) {
-        return this.getDefinition(primitive);
+        return this.formatDefinition(primitive);
       }
     }
 
@@ -88,7 +88,7 @@ export class SchemaBuilder {
     this.appendChildDefinitions(type);
 
     // Returns reference to this node
-    return this.getDefinition(type);
+    return this.formatDefinition(type);
   }
 
   /**
@@ -145,7 +145,7 @@ export class SchemaBuilder {
   /**
    * Get definition for a base type without the `#/definitions/` prefix.
    */
-  getDefinition(type: BaseType): Schema {
+  formatDefinition(type: BaseType): Schema {
     return this.formatter.getDefinition(type);
   }
 
@@ -153,11 +153,28 @@ export class SchemaBuilder {
    * Get all definitions as an array.
    */
   toSchemaArray(): Definition[] {
-    return Object.entries(this.definitions).map(([key, def]) => ({
-      // Encode the definition key if the option is enabled
-      $id: this.config.schema.generator.encodeRefs ? encodeURIComponent(key) : key,
-      ...def
-    }));
+    return Object.keys(this.definitions).map((name) => this.getDefinition(name)!);
+  }
+
+  /**
+   * Get the definition for a type name
+   */
+  getDefinition(name: string): Definition | undefined {
+    const definition = this.definitions[name];
+
+    if (!definition) {
+      return undefined;
+    }
+
+    // Make sure always a definition has a $id property
+    if (!definition.$id) {
+      definition.$id = this.config.schema.generator.encodeRefs
+        ? // Encode the definition key if the option is enabled
+          encodeURIComponent(name)
+        : name;
+    }
+
+    return definition;
   }
 
   /**

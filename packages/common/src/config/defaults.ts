@@ -14,7 +14,6 @@ export const DefaultConfig: KitaConfig = {
     format: { parser: 'typescript' }
   },
   schema: {
-    defaultResponse: 'default',
     responses: {},
     generator: {
       encodeRefs: true,

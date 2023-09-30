@@ -56,7 +56,7 @@ export class RestRouteParser implements RouteParser {
     // Adds response type.
     mergeSchema(route, {
       response: {
-        [this.config.schema.defaultResponse]: this.schema.consumeNodeSchema(
+        ['default' as string]: this.schema.consumeNodeSchema(
           getReturnType(node, this.typeChecker),
           `${route.schema.operationId}Response`
         )

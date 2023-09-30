@@ -6,13 +6,14 @@ import { parseRoutes } from '../runner';
 describe('Hello World', async () => {
   const { kita } = await parseRoutes(__dirname);
 
-  test('generates hello world', () => {
+  test('expects 1 routes were generated', () => {
     assert.equal(kita.providers.size, 0);
     assert.equal(kita.routes.size, 1);
+  });
 
+  test('generates hello world', () => {
     const route = kita.routes.get('getIndex');
 
-    assert.ok(route);
     assert.deepStrictEqual(route, {
       url: '/',
       controllerMethod: 'get',

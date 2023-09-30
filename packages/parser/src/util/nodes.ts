@@ -13,7 +13,7 @@ export function getTypeName(type?: ts.Node) {
 /**
  *  Gets the parameter type name.
  */
-export function getParameterTypeName(param: ts.ParameterDeclaration) {
+export function getTypeNodeName(param: Pick<ts.ParameterDeclaration, 'type'>) {
   return getTypeName(param.type);
 }
 
@@ -25,7 +25,8 @@ export function getIdentifierName(param: ts.BindingName) {
 }
 
 /**
- * Resolves the parameter name to be used in route schemas and query pickers.
+ * Tries to resolve the parameter name, either by a string literal specified by
+ * {@linkcode genericIndex} or the parameter name.
  *
  * @param genericIndex If the provided parameter is a NodeWithTypeArguments, which generic we should use?
  */

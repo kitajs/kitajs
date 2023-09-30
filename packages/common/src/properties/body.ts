@@ -1,5 +1,5 @@
 /**
- * - Cannot be used with {@link BodyProp}.
+ * - Cannot be used with {@linkcode BodyProp}.
  * - Only one Body can be used per route.
  * - GET routes cannot use Body.
  *
@@ -14,7 +14,7 @@
 export type Body<Obj> = Obj;
 
 /**
- * - Cannot be used with {@link Body}
+ * - Cannot be used with {@linkcode Body}
  * - GET routes cannot use Body.
  *
  * @example

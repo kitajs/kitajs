@@ -8,8 +8,9 @@ import { Parser } from './parser';
 export interface ParameterParser
   extends Parser<ts.ParameterDeclaration, Parameter, [Route | null, ts.FunctionDeclaration, number]> {
   /**
-   * If this parser supports every type of router.
-   * This means that it can be resolved into another side functions, like providers.
+   * If the parameter this parser creates needs a route instance to operate on.
+   * If this boolean is true, the parser will throw
+   * {@linkcode AgnosticRouteConflictError} if the provided route is null.
    */
   agnostic: boolean;
 }
