@@ -13,12 +13,12 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
     const name = tag.tagName.text.trim().toLowerCase();
     const value = typeof tag.comment === 'string' ? tag.comment.trim() : ts.getTextOfJSDocComment(tag.comment)?.trim();
 
-    if (!value) {
-      throw new EmptyJsdocError(name, route.controllerPrettyPath);
-    }
-
     switch (name) {
       case 'security':
+        if (!value) {
+          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+        }
+
         // This regex will always match
         const match = value.match(/^(.+?)(?: \[(.+)\])?$/)!;
 
@@ -32,6 +32,10 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
         break;
 
       case 'tag':
+        if (!value) {
+          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+        }
+
         mergeSchema(route, {
           tags: [value]
         });
@@ -39,6 +43,10 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
         break;
 
       case 'summary':
+        if (!value) {
+          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+        }
+
         //@ts-ignore - any type is valid
         if (route.schema.summary) {
           throw new JsdocAlreadyDefinedError(name, route.controllerPath);
@@ -51,24 +59,44 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
         break;
 
       case 'description':
-        //@ts-ignore - any type is valid
-        if (route.schema.description) {
-          throw new JsdocAlreadyDefinedError(name, route.controllerPath);
-        }
+        // We don't throw an error if the description is already defined
+        // because the inner jsdoc may be for documenting code and the @description
+        // may be for documenting the route
 
         mergeSchema(route, {
+          // Allow undefined to remove the description
           description: value
         });
 
         break;
 
       case 'url':
+        if (!value) {
+          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+        }
+
         route.url = value;
         break;
 
       case 'operationid':
+        if (!value) {
+          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+        }
+
         // Does not override the default operationId
         route.schema.operationId ??= value;
+        break;
+
+      case 'deprecated':
+        route.schema.deprecated = true;
+        break;
+
+      case 'method':
+        if (!value) {
+          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+        }
+
+        route.method = value.toUpperCase();
         break;
 
       default:

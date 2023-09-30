@@ -1,6 +1,7 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
+import path from 'node:path';
 
 describe('Query Parameter', async () => {
   const { kita } = await parseRoutes(__dirname);
@@ -18,7 +19,7 @@ describe('Query Parameter', async () => {
       method: 'GET',
       controllerMethod: 'get',
       controllerName: 'PrimitiveController',
-      controllerPath: '/home/hzk/dev/kitajs/packages/parser/test/query/routes/primitive.ts',
+      controllerPath: path.resolve(__dirname, 'routes/primitive.ts'),
       controllerPrettyPath: 'test/query/routes/primitive.ts:4:1',
       parameters: [{ value: 'req.query.name' }, { value: 'req.query.age' }, { value: 'req.query["custom name"]' }],
       schema: {
@@ -45,7 +46,7 @@ describe('Query Parameter', async () => {
       url: '/complex',
       controllerMethod: 'get',
       controllerName: 'ComplexController',
-      controllerPath: '/home/hzk/dev/kitajs/packages/parser/test/query/routes/complex.ts',
+      controllerPath: path.resolve(__dirname, 'routes/complex.ts'),
       controllerPrettyPath: 'test/query/routes/complex.ts:9:1',
       method: 'GET',
       parameters: [{ value: 'req.query' }],
