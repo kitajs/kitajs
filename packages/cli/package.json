@@ -17,7 +17,8 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "tsc --noEmit"
   },
   "dependencies": {
     "@kitajs/common": "^1.1.0",

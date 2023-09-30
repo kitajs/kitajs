@@ -22,7 +22,7 @@ export function predicateRace<
       promise.then(
         (result) => {
           // Promise was resolved before
-          if (resolved === maxTries) {
+          if (resolved >= maxTries) {
             return;
           }
 

@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "tsc --noEmit"
   },
   "dependencies": {
     "deepmerge": "^4.3.1",

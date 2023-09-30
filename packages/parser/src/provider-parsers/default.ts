@@ -5,7 +5,7 @@ import {
   ProviderParser,
   UntypedProviderError
 } from '@kitajs/common';
-import { Promisable } from 'type-fest';
+import type { Promisable } from 'type-fest';
 import ts from 'typescript';
 import {
   getTypeName,

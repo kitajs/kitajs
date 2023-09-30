@@ -6,7 +6,7 @@ import {
   ParameterResolverNotFoundError,
   Route
 } from '@kitajs/common';
-import { Promisable } from 'type-fest';
+import type { Promisable } from 'type-fest';
 import type ts from 'typescript';
 import { toPrettySource } from '../util/nodes';
 
