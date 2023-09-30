@@ -23,9 +23,12 @@ importers:
 
   packages/cli:
     dependencies:
-      '@kitajs/generator':
-        specifier: ^1.0.19
-        version: link:../generator
+      '@kitajs/common':
+        specifier: ^1.1.0
+        version: link:../common
+      '@kitajs/parser':
+        specifier: ^1.1.0
+        version: link:../parser
       '@kitajs/runtime':
         specifier: ^1.0.11
         version: link:../runtime
@@ -60,8 +63,8 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       emittery:
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^0.13.1
+        version: 0.13.1
       fastify:
         specifier: ^4
         version: 4.21.0
@@ -2174,11 +2177,6 @@ packages:
   /emittery@0.13.1:
     resolution: {integrity: sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ==}
     engines: {node: '>=12'}
-    dev: false
-
-  /emittery@1.0.1:
-    resolution: {integrity: sha512-2ID6FdrMD9KDLldGesP6317G78K7km/kMcwItRtVFva7I/cSEOIaLpewaUb+YLXVwdAp3Ctfxh/V5zIl1sj7dQ==}
-    engines: {node: '>=14.16'}
     dev: false
 
   /emoji-regex@10.2.1:

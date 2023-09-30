@@ -20,7 +20,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@kitajs/generator": "^1.0.19",
+    "@kitajs/parser": "^1.1.0",
+    "@kitajs/common": "^1.1.0",
     "@kitajs/runtime": "^1.0.11",
     "@types/prettier": "^2.7.2",
     "chalk": "^4",

@@ -1,17 +1,11 @@
 import { KitaConfig, ParameterParser, Route, RouteParser } from '@kitajs/common';
 import ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
-import { getTypeName, isExportedFunction } from '../util/nodes';
-// import type { KitaConfig } from '../config';
-// import { ParameterResolverNotFoundError } from '../errors';
-// import type { BaseRoute } from '../models';
-// import type { ParameterParser, RouteParser } from '../parsers';
-// import { RestRoute } from '../routes/rest';
-// import type { SchemaBuilder } from '../schema/builder';
-// import { mergeSchema } from '../schema/helpers';
-// import { applyJsDoc } from '../util/jsdoc';
-// import { getReturnType, isExportedFunction, toPrettySource } from '../util/nodes';
-import { findUrlAndController } from '../util/string';
+import { mergeSchema } from '../schema/helpers';
+import { parseJsDocTags } from '../util/jsdoc';
+import { getReturnType, isExportedFunction, toPrettySource } from '../util/nodes';
+import { findUrlAndControllerName } from '../util/string';
+import { traverseParameters } from '../util/traverser';
 
 export class RestRouteParser implements RouteParser {
   constructor(
@@ -43,34 +37,24 @@ export class RestRouteParser implements RouteParser {
   async parse(node: ts.FunctionDeclaration): Promise<Route> {
     const source = node.getSourceFile();
 
-    const { url, controller } = findUrlAndController(source.fileName, this.config);
+    const { url, controller } = findUrlAndControllerName(source.fileName, this.config);
+    const method = node.name!.getText();
 
-    
     const route: Route = {
-      controllerMethod: nodeName,
-
-    }
-
-    // (nodeName: string, url: string, controllerName: string, controllerPath: string, pos: ts.LineAndCharacter)
-    // this.controllerMethod = nodeName;
-    // this.method = nodeName.toUpperCase() as Uppercase<string>;
-    // this.controllerName = controllerName;
-    // this.url = url;
-    // this.parameters = [];
-    // this.controllerPath = controllerPath;
-    // this.controllerPrettyPath = `${controllerPath}:${pos.line + 1}`;
-    // this.schema = { operationId: `${this.method.toLowerCase()}${this.controllerName}` };
-    
-
-    const route = new RestRoute(
-      node.name!.getText(),
       url,
-      controller,
-      source.fileName,
-      source.getLineAndCharacterOfPosition(node.name?.pos ?? node.pos)
-    );
+      controllerMethod: method,
+      method: method.toUpperCase() as Uppercase<string>,
+      controllerName: controller,
+      controllerPath: source.fileName,
+      controllerPrettyPath: toPrettySource(node),
+      parameters: Array(node.parameters.length),
+      schema: {
+        operationId: method.toLowerCase() + controller,
+        response: {}
+      }
+    };
 
-    // Adds response types
+    // Adds response type.
     mergeSchema(route, {
       response: {
         [this.config.schema.defaultResponse]: this.schema.consumeNodeSchema(
@@ -80,29 +64,21 @@ export class RestRouteParser implements RouteParser {
       }
     });
 
-    for (const [resp, schema] of Object.entries(this.config.schema.responses)) {
-      mergeSchema(route, { response: { [resp]: schema } });
+    // Merge all predefined responses.
+    for (const status in this.config.schema.responses) {
+      mergeSchema(route, {
+        response: {
+          [status]: this.config.schema.responses[status]
+        }
+      });
     }
 
-    // TODO: Improve jsdoc parsing
-    mergeSchema(route, {
-      //@ts-expect-error - TODO: Find correct ts.getJsDoc method
-      description: node.jsDoc?.[0]?.comment
-    });
+    // Parses all jsdoc functions
+    parseJsDocTags(node, route);
 
-    for (const tag of ts.getJSDocTags(node)) {
-      applyJsDoc(tag, route);
-    }
-
-    // TODO: Transform this to an async iterator to handle parameters asynchronously
-    for (const [index, param] of node.parameters.entries()) {
-      const supports = await this.paramParser.supports(param);
-
-      if (!supports) {
-        throw new ParameterResolverNotFoundError(toPrettySource(param));
-      }
-
-      route.parameters[index] = await this.paramParser.parse(param, route, node, index);
+    // Adds all parameters in their respective position
+    for await (const { param, index } of traverseParameters(node, this.paramParser, route)) {
+      route.parameters[index] = param;
     }
 
     return route;

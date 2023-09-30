@@ -1,7 +1,10 @@
-import { Kita, mergeDefaults } from '@kitajs/generator';
+import { KitaEventEmitter, mergeDefaults } from '@kitajs/common';
+import { KitaParser } from '@kitajs/parser';
 
 export async function dev() {
-  const kita = new Kita(
+  const emitter = new KitaEventEmitter();
+
+  const kita = new KitaParser(
     './tsconfig.json',
     mergeDefaults({
       providers: {
@@ -11,15 +14,16 @@ export async function dev() {
         glob: ['./src/routes/**.ts']
       }
     }),
-    process.cwd()
+    process.cwd(),
+    emitter
   );
 
-  kita.on('kita-error', console.error);
-  kita.on('provider', console.log);
-  kita.on('route', console.log);
+  emitter.on('kitaError', console.error);
+  emitter.on('provider', console.log);
+  emitter.on('route', console.log);
 
-  await kita.buildProviders();
-  await kita.buildRoutes();
+  await kita.parseProviders();
+  await kita.parseRoutes();
 
   console.dir(kita.schemaBuilder.toSchemaArray(), { depth: null });
 }

@@ -46,16 +46,16 @@ export interface Route {
   url: string;
 
   /**
-   * The controller http method.
+   * The controller http **uppercase** method.
    *
-   * @example `get`
+   * @example `GET`
    */
-  method: Uppercase<string>;
+  method: string;
 
   /**
    * A "jsonified" string for the fastify route options
    */
-  options: string | undefined;
+  options?: string;
 
   /**
    * The fastify schema for this route.

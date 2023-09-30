@@ -1,21 +1,13 @@
-import type { KitaConfig, ParameterParser, ProviderParser, RouteParser } from '@kitajs/common';
-import type ts from 'typescript';
-import type { SchemaBuilder } from '../schema/builder';
-import { ChainRouteParser } from '../route-parsers/chain';
+import type { KitaConfig, ParameterParser, ProviderParser } from '@kitajs/common';
 import { ChainProviderParser } from './chain';
+import { DefaultProviderParser } from './default';
 
-
-export function buildProviderParser(
-  config: KitaConfig,
-  schema: SchemaBuilder,
-  paramParser: ParameterParser,
-  typeChecker: ts.TypeChecker
-): ProviderParser {
+export function buildProviderParser(config: KitaConfig, paramParser: ParameterParser): ProviderParser {
   const chain = new ChainProviderParser();
 
-  config.routeParserAugmentor?.(chain);
+  config.providerParserAugmentor?.(chain);
 
-  // chain.add(new RestRouteParser(config, schema, paramParser, typeChecker));
+  chain.add(new DefaultProviderParser(paramParser));
 
   return chain;
 }

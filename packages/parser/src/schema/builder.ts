@@ -69,7 +69,7 @@ export class SchemaBuilder {
   /**
    * Saves and returns a {@link ts.Node}'s respective json schema.
    */
-  consumeNodeSchema(node: ts.Node, overrideName?: string): Schema {
+  consumeNodeSchema(node: ts.TypeNode, overrideName?: string): Schema {
     const type = this.createTypeSchema(node);
 
     {

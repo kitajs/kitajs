@@ -1,5 +1,13 @@
-import { Parser, SourceFileNotFoundError, UnknownKitaError } from '@kitajs/common';
+import {
+  ParameterParser,
+  ParameterResolverNotFoundError,
+  Parser,
+  Route,
+  SourceFileNotFoundError,
+  UnknownKitaError
+} from '@kitajs/common';
 import ts from 'typescript';
+import { toPrettySource } from './nodes';
 
 /**
  * Traverse each source file for the given path and yields the result of the provided parser or an error.
@@ -21,6 +29,30 @@ export async function* traverseSources<R>(program: ts.Program, parser: Parser<ts
           // This allows us to keep parsing even if some routes fail
           .catch((err) => (err instanceof Error ? err : new UnknownKitaError(err)));
       }
+    }
+  }
+}
+
+/**
+ * Traverse each parameter for the given function and yields the result of the
+ * provided parser. Errors are thrown synchronously.
+ */
+export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: ParameterParser, route: Route | null) {
+  for (let index = 0; index < fn.parameters.length; index++) {
+    const parameter = fn.parameters[index]!;
+    const supports = await parser.supports(parameter);
+
+    if (!supports) {
+      throw new ParameterResolverNotFoundError(toPrettySource(parameter));
+    }
+
+    // Yield the result of the parser (promises are unwrapped)
+    const param = parser.parse(parameter, route, fn, index);
+
+    if (param instanceof Promise) {
+      yield param.then((param) => ({ param, index }));
+    } else {
+      yield { param, index };
     }
   }
 }

@@ -17,16 +17,6 @@ import { buildParameterParser } from './parameter-parsers';
 import { buildRouteParser } from './route-parsers';
 import { SchemaBuilder } from './schema/builder';
 import { traverseSources } from './util/traverser';
-// import { DuplicateOperationIdError, KitaError } from './errors';
-// import { KitaEmitter } from './events';
-// import type { BaseProvider, BaseRoute } from './models';
-// import { buildParameterParser } from './parameter-parsers';
-// import type { ParameterParser, RouteParser } from './parsers';
-// import { parseProvider } from './provider/parser';
-// import { buildRouteParser } from './route-parsers';
-// import { SchemaBuilder } from './schema/builder';
-// import { AstTraverser } from './traverser';
-// import { readCompilerOptions } from './util/tsconfig';
 
 export class KitaParser {
   readonly compilerOptions: ts.CompilerOptions;

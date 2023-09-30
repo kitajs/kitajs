@@ -10,7 +10,7 @@ export function opt(optional = false) {
   return optional ? '?' : ('' as const);
 }
 
-export function findUrlAndController(filepath: string, config: KitaConfig) {
+export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
   let strip = filepath;
 
   // Strips any possible regex that the user might have added
