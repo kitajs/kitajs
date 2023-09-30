@@ -22,7 +22,7 @@ export function post() {
 
 /**
  * This should not be used as an empty description is used.
- * 
+ *
  * @url /not-index
  * @method delete
  * @deprecated

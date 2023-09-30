@@ -1,7 +1,7 @@
 import assert from 'node:assert';
+import path from 'node:path';
 import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
-import path from 'node:path';
 
 describe('Query Parameter', async () => {
   const { kita } = await parseRoutes(__dirname);

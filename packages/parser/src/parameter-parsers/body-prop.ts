@@ -9,6 +9,7 @@ import {
 import type ts from 'typescript';
 import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
+import { kRequestParam } from '../util/constants';
 import {
   getParameterGenerics,
   getParameterName,
@@ -17,13 +18,15 @@ import {
   toPrettySource
 } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';
-import { kRequestParam } from '../util/constants';
 
 export class BodyPropParameterParser implements ParameterParser {
   /** Only on known routes */
   agnostic = false;
 
-  constructor(private config: KitaConfig, private schema: SchemaBuilder) {}
+  constructor(
+    private config: KitaConfig,
+    private schema: SchemaBuilder
+  ) {}
 
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'BodyProp';

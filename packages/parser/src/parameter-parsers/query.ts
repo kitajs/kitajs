@@ -25,7 +25,10 @@ export class QueryParameterParser implements ParameterParser {
   /** Query needs a route to apply the generated schema */
   agnostic = true;
 
-  constructor(private schemaBuilder: SchemaBuilder, private config: KitaConfig) {}
+  constructor(
+    private schemaBuilder: SchemaBuilder,
+    private config: KitaConfig
+  ) {}
 
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'Query';

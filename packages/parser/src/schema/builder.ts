@@ -35,7 +35,10 @@ export class SchemaBuilder {
   private parser: NodeParser;
   private formatter: TypeFormatter;
 
-  constructor(private config: KitaConfig, program: ts.Program) {
+  constructor(
+    private config: KitaConfig,
+    program: ts.Program
+  ) {
     const generatorCfg = { ...config.schema.generator, tsconfig: config.tsconfig };
 
     this.parser = createParser(program, generatorCfg, (mut) => {

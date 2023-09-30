@@ -3,8 +3,6 @@ import type ts from 'typescript';
 import { toPrettySource } from '../util/nodes';
 
 export class ChainRouteParser extends ChainParser<RouteParser> implements RouteParser {
- 
-
   async parse(node: ts.Node): Promise<Route> {
     const parser = this.cache.get(node);
 

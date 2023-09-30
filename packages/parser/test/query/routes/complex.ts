@@ -9,4 +9,3 @@ export interface Complex {
 export function get({ a, b }: Query<Complex>) {
   return a + b;
 }
-
