@@ -23,7 +23,7 @@
     "release": "changeset publish",
     "test": "pnpm -r --parallel test",
     "version": "changeset version",
-    "watch": "pnpm -r --parallel build --watch"
+    "watch": "pnpm -r --parallel build --watch > /dev/null"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.8",

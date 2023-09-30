@@ -4,7 +4,7 @@ export const DefaultConfig: KitaConfig = {
   tsconfig: './tsconfig.json',
   controllers: {
     glob: ['src/routes/**/*.ts', 'routes/**/*.ts'],
-    prefix: '(?:.*src)?/?(?:routes/?)'
+    prefix: /^(.+?\/routes\/)/
   },
   providers: {
     glob: ['src/providers/**/*.ts', 'providers/**/*.ts']

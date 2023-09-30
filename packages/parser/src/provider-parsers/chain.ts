@@ -4,7 +4,7 @@ import { toPrettySource } from '../util/nodes';
 
 export class ChainProviderParser extends ChainParser<ProviderParser> implements ProviderParser {
   async parse(node: ts.SourceFile): Promise<Provider> {
-    const parser = super.cache.get(node);
+    const parser = this.cache.get(node);
 
     if (!parser) {
       throw new ProviderResolverNotFound(toPrettySource(node));

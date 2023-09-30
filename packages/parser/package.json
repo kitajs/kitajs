@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "tsc; node --require tsx/cjs --test test/**/*.test.ts"
+    "test": "tsc && c8 --reporter lcov --reporter text node --trace-warnings --require tsx/cjs --test test/**/*.test.ts"
   },
   "dependencies": {
     "@kitajs/common": "*",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/node": "^20.5.0",
+    "c8": "^8.0.1",
     "tsx": "^3.13.0",
     "type-fest": "^4.2.0"
   },

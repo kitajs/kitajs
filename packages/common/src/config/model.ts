@@ -70,11 +70,13 @@ export interface KitaConfig {
     glob: string[];
 
     /**
-     * The regex to extract the route controller pathname from the absolute path
+     * The regex to extract the route controller pathname from the absolute path.
+     * 
+     * Defaults to everything before the routes folder.
      *
-     * @default /(?:.*src)?\/?(?:routes\/?)/
+     * @default /^(.+?\/routes\/)/
      */
-    prefix: string;
+    prefix: string | RegExp;
   };
 
   providers: {

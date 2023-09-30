@@ -11,7 +11,7 @@ export class MultipleDefinitionsError extends KitaError {
 export class BodyInGetRequestError extends KitaError {
   code = 401;
 
-  constructor() {
+  constructor(readonly path: string) {
     super(`You cannot use any Body dependent code in a GET request.`);
   }
 }

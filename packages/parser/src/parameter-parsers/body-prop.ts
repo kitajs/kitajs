@@ -25,7 +25,7 @@ export class BodyPropParameterParser implements ParameterParser {
 
   async parse(param: ts.ParameterDeclaration, route: Route): Promise<Parameter> {
     if (route.method === 'GET') {
-      throw new BodyInGetRequestError();
+      throw new BodyInGetRequestError(route.controllerPrettyPath);
     }
 
     // The $ref property is set when using the Body parameter

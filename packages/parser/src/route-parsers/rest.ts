@@ -9,10 +9,10 @@ import { traverseParameters } from '../util/traverser';
 
 export class RestRouteParser implements RouteParser {
   constructor(
-    readonly config: KitaConfig,
-    readonly schema: SchemaBuilder,
-    readonly paramParser: ParameterParser,
-    readonly typeChecker: ts.TypeChecker
+    private config: KitaConfig,
+    private schema: SchemaBuilder,
+    private paramParser: ParameterParser,
+    private typeChecker: ts.TypeChecker
   ) {}
 
   supports(node: ts.Node): boolean {
@@ -26,7 +26,7 @@ export class RestRouteParser implements RouteParser {
 
     // Allows this parameter to not be defined as this is the last
     // resolver and should try to catch as many routes as possible.
-    if (!node.name.text.trim().match(/^(get|post|put|delete|all)Route$/i)) {
+    if (!node.name.text.trim().match(/^get|post|put|delete|all$/i)) {
       return false;
     }
 
@@ -49,8 +49,7 @@ export class RestRouteParser implements RouteParser {
       controllerPrettyPath: toPrettySource(node),
       parameters: Array(node.parameters.length),
       schema: {
-        operationId: method.toLowerCase() + controller,
-        response: {}
+        operationId: method.toLowerCase() + controller.replace(/controller$/i, '')
       }
     };
 

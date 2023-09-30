@@ -3,8 +3,10 @@ import type ts from 'typescript';
 import { toPrettySource } from '../util/nodes';
 
 export class ChainRouteParser extends ChainParser<RouteParser> implements RouteParser {
+ 
+
   async parse(node: ts.Node): Promise<Route> {
-    const parser = super.cache.get(node);
+    const parser = this.cache.get(node);
 
     if (!parser) {
       throw new RouteResolverNotFoundError(toPrettySource(node));
