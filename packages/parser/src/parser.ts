@@ -24,7 +24,6 @@ export class KitaParser {
   readonly providerPaths: string[];
   readonly schemaBuilder: SchemaBuilder;
   readonly program: ts.Program;
-  // readonly traverser: AstTraverser;
 
   /** Root route parser */
   readonly routeParser: RouteParser;

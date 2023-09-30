@@ -9,7 +9,7 @@ export class HeaderParameterParser implements ParameterParser {
   /** Headers are present in every type of request */
   agnostic = false;
 
-  constructor(readonly config: KitaConfig) {}
+  constructor(private config: KitaConfig) {}
 
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'Header';

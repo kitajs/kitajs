@@ -23,7 +23,7 @@ export class BodyPropParameterParser implements ParameterParser {
   /** Only on known routes */
   agnostic = false;
 
-  constructor(readonly config: KitaConfig, readonly schema: SchemaBuilder) {}
+  constructor(private config: KitaConfig, private schema: SchemaBuilder) {}
 
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'BodyProp';

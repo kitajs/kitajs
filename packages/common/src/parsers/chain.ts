@@ -5,12 +5,12 @@ export abstract class ChainParser<P extends Parser<object>> implements Pick<Pars
   /**
    * All the parsers in this chain.
    */
-  readonly parsers = new Set<P>();
+  protected parsers = new Set<P>();
 
   /**
    * A simple node cache to increase the performance at parse() when getting the correct parser
    */
-  readonly cache = new WeakMap<Parameters<P['supports']>[0], P>();
+  protected cache = new WeakMap<Parameters<P['supports']>[0], P>();
 
   /**
    * Adds a parser to this chain.

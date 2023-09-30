@@ -42,7 +42,7 @@ export abstract class KitaError extends Error {
 export class UnknownKitaError extends KitaError {
   code = -1;
 
-  constructor(readonly data?: unknown) {
+  constructor(private data?: unknown) {
     super('Unknown error');
   }
 }

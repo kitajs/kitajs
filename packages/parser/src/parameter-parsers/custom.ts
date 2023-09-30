@@ -8,7 +8,7 @@ export class ProviderParameterParser implements ParameterParser {
   /** Providers MUST be agnostic */
   agnostic = true;
 
-  constructor(readonly parser: KitaParser) {}
+  constructor(private parser: KitaParser) {}
 
   supports(param: ts.ParameterDeclaration) {
     const name = getTypeNodeName(param);
