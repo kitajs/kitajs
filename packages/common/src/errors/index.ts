@@ -1,4 +1,4 @@
 export * from './base';
 export * from './config';
 export * from './parser';
-export * from './validator'
+export * from './validator';

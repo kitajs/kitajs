@@ -1,4 +1,4 @@
-import  type  { Primitive } from 'type-fest';
+import type { Primitive } from 'type-fest';
 
 /**
  * Extracted from the request headers. All headers are lowercased.

@@ -56,7 +56,7 @@ export type AllRoute<_Config extends RouteShorthandOptions = {}> = void;
  * @example
  * ```ts
  * export function myOperationId(this: HttpRoute<'options'>) {}
- * 
+ *
  * export function myOtherOperationId(this: HttpRoute<['options', 'put']>) {}
  * ```
  */

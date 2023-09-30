@@ -1,6 +1,6 @@
 import type * as Prettier from 'prettier';
-import { ParameterParser, ProviderParser, RouteParser } from '../parsers';
 import { SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
+import { ParameterParser, ProviderParser, RouteParser } from '../parsers';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.

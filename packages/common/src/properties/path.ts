@@ -13,7 +13,4 @@ import type { Primitive } from 'type-fest';
  * ) {}
  * ```
  */
-export type Path<
-  Type extends Primitive = string,
-  _Name extends string = string
-> = Type;
+export type Path<Type extends Primitive = string, _Name extends string = string> = Type;

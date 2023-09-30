@@ -135,7 +135,7 @@ export function unwrapPromiseType(type: ts.TypeNode) {
 
 /**
  * Returns a pretty path for the provided node.
- * 
+ *
  * @example `src/controllers/users.ts:12:3`
  */
 export function toPrettySource(node: ts.Node) {

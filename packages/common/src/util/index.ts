@@ -1,1 +1,1 @@
-export * from './promises'
+export * from './promises';

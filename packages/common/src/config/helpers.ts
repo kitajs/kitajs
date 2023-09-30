@@ -1,9 +1,8 @@
-import deepmerge from "deepmerge";
-import { CannotReadConfigError, InvalidConfigError } from "../errors";
-import { DefaultConfig } from "./defaults";
-import { KitaConfig } from "./model";
-import { PartialDeep } from "type-fest";
-
+import deepmerge from 'deepmerge';
+import { PartialDeep } from 'type-fest';
+import { CannotReadConfigError, InvalidConfigError } from '../errors';
+import { DefaultConfig } from './defaults';
+import { KitaConfig } from './model';
 
 /**
  * Tries to import a config file from the given path.
@@ -13,10 +12,7 @@ export function importConfig(path: string) {
     return mergeDefaults(require(path));
   } catch (e: any) {
     // The provided path is not a valid config file
-    if (
-      e.code === 'MODULE_NOT_FOUND' &&
-      e.message.includes(`Cannot find module '${path}'`)
-    ) {
+    if (e.code === 'MODULE_NOT_FOUND' && e.message.includes(`Cannot find module '${path}'`)) {
       return DefaultConfig;
     }
 

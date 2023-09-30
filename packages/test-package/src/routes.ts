@@ -65,7 +65,7 @@ export const Kita = fp<{ piscina: Piscina }>(
 
     fastify.route({
       method
-    })
+    });
 
     fastify.addSchema({
       $id: 'ResponseTypesControllerGetResponse',
@@ -232,9 +232,7 @@ export const Kita = fp<{ piscina: Piscina }>(
       }
     );
 
-    fastify.route({
-      
-    })
+    fastify.route({});
 
     fastify.post(
       '/:name',

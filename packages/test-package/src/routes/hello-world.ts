@@ -5,6 +5,4 @@ export function $get(this: void, name: Query = 'world') {
   return `Hello ${name}`;
 }
 
-export const $get = {
-  
-}
+export const $get = {};

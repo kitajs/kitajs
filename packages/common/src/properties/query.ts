@@ -1,4 +1,4 @@
-import  type { Primitive } from 'type-fest';
+import type { Primitive } from 'type-fest';
 
 /**
  * Extracted from query url. e.g. `?name=John&age=20`

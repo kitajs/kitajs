@@ -52,7 +52,9 @@ export class DefaultProviderParser implements ProviderParser {
       parameters[index] = param;
     }
 
-    const hasSchemaTransformer = !!source.statements.find((s) => isExportedFunction(s) && hasName(s, 'transformSchema'));
+    const hasSchemaTransformer = !!source.statements.find(
+      (s) => isExportedFunction(s) && hasName(s, 'transformSchema')
+    );
 
     return {
       async,
