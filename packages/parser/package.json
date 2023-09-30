@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "tsc && c8 --reporter lcov --reporter text node --trace-warnings --require tsx/cjs --test test/**/*.test.ts"
+    "test": "c8 --reporter lcov --reporter text node --trace-warnings --require tsx/cjs --test test/**/*.test.ts"
   },
   "dependencies": {
     "@kitajs/common": "*",
