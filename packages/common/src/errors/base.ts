@@ -28,7 +28,7 @@ export abstract class KitaError extends Error {
   public abstract code: number;
 
   // We may use line breaks in the code to improve readability, but we don't want
-  // to show them to the user, so we remove them.
+  // to show them to the user.
   constructor(message: string) {
     // multiline trim
     super(message.replace(/^\s+|\s+$/gm, ''));
@@ -42,7 +42,7 @@ export abstract class KitaError extends Error {
 export class UnknownKitaError extends KitaError {
   code = -1;
 
-  constructor(private data?: unknown) {
+  constructor(readonly data?: unknown) {
     super('Unknown error');
   }
 }
