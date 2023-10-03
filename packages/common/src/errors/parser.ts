@@ -39,7 +39,10 @@ export class CannotCreateNodeTypeError extends KitaError {
 export class SourceFileNotFoundError extends KitaError {
   code = 304;
 
-  constructor(readonly path: string, readonly importReason?: string) {
+  constructor(
+    readonly path: string,
+    readonly importReason?: string
+  ) {
     super(`Source file not found`);
   }
 }
@@ -74,7 +77,10 @@ export class UntypedPromiseError extends KitaError {
 export class EmptyJsdocError extends KitaError {
   code = 308;
 
-  constructor(readonly tagname: string, readonly path: string) {
+  constructor(
+    readonly tagname: string,
+    readonly path: string
+  ) {
     super(`You forgot to provide a value for this JSDoc tag.`);
   }
 }
@@ -84,5 +90,27 @@ export class ProviderResolverNotFound extends KitaError {
 
   constructor(readonly path: string) {
     super(`Could not resolve a provider parser for the given node`);
+  }
+}
+
+export class WronglyTypedProviderError extends KitaError {
+  code = 310;
+
+  constructor(
+    readonly currentType: string,
+    readonly path: string
+  ) {
+    super(`The provider function resolver return type must be a type reference, no other types are allowed.`);
+  }
+}
+
+export class ReturnTypeError extends KitaError {
+  code = 311;
+
+  constructor(
+    readonly path: string,
+    readonly error: unknown
+  ) {
+    super(`Could not resolve return type of provided function.`);
   }
 }

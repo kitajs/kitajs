@@ -1,4 +1,4 @@
-import { KitaConfig, ParameterParser, Route, RouteParser } from '@kitajs/common';
+import { KitaConfig, ParameterParser, ReturnTypeError, Route, RouteParser } from '@kitajs/common';
 import ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
@@ -54,14 +54,18 @@ export class RestRouteParser implements RouteParser {
     };
 
     // Adds response type.
-    mergeSchema(route, {
-      response: {
-        ['default' as string]: this.schema.consumeNodeSchema(
-          getReturnType(node, this.typeChecker),
-          `${route.schema.operationId}Response`
-        )
-      }
-    });
+    try {
+      mergeSchema(route, {
+        response: {
+          ['default' as string]: this.schema.consumeNodeSchema(
+            getReturnType(node, this.typeChecker),
+            `${route.schema.operationId}Response`
+          )
+        }
+      });
+    } catch (error) {
+      throw new ReturnTypeError(toPrettySource(node), error);
+    }
 
     // Merge all predefined responses.
     for (const status in this.config.schema.responses) {

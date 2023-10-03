@@ -3,7 +3,8 @@ import {
   ParameterParser,
   Provider,
   ProviderParser,
-  UntypedProviderError
+  UntypedProviderError,
+  WronglyTypedProviderError
 } from '@kitajs/common';
 import type { Promisable } from 'type-fest';
 import ts from 'typescript';
@@ -42,7 +43,7 @@ export class DefaultProviderParser implements ProviderParser {
 
     // Not a type reference.
     if (returnType.kind !== ts.SyntaxKind.TypeReference || !type) {
-      throw new UntypedProviderError(toPrettySource(returnType));
+      throw new WronglyTypedProviderError(returnType.getText(), toPrettySource(returnType));
     }
 
     const parameters = Array(fn.parameters.length);
