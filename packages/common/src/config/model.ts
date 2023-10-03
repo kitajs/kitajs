@@ -1,6 +1,6 @@
 import type * as Prettier from 'prettier';
 import { SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
-import { ParameterParser, ProviderParser, RouteParser } from '../parsers';
+import { ChainParser, ParameterParser, ProviderParser, RouteParser } from '../parsers';
 
 /**
  * The kita config interface. all possible customizations are done through this interface.
@@ -64,7 +64,7 @@ export interface KitaConfig {
 
     /**
      * The regex to extract the route controller pathname from the absolute path.
-     * 
+     *
      * Defaults to everything before the routes folder.
      *
      * @default /^(.+?\/routes\/)/
@@ -84,15 +84,15 @@ export interface KitaConfig {
   /**
    * Use this callback to include new parameter parsers.
    */
-  parameterParserAugmentor?(parser: ParameterParser): void | Promise<void>;
+  parameterParserAugmentor?(parser: ChainParser<ParameterParser>): void | Promise<void>;
 
   /**
    * Use this callback to include new route parsers.
    */
-  routeParserAugmentor?(parser: RouteParser): void | Promise<void>;
+  routeParserAugmentor?(parser: ChainParser<RouteParser>): void | Promise<void>;
 
   /**
    * Use this callback to include new route parsers.
    */
-  providerParserAugmentor?(parser: ProviderParser): void | Promise<void>;
+  providerParserAugmentor?(parser: ChainParser<ProviderParser>): void | Promise<void>;
 }
