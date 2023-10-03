@@ -18,6 +18,7 @@ export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {})
 
   // Should not emit any errors
   for await (const error of kita.parse()) {
+    console.error(error);
     assert.fail(error);
   }
 

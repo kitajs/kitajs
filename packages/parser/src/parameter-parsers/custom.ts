@@ -1,5 +1,6 @@
 import { KitaParser, ParameterParser, Route } from '@kitajs/common';
 import type ts from 'typescript';
+import { format } from '../util/codegen';
 import { getTypeNodeName } from '../util/nodes';
 import { joinParameters } from '../util/syntax';
 
@@ -24,9 +25,19 @@ export class ProviderParameterParser implements ParameterParser {
     return {
       providerName,
       value,
-      helper: /* ts */ `${joinParameters(provider.parameters)}
-const ${value} = await ${providerName}(${provider.parameters.map((p) => p.value).join(',')});`,
-      imports: [/* ts */ `import ${providerName} from "${provider.providerPath}";`]
+      helper: format(/* ts */ `
+
+${joinParameters(provider.parameters)}
+const ${value} = await ${providerName}(${provider.parameters.map((p) => p.value).join(',')});
+
+`),
+      imports: [
+        format(/* ts */ `
+
+import ${providerName} from "${provider.providerPath}";
+
+`)
+      ]
     };
   }
 }
