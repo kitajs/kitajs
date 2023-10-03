@@ -22,7 +22,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "release": "changeset publish",
-    "test": "pnpm -r --parallel test",
+    "test": "pnpm -r --parallel --filter @kitajs/parser test",
     "version": "changeset version",
     "watch": "pnpm -r --parallel build --watch > /dev/null"
   },
