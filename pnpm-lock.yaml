@@ -8,8 +8,8 @@ importers:
   .:
     devDependencies:
       '@arthurfiorette/prettier-config':
-        specifier: ^1.0.8
-        version: 1.0.8(prettier@2.8.3)
+        specifier: ^1.0.11
+        version: 1.0.11(prettier@3.0.3)(typescript@5.2.2)
       '@changesets/cli':
         specifier: ^2.26.0
         version: 2.26.0
@@ -17,8 +17,8 @@ importers:
         specifier: ^8.0.3
         version: 8.0.3
       prettier:
-        specifier: ^2.8.3
-        version: 2.8.3
+        specifier: ^3.0.0
+        version: 3.0.3
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -325,21 +325,22 @@ packages:
       '@jridgewell/trace-mapping': 0.3.17
     dev: false
 
-  /@arthurfiorette/prettier-config@1.0.8(prettier@2.8.3):
+  /@arthurfiorette/prettier-config@1.0.11(prettier@3.0.3)(typescript@5.2.2):
     resolution:
-      { integrity: sha512-s9/NYyebNjCAum+3t8uOWCFaNlsGd4N+0sPLFjpzc1HxkAn/EkqH8p/2JGwucA4Pgm7yRNWXLNlXD/Z1oohnwQ== }
+      { integrity: sha512-GyLSQopqd/0HY7SmZX/LrXmNZQGeAHBiIoewR81RLrnAInSXl2HLuhh+GxBj10MFoH+46kYytbYT0Z6Y+sOOfw== }
     hasBin: true
+    peerDependencies:
+      prettier: '>=3.0.0'
     dependencies:
-      '@types/prettier': 3.0.0
-      prettier-plugin-jsdoc: 0.4.2(prettier@2.8.3)
-      prettier-plugin-organize-imports: 3.2.2(prettier@2.8.3)(typescript@5.2.2)
-      prettier-plugin-packagejson: 2.4.2(prettier@2.8.3)
-      typescript: 5.2.2
+      prettier: 3.0.3
+      prettier-plugin-jsdoc: 1.0.2(prettier@3.0.3)
+      prettier-plugin-organize-imports: 3.2.2(prettier@3.0.3)(typescript@5.2.2)
+      prettier-plugin-packagejson: 2.4.2(prettier@3.0.3)
     transitivePeerDependencies:
       - '@volar/vue-language-plugin-pug'
       - '@volar/vue-typescript'
-      - prettier
       - supports-color
+      - typescript
     dev: true
 
   /@assemblyscript/loader@0.10.1:
@@ -1824,6 +1825,7 @@ packages:
       This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
     dependencies:
       prettier: 2.8.3
+    dev: false
 
   /@types/semver@6.2.3:
     resolution:
@@ -2422,9 +2424,9 @@ packages:
     engines: { node: ^12.20.0 || >=14 }
     dev: false
 
-  /comment-parser@1.3.1:
+  /comment-parser@1.4.0:
     resolution:
-      { integrity: sha512-B52sN2VNghyq5ofvUsqZjmk6YkihBX5vMSChmSK9v4ShjKf3Vk5Xcmgpw4o+iIgtrnM/u5FiMpz9VKb8lpBveA== }
+      { integrity: sha512-QLyTNiZ2KDOibvFPlZ6ZngVsZ/0gYnE6uTXi5aoDg8ed3AkJAz4sEje3Y8a29hQ1s6A99MZXe47fLAXQ1rTqaw== }
     engines: { node: '>= 12.0.0' }
     dev: true
 
@@ -5166,22 +5168,22 @@ packages:
       which-pm: 2.0.0
     dev: true
 
-  /prettier-plugin-jsdoc@0.4.2(prettier@2.8.3):
+  /prettier-plugin-jsdoc@1.0.2(prettier@3.0.3):
     resolution:
-      { integrity: sha512-w2jnAQm3z0GAG0bhzVJeehzDtrhGMSxJjit5ApCc2oxWfc7+jmLAkbtdOXaSpfwZz3IWkk+PiQPeRrLNpbM+Mw== }
-    engines: { node: '>=12.0.0' }
+      { integrity: sha512-mhLT3qiSmfzjOEDvgLntX3XmSJaiDrgoN7WmOp4IH2mZ6LhbvZAnPDJH3Rs0k1O6WR7HcmM92fU1ArB0ALLG+A== }
+    engines: { node: '>=14.13.1 || >=16.0.0' }
     peerDependencies:
-      prettier: '>=2.1.2'
+      prettier: ^3.0.0
     dependencies:
       binary-searching: 2.0.5
-      comment-parser: 1.3.1
+      comment-parser: 1.4.0
       mdast-util-from-markdown: 1.3.0
-      prettier: 2.8.3
+      prettier: 3.0.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.2(prettier@2.8.3)(typescript@5.2.2):
+  /prettier-plugin-organize-imports@3.2.2(prettier@3.0.3)(typescript@5.2.2):
     resolution:
       { integrity: sha512-e97lE6odGSiHonHJMTYC0q0iLXQyw0u5z/PJpvP/3vRy6/Zi9kLBwFAbEGjDzIowpjQv8b+J04PDamoUSQbzGA== }
     peerDependencies:
@@ -5195,11 +5197,11 @@ packages:
       '@volar/vue-typescript':
         optional: true
     dependencies:
-      prettier: 2.8.3
+      prettier: 3.0.3
       typescript: 5.2.2
     dev: true
 
-  /prettier-plugin-packagejson@2.4.2(prettier@2.8.3):
+  /prettier-plugin-packagejson@2.4.2(prettier@3.0.3):
     resolution:
       { integrity: sha512-Y/sW29qq0FhEQRA+85K98VOlMW7/Wicrm0Tm2j/EZ+Eh7F6jVUpGVv7WIMku+WsaEab/PyxaA5ckmTd3E0seNg== }
     peerDependencies:
@@ -5208,7 +5210,7 @@ packages:
       prettier:
         optional: true
     dependencies:
-      prettier: 2.8.3
+      prettier: 3.0.3
       sort-package-json: 2.2.0
       synckit: 0.8.5
     dev: true
@@ -5218,6 +5220,13 @@ packages:
       { integrity: sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw== }
     engines: { node: '>=10.13.0' }
     hasBin: true
+
+  /prettier@3.0.3:
+    resolution:
+      { integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg== }
+    engines: { node: '>=14' }
+    hasBin: true
+    dev: true
 
   /pretty-format@29.4.3:
     resolution:
