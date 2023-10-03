@@ -4,15 +4,15 @@ import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
 describe('JSDoc usage on route', async () => {
-  const { kita } = await parseRoutes(__dirname);
+  const kita  = await parseRoutes(__dirname);
 
   test('expects 3 routes were generated', () => {
-    assert.equal(kita.providers.size, 0);
-    assert.equal(kita.routes.size, 3);
+    assert.equal(kita.getProviderCount(), 0);
+    assert.equal(kita.getRouteCount(), 3);
   });
 
   test('works with simple jsdocs', () => {
-    const route = kita.routes.get('getIndex');
+    const route = kita.getRoute('getIndex');
 
     assert.deepStrictEqual(route, {
       url: '/',
@@ -32,7 +32,7 @@ describe('JSDoc usage on route', async () => {
   });
 
   test('prefers @description over normal description', () => {
-    const route = kita.routes.get('postIndex');
+    const route = kita.getRoute('postIndex');
 
     assert.deepStrictEqual(route, {
       url: '/',
@@ -51,7 +51,7 @@ describe('JSDoc usage on route', async () => {
   });
 
   test('works with complex jsdocs', () => {
-    const route = kita.routes.get('putIndex');
+    const route = kita.getRoute('putIndex');
 
     assert.deepStrictEqual(route, {
       url: '/not-index',

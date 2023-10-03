@@ -4,15 +4,15 @@ import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
 describe('Query Parameter', async () => {
-  const { kita } = await parseRoutes(__dirname);
+  const  kita  = await parseRoutes(__dirname);
 
   test('expects 2 routes were generated', () => {
-    assert.equal(kita.providers.size, 0);
-    assert.equal(kita.routes.size, 2);
+    assert.equal(kita.getProviderCount(), 0);
+    assert.equal(kita.getRouteCount(), 2);
   });
 
   test('works with primitive types', () => {
-    const route = kita.routes.get('getPrimitive');
+    const route = kita.getRoute('getPrimitive');
 
     assert.deepStrictEqual(route, {
       url: '/primitive',
@@ -40,7 +40,7 @@ describe('Query Parameter', async () => {
   });
 
   test('works with complex types', () => {
-    const route = kita.routes.get('getComplex');
+    const route = kita.getRoute('getComplex');
 
     assert.deepStrictEqual(route, {
       url: '/complex',
@@ -57,7 +57,7 @@ describe('Query Parameter', async () => {
       }
     });
 
-    const complexSchema = kita.schemaBuilder.getDefinition('Complex');
+    const complexSchema = kita.getSchema('Complex');
 
     assert.deepStrictEqual(complexSchema, {
       $id: 'Complex',

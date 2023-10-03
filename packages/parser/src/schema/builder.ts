@@ -160,6 +160,13 @@ export class SchemaBuilder {
   }
 
   /**
+   * Get the number of definitions.
+   */
+  getDefinitionCount(): number {
+    return Object.keys(this.definitions).length;
+  }
+  
+  /**
    * Get the definition for a type name
    */
   getDefinition(name: string): Definition | undefined {

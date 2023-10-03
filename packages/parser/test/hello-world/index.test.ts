@@ -4,15 +4,15 @@ import path from 'path';
 import { parseRoutes } from '../runner';
 
 describe('Hello World', async () => {
-  const { kita } = await parseRoutes(__dirname);
+  const kita = await parseRoutes(__dirname);
 
   test('expects 1 routes were generated', () => {
-    assert.equal(kita.providers.size, 0);
-    assert.equal(kita.routes.size, 1);
+    assert.equal(kita.getProviderCount(), 0);
+    assert.equal(kita.getRouteCount(), 1);
   });
 
   test('generates hello world', () => {
-    const route = kita.routes.get('getIndex');
+    const route = kita.getRoute('getIndex');
 
     assert.deepStrictEqual(route, {
       url: '/',

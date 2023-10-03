@@ -1,5 +1,4 @@
-import { KitaConfig, ParameterParser } from '@kitajs/common';
-import { KitaParser } from '../parser';
+import { KitaConfig, KitaParser, ParameterParser } from '@kitajs/common';
 import type { SchemaBuilder } from '../schema/builder';
 import { BodyPropParameterParser } from './body-prop';
 import { ChainParameterParser } from './chain';

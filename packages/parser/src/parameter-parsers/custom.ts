@@ -1,6 +1,5 @@
-import { ParameterParser, Route } from '@kitajs/common';
+import { KitaParser, ParameterParser, Route } from '@kitajs/common';
 import type ts from 'typescript';
-import { KitaParser } from '../parser';
 import { getTypeNodeName } from '../util/nodes';
 import { joinParameters } from '../util/syntax';
 
@@ -12,12 +11,12 @@ export class ProviderParameterParser implements ParameterParser {
 
   supports(param: ts.ParameterDeclaration) {
     const name = getTypeNodeName(param);
-    return !!(name && this.parser.providers.has(name));
+    return !!name && !!this.parser.getProvider(name);
   }
 
   parse(param: ts.ParameterDeclaration, _route: Route, _node: ts.FunctionDeclaration, index: number) {
     const name = getTypeNodeName(param)!;
-    const provider = this.parser.providers.get(name)!;
+    const provider = this.parser.getProvider(name)!;
 
     const providerName = `Resolver${index}`;
     const value = `param${index}`;
