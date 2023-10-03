@@ -20,6 +20,7 @@
     "docs": "cd packages/docs && pnpm dev",
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install",
     "release": "changeset publish",
     "test": "pnpm -r --parallel test",
     "version": "changeset version",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.8",
     "@changesets/cli": "^2.26.0",
+    "husky": "^8.0.3",
     "prettier": "^2.8.3",
     "typescript": "^5.2.2"
   },
