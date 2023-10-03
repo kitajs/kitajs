@@ -27,7 +27,7 @@ jobs:
 
       # Temporary fix until all code compiles :)
       - name: Build
-        run: pnpm build || true
+        run: pnpm -r build --no-bail
 
       # - name: Link kita binary
       #   run: pnpm i -g
