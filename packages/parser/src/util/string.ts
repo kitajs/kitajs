@@ -1,7 +1,7 @@
 import { KitaConfig } from '@kitajs/common';
 import path from 'node:path';
 
-/** Removes enclosing quotes  */
+/** Removes enclosing quotes */
 export function unquote(str: string) {
   return str.replace(/['"`](.*?)['"`]/g, '$1');
 }
@@ -34,8 +34,8 @@ export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
   // Adds leading slash
   url = '/' + url;
 
-  // Transform params
-  let controller = strip.replace(/\[|\]/g, '_');
+  // Removes a/[b]/c -> a/b/c
+  let controller = strip.replace(/\[(.+?)\]/g, '$1');
 
   // Camel case paths or dash case paths
   controller = controller
@@ -57,7 +57,7 @@ export function capitalize(this: void, str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-/** Treats a type string to be a valid javascript oject*/
+/** Treats a type string to be a valid javascript oject */
 export function prepareTypeAsObject(
   type: string,
   route?: {

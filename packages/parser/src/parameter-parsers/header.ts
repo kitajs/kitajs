@@ -6,7 +6,6 @@ import { getParameterName, getTypeNodeName, isParamOptional } from '../util/node
 import { buildAccessProperty } from '../util/syntax';
 
 export class HeaderParameterParser implements ParameterParser {
-  /** Headers are present in every type of request */
   agnostic = false;
 
   constructor(private config: KitaConfig) {}

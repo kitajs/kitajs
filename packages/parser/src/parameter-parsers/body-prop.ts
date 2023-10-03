@@ -20,7 +20,6 @@ import {
 import { buildAccessProperty } from '../util/syntax';
 
 export class BodyPropParameterParser implements ParameterParser {
-  /** Only on known routes */
   agnostic = false;
 
   constructor(

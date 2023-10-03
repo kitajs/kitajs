@@ -6,7 +6,7 @@ import { parseRoutes } from '../runner';
 describe('Cookies', async () => {
   const kita = await parseRoutes(__dirname);
 
-  test('expects 1 routes were generated', () => {
+  test('expects 2 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
     assert.equal(kita.getRouteCount(), 2);
   });

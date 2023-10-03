@@ -11,7 +11,6 @@ import type ts from 'typescript';
 import { toPrettySource } from '../util/nodes';
 
 export class ChainParameterParser extends ChainParser<ParameterParser> implements ParameterParser {
-  /** Chain will always be agnostic, since it does nothing by its own */
   agnostic = true;
 
   parse(
@@ -26,7 +25,7 @@ export class ChainParameterParser extends ChainParser<ParameterParser> implement
       throw new ParameterResolverNotFoundError(toPrettySource(param));
     }
 
-    if (!parser.agnostic && !route) {
+    if (parser.agnostic === false && !route) {
       throw new AgnosticRouteConflictError(toPrettySource(param));
     }
 

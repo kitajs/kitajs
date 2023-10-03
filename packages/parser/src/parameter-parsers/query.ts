@@ -22,8 +22,7 @@ import {
 import { buildAccessProperty } from '../util/syntax';
 
 export class QueryParameterParser implements ParameterParser {
-  /** Query needs a route to apply the generated schema */
-  agnostic = true;
+  agnostic = false;
 
   constructor(
     private schemaBuilder: SchemaBuilder,
