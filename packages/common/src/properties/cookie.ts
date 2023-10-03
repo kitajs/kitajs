@@ -1,7 +1,7 @@
 import type { Primitive } from 'type-fest';
 
 /**
- * Requires `@fastify/cookies` to work.
+ * ### Requires `@fastify/cookies` to work.
  *
  * @example
  * ```ts
@@ -11,4 +11,4 @@ import type { Primitive } from 'type-fest';
  * ) {}
  * ```
  */
-export type Cookie<_Name extends string, _Type extends Primitive = string> = string | undefined;
+export type Cookie<_Name extends string = string, _Type extends Primitive = string> = string;
