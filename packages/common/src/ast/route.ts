@@ -1,9 +1,7 @@
 import { Parameter } from './parameter';
 import { RouteSchema } from './schema';
 
-/**
- * The AST definition for a kitajs route method.
- */
+/** The AST definition for a kitajs route method. */
 export interface Route {
   /**
    * The name of the source controller.
@@ -33,9 +31,7 @@ export interface Route {
    */
   controllerMethod: string;
 
-  /**
-   * All possible parameters for this route.
-   */
+  /** All possible parameters for this route. */
   parameters: Parameter[];
 
   /**
@@ -53,12 +49,12 @@ export interface Route {
   method: string;
 
   /**
-   * A "jsonified" string for the fastify route options
+   * A wrapper of method calls for this route option. Use $1 to represent where we should insert the object.
+   *
+   * @example `Controller.a(Controller.b($1))`
    */
   options?: string;
 
-  /**
-   * The fastify schema for this route.
-   */
+  /** The fastify schema for this route. */
   schema: RouteSchema;
 }

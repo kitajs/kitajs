@@ -1,6 +1,4 @@
-/**
- * The AST definition for a kitajs route parameter.
- */
+/** The AST definition for a kitajs route parameter. */
 export interface Parameter {
   /**
    * The resolved parameter text to be evaluated
@@ -16,9 +14,7 @@ export interface Parameter {
    */
   helper?: string;
 
-  /**
-   * If this parameters needs any additional imports.
-   */
+  /** If this parameters needs any additional imports. */
   imports?: string[];
 
   /**
@@ -28,8 +24,9 @@ export interface Parameter {
    */
   providerName?: string;
 
-  /**
-   * If this route has a schema transformer attached to it. It may or may not have a configuration
-   */
+  /** If this route has a schema transformer attached to it. It may or may not have a configuration */
   schemaTransformer?: boolean;
+
+  /** If this is true, the current parameter will be ignored by the parser. */
+  ignore?: boolean;
 }

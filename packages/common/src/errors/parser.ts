@@ -114,3 +114,24 @@ export class ReturnTypeError extends KitaError {
     super(`Could not resolve return type of provided function.`);
   }
 }
+
+export class RouteOptionsAlreadyDefinedError extends KitaError {
+  code = 312;
+
+  constructor(readonly path: string) {
+    super('This route already has defined options.');
+  }
+}
+
+export class RouteMapperNotExportedError extends KitaError {
+  code = 313;
+
+  constructor(
+    readonly mapperName: string,
+    readonly path: string
+  ) {
+    super(
+      'You are using a route mapper inside a `this: Use<>` parameter, but the mapper is not exported in the same file.'
+    );
+  }
+}
