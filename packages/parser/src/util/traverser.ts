@@ -1,4 +1,5 @@
 import {
+  Parameter,
   ParameterParser,
   ParameterResolverNotFoundError,
   Parser,
@@ -60,32 +61,32 @@ export async function* traverseSource<R>(program: ts.Program, parser: Parser<ts.
  * synchronously.
  */
 export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: ParameterParser, route: Route | null) {
-  let paramIndex = 0;
+  let parameterIndex = 0;
 
   for (let index = 0; index < fn.parameters.length; index++) {
     const parameter = fn.parameters[index]!;
-    const supports = await parser.supports(parameter);
+    let supports = parser.supports(parameter);
+
+    if (supports instanceof Promise) {
+      supports = await supports;
+    }
 
     if (!supports) {
       throw new ParameterResolverNotFoundError(toPrettySource(parameter));
     }
 
     // Yield the result of the parser (promises are unwrapped)
-    const param = parser.parse(parameter, route, fn, index);
-
-    // Synthetic parameters should not yield any parameter
-    // and should be removed from the list without modifying
-    // the index
-    if (parser.synthetic) {
-      continue;
-    } else {
-      paramIndex++;
-    }
+    let param = parser.parse(parameter, route, fn, index) as Parameter;
 
     if (param instanceof Promise) {
-      yield param.then((param) => ({ param, index }));
-    } else {
-      yield { param, index };
+      param = await param;
     }
+
+    // Ignored parameter
+    if (param.ignore) {
+      continue;
+    }
+
+    yield { param, index: parameterIndex++ };
   }
 }

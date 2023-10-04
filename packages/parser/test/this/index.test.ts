@@ -1,17 +1,17 @@
 import assert from 'node:assert';
+import path from 'node:path';
 import test, { describe } from 'node:test';
-import path from 'path';
 import { parseRoutes } from '../runner';
 
-describe('Hello World', async () => {
+describe('This & Use usage', async () => {
   const kita = await parseRoutes(__dirname);
 
   test('expects 1 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
-    assert.equal(kita.getRouteCount(), 1);
+    assert.equal(kita.getRouteCount(), 2);
   });
 
-  test('generates hello world', () => {
+  test('single route mapper', () => {
     const route = kita.getRoute('getIndex');
 
     assert.deepStrictEqual(route, {
@@ -20,18 +20,32 @@ describe('Hello World', async () => {
       method: 'GET',
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/hello-world/routes/index.ts:4:1',
-      parameters: [{ value: 'req.headers["x-name"]' }],
+      controllerPrettyPath: 'test/this/routes/index.ts:4:1',
+      parameters: [],
       schema: {
-        operationId: 'getIndex',
         response: { default: { type: 'string' } },
-        headers: {
-          type: 'object',
-          properties: { 'x-name': { type: 'string' } },
-          required: [],
-          additionalProperties: undefined
-        }
-      }
+        operationId: 'getIndex'
+      },
+      options: 'IndexController.test($1)'
+    });
+  });
+
+  test('multiple route mapper', () => {
+    const route = kita.getRoute('postIndex');
+
+    assert.deepStrictEqual(route, {
+      url: '/',
+      controllerMethod: 'post',
+      method: 'POST',
+      controllerName: 'IndexController',
+      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
+      controllerPrettyPath: 'test/this/routes/index.ts:9:1',
+      parameters: [],
+      schema: {
+        response: { default: { type: 'string' } },
+        operationId: 'postIndex'
+      },
+      options: 'IndexController.test3(IndexController.test2(IndexController.test($1)))'
     });
   });
 });

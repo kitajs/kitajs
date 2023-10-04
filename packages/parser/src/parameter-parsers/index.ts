@@ -6,8 +6,9 @@ import { CookieParameterParser } from './cookie';
 import { ProviderParameterParser } from './custom';
 import { FastifyParameterParser } from './fastify';
 import { HeaderParameterParser } from './header';
-import { QueryParameterParser } from './query';
 import { PathParameterParser } from './path';
+import { QueryParameterParser } from './query';
+import { ThisParameterParser } from './this';
 
 export function buildParameterParser(config: KitaConfig, schema: SchemaBuilder, parser: KitaParser): ParameterParser {
   const chain = new ChainParameterParser();
@@ -23,7 +24,8 @@ export function buildParameterParser(config: KitaConfig, schema: SchemaBuilder, 
     .add(new ProviderParameterParser(parser))
     .add(new PathParameterParser(schema, config))
     .add(new HeaderParameterParser(config))
-    .add(new CookieParameterParser());
+    .add(new CookieParameterParser())
+    .add(new ThisParameterParser());
 
   return chain;
 }

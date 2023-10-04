@@ -3,30 +3,24 @@ import path from 'node:path';
 import ts, { ModifierLike, NodeArray } from 'typescript';
 import { unquote } from './syntax';
 
-/**
- *  Gets the trimmed type name.
- */
+/** Gets the trimmed type name. */
 export function getTypeName(type?: ts.Node) {
   return type?.getFirstToken()?.getText().trim();
 }
 
-/**
- *  Gets the parameter type name.
- */
+/** Gets the parameter type name. */
 export function getTypeNodeName(param: Pick<ts.ParameterDeclaration, 'type'>) {
   return getTypeName(param.type);
 }
 
-/**
- *  Gets the parameter type name.
- */
+/** Gets the parameter type name. */
 export function getIdentifierName(param: ts.BindingName) {
   return ts.isIdentifier(param) ? param.text.trim() : param.getText().trim();
 }
 
 /**
- * Tries to resolve the parameter name, either by a string literal specified by
- * {@linkcode genericIndex} or the parameter name.
+ * Tries to resolve the parameter name, either by a string literal specified by {@linkcode genericIndex} or the parameter
+ * name.
  *
  * @param genericIndex If the provided parameter is a NodeWithTypeArguments, which generic we should use?
  */
@@ -52,30 +46,22 @@ export function getParameterName(node: ts.ParameterDeclaration, genericIndex: nu
   return getIdentifierName(node.name);
 }
 
-/**
- *  Gets the parameter type generics.
- */
+/** Gets the parameter type generics. */
 export function getParameterGenerics(param: ts.ParameterDeclaration) {
   return (param.type as ts.NodeWithTypeArguments)?.typeArguments || [];
 }
 
-/**
- * If the provided function has a `this` parameter.
- */
+/** If the provided function has a `this` parameter. */
 export function hasThisParameter(fn: ts.FunctionDeclaration) {
   return fn.parameters[0] && getIdentifierName(fn.parameters[0].name) === 'this';
 }
 
-/**
- * Returns true if the parameter is optional or has a initializer.
- */
+/** Returns true if the parameter is optional or has a initializer. */
 export function isParamOptional(param: ts.ParameterDeclaration) {
   return !!param.questionToken || !!param.initializer;
 }
 
-/**
- * Finds the return type of a declaration or creates one if it doesn't exist.
- */
+/** Finds the return type of a declaration or creates one if it doesn't exist. */
 export function getReturnType(node: ts.SignatureDeclaration, typeChecker: ts.TypeChecker) {
   if (node.type) {
     return node.type;
@@ -95,9 +81,7 @@ export function getReturnType(node: ts.SignatureDeclaration, typeChecker: ts.Typ
   )!;
 }
 
-/**
- * Returns true if the provided node is a exported function.
- */
+/** Returns true if the provided node is a exported function. */
 export function isExportedFunction(
   node: ts.Node
 ): node is ts.FunctionDeclaration & { modifiers: NodeArray<ModifierLike> } {
@@ -111,9 +95,20 @@ export function isExportedFunction(
   );
 }
 
-/**
- * Returns true if the provided node is a default exported function.
- */
+export function isExportedVariable(
+  node: ts.Node
+): node is ts.VariableStatement & { modifiers: NodeArray<ModifierLike> } {
+  return (
+    // Is a function type
+    ts.isVariableStatement(node) &&
+    // needs to have modifiers
+    !!node.modifiers &&
+    // `export` modifier needs to be present
+    node.modifiers.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)
+  );
+}
+
+/** Returns true if the provided node is a default exported function. */
 export function isDefaultExportFunction(
   node: ts.Node
 ): node is ts.FunctionDeclaration & { modifiers: NodeArray<ModifierLike> } {
@@ -124,16 +119,12 @@ export function isDefaultExportFunction(
   );
 }
 
-/**
- * Returns true if the provided node is a default exported function.
- */
+/** Returns true if the provided node is a default exported function. */
 export function hasName(node: { name?: ts.Identifier }, name: string): boolean {
   return !!node.name && getIdentifierName(node.name) === name;
 }
 
-/**
- * If the provided type is a promise, returns the type of the promise, otherwise returns the type itself.
- */
+/** If the provided type is a promise, returns the type of the promise, otherwise returns the type itself. */
 export function unwrapPromiseType(type: ts.TypeNode) {
   if (ts.isTypeReferenceNode(type) && type.typeName.getText() === 'Promise') {
     return type.typeArguments?.[0] || type;

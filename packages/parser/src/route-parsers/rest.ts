@@ -47,7 +47,7 @@ export class RestRouteParser implements RouteParser {
       controllerName: controller,
       controllerPath: source.fileName,
       controllerPrettyPath: toPrettySource(node),
-      parameters: Array(node.parameters.length),
+      parameters: [],
       schema: {
         operationId: method.toLowerCase() + controller.replace(/controller$/i, '')
       }
