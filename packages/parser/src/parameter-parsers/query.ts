@@ -22,8 +22,6 @@ import {
 import { buildAccessProperty } from '../util/syntax';
 
 export class QueryParameterParser implements ParameterParser {
-  agnostic = false;
-
   constructor(
     private schemaBuilder: SchemaBuilder,
     private config: KitaConfig

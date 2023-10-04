@@ -14,8 +14,6 @@ import {
 import { buildAccessProperty } from '../util/syntax';
 
 export class PathParameterParser implements ParameterParser {
-  agnostic = false;
-
   constructor(
     private readonly builder: SchemaBuilder,
     private readonly config: KitaConfig

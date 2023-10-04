@@ -5,7 +5,6 @@ import { getTypeNodeName } from '../util/nodes';
 import { joinParameters } from '../util/syntax';
 
 export class ProviderParameterParser implements ParameterParser {
-  /** Providers MUST be agnostic */
   agnostic = true;
 
   constructor(private parser: KitaParser) {}

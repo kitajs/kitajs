@@ -20,8 +20,6 @@ import {
 import { buildAccessProperty } from '../util/syntax';
 
 export class BodyPropParameterParser implements ParameterParser {
-  agnostic = false;
-
   constructor(
     private config: KitaConfig,
     private schema: SchemaBuilder

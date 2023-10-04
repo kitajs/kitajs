@@ -5,7 +5,6 @@ import { kFastifyParam, kReplyParam, kRequestParam } from '../util/constants';
 import { getTypeNodeName } from '../util/nodes';
 
 export class FastifyParameterParser implements ParameterParser {
-  /** Fastify will always be present */
   agnostic = true;
 
   supports(param: ts.ParameterDeclaration) {

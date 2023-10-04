@@ -11,5 +11,11 @@ export interface ParameterParser
    *
    * If this boolean is true, the parser will throw {@linkcode AgnosticRouteConflictError} if the provided route is null.
    */
-  agnostic: boolean;
+  agnostic?: boolean;
+
+  /**
+   * A synthetic parameter is a resolver which should not return a value. The only current case for this is the
+   * {@linkcode ThisParameterParser} which is used to bind the `this` keyword to a parameter.
+   */
+  synthetic?: boolean;
 }
