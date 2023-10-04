@@ -4,10 +4,11 @@
  * - GET routes cannot use Body.
  *
  * @example
+ *
  * ```ts
  * export function post(
- *  body: Body<{ name: string, age: number }>,
- *  body: Body<MyType> // reference works!
+ *   body: Body<{ name: string; age: number }>,
+ *   body: Body<MyType> // reference works!
  * ) {}
  * ```
  */
@@ -21,10 +22,10 @@ export type Body<Obj> = Obj;
  *
  * ```ts
  * export function post(
- *  name:   BodyProp<string>, // <string, 'name'>
- *  age:    BodyProp<number, 'age'>,
- *  types:  BodyProp<string[], 'dash-case-name'>,
- *  parent: BodyProp<User, 'parent'>
+ *   name: BodyProp<string>, // <string, 'name'>
+ *   age: BodyProp<number, 'age'>,
+ *   types: BodyProp<string[], 'dash-case-name'>,
+ *   parent: BodyProp<User, 'parent'>
  * ) {}
  * ```
  */

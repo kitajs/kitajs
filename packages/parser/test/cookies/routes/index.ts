@@ -1,4 +1,4 @@
-import type { Cookie } from '@kitajs/common';
+import type { Cookie } from '@kitajs/runtime';
 
 export function get(a: Cookie, b: Cookie<'c c'>, d: Cookie<'d', number>) {
   return a + b + d?.toString();

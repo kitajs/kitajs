@@ -1,4 +1,4 @@
-import type { Query } from '@kitajs/common';
+import type { Query } from '@kitajs/runtime';
 
 export interface Complex {
   a: number;

@@ -1,6 +1,5 @@
 // Export runtime types
-export type * from '@kitajs/common/dist/methods';
-export type * from '@kitajs/common/dist/properties';
+export type * from './types';
 
 // Export generated stuff
 export * from './generated';

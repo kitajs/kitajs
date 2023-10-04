@@ -1,4 +1,4 @@
-import type { Path } from '@kitajs/common';
+import type { Path } from '@kitajs/runtime';
 
 export function get(num: Path<number>) {
   return num;

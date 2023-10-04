@@ -26,6 +26,7 @@
     "typed-emitter": "^2.1.0"
   },
   "devDependencies": {
+    "@kitajs/runtime": "*",
     "@types/glob": "^8.1.0",
     "@types/node": "^20.5.0",
     "c8": "^8.0.1",

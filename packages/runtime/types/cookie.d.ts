@@ -4,10 +4,11 @@ import type { Primitive } from 'type-fest';
  * ### Requires `@fastify/cookies` to work.
  *
  * @example
+ *
  * ```ts
  * export function get(
- *  auth: Cookie, // <'auth', string>
- *  type: Cookie<'custom-name'>, // <'custom-name', string>
+ *   auth: Cookie, // <'auth', string>
+ *   type: Cookie<'custom-name'> // <'custom-name', string>
  * ) {}
  * ```
  */
