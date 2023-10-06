@@ -53,3 +53,12 @@ export function predicateRace<
     }
   });
 }
+
+/**
+ * Fast instanceof check for promises. This is faster than `value instanceof Promise` because it does not need to
+ * traverse the prototype chain.
+ */
+export function isPromiseLike<T>(value: unknown): value is PromiseLike<T> {
+  //@ts-expect-error - We are checking for the existence of the `then` method
+  return !!value && typeof value.then === 'function';
+}

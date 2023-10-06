@@ -5,7 +5,8 @@ import {
   Parser,
   Route,
   SourceFileNotFoundError,
-  UnknownKitaError
+  UnknownKitaError,
+  isPromiseLike
 } from '@kitajs/common';
 import ts from 'typescript';
 import { toPrettySource } from './nodes';
@@ -24,7 +25,11 @@ export async function* traverseStatements<R>(
     }
 
     for (const statement of sourceFile.statements) {
-      const supports = await parser.supports(statement);
+      let supports = parser.supports(statement);
+
+      if (isPromiseLike(supports)) {
+        supports = await supports;
+      }
 
       if (supports) {
         yield Promise.resolve(parser.parse(statement))
@@ -45,7 +50,11 @@ export async function* traverseSource<R>(program: ts.Program, parser: Parser<ts.
       throw new SourceFileNotFoundError(file);
     }
 
-    const supports = await parser.supports(sourceFile);
+    let supports = parser.supports(sourceFile);
+
+    if (isPromiseLike(supports)) {
+      supports = await supports;
+    }
 
     if (supports) {
       yield Promise.resolve(parser.parse(sourceFile))
@@ -67,10 +76,11 @@ export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: Pa
     const parameter = fn.parameters[index]!;
     let supports = parser.supports(parameter);
 
-    if (supports instanceof Promise) {
+    if (isPromiseLike(supports)) {
       supports = await supports;
     }
 
+    // All parameters should be supported by at least one parser
     if (!supports) {
       throw new ParameterResolverNotFoundError(toPrettySource(parameter));
     }
