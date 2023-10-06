@@ -64,36 +64,29 @@ export class NoProviderExportedError extends KitaError {
 }
 
 export class UntypedProviderError extends KitaError {
-  code = 306;
-
-  constructor(readonly path: string) {
-    super(`The provider default export needs to have a explicit return type declared.`);
-  }
-}
-
-export class UntypedPromiseError extends KitaError {
-  code = 307;
-
-  constructor(readonly path: string) {
-    super(`You cannot use an untyped promise as a return type at this path.`);
+  constructor(node: ts.Node) {
+    super({
+      code: 306,
+      messageText: `The provider default export needs to have a explicit return type declared.`,
+      node
+    });
   }
 }
 
 export class EmptyJsdocError extends KitaError {
-  code = 308;
-
-  constructor(
-    readonly tagname: string,
-    readonly path: string
-  ) {
-    super(`You forgot to provide a value for this JSDoc tag.`);
+  constructor(node: ts.Node) {
+    super({
+      code: 307,
+      messageText: `You forgot to provide a value for this JSDoc tag.`,
+      node
+    });
   }
 }
 
 export class ProviderResolverNotFound extends KitaError {
   constructor(node: ts.Node) {
     super({
-      code: 309,
+      code: 308,
       messageText: `Could not find a provider resolver for this function.`,
       node
     });
@@ -101,44 +94,44 @@ export class ProviderResolverNotFound extends KitaError {
 }
 
 export class WronglyTypedProviderError extends KitaError {
-  code = 310;
-
-  constructor(
-    readonly currentType: string,
-    readonly path: string
-  ) {
-    super(`The provider function resolver return type must be a type reference, no other types are allowed.`);
+  constructor(node: ts.Node) {
+    super({
+      code: 309,
+      messageText: `The provider function resolver return type must be a type reference, no other types are allowed.`,
+      node
+    });
   }
 }
 
 export class ReturnTypeError extends KitaError {
-  code = 311;
-
   constructor(
-    readonly path: string,
+    node: ts.Node,
     readonly error: unknown
   ) {
-    super(`Could not resolve return type of provided function.`);
+    super({
+      code: 310,
+      messageText: `Could not resolve return type of provided function: ${String(error)}`,
+      node
+    });
   }
 }
 
 export class RouteOptionsAlreadyDefinedError extends KitaError {
-  code = 312;
-
-  constructor(readonly path: string) {
-    super('This route already has defined options.');
+  constructor(readonly node: ts.Node) {
+    super({
+      code: 311,
+      messageText: 'This route already has defined options.',
+      node
+    });
   }
 }
 
 export class RouteMapperNotExportedError extends KitaError {
-  code = 313;
-
-  constructor(
-    readonly mapperName: string,
-    readonly path: string
-  ) {
-    super(
-      'You are using a route mapper inside a `this: Use<>` parameter, but the mapper is not exported in the same file.'
-    );
+  constructor(readonly node: ts.Node) {
+    super({
+      code: 312,
+      messageText: `You are using a route mapper inside a \`this: Use<>\` parameter, but the mapper is not exported in the same file.`,
+      node
+    });
   }
 }

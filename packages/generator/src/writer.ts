@@ -1,5 +1,4 @@
-import { GeneratedDiagnosticsErrors, KitaConfig, SourceWriter } from '@kitajs/common';
-import { EOL } from 'os';
+import { GeneratedDiagnosticsErrors, KitaConfig, RuntimeNotFoundError, SourceWriter } from '@kitajs/common';
 import path from 'path';
 import { Promisable } from 'type-fest';
 import ts from 'typescript';
@@ -11,12 +10,12 @@ export class KitaWriter implements SourceWriter {
     private readonly config: KitaConfig,
     private compilerOptions: ts.CompilerOptions
   ) {
-    const runtime = config.runtime
-      ? path.resolve(config.cwd, config.runtime)
+    const runtime = this.config.runtime
+      ? path.resolve(config.cwd, this.config.runtime)
       : path.dirname(require.resolve('@kitajs/runtime/generated'));
 
     if (!ts.sys.directoryExists(runtime)) {
-      throw new Error(`Could not found the runtime path to generate the code.`);
+      throw new RuntimeNotFoundError(runtime);
     }
 
     // Copies the compiler options
@@ -68,13 +67,7 @@ export class KitaWriter implements SourceWriter {
 
     // Throws an error if there are any diagnostics errors
     if (emitResult.diagnostics.length) {
-      const host: ts.FormatDiagnosticsHost = {
-        getCanonicalFileName: (f) => f,
-        getCurrentDirectory: () => this.config.cwd,
-        getNewLine: () => EOL
-      };
-
-      throw new GeneratedDiagnosticsErrors(emitResult.diagnostics.map((d) => ts.formatDiagnostic(d, host)));
+      throw new GeneratedDiagnosticsErrors(emitResult.diagnostics);
     }
   }
 }

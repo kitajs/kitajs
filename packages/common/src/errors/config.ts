@@ -43,7 +43,7 @@ export class CannotReadConfigError extends KitaError {
   constructor(readonly reason: string) {
     super({
       code: 203,
-      messageText: 'Cannot read kita tsconfig file.'
+      messageText: 'Cannot read kita config file.'
     });
   }
 }

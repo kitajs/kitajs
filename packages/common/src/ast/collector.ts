@@ -38,6 +38,8 @@ export interface AstCollector {
   /**
    * Parses all the given files, one by one, and yields the errors. If the array is empty, the parsing was successful.
    * You can get all routes, providers and schemas by calling the corresponding methods.
+   *
+   * You can also manually provide different controller and provider paths to parse only a subset of files.
    */
-  parse(): AsyncGenerator<KitaError, void, void>;
+  parse(controllerPaths?: string[], providerPaths?: string[]): AsyncGenerator<KitaError, void, void>;
 }

@@ -1,20 +1,21 @@
+import ts from 'typescript';
 import { KitaError } from './base';
 
 export class GeneratedDiagnosticsErrors extends KitaError {
-  code = 500;
-
-  constructor(readonly diagnostics: string[]) {
-    super(`Generated code was invalid. Please report this issue to the KitaJS team.`);
+  constructor(diagnostics: readonly ts.Diagnostic[]) {
+    super({
+      code: 500,
+      messageText: `Generated code was invalid. Please report this issue to the KitaJS team.`,
+      relatedInformation: Array.from(diagnostics)
+    });
   }
 }
 
 export class RuntimeNotFoundError extends KitaError {
-  code = 501;
-
-  constructor(
-    readonly config: string,
-    readonly path: string
-  ) {
-    super(`Could not found the runtime path to generate the code.`);
+  constructor(readonly path: string) {
+    super({
+      code: 501,
+      messageText: `Could not found the runtime path to generate the code.`
+    });
   }
 }

@@ -1,6 +1,3 @@
-import { createWriteStream } from 'fs';
-import { inspect } from 'util';
-
 export function proxyObject<T extends object>(obj: T): T {
   const proxy: T = Object.create(null);
 
@@ -11,14 +8,4 @@ export function proxyObject<T extends object>(obj: T): T {
   }
 
   return proxy;
-}
-
-const log = createWriteStream('/home/hzk/dev/kitajs/packages/ts-plugin/logs.txt');
-
-export function l(msg: string | object) {
-  if (typeof msg === 'object') {
-    msg = inspect(msg, { depth: 10 });
-  }
-
-  log.write(String(msg).trim() + '\n');
 }

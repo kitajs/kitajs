@@ -1,5 +1,4 @@
 import {
-  KitaConfig,
   KitaError,
   ProviderResolverNotFound,
   SourceFileNotFoundError,
@@ -7,7 +6,6 @@ import {
   isPromiseLike
 } from '@kitajs/common';
 import { KitaParser } from '@kitajs/parser';
-import { globSync } from 'glob';
 import ts from 'typescript';
 import { awaitSync } from '../util/sync';
 
@@ -19,14 +17,12 @@ import { awaitSync } from '../util/sync';
  * being used.
  */
 export function appendRouteDiagnostics(
-  config: KitaConfig,
+  parser: KitaParser,
   program: ts.Program,
   route: ts.SourceFile,
-  diagnostics: ts.Diagnostic[]
+  diagnostics: ts.Diagnostic[],
+  providerPaths: string[]
 ) {
-  const providerPaths = globSync(config.controllers.glob, { cwd: config.cwd });
-  const parser = new KitaParser(config, [route.fileName], providerPaths, program);
-
   // Sync parses all provider paths
   for (const file of providerPaths) {
     const provider = program.getSourceFile(file);
@@ -54,7 +50,10 @@ export function appendRouteDiagnostics(
       if (isPromiseLike(parsed)) {
         parsed = awaitSync(parsed);
       }
-    } catch {
+
+      // @ts-expect-error - Manually push the provider to the parser providers array
+      parser.providers.set(parsed.type, parsed);
+    } catch (err) {
       // We are not checking for provider errors here. So its safe to silently fail
       // In case a used provider fails, it will also fail in in this parameter parser.
       // But there's nothing we can do (for now.)

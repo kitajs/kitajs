@@ -2,9 +2,7 @@ import { EmptyJsdocError, JsdocAlreadyDefinedError, Route } from '@kitajs/common
 import ts from 'typescript';
 import { mergeSchema } from '../schema/helpers';
 
-/**
- * Parses all jsdoc tags of a route function and applies them to the route.
- */
+/** Parses all jsdoc tags of a route function and applies them to the route. */
 export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
   //@ts-expect-error - TODO: Improve jsdoc parsing
   let description = fn.jsDoc?.[0]?.comment;
@@ -16,7 +14,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
     switch (name) {
       case 'security':
         if (!value) {
-          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+          throw new EmptyJsdocError(tag.tagName || tag);
         }
 
         // This regex will always match
@@ -33,7 +31,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
 
       case 'tag':
         if (!value) {
-          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+          throw new EmptyJsdocError(tag.tagName || tag);
         }
 
         mergeSchema(route, {
@@ -44,7 +42,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
 
       case 'summary':
         if (!value) {
-          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+          throw new EmptyJsdocError(tag.tagName || tag);
         }
 
         //@ts-ignore - any type is valid
@@ -72,7 +70,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
 
       case 'url':
         if (!value) {
-          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+          throw new EmptyJsdocError(tag.tagName || tag);
         }
 
         route.url = value;
@@ -80,7 +78,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
 
       case 'operationid':
         if (!value) {
-          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+          throw new EmptyJsdocError(tag.tagName || tag);
         }
 
         // Does not override the default operationId
@@ -93,7 +91,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
 
       case 'method':
         if (!value) {
-          throw new EmptyJsdocError(name, route.controllerPrettyPath);
+          throw new EmptyJsdocError(tag.tagName || tag);
         }
 
         route.method = value.toUpperCase();

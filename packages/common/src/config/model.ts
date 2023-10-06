@@ -53,7 +53,7 @@ export interface KitaConfig {
     /**
      * The regex to match all files to parse
      *
-     * @default ['⁎⁎/src/routes/⁎⁎/⁎.ts']
+     * @default ['src/routes/⁎⁎/⁎.tsx?']
      */
     glob: string[];
 
@@ -71,7 +71,7 @@ export interface KitaConfig {
     /**
      * The regex to match all files to parse
      *
-     * @default ['⁎⁎/src/providers/⁎⁎/⁎.ts']
+     * @default ['src/providers/⁎⁎/⁎.ts']
      */
     glob: string[];
   };

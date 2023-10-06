@@ -65,7 +65,7 @@ export class RestRouteParser implements RouteParser {
         }
       });
     } catch (error) {
-      throw new ReturnTypeError(toPrettySource(node), error);
+      throw new ReturnTypeError(node, error);
     }
 
     // Merge all predefined responses.

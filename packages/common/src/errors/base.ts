@@ -42,7 +42,7 @@ export abstract class KitaError extends Error {
 
   constructor(diagnostic: PartialDiagnostic) {
     // Swap the node for the file, source, start and length properties
-    if (diagnostic.node) {
+    if (diagnostic.node && diagnostic.node.pos !== -1) {
       diagnostic.file = diagnostic.node.getSourceFile();
       diagnostic.start = diagnostic.node.getStart();
       diagnostic.length = diagnostic.node.getWidth();

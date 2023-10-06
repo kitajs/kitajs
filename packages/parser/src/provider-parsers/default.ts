@@ -34,7 +34,7 @@ export class DefaultProviderParser implements ProviderParser {
     }
 
     if (!fn.type) {
-      throw new UntypedProviderError(toPrettySource(fn));
+      throw new UntypedProviderError(fn.name || fn);
     }
 
     const returnType = unwrapPromiseType(fn.type);
@@ -43,7 +43,7 @@ export class DefaultProviderParser implements ProviderParser {
 
     // Not a type reference.
     if (returnType.kind !== ts.SyntaxKind.TypeReference || !type) {
-      throw new WronglyTypedProviderError(returnType.getText(), toPrettySource(returnType));
+      throw new WronglyTypedProviderError(returnType);
     }
 
     const parameters = [];

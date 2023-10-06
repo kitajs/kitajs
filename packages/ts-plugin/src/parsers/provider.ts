@@ -1,17 +1,10 @@
-import { KitaConfig, KitaError, ProviderResolverNotFound, UnknownKitaError, isPromiseLike } from '@kitajs/common';
+import { KitaError, ProviderResolverNotFound, UnknownKitaError, isPromiseLike } from '@kitajs/common';
 import { KitaParser } from '@kitajs/parser';
 import ts from 'typescript';
 import { awaitSync } from '../util/sync';
 
 /** Manual and faster parsing of a single provider file. */
-export function appendProviderDiagnostics(
-  config: KitaConfig,
-  program: ts.Program,
-  provider: ts.SourceFile,
-  diagnostics: ts.Diagnostic[]
-) {
-  const parser = new KitaParser(config, [], [provider.fileName], program);
-
+export function appendProviderDiagnostics(parser: KitaParser, provider: ts.SourceFile, diagnostics: ts.Diagnostic[]) {
   let supports = parser.rootProviderParser.supports(provider);
 
   if (isPromiseLike(supports)) {

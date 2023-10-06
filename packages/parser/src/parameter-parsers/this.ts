@@ -65,7 +65,7 @@ export class ThisParameterParser implements ParameterParser {
     }
 
     if (route.options) {
-      throw new RouteOptionsAlreadyDefinedError(route.controllerPrettyPath);
+      throw new RouteOptionsAlreadyDefinedError(fn.name || fn);
     }
 
     // Single typeof reference
@@ -82,7 +82,7 @@ export class ThisParameterParser implements ParameterParser {
             (isExportedVariable(s) && s.declarationList.declarations[0]?.name.getText().trim() === type)
         )
       ) {
-        throw new RouteMapperNotExportedError(type, toPrettySource(config));
+        throw new RouteMapperNotExportedError(config);
       }
 
       route.options = `${route.controllerName}.${type}($1)`;
@@ -112,7 +112,7 @@ export class ThisParameterParser implements ParameterParser {
             (isExportedVariable(s) && s.declarationList.declarations[0]?.name.getText().trim() === type)
         )
       ) {
-        throw new RouteMapperNotExportedError(type, toPrettySource(config));
+        throw new RouteMapperNotExportedError(config);
       }
 
       if (!route.options) {
