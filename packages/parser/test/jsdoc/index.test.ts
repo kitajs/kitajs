@@ -27,7 +27,8 @@ describe('JSDoc usage on route', async () => {
         summary: 'C',
         tags: ['B', 'A'],
         response: { default: { type: 'string' } },
-        operationId: 'getIndex'
+        operationId: 'getIndex',
+        description: 'D'
       }
     });
   });

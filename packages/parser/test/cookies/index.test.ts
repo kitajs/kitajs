@@ -23,12 +23,12 @@ describe('Cookies', async () => {
       kind: 'rest',
       controllerPrettyPath: 'test/cookies/routes/index.ts:3:1',
       parameters: [
-        { value: 'req.cookies.a', helper: "if (req.cookies.a === undefined) { throw new Error('Missing cookie a') }" },
+        { value: 'req.cookies.a', helper: "if (req.cookies.a === undefined) { throw new Error('Missing cookie a') };" },
         {
           value: 'req.cookies["c c"]',
-          helper: `if (req.cookies["c c"] === undefined) { throw new Error('Missing cookie c c') }`
+          helper: `if (req.cookies["c c"] === undefined) { throw new Error('Missing cookie c c') };`
         },
-        { value: 'req.cookies.d', helper: "if (req.cookies.d === undefined) { throw new Error('Missing cookie d') }" }
+        { value: 'req.cookies.d', helper: "if (req.cookies.d === undefined) { throw new Error('Missing cookie d') };" }
       ],
       schema: {
         response: { default: { type: 'string' } },
@@ -51,7 +51,7 @@ describe('Cookies', async () => {
       parameters: [
         { value: 'req.cookies.a', helper: undefined },
         { value: 'req.cookies.b', helper: undefined },
-        { value: 'req.cookies.c', helper: "if (req.cookies.c === undefined) { throw new Error('Missing cookie c') }" },
+        { value: 'req.cookies.c', helper: "if (req.cookies.c === undefined) { throw new Error('Missing cookie c') };" },
         { value: 'req.cookies.d', helper: undefined }
       ],
       schema: {

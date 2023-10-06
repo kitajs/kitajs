@@ -15,23 +15,30 @@ describe('Hello World', async () => {
     const route = kita.getRoute('getIndex');
 
     assert.deepStrictEqual(route, {
+      kind: 'rest',
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/hello-world/routes/index.ts:4:1',
-      kind: 'rest',
-      parameters: [{ value: 'req.headers["x-name"]' }],
+      controllerPrettyPath: 'test/hello-world/routes/index.ts:11:1',
+      parameters: [{ value: 'req.query.name' }],
       schema: {
-        operationId: 'getIndex',
-        response: { default: { type: 'string' } },
-        headers: {
+        querystring: {
           type: 'object',
-          properties: { 'x-name': { type: 'string' } },
+          properties: { name: { type: 'string' } },
           required: [],
           additionalProperties: undefined
-        }
+        },
+        response: { default: { type: 'string' } },
+        operationId: 'getIndex',
+        description:
+          'Hello world API endpoint. This comment will be used\n' +
+          'as the swagger description.\n' +
+          '\n' +
+          'The name parameter is going to be runtime validated\n' +
+          'and extract from que query string. If the name is not\n' +
+          'provided, the default value will be used.'
       }
     });
   });

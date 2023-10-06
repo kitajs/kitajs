@@ -20,7 +20,7 @@ describe('This & Use usage', async () => {
       method: 'GET',
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/this/routes/index.ts:4:1',
+      controllerPrettyPath: 'test/this/routes/index.ts:3:1',
       kind: 'rest',
       parameters: [],
       schema: {
@@ -40,7 +40,7 @@ describe('This & Use usage', async () => {
       method: 'POST',
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/this/routes/index.ts:9:1',
+      controllerPrettyPath: 'test/this/routes/index.ts:7:1',
       kind: 'rest',
       parameters: [],
       schema: {

@@ -4,8 +4,18 @@ import { mergeSchema } from '../schema/helpers';
 
 /** Parses all jsdoc tags of a route function and applies them to the route. */
 export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
-  //@ts-expect-error - TODO: Improve jsdoc parsing
-  let description = fn.jsDoc?.[0]?.comment;
+  // Base description
+  {
+    //@ts-expect-error - TODO: Improve jsdoc parsing
+    let description = fn.jsDoc?.[0]?.comment;
+
+    if (description) {
+      mergeSchema(route, {
+        // Allow undefined to remove the description
+        description
+      });
+    }
+  }
 
   for (const tag of ts.getJSDocTags(fn)) {
     const name = tag.tagName.text.trim().toLowerCase();
@@ -61,10 +71,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
         // because the inner jsdoc may be for documenting code and the @description
         // may be for documenting the route
 
-        mergeSchema(route, {
-          // Allow undefined to remove the description
-          description: value
-        });
+        route.schema.description = value;
 
         break;
 

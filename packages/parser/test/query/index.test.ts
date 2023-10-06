@@ -20,7 +20,7 @@ describe('Query Parameter', async () => {
       controllerMethod: 'get',
       controllerName: 'PrimitiveController',
       controllerPath: path.resolve(__dirname, 'routes/primitive.ts'),
-      controllerPrettyPath: 'test/query/routes/primitive.ts:4:1',
+      controllerPrettyPath: 'test/query/routes/primitive.ts:3:1',
       parameters: [{ value: 'req.query.name' }, { value: 'req.query.age' }, { value: 'req.query["custom name"]' }],
       kind: 'rest',
       schema: {
@@ -48,7 +48,7 @@ describe('Query Parameter', async () => {
       controllerMethod: 'get',
       controllerName: 'ComplexController',
       controllerPath: path.resolve(__dirname, 'routes/complex.ts'),
-      controllerPrettyPath: 'test/query/routes/complex.ts:9:1',
+      controllerPrettyPath: 'test/query/routes/complex.ts:8:1',
       method: 'GET',
       parameters: [{ value: 'req.query' }],
       kind: 'rest',

@@ -5,7 +5,6 @@ export interface Complex {
   b: number;
 }
 
-/** Hello world rest API endpoint. */
 export function get({ a, b }: Query<Complex>) {
   return a + b;
 }
