@@ -3,5 +3,5 @@
   "compilerOptions": {
     "outDir": "./dist"
   },
-  "include": ["src", "../parser/src/util/promises.ts"]
+  "include": ["src"]
 }
