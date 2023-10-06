@@ -26,9 +26,9 @@ export class KitaParser implements AstCollector {
   protected readonly routes: Map<string, Route> = new Map();
   protected readonly schemaBuilder: SchemaBuilder;
 
-  protected readonly rootRouteParser: RouteParser;
-  protected readonly rootParameterParser: ParameterParser;
-  protected readonly rootProviderParser: ProviderParser;
+  readonly rootRouteParser: RouteParser;
+  readonly rootParameterParser: ParameterParser;
+  readonly rootProviderParser: ProviderParser;
 
   /** Creates a KitaParser instance with the given config. */
   static create(config: KitaConfig) {

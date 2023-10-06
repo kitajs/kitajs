@@ -25,7 +25,6 @@ import {
   createParser
 } from 'ts-json-schema-generator';
 import type ts from 'typescript';
-import { toPrettySource } from '../util/nodes';
 import { correctFormatterChildrenOrder, removeFormatterDefinitions } from './helpers';
 
 export class SchemaBuilder {
@@ -65,7 +64,7 @@ export class SchemaBuilder {
     try {
       return this.parser.createType(node, new Context(node));
     } catch (error) {
-      throw new CannotCreateNodeTypeError(toPrettySource(node));
+      throw new CannotCreateNodeTypeError(node);
     }
   }
 

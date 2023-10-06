@@ -22,7 +22,7 @@ export class ChainParameterParser extends ChainParser<ParameterParser> implement
     const parser = this.cache.get(param);
 
     if (!parser) {
-      throw new ParameterResolverNotFoundError(toPrettySource(param));
+      throw new ParameterResolverNotFoundError(param.type || param);
     }
 
     if (parser.agnostic === false && !route) {

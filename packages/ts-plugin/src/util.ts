@@ -20,5 +20,5 @@ export function l(msg: string | object) {
     msg = inspect(msg, { depth: 10 });
   }
 
-  log.write(msg.trim() + '\n');
+  log.write(String(msg).trim() + '\n');
 }

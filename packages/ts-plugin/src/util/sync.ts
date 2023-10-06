@@ -2,24 +2,25 @@ import { isPromiseLike } from '@kitajs/common';
 import deasync from 'deasync';
 import { Promisable } from 'type-fest';
 
-export function sync<C>(promise: Promisable<C>) {
+/** Adapted from https://www.npmjs.com/package/synchronized-promise to avoid requiring deasync every time. */
+export function awaitSync<C>(promise: Promisable<C>) {
   if (!isPromiseLike(promise)) {
     return promise;
   }
 
   let done = false;
-  let error = false;
-  let result: C | undefined;
+  let err = false;
+  let res: C | undefined;
 
   promise.then(
     function fulfilled(r) {
-      result = r;
+      res = r;
       done = true;
     },
-    function rejected(error) {
-      error = true;
-      result = error;
+    function rejected(e) {
+      err = true;
       done = true;
+      res = e;
     }
   );
 
@@ -27,9 +28,9 @@ export function sync<C>(promise: Promisable<C>) {
     return !done;
   });
 
-  if (error) {
-    throw result;
+  if (err) {
+    throw res;
   }
 
-  return result!;
+  return res!;
 }

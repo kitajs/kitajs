@@ -1,34 +1,49 @@
-import type ts from 'typescript';
+import ts from 'typescript';
 import { KitaError } from './base';
 
 export class InvalidConfigError extends KitaError {
-  code = 200;
-
-  constructor(message: string, readonly config?: unknown) {
-    super(message);
+  constructor(
+    message: string,
+    readonly config?: unknown
+  ) {
+    super({
+      code: 200,
+      messageText: message
+    });
   }
 }
 
 export class CannotReadTsconfigError extends KitaError {
-  code = 201;
-
-  constructor(readonly path: string, readonly error: ts.Diagnostic) {
-    super('Cannot read tsconfig file');
+  constructor(
+    readonly path: string,
+    error: ts.Diagnostic
+  ) {
+    super({
+      code: 201,
+      messageText: 'Cannot read tsconfig file',
+      relatedInformation: [error]
+    });
   }
 }
 
 export class CannotParseTsconfigError extends KitaError {
-  code = 202;
-
-  constructor(readonly path: string, readonly errors: ts.Diagnostic[]) {
-    super('Cannot parse tsconfig file');
+  constructor(
+    readonly path: string,
+    errors: ts.Diagnostic[]
+  ) {
+    super({
+      code: 202,
+      messageText: 'Cannot read tsconfig file',
+      relatedInformation: errors
+    });
   }
 }
 
 export class CannotReadConfigError extends KitaError {
-  code = 203;
-
   constructor(readonly reason: string) {
-    super('Cannot read kita config file');
+    super({
+      code: 203,
+      messageText: 'Cannot read kita tsconfig file.'
+    });
   }
 }

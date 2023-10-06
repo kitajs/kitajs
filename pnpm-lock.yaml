@@ -190,6 +190,9 @@ importers:
       glob:
         specifier: ^10.3.3
         version: 10.3.3
+      minimatch:
+        specifier: ^9.0.3
+        version: 9.0.3
       tslib:
         specifier: ^2.6.1
         version: 2.6.2

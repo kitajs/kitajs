@@ -30,7 +30,7 @@ export class DefaultProviderParser implements ProviderParser {
     const fn = source.statements.find(isDefaultExportFunction);
 
     if (!fn) {
-      throw new NoProviderExportedError(source.fileName);
+      throw new NoProviderExportedError(source);
     }
 
     if (!fn.type) {

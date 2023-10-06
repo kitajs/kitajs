@@ -17,6 +17,7 @@
     "@kitajs/parser": "workspace:^1.1.0",
     "deasync": "^0.1.28",
     "glob": "^10.3.3",
+    "minimatch": "^9.0.3",
     "tslib": "^2.6.1",
     "typescript": "^5.1.6"
   },

@@ -1,15 +1,25 @@
+import { EOL } from 'os';
+import ts from 'typescript';
+
+export type PartialDiagnostic = Omit<ts.Diagnostic, 'category' | 'file' | 'start' | 'length'> & {
+  file?: ts.SourceFile;
+  start?: number;
+  length?: number;
+
+  /** If we should populate `file`, `source`, `start` and `length` with this node information */
+  node?: ts.Node;
+
+  /** @default Error */
+  category?: ts.DiagnosticCategory;
+};
+
 /**
- * A KitaError instance is thrown when something goes wrong during the
- * parsing, resolving or generation process.
+ * A KitaError instance is thrown when something goes wrong during the parsing, resolving or generation process.
  *
- * All errors that you can expect to be thrown by Kita are subclasses of this
- * class.
+ * All errors that you can expect to be thrown by Kita are subclasses of this class.
  */
 export abstract class KitaError extends Error {
-  /**
-   * This property can be mutated at runtime by the user to indicate that the
-   * error has been resolved or handled.
-   */
+  /** This property can be mutated at runtime by the user to indicate that the error has been resolved or handled. */
   public suppress = false;
 
   /**
@@ -24,25 +34,61 @@ export abstract class KitaError extends Error {
    * | 2    | Config    |
    * | 3    | Parser    |
    * | 4    | Validator |
+   * | 5    | Formatter |
    */
-  public abstract code: number;
+  readonly code: number;
 
-  // We may use line breaks in the code to improve readability, but we don't want
-  // to show them to the user.
-  constructor(message: string) {
-    // multiline trim
-    super(message.replace(/^\s+|\s+$/gm, ''));
+  readonly diagnostic: ts.Diagnostic;
+
+  constructor(diagnostic: PartialDiagnostic) {
+    // Swap the node for the file, source, start and length properties
+    if (diagnostic.node) {
+      diagnostic.file = diagnostic.node.getSourceFile();
+      diagnostic.start = diagnostic.node.getStart();
+      diagnostic.length = diagnostic.node.getWidth();
+
+      delete diagnostic.node;
+    }
+
+    // @ts-expect-error - TODO: Should we keep as string or do some maths to get
+    // the correct category?
+    diagnostic.code = `kita - ${diagnostic.code}`;
+    diagnostic.category ??= ts.DiagnosticCategory.Error;
+
+    super(ts.flattenDiagnosticMessageText(diagnostic.messageText, EOL));
+
+    this.diagnostic = Object.assign(
+      {
+        category: ts.DiagnosticCategory.Error,
+        file: undefined,
+        length: 0,
+        start: 0
+      },
+      diagnostic
+    );
+    this.code = this.diagnostic.code;
   }
 }
 
-/**
- * A KitaError instance is thrown when something goes wrong during the
- * parsing, resolving or generation process.
- */
+/** A KitaError instance is thrown when something goes wrong during the parsing, resolving or generation process. */
 export class UnknownKitaError extends KitaError {
-  code = -1;
+  constructor(
+    message: string,
+    readonly data?: unknown
+  ) {
+    super({
+      messageText: `Unknown error: ${message}`,
+      code: -1
+    });
+  }
+}
 
-  constructor(readonly data?: unknown) {
-    super('Unknown error');
+export class UnknownNodeError extends KitaError {
+  constructor(node: ts.Node, messageText: string) {
+    super({
+      code: -1,
+      messageText,
+      node
+    });
   }
 }

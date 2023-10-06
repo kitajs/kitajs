@@ -9,7 +9,6 @@ import {
   isPromiseLike
 } from '@kitajs/common';
 import ts from 'typescript';
-import { toPrettySource } from './nodes';
 
 /** Traverse each statement of a source file for the given path and yields the result of the provided parser or an error. */
 export async function* traverseStatements<R>(
@@ -82,7 +81,7 @@ export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: Pa
 
     // All parameters should be supported by at least one parser
     if (!supports) {
-      throw new ParameterResolverNotFoundError(toPrettySource(parameter));
+      throw new ParameterResolverNotFoundError(parameter.type || parameter);
     }
 
     // Yield the result of the parser (promises are unwrapped)

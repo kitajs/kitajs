@@ -1,60 +1,65 @@
+import ts from 'typescript';
 import { KitaError } from './base';
 
 export class RouteResolverNotFoundError extends KitaError {
-  code = 300;
-
-  constructor(readonly path: string) {
-    super(`Could not resolve a route parser for the given node`);
+  constructor(node: ts.Node) {
+    super({
+      code: 300,
+      messageText: 'Could not find a route resolver for this function.',
+      node
+    });
   }
 }
 
 export class ParameterResolverNotFoundError extends KitaError {
-  code = 301;
-
-  constructor(readonly path: string) {
-    super(`Could not resolve a parameter parser for the given node`);
+  constructor(node: ts.Node) {
+    super({
+      code: 301,
+      messageText:
+        'This parameter type does not have a registered resolved. Did you forget to wrap it into a Body<>, Query<>, etc.?',
+      node
+    });
   }
 }
 
-export class CannotResolveParameterError extends KitaError {
-  code = 302;
-
-  constructor(readonly path: string) {
-    super(
-      `Could not resolve the parameter name because you are using a
-       destructuring pattern and not providing a name through a 
-       string literal`
-    );
+export class CannotResolveParameterNameError extends KitaError {
+  constructor(node: ts.Node) {
+    super({
+      code: 302,
+      messageText:
+        'Could not resolve the parameter name because you are using a destructuring pattern and not providing a name through a string literal',
+      node
+    });
   }
 }
 
 export class CannotCreateNodeTypeError extends KitaError {
-  code = 303;
-
-  constructor(readonly path: string) {
-    super('Could not create type node for specified type');
+  constructor(node: ts.Node) {
+    super({
+      code: 303,
+      messageText: 'Could not create type node for specified type',
+      node
+    });
   }
 }
 
 export class SourceFileNotFoundError extends KitaError {
-  code = 304;
-
-  constructor(
-    readonly path: string,
-    readonly importReason?: string
-  ) {
-    super(`Source file not found`);
+  constructor(readonly path: string) {
+    super({
+      code: 304,
+      messageText: `Could not find source file: ${path}`
+    });
   }
 }
 
 export class NoProviderExportedError extends KitaError {
-  code = 305;
-
-  constructor(readonly path: string) {
-    super(
-      `No default function exported at this path. You must export a default
-      function on every file matching the provider glob.`
-    );
+  constructor(node: ts.Node) {
+    super({
+      code: 305,
+      messageText:
+        'No default function exported at this path. You must export a default function on every file matching the provider glob.',
+      node
+    });
   }
 }
 
@@ -86,10 +91,12 @@ export class EmptyJsdocError extends KitaError {
 }
 
 export class ProviderResolverNotFound extends KitaError {
-  code = 309;
-
-  constructor(readonly path: string) {
-    super(`Could not resolve a provider parser for the given node`);
+  constructor(node: ts.Node) {
+    super({
+      code: 309,
+      messageText: `Could not find a provider resolver for this function.`,
+      node
+    });
   }
 }
 

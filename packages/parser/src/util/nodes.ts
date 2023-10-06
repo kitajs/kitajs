@@ -1,4 +1,4 @@
-import { CannotResolveParameterError } from '@kitajs/common';
+import { CannotResolveParameterNameError } from '@kitajs/common';
 import path from 'node:path';
 import ts, { ModifierLike, NodeArray } from 'typescript';
 import { unquote } from './syntax';
@@ -31,7 +31,7 @@ export function getParameterName(node: ts.ParameterDeclaration, genericIndex: nu
   if (genericNode) {
     // @ts-expect-error TODO: Find correct type
     if (genericNode.name && !ts.isIdentifier(genericNode.name)) {
-      throw new CannotResolveParameterError(toPrettySource(node));
+      throw new CannotResolveParameterNameError(genericNode);
     }
 
     return unquote(genericNode.getText());
@@ -39,7 +39,7 @@ export function getParameterName(node: ts.ParameterDeclaration, genericIndex: nu
 
   // We may find a parameter with a destructuring pattern or similar syntaxes
   if (!ts.isIdentifier(node.name)) {
-    throw new CannotResolveParameterError(toPrettySource(node));
+    throw new CannotResolveParameterNameError(node.name);
   }
 
   // The user didn't override the name of the parameter, so we use the parameter name
