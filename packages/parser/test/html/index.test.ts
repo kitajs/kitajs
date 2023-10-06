@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import path from 'node:path';
 import test, { describe, it } from 'node:test';
 import { parseRoutes } from '../runner';
 
@@ -19,7 +20,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: '/home/hzk/dev/kitajs/packages/parser/test/html/routes/index.tsx',
+      controllerPath: path.resolve(__dirname, 'routes/index.tsx'),
       controllerPrettyPath: 'test/html/routes/index.tsx:5:1',
       parameters: [{ value: 'req.id', __type: 'SuspenseId' }],
       schema: {
@@ -42,7 +43,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: '/home/hzk/dev/kitajs/packages/parser/test/html/routes/index.tsx',
+      controllerPath: path.resolve(__dirname, 'routes/index.tsx'),
       controllerPrettyPath: 'test/html/routes/index.tsx:13:1',
       parameters: [],
       schema: {
@@ -62,7 +63,7 @@ describe('Cookies', async () => {
       controllerMethod: 'put',
       method: 'PUT',
       controllerName: 'IndexController',
-      controllerPath: '/home/hzk/dev/kitajs/packages/parser/test/html/routes/index.tsx',
+      controllerPath: path.resolve(__dirname, 'routes/index.tsx'),
       controllerPrettyPath: 'test/html/routes/index.tsx:17:1',
       parameters: [],
       schema: {
