@@ -15,11 +15,11 @@ import {
 import { globSync } from 'glob';
 import { Definition } from 'ts-json-schema-generator';
 import ts from 'typescript';
-import { buildParameterParser } from '../parameter-parsers';
-import { buildProviderParser } from '../provider-parsers';
-import { buildRouteParser } from '../route-parsers';
-import { SchemaBuilder } from '../schema/builder';
-import { traverseSource, traverseStatements } from '../util/traverser';
+import { buildParameterParser } from './parameter-parsers';
+import { buildProviderParser } from './provider-parsers';
+import { buildRouteParser } from './route-parsers';
+import { SchemaBuilder } from './schema/builder';
+import { traverseSource, traverseStatements } from './util/traverser';
 
 export class DefaultKitaParser implements KitaParser {
   private readonly providers: Map<string, Provider> = new Map();

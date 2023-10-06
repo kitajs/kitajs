@@ -21,6 +21,7 @@ describe('This & Use usage', async () => {
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
       controllerPrettyPath: 'test/this/routes/index.ts:4:1',
+      kind: 'rest',
       parameters: [],
       schema: {
         response: { default: { type: 'string' } },
@@ -40,6 +41,7 @@ describe('This & Use usage', async () => {
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
       controllerPrettyPath: 'test/this/routes/index.ts:9:1',
+      kind: 'rest',
       parameters: [],
       schema: {
         response: { default: { type: 'string' } },

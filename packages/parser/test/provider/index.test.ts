@@ -22,6 +22,7 @@ describe('Providers', async () => {
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
       controllerPrettyPath: 'test/provider/routes/index.ts:3:1',
       schema: { response: { default: { type: 'number', const: 1 } }, operationId: 'getIndex' },
+      kind: 'rest',
       parameters: [
         {
           providerName: 'Resolver0',

@@ -4,7 +4,7 @@ import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
 describe('Query Parameter', async () => {
-  const  kita  = await parseRoutes(__dirname);
+  const kita = await parseRoutes(__dirname);
 
   test('expects 2 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
@@ -22,6 +22,7 @@ describe('Query Parameter', async () => {
       controllerPath: path.resolve(__dirname, 'routes/primitive.ts'),
       controllerPrettyPath: 'test/query/routes/primitive.ts:4:1',
       parameters: [{ value: 'req.query.name' }, { value: 'req.query.age' }, { value: 'req.query["custom name"]' }],
+      kind: 'rest',
       schema: {
         operationId: 'getPrimitive',
         querystring: {
@@ -50,6 +51,7 @@ describe('Query Parameter', async () => {
       controllerPrettyPath: 'test/query/routes/complex.ts:9:1',
       method: 'GET',
       parameters: [{ value: 'req.query' }],
+      kind: 'rest',
       schema: {
         operationId: 'getComplex',
         querystring: { $ref: 'Complex' },

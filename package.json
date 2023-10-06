@@ -26,6 +26,9 @@
     "version": "changeset version",
     "watch": "pnpm -r --parallel build --watch > /dev/null"
   },
+  "resolutions": {
+    "typescript": "^5.2.2"
+  },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.11",
     "@changesets/cli": "^2.26.0",

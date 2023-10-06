@@ -4,7 +4,7 @@ import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
 describe('JSDoc usage on route', async () => {
-  const kita  = await parseRoutes(__dirname);
+  const kita = await parseRoutes(__dirname);
 
   test('expects 3 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
@@ -21,6 +21,7 @@ describe('JSDoc usage on route', async () => {
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
       controllerPrettyPath: 'test/jsdoc/routes/index.ts:10:1',
+      kind: 'rest',
       parameters: [],
       schema: {
         summary: 'C',
@@ -41,6 +42,7 @@ describe('JSDoc usage on route', async () => {
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
       controllerPrettyPath: 'test/jsdoc/routes/index.ts:19:1',
+      kind: 'rest',
       parameters: [],
       schema: {
         description: 'B',
@@ -60,6 +62,7 @@ describe('JSDoc usage on route', async () => {
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
       controllerPrettyPath: 'test/jsdoc/routes/index.ts:31:1',
+      kind: 'rest',
       parameters: [],
       schema: {
         response: { default: { type: 'string' } },

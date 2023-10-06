@@ -41,6 +41,7 @@ export class RestRouteParser implements RouteParser {
     const method = node.name!.getText();
 
     const route: Route = {
+      kind: 'rest',
       url,
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,

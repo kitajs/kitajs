@@ -8,6 +8,7 @@ import { FastifyParameterParser } from './fastify';
 import { HeaderParameterParser } from './header';
 import { PathParameterParser } from './path';
 import { QueryParameterParser } from './query';
+import { SuspenseIdParameterParser } from './suspense-id';
 import { ThisParameterParser } from './this';
 
 export function buildParameterParser(config: KitaConfig, schema: SchemaBuilder, parser: KitaParser): ParameterParser {
@@ -25,7 +26,8 @@ export function buildParameterParser(config: KitaConfig, schema: SchemaBuilder, 
     .add(new PathParameterParser(schema, config))
     .add(new HeaderParameterParser(config))
     .add(new CookieParameterParser())
-    .add(new ThisParameterParser());
+    .add(new ThisParameterParser())
+    .add(new SuspenseIdParameterParser());
 
   return chain;
 }

@@ -2,6 +2,7 @@ import type { KitaConfig, ParameterParser, RouteParser } from '@kitajs/common';
 import type ts from 'typescript';
 import type { SchemaBuilder } from '../schema/builder';
 import { ChainRouteParser } from './chain';
+import { HtmlRouteParser } from './html';
 import { RestRouteParser } from './rest';
 
 export function buildRouteParser(
@@ -14,7 +15,9 @@ export function buildRouteParser(
 
   config.routeParserAugmentor?.(chain);
 
-  chain.add(new RestRouteParser(config, schema, paramParser, typeChecker));
+  chain
+    .add(new HtmlRouteParser(config, paramParser, typeChecker, schema))
+    .add(new RestRouteParser(config, schema, paramParser, typeChecker));
 
   return chain;
 }

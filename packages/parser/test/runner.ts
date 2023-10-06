@@ -10,7 +10,7 @@ export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {})
     tsconfig,
     mergeDefaults({
       providers: { glob: [path.resolve(cwd, 'providers/*.ts')] },
-      controllers: { glob: [path.resolve(cwd, 'routes/*.ts')] },
+      controllers: { glob: [path.resolve(cwd, 'routes/*.ts'), path.resolve(cwd, 'routes/*.tsx')] },
       ...config
     }),
     cwd

@@ -21,6 +21,7 @@ describe('Cookies', async () => {
       controllerName: 'NameController',
       controllerPath: path.resolve(__dirname, 'routes/[name].ts'),
       controllerPrettyPath: 'test/paths/routes/[name].ts:3:1',
+      kind: 'rest',
       parameters: [{ value: 'req.params.name' }],
       schema: {
         params: {
@@ -46,6 +47,7 @@ describe('Cookies', async () => {
       controllerPath: path.resolve(__dirname, 'routes/[name].ts'),
       controllerPrettyPath: 'test/paths/routes/[name].ts:7:1',
       parameters: [{ value: 'req.params.name' }],
+      kind: 'rest',
       schema: {
         params: {
           type: 'object',
@@ -71,6 +73,7 @@ describe('Cookies', async () => {
       controllerPath: path.resolve(__dirname, 'routes/[num].ts'),
       controllerPrettyPath: 'test/paths/routes/[num].ts:3:1',
       parameters: [{ value: 'req.params.num' }],
+      kind: 'rest',
       schema: {
         params: {
           type: 'object',
@@ -95,6 +98,7 @@ describe('Cookies', async () => {
       controllerPath: path.resolve(__dirname, 'routes/[num].ts'),
       controllerPrettyPath: 'test/paths/routes/[num].ts:7:1',
       parameters: [{ value: 'req.params.num' }],
+      kind: 'rest',
       schema: {
         params: {
           type: 'object',

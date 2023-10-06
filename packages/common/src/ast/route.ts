@@ -4,6 +4,13 @@ import { RouteSchema } from './schema';
 /** The AST definition for a kitajs route method. */
 export interface Route {
   /**
+   * The kind of this route
+   *
+   * @example 'rest' or 'html'
+   */
+  kind: string;
+
+  /**
    * The name of the source controller.
    *
    * @example `UserController`
@@ -57,4 +64,22 @@ export interface Route {
 
   /** The fastify schema for this route. */
   schema: RouteSchema;
+
+  /**
+   * If this route requires a custom return call.
+   *
+   * @example
+   *
+   * ```ts
+   * // kind: "rest"
+   * return controller.method(...parameters);
+   *
+   * // kind: "html"
+   * return reply.send(html);
+   * ```
+   */
+  customReturn?: string;
+
+  /** Any imports that should be added to the route file. */
+  imports?: string[];
 }

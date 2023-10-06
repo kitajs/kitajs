@@ -21,6 +21,7 @@ describe('Hello World', async () => {
       controllerName: 'IndexController',
       controllerPath: path.resolve(__dirname, 'routes/index.ts'),
       controllerPrettyPath: 'test/hello-world/routes/index.ts:4:1',
+      kind: 'rest',
       parameters: [{ value: 'req.headers["x-name"]' }],
       schema: {
         operationId: 'getIndex',

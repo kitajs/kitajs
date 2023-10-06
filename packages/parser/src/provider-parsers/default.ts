@@ -21,8 +21,8 @@ import { traverseParameters } from '../util/traverser';
 export class DefaultProviderParser implements ProviderParser {
   constructor(private paramParser: ParameterParser) {}
 
-  // TODO: Implement this
-  supports(_: ts.SourceFile): Promisable<boolean> {
+  /** Default provider handles all files. */
+  supports(): Promisable<boolean> {
     return true;
   }
 
@@ -46,7 +46,7 @@ export class DefaultProviderParser implements ProviderParser {
       throw new WronglyTypedProviderError(returnType.getText(), toPrettySource(returnType));
     }
 
-    const parameters = Array(fn.parameters.length);
+    const parameters = [];
 
     // Adds all parameters in their respective position
     for await (const { param, index } of traverseParameters(fn, this.paramParser, null)) {

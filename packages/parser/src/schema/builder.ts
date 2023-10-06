@@ -58,9 +58,7 @@ export class SchemaBuilder {
     );
   }
 
-  /**
-   * Creates a schema for the given ts node
-   */
+  /** Creates a schema for the given ts node */
   createTypeSchema(node: ts.Node) {
     try {
       return this.parser.createType(node, new Context(node));
@@ -69,9 +67,7 @@ export class SchemaBuilder {
     }
   }
 
-  /**
-   * Saves and returns a {@linkcode ts.Node}'s respective json schema.
-   */
+  /** Saves and returns a {@linkcode ts.Node}'s respective json schema. */
   consumeNodeSchema(node: ts.TypeNode, overrideName?: string): Schema {
     const type = this.createTypeSchema(node);
 
@@ -96,8 +92,10 @@ export class SchemaBuilder {
 
   /**
    * Attempts to unwrap possible type wrappers and resolve into a primitive typescript base type.
+   *
+   * @param skipWrappers If we should return OptionalType or AnnotatedType wrappers or its inner type
    */
-  toPrimitive(type: ts.Node | BaseType): BaseType | undefined {
+  toPrimitive(type: ts.Node | BaseType, skipWrappers = false): BaseType | undefined {
     type = type instanceof BaseType ? type : this.createTypeSchema(type);
 
     // Primitive types
@@ -112,21 +110,29 @@ export class SchemaBuilder {
 
     // Type wrappers
     if (type instanceof DefinitionType || type instanceof ReferenceType || type instanceof AliasType) {
-      return this.toPrimitive(type.getType());
+      return this.toPrimitive(type.getType(), skipWrappers);
     }
 
     // Wrappers that should return itself
     if (type instanceof OptionalType || type instanceof AnnotatedType) {
-      if (this.toPrimitive(type.getType())) {
+      if (skipWrappers) {
+        return this.toPrimitive(type.getType(), skipWrappers);
+      }
+
+      if ((this.toPrimitive(type.getType()), skipWrappers)) {
         return type;
       }
+
+      return undefined;
     }
 
     // Array type can have only one type
     if (type instanceof ArrayType) {
-      if (this.toPrimitive(type.getItem())) {
+      if ((this.toPrimitive(type.getItem()), skipWrappers)) {
         return type;
       }
+
+      return undefined;
     }
 
     // Array types that can have multiple types
@@ -136,7 +142,14 @@ export class SchemaBuilder {
       type instanceof EnumType ||
       type instanceof TupleType
     ) {
-      if (type.getTypes().every((t) => this.toPrimitive(t))) {
+      const types = type.getTypes();
+
+      // Some types like Promise<T> and T gets resolved into a union of a single type
+      if (types.length === 1) {
+        return this.toPrimitive(types[0]!, skipWrappers);
+      }
+
+      if (type.getTypes().every((t) => this.toPrimitive(t, skipWrappers))) {
         return type;
       }
     }
@@ -145,30 +158,22 @@ export class SchemaBuilder {
     return undefined;
   }
 
-  /**
-   * Get definition for a base type without the `#/definitions/` prefix.
-   */
+  /** Get definition for a base type without the `#/definitions/` prefix. */
   formatDefinition(type: BaseType): Schema {
     return this.formatter.getDefinition(type);
   }
 
-  /**
-   * Get all definitions as an array.
-   */
+  /** Get all definitions as an array. */
   toSchemaArray(): Definition[] {
     return Object.keys(this.definitions).map((name) => this.getDefinition(name)!);
   }
 
-  /**
-   * Get the number of definitions.
-   */
+  /** Get the number of definitions. */
   getDefinitionCount(): number {
     return Object.keys(this.definitions).length;
   }
-  
-  /**
-   * Get the definition for a type name
-   */
+
+  /** Get the definition for a type name */
   getDefinition(name: string): Definition | undefined {
     const definition = this.definitions[name];
 
@@ -187,9 +192,7 @@ export class SchemaBuilder {
     return definition;
   }
 
-  /**
-   * Appends new definitions to the schema builder.
-   */
+  /** Appends new definitions to the schema builder. */
   private appendChildDefinitions(type: BaseType) {
     const seen = new Set();
     const nameIdMap = new Map<string, string>();

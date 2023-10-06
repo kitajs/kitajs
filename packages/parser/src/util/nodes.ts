@@ -76,7 +76,7 @@ export function getReturnType(node: ts.SignatureDeclaration, typeChecker: ts.Typ
     // There's no documentation on what flags we should use
     // I talked with one of typescript engineers on discord and
     // probably only NoTruncation would be useful. However, more
-    // research can be done.
+    // research should be done.
     ts.NodeBuilderFlags.NoTruncation
   )!;
 }
