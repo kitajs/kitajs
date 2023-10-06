@@ -7,7 +7,7 @@ import { Route } from './route';
  * A KitaParser instance is a representation of a AST parser. It is used to read all source files and parse them into an
  * array of routes, schemas and providers.
  */
-export interface KitaParser {
+export interface AstCollector {
   /** Returns a provider by its name. */
   getProvider(type: string): Provider | undefined;
 

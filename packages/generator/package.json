@@ -1,0 +1,26 @@
+{
+  "name": "@kitajs/generator",
+  "version": "1.1.0",
+  "funding": "https://github.com/sponsors/arthurfiorette",
+  "license": "MIT",
+  "author": "Arthur Fiorette <kita@arthur.place>",
+  "main": "dist/index.js",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@kitajs/common": "*",
+    "tslib": "^2.6.1",
+    "type-fest": "^4.2.0",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "@kitajs/runtime": "*",
+    "@types/node": "^20.5.0"
+  }
+}

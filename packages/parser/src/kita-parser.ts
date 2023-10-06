@@ -1,8 +1,8 @@
 import {
+  AstCollector,
   DuplicateOperationIdError,
   DuplicateProviderTypeError,
   KitaError,
-  KitaParser,
   Provider,
   ProviderParser,
   Route,
@@ -21,7 +21,7 @@ import { buildRouteParser } from './route-parsers';
 import { SchemaBuilder } from './schema/builder';
 import { traverseSource, traverseStatements } from './util/traverser';
 
-export class DefaultKitaParser implements KitaParser {
+export class KitaParser implements AstCollector {
   private readonly providers: Map<string, Provider> = new Map();
   private readonly routes: Map<string, Route> = new Map();
   private readonly schemaBuilder: SchemaBuilder;
@@ -35,12 +35,12 @@ export class DefaultKitaParser implements KitaParser {
   private readonly rootParameterParser: ParameterParser;
   private readonly rootProviderParser: ProviderParser;
 
-  constructor(tsconfig: string, config: KitaConfig, cwd: string) {
-    this.controllerPaths = globSync(config.controllers.glob, { cwd });
-    this.providerPaths = globSync(config.providers.glob, { cwd });
+  constructor(config: KitaConfig) {
+    this.controllerPaths = globSync(config.controllers.glob, { cwd: config.cwd });
+    this.providerPaths = globSync(config.providers.glob, { cwd: config.cwd });
 
     // Typescript program
-    this.compilerOptions = readCompilerOptions(tsconfig);
+    this.compilerOptions = readCompilerOptions(config.tsconfig);
     this.program = ts.createProgram(
       // Adds both providers and controllers
       this.controllerPaths.concat(this.providerPaths),

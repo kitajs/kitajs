@@ -1,10 +1,7 @@
-import type * as Prettier from 'prettier';
 import { SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
 import { ChainParser, ParameterParser, ProviderParser, RouteParser } from '../parsers';
 
-/**
- * The kita config interface. all possible customizations are done through this interface.
- */
+/** The kita config interface. all possible customizations are done through this interface. */
 export interface KitaConfig {
   /**
    * The tsconfig path
@@ -13,29 +10,27 @@ export interface KitaConfig {
    */
   tsconfig: string;
 
-  routes: {
-    /**
-     * Where to emit the generated routes file
-     *
-     * @default './src/routes.ts'
-     */
-    output: string;
+  /**
+   * The current working directory to resolve all files
+   *
+   * @default process.cwd()
+   */
+  cwd: string;
 
-    /**
-     * If the generated code should be formatted with prettier
-     *
-     * @default { parser: 'typescript' }
-     */
-    format: false | Prettier.Options | Record<string, unknown>;
-  };
+  /**
+   * A custom path to the @kitajs/runtime package. Useful if you are having problems with custom package managers like
+   * yarn pnp.
+   *
+   * @default undefined
+   */
+  runtime?: string;
 
   schema: {
     /**
      * General response types to append on all routes schemas.
      *
+     * @default { }
      * @see https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/#serialization
-     *
-     * @default {}
      */
     responses: {
       [key: string | number]: any;
@@ -58,7 +53,7 @@ export interface KitaConfig {
     /**
      * The regex to match all files to parse
      *
-     * @default ['src/routes/⁎⁎/⁎.ts','routes/⁎⁎/⁎.ts']
+     * @default ['src/routes/⁎⁎/⁎.ts', 'routes/⁎⁎/⁎.ts']
      */
     glob: string[];
 
@@ -76,23 +71,17 @@ export interface KitaConfig {
     /**
      * The regex to match all files to parse
      *
-     * @default ['src/providers/⁎⁎/⁎.ts','providers/⁎⁎/⁎.ts']
+     * @default ['src/providers/⁎⁎/⁎.ts', 'providers/⁎⁎/⁎.ts']
      */
     glob: string[];
   };
 
-  /**
-   * Use this callback to include new parameter parsers.
-   */
+  /** Use this callback to include new parameter parsers. */
   parameterParserAugmentor?(parser: ChainParser<ParameterParser>): void | Promise<void>;
 
-  /**
-   * Use this callback to include new route parsers.
-   */
+  /** Use this callback to include new route parsers. */
   routeParserAugmentor?(parser: ChainParser<RouteParser>): void | Promise<void>;
 
-  /**
-   * Use this callback to include new route parsers.
-   */
+  /** Use this callback to include new route parsers. */
   providerParserAugmentor?(parser: ChainParser<ProviderParser>): void | Promise<void>;
 }

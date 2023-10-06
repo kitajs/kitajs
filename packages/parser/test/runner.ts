@@ -1,19 +1,19 @@
-import { KitaConfig, KitaParser, mergeDefaults } from '@kitajs/common';
+import { AstCollector, KitaConfig, mergeDefaults } from '@kitajs/common';
 import assert from 'assert';
 import path from 'path';
-import { DefaultKitaParser } from '../src';
+import { KitaParser } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');
 
-export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {}): Promise<KitaParser> {
-  const kita = new DefaultKitaParser(
-    tsconfig,
+export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {}): Promise<AstCollector> {
+  const kita = new KitaParser(
     mergeDefaults({
+      tsconfig,
+      cwd,
       providers: { glob: [path.resolve(cwd, 'providers/*.ts')] },
       controllers: { glob: [path.resolve(cwd, 'routes/*.ts'), path.resolve(cwd, 'routes/*.tsx')] },
       ...config
-    }),
-    cwd
+    })
   );
 
   // Should not emit any errors
