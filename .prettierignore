@@ -2,3 +2,6 @@ dist
 node_modules
 packages/generator/templates
 coverage
+
+# This file should be ignore by prettier-jsdoc
+packages/parser/test/jsdoc/routes/index.ts
