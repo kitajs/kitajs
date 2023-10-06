@@ -1,4 +1,4 @@
-export * from './default';
+export * from './kita-parser';
 export * from './parameter-parsers';
 export * from './provider-parsers';
 export * from './route-parsers';
