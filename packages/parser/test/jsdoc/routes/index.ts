@@ -1,6 +1,7 @@
 /**
  * D
  *
+ *
  * @operationId hello-world
  * @tag A
  * @tag B
@@ -11,9 +12,9 @@ export function get() {
 }
 
 /**
- * Description A
+ * description A
  *
- * B
+ * @description B
  */
 export function post() {
   return 'Hello world!';
@@ -22,9 +23,10 @@ export function post() {
 /**
  * This should not be used as an empty description is used.
  *
- * @deprecated
- * @function delete
  * @url /not-index
+ * @method delete
+ * @deprecated
+ * @description
  */
 export function put() {
   return 'Hello world!';
