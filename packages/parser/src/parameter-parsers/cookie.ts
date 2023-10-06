@@ -21,7 +21,7 @@ export class CookieParameterParser implements ParameterParser {
       value: value,
       helper: optional
         ? undefined
-        : /* ts */ `if (${value} === undefined) { throw new Error('Missing cookie ${name}') }`
+        : /* ts */ `if (${value} === undefined) { throw new Error('Missing cookie ${name}') };`
     };
   }
 }

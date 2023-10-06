@@ -6,7 +6,7 @@ import { KitaParser } from '../src';
 const tsconfig = require.resolve('../tsconfig.json');
 
 export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {}): Promise<AstCollector> {
-  const kita = new KitaParser(
+  const kita = KitaParser.create(
     mergeDefaults({
       tsconfig,
       cwd,

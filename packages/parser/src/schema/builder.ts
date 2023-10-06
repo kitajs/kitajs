@@ -37,7 +37,9 @@ export class SchemaBuilder {
 
   constructor(
     private config: KitaConfig,
-    program: ts.Program
+    program: ts.Program,
+    /** If we should override schema definitions with the same name. */
+    private override = false
   ) {
     const generatorCfg = { ...config.schema.generator, tsconfig: config.tsconfig };
 
@@ -211,7 +213,7 @@ export class SchemaBuilder {
       // Remove def prefix from ids to avoid false alarms
       const childId = child.getId().replace(/def-/g, '');
 
-      if (previousId && childId !== previousId) {
+      if (this.override === false && previousId && childId !== previousId) {
         throw new MultipleDefinitionsError(name);
       }
 

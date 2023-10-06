@@ -17,16 +17,12 @@ export interface Parameter {
   /** If this parameters needs any additional imports. */
   imports?: string[];
 
-  /**
-   * Any code that needs to be executed before, to this parameter work
-   *
-   * @example CustomParameterResolver`
-   */
-  providerName?: string;
-
   /** If this route has a schema transformer attached to it. It may or may not have a configuration */
   schemaTransformer?: boolean;
 
   /** If this is true, the current parameter will be ignored by the parser. */
   ignore?: boolean;
+
+  /** Any code/content that needs to be static written in the top of the file. */
+  static?: string;
 }

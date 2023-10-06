@@ -25,7 +25,6 @@ describe('Providers', async () => {
       kind: 'rest',
       parameters: [
         {
-          providerName: 'Resolver0',
           value: 'param0',
           helper: 'const param0 = await Resolver0();',
           imports: [`import Resolver0 from "${path.resolve(__dirname, 'providers/test.ts')}";`]

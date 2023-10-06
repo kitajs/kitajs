@@ -22,7 +22,6 @@ export class ProviderParameterParser implements ParameterParser {
     const value = `param${index}`;
 
     return {
-      providerName,
       value,
       helper: format(/* ts */ `
 

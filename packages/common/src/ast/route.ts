@@ -27,7 +27,7 @@ export interface Route {
   /**
    * The full **IMPORTABLE** path to the original controller method.
    *
-   * @example `/usr/file.ts`
+   * @example `usr/file.ts`
    */
   controllerPath: string;
 

@@ -22,43 +22,48 @@ import { SchemaBuilder } from './schema/builder';
 import { traverseSource, traverseStatements } from './util/traverser';
 
 export class KitaParser implements AstCollector {
-  private readonly providers: Map<string, Provider> = new Map();
-  private readonly routes: Map<string, Route> = new Map();
-  private readonly schemaBuilder: SchemaBuilder;
+  protected readonly providers: Map<string, Provider> = new Map();
+  protected readonly routes: Map<string, Route> = new Map();
+  protected readonly schemaBuilder: SchemaBuilder;
 
-  private readonly compilerOptions: ts.CompilerOptions;
-  private readonly controllerPaths: string[];
-  private readonly providerPaths: string[];
-  private readonly program: ts.Program;
+  protected readonly rootRouteParser: RouteParser;
+  protected readonly rootParameterParser: ParameterParser;
+  protected readonly rootProviderParser: ProviderParser;
 
-  private readonly rootRouteParser: RouteParser;
-  private readonly rootParameterParser: ParameterParser;
-  private readonly rootProviderParser: ProviderParser;
-
-  constructor(config: KitaConfig) {
-    this.controllerPaths = globSync(config.controllers.glob, { cwd: config.cwd });
-    this.providerPaths = globSync(config.providers.glob, { cwd: config.cwd });
+  /** Creates a KitaParser instance with the given config. */
+  static create(config: KitaConfig) {
+    const controllerPaths = globSync(config.controllers.glob, { cwd: config.cwd });
+    const providerPaths = globSync(config.providers.glob, { cwd: config.cwd });
 
     // Typescript program
-    this.compilerOptions = readCompilerOptions(config.tsconfig);
-    this.program = ts.createProgram(
+    const compilerOptions = readCompilerOptions(config.tsconfig);
+    const program = ts.createProgram(
       // Adds both providers and controllers
-      this.controllerPaths.concat(this.providerPaths),
-      this.compilerOptions
+      controllerPaths.concat(providerPaths),
+      compilerOptions
     );
 
+    return new KitaParser(config, controllerPaths, providerPaths, program);
+  }
+
+  constructor(
+    protected readonly config: KitaConfig,
+    protected readonly controllerPaths: string[],
+    protected readonly providerPaths: string[],
+    protected readonly program: ts.Program
+  ) {
     // Json schema
-    this.schemaBuilder = new SchemaBuilder(config, this.program);
+    this.schemaBuilder = new SchemaBuilder(this.config, this.program);
 
     // Parsing
-    this.rootParameterParser = buildParameterParser(config, this.schemaBuilder, this);
+    this.rootParameterParser = buildParameterParser(this.config, this.schemaBuilder, this);
     this.rootRouteParser = buildRouteParser(
-      config,
+      this.config,
       this.schemaBuilder,
       this.rootParameterParser,
       this.program.getTypeChecker()
     );
-    this.rootProviderParser = buildProviderParser(config, this.rootParameterParser);
+    this.rootProviderParser = buildProviderParser(this.config, this.rootParameterParser);
   }
 
   async *parse() {
@@ -70,7 +75,7 @@ export class KitaParser implements AstCollector {
       }
 
       if (provider instanceof Error) {
-        yield new UnknownKitaError(provider);
+        yield new UnknownKitaError(provider.message, provider);
         continue;
       }
 
@@ -92,7 +97,7 @@ export class KitaParser implements AstCollector {
       }
 
       if (route instanceof Error) {
-        yield new UnknownKitaError(route);
+        yield new UnknownKitaError(route.message, route);
         continue;
       }
 
