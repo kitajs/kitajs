@@ -1,7 +1,6 @@
 import type ts from 'typescript';
 
-import { Parameter, ParameterParser, Route } from '@kitajs/common';
-import { kFastifyParam, kReplyParam, kRequestParam } from '../util/constants';
+import { Parameter, ParameterParser, Route, kFastifyParam, kReplyParam, kRequestParam } from '@kitajs/common';
 import { getTypeNodeName } from '../util/nodes';
 
 export class FastifyParameterParser implements ParameterParser {

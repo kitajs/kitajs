@@ -4,9 +4,9 @@ const path = require('path');
 module.exports = {
   cwd: path.resolve(__dirname, 'test'),
   controllers: {
-    glob: ['**/test/*/routes/**/*.ts']
+    glob: ['test/*/routes/**/*.ts']
   },
   providers: {
-    glob: ['**/test/*/providers/**/*.ts']
+    glob: ['test/*/providers/**/*.ts']
   }
 };

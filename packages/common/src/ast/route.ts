@@ -81,5 +81,5 @@ export interface Route {
   customReturn?: string;
 
   /** Any imports that should be added to the route file. */
-  imports?: string[];
+  imports?: { name: string; path: string }[];
 }

@@ -15,7 +15,7 @@ export interface Parameter {
   helper?: string;
 
   /** If this parameters needs any additional imports. */
-  imports?: string[];
+  imports?: { name: string; path: string }[];
 
   /** If this route has a schema transformer attached to it. It may or may not have a configuration */
   schemaTransformer?: boolean;

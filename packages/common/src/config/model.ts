@@ -18,7 +18,7 @@ export interface KitaConfig {
   cwd: string;
 
   /**
-   * A custom path to the @kitajs/runtime package. Useful if you are having problems with custom package managers like
+   * A custom path to the kitajs/runtime package. Useful if you are having problems with custom package managers like
    * yarn pnp.
    *
    * @default undefined

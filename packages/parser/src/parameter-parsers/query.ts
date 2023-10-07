@@ -5,13 +5,13 @@ import {
   ParameterConflictError,
   ParameterParser,
   QueryMixError,
-  Route
+  Route,
+  kRequestParam
 } from '@kitajs/common';
 import { StringType } from 'ts-json-schema-generator';
 import type ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
-import { kRequestParam } from '../util/constants';
 import {
   getParameterGenerics,
   getParameterName,

@@ -7,5 +7,5 @@
     "jsxFragmentFactory": "Html.Fragment",
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }, { "name": "@kitajs/ts-plugin" }]
   },
-  "include": ["src", "test"]
+  "include": ["src", "test", "../common/src/util/constants.ts"]
 }

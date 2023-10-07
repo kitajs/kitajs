@@ -114,6 +114,9 @@ importers:
       '@types/node':
         specifier: ^20.5.0
         version: 20.5.0
+      ts-json-schema-generator:
+        specifier: ^1.3.0
+        version: 1.3.0
 
   packages/parser:
     dependencies:
@@ -896,7 +899,6 @@ packages:
   /@types/json-schema@7.0.12:
     resolution:
       { integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA== }
-    dev: false
 
   /@types/mdast@3.0.10:
     resolution:
@@ -1137,7 +1139,6 @@ packages:
       { integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA== }
     dependencies:
       balanced-match: 1.0.2
-    dev: false
 
   /braces@3.0.2:
     resolution:
@@ -1317,7 +1318,6 @@ packages:
     resolution:
       { integrity: sha512-9HMlXtt/BNoYr8ooyjjNRdIilOTkVJXB+GhxMTtOKwk0R4j4lS4NpjuqmRxroBfnfTSHQIHQB7wryHhXarNjmQ== }
     engines: { node: '>=16' }
-    dev: false
 
   /commander@9.5.0:
     resolution:
@@ -1989,7 +1989,6 @@ packages:
       inherits: 2.0.4
       minimatch: 5.1.6
       once: 1.4.0
-    dev: false
 
   /globalthis@1.0.3:
     resolution:
@@ -2452,7 +2451,6 @@ packages:
       { integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg== }
     engines: { node: '>=6' }
     hasBin: true
-    dev: false
 
   /jsonfile@4.0.0:
     resolution:
@@ -2851,7 +2849,6 @@ packages:
     engines: { node: '>=10' }
     dependencies:
       brace-expansion: 2.0.1
-    dev: false
 
   /minimatch@9.0.3:
     resolution:
@@ -2912,7 +2909,6 @@ packages:
     resolution:
       { integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA== }
     engines: { node: '>=0.10.0' }
-    dev: false
 
   /object-inspect@1.12.3:
     resolution:
@@ -3460,7 +3456,6 @@ packages:
     resolution:
       { integrity: sha512-e2bDA2WJT0wxseVd4lsDP4+3ONX6HpMXQa1ZhFQ7SU+GjvORCmShbCMltrtIDfkYhVHrOcPtj+KhmDBdPdZD1g== }
     engines: { node: '>=10' }
-    dev: false
 
   /safer-buffer@2.1.2:
     resolution:
@@ -3861,7 +3856,6 @@ packages:
       normalize-path: 3.0.0
       safe-stable-stringify: 2.4.3
       typescript: 5.2.2
-    dev: false
 
   /tslib@2.5.0:
     resolution:

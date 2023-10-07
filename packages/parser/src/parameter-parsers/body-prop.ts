@@ -4,12 +4,12 @@ import {
   KitaConfig,
   ParameterConflictError,
   ParameterParser,
-  Route
+  Route,
+  kRequestParam
 } from '@kitajs/common';
 import type ts from 'typescript';
 import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
-import { kRequestParam } from '../util/constants';
 import {
   getParameterGenerics,
   getParameterName,

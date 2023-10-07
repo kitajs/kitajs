@@ -1,4 +1,5 @@
 import { Definition } from 'ts-json-schema-generator';
+import { Promisable } from 'type-fest';
 import { KitaError } from '../errors';
 import { Provider } from './provider';
 import { Route } from './route';
@@ -41,5 +42,9 @@ export interface AstCollector {
    *
    * You can also manually provide different controller and provider paths to parse only a subset of files.
    */
-  parse(controllerPaths?: string[], providerPaths?: string[]): AsyncGenerator<KitaError, void, void>;
+  parse(
+    controllerPaths?: string[],
+    providerPaths?: string[],
+    onRoute?: (r: Route) => Promisable<void>
+  ): AsyncGenerator<KitaError, void, void>;
 }

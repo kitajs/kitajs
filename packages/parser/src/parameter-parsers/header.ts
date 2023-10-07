@@ -1,7 +1,6 @@
-import { KitaConfig, ParameterParser, Route } from '@kitajs/common';
+import { KitaConfig, ParameterParser, Route, kRequestParam } from '@kitajs/common';
 import type ts from 'typescript';
 import { mergeSchema } from '../schema/helpers';
-import { kRequestParam } from '../util/constants';
 import { getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';
 

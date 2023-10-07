@@ -14,6 +14,7 @@ import {
 } from '@kitajs/common';
 import { globSync } from 'glob';
 import { Definition } from 'ts-json-schema-generator';
+import { Promisable } from 'type-fest';
 import ts from 'typescript';
 import { buildParameterParser } from './parameter-parsers';
 import { buildProviderParser } from './provider-parsers';
@@ -31,12 +32,11 @@ export class KitaParser implements AstCollector {
   readonly rootProviderParser: ProviderParser;
 
   /** Creates a KitaParser instance with the given config. */
-  static create(config: KitaConfig) {
+  static create(config: KitaConfig, compilerOptions: ts.CompilerOptions = readCompilerOptions(config.tsconfig)) {
     const controllerPaths = globSync(config.controllers.glob, { cwd: config.cwd });
     const providerPaths = globSync(config.providers.glob, { cwd: config.cwd });
 
     // Typescript program
-    const compilerOptions = readCompilerOptions(config.tsconfig);
     const program = ts.createProgram(
       // Adds both providers and controllers
       controllerPaths.concat(providerPaths),
@@ -66,7 +66,11 @@ export class KitaParser implements AstCollector {
     this.rootProviderParser = buildProviderParser(this.config, this.rootParameterParser);
   }
 
-  async *parse() {
+  async *parse(controllerPaths?: string[], providerPaths?: string[], onRoute?: (r: Route) => Promisable<void>) {
+    if (controllerPaths || providerPaths) {
+      throw new UnknownKitaError('Custom controller and provider paths are not supported in this generator');
+    }
+
     // Parses all providers first
     for await (const provider of traverseSource(this.program, this.rootProviderParser, this.providerPaths)) {
       if (provider instanceof KitaError) {
@@ -114,6 +118,16 @@ export class KitaParser implements AstCollector {
       }
 
       this.routes.set(route.schema.operationId, route);
+
+      // Call route callback if present
+      if (onRoute) {
+        const promise = onRoute(route);
+
+        // Only await if needs to
+        if (promise) {
+          await promise;
+        }
+      }
     }
   }
 

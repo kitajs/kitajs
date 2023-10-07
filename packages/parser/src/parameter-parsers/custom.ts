@@ -23,19 +23,13 @@ export class ProviderParameterParser implements ParameterParser {
 
     return {
       value,
+      imports: [{ name: providerName, path: provider.providerPath }],
       helper: format(/* ts */ `
 
 ${joinParameters(provider.parameters)}
 const ${value} = await ${providerName}(${provider.parameters.map((p) => p.value).join(',')});
 
-`),
-      imports: [
-        format(/* ts */ `
-
-import ${providerName} from "${provider.providerPath}";
-
 `)
-      ]
     };
   }
 }

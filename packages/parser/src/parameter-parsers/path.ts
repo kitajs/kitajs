@@ -1,9 +1,15 @@
-import { InvalidParameterUsageError, KitaConfig, Parameter, ParameterParser, Route } from '@kitajs/common';
+import {
+  InvalidParameterUsageError,
+  KitaConfig,
+  Parameter,
+  ParameterParser,
+  Route,
+  kRequestParam
+} from '@kitajs/common';
 import { ArrayType, Definition } from 'ts-json-schema-generator';
 import type ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
-import { kRequestParam } from '../util/constants';
 import {
   getParameterGenerics,
   getParameterName,

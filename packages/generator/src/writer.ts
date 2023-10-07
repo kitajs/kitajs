@@ -1,5 +1,4 @@
-import { GeneratedDiagnosticsErrors, KitaConfig, RuntimeNotFoundError, SourceWriter } from '@kitajs/common';
-import path from 'path';
+import { GeneratedDiagnosticsErrors, SourceWriter } from '@kitajs/common';
 import { Promisable } from 'type-fest';
 import ts from 'typescript';
 
@@ -7,22 +6,18 @@ export class KitaWriter implements SourceWriter {
   private readonly files: Map<string, string> = new Map();
 
   constructor(
-    private readonly config: KitaConfig,
-    private compilerOptions: ts.CompilerOptions
+    private compilerOptions: ts.CompilerOptions,
+    cwd: string
   ) {
-    const runtime = this.config.runtime
-      ? path.resolve(config.cwd, this.config.runtime)
-      : path.dirname(require.resolve('@kitajs/runtime/generated'));
-
-    if (!ts.sys.directoryExists(runtime)) {
-      throw new RuntimeNotFoundError(runtime);
-    }
-
     // Copies the compiler options
     this.compilerOptions = Object.assign({}, this.compilerOptions);
 
     // Finds the runtime directory
-    this.compilerOptions.outDir = runtime;
+    this.compilerOptions.outDir = cwd;
+    this.compilerOptions.baseUrl = '.';
+
+    // TODO: Figure out esm
+    this.compilerOptions.module = ts.ModuleKind.CommonJS;
 
     // Type information is needed for the runtime
     this.compilerOptions.declaration = true;
@@ -39,6 +34,9 @@ export class KitaWriter implements SourceWriter {
 
     // reduces the size of the generated code
     this.compilerOptions.importHelpers = true;
+
+    // We use @internal to hide some generated code
+    this.compilerOptions.stripInternal = true;
   }
 
   write(filename: string, content: string): Promisable<void> {

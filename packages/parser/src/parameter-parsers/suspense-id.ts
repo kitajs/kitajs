@@ -1,6 +1,5 @@
-import { Parameter, ParameterParser } from '@kitajs/common';
+import { Parameter, ParameterParser, kRequestParam } from '@kitajs/common';
 import type ts from 'typescript';
-import { kRequestParam } from '../util/constants';
 import { getTypeNodeName } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';
 

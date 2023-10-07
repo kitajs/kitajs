@@ -1,4 +1,4 @@
-import { Parameter, ParameterParser } from '@kitajs/common';
+import { Parameter, ParameterParser, Route } from '@kitajs/common';
 import type ts from 'typescript';
 import { getTypeNodeName } from '../util/nodes';
 
@@ -9,9 +9,8 @@ export class RouteMetaParameterParser implements ParameterParser {
     return getTypeNodeName(param) === 'RouteMeta';
   }
 
-  parse(): Parameter {
-    // The actual content should be stringified by the route formatter if it finds
-    // that one of its parameter is a RouteMeta
-    return { value: 'RouteMeta' };
+  parse(_: ts.ParameterDeclaration, route: Route): Parameter {
+    // The actual content should be stringified by the route formatter.
+    return { value: `${route.schema.operationId}Meta` };
   }
 }

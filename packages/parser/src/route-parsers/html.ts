@@ -1,8 +1,15 @@
-import { InvalidHtmlRoute, KitaConfig, ParameterParser, Route, RouteParser } from '@kitajs/common';
+import {
+  InvalidHtmlRoute,
+  KitaConfig,
+  ParameterParser,
+  Route,
+  RouteParser,
+  kReplyParam,
+  kRequestParam
+} from '@kitajs/common';
 import { StringType } from 'ts-json-schema-generator';
 import ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
-import { kReplyParam, kRequestParam } from '../util/constants';
 import { getReturnType, isExportedFunction, toPrettySource } from '../util/nodes';
 import { findUrlAndControllerName } from '../util/string';
 import { buildAccessProperty } from '../util/syntax';
@@ -80,7 +87,7 @@ export class HtmlRouteParser implements RouteParser {
       route.parameters.some((p) => p.__type === 'SuspenseId')
     ) {
       route.imports ??= [];
-      route.imports.push(/* ts */ `import { renderToStream } from '@kitajs/html/suspense';`);
+      route.imports.push({ name: '{ renderToStream }', path: '@kitajs/html/suspense' });
 
       const routeParameters = route.parameters.map((r) => r.value).join(', ');
       const handler = buildAccessProperty(route.controllerName, route.controllerMethod);
