@@ -25,16 +25,17 @@ export abstract class KitaError extends Error {
   /**
    * The error code.
    *
-   * This is a 3 digit number, where the first digit is the category of the error, and the last 2 digits are the error
-   * code.
+   * This is a 3 digit number, where the first digit is the category of the error, and the
+   * last 2 digits are the error code.
    *
-   * | Code | Category  |
-   * | ---- | --------- |
-   * | 1    | General   |
-   * | 2    | Config    |
-   * | 3    | Parser    |
-   * | 4    | Validator |
-   * | 5    | Formatter |
+   * | Code | Category                  |
+   * | ---- | ------------------------- |
+   * | 1    | General                   |
+   * | 2    | Config                    |
+   * | 3    | Parser                    |
+   * | 4    | Validator                 |
+   * | 5    | Formatter                 |
+   * | 6    | ts-html-plugin (external) |
    */
   readonly code: number;
 
