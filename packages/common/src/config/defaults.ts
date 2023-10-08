@@ -1,10 +1,9 @@
 import type { KitaConfig } from './model';
 
 export const DefaultConfig: KitaConfig = {
-  tsconfig: './tsconfig.json',
   cwd: process.cwd(),
   controllers: {
-    glob: ['src/routes/**/*.tsx?'],
+    glob: ['src/routes/**/*.ts', 'src/routes/**/*.tsx'],
     prefix: /^(.+?\/routes\/)/
   },
   providers: {

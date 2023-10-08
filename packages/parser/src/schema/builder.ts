@@ -1,4 +1,4 @@
-import type { KitaConfig } from '@kitajs/common';
+import type { AstCollector, KitaConfig } from '@kitajs/common';
 import { CannotCreateNodeTypeError, MultipleDefinitionsError } from '@kitajs/common';
 import {
   AliasType,
@@ -37,8 +37,7 @@ export class SchemaBuilder {
   constructor(
     private config: KitaConfig,
     program: ts.Program,
-    /** If we should override schema definitions with the same name. */
-    private override = false
+    private collector: AstCollector
   ) {
     const generatorCfg = { ...config.schema.generator, tsconfig: config.tsconfig };
 
@@ -212,7 +211,7 @@ export class SchemaBuilder {
       // Remove def prefix from ids to avoid false alarms
       const childId = child.getId().replace(/def-/g, '');
 
-      if (this.override === false && previousId && childId !== previousId) {
+      if (previousId && childId !== previousId) {
         throw new MultipleDefinitionsError(name);
       }
 
@@ -222,6 +221,9 @@ export class SchemaBuilder {
       // Add child definition
       if (!(name in this.definitions)) {
         this.definitions[name] = this.formatter.getDefinition(child.getType());
+
+        // Call schema callback if present
+        this.collector.onSchema?.(this.formatter.getDefinition(child.getType()));
       }
     }
   }

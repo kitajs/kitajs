@@ -1,0 +1,70 @@
+{
+  "commands": {
+    "build": {
+      "aliases": [],
+      "args": {},
+      "description": "Builds up all your routes into @kitajs/runtime.",
+      "examples": ["<%= config.bin %> <%= command.id %>"],
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your config file",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "root": {
+          "char": "r",
+          "description": "Root directory of your project",
+          "name": "root",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "debug": {
+          "char": "d",
+          "description": "Prints full resolved config",
+          "name": "debug",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "id": "build",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "build.js"]
+    },
+    "init": {
+      "aliases": [],
+      "args": {},
+      "description": "Creates a basic kita.config.js",
+      "examples": ["<%= config.bin %> <%= command.id %>"],
+      "flags": {
+        "root": {
+          "char": "r",
+          "description": "Root directory of your project",
+          "name": "root",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "id": "init",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "init.js"]
+    }
+  },
+  "version": "1.1.0"
+}

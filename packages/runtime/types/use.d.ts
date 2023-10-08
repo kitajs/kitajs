@@ -1,17 +1,6 @@
 import type { RouteShorthandOptions } from 'fastify';
 
 /**
- * @example
- *
- * ```ts
- * export function get() {}
- *
- * export const myExportedProperty: RouteShorthandOptions = {...}
- * ```
- */
-export type Route<_Config extends RouteShorthandOptions = {}> = void;
-
-/**
  * Applies on or more configurations to a route.
  *
  * @example

@@ -26,8 +26,11 @@ export async function generateRuntime<R>(cwd: string, partialCfg: Partial<KitaCo
   const kita = KitaParser.create(config, compilerOptions);
   const formatter = new KitaFormatter(config, compilerOptions);
 
+  // Generate routes on the fly
+  kita.onRoute = (route) => formatter.generateRoute(route);
+
   // Should not emit any errors
-  for await (const error of kita.parse(undefined, undefined, formatter.generateRoute.bind(formatter))) {
+  for await (const error of kita.parse()) {
     console.error(error);
     assert.fail(error);
   }

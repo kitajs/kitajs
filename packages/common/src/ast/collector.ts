@@ -42,9 +42,10 @@ export interface AstCollector {
    *
    * You can also manually provide different controller and provider paths to parse only a subset of files.
    */
-  parse(
-    controllerPaths?: string[],
-    providerPaths?: string[],
-    onRoute?: (r: Route) => Promisable<void>
-  ): AsyncGenerator<KitaError, void, void>;
+  parse(controllerPaths?: string[], providerPaths?: string[]): AsyncGenerator<KitaError, void, void>;
+
+  // hooks
+  onRoute?: (r: Route) => Promisable<void>;
+  onProvider?: (r: Provider) => Promisable<void>;
+  onSchema?: (r: Definition) => void;
 }

@@ -76,4 +76,8 @@ export class KitaWriter implements SourceWriter {
       throw new GeneratedDiagnosticsErrors(diagnostics);
     }
   }
+
+  fileCount() {
+    return this.files.size;
+  }
 }

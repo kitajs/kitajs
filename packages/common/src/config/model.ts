@@ -6,9 +6,9 @@ export interface KitaConfig {
   /**
    * The tsconfig path
    *
-   * @default './tsconfig.json'
+   * @default undefined
    */
-  tsconfig: string;
+  tsconfig?: string;
 
   /**
    * The current working directory to resolve all files
@@ -53,7 +53,7 @@ export interface KitaConfig {
     /**
      * The regex to match all files to parse
      *
-     * @default ['src/routes/⁎⁎/⁎.tsx?']
+     * @default ['src/routes/⁎⁎/⁎.ts', 'src/routes/⁎⁎/⁎.tsx']
      */
     glob: string[];
 

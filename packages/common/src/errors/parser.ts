@@ -117,7 +117,7 @@ export class ReturnTypeError extends KitaError {
 }
 
 export class RouteOptionsAlreadyDefinedError extends KitaError {
-  constructor(readonly node: ts.Node) {
+  constructor(node: ts.Node) {
     super({
       code: 311,
       messageText: 'This route already has defined options.',
@@ -127,11 +127,22 @@ export class RouteOptionsAlreadyDefinedError extends KitaError {
 }
 
 export class RouteMapperNotExportedError extends KitaError {
-  constructor(readonly node: ts.Node) {
+  constructor(node: ts.Node) {
     super({
       code: 312,
       messageText: `You are using a route mapper inside a \`this: Use<>\` parameter, but the mapper is not exported in the same file.`,
       node
+    });
+  }
+}
+
+export class RouteParameterMultipleErrors extends KitaError {
+  constructor(node: ts.Node, errors: KitaError[]) {
+    super({
+      code: 313,
+      messageText: `Multiple errors were found while parsing this route.`,
+      node,
+      relatedInformation: errors.map((e) => e.diagnostic)
     });
   }
 }

@@ -31,6 +31,10 @@ export class KitaParser implements AstCollector {
   readonly rootParameterParser: ParameterParser;
   readonly rootProviderParser: ProviderParser;
 
+  onRoute?: (r: Route) => Promisable<void>;
+  onSchema?: (r: Definition) => Promisable<void>;
+  onProvider?: (r: Provider) => Promisable<void>;
+
   /** Creates a KitaParser instance with the given config. */
   static create(config: KitaConfig, compilerOptions: ts.CompilerOptions = readCompilerOptions(config.tsconfig)) {
     const controllerPaths = globSync(config.controllers.glob, { cwd: config.cwd });
@@ -48,12 +52,12 @@ export class KitaParser implements AstCollector {
 
   constructor(
     protected readonly config: KitaConfig,
-    protected readonly controllerPaths: string[],
-    protected readonly providerPaths: string[],
+    readonly controllerPaths: string[],
+    readonly providerPaths: string[],
     protected readonly program: ts.Program
   ) {
     // Json schema
-    this.schemaBuilder = new SchemaBuilder(this.config, this.program);
+    this.schemaBuilder = new SchemaBuilder(this.config, this.program, this);
 
     // Parsing
     this.rootParameterParser = buildParameterParser(this.config, this.schemaBuilder, this);
@@ -66,7 +70,7 @@ export class KitaParser implements AstCollector {
     this.rootProviderParser = buildProviderParser(this.config, this.rootParameterParser);
   }
 
-  async *parse(controllerPaths?: string[], providerPaths?: string[], onRoute?: (r: Route) => Promisable<void>) {
+  async *parse(controllerPaths?: string[], providerPaths?: string[]) {
     if (controllerPaths || providerPaths) {
       throw new UnknownKitaError('Custom controller and provider paths are not supported in this generator');
     }
@@ -91,6 +95,16 @@ export class KitaParser implements AstCollector {
       }
 
       this.providers.set(provider.type, provider);
+
+      // Call route callback if present
+      if (this.onProvider) {
+        const promise = this.onProvider(provider);
+
+        // Only await if needs to
+        if (promise) {
+          await promise;
+        }
+      }
     }
 
     // Parses all routes
@@ -120,8 +134,8 @@ export class KitaParser implements AstCollector {
       this.routes.set(route.schema.operationId, route);
 
       // Call route callback if present
-      if (onRoute) {
-        const promise = onRoute(route);
+      if (this.onRoute) {
+        const promise = this.onRoute(route);
 
         // Only await if needs to
         if (promise) {

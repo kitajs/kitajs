@@ -1,2 +1,3 @@
-export type Runtime = 'You must run kita generate before using @kitajs/runtime';
-export default Runtime;
+export * from './plugin';
+export * from './routes/getIndex';
+export * from './schemas';
