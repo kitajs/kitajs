@@ -1,4 +1,4 @@
-import type { Body, Query } from '@kitajs/runtime';
+import type { Query } from '@kitajs/runtime';
 
 /**
  * Hello world API endpoint. This comment will be used as the swagger description.
@@ -6,6 +6,6 @@ import type { Body, Query } from '@kitajs/runtime';
  * The name parameter is going to be runtime validated and extract from que query string. If the name is not provided,
  * the default value will be used.
  */
-export function get(name: Query = 'World', b: Body<{ a: 1 }>) {
+export function get(name: Query = 'World') {
   return `Hello ${name}!`;
 }
