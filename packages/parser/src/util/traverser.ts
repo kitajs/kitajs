@@ -31,10 +31,23 @@ export async function* traverseStatements<R>(
       }
 
       if (supports) {
-        yield Promise.resolve(parser.parse(statement))
+        try {
+          let parsed = parser.parse(statement);
+
+          if (isPromiseLike(parsed)) {
+            parsed = await parsed;
+          }
+
+          yield parsed;
+        } catch (error) {
           // Also returns errors as values to be handled by the caller
           // This allows us to keep parsing even if some routes fail
-          .catch((err) => (err instanceof Error ? err : new UnknownKitaError(err)));
+          if (error instanceof Error) {
+            throw error;
+          }
+
+          throw new UnknownKitaError('', error);
+        }
       }
     }
   }
@@ -56,10 +69,23 @@ export async function* traverseSource<R>(program: ts.Program, parser: Parser<ts.
     }
 
     if (supports) {
-      yield Promise.resolve(parser.parse(sourceFile))
+      try {
+        let parsed = parser.parse(sourceFile);
+
+        if (isPromiseLike(parsed)) {
+          parsed = await parsed;
+        }
+
+        yield parsed;
+      } catch (error) {
         // Also returns errors as values to be handled by the caller
         // This allows us to keep parsing even if some routes fail
-        .catch((err) => (err instanceof Error ? err : new UnknownKitaError(err)));
+        if (error instanceof Error) {
+          throw error;
+        }
+
+        throw new UnknownKitaError('', error);
+      }
     }
   }
 }
