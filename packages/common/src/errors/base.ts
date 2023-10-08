@@ -25,8 +25,8 @@ export abstract class KitaError extends Error {
   /**
    * The error code.
    *
-   * This is a 3 digit number, where the first digit is the category of the error, and the
-   * last 2 digits are the error code.
+   * This is a 3 digit number, where the first digit is the category of the error, and the last 2 digits are the error
+   * code.
    *
    * | Code | Category                  |
    * | ---- | ------------------------- |
@@ -42,6 +42,12 @@ export abstract class KitaError extends Error {
   readonly diagnostic: ts.Diagnostic;
 
   constructor(diagnostic: PartialDiagnostic) {
+    super(ts.flattenDiagnosticMessageText(diagnostic.messageText, EOL));
+    this.diagnostic = KitaError.createDiagnostic(diagnostic);
+    this.code = this.diagnostic.code;
+  }
+
+  static createDiagnostic(diagnostic: PartialDiagnostic) {
     // Swap the node for the file, source, start and length properties
     if (diagnostic.node && diagnostic.node.pos !== -1) {
       diagnostic.file = diagnostic.node.getSourceFile();
@@ -56,9 +62,7 @@ export abstract class KitaError extends Error {
     diagnostic.code = `kita - ${diagnostic.code}`;
     diagnostic.category ??= ts.DiagnosticCategory.Error;
 
-    super(ts.flattenDiagnosticMessageText(diagnostic.messageText, EOL));
-
-    this.diagnostic = Object.assign(
+    return Object.assign(
       {
         category: ts.DiagnosticCategory.Error,
         file: undefined,
@@ -67,7 +71,6 @@ export abstract class KitaError extends Error {
       },
       diagnostic
     );
-    this.code = this.diagnostic.code;
   }
 }
 

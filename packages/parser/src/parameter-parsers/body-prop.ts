@@ -10,13 +10,7 @@ import {
 import type ts from 'typescript';
 import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
-import {
-  getParameterGenerics,
-  getParameterName,
-  getTypeNodeName,
-  isParamOptional,
-  toPrettySource
-} from '../util/nodes';
+import { getParameterGenerics, getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';
 
 export class BodyPropParameterParser implements ParameterParser {
@@ -30,34 +24,27 @@ export class BodyPropParameterParser implements ParameterParser {
   }
 
   parse(param: ts.ParameterDeclaration, route: Route) {
-    const prettyPath = toPrettySource(param);
-
     if (route.method === 'GET') {
-      throw new BodyInGetRequestError(prettyPath);
+      throw new BodyInGetRequestError(param.type || param);
     }
 
     // The $ref property is set when using the Body parameter
     if (route.schema.body?.$ref) {
-      throw new ParameterConflictError('Body', 'BodyProp', route.schema.body);
+      throw new ParameterConflictError('Body', 'BodyProp', param.type || param);
     }
 
     const [type] = getParameterGenerics(param);
 
     if (!type) {
-      throw new InvalidParameterUsageError(
-        'BodyProp',
-        'You must specify a type for the BodyProp parameter.',
-        prettyPath
-      );
+      throw new InvalidParameterUsageError('You must specify a type for the BodyProp parameter.', param.type || param);
     }
 
     const name = getParameterName(param, 1);
 
     if (name.includes('.')) {
       throw new InvalidParameterUsageError(
-        'BodyProp',
         'You cannot have dots in the BodyProp name. Use the Body parameter for deep objects.',
-        prettyPath
+        param.type || param
       );
     }
 

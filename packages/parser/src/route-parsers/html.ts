@@ -73,13 +73,17 @@ export class HtmlRouteParser implements RouteParser {
 
     // Non string return type
     if (!primitive || !(primitive instanceof StringType)) {
-      throw new InvalidHtmlRoute(route.controllerPrettyPath, primitive);
+      throw new InvalidHtmlRoute(node.type || node);
     }
 
     // Adds all parameters in their respective position
     for await (const { param, index } of traverseParameters(node, this.paramParser, route)) {
       route.parameters[index] = param;
     }
+
+    const routeParameters = route.parameters.map((r) => r.value).join(', ');
+    const handler = buildAccessProperty(route.controllerName, route.controllerMethod);
+    const handlerCall = `${handler}.bind(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
 
     if (
       // If the SuspenseId parameter was used, we need to render as a stream.
@@ -88,10 +92,9 @@ export class HtmlRouteParser implements RouteParser {
     ) {
       route.imports ??= [];
       route.imports.push({ name: '{ renderToStream }', path: '@kitajs/html/suspense' });
-
-      const routeParameters = route.parameters.map((r) => r.value).join(', ');
-      const handler = buildAccessProperty(route.controllerName, route.controllerMethod);
-      route.customReturn = `return ${kReplyParam}.type('text/html; charset=utf-8').send(renderToStream(${handler}.bind(undefined, ${routeParameters}), ${kRequestParam}.id));`;
+      route.customReturn = `return ${kReplyParam}.type('text/html; charset=utf-8').send(renderToStream(${handlerCall}, ${kRequestParam}.id));`;
+    } else {
+      route.customReturn = `${kReplyParam}.type('text/html; charset=utf-8'); return ${handlerCall}`;
     }
 
     return route;

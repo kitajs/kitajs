@@ -57,7 +57,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
 
         //@ts-ignore - any type is valid
         if (route.schema.summary) {
-          throw new JsdocAlreadyDefinedError(name, route.controllerPath);
+          throw new JsdocAlreadyDefinedError(tag.tagName || tag);
         }
 
         mergeSchema(route, {

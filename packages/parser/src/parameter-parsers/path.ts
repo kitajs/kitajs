@@ -10,13 +10,7 @@ import { ArrayType, Definition } from 'ts-json-schema-generator';
 import type ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
-import {
-  getParameterGenerics,
-  getParameterName,
-  getTypeNodeName,
-  isParamOptional,
-  toPrettySource
-} from '../util/nodes';
+import { getParameterGenerics, getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';
 
 export class PathParameterParser implements ParameterParser {
@@ -33,7 +27,7 @@ export class PathParameterParser implements ParameterParser {
     const optional = isParamOptional(param);
 
     if (optional) {
-      throw new InvalidParameterUsageError('Path', 'Path parameter cannot be optional', toPrettySource(param));
+      throw new InvalidParameterUsageError('Path parameter cannot be optional', param.type || param);
     }
 
     const name = getParameterName(param, 1);
@@ -45,11 +39,11 @@ export class PathParameterParser implements ParameterParser {
       const primitive = this.builder.toPrimitive(type);
 
       if (!primitive) {
-        throw new InvalidParameterUsageError('Path', 'Path parameter must be a primitive type', toPrettySource(param));
+        throw new InvalidParameterUsageError('Path parameter must be a primitive type', param.type || param);
       }
 
       if (primitive instanceof ArrayType) {
-        throw new InvalidParameterUsageError('Path', 'Path parameter cannot be an array', toPrettySource(param));
+        throw new InvalidParameterUsageError('Path parameter cannot be an array', param.type || param);
       }
 
       schema = this.builder.formatDefinition(primitive);

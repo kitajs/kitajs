@@ -12,8 +12,7 @@ import {
   getTypeName,
   getTypeNodeName,
   isExportedFunction,
-  isExportedVariable,
-  toPrettySource
+  isExportedVariable
 } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';
 
@@ -31,18 +30,16 @@ export class ThisParameterParser implements ParameterParser {
     // other parameter with Use type
     if (!isThis && isUse) {
       throw new InvalidParameterUsageError(
-        'Use',
         'The `Use<>` parameter can only be bound to the `this` keyword.',
-        toPrettySource(param)
+        param.type || param
       );
     }
 
     // this parameter with other type
     if (!isUse && isThis) {
       throw new InvalidParameterUsageError(
-        'this',
         'The `this` parameter can only be used with the `Use<>` type.',
-        toPrettySource(param)
+        param.type || param
       );
     }
 
@@ -50,17 +47,15 @@ export class ThisParameterParser implements ParameterParser {
 
     if (!config) {
       throw new InvalidParameterUsageError(
-        'this',
         'The `this` parameter must be used with a configuration type.',
-        toPrettySource(param)
+        param.type || param
       );
     }
 
     if (!ts.isTypeQueryNode(config) && !ts.isTupleTypeNode(config)) {
       throw new InvalidParameterUsageError(
-        'this',
         'The `this` parameter must be used `typeof` reference or a literal tuple of `typeof` references',
-        toPrettySource(param)
+        param.type || param
       );
     }
 
@@ -94,9 +89,8 @@ export class ThisParameterParser implements ParameterParser {
     for (const element of config.elements) {
       if (!ts.isTypeQueryNode(element)) {
         throw new InvalidParameterUsageError(
-          'this',
           'The `this` parameter must only have `typeof` references inside its tuple.',
-          toPrettySource(param)
+          param.type || param
         );
       }
 

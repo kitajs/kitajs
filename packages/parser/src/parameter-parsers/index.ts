@@ -1,5 +1,6 @@
 import { AstCollector, KitaConfig, ParameterParser } from '@kitajs/common';
 import type { SchemaBuilder } from '../schema/builder';
+import { BodyParameterParser } from './body';
 import { BodyPropParameterParser } from './body-prop';
 import { ChainParameterParser } from './chain';
 import { CookieParameterParser } from './cookie';
@@ -26,6 +27,7 @@ export function buildParameterParser(
   chain
     .add(new FastifyParameterParser())
     .add(new QueryParameterParser(schema, config))
+    .add(new BodyParameterParser(schema))
     .add(new BodyPropParameterParser(config, schema))
     .add(new ProviderParameterParser(collector))
     .add(new PathParameterParser(schema, config))

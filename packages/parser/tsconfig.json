@@ -2,10 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "noEmit": false,
     "jsx": "react",
     "jsxFactory": "Html.createElement",
     "jsxFragmentFactory": "Html.Fragment",
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }, { "name": "@kitajs/ts-plugin" }]
   },
-  "include": ["src", "test", "../common/src/util/constants.ts"]
+  "include": ["src", "test"]
 }

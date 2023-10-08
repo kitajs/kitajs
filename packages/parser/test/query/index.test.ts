@@ -32,7 +32,7 @@ describe('Query Parameter', async () => {
             age: { type: 'number' },
             name: { type: 'string' }
           },
-          required: ['custom name', 'age', 'name'],
+          required: ['name', 'age', 'custom name'],
           type: 'object'
         },
         response: { default: { type: 'string' } }

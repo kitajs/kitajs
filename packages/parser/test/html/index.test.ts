@@ -28,7 +28,7 @@ describe('Cookies', async () => {
         hide: true,
         response: { default: { type: 'string' } }
       },
-      imports: ["import { renderToStream } from '@kitajs/html/suspense';"],
+      imports: [{ name: '{ renderToStream }', path: '@kitajs/html/suspense' }],
       customReturn:
         "return reply.type('text/html; charset=utf-8').send(renderToStream(IndexController.get.bind(undefined, req.id), req.id));"
     });
@@ -50,7 +50,8 @@ describe('Cookies', async () => {
         operationId: 'postIndexView',
         hide: true,
         response: { default: { type: 'string' } }
-      }
+      },
+      customReturn: "reply.type('text/html; charset=utf-8'); return IndexController.post.bind(undefined)"
     });
   });
 
@@ -70,7 +71,8 @@ describe('Cookies', async () => {
         operationId: 'putIndexView',
         hide: true,
         response: { default: { type: 'string' } }
-      }
+      },
+      customReturn: "reply.type('text/html; charset=utf-8'); return IndexController.put.bind(undefined)"
     });
   });
 });

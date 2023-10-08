@@ -4,7 +4,7 @@ import { type TypeFormatter } from 'ts-json-schema-generator';
 
 /** Combines a route schema with a new schema. */
 export function mergeSchema(route: Route, schema: Partial<RouteSchema>) {
-  route.schema = deepmerge(schema, route.schema);
+  route.schema = deepmerge(route.schema, schema);
 }
 
 /**

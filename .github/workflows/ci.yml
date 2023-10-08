@@ -27,14 +27,14 @@ jobs:
 
       # Temporary fix until all code compiles :)
       - name: Build
-        run: pnpm -r --no-bail build || true
+        run: pnpm -r build
 
       # - name: Link kita binary
       #   run: pnpm i -g
       #   working-directory: packages/cli
 
-      - name: Test Parser
-        run: pnpm --filter @kitajs/parser test
+      - name: Test
+        run: pnpm test
 
       - name: Publish to Codecov
         uses: codecov/codecov-action@v3

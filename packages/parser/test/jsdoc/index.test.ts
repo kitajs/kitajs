@@ -25,7 +25,7 @@ describe('JSDoc usage on route', async () => {
       parameters: [],
       schema: {
         summary: 'C',
-        tags: ['B', 'A'],
+        tags: ['A', 'B'],
         response: { default: { type: 'string' } },
         operationId: 'getIndex',
         description: 'D'

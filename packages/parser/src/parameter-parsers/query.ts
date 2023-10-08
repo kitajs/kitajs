@@ -12,13 +12,7 @@ import { StringType } from 'ts-json-schema-generator';
 import type ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
-import {
-  getParameterGenerics,
-  getParameterName,
-  getTypeNodeName,
-  isParamOptional,
-  toPrettySource
-} from '../util/nodes';
+import { getParameterGenerics, getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';
 
 export class QueryParameterParser implements ParameterParser {
@@ -39,7 +33,7 @@ export class QueryParameterParser implements ParameterParser {
     // Simple primitive parameter, can be grouped with other Query parameters
     if (primitiveType) {
       if (route.schema.querystring?.$ref) {
-        throw new QueryMixError(toPrettySource(param));
+        throw new QueryMixError(param);
       }
 
       const optional = isParamOptional(param);
@@ -60,21 +54,17 @@ export class QueryParameterParser implements ParameterParser {
     }
 
     if (genericName) {
-      throw new InvalidParameterUsageError(
-        'Query',
-        'You cannot give a name to a complex query object',
-        toPrettySource(param)
-      );
+      throw new InvalidParameterUsageError('You cannot give a name to a complex query object', param.type || param);
     }
 
     // Already used a query primitive query parameter
     if (route.schema.querystring?.properties) {
-      throw new QueryMixError(toPrettySource(param));
+      throw new QueryMixError(param);
     }
 
     // Already used a query extended query parameter
     if (route.schema.querystring?.$ref) {
-      throw new ParameterConflictError('Query<{...}>', 'Query<{...}>', route.schema.querystring);
+      throw new ParameterConflictError('Query<{...}>', 'Query<{...}>', param.type || param);
     }
 
     mergeSchema(route, {
