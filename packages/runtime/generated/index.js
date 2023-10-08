@@ -1,6 +1,1 @@
-'use strict';
-Object.defineProperty(exports, '__esModule', { value: true });
-const tslib_1 = require('tslib');
-tslib_1.__exportStar(require('./schemas'), exports);
-tslib_1.__exportStar(require('./plugin'), exports);
-tslib_1.__exportStar(require('./routes/getIndex'), exports);
+throw new Error('You must run kita generate before using @kitajs/runtime');
