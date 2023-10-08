@@ -1,0 +1,26 @@
+{
+  "name": "@kitajs/example",
+  "version": "1.1.0",
+  "private": true,
+  "funding": "https://github.com/sponsors/arthurfiorette",
+  "license": "MIT",
+  "author": "Arthur Fiorette <kita@arthur.place>",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node --require tsx/cjs src/index.ts"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^8.11.0",
+    "@fastify/swagger-ui": "^1.10.0",
+    "@kitajs/runtime": "workspace:^",
+    "fastify": "^4.23.2"
+  },
+  "devDependencies": {
+    "@kitajs/cli": "workspace:^",
+    "@kitajs/ts-plugin": "workspace:^",
+    "@types/node": "^20.5.0",
+    "c8": "^8.0.1",
+    "tsx": "^3.13.0"
+  }
+}

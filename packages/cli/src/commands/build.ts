@@ -25,6 +25,8 @@ export default class Build extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(Build);
 
+    this.log(chalk.yellow`Thanks for using Kita! 🎉`);
+
     try {
       let readConfig: KitaConfig | undefined;
 
@@ -93,14 +95,19 @@ export default class Build extends Command {
 
       const routes = parser.getRoutes();
       const schemas = parser.getSchemas();
+      const providers = parser.getProviderCount();
 
       ux.action.stop(
         `${routes.length ? chalk.green(routes.length) : chalk.red(routes.length)} routes / ${
           schemas.length ? chalk.green(schemas.length) : chalk.yellow(schemas.length)
-        } schemas / ${diagnostics.length ? chalk.red(diagnostics.length) : chalk.green(diagnostics.length)} errors`
+        } schemas / ${providers ? chalk.green(providers) : chalk.yellow(providers)} providers / ${
+          diagnostics.length ? chalk.red(diagnostics.length) : chalk.green(diagnostics.length)
+        } errors`
       );
 
-      this.log(EOL + formatDiagnostic(diagnostics));
+      if (diagnostics.length) {
+        this.log(EOL + formatDiagnostic(diagnostics));
+      }
 
       await formatter.generate(routes, schemas);
 
@@ -111,10 +118,9 @@ export default class Build extends Command {
       ux.action.stop(`${chalk.green(formatter.writer.fileCount())} files written.`);
 
       if (diagnostics.length > 0) {
-        this.log(chalk.red`Finished with errors!`);
-        this.exit(1);
+        this.error(chalk.red`Finished with errors!`);
       } else {
-        this.log(chalk.red`Everything is ready!`);
+        this.log(chalk.green`Everything is ready!`);
         this.exit(0);
       }
     } catch (error) {

@@ -3,12 +3,12 @@ import { EOL } from 'os';
 import { esmImport } from './import';
 
 /** Generates a route file. */
-export const route = (r: Route, cwd: string) =>
+export const route = (r: Route, cwd: string, gwd: string, outDir: string, src: string) =>
   /* ts */ `
 
 import type { RouteOptions, FastifyRequest, FastifyReply } from 'fastify';
 
-${esmImport({ name: `* as ${r.controllerName}`, path: r.controllerPath }, cwd)}
+${esmImport({ name: `* as ${r.controllerName}`, path: r.controllerPath }, cwd, gwd, outDir, src)}
 
 ${r.imports?.map((r) => esmImport(r, cwd)).join(EOL) || ''}
 
@@ -16,7 +16,7 @@ ${
   r.parameters
     .flatMap((p) => p.imports)
     .filter(Boolean)
-    .map((p) => esmImport(p!, cwd))
+    .map((p) => esmImport(p!, cwd, gwd, outDir, src))
     .join(EOL) || ''
 }
 

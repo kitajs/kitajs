@@ -32,7 +32,7 @@
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.11",
     "@changesets/cli": "^2.26.0",
-    "@kitajs/ts-plugin": "*",
+    "@kitajs/ts-plugin": "workspace:^",
     "husky": "^8.0.3",
     "prettier": "^3.0.0",
     "typescript": "^5.2.2"

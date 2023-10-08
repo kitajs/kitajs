@@ -6,12 +6,7 @@
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",
   "main": "dist/index.js",
-  "bin": {
-    "kita": "bin/run",
-    "kita-dev": "bin/dev",
-    "kitajs": "bin/run",
-    "kitajs-dev": "bin/dev"
-  },
+  "bin": "bin/run",
   "files": [
     "bin",
     "dist",
@@ -19,14 +14,14 @@
     "oclif.manifest.json"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
     "postbuild": "oclif manifest && oclif readme",
     "start": "node -r tsx/csj index.ts"
   },
   "dependencies": {
-    "@kitajs/common": "*",
-    "@kitajs/generator": "*",
-    "@kitajs/parser": "*",
+    "@kitajs/common": "workspace:^",
+    "@kitajs/generator": "workspace:^",
+    "@kitajs/parser": "workspace:^",
     "@oclif/core": "^3.0.3",
     "@oclif/plugin-autocomplete": "^2.3.9",
     "@oclif/plugin-help": "^5.2.20",
@@ -39,19 +34,17 @@
     "tsx": "^3.13.0"
   },
   "peerDependencies": {
-    "@kitajs/runtime": ">=1",
+    "@kitajs/runtime": "workspace:^",
     "typescript": "^5"
   },
   "oclif": {
     "bin": "kita",
     "dirname": "kita",
     "commands": "dist/commands",
+    "topicSeparator": " ",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-autocomplete"
-    ],
-    "hooks": {
-      "init": "dist/hooks/init"
-    }
+    ]
   }
 }

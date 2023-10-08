@@ -16,7 +16,7 @@ export class KitaFormatter implements SourceFormatter {
 
   constructor(
     readonly config: KitaConfig,
-    compilerOptions: ts.CompilerOptions = readCompilerOptions(config.tsconfig)
+    private compilerOptions: ts.CompilerOptions = readCompilerOptions(config.tsconfig)
   ) {
     this.gwd = this.config.runtime
       ? path.resolve(config.cwd, this.config.runtime)
@@ -31,7 +31,20 @@ export class KitaFormatter implements SourceFormatter {
 
   generateRoute(r: Route) {
     const filename = `routes/${r.schema.operationId}.ts`;
-    this.writer.write(filename, route(r, path.resolve(this.gwd, filename)));
+    this.writer.write(
+      filename,
+      route(
+        r,
+        // cli cwd
+        this.config.cwd,
+        // folder where the file will be generated
+        path.join(this.gwd, 'routes'),
+        // OutDir to replace src
+        this.compilerOptions.outDir || 'dist',
+        // Src folder
+        this.config.src
+      )
+    );
   }
 
   generate(routes: Route[], definitions: Definition[]) {

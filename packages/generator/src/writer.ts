@@ -14,7 +14,6 @@ export class KitaWriter implements SourceWriter {
 
     // Finds the runtime directory
     this.compilerOptions.outDir = cwd;
-    this.compilerOptions.baseUrl = cwd;
 
     // TODO: Figure out esm
     this.compilerOptions.module = ts.ModuleKind.CommonJS;

@@ -17,6 +17,8 @@ export default class Init extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(Init);
 
+    this.log(chalk.yellow`Thanks for using Kita! 🎉`);
+
     const root = flags.root || process.cwd();
     const configPath = path.resolve(root, 'kita.config.js');
 

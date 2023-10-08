@@ -1,9 +1,28 @@
 import path from 'path';
 
-export const esmImport = (i: { name: string; path: string }, cwd?: string) => {
-  let p = i.path[0] === '.' && cwd ? path.relative(cwd, i.path) : i.path;
+export const esmImport = (
+  i: { name: string; path: string },
+  cwd?: string,
+  gwd?: string,
+  outDir?: string,
+  src?: string
+) => {
+  let resolved = i.path;
 
-  p = p.replace(/\.tsx?$/, '');
+  if (cwd) {
+    resolved = path.resolve(cwd, resolved);
+  }
 
-  return /*ts*/ `import ${i.name} from '${p}';`;
+  if (gwd) {
+    resolved = path.relative(gwd, resolved);
+  }
+
+  if (outDir && src) {
+    resolved = resolved.replace(src, outDir);
+  }
+
+  // removes .ts or .tsx
+  resolved = resolved.replace(/\.tsx?$/, '');
+
+  return /*ts*/ `import ${i.name} from '${resolved}';`;
 };

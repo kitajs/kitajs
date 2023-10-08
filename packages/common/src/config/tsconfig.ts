@@ -2,13 +2,7 @@ import path from 'node:path';
 import ts from 'typescript';
 import { CannotParseTsconfigError, CannotReadTsconfigError } from '../errors/config';
 
-export function readCompilerOptions(tsconfigPath?: string) {
-  if (!tsconfigPath) {
-    const def = ts.getDefaultCompilerOptions();
-    def.target = ts.ScriptTarget.ES2019;
-    return def;
-  }
-
+export function readCompilerOptions(tsconfigPath: string) {
   const { config, error } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
 
   if (error) {

@@ -6,9 +6,9 @@ export interface KitaConfig {
   /**
    * The tsconfig path
    *
-   * @default undefined
+   * @default 'tsconfig.json'
    */
-  tsconfig?: string;
+  tsconfig: string;
 
   /**
    * The current working directory to resolve all files
@@ -16,6 +16,13 @@ export interface KitaConfig {
    * @default process.cwd()
    */
   cwd: string;
+
+  /**
+   * The `src` folder path to be removed when importing files.
+   *
+   * @default 'src'
+   */
+  src: string;
 
   /**
    * A custom path to the kitajs/runtime package. Useful if you are having problems with custom package managers like

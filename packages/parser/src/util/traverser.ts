@@ -138,6 +138,10 @@ export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: Pa
   }
 
   if (errors.length) {
-    throw new RouteParameterMultipleErrors(fn.name || fn, errors);
+    if (errors.length === 1) {
+      throw errors[0];
+    } else {
+      throw new RouteParameterMultipleErrors(fn.name || fn, errors);
+    }
   }
 }

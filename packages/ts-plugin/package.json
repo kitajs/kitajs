@@ -14,7 +14,7 @@
     "test": "tsc --noEmit"
   },
   "dependencies": {
-    "@kitajs/parser": "workspace:^1.1.0",
+    "@kitajs/parser": "workspace:^",
     "deasync": "^0.1.28",
     "glob": "^10.3.3",
     "minimatch": "^9.0.3",
@@ -22,7 +22,7 @@
     "typescript": "^5.1.6"
   },
   "devDependencies": {
-    "@kitajs/common": "^1.1.0",
+    "@kitajs/common": "workspace:^",
     "@types/deasync": "^0.1.3",
     "@types/glob": "^8.1.0",
     "@types/node": "^20.5.0",

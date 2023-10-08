@@ -6,8 +6,7 @@ export const plugin = (routes: Route[]) =>
   /* ts */ `
 
 import fp from 'fastify-plugin';
-import type { FastifyPluginCallback } from 'fastify'
-
+import type { FastifyPluginAsync } from 'fastify'
 import { RouteSchemas } from './schemas';
 
 ${routes
@@ -29,7 +28,7 @@ ${routes
  * app.listen().then(console.log);
  * \`\`\`
  */
-export const Kita: FastifyPluginCallback = fp<{}>(
+export const Kita: FastifyPluginAsync = fp<{}>(
   async (fastify) => {
     // Register all schemas
     for (const schema of RouteSchemas) {
