@@ -6,6 +6,6 @@ import type { Query } from '@kitajs/runtime';
  * The name parameter is going to be runtime validated and extract from que query string. If the name is not provided,
  * the default value will be used.
  */
-export function get(name: Query = 'World', a: 1) {
+export function get(name: Query = 'World') {
   return `Hello ${name}!`;
 }

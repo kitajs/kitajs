@@ -8,7 +8,7 @@ export const route = (r: Route, cwd: string) =>
 
 import type { RouteOptions, FastifyRequest, FastifyReply } from 'fastify';
 
-${esmImport({ name: r.controllerName, path: r.controllerPath }, cwd)}
+${esmImport({ name: `* as ${r.controllerName}`, path: r.controllerPath }, cwd)}
 
 ${r.imports?.join(EOL) || ''}
 
@@ -20,7 +20,9 @@ ${
     .join(EOL) || ''
 }
 
-export const ${r.schema.operationId} = ${r.controllerName}.${r.controllerMethod}.bind(null);
+export const ${r.schema.operationId}: typeof ${r.controllerName}['${r.controllerMethod}'] = ${r.controllerName}.${
+    r.controllerMethod
+  }.bind(null);
 
 export ${needsAsync(r.parameters)} function ${
     r.schema.operationId

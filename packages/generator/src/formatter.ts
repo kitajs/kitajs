@@ -1,7 +1,6 @@
 import { KitaConfig, Route, RuntimeNotFoundError, SourceFormatter, readCompilerOptions } from '@kitajs/common';
 import path from 'path';
 import { Definition } from 'ts-json-schema-generator';
-import { Promisable } from 'type-fest';
 import ts from 'typescript';
 import { index } from './templates';
 import { plugin } from './templates/plugin';
@@ -41,7 +40,7 @@ export class KitaFormatter implements SourceFormatter {
     this.writer.write('plugin.ts', plugin(routes));
   }
 
-  flush(): Promisable<void> {
-    throw new Error('Method not implemented.');
+  flush() {
+    this.writer.flush();
   }
 }

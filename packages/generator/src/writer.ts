@@ -14,7 +14,7 @@ export class KitaWriter implements SourceWriter {
 
     // Finds the runtime directory
     this.compilerOptions.outDir = cwd;
-    this.compilerOptions.baseUrl = '.';
+    this.compilerOptions.baseUrl = cwd;
 
     // TODO: Figure out esm
     this.compilerOptions.module = ts.ModuleKind.CommonJS;
@@ -56,16 +56,24 @@ export class KitaWriter implements SourceWriter {
 
     // Reads the file from memory
     host.readFile = (filename) => {
-      return this.files.get(filename);
+      return this.files.get(filename) || ts.sys.readFile(filename);
     };
 
     // Creates the program and emits the files
     const program = ts.createProgram(Array.from(this.files.keys()), this.compilerOptions, host);
-    const emitResult = program.emit();
+
+    const diagnostics = [
+      program.emit().diagnostics,
+      program.getGlobalDiagnostics(),
+      program.getOptionsDiagnostics(),
+      program.getSyntacticDiagnostics(),
+      program.getDeclarationDiagnostics(),
+      program.getConfigFileParsingDiagnostics()
+    ].flat(1);
 
     // Throws an error if there are any diagnostics errors
-    if (emitResult.diagnostics.length) {
-      throw new GeneratedDiagnosticsErrors(emitResult.diagnostics);
+    if (diagnostics.length) {
+      throw new GeneratedDiagnosticsErrors(diagnostics);
     }
   }
 }

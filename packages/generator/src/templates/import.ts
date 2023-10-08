@@ -1,8 +1,9 @@
 import path from 'path';
 
-export const esmImport = (i: { name: string; path: string }, cwd?: string) =>
-  /* ts */ `
+export const esmImport = (i: { name: string; path: string }, cwd?: string) => {
+  let p = i.path[0] === '.' && cwd ? path.relative(cwd, i.path) : i.path;
 
-import ${i.name} from '${i.path[0] === '.' && cwd ? path.relative(cwd, i.path) : i.path}';
+  p = p.replace(/\.tsx?$/, '');
 
-`.trim();
+  return /*ts*/ `import ${i.name} from '${p}';`;
+};
