@@ -10,7 +10,7 @@ import type { RouteOptions, FastifyRequest, FastifyReply } from 'fastify';
 
 ${esmImport({ name: `* as ${r.controllerName}`, path: r.controllerPath }, cwd)}
 
-${r.imports?.join(EOL) || ''}
+${r.imports?.map((r) => esmImport(r, cwd)).join(EOL) || ''}
 
 ${
   r.parameters
