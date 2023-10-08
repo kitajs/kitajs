@@ -1,9 +1,11 @@
 import {
+  KitaError,
   Parameter,
   ParameterParser,
   ParameterResolverNotFoundError,
   Parser,
   Route,
+  RouteParameterMultipleErrors,
   SourceFileNotFoundError,
   UnknownKitaError,
   isPromiseLike
@@ -43,10 +45,10 @@ export async function* traverseStatements<R>(
           // Also returns errors as values to be handled by the caller
           // This allows us to keep parsing even if some routes fail
           if (error instanceof Error) {
-            throw error;
+            yield error;
+          } else {
+            yield new UnknownKitaError(String(error), error);
           }
-
-          throw new UnknownKitaError('', error);
         }
       }
     }
@@ -81,10 +83,10 @@ export async function* traverseSource<R>(program: ts.Program, parser: Parser<ts.
         // Also returns errors as values to be handled by the caller
         // This allows us to keep parsing even if some routes fail
         if (error instanceof Error) {
-          throw error;
+          yield error;
+        } else {
+          yield new UnknownKitaError(String(error), error);
         }
-
-        throw new UnknownKitaError('', error);
       }
     }
   }
@@ -97,31 +99,45 @@ export async function* traverseSource<R>(program: ts.Program, parser: Parser<ts.
 export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: ParameterParser, route: Route | null) {
   let parameterIndex = 0;
 
+  let errors: KitaError[] = [];
+
   for (let index = 0; index < fn.parameters.length; index++) {
-    const parameter = fn.parameters[index]!;
-    let supports = parser.supports(parameter);
+    try {
+      const parameter = fn.parameters[index]!;
+      let supports = parser.supports(parameter);
 
-    if (isPromiseLike(supports)) {
-      supports = await supports;
+      if (isPromiseLike(supports)) {
+        supports = await supports;
+      }
+
+      // All parameters should be supported by at least one parser
+      if (!supports) {
+        throw new ParameterResolverNotFoundError(parameter.type || parameter);
+      }
+
+      // Yield the result of the parser (promises are unwrapped)
+      let param = parser.parse(parameter, route, fn, index) as Parameter;
+
+      if (param instanceof Promise) {
+        param = await param;
+      }
+
+      // Ignored parameter
+      if (param.ignore) {
+        continue;
+      }
+
+      yield { param, index: parameterIndex++ };
+    } catch (error) {
+      if (error instanceof KitaError) {
+        errors.push(error);
+      } else {
+        errors.push(new UnknownKitaError(String(error), error));
+      }
     }
+  }
 
-    // All parameters should be supported by at least one parser
-    if (!supports) {
-      throw new ParameterResolverNotFoundError(parameter.type || parameter);
-    }
-
-    // Yield the result of the parser (promises are unwrapped)
-    let param = parser.parse(parameter, route, fn, index) as Parameter;
-
-    if (param instanceof Promise) {
-      param = await param;
-    }
-
-    // Ignored parameter
-    if (param.ignore) {
-      continue;
-    }
-
-    yield { param, index: parameterIndex++ };
+  if (errors.length) {
+    throw new RouteParameterMultipleErrors(fn.name || fn, errors);
   }
 }
