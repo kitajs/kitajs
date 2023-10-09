@@ -39,10 +39,10 @@ export class SchemaBuilder {
     program: ts.Program,
     private collector: AstCollector
   ) {
-    const generatorCfg = { ...config.schema.generator, tsconfig: config.tsconfig };
+    const generatorCfg = { ...config.generatorConfig, tsconfig: config.tsconfig };
 
     this.parser = createParser(program, generatorCfg, (mut) => {
-      for (const parser of config.schema.generator.parsers) {
+      for (const parser of config.generatorConfig.parsers) {
         mut.addNodeParser(parser);
       }
     });
@@ -50,7 +50,7 @@ export class SchemaBuilder {
     this.formatter = removeFormatterDefinitions(
       correctFormatterChildrenOrder(
         createFormatter(generatorCfg, (mut) => {
-          for (const formatter of config.schema.generator.formatters) {
+          for (const formatter of config.generatorConfig.formatters) {
             mut.addTypeFormatter(formatter);
           }
         })
@@ -183,10 +183,8 @@ export class SchemaBuilder {
 
     // Make sure always a definition has a $id property
     if (!definition.$id) {
-      definition.$id = this.config.schema.generator.encodeRefs
-        ? // Encode the definition key if the option is enabled
-          encodeURIComponent(name)
-        : name;
+      // Encode the definition key if the option is enabled
+      definition.$id = this.config.generatorConfig.encodeRefs ? encodeURIComponent(name) : name;
     }
 
     return definition;

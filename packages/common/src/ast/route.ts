@@ -18,13 +18,6 @@ export interface Route {
   controllerName: string;
 
   /**
-   * The full path to the original controller method.
-   *
-   * @example `/usr/file.ts:1:2`
-   */
-  controllerPrettyPath: string;
-
-  /**
    * The full **IMPORTABLE** path to the original controller method.
    *
    * @example `usr/file.ts`

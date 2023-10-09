@@ -1,9 +1,10 @@
 import { KitaConfig, ParameterParser, ReturnTypeError, Route, RouteParser } from '@kitajs/common';
+import path from 'path';
 import ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { parseJsDocTags } from '../util/jsdoc';
-import { getReturnType, isExportedFunction, toPrettySource } from '../util/nodes';
+import { getReturnType, isExportedFunction } from '../util/nodes';
 import { findUrlAndControllerName } from '../util/string';
 import { traverseParameters } from '../util/traverser';
 
@@ -46,11 +47,13 @@ export class RestRouteParser implements RouteParser {
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,
       controllerName: controller,
-      controllerPath: source.fileName,
-      controllerPrettyPath: toPrettySource(node),
+      controllerPath: path.relative(this.config.cwd, source.fileName),
       parameters: [],
       schema: {
-        operationId: method.toLowerCase() + controller.replace(/controller$/i, '')
+        operationId: method.toLowerCase() + controller.replace(/controller$/i, ''),
+
+        // Applies default responses
+        response: this.config.responses
       }
     };
 
@@ -66,15 +69,6 @@ export class RestRouteParser implements RouteParser {
       });
     } catch (error) {
       throw new ReturnTypeError(node, error);
-    }
-
-    // Merge all predefined responses.
-    for (const status in this.config.schema.responses) {
-      mergeSchema(route, {
-        response: {
-          [status]: this.config.schema.responses[status]
-        }
-      });
     }
 
     // Parses all jsdoc functions

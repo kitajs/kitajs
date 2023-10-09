@@ -1,4 +1,4 @@
-import { AstCollector, KitaConfig, mergeDefaults } from '@kitajs/common';
+import { AstCollector, KitaConfig, parseConfig } from '@kitajs/common';
 import assert from 'assert';
 import path from 'path';
 import { KitaParser } from '../src';
@@ -7,11 +7,11 @@ const tsconfig = require.resolve('../tsconfig.json');
 
 export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {}): Promise<AstCollector> {
   const kita = KitaParser.create(
-    mergeDefaults({
+    parseConfig({
       tsconfig,
       cwd,
-      providers: { glob: [path.resolve(cwd, 'providers/*.ts')] },
-      controllers: { glob: [path.resolve(cwd, 'routes/*.ts'), path.resolve(cwd, 'routes/*.tsx')] },
+      source: cwd,
+      runtimePath: path.resolve(cwd, 'runtime'),
       ...config
     })
   );

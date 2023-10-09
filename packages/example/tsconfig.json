@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "paths": { "K/*": ["./src"] },
     "plugins": [{ "name": "@kitajs/ts-plugin" }]
   },
   "include": ["src"]

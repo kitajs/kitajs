@@ -1,6 +1,5 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import path from 'path';
 import { parseRoutes } from '../runner';
 
 describe('Cookies', async () => {
@@ -19,8 +18,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'NameController',
-      controllerPath: path.resolve(__dirname, 'routes/[name].ts'),
-      controllerPrettyPath: 'test/paths/routes/[name].ts:3:1',
+      controllerPath: 'routes/[name].ts',
       kind: 'rest',
       parameters: [{ value: 'req.params.name' }],
       schema: {
@@ -44,8 +42,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'NameController',
-      controllerPath: path.resolve(__dirname, 'routes/[name].ts'),
-      controllerPrettyPath: 'test/paths/routes/[name].ts:7:1',
+      controllerPath: 'routes/[name].ts',
       parameters: [{ value: 'req.params.name' }],
       kind: 'rest',
       schema: {
@@ -70,8 +67,7 @@ describe('Cookies', async () => {
       method: 'GET',
       controllerName: 'NumController',
 
-      controllerPath: path.resolve(__dirname, 'routes/[num].ts'),
-      controllerPrettyPath: 'test/paths/routes/[num].ts:3:1',
+      controllerPath: 'routes/[num].ts',
       parameters: [{ value: 'req.params.num' }],
       kind: 'rest',
       schema: {
@@ -95,8 +91,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'NumController',
-      controllerPath: path.resolve(__dirname, 'routes/[num].ts'),
-      controllerPrettyPath: 'test/paths/routes/[num].ts:7:1',
+      controllerPath: 'routes/[num].ts',
       parameters: [{ value: 'req.params.num' }],
       kind: 'rest',
       schema: {

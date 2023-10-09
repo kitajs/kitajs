@@ -1,22 +1,11 @@
 import { Parameter } from './parameter';
 
-/**
- * The AST definition for a kitajs provider.
- */
+/** The AST definition for a kitajs provider. */
 export interface Provider {
-  /**
-   * The path to the provider route
-   */
+  /** The path to the provider route */
   providerPath: string;
 
-  /**
-   * The pretty path to the provider route
-   */
-  providerPrettyPath: string;
-
-  /**
-   * If this provider has a schema transformer attached to it
-   */
+  /** If this provider has a schema transformer attached to it */
   schemaTransformer: boolean;
 
   /**
@@ -26,13 +15,9 @@ export interface Provider {
    */
   type: string;
 
-  /**
-   * If this provider is async
-   */
+  /** If this provider is async */
   async: boolean;
 
-  /**
-   * All possible parameters for this route.
-   */
+  /** All possible parameters for this route. */
   parameters: Parameter[];
 }

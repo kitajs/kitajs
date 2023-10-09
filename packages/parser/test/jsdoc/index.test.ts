@@ -1,5 +1,4 @@
 import assert from 'node:assert';
-import path from 'node:path';
 import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
@@ -19,8 +18,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/jsdoc/routes/index.ts:10:1',
+      controllerPath: 'routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {
@@ -41,8 +39,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/jsdoc/routes/index.ts:19:1',
+      controllerPath: 'routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {
@@ -61,8 +58,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'put',
       method: 'DELETE',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/jsdoc/routes/index.ts:31:1',
+      controllerPath: 'routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {

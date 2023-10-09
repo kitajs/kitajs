@@ -8,7 +8,6 @@ import {
 } from '@kitajs/common';
 import type { Promisable } from 'type-fest';
 import type ts from 'typescript';
-import { toPrettySource } from '../util/nodes';
 
 export class ChainParameterParser extends ChainParser<ParameterParser> implements ParameterParser {
   agnostic = true;
@@ -26,7 +25,7 @@ export class ChainParameterParser extends ChainParser<ParameterParser> implement
     }
 
     if (parser.agnostic === false && !route) {
-      throw new AgnosticRouteConflictError(toPrettySource(param));
+      throw new AgnosticRouteConflictError(param);
     }
 
     return parser.parse(param, route, routeNode, paramIndex);

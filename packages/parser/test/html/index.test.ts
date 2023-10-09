@@ -1,5 +1,4 @@
 import assert from 'node:assert';
-import path from 'node:path';
 import test, { describe, it } from 'node:test';
 import { parseRoutes } from '../runner';
 
@@ -20,8 +19,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.tsx'),
-      controllerPrettyPath: 'test/html/routes/index.tsx:5:1',
+      controllerPath: 'routes/index.tsx',
       parameters: [{ value: 'req.id', __type: 'SuspenseId' }],
       schema: {
         operationId: 'getIndexView',
@@ -43,8 +41,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.tsx'),
-      controllerPrettyPath: 'test/html/routes/index.tsx:13:1',
+      controllerPath: 'routes/index.tsx',
       parameters: [],
       schema: {
         operationId: 'postIndexView',
@@ -64,8 +61,7 @@ describe('Cookies', async () => {
       controllerMethod: 'put',
       method: 'PUT',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.tsx'),
-      controllerPrettyPath: 'test/html/routes/index.tsx:17:1',
+      controllerPath: 'routes/index.tsx',
       parameters: [],
       schema: {
         operationId: 'putIndexView',

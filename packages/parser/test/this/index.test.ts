@@ -1,5 +1,4 @@
 import assert from 'node:assert';
-import path from 'node:path';
 import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
@@ -19,8 +18,7 @@ describe('This & Use usage', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/this/routes/index.ts:3:1',
+      controllerPath: 'routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {
@@ -39,8 +37,7 @@ describe('This & Use usage', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/this/routes/index.ts:7:1',
+      controllerPath: 'routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {

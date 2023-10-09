@@ -7,10 +7,11 @@ import {
   kReplyParam,
   kRequestParam
 } from '@kitajs/common';
+import path from 'path';
 import { StringType } from 'ts-json-schema-generator';
 import ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
-import { getReturnType, isExportedFunction, toPrettySource } from '../util/nodes';
+import { getReturnType, isExportedFunction } from '../util/nodes';
 import { findUrlAndControllerName } from '../util/string';
 import { buildAccessProperty } from '../util/syntax';
 import { traverseParameters } from '../util/traverser';
@@ -58,8 +59,7 @@ export class HtmlRouteParser implements RouteParser {
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,
       controllerName: controller,
-      controllerPath: source.fileName,
-      controllerPrettyPath: toPrettySource(node),
+      controllerPath: path.relative(this.config.cwd, source.fileName),
       parameters: [],
       schema: {
         operationId: method.toLowerCase() + controller.replace(/controller$/i, 'View'),

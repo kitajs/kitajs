@@ -1,22 +1,22 @@
 import { Parameter, Route, kReplyParam, kRequestParam } from '@kitajs/common';
 import { EOL } from 'os';
-import { esmImport } from './import';
+import { removeExt } from '../util/path';
 
 /** Generates a route file. */
-export const route = (r: Route, cwd: string, gwd: string, outDir: string, src: string) =>
+export const route = (r: Route) =>
   /* ts */ `
 
 import type { RouteOptions, FastifyRequest, FastifyReply } from 'fastify';
 
-${esmImport({ name: `* as ${r.controllerName}`, path: r.controllerPath }, cwd, gwd, outDir, src)}
+import * as ${r.controllerName} from '${removeExt(r.controllerPath)}';
 
-${r.imports?.map((r) => esmImport(r, cwd)).join(EOL) || ''}
+${r.imports?.map((r) => `import ${r.name} from '${removeExt(r.path)}'`).join(EOL) || ''}
 
 ${
   r.parameters
     .flatMap((p) => p.imports)
     .filter(Boolean)
-    .map((p) => esmImport(p!, cwd, gwd, outDir, src))
+    .map((r) => `import ${r!.name} from '${removeExt(r!.path)}'`)
     .join(EOL) || ''
 }
 

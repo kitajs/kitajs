@@ -1,5 +1,4 @@
 import assert from 'node:assert';
-import path from 'node:path';
 import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
@@ -23,8 +22,7 @@ describe('BodyProp Parameter', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/body-prop/routes/index.ts:7:1',
+      controllerPath: 'routes/index.ts',
       parameters: [
         { value: 'req.body.name' },
         { value: 'req.body.a' },

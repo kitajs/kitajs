@@ -15,7 +15,7 @@ export class RuntimeNotFoundError extends KitaError {
   constructor(readonly path: string) {
     super({
       code: 501,
-      messageText: `Could not find the @kitajs/runtime package. Did you forget to install @kitajs/runtime?`
+      messageText: `Could not find the runtime package at ${path}. Did you forget to install @kitajs/runtime?`
     });
   }
 }

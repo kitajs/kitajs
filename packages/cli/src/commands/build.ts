@@ -1,4 +1,4 @@
-import { KitaConfig, KitaError, mergeDefaults, readCompilerOptions } from '@kitajs/common';
+import { KitaConfig, KitaError, parseConfig, readCompilerOptions } from '@kitajs/common';
 import { KitaFormatter } from '@kitajs/generator';
 import { KitaParser } from '@kitajs/parser';
 import { Command, Flags, ux } from '@oclif/core';
@@ -55,7 +55,7 @@ export default class Build extends Command {
         }
       }
 
-      const config = mergeDefaults(readConfig, flags.root);
+      const config = parseConfig(readConfig, flags.root);
       const compilerOptions = readCompilerOptions(config.tsconfig);
 
       if (flags.debug) {
@@ -65,7 +65,7 @@ export default class Build extends Command {
       const formatter = new KitaFormatter(config, compilerOptions);
       const parser = KitaParser.create(config, compilerOptions);
 
-      if (!parser.controllerPaths.length) {
+      if (!parser.routePaths.length) {
         this.error('No routes found.');
       }
 

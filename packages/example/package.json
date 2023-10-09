@@ -7,15 +7,16 @@
   "author": "Arthur Fiorette <kita@arthur.place>",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "kita build",
     "build": "tsc",
+    "dev": "kita build && tsc",
     "start": "node --require tsx/cjs src/index.ts"
   },
   "dependencies": {
     "@fastify/swagger": "^8.11.0",
     "@fastify/swagger-ui": "^1.10.0",
     "@kitajs/runtime": "workspace:^",
-    "fastify": "^4.23.2"
+    "fastify": "^4.23.2",
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
     "@kitajs/cli": "workspace:^",

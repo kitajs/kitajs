@@ -1,4 +1,5 @@
 import {
+  KitaConfig,
   NoProviderExportedError,
   ParameterParser,
   Provider,
@@ -6,20 +7,17 @@ import {
   UntypedProviderError,
   WronglyTypedProviderError
 } from '@kitajs/common';
+import path from 'path';
 import type { Promisable } from 'type-fest';
 import ts from 'typescript';
-import {
-  getTypeName,
-  hasName,
-  isDefaultExportFunction,
-  isExportedFunction,
-  toPrettySource,
-  unwrapPromiseType
-} from '../util/nodes';
+import { getTypeName, hasName, isDefaultExportFunction, isExportedFunction, unwrapPromiseType } from '../util/nodes';
 import { traverseParameters } from '../util/traverser';
 
 export class DefaultProviderParser implements ProviderParser {
-  constructor(private paramParser: ParameterParser) {}
+  constructor(
+    private paramParser: ParameterParser,
+    private config: KitaConfig
+  ) {}
 
   /** Default provider handles all files. */
   supports(): Promisable<boolean> {
@@ -60,8 +58,7 @@ export class DefaultProviderParser implements ProviderParser {
     return {
       async,
       type,
-      providerPath: source.fileName,
-      providerPrettyPath: toPrettySource(fn),
+      providerPath: path.relative(this.config.cwd, source.fileName),
       parameters,
       schemaTransformer: hasSchemaTransformer
     };

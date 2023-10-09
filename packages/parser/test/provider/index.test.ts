@@ -1,5 +1,4 @@
 import assert from 'node:assert';
-import path from 'node:path';
 import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
@@ -19,20 +18,14 @@ describe('Providers', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/provider/routes/index.ts:3:1',
+      controllerPath: 'routes/index.ts',
       schema: { response: { default: { type: 'number', const: 1 } }, operationId: 'getIndex' },
       kind: 'rest',
       parameters: [
         {
           value: 'param0',
           helper: 'const param0 = await Resolver0();',
-          imports: [
-            {
-              name: 'Resolver0',
-              path: path.resolve(__dirname, 'providers/test.ts')
-            }
-          ]
+          imports: [{ name: 'Resolver0', path: 'providers/test.ts' }]
         }
       ]
     });
@@ -44,8 +37,7 @@ describe('Providers', async () => {
     assert.deepStrictEqual(provider, {
       async: false,
       type: 'Test',
-      providerPath: path.resolve(__dirname, 'providers/test.ts'),
-      providerPrettyPath: 'test/provider/providers/test.ts:5:1',
+      providerPath: 'providers/test.ts',
       parameters: [],
       schemaTransformer: false
     });

@@ -1,6 +1,5 @@
 import { Route } from '@kitajs/common';
 import { EOL } from 'os';
-import { esmImport } from './import';
 
 export const plugin = (routes: Route[]) =>
   /* ts */ `
@@ -9,9 +8,7 @@ import fp from 'fastify-plugin';
 import type { FastifyPluginAsync } from 'fastify'
 import { RouteSchemas } from './schemas';
 
-${routes
-  .map((r) => esmImport({ name: `{ ${r.schema.operationId}Options }`, path: `./routes/${r.schema.operationId}` }))
-  .join(EOL)}
+${routes.map((r) => `import { ${r.schema.operationId}Options } from './routes/${r.schema.operationId}';`).join(EOL)}  
 
 /**
  * The Kita generated fastify plugin. Registering it into your fastify instance will

@@ -1,5 +1,4 @@
-import { KitaConfig, Route, RuntimeNotFoundError, SourceFormatter, readCompilerOptions } from '@kitajs/common';
-import path from 'path';
+import { KitaConfig, Route, SourceFormatter } from '@kitajs/common';
 import { Definition } from 'ts-json-schema-generator';
 import ts from 'typescript';
 import { index } from './templates';
@@ -11,40 +10,16 @@ import { KitaWriter } from './writer';
 export class KitaFormatter implements SourceFormatter {
   readonly writer: KitaWriter;
 
-  /** Generated working directory */
-  readonly gwd: string;
-
   constructor(
     readonly config: KitaConfig,
-    private compilerOptions: ts.CompilerOptions = readCompilerOptions(config.tsconfig)
+    readonly compilerOptions: ts.CompilerOptions
   ) {
-    this.gwd = this.config.runtime
-      ? path.resolve(config.cwd, this.config.runtime)
-      : path.dirname(require.resolve('@kitajs/runtime/generated'));
-
-    if (!ts.sys.directoryExists(this.gwd)) {
-      throw new RuntimeNotFoundError(this.gwd);
-    }
-
-    this.writer = new KitaWriter(compilerOptions, this.gwd);
+    this.writer = new KitaWriter(compilerOptions, this.config);
   }
 
   generateRoute(r: Route) {
     const filename = `routes/${r.schema.operationId}.ts`;
-    this.writer.write(
-      filename,
-      route(
-        r,
-        // cli cwd
-        this.config.cwd,
-        // folder where the file will be generated
-        path.join(this.gwd, 'routes'),
-        // OutDir to replace src
-        this.compilerOptions.outDir || 'dist',
-        // Src folder
-        this.config.src
-      )
-    );
+    this.writer.write(filename, route(r));
   }
 
   generate(routes: Route[], definitions: Definition[]) {

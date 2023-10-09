@@ -7,7 +7,7 @@ export function buildProviderParser(config: KitaConfig, paramParser: ParameterPa
 
   config.providerParserAugmentor?.(chain);
 
-  chain.add(new DefaultProviderParser(paramParser));
+  chain.add(new DefaultProviderParser(paramParser, config));
 
   return chain;
 }

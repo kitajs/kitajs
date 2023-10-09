@@ -1,5 +1,4 @@
 import assert from 'node:assert';
-import path from 'node:path';
 import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
@@ -19,8 +18,7 @@ describe('Query Parameter', async () => {
       method: 'GET',
       controllerMethod: 'get',
       controllerName: 'PrimitiveController',
-      controllerPath: path.resolve(__dirname, 'routes/primitive.ts'),
-      controllerPrettyPath: 'test/query/routes/primitive.ts:3:1',
+      controllerPath: 'routes/primitive.ts',
       parameters: [{ value: 'req.query.name' }, { value: 'req.query.age' }, { value: 'req.query["custom name"]' }],
       kind: 'rest',
       schema: {
@@ -47,8 +45,7 @@ describe('Query Parameter', async () => {
       url: '/complex',
       controllerMethod: 'get',
       controllerName: 'ComplexController',
-      controllerPath: path.resolve(__dirname, 'routes/complex.ts'),
-      controllerPrettyPath: 'test/query/routes/complex.ts:8:1',
+      controllerPath: 'routes/complex.ts',
       method: 'GET',
       parameters: [{ value: 'req.query' }],
       kind: 'rest',

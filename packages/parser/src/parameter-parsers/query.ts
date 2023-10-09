@@ -44,7 +44,7 @@ export class QueryParameterParser implements ParameterParser {
           type: 'object',
           properties: { [name]: this.schemaBuilder.formatDefinition(primitiveType) },
           required: optional ? [] : [name],
-          additionalProperties: this.config.schema.generator.additionalProperties
+          additionalProperties: this.config.generatorConfig.additionalProperties
         }
       });
 

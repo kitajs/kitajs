@@ -20,7 +20,7 @@ export class HeaderParameterParser implements ParameterParser {
         type: 'object',
         properties: { [name]: { type: 'string' } },
         required: optional ? [] : [name],
-        additionalProperties: this.config.schema.generator.additionalProperties
+        additionalProperties: this.config.generatorConfig.additionalProperties
       }
     });
 

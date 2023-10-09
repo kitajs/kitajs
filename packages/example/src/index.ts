@@ -1,33 +1,29 @@
+import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
 import { Kita } from '@kitajs/runtime';
 import fastify from 'fastify';
 
 const { version } = require('../package.json');
 
 async function main() {
-  const app = fastify({
-    logger: true
-  });
+  const app = fastify();
 
-  app.register(await import('@fastify/swagger'), {
+  app.register(fastifySwagger, {
     mode: 'dynamic',
     openapi: {
-      info: {
-        title: 'KitaJS Swagger Example',
-        description: 'Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!',
-        version
-      }
+      info: { title: 'kitajs', version }
     }
-  });
-
-  app.register(await import('@fastify/swagger-ui'), {
-    routePrefix: '/docs'
   });
 
   app.register(Kita);
 
-  await app.listen({ port: 1227 });
+  app.register(fastifySwaggerUi, {
+    routePrefix: '/docs'
+  });
 
-  console.log(`Listening on http://localhost:1227/docs`);
+  const url = await app.listen({ port: 1227 });
+
+  console.log(`Listening on ${url}/docs`);
 }
 
 main().catch(console.error);

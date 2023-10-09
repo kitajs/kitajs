@@ -98,10 +98,11 @@ export class DuplicateProviderTypeError extends KitaError {
 }
 
 export class AgnosticRouteConflictError extends KitaError {
-  constructor(readonly path: string) {
+  constructor(node: ts.Node) {
     super({
       code: 406,
-      messageText: `You cannot use dependent routes within agnostic contexts. You are probably using a method dependent route parameter within a provider.`
+      messageText: `You cannot use dependent routes within agnostic contexts. You are probably using a method dependent route parameter within a provider.`,
+      node
     });
   }
 }

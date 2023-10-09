@@ -55,7 +55,7 @@ export class BodyPropParameterParser implements ParameterParser {
         type: 'object',
         properties: { [name]: this.schema.consumeNodeSchema(type) },
         required: optional ? [] : [name],
-        additionalProperties: this.config.schema.generator.additionalProperties
+        additionalProperties: this.config.generatorConfig.additionalProperties
       }
     });
 

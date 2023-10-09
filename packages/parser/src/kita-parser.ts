@@ -12,7 +12,6 @@ import {
   type ParameterParser,
   type RouteParser
 } from '@kitajs/common';
-import { globSync } from 'glob';
 import { Definition } from 'ts-json-schema-generator';
 import { Promisable } from 'type-fest';
 import ts from 'typescript';
@@ -20,6 +19,7 @@ import { buildParameterParser } from './parameter-parsers';
 import { buildProviderParser } from './provider-parsers';
 import { buildRouteParser } from './route-parsers';
 import { SchemaBuilder } from './schema/builder';
+import { walk } from './util/paths';
 import { traverseSource, traverseStatements } from './util/traverser';
 
 export class KitaParser implements AstCollector {
@@ -37,22 +37,22 @@ export class KitaParser implements AstCollector {
 
   /** Creates a KitaParser instance with the given config. */
   static create(config: KitaConfig, compilerOptions: ts.CompilerOptions = readCompilerOptions(config.tsconfig)) {
-    const controllerPaths = globSync(config.controllers.glob, { cwd: config.cwd });
-    const providerPaths = globSync(config.providers.glob, { cwd: config.cwd });
+    const routePaths = walk(config.routeFolder);
+    const providerPaths = walk(config.providerFolder);
 
     // Typescript program
     const program = ts.createProgram(
       // Adds both providers and controllers
-      controllerPaths.concat(providerPaths),
+      routePaths.concat(providerPaths),
       compilerOptions
     );
 
-    return new KitaParser(config, controllerPaths, providerPaths, program);
+    return new KitaParser(config, routePaths, providerPaths, program);
   }
 
   constructor(
     protected readonly config: KitaConfig,
-    readonly controllerPaths: string[],
+    readonly routePaths: string[],
     readonly providerPaths: string[],
     protected readonly program: ts.Program
   ) {
@@ -70,8 +70,8 @@ export class KitaParser implements AstCollector {
     this.rootProviderParser = buildProviderParser(this.config, this.rootParameterParser);
   }
 
-  async *parse(controllerPaths?: string[], providerPaths?: string[]) {
-    if (controllerPaths || providerPaths) {
+  async *parse(routePaths?: string[], providerPaths?: string[]) {
+    if (routePaths || providerPaths) {
       throw new UnknownKitaError('Custom controller and provider paths are not supported in this generator');
     }
 
@@ -90,7 +90,7 @@ export class KitaParser implements AstCollector {
       const duplicated = this.providers.get(provider.type);
 
       if (duplicated) {
-        yield new DuplicateProviderTypeError(provider.type, duplicated.providerPrettyPath, provider.providerPrettyPath);
+        yield new DuplicateProviderTypeError(provider.type, duplicated.providerPath, provider.providerPath);
         continue;
       }
 
@@ -108,7 +108,7 @@ export class KitaParser implements AstCollector {
     }
 
     // Parses all routes
-    for await (const route of traverseStatements(this.program, this.rootRouteParser, this.controllerPaths)) {
+    for await (const route of traverseStatements(this.program, this.rootRouteParser, this.routePaths)) {
       if (route instanceof KitaError) {
         yield route;
         continue;
@@ -122,11 +122,7 @@ export class KitaParser implements AstCollector {
       const duplicated = this.routes.get(route.schema.operationId);
 
       if (duplicated) {
-        yield new DuplicateOperationIdError(
-          route.schema.operationId,
-          duplicated.controllerPrettyPath,
-          route.controllerPrettyPath
-        );
+        yield new DuplicateOperationIdError(route.schema.operationId, duplicated.controllerPath, route.controllerPath);
 
         continue;
       }

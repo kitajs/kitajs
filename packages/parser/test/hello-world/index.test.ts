@@ -1,6 +1,5 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import path from 'path';
 import { parseRoutes } from '../runner';
 
 describe('Hello World', async () => {
@@ -20,8 +19,7 @@ describe('Hello World', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-      controllerPrettyPath: 'test/hello-world/routes/index.ts:9:1',
+      controllerPath: 'routes/index.ts',
       parameters: [{ value: 'req.query.name' }],
       schema: {
         querystring: {

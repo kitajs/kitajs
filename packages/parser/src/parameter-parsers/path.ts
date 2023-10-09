@@ -56,7 +56,7 @@ export class PathParameterParser implements ParameterParser {
         type: 'object',
         properties: { [name]: schema },
         required: [name],
-        additionalProperties: this.config.schema.generator.additionalProperties
+        additionalProperties: this.config.generatorConfig.additionalProperties
       }
     });
 

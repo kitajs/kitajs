@@ -1,5 +1,4 @@
 import { CannotResolveParameterNameError } from '@kitajs/common';
-import path from 'node:path';
 import ts, { ModifierLike, NodeArray } from 'typescript';
 import { unquote } from './syntax';
 
@@ -131,15 +130,4 @@ export function unwrapPromiseType(type: ts.TypeNode) {
   }
 
   return type;
-}
-
-/**
- * Returns a pretty path for the provided node.
- *
- * @example `src/controllers/users.ts:12:3`
- */
-export function toPrettySource(node: ts.Node) {
-  const source = node.getSourceFile();
-  const pos = source.getLineAndCharacterOfPosition(node.getStart());
-  return path.relative(process.cwd(), `${source.fileName}:${pos.line + 1}:${pos.character + 1}`);
 }

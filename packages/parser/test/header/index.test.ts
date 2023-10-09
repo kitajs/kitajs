@@ -1,5 +1,4 @@
 import assert from 'node:assert';
-import path from 'node:path';
 import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
@@ -23,8 +22,7 @@ describe('Header Parameter', async () => {
         controllerMethod: 'get',
         method: 'GET',
         controllerName: 'IndexController',
-        controllerPath: path.resolve(__dirname, 'routes/index.ts'),
-        controllerPrettyPath: 'test/header/routes/index.ts:3:1',
+        controllerPath: 'routes/index.ts',
         parameters: [
           { value: 'req.headers.name' },
           { value: 'req.headers.age' },
