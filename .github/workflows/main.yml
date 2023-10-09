@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: Main Flow
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Create and publish versions
+      - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
