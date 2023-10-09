@@ -24,6 +24,9 @@ export const ${r.schema.operationId}: typeof ${r.controllerName}['${r.controller
     r.controllerMethod
   }.bind(null);
 
+/**
+ * Parses the request and reply parameters and calls the ${r.schema.operationId} controller method.
+ */
 export ${needsAsync(r.parameters)} function ${
     r.schema.operationId
   }Handler(${kRequestParam}: FastifyRequest, ${kReplyParam}: FastifyReply) {
@@ -41,10 +44,11 @@ export ${needsAsync(r.parameters)} function ${
   }
 }
 
-/** @internal */
-export const ${r.schema.operationId}Meta = ${JSON.stringify(r, null, 2)};
-
-/** @internal */
+/**
+ * Options for the ${r.schema.operationId} route.
+ * 
+ * @internal
+ */
 export const ${r.schema.operationId}Options: RouteOptions = ${options(r)};
 
 `.trim();

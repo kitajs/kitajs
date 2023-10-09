@@ -1,7 +1,8 @@
-import { Route } from '@kitajs/common';
+import { Route, kFastifyVariable } from '@kitajs/common';
 import { EOL } from 'os';
+import { Definition } from 'ts-json-schema-generator';
 
-export const plugin = (routes: Route[]) =>
+export const plugin = (routes: Route[], schemas: Definition[]) =>
   /* ts */ `
 
 import fp from 'fastify-plugin';
@@ -12,7 +13,7 @@ ${routes.map((r) => `import { ${r.schema.operationId}Options } from './routes/${
 
 /**
  * The Kita generated fastify plugin. Registering it into your fastify instance will
- * automatically register all routes, schemas and controllers.
+ * automatically register all routes, schemas and providers.
  *
  * @example
  * \`\`\`ts
@@ -24,13 +25,12 @@ ${routes.map((r) => `import { ${r.schema.operationId}Options } from './routes/${
  * 
  * app.listen().then(console.log);
  * \`\`\`
+ * 
+ * @see {@link https://kita.js.org/}
  */
 export const Kita: FastifyPluginAsync = fp<{}>(
-  async (fastify) => {
-    // Register all schemas
-    for (const schema of RouteSchemas) {
-      fastify.addSchema(schema);
-    }
+  async (${kFastifyVariable}) => {
+    ${schemas.map(schema).join(EOL)}
 
     // Register all routes
     ${routes.map((r) => `fastify.route(${r.schema.operationId}Options)`).join(EOL)}
@@ -42,5 +42,12 @@ export const Kita: FastifyPluginAsync = fp<{}>(
     encapsulate: true
   }
 );
+
+`.trim();
+
+const schema = (s: Definition) =>
+  /* ts */ `
+
+${kFastifyVariable}.addSchema(${JSON.stringify(s, null, 2)});
 
 `.trim();

@@ -5,16 +5,11 @@ import fastifySwaggerUi from '@fastify/swagger-ui';
 import { Kita } from '@kitajs/runtime';
 import fastify from 'fastify';
 
-const { version } = require('../package.json');
-
 async function main() {
   const app = fastify();
 
   app.register(fastifySwagger, {
-    mode: 'dynamic',
-    openapi: {
-      info: { title: 'kitajs', version }
-    }
+    mode: 'dynamic'
   });
 
   app.register(Kita);

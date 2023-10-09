@@ -4,7 +4,6 @@ import ts from 'typescript';
 import { index } from './templates';
 import { plugin } from './templates/plugin';
 import { route } from './templates/route';
-import { schemas } from './templates/schema';
 import { KitaWriter } from './writer';
 
 export class KitaFormatter implements SourceFormatter {
@@ -24,8 +23,7 @@ export class KitaFormatter implements SourceFormatter {
 
   generate(routes: Route[], definitions: Definition[]) {
     this.writer.write('index.ts', index(routes));
-    this.writer.write('schemas.ts', schemas(definitions));
-    this.writer.write('plugin.ts', plugin(routes));
+    this.writer.write('plugin.ts', plugin(routes, definitions));
   }
 
   flush() {
