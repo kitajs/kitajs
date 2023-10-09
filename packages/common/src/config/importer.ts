@@ -3,10 +3,10 @@ import { KitaConfig } from './model';
 import { parseConfig } from './parser';
 
 /** Parses and validates the config. */
-export function importConfig(path?: string): KitaConfig {
+export function importConfig(path?: string, root?: string): KitaConfig {
   // No config found, use default
   if (!path) {
-    return parseConfig();
+    return parseConfig({}, root);
   }
 
   let config;
@@ -21,5 +21,5 @@ export function importConfig(path?: string): KitaConfig {
     throw new InvalidConfigError('Config file is empty.');
   }
 
-  return parseConfig(config);
+  return parseConfig(config, root);
 }

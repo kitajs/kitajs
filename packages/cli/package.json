@@ -14,7 +14,7 @@
     "oclif.manifest.json"
   ],
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "tsc",
     "postbuild": "oclif manifest && oclif readme",
     "start": "node -r tsx/csj index.ts"
   },

@@ -24,7 +24,7 @@
     "release": "changeset publish",
     "test": "pnpm -r --parallel test",
     "version": "changeset version",
-    "watch": "pnpm -r --parallel build --watch "
+    "watch": "pnpm -r --parallel --no-bail build --watch "
   },
   "resolutions": {
     "typescript": "^5.2.2"

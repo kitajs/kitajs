@@ -1,5 +1,5 @@
-import { KitaConfig, KitaError, importConfig } from '@kitajs/common';
-import { KitaParser } from '@kitajs/parser';
+import { KitaConfig, KitaError, importConfig, parseConfig } from '@kitajs/common';
+import { KitaParser, walk } from '@kitajs/parser';
 import path from 'path';
 import ts, { server } from 'typescript/lib/tsserverlibrary';
 import { appendProviderDiagnostics } from './parsers/provider';
@@ -37,7 +37,12 @@ export = function initHtmlPlugin() {
           // Lazy load the parser
           if (!config) {
             let root = program.getCurrentDirectory();
-            config = importConfig(path.join(root, 'kita.config.js'));
+
+            try {
+              config = importConfig(path.join(root, 'kita.config.js'));
+            } catch {
+              config = parseConfig({}, root);
+            }
 
             // process.cwd() will return the editor cwd, and not the project cwd
             if (config.cwd === process.cwd()) {
@@ -46,6 +51,7 @@ export = function initHtmlPlugin() {
 
             rootRoute = path.resolve(config.cwd, config.routeFolder);
             rootProvider = path.resolve(config.cwd, config.providerFolder);
+            providerPaths = walk(config.providerFolder);
 
             parser = new KitaParser(config, [], [], program);
           }
