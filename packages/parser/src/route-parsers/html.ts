@@ -73,7 +73,7 @@ export class HtmlRouteParser implements RouteParser {
 
     // Non string return type
     if (!primitive || !(primitive instanceof StringType)) {
-      throw new InvalidHtmlRoute(node.type || node);
+      throw new InvalidHtmlRoute(node.type || node, primitive);
     }
 
     // Adds all parameters in their respective position
@@ -83,7 +83,7 @@ export class HtmlRouteParser implements RouteParser {
 
     const routeParameters = route.parameters.map((r) => r.value).join(', ');
     const handler = buildAccessProperty(route.controllerName, route.controllerMethod);
-    const handlerCall = `${handler}.bind(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
+    const handlerCall = `${handler}.call(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
 
     if (
       // If the SuspenseId parameter was used, we need to render as a stream.

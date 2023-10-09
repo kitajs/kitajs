@@ -1,4 +1,5 @@
 import { ts } from 'ts-json-schema-generator';
+import { BaseType } from 'typescript';
 import { KitaError } from './base';
 
 export class MultipleDefinitionsError extends KitaError {
@@ -128,7 +129,10 @@ export class QueryMixError extends KitaError {
 }
 
 export class InvalidHtmlRoute extends KitaError {
-  constructor(node: ts.Node) {
+  constructor(
+    node: ts.Node,
+    readonly primitive?: BaseType
+  ) {
     super({
       code: 409,
       messageText: `You cannot use a non-string return type in a HTML route.`,

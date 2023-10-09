@@ -1,3 +1,5 @@
+import '@kitajs/html/register';
+
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import { Kita } from '@kitajs/runtime';
@@ -23,7 +25,7 @@ async function main() {
 
   const url = await app.listen({ port: 1227 });
 
-  console.log(`Listening on ${url}/docs`);
+  console.log(`Listening!\n Docs: ${url}/docs\n Frontend: ${url}`);
 }
 
 main().catch(console.error);
