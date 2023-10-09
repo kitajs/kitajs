@@ -6,28 +6,19 @@
       "description": "Analyses your backend searching for routes and bakes it into the runtime.",
       "examples": [
         {
-          "command": "<%= config.bin %> <%= command.id %> -s -c kita.config.js",
-          "description": "Builds your backend to be used with tsx, ts-node or swc and uses a custom config file."
+          "command": "<%= config.bin %> <%= command.id %> -c kita.config.js",
+          "description": "Builds your backend with a custom config file."
         },
         {
-          "command": "<%= config.bin %> <%= command.id %> -d -r packages/server",
-          "description": "Builds your backend to be used with transpiled javascript code and uses a custom root directory."
+          "command": "<%= config.bin %> <%= command.id %> -d",
+          "description": "Fast checks your backend for errors without generating the runtime."
         }
       ],
       "flags": {
-        "dist": {
-          "char": "d",
-          "description": "Uses transpiled javascript code. {KitaConfig#dist=true}",
-          "exclusive": ["source"],
-          "name": "dist",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "source": {
+        "import-source": {
           "char": "s",
-          "description": "Uses source typescript code. Needs tsx/ts-node registered. {KitaConfig#dist=false}",
-          "exclusive": ["dist"],
-          "name": "source",
+          "description": "Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node to work.",
+          "name": "import-source",
           "allowNo": false,
           "type": "boolean"
         },
@@ -39,17 +30,16 @@
           "multiple": false,
           "type": "option"
         },
-        "root": {
-          "char": "r",
-          "description": "Custom root directory for your project. {KitaConfig#cwd}",
-          "name": "root",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "print": {
           "description": "Prints full resolved config",
           "name": "print",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "dry-run": {
+          "char": "d",
+          "description": "Skips generation process. Useful for testing your code.",
+          "name": "dry-run",
           "allowNo": false,
           "type": "boolean"
         }

@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita help [COMMANDS]`](#kita-help-commands)
@@ -120,26 +120,26 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita build [-d | -s] [-c <value>] [-r <value>] [--print]
+  $ kita build [-s] [-c <value>] [--print] [-d]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  -d, --dist            Uses transpiled javascript code. {KitaConfig#dist=true}
-  -r, --root=<value>    Custom root directory for your project. {KitaConfig#cwd}
-  -s, --source          Uses source typescript code. Needs tsx/ts-node registered. {KitaConfig#dist=false}
+  -d, --dry-run         Skips generation process. Useful for testing your code.
+  -s, --import-source   Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node to
+                        work.
   --print               Prints full resolved config
 
 DESCRIPTION
   Analyses your backend searching for routes and bakes it into the runtime.
 
 EXAMPLES
-  Builds your backend to be used with tsx, ts-node or swc and uses a custom config file.
+  Builds your backend with a custom config file.
 
-    $ kita build -s -c kita.config.js
+    $ kita build -c kita.config.js
 
-  Builds your backend to be used with transpiled javascript code and uses a custom root directory.
+  Fast checks your backend for errors without generating the runtime.
 
-    $ kita build -d -r packages/server
+    $ kita build -d
 ```
 
 ## `kita help [COMMANDS]`
