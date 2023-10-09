@@ -5,3 +5,4 @@ coverage
 
 # This file should be ignore by prettier-jsdoc
 packages/parser/test/jsdoc/routes/index.ts
+pnpm-lock.yaml

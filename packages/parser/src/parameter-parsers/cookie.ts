@@ -20,7 +20,8 @@ export class CookieParameterParser implements ParameterParser {
       value: value,
       helper: optional
         ? undefined
-        : /* ts */ `if (${value} === undefined) { throw new Error('Missing cookie ${name}') };`
+        : // TODO: Add a better error, maybe import one from fastify?
+          /* ts */ `if (${value} === undefined) { throw new Error('Missing cookie ${name}') };`
     };
   }
 }

@@ -3,9 +3,7 @@ import { join } from './codegen';
 
 export const VALID_IDENTIFIER = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/;
 
-/**
- * Builds a property access string from a list of names.
- */
+/** Builds a property access string from a list of names. */
 export function buildAccessProperty(...names: string[]) {
   let expr = '';
 
@@ -24,9 +22,7 @@ export function buildAccessProperty(...names: string[]) {
   return expr;
 }
 
-/**
- * Removes quotes from a string.
- */
+/** Removes quotes from a string. */
 export function unquote(str: string) {
   return str.replace(/^['"`]|['"`]$/g, '');
 }

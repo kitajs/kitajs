@@ -1,6 +1,5 @@
 import { AstCollector, ParameterParser, Route } from '@kitajs/common';
 import type ts from 'typescript';
-import { format } from '../util/codegen';
 import { getTypeNodeName } from '../util/nodes';
 import { joinParameters } from '../util/syntax';
 
@@ -24,12 +23,12 @@ export class ProviderParameterParser implements ParameterParser {
     return {
       value,
       imports: [{ name: providerName, path: provider.providerPath }],
-      helper: format(/* ts */ `
+      helper: /* ts */ `
 
 ${joinParameters(provider.parameters)}
 const ${value} = await ${providerName}(${provider.parameters.map((p) => p.value).join(',')});
 
-`)
+`.trim()
     };
   }
 }
