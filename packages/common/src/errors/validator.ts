@@ -1,5 +1,5 @@
-import { ts } from 'ts-json-schema-generator';
-import { BaseType } from 'typescript';
+import { BaseType } from 'ts-json-schema-generator';
+import ts from 'typescript';
 import { KitaError } from './base';
 
 export class MultipleDefinitionsError extends KitaError {
