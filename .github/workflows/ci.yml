@@ -39,5 +39,4 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
-          flags: packages/generator, packages/parser
           token: ${{ secrets.CODECOV_TOKEN }}
