@@ -42,7 +42,10 @@
 
 - [Usage](#usage)
 - [Commands](#commands)
-<!-- tocstop -->
+  - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
+  - [`kita build`](#kita-build)
+  - [`kita help [COMMANDS]`](#kita-help-commands)
+  - [`kita init`](#kita-init)
 
 <br />
 
@@ -176,3 +179,5 @@ EXAMPLES
 ```
 
 <!-- commandsstop -->
+
+<br />
