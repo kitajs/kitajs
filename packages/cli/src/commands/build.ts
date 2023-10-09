@@ -4,7 +4,6 @@ import { KitaParser } from '@kitajs/parser';
 import { Command, Flags, ux } from '@oclif/core';
 import chalk from 'chalk';
 import fs from 'fs/promises';
-import { EOL } from 'os';
 import path from 'path';
 import { inspect } from 'util';
 import { formatDiagnostic } from '../util/diagnostics';
@@ -142,7 +141,7 @@ export default class Build extends Command {
       );
 
       if (diagnostics.length) {
-        this.log(EOL + formatDiagnostic(diagnostics));
+        this.log(formatDiagnostic(diagnostics));
       }
 
       if (!flags['dry-run']) {
@@ -159,17 +158,17 @@ export default class Build extends Command {
       }
 
       if (diagnostics.length > 0) {
-        this.error(chalk.red`\nFinished with errors!`);
-      } else {
-        if (flags['dry-run']) {
-          this.log(chalk.green`\nNo errors were found!`);
-          this.log(chalk.yellow`You need to run it again without --dry-run to generate the runtime.`);
-        } else {
-          this.log(chalk.green`\nRuntime is ready to use!`);
-        }
-
-        this.exit(0);
+        this.error(chalk.red`Finished with errors!`);
       }
+
+      if (flags['dry-run']) {
+        this.log(chalk.green`\nNo errors were found!`);
+        this.log(chalk.yellow`You need to run it again without --dry-run to generate the runtime.`);
+      } else {
+        this.log(chalk.green`\nRuntime is ready to use!`);
+      }
+
+      this.exit(0);
     } catch (error) {
       if (error instanceof KitaError) {
         this.logToStderr(formatDiagnostic([error.diagnostic]));
