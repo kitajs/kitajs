@@ -16,12 +16,11 @@
   },
   "dependencies": {
     "@kitajs/common": "workspace:^",
+    "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.4.0"
   },
   "peerDependencies": {
-    "@fastify/websocket": ">=7",
-    "fastify": "^4.23.2",
-    "fastify-plugin": "^4.5.1"
+    "fastify": ">=4.23"
   }
 }

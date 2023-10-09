@@ -17,12 +17,12 @@
     "@kitajs/common": "workspace:^",
     "tslib": "^2.6.2",
     "type-fest": "^4.4.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
-    "@types/node": "^20.5.0",
+    "@types/node": "^20.8.4",
     "c8": "^8.0.1",
     "fastify": "^4.23.2",
     "fastify-plugin": "^4.5.1",

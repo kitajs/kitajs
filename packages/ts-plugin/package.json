@@ -18,11 +18,14 @@
     "@kitajs/parser": "workspace:^",
     "deasync": "^0.1.28",
     "tslib": "^2.6.2",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@types/deasync": "^0.1.3",
     "@types/node": "^20.5.0",
     "type-fest": "^4.4.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=5"
   }
 }

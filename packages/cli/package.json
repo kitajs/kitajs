@@ -33,13 +33,9 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.8.3",
+    "@types/node": "^20.8.4",
     "oclif": "^4.0.0",
     "tsx": "^3.13.0",
-    "typescript": "^5"
-  },
-  "peerDependencies": {
-    "@kitajs/runtime": "workspace:^",
     "typescript": "^5.2.2"
   },
   "oclif": {

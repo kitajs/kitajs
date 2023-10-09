@@ -23,7 +23,6 @@
     "@types/node": "^20.5.0"
   },
   "peerDependencies": {
-    "@fastify/websocket": ">=7",
     "fastify": "^4.23.2",
     "ts-json-schema-generator": "^1"
   }
