@@ -45,8 +45,8 @@ importers:
         specifier: workspace:^
         version: link:../runtime
       '@oclif/core':
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^3.0.4
+        version: 3.0.4
       '@oclif/plugin-autocomplete':
         specifier: ^2.3.9
         version: 2.3.9(@types/node@20.8.3)(typescript@5.2.2)
@@ -1210,8 +1210,8 @@ packages:
       - '@types/node'
       - typescript
 
-  /@oclif/core@3.0.3:
-    resolution: {integrity: sha512-5xdT3xFXOSsR8AtE2VNswTjCxFQFLptfnkmhhgWqKbSkFBmtix0n5EN560xmeasVku/5eZdA6juEZunS5ZKIXg==}
+  /@oclif/core@3.0.4:
+    resolution: {integrity: sha512-zP+OF/PVCgPLVNfoBMevafki71Zn6t1SbU4AIQcsNNAsoC2SpBiUFx81yvJbMG2172ss58ePT5odr1JweuYdhA==}
     engines: {node: '>=18.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
@@ -5176,7 +5176,7 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
-      '@oclif/core': 3.0.3
+      '@oclif/core': 3.0.4
       '@oclif/plugin-help': 5.2.20(@types/node@20.8.3)(typescript@5.2.2)
       '@oclif/plugin-not-found': 2.4.3(@types/node@20.8.3)(typescript@5.2.2)
       '@oclif/plugin-warn-if-update-available': 2.1.1(@types/node@20.8.3)(typescript@5.2.2)
