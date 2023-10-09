@@ -17,7 +17,7 @@
     "@kitajs/common": "workspace:^",
     "deepmerge": "^4.3.1",
     "ts-json-schema-generator": "^1.3.0",
-    "tslib": "^2.6.1",
+    "tslib": "^2.6.2",
     "type-fest": "^4.2.0"
   },
   "devDependencies": {
