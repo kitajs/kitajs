@@ -29,7 +29,7 @@
 <h1>🌷 KitaJS</h1>
 
 <p align="center">
-  <code>kitajs</code> is <a href="https://kita.js.org" target="_blank">KitaJS</a> routing meta framework.
+  <a href="https://kita.js.org" target="_blank">KitaJS</a> is a routing meta framework.
   <br />
   <br />
 </p>
