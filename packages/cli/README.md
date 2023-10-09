@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita help [COMMANDS]`](#kita-help-commands)

@@ -7,8 +7,8 @@
   "author": "Arthur Fiorette <kita@arthur.place>",
   "main": "dist/index.js",
   "scripts": {
+    "prebuild": "kita build",
     "build": "tsc",
-    "dev": "kita build && tsc",
     "start": "node --require tsx/cjs src/index.ts"
   },
   "dependencies": {
