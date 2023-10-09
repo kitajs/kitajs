@@ -16,7 +16,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "pnpm -r --parallel build",
+    "build": "pnpm -r build",
     "docs": "cd packages/docs && pnpm dev",
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",

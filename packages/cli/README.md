@@ -42,6 +42,10 @@
 
 - [Usage](#usage)
 - [Commands](#commands)
+<!-- tocstop -->
+
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita help [COMMANDS]`](#kita-help-commands)
@@ -73,12 +77,10 @@ USAGE
 
 <!-- commands -->
 
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
-  - [`kita build`](#kita-build)
-  - [`kita help [COMMANDS]`](#kita-help-commands)
-  - [`kita init`](#kita-init)
+- [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
+- [`kita build`](#kita-build)
+- [`kita help [COMMANDS]`](#kita-help-commands)
+- [`kita init`](#kita-init)
 
 ## `kita autocomplete [SHELL]`
 

@@ -23,15 +23,14 @@ jobs:
           cache: 'pnpm'
 
       - name: Install packages
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
-      # Temporary fix until all code compiles :)
       - name: Build
-        run: pnpm -r build
+        run: pnpm build
 
-      # - name: Link kita binary
-      #   run: pnpm i -g
-      #   working-directory: packages/cli
+      - name: Link kita binary
+        run: pnpm link .
+        working-directory: packages/cli
 
       - name: Test
         run: pnpm test
@@ -40,4 +39,5 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
+          flags: packages/generator, packages/parser
           token: ${{ secrets.CODECOV_TOKEN }}
