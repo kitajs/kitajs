@@ -45,7 +45,7 @@ const defaultConfig = /* ts */ `
 
 // Documentation: https://kita.js.org/
 
-/** @type {import('@kitajs/common').KitaConfig} */
+/** @type {import('@kitajs/cli').KitaConfig} */
 module.exports = {
   /* You are fine with the defaults, feel free to delete this config file. */
 };
