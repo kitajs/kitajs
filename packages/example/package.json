@@ -9,7 +9,7 @@
   "scripts": {
     "prebuild": "kita build",
     "build": "tsc",
-    "start": "node --require tsx/cjs src/index.ts"
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "@fastify/swagger": "^8.11.0",
