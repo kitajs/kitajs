@@ -61,7 +61,7 @@ const options = (r: Route) => {
   url: '${r.url}',
   method: '${r.method}',
   handler: ${r.schema.operationId}Handler,
-  schema: ${JSON.stringify(r.schema)},
+  schema: ${JSON.stringify(r.schema, null, 2)},
 }
 
 `.trim();
