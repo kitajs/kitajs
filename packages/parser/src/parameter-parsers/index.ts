@@ -9,7 +9,6 @@ import { FastifyParameterParser } from './fastify';
 import { HeaderParameterParser } from './header';
 import { PathParameterParser } from './path';
 import { QueryParameterParser } from './query';
-import { RouteMetaParameterParser } from './route-meta';
 import { SuspenseIdParameterParser } from './suspense-id';
 import { ThisParameterParser } from './this';
 
@@ -34,8 +33,7 @@ export function buildParameterParser(
     .add(new HeaderParameterParser(config))
     .add(new CookieParameterParser())
     .add(new ThisParameterParser())
-    .add(new SuspenseIdParameterParser())
-    .add(new RouteMetaParameterParser());
+    .add(new SuspenseIdParameterParser());
 
   return chain;
 }
