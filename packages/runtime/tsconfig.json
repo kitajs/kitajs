@@ -1,11 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": true
-    // TODO: uncomment this:
-    // the current example package uses some jsx, which fails runtime's tsc
-    // because it directly resolves to those
-    //"skipLibCheck": false
+    "noEmit": true,
+    "skipLibCheck": false
   },
   "include": ["types", "index.d.ts"],
   "exclude": ["generated"]
