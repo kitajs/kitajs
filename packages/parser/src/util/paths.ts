@@ -6,7 +6,10 @@ export function walk(dir: string): string[] {
   try {
     return fs
       .readdirSync(dir, { recursive: true, withFileTypes: true })
-      .flatMap((f) => (f.isDirectory() ? walk(path.join(dir, f.name)) : path.join(dir, f.name)));
+      .filter((f) => f.isFile())
+      .map((f) => {
+        return path.resolve(f.path, f.name);
+      });
   } catch (e: any) {
     // Ignore if folder does not exist
     if (e.code === 'ENOENT') {
