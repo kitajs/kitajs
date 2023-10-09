@@ -1,6 +1,6 @@
 import type { RouteMapper, Use } from '@kitajs/runtime';
 
-export function get(this: Use<typeof test>) {
+export function get(this: Use<typeof test2>) {
   return 'Hello World!';
 }
 

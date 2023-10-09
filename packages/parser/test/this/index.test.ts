@@ -25,7 +25,7 @@ describe('This & Use usage', async () => {
         response: { default: { type: 'string' } },
         operationId: 'getIndex'
       },
-      options: 'IndexController.test($1)'
+      options: 'IndexController.test2($1)'
     });
   });
 
@@ -44,7 +44,8 @@ describe('This & Use usage', async () => {
         response: { default: { type: 'string' } },
         operationId: 'postIndex'
       },
-      options: 'IndexController.test3(IndexController.test2(IndexController.test($1)))'
+      options:
+        'IndexController.test3(IndexController.test2(IndexController.test($1)))'
     });
   });
 });
