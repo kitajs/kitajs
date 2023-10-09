@@ -20,6 +20,9 @@ export interface Parameter {
   /** If this route has a schema transformer attached to it. It may or may not have a configuration */
   schemaTransformer?: boolean;
 
+  /** The name of the provider to import for the schemaTransformer */
+  providerName?: string;
+
   /** If this is true, the current parameter will be ignored by the parser. */
   ignore?: boolean;
 

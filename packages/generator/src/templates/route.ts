@@ -61,7 +61,7 @@ const options = (r: Route) => {
   url: '${r.url}',
   method: '${r.method}',
   handler: ${r.schema.operationId}Handler,
-  schema: ${JSON.stringify(r.schema, null, 2)},
+  schema: ${schema(r)},
 }
 
 `.trim();
@@ -90,3 +90,15 @@ if (${kReplyParam}.sent) {
 
 /** Renders `async` if some parameter helper needs it */
 const needsAsync = (parameters: Parameter[]) => (parameters.some((p) => p.helper?.includes('await')) ? 'async ' : '');
+
+const schema = (r: Route) => {
+  let code = JSON.stringify(r.schema, null, 2);
+
+  for (const param of r.parameters) {
+    if (param.schemaTransformer) {
+      code = `${param.providerName}.transformSchema(${code})`;
+    }
+  }
+
+  return code;
+};

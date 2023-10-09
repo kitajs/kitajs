@@ -17,16 +17,28 @@ export class ProviderParameterParser implements ParameterParser {
     const name = getTypeNodeName(param)!;
     const provider = this.collector.getProvider(name)!;
 
-    const providerName = `Resolver${index}`;
+    const originalProviderName = `Resolver${index}`;
+    let providerName = originalProviderName;
+    let importName = providerName;
+
+    if (provider.schemaTransformer) {
+      importName = `* as ${providerName}`;
+      providerName = `${providerName}.default`;
+    }
+
     const value = `param${index}`;
 
     return {
       value,
-      imports: [{ name: providerName, path: provider.providerPath }],
+      imports: [{ name: importName, path: provider.providerPath }],
+      schemaTransformer: provider.schemaTransformer,
+      providerName: originalProviderName,
       helper: /* ts */ `
 
 ${joinParameters(provider.parameters)}
-const ${value} = await ${providerName}(${provider.parameters.map((p) => p.value).join(',')});
+const ${value} =${provider.async ? ' await ' : ' '}${providerName}(${provider.parameters
+        .map((p) => p.value)
+        .join(',')});
 
 `.trim()
     };
