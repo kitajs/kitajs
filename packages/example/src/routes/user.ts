@@ -1,15 +1,15 @@
-import { Body, Query } from '@kitajs/runtime';
+import { Body } from '@kitajs/runtime';
 import { userDatabase } from '../database';
 import { CreateUser, User } from '../models/user';
 import { UserId } from '../providers/user-id';
 
 /**
- * @operationId getUser
+ * @operationId getUsers
  * @tag User
- * @summary Get a user by id
+ * @summary Get all users
  */
-export function get(id: Query) {
-  return userDatabase.get(id);
+export function get() {
+  return Array.from(userDatabase.values());
 }
 
 /**
