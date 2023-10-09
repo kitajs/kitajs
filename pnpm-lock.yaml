@@ -97,8 +97,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.2.0
-        version: 4.2.0
+        specifier: ^4.4.0
+        version: 4.4.0
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -150,8 +150,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.2.0
-        version: 4.2.0
+        specifier: ^4.4.0
+        version: 4.4.0
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -199,8 +199,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.2.0
-        version: 4.2.0
+        specifier: ^4.4.0
+        version: 4.4.0
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -239,8 +239,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.2.0
-        version: 4.2.0
+        specifier: ^4.4.0
+        version: 4.4.0
 
   packages/ts-plugin:
     dependencies:
@@ -267,8 +267,8 @@ importers:
         specifier: ^20.5.0
         version: 20.5.1
       type-fest:
-        specifier: ^4.2.0
-        version: 4.2.0
+        specifier: ^4.4.0
+        version: 4.4.0
 
 packages:
 
@@ -6699,8 +6699,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /type-fest@4.2.0:
-    resolution: {integrity: sha512-5zknd7Dss75pMSED270A1RQS3KloqRJA9XbXLe0eCxyw7xXFb3rd+9B0UQ/0E+LQT6lnrLviEolYORlRWamn4w==}
+  /type-fest@4.4.0:
+    resolution: {integrity: sha512-HT3RRs7sTfY22KuPQJkD/XjbTbxgP2Je5HPt6H6JEGvcjHd5Lqru75EbrP3tb4FYjNJ+DjLp+MNQTFQU0mhXNw==}
     engines: {node: '>=16'}
 
   /typed-array-length@1.0.4:
