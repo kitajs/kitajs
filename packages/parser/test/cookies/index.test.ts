@@ -18,7 +18,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       kind: 'rest',
       parameters: [
         { value: 'req.cookies.a', helper: "if (req.cookies.a === undefined) { throw new Error('Missing cookie a') };" },
@@ -43,7 +43,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       kind: 'rest',
       parameters: [
         { value: 'req.cookies.a', helper: undefined },

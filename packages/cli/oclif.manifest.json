@@ -23,9 +23,22 @@
           "type": "option"
         },
         "debug": {
-          "char": "d",
           "description": "Prints full resolved config",
           "name": "debug",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "dist": {
+          "char": "d",
+          "description": "Imports code from the dist folder (needs manual transpiling)",
+          "name": "dist",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "source": {
+          "char": "s",
+          "description": "Imports code from the source folder (needs tsx/ts-node registered)",
+          "name": "source",
           "allowNo": false,
           "type": "boolean"
         }

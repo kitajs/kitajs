@@ -22,7 +22,7 @@ describe('BodyProp Parameter', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       parameters: [
         { value: 'req.body.name' },
         { value: 'req.body.a' },

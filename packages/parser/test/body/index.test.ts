@@ -19,7 +19,7 @@ describe('Body Parameter', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       parameters: [{ value: 'req.body' }],
       schema: {
         body: { $ref: 'Complex' },

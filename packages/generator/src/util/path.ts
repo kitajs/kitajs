@@ -1,4 +1,13 @@
+import path from 'path';
+
 /** Remove extension from import path */
-export function removeExt(imp: string) {
-  return imp.replace(/\.[^/.]+$/, '');
+export function formatImport(imp: string, cwd: string) {
+  imp = imp.replace(/\.[^/.]+$/, '');
+
+  // Makes sure the relative import is absolute
+  if (imp.startsWith('./')) {
+    imp = path.resolve(cwd, imp);
+  }
+
+  return imp;
 }

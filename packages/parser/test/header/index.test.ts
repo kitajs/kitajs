@@ -22,7 +22,7 @@ describe('Header Parameter', async () => {
         controllerMethod: 'get',
         method: 'GET',
         controllerName: 'IndexController',
-        controllerPath: 'routes/index.ts',
+        controllerPath: './routes/index.ts',
         parameters: [
           { value: 'req.headers.name' },
           { value: 'req.headers.age' },

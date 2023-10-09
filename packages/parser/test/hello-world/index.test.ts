@@ -19,7 +19,7 @@ describe('Hello World', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       parameters: [{ value: 'req.query.name' }],
       schema: {
         querystring: {

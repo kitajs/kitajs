@@ -19,7 +19,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.tsx',
+      controllerPath: './routes/index.tsx',
       parameters: [{ value: 'req.id', __type: 'SuspenseId' }],
       schema: {
         operationId: 'getIndexView',
@@ -41,7 +41,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.tsx',
+      controllerPath: './routes/index.tsx',
       parameters: [],
       schema: {
         operationId: 'postIndexView',
@@ -61,7 +61,7 @@ describe('Cookies', async () => {
       controllerMethod: 'put',
       method: 'PUT',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.tsx',
+      controllerPath: './routes/index.tsx',
       parameters: [],
       schema: {
         operationId: 'putIndexView',

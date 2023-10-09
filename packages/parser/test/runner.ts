@@ -10,7 +10,8 @@ export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {})
     parseConfig({
       tsconfig,
       cwd,
-      source: cwd,
+      providerFolder: 'providers',
+      routeFolder: 'routes',
       runtimePath: path.resolve(cwd, 'runtime'),
       ...config
     })

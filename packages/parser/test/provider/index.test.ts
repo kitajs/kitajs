@@ -18,14 +18,14 @@ describe('Providers', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       schema: { response: { default: { type: 'number', const: 1 } }, operationId: 'getIndex' },
       kind: 'rest',
       parameters: [
         {
           value: 'param0',
           helper: 'const param0 = await Resolver0();',
-          imports: [{ name: 'Resolver0', path: 'providers/test.ts' }]
+          imports: [{ name: 'Resolver0', path: './providers/test.ts' }]
         }
       ]
     });
@@ -37,7 +37,7 @@ describe('Providers', async () => {
     assert.deepStrictEqual(provider, {
       async: false,
       type: 'Test',
-      providerPath: 'providers/test.ts',
+      providerPath: './providers/test.ts',
       parameters: [],
       schemaTransformer: false
     });

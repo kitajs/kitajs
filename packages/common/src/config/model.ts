@@ -7,31 +7,38 @@ export interface KitaConfig {
   cwd: string;
 
   /**
-   * The root directory to search for files.
-   *
-   * @default 'src'
-   */
-  source: string;
-
-  /**
    * The root provider folder to search and register providers
    *
-   * @default 'providers'
+   * @default 'src/providers'
    */
   providerFolder: string;
 
   /**
    * The root route folder to search and register routes
    *
-   * @default 'routes'
+   * @default 'src/routes'
    */
   routeFolder: string;
 
   /**
    * Uses a different located @kitajs/runtime. You should only override this setting if you are having problems with
    * your package manger or the runtime cannot be found by default.
+   *
+   * **please use absolute paths**
    */
   runtimePath?: string;
+
+  /**
+   * If the generated could should import routes from the dist folder instead of the source folder. Type declarations
+   * still are always imported from the source folder.
+   *
+   * Useful if you are using tsx/ts-node/swc to run your backend as raw typescript files instead of transpiling them.
+   *
+   * Tries to resolve `compilerOptions.outDir` and if not found, fallbacks to `'dist'`.
+   *
+   * @default true
+   */
+  dist?: boolean;
 
   /**
    * The tsconfig path to use to parse the files.

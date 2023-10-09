@@ -5,13 +5,13 @@ import ts from 'typescript';
 export class KitaWriter implements SourceWriter {
   private readonly files: Map<string, string> = new Map();
 
-  private originalOutDir: string;
+  private userDirPath: string | false;
 
   constructor(
     private compilerOptions: ts.CompilerOptions,
     private config: KitaConfig
   ) {
-    this.originalOutDir = this.compilerOptions.outDir || 'dist';
+    this.userDirPath = this.config.dist ? path.resolve(this.config.cwd, this.compilerOptions.outDir || 'dist') : false;
 
     // Copies the compiler options
     this.compilerOptions = Object.assign({}, this.compilerOptions);
@@ -44,6 +44,7 @@ export class KitaWriter implements SourceWriter {
 
     // We use @internal to hide some generated code
     this.compilerOptions.stripInternal = true;
+    this.compilerOptions.noResolve = true;
   }
 
   write(filename: string, content: string) {
@@ -70,15 +71,13 @@ export class KitaWriter implements SourceWriter {
     // we keep aliases inside tsconfig for dts files and use relative
     // paths inside .js files
     host.writeFile = (filename, content) => {
-      // Is file emitted from source directory
-      if (filename.endsWith('.js') && filename.startsWith(this.compilerOptions.outDir!)) {
-        content = content.replaceAll(
-          `require("${this.config.source}/`,
-          `require("${path.resolve(this.originalOutDir)}/`
-        );
+      // Change javascript code to import from the correct location
+      if (this.userDirPath && filename.endsWith('.js')) {
+        // TODO: Add support for other entry folders than src, like `lib` or `source`
+        content = content.replaceAll(`require("${this.config.cwd}/src`, `require("${this.userDirPath}`);
       }
 
-      ts.sys.writeFile(filename, content);
+      return ts.sys.writeFile(filename, content);
     };
 
     // Creates the program and emits the files

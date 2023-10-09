@@ -12,9 +12,10 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
   const compilerOptions = readCompilerOptions(tsconfig);
 
   const config = parseConfig({
-    tsconfig,
     cwd,
-    source: cwd,
+    tsconfig,
+    routeFolder: 'routes',
+    providerFolder: 'providers',
     runtimePath: path.resolve(cwd, 'runtime'),
     ...partialCfg
   });

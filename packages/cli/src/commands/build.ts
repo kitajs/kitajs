@@ -17,7 +17,17 @@ export default class Build extends Command {
   static override flags = {
     config: Flags.string({ char: 'c', description: 'Path to your config file' }),
     root: Flags.string({ char: 'r', description: 'Root directory of your project' }),
-    debug: Flags.boolean({ char: 'd', description: 'Prints full resolved config' })
+    debug: Flags.boolean({ description: 'Prints full resolved config' }),
+    dist: Flags.boolean({
+      char: 'd',
+      description: 'Imports code from the dist folder (needs manual transpiling)',
+      default: true
+    }),
+    source: Flags.boolean({
+      char: 's',
+      description: 'Imports code from the source folder (needs tsx/ts-node registered)',
+      default: false
+    })
   };
 
   static override args = {};
@@ -56,6 +66,16 @@ export default class Build extends Command {
       }
 
       const config = parseConfig(readConfig, flags.root);
+
+      // Overrides dist and source flags
+      if (flags.dist && flags.source) {
+        this.error(`Cannot use both --dist and --source`);
+      } else if (flags.dist) {
+        config.dist = true;
+      } else if (flags.source) {
+        config.dist = false;
+      }
+
       const compilerOptions = readCompilerOptions(config.tsconfig);
 
       if (flags.debug) {

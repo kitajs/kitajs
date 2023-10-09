@@ -1,7 +1,5 @@
 import { KitaConfig, KitaError, importConfig } from '@kitajs/common';
 import { KitaParser } from '@kitajs/parser';
-import { globSync } from 'glob';
-import { minimatch } from 'minimatch';
 import path from 'path';
 import ts, { server } from 'typescript/lib/tsserverlibrary';
 import { appendProviderDiagnostics } from './parsers/provider';
@@ -18,6 +16,9 @@ export = function initHtmlPlugin() {
       let config: KitaConfig;
       let providerPaths: string[];
       let parser: KitaParser;
+
+      let rootProvider: string;
+      let rootRoute: string;
 
       proxy.getSemanticDiagnostics = function clonedSemanticDiagnostics(filename) {
         const diagnostics = info.languageService.getSemanticDiagnostics(filename);
@@ -43,9 +44,9 @@ export = function initHtmlPlugin() {
               config.cwd = root;
             }
 
-            config.controllers.glob = config.controllers.glob.map((glob) => path.resolve(root, glob));
-            config.providers.glob = config.providers.glob.map((glob) => path.resolve(root, glob));
-            providerPaths = globSync(config.providers.glob, { cwd: config.cwd });
+            rootRoute = path.resolve(config.cwd, config.routeFolder);
+            rootProvider = path.resolve(config.cwd, config.providerFolder);
+
             parser = new KitaParser(config, [], [], program);
           }
 
@@ -55,27 +56,23 @@ export = function initHtmlPlugin() {
           }
 
           // Searches if this file is a provider
-          for (const glob of config.providers.glob) {
-            if (minimatch(filename, glob)) {
-              info.project.projectService.logger.info(
-                `[kita-plugin] Parsed provider ${filename} in ${performance.now() - start}ms`
-              );
+          if (filename.startsWith(rootProvider)) {
+            info.project.projectService.logger.info(
+              `[kita-plugin] Parsed provider ${filename} in ${performance.now() - start}ms`
+            );
 
-              appendProviderDiagnostics(parser, source, diagnostics);
-              return diagnostics;
-            }
+            appendProviderDiagnostics(parser, source, diagnostics);
+            return diagnostics;
           }
 
-          // Searches if this file is a controller
-          for (const glob of config.controllers.glob) {
-            if (minimatch(filename, glob)) {
-              info.project.projectService.logger.info(
-                `[kita-plugin] Parsed route ${filename} in ${performance.now() - start}ms`
-              );
+          // Searches if this file is a route
+          if (filename.startsWith(rootRoute)) {
+            info.project.projectService.logger.info(
+              `[kita-plugin] Parsed route ${filename} in ${performance.now() - start}ms`
+            );
 
-              appendRouteDiagnostics(parser, program, source, diagnostics, providerPaths);
-              return diagnostics;
-            }
+            appendRouteDiagnostics(parser, program, source, diagnostics, providerPaths);
+            return diagnostics;
           }
         } catch (error: any) {
           if (error instanceof KitaError) {

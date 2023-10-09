@@ -188,9 +188,6 @@ importers:
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
-      glob:
-        specifier: ^10.3.3
-        version: 10.3.3
       ts-json-schema-generator:
         specifier: ^1.3.0
         version: 1.3.0
@@ -210,9 +207,6 @@ importers:
       '@kitajs/runtime':
         specifier: workspace:^
         version: link:../runtime
-      '@types/glob':
-        specifier: ^8.1.0
-        version: 8.1.0
       '@types/node':
         specifier: ^20.5.0
         version: 20.5.0
@@ -246,6 +240,9 @@ importers:
 
   packages/ts-plugin:
     dependencies:
+      '@kitajs/common':
+        specifier: workspace:^
+        version: link:../common
       '@kitajs/parser':
         specifier: workspace:^
         version: link:../parser
@@ -265,9 +262,6 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
     devDependencies:
-      '@kitajs/common':
-        specifier: workspace:^
-        version: link:../common
       '@types/deasync':
         specifier: ^0.1.3
         version: 0.1.3

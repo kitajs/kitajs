@@ -18,7 +18,7 @@ describe('Query Parameter', async () => {
       method: 'GET',
       controllerMethod: 'get',
       controllerName: 'PrimitiveController',
-      controllerPath: 'routes/primitive.ts',
+      controllerPath: './routes/primitive.ts',
       parameters: [{ value: 'req.query.name' }, { value: 'req.query.age' }, { value: 'req.query["custom name"]' }],
       kind: 'rest',
       schema: {
@@ -45,7 +45,7 @@ describe('Query Parameter', async () => {
       url: '/complex',
       controllerMethod: 'get',
       controllerName: 'ComplexController',
-      controllerPath: 'routes/complex.ts',
+      controllerPath: './routes/complex.ts',
       method: 'GET',
       parameters: [{ value: 'req.query' }],
       kind: 'rest',

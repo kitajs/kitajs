@@ -18,7 +18,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'NameController',
-      controllerPath: 'routes/[name].ts',
+      controllerPath: './routes/[name].ts',
       kind: 'rest',
       parameters: [{ value: 'req.params.name' }],
       schema: {
@@ -42,7 +42,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'NameController',
-      controllerPath: 'routes/[name].ts',
+      controllerPath: './routes/[name].ts',
       parameters: [{ value: 'req.params.name' }],
       kind: 'rest',
       schema: {
@@ -67,7 +67,7 @@ describe('Cookies', async () => {
       method: 'GET',
       controllerName: 'NumController',
 
-      controllerPath: 'routes/[num].ts',
+      controllerPath: './routes/[num].ts',
       parameters: [{ value: 'req.params.num' }],
       kind: 'rest',
       schema: {
@@ -91,7 +91,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'NumController',
-      controllerPath: 'routes/[num].ts',
+      controllerPath: './routes/[num].ts',
       parameters: [{ value: 'req.params.num' }],
       kind: 'rest',
       schema: {

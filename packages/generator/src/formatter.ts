@@ -19,7 +19,7 @@ export class KitaFormatter implements SourceFormatter {
 
   generateRoute(r: Route) {
     const filename = `routes/${r.schema.operationId}.ts`;
-    this.writer.write(filename, route(r));
+    this.writer.write(filename, route(r, this.config.cwd));
   }
 
   generate(routes: Route[], definitions: Definition[]) {

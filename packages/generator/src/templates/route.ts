@@ -1,22 +1,22 @@
 import { Parameter, Route, kReplyParam, kRequestParam } from '@kitajs/common';
 import { EOL } from 'os';
-import { removeExt } from '../util/path';
+import { formatImport } from '../util/path';
 
 /** Generates a route file. */
-export const route = (r: Route) =>
+export const route = (r: Route, cwd: string) =>
   /* ts */ `
 
 import type { RouteOptions, FastifyRequest, FastifyReply } from 'fastify';
 
-import * as ${r.controllerName} from '${removeExt(r.controllerPath)}';
+import * as ${r.controllerName} from '${formatImport(r.controllerPath, cwd)}';
 
-${r.imports?.map((r) => `import ${r.name} from '${removeExt(r.path)}'`).join(EOL) || ''}
+${r.imports?.map((r) => `import ${r.name} from '${formatImport(r.path, cwd)}'`).join(EOL) || ''}
 
 ${
   r.parameters
     .flatMap((p) => p.imports)
     .filter(Boolean)
-    .map((r) => `import ${r!.name} from '${removeExt(r!.path)}'`)
+    .map((r) => `import ${r!.name} from '${formatImport(r!.path, cwd)}'`)
     .join(EOL) || ''
 }
 

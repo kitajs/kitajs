@@ -9,26 +9,20 @@ function noop() {}
 export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()): KitaConfig {
   const cwd = config.cwd ?? root;
 
-  const source = config.source ? path.relative(cwd, config.source) : 'src';
-
-  if (!fs.existsSync(source)) {
-    throw new InvalidConfigError(`Source directory ${source} does not exist.`, config);
-  }
-
-  const tsconfig = config.tsconfig ?? 'tsconfig.json';
+  const tsconfig = path.resolve(cwd, config.tsconfig ?? 'tsconfig.json');
 
   if (!fs.existsSync(tsconfig)) {
     throw new InvalidConfigError(`Tsconfig file ${tsconfig} does not exist.`, config);
   }
 
-  const providerFolder = path.join(cwd, source, config.providerFolder ?? 'providers');
-  const routeFolder = path.join(cwd, source, config.routeFolder ?? 'routes');
+  const providerFolder = path.resolve(cwd, config.providerFolder ?? 'src/providers');
+  const routeFolder = path.resolve(cwd, config.routeFolder ?? 'src/routes');
 
   return {
     cwd,
-    source,
     tsconfig,
     providerFolder,
+    dist: config.dist ?? true,
     runtimePath: config.runtimePath,
     routeFolder,
     responses: config.responses ?? {},

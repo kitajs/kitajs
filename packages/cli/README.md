@@ -78,12 +78,14 @@ Builds up all your routes into @kitajs/runtime.
 
 ```
 USAGE
-  $ kita build [-c <value>] [-r <value>] [-d]
+  $ kita build [-c <value>] [-r <value>] [--debug] [-d] [-s]
 
 FLAGS
   -c, --config=<value>  Path to your config file
-  -d, --debug           Prints full resolved config
+  -d, --dist            Imports code from the dist folder (needs manual transpiling)
   -r, --root=<value>    Root directory of your project
+  -s, --source          Imports code from the source folder (needs tsx/ts-node registered)
+  --debug               Prints full resolved config
 
 DESCRIPTION
   Builds up all your routes into @kitajs/runtime.

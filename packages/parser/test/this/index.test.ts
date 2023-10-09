@@ -18,7 +18,7 @@ describe('This & Use usage', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {
@@ -37,7 +37,7 @@ describe('This & Use usage', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {

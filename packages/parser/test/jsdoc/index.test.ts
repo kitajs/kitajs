@@ -18,7 +18,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {
@@ -39,7 +39,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {
@@ -58,7 +58,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'put',
       method: 'DELETE',
       controllerName: 'IndexController',
-      controllerPath: 'routes/index.ts',
+      controllerPath: './routes/index.ts',
       kind: 'rest',
       parameters: [],
       schema: {

@@ -59,7 +59,7 @@ export class HtmlRouteParser implements RouteParser {
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,
       controllerName: controller,
-      controllerPath: path.relative(this.config.cwd, source.fileName),
+      controllerPath: './' + path.relative(this.config.cwd, source.fileName),
       parameters: [],
       schema: {
         operationId: method.toLowerCase() + controller.replace(/controller$/i, 'View'),
