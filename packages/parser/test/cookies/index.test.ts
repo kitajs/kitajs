@@ -29,7 +29,7 @@ describe('Cookies', async () => {
         { value: 'req.cookies.d', helper: "if (req.cookies.d === undefined) { throw new Error('Missing cookie d') };" }
       ],
       schema: {
-        response: { default: { type: 'string' } },
+        response: { ['2xx']: { type: 'string' } },
         operationId: 'getIndex'
       }
     });
@@ -52,7 +52,7 @@ describe('Cookies', async () => {
         { value: 'req.cookies.d', helper: undefined }
       ],
       schema: {
-        response: { default: { type: 'string' } },
+        response: { ['2xx']: { type: 'string' } },
         operationId: 'postIndex'
       }
     });

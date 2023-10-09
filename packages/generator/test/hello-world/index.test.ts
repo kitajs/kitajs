@@ -12,7 +12,6 @@ describe('Hello World', async () => {
     assert.ok(rt);
     assert.ok(rt.getIndex);
     assert.ok(rt.getIndexHandler);
-    assert.ok(rt.RouteSchemas);
   });
 
   test('methods are bound correctly', () => {

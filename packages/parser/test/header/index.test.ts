@@ -39,7 +39,7 @@ describe('Header Parameter', async () => {
             required: ['name', 'age'],
             additionalProperties: undefined
           },
-          response: { default: { type: 'string' } },
+          response: { ['2xx']: { type: 'string' } },
           operationId: 'getIndex'
         }
       }

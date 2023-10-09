@@ -28,7 +28,7 @@ describe('Cookies', async () => {
           required: ['name'],
           additionalProperties: undefined
         },
-        response: { default: { type: 'string' } },
+        response: { ['2xx']: { type: 'string' } },
         operationId: 'getName'
       }
     });
@@ -52,7 +52,7 @@ describe('Cookies', async () => {
           required: ['name'],
           additionalProperties: undefined
         },
-        response: { default: { type: 'string' } },
+        response: { ['2xx']: { type: 'string' } },
         operationId: 'postName'
       }
     });
@@ -77,7 +77,7 @@ describe('Cookies', async () => {
           required: ['num'],
           additionalProperties: undefined
         },
-        response: { default: { type: 'number' } },
+        response: { ['2xx']: { type: 'number' } },
         operationId: 'getNum'
       }
     });
@@ -101,7 +101,7 @@ describe('Cookies', async () => {
           required: ['num'],
           additionalProperties: undefined
         },
-        response: { default: { type: 'number' } },
+        response: { ['2xx']: { type: 'number' } },
         operationId: 'postNum'
       }
     });

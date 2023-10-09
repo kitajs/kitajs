@@ -23,7 +23,7 @@ describe('Body Parameter', async () => {
       parameters: [{ value: 'req.body' }],
       schema: {
         body: { $ref: 'Complex' },
-        response: { default: { type: 'number' } },
+        response: { ['2xx']: { type: 'number' } },
         operationId: 'postIndex'
       }
     });

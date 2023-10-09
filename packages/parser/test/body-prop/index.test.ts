@@ -31,7 +31,7 @@ describe('BodyProp Parameter', async () => {
       ],
       schema: {
         operationId: 'postIndex',
-        response: { default: { $ref: 'postIndexResponse' } },
+        response: { ['2xx']: { $ref: 'postIndexResponse' } },
         body: {
           type: 'object',
           properties: {

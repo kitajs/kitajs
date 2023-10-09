@@ -24,7 +24,7 @@ describe('Cookies', async () => {
       schema: {
         operationId: 'getIndexView',
         hide: true,
-        response: { default: { type: 'string' } }
+        response: { [200]: { type: 'string' } }
       },
       imports: [{ name: '{ renderToStream }', path: '@kitajs/html/suspense' }],
       customReturn:
@@ -46,7 +46,7 @@ describe('Cookies', async () => {
       schema: {
         operationId: 'postIndexView',
         hide: true,
-        response: { default: { type: 'string' } }
+        response: { [200]: { type: 'string' } }
       },
       customReturn: "reply.type('text/html; charset=utf-8'); return IndexController.post.call(undefined)"
     });
@@ -66,7 +66,7 @@ describe('Cookies', async () => {
       schema: {
         operationId: 'putIndexView',
         hide: true,
-        response: { default: { type: 'string' } }
+        response: { [200]: { type: 'string' } }
       },
       customReturn: "reply.type('text/html; charset=utf-8'); return IndexController.put.call(undefined)"
     });

@@ -33,7 +33,7 @@ describe('Query Parameter', async () => {
           required: ['name', 'age', 'custom name'],
           type: 'object'
         },
-        response: { default: { type: 'string' } }
+        response: { ['2xx']: { type: 'string' } }
       }
     });
   });
@@ -52,7 +52,7 @@ describe('Query Parameter', async () => {
       schema: {
         operationId: 'getComplex',
         querystring: { $ref: 'Complex' },
-        response: { default: { type: 'number' } }
+        response: { ['2xx']: { type: 'number' } }
       }
     });
 

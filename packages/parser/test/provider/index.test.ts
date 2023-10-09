@@ -19,7 +19,7 @@ describe('Providers', async () => {
       method: 'GET',
       controllerName: 'IndexController',
       controllerPath: './routes/index.ts',
-      schema: { response: { default: { type: 'number', const: 1 } }, operationId: 'getIndex' },
+      schema: { response: { ['2xx']: { type: 'number', const: 1 } }, operationId: 'getIndex' },
       kind: 'rest',
       parameters: [
         {

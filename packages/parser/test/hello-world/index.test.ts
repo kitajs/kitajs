@@ -28,7 +28,7 @@ describe('Hello World', async () => {
           required: [],
           additionalProperties: undefined
         },
-        response: { default: { type: 'string' } },
+        response: { ['2xx']: { type: 'string' } },
         operationId: 'getIndex',
         description: 'Hello world API endpoint.'
       }

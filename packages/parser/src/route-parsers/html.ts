@@ -64,7 +64,7 @@ export class HtmlRouteParser implements RouteParser {
       schema: {
         operationId: method.toLowerCase() + controller.replace(/controller$/i, 'View'),
         hide: true,
-        response: { default: { type: 'string' } }
+        response: { [200 as number]: { type: 'string' } }
       }
     };
 
