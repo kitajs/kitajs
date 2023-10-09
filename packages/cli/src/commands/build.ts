@@ -10,22 +10,43 @@ import { inspect } from 'util';
 import { formatDiagnostic } from '../util/diagnostics';
 
 export default class Build extends Command {
-  static override description = 'Builds up all your routes into @kitajs/runtime.';
+  static override description = 'Analyses your backend searching for routes and bakes it into the runtime.';
 
-  static override examples = [`<%= config.bin %> <%= command.id %>`];
+  static override examples = [
+    {
+      command: `<%= config.bin %> <%= command.id %> -s -c kita.config.js`,
+      description: 'Builds your backend to be used with tsx, ts-node or swc and uses a custom config file.'
+    },
+    {
+      command: `<%= config.bin %> <%= command.id %> -d -r packages/server`,
+      description: 'Builds your backend to be used with transpiled javascript code and uses a custom root directory.'
+    }
+  ];
 
   static override flags = {
-    config: Flags.string({ char: 'c', description: 'Path to your config file' }),
-    root: Flags.string({ char: 'r', description: 'Root directory of your project' }),
-    debug: Flags.boolean({ description: 'Prints full resolved config' }),
     dist: Flags.boolean({
       char: 'd',
-      description: 'Imports code from the dist folder (needs manual transpiling)',
-      default: true
+      description: 'Uses transpiled javascript code. {KitaConfig#dist=true}',
+      default: true,
+      exclusive: ['source']
     }),
     source: Flags.boolean({
       char: 's',
-      description: 'Imports code from the source folder (needs tsx/ts-node registered)',
+      description: 'Uses source typescript code. Needs tsx/ts-node registered. {KitaConfig#dist=false}',
+      default: false,
+      exclusive: ['dist']
+    }),
+    config: Flags.string({
+      char: 'c',
+      description: 'Path to your kita.config.js file, if any.'
+    }),
+    root: Flags.string({
+      char: 'r',
+      description: 'Custom root directory for your project. {KitaConfig#cwd}'
+    }),
+    print: Flags.boolean({
+      name: 'print-config',
+      description: 'Prints full resolved config',
       default: false
     })
   };
@@ -35,7 +56,7 @@ export default class Build extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(Build);
 
-    this.log(chalk.yellow`Thanks for using Kita! 🎉`);
+    this.log(chalk.yellow`Thanks for using Kita! 🎉\n`);
 
     try {
       let readConfig: KitaConfig | undefined;
@@ -68,9 +89,7 @@ export default class Build extends Command {
       const config = parseConfig(readConfig, flags.root);
 
       // Overrides dist and source flags
-      if (flags.dist && flags.source) {
-        this.error(`Cannot use both --dist and --source`);
-      } else if (flags.dist) {
+      if (flags.dist) {
         config.dist = true;
       } else if (flags.source) {
         config.dist = false;
@@ -78,7 +97,7 @@ export default class Build extends Command {
 
       const compilerOptions = readCompilerOptions(config.tsconfig);
 
-      if (flags.debug) {
+      if (flags.print) {
         this.log(inspect({ config, compilerOptions }, { colors: !flags.noColor, depth: 10 }));
       }
 
@@ -103,7 +122,10 @@ export default class Build extends Command {
         ux.action.status = schema.title;
       };
 
-      ux.action.start('Starting build', 'initializing', { stdout: true, style: 'clock' });
+      ux.action.start('Starting build', 'initializing', {
+        stdout: true,
+        style: 'clock'
+      });
 
       let diagnostics = [];
 
@@ -131,7 +153,10 @@ export default class Build extends Command {
 
       await formatter.generate(routes, schemas);
 
-      ux.action.start('Writing files', 'transpiling', { stdout: true, style: 'clock' });
+      ux.action.start('Writing files', 'transpiling', {
+        stdout: true,
+        style: 'clock'
+      });
 
       await formatter.flush();
 

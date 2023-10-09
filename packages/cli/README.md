@@ -74,24 +74,30 @@ _See code:
 
 ## `kita build`
 
-Builds up all your routes into @kitajs/runtime.
+Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita build [-c <value>] [-r <value>] [--debug] [-d] [-s]
+  $ kita build [-d | -s] [-c <value>] [-r <value>] [--print]
 
 FLAGS
-  -c, --config=<value>  Path to your config file
-  -d, --dist            Imports code from the dist folder (needs manual transpiling)
-  -r, --root=<value>    Root directory of your project
-  -s, --source          Imports code from the source folder (needs tsx/ts-node registered)
-  --debug               Prints full resolved config
+  -c, --config=<value>  Path to your kita.config.js file, if any.
+  -d, --dist            Uses transpiled javascript code. {KitaConfig#dist=true}
+  -r, --root=<value>    Custom root directory for your project. {KitaConfig#cwd}
+  -s, --source          Uses source typescript code. Needs tsx/ts-node registered. {KitaConfig#dist=false}
+  --print               Prints full resolved config
 
 DESCRIPTION
-  Builds up all your routes into @kitajs/runtime.
+  Analyses your backend searching for routes and bakes it into the runtime.
 
 EXAMPLES
-  $ kita build
+  Builds your backend to be used with tsx, ts-node or swc and uses a custom config file.
+
+    $ kita build -s -c kita.config.js
+
+  Builds your backend to be used with transpiled javascript code and uses a custom root directory.
+
+    $ kita build -d -r packages/server
 ```
 
 ## `kita help [COMMANDS]`
@@ -123,7 +129,7 @@ USAGE
   $ kita init [-r <value>]
 
 FLAGS
-  -r, --root=<value>  Root directory of your project
+  -r, --root=<value>  Custom root directory for your project.
 
 DESCRIPTION
   Creates a basic kita.config.js

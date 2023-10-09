@@ -3,12 +3,37 @@
     "build": {
       "aliases": [],
       "args": {},
-      "description": "Builds up all your routes into @kitajs/runtime.",
-      "examples": ["<%= config.bin %> <%= command.id %>"],
+      "description": "Analyses your backend searching for routes and bakes it into the runtime.",
+      "examples": [
+        {
+          "command": "<%= config.bin %> <%= command.id %> -s -c kita.config.js",
+          "description": "Builds your backend to be used with tsx, ts-node or swc and uses a custom config file."
+        },
+        {
+          "command": "<%= config.bin %> <%= command.id %> -d -r packages/server",
+          "description": "Builds your backend to be used with transpiled javascript code and uses a custom root directory."
+        }
+      ],
       "flags": {
+        "dist": {
+          "char": "d",
+          "description": "Uses transpiled javascript code. {KitaConfig#dist=true}",
+          "exclusive": ["source"],
+          "name": "dist",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "source": {
+          "char": "s",
+          "description": "Uses source typescript code. Needs tsx/ts-node registered. {KitaConfig#dist=false}",
+          "exclusive": ["dist"],
+          "name": "source",
+          "allowNo": false,
+          "type": "boolean"
+        },
         "config": {
           "char": "c",
-          "description": "Path to your config file",
+          "description": "Path to your kita.config.js file, if any.",
           "name": "config",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -16,29 +41,15 @@
         },
         "root": {
           "char": "r",
-          "description": "Root directory of your project",
+          "description": "Custom root directory for your project. {KitaConfig#cwd}",
           "name": "root",
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
         },
-        "debug": {
+        "print": {
           "description": "Prints full resolved config",
-          "name": "debug",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "dist": {
-          "char": "d",
-          "description": "Imports code from the dist folder (needs manual transpiling)",
-          "name": "dist",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "source": {
-          "char": "s",
-          "description": "Imports code from the source folder (needs tsx/ts-node registered)",
-          "name": "source",
+          "name": "print",
           "allowNo": false,
           "type": "boolean"
         }
@@ -61,7 +72,7 @@
       "flags": {
         "root": {
           "char": "r",
-          "description": "Root directory of your project",
+          "description": "Custom root directory for your project.",
           "name": "root",
           "hasDynamicHelp": false,
           "multiple": false,

@@ -9,7 +9,10 @@ export default class Init extends Command {
   static override examples = [`<%= config.bin %> <%= command.id %>`];
 
   static override flags = {
-    root: Flags.string({ char: 'r', description: 'Root directory of your project' })
+    root: Flags.string({
+      char: 'r',
+      description: 'Custom root directory for your project.'
+    })
   };
 
   static override args = {};
@@ -17,7 +20,7 @@ export default class Init extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(Init);
 
-    this.log(chalk.yellow`Thanks for using Kita! 🎉`);
+    this.log(chalk.yellow`Thanks for using Kita! 🎉\n`);
 
     const root = flags.root || process.cwd();
     const configPath = path.resolve(root, 'kita.config.js');
@@ -25,8 +28,7 @@ export default class Init extends Command {
     const exists = await fs.stat(configPath).catch(() => false);
 
     if (exists) {
-      this.logToStderr(chalk.red`Config file already exists: ${path.relative(root, configPath)}`);
-      this.exit(2);
+      this.error(chalk.red`File already exists: ${path.relative(process.cwd(), configPath)}`);
     }
 
     ux.action.start('Creating config file');
@@ -34,18 +36,18 @@ export default class Init extends Command {
     await fs.writeFile(configPath, defaultConfig);
 
     ux.action.stop(chalk.green`Created!`);
+
+    this.warn(chalk.yellow`Using a external config file is not recommended and you should stick to defaults!`);
   }
 }
 
 const defaultConfig = /* ts */ `
 
-// Default kitajs config.
-// https://kita.js.org/
+// Documentation: https://kita.js.org/
 
 /** @type {import('@kitajs/common').KitaConfig} */
 module.exports = {
-  tsconfig: require.resolve('./tsconfig.json'),
-  cwd: __dirname
+  /* You are fine with the defaults, feel free to delete this config file. */
 };
 
 `.trim();
