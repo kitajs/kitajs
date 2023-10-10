@@ -1,4 +1,4 @@
-name: Main Flow
+name: Release Flow
 
 on:
   push:
@@ -10,13 +10,8 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    name: Main flow ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
+  release:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -34,7 +29,7 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
-      - name: Link kita binary
+      - name: Setup kita binary
         run: pnpm link .
         working-directory: packages/cli
 
@@ -45,8 +40,6 @@ jobs:
         run: pnpm test
 
       - name: Create Release Pull Request or Publish
-        # only in ubuntu
-        if: matrix.os == 'ubuntu-latest'
         id: changesets
         uses: changesets/action@v1
         with:
@@ -60,9 +53,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
