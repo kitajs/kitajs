@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('Hello World', async () => {
@@ -19,7 +20,7 @@ describe('Hello World', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [{ value: 'req.query.name' }],
       schema: {
         querystring: {
