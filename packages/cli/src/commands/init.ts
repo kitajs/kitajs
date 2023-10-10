@@ -23,12 +23,12 @@ export default class Init extends Command {
     this.log(chalk.yellow`Thanks for using Kita! 🎉\n`);
 
     const root = flags.root || process.cwd();
-    const configPath = path.posix.resolve(root, 'kita.config.js');
+    const configPath = path.resolve(root, 'kita.config.js');
 
     const exists = await fs.stat(configPath).catch(() => false);
 
     if (exists) {
-      this.error(chalk.red`File already exists: ${path.posix.relative(process.cwd(), configPath)}`);
+      this.error(chalk.red`File already exists: ${path.relative(process.cwd(), configPath)}`);
     }
 
     ux.action.start('Creating config file');

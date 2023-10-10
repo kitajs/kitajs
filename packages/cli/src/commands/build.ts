@@ -57,7 +57,7 @@ export default class Build extends Command {
 
       if (flags.config) {
         if (flags.root) {
-          flags.config = path.posix.resolve(flags.root, flags.config);
+          flags.config = path.resolve(flags.root, flags.config);
         }
 
         const exists = await fs.stat(flags.config).catch(() => false);

@@ -35,7 +35,7 @@ export interface Route {
   parameters: Parameter[];
 
   /**
-   * The controller http path.posix.
+   * The controller http path.
    *
    * @example `/users/create`
    */

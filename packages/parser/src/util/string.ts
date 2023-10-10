@@ -5,7 +5,7 @@ export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
   let strip = filepath;
 
   // Strips any possible regex that the user might have added
-  strip = path.posix.relative(config.routeFolder, filepath);
+  strip = path.relative(config.routeFolder, filepath);
 
   // Keeps everything before first . (removes extensions like .test.ts or .js)
   strip = strip.split('.')[0]!;

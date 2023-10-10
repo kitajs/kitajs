@@ -11,18 +11,16 @@ export class KitaWriter implements SourceWriter {
     private compilerOptions: ts.CompilerOptions,
     private config: KitaConfig
   ) {
-    this.userDirPath = this.config.dist
-      ? path.posix.resolve(this.config.cwd, this.compilerOptions.outDir || 'dist')
-      : false;
+    this.userDirPath = this.config.dist ? path.resolve(this.config.cwd, this.compilerOptions.outDir || 'dist') : false;
 
     // Copies the compiler options
     this.compilerOptions = Object.assign({}, this.compilerOptions);
 
     // Finds the correct runtime directory
     if (this.config.runtimePath) {
-      this.compilerOptions.outDir = path.posix.resolve(this.config.runtimePath);
+      this.compilerOptions.outDir = path.resolve(this.config.runtimePath);
     } else {
-      this.compilerOptions.outDir = path.posix.dirname(require.resolve('@kitajs/runtime/generated'));
+      this.compilerOptions.outDir = path.dirname(require.resolve('@kitajs/runtime/generated'));
     }
 
     // TODO: Figure out esm

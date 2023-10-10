@@ -57,7 +57,7 @@ export class NoProviderExportedError extends KitaError {
     super({
       code: 305,
       messageText:
-        'No default function exported at this path.posix. You must export a default function on every file matching the provider glob.',
+        'No default function exported at this path. You must export a default function on every file matching the provider glob.',
       node
     });
   }

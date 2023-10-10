@@ -12,7 +12,7 @@ export function readCompilerOptions(tsconfigPath: string) {
   const { options, errors } = ts.parseJsonConfigFileContent(
     config,
     ts.sys,
-    path.posix.dirname(tsconfigPath),
+    path.dirname(tsconfigPath),
     undefined,
     tsconfigPath
   );
