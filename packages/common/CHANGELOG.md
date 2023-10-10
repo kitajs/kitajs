@@ -1,5 +1,11 @@
 # @kitajs/common
 
+## 1.1.3
+
+### Patch Changes
+
+- f236d9f: Test deployments
+
 ## 1.1.2
 
 ### Patch Changes
