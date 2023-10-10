@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "c8 --reporter lcov --reporter text node --trace-warnings --require tsx/cjs --test test/**/*.test.ts && tsc --noEmit"
+    "test": "c8 --reporter lcov --reporter text node --trace-warnings --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
   },
   "dependencies": {
     "@kitajs/common": "workspace:^",
@@ -28,8 +28,7 @@
     "fastify": "^4.23.2",
     "fastify-plugin": "^4.5.1",
     "ts-json-schema-generator": "^1.3.0",
-    "tsc-alias": "^1.8.8",
-    "tsx": "^3.13.0"
+    "tsc-alias": "^1.8.8"
   },
   "peerDependencies": {
     "typescript": "~5.1.6"
