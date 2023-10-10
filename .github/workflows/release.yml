@@ -17,6 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # https://github.com/actions/checkout/issues/1471
       - name: Fetch tags
         run: git fetch --prune --unshallow --tags
 
