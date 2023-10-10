@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  typescript: ^5.2.2
+  typescript: ~5.1.6
 
 importers:
 
@@ -13,7 +13,7 @@ importers:
     devDependencies:
       '@arthurfiorette/prettier-config':
         specifier: ^1.0.11
-        version: 1.0.11(prettier@3.0.3)(typescript@5.2.2)
+        version: 1.0.11(prettier@3.0.3)(typescript@5.1.6)
       '@changesets/cli':
         specifier: ^2.26.2
         version: 2.26.2
@@ -27,8 +27,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ~5.1.6
+        version: 5.1.6
 
   packages/cli:
     dependencies:
@@ -46,16 +46,16 @@ importers:
         version: 3.0.4
       '@oclif/plugin-autocomplete':
         specifier: ^2.3.9
-        version: 2.3.9(@types/node@20.8.4)(typescript@5.2.2)
+        version: 2.3.9(@types/node@20.8.4)(typescript@5.1.6)
       '@oclif/plugin-help':
         specifier: ^5.2.20
-        version: 5.2.20(@types/node@20.8.4)(typescript@5.2.2)
+        version: 5.2.20(@types/node@20.8.4)(typescript@5.1.6)
       '@oclif/plugin-not-found':
         specifier: ^2.4.3
-        version: 2.4.3(@types/node@20.8.4)(typescript@5.2.2)
+        version: 2.4.3(@types/node@20.8.4)(typescript@5.1.6)
       '@oclif/plugin-warn-if-update-available':
         specifier: ^2.1.1
-        version: 2.1.1(@types/node@20.8.4)(typescript@5.2.2)
+        version: 2.1.1(@types/node@20.8.4)(typescript@5.1.6)
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
@@ -68,13 +68,13 @@ importers:
         version: 20.8.4
       oclif:
         specifier: ^4.0.0
-        version: 4.0.0(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.2.2)
+        version: 4.0.0(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6)
       tsx:
         specifier: ^3.13.0
         version: 3.13.0
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ~5.1.6
+        version: 5.1.6
 
   packages/common:
     dependencies:
@@ -94,8 +94,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ~5.1.6
+        version: 5.1.6
     devDependencies:
       '@types/node':
         specifier: ^20.5.0
@@ -147,8 +147,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ~5.1.6
+        version: 5.1.6
     devDependencies:
       '@kitajs/parser':
         specifier: workspace:^
@@ -196,8 +196,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ~5.1.6
+        version: 5.1.6
     devDependencies:
       '@kitajs/html':
         specifier: ^3.0.2
@@ -248,8 +248,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ~5.1.6
+        version: 5.1.6
     devDependencies:
       '@types/deasync':
         specifier: ^0.1.3
@@ -268,7 +268,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@arthurfiorette/prettier-config@1.0.11(prettier@3.0.3)(typescript@5.2.2):
+  /@arthurfiorette/prettier-config@1.0.11(prettier@3.0.3)(typescript@5.1.6):
     resolution: {integrity: sha512-GyLSQopqd/0HY7SmZX/LrXmNZQGeAHBiIoewR81RLrnAInSXl2HLuhh+GxBj10MFoH+46kYytbYT0Z6Y+sOOfw==}
     hasBin: true
     peerDependencies:
@@ -276,7 +276,7 @@ packages:
     dependencies:
       prettier: 3.0.3
       prettier-plugin-jsdoc: 1.0.2(prettier@3.0.3)
-      prettier-plugin-organize-imports: 3.2.2(prettier@3.0.3)(typescript@5.2.2)
+      prettier-plugin-organize-imports: 3.2.2(prettier@3.0.3)(typescript@5.1.6)
       prettier-plugin-packagejson: 2.4.2(prettier@3.0.3)
     transitivePeerDependencies:
       - '@volar/vue-language-plugin-pug'
@@ -879,21 +879,21 @@ packages:
     peerDependencies:
       '@kitajs/ts-html-plugin': '>=1.1'
     dependencies:
-      '@kitajs/ts-html-plugin': 1.3.0(@kitajs/html@3.0.2)(typescript@5.2.2)
+      '@kitajs/ts-html-plugin': 1.3.0(@kitajs/html@3.0.2)(typescript@5.1.6)
       csstype: 3.1.2
     dev: true
 
-  /@kitajs/ts-html-plugin@1.3.0(@kitajs/html@3.0.2)(typescript@5.2.2):
+  /@kitajs/ts-html-plugin@1.3.0(@kitajs/html@3.0.2)(typescript@5.1.6):
     resolution: {integrity: sha512-1zrx+bNtP6Sh/mDklnkGuGcPF2hjJpiR7pwWm7HormmMHYvk8zUFQnAA0XWqrVwWW9g/q+WGxqHRPxxEprbooA==}
     hasBin: true
     peerDependencies:
       '@kitajs/html': '>=3'
-      typescript: ^5.2.2
+      typescript: ~5.1.6
     dependencies:
       '@kitajs/html': 3.0.2(@kitajs/ts-html-plugin@1.3.0)
       chalk: 4.1.2
       tslib: 2.6.2
-      typescript: 5.2.2
+      typescript: 5.1.6
       yargs: 17.7.2
     dev: true
 
@@ -1151,7 +1151,7 @@ packages:
       - supports-color
     dev: true
 
-  /@oclif/core@2.15.0(@types/node@20.8.4)(typescript@5.2.2):
+  /@oclif/core@2.15.0(@types/node@20.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-fNEMG5DzJHhYmI3MgpByTvltBOMyFcnRIUMxbiz2ai8rhaYgaTHMG3Q38HcosfIvtw9nCjxpcQtC8MN8QtVCcA==}
     engines: {node: '>=14.0.0'}
     dependencies:
@@ -1178,7 +1178,7 @@ packages:
       strip-ansi: 6.0.1
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
-      ts-node: 10.9.1(@types/node@20.8.4)(typescript@5.2.2)
+      ts-node: 10.9.1(@types/node@20.8.4)(typescript@5.1.6)
       tslib: 2.6.2
       widest-line: 3.1.0
       wordwrap: 1.0.0
@@ -1219,11 +1219,11 @@ packages:
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
 
-  /@oclif/plugin-autocomplete@2.3.9(@types/node@20.8.4)(typescript@5.2.2):
+  /@oclif/plugin-autocomplete@2.3.9(@types/node@20.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-MLmJtyp2iVnihDaogMDy+U323wI5vlV2raHOHKfe6mwzq6ObowimiOXnT9l2a0HELGHI0Fmd1tKeCgPrJE152A==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@types/node@20.8.4)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@types/node@20.8.4)(typescript@5.1.6)
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
     transitivePeerDependencies:
@@ -1234,22 +1234,22 @@ packages:
       - typescript
     dev: false
 
-  /@oclif/plugin-help@5.2.20(@types/node@20.8.4)(typescript@5.2.2):
+  /@oclif/plugin-help@5.2.20(@types/node@20.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-u+GXX/KAGL9S10LxAwNUaWdzbEBARJ92ogmM7g3gDVud2HioCmvWQCDohNRVZ9GYV9oKwZ/M8xwd6a1d95rEKQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@types/node@20.8.4)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@types/node@20.8.4)(typescript@5.1.6)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
       - '@types/node'
       - typescript
 
-  /@oclif/plugin-not-found@2.4.3(@types/node@20.8.4)(typescript@5.2.2):
+  /@oclif/plugin-not-found@2.4.3(@types/node@20.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-nIyaR4y692frwh7wIHZ3fb+2L6XEecQwRDIb4zbEam0TvaVmBQWZoColQyWA84ljFBPZ8XWiQyTz+ixSwdRkqg==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@types/node@20.8.4)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@types/node@20.8.4)(typescript@5.1.6)
       chalk: 4.1.2
       fast-levenshtein: 3.0.0
     transitivePeerDependencies:
@@ -1258,11 +1258,11 @@ packages:
       - '@types/node'
       - typescript
 
-  /@oclif/plugin-warn-if-update-available@2.1.1(@types/node@20.8.4)(typescript@5.2.2):
+  /@oclif/plugin-warn-if-update-available@2.1.1(@types/node@20.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-y7eSzT6R5bmTIJbiMMXgOlbBpcWXGlVhNeQJBLBCCy1+90Wbjyqf6uvY0i2WcO4sh/THTJ20qCW80j3XUlgDTA==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@types/node@20.8.4)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@types/node@20.8.4)(typescript@5.1.6)
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
@@ -1613,7 +1613,7 @@ packages:
     engines: {node: ^16.0.0 || >=18.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree@6.7.4(typescript@5.2.2):
+  /@typescript-eslint/typescript-estree@6.7.4(typescript@5.1.6):
     resolution: {integrity: sha512-ty8b5qHKatlNYd9vmpHooQz3Vki3gG+3PchmtsA4TgrZBKWHNjWfkQid7K7xQogBqqc7/BhGazxMD5vr6Ha+iQ==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -1628,13 +1628,13 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.4
-      ts-api-utils: 1.0.3(typescript@5.2.2)
-      typescript: 5.2.2
+      ts-api-utils: 1.0.3(typescript@5.1.6)
+      typescript: 5.1.6
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils@6.7.4(eslint@8.51.0)(typescript@5.2.2):
+  /@typescript-eslint/utils@6.7.4(eslint@8.51.0)(typescript@5.1.6):
     resolution: {integrity: sha512-PRQAs+HUn85Qdk+khAxsVV+oULy3VkbH3hQ8hxLRJXWBEd7iI+GbQxH5SEUSH7kbEoTp6oT1bOwyga24ELALTA==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -1645,7 +1645,7 @@ packages:
       '@types/semver': 7.5.3
       '@typescript-eslint/scope-manager': 6.7.4
       '@typescript-eslint/types': 6.7.4
-      '@typescript-eslint/typescript-estree': 6.7.4(typescript@5.2.2)
+      '@typescript-eslint/typescript-estree': 6.7.4(typescript@5.1.6)
       eslint: 8.51.0
       semver: 7.5.4
     transitivePeerDependencies:
@@ -2838,7 +2838,7 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  /eslint-plugin-perfectionist@2.1.0(eslint@8.51.0)(typescript@5.2.2):
+  /eslint-plugin-perfectionist@2.1.0(eslint@8.51.0)(typescript@5.1.6):
     resolution: {integrity: sha512-KVA7H6J/qfmZH/WopNKFgYbKoX+ozKAOIeQvo/+jibn6k9e71Et+giIHEHrMICZ043CeGpRKrCRRhlmD7pjeRg==}
     peerDependencies:
       astro-eslint-parser: ^0.14.0
@@ -2856,7 +2856,7 @@ packages:
       vue-eslint-parser:
         optional: true
     dependencies:
-      '@typescript-eslint/utils': 6.7.4(eslint@8.51.0)(typescript@5.2.2)
+      '@typescript-eslint/utils': 6.7.4(eslint@8.51.0)(typescript@5.1.6)
       eslint: 8.51.0
       minimatch: 9.0.3
       natural-compare-lite: 1.4.0
@@ -5163,21 +5163,21 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.0.0(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.2.2):
+  /oclif@4.0.0(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6):
     resolution: {integrity: sha512-ZGJBNibk+tIf6+PMDoGteBE1i/bMNgIlm36/PnZNBXVIVrRZIkCsvaPgtrmti2rCf2E92OFKqmWyD2TMsLFB3g==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
       '@oclif/core': 3.0.4
-      '@oclif/plugin-help': 5.2.20(@types/node@20.8.4)(typescript@5.2.2)
-      '@oclif/plugin-not-found': 2.4.3(@types/node@20.8.4)(typescript@5.2.2)
-      '@oclif/plugin-warn-if-update-available': 2.1.1(@types/node@20.8.4)(typescript@5.2.2)
+      '@oclif/plugin-help': 5.2.20(@types/node@20.8.4)(typescript@5.1.6)
+      '@oclif/plugin-not-found': 2.4.3(@types/node@20.8.4)(typescript@5.1.6)
+      '@oclif/plugin-warn-if-update-available': 2.1.1(@types/node@20.8.4)(typescript@5.1.6)
       async-retry: 1.3.3
       aws-sdk: 2.1472.0
       change-case: 4.1.2
       concurrently: 7.6.0
       debug: 4.3.4(supports-color@8.1.1)
-      eslint-plugin-perfectionist: 2.1.0(eslint@8.51.0)(typescript@5.2.2)
+      eslint-plugin-perfectionist: 2.1.0(eslint@8.51.0)(typescript@5.1.6)
       find-yarn-workspace-root: 2.0.0
       fs-extra: 8.1.0
       github-slugger: 1.5.0
@@ -5586,13 +5586,13 @@ packages:
       - supports-color
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.2(prettier@3.0.3)(typescript@5.2.2):
+  /prettier-plugin-organize-imports@3.2.2(prettier@3.0.3)(typescript@5.1.6):
     resolution: {integrity: sha512-e97lE6odGSiHonHJMTYC0q0iLXQyw0u5z/PJpvP/3vRy6/Zi9kLBwFAbEGjDzIowpjQv8b+J04PDamoUSQbzGA==}
     peerDependencies:
       '@volar/vue-language-plugin-pug': ^1.0.4
       '@volar/vue-typescript': ^1.0.4
       prettier: '>=2.0'
-      typescript: ^5.2.2
+      typescript: ~5.1.6
     peerDependenciesMeta:
       '@volar/vue-language-plugin-pug':
         optional: true
@@ -5600,7 +5600,7 @@ packages:
         optional: true
     dependencies:
       prettier: 3.0.3
-      typescript: 5.2.2
+      typescript: 5.1.6
     dev: true
 
   /prettier-plugin-packagejson@2.4.2(prettier@3.0.3):
@@ -6543,13 +6543,13 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-api-utils@1.0.3(typescript@5.2.2):
+  /ts-api-utils@1.0.3(typescript@5.1.6):
     resolution: {integrity: sha512-wNMeqtMz5NtwpT/UZGY5alT+VoKdSsOOP/kqHFcUW1P/VRhH2wJ48+DN2WwUliNbQ976ETwDL0Ifd2VVvgonvg==}
     engines: {node: '>=16.13.0'}
     peerDependencies:
-      typescript: ^5.2.2
+      typescript: ~5.1.6
     dependencies:
-      typescript: 5.2.2
+      typescript: 5.1.6
     dev: true
 
   /ts-json-schema-generator@1.3.0:
@@ -6563,16 +6563,16 @@ packages:
       json5: 2.2.3
       normalize-path: 3.0.0
       safe-stable-stringify: 2.4.3
-      typescript: 5.2.2
+      typescript: 5.1.6
 
-  /ts-node@10.9.1(@types/node@20.8.4)(typescript@5.2.2):
+  /ts-node@10.9.1(@types/node@20.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
       '@swc/wasm': '>=1.2.50'
       '@types/node': '*'
-      typescript: ^5.2.2
+      typescript: ~5.1.6
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -6591,7 +6591,7 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.2.2
+      typescript: 5.1.6
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
@@ -6694,8 +6694,8 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typescript@5.2.2:
-    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
+  /typescript@5.1.6:
+    resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
     engines: {node: '>=14.17'}
     hasBin: true
 

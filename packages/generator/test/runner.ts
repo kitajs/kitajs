@@ -46,9 +46,5 @@ export function createApp<R>(runtime: R, opts?: Parameters<typeof fastify>[0]) {
 
   app.register((runtime as any).Kita);
 
-  // @ts-expect-error
-  app[Symbol.asyncDispose] = app.close.bind(app);
-
-  // @ts-expect-error https://github.com/fastify/fastify/pull/5082
-  return app as FastifyInstance & { [Symbol.asyncDispose](): Promise<void> };
+  return app as FastifyInstance;
 }
