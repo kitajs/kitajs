@@ -1,5 +1,13 @@
 # @kitajs/generator
 
+## 1.1.1
+
+### Patch Changes
+
+- 9e47783: Added package descriptions
+- Updated dependencies [9e47783]
+  - @kitajs/common@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

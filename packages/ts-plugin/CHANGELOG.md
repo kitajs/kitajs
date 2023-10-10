@@ -1,5 +1,15 @@
 # @kitajs/ts-plugin
 
+## 1.1.1
+
+### Patch Changes
+
+- 9e47783: Added package descriptions
+- Updated dependencies [9e47783]
+- Updated dependencies [7dd662f]
+  - @kitajs/common@1.1.1
+  - @kitajs/parser@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

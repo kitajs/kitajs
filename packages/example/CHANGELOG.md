@@ -1,5 +1,13 @@
 # @kitajs/example
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [d907a69]
+- Updated dependencies [9e47783]
+  - @kitajs/runtime@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
