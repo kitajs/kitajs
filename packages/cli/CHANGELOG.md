@@ -1,5 +1,13 @@
 # @kitajs/cli
 
+## 1.1.3
+
+### Patch Changes
+
+- 5f7d910: Fixed tsc version
+- Updated dependencies [9e3fd78]
+  - @kitajs/generator@1.1.3
+
 ## 1.1.2
 
 ### Patch Changes
