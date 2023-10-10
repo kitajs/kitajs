@@ -60,6 +60,8 @@ export class KitaWriter implements SourceWriter {
   }
 
   async flush() {
+    console.log(this.files);
+
     const host = ts.createCompilerHost(this.compilerOptions, false);
 
     // Reads the file from memory
