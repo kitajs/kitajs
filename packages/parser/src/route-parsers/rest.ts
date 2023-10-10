@@ -5,6 +5,7 @@ import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportedFunction } from '../util/nodes';
+import { cwdRelative } from '../util/paths';
 import { findUrlAndControllerName } from '../util/string';
 import { traverseParameters } from '../util/traverser';
 
@@ -47,7 +48,7 @@ export class RestRouteParser implements RouteParser {
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,
       controllerName: controller,
-      controllerPath: './' + path.relative(this.config.cwd, source.fileName),
+      controllerPath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],
       schema: {
         operationId: method.toLowerCase() + controller.replace(/controller$/i, ''),

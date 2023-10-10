@@ -72,9 +72,9 @@ export class KitaWriter implements SourceWriter {
     // paths inside .js files
     host.writeFile = (filename, content) => {
       // Change javascript code to import from the correct location
-      if (this.userDirPath && filename.endsWith('.js')) {
+      if (this.userDirPath && filename.startsWith(this.userDirPath) && filename.endsWith('.js')) {
         // TODO: Add support for other entry folders than src, like `lib` or `source`
-        content = content.replaceAll(`require("${this.config.cwd}/src`, `require("${this.userDirPath}`);
+        content = content.replaceAll(`require("${path.join(this.config.cwd, 'src')}`, `require("${this.userDirPath}`);
       }
 
       return ts.sys.writeFile(filename, content);
@@ -83,6 +83,7 @@ export class KitaWriter implements SourceWriter {
     // Creates the program and emits the files
     const program = ts.createProgram(Array.from(this.files.keys()), this.compilerOptions, host);
 
+    // TODO: Only call diagnostics if needed
     const diagnostics = [
       program.emit().diagnostics,
       program.getGlobalDiagnostics(),

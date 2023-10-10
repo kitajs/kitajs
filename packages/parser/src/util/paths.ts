@@ -20,3 +20,12 @@ export function walk(dir: string): string[] {
     throw e;
   }
 }
+
+/**
+ * Makes the given path relative to the current working directory (`./`).
+ *
+ * Posix: `./<dir>`, in windows: `.\\<dir>`
+ */
+export function cwdRelative(p: string) {
+  return path.join('./') + path.normalize(p);
+}

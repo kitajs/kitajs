@@ -11,6 +11,7 @@ import path from 'path';
 import type { Promisable } from 'type-fest';
 import ts from 'typescript';
 import { getTypeName, hasName, isDefaultExportFunction, isExportedFunction, unwrapPromiseType } from '../util/nodes';
+import { cwdRelative } from '../util/paths';
 import { traverseParameters } from '../util/traverser';
 
 export class DefaultProviderParser implements ProviderParser {
@@ -58,7 +59,7 @@ export class DefaultProviderParser implements ProviderParser {
     return {
       async,
       type,
-      providerPath: './' + path.relative(this.config.cwd, source.fileName),
+      providerPath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters,
       schemaTransformer: hasSchemaTransformer
     };

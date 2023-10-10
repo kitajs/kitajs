@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('BodyProp Parameter', async () => {
@@ -10,8 +11,10 @@ describe('BodyProp Parameter', async () => {
     assert.equal(kita.getRouteCount(), 1);
   });
 
-  const schemaRef =
-    'def-structure-933256050-152-165-933256050-142-166-933256050-137-166-933256050-88-288-933256050-0-289';
+  //@ts-expect-error - windows builds may have a different structure
+  const schemaRef = kita.getRoute('postIndex')?.schema?.body?.properties?.a?.$ref;
+
+  assert.ok(schemaRef, 'schemaRef is not defined');
 
   test('works with multiple body prop definitions', () => {
     const route = kita.getRoute('postIndex');
@@ -22,7 +25,7 @@ describe('BodyProp Parameter', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [
         { value: 'req.body.name' },
         { value: 'req.body.a' },
@@ -65,7 +68,7 @@ describe('BodyProp Parameter', async () => {
     const schema = kita.getSchema(schemaRef);
 
     assert.deepStrictEqual(schema, {
-      $id: 'def-structure-933256050-152-165-933256050-142-166-933256050-137-166-933256050-88-288-933256050-0-289',
+      $id: schemaRef,
       additionalProperties: false,
       properties: { a: { type: 'number' } },
       required: ['a'],
