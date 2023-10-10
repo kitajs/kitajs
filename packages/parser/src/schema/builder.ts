@@ -61,6 +61,7 @@ export class SchemaBuilder {
   /** Creates a schema for the given ts node */
   createTypeSchema(node: ts.Node) {
     try {
+      console.log(node);
       return this.parser.createType(node, new Context(node));
     } catch (error) {
       throw new CannotCreateNodeTypeError(node);

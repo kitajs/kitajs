@@ -28,7 +28,7 @@
     "watch": "pnpm -r --parallel --no-bail build --watch "
   },
   "resolutions": {
-    "typescript": "^5.2.2"
+    "typescript": "~5.1.6"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.11",
@@ -36,7 +36,7 @@
     "@kitajs/ts-plugin": "workspace:^",
     "husky": "^8.0.3",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "typescript": "~5.1.6"
   },
   "packageManager": "pnpm@8.8.0",
   "engines": {

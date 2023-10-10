@@ -37,7 +37,10 @@
     "@types/node": "^20.8.4",
     "oclif": "^4.0.0",
     "tsx": "^3.13.0",
-    "typescript": "^5.2.2"
+    "typescript": "~5.1.6"
+  },
+  "peerDependencies": {
+    "typescript": "~5.1.6"
   },
   "oclif": {
     "bin": "kita",
