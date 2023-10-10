@@ -65,6 +65,7 @@ export class KitaWriter implements SourceWriter {
 
   async flush() {
     console.log(this.files);
+    console.log(this.compilerOptions);
 
     const host = ts.createCompilerHost(this.compilerOptions, false);
 
