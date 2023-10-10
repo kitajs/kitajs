@@ -1,6 +1,7 @@
-name: Integration Flow
+name: CI Flow
 
 on:
+  push:
   pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -9,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    name: Integration flow ${{ matrix.os }}
+    name: CI flow ${{ matrix.os }}
 
     strategy:
       matrix:
@@ -31,7 +32,7 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
-      - name: Link kita binary
+      - name: Setup kita binary
         run: pnpm link .
         working-directory: packages/cli
 
