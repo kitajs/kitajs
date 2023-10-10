@@ -9,11 +9,15 @@ export function formatImport(imp: string, cwd: string) {
 
   // Makes sure the relative import is absolute
   if (withoutExtension.startsWith(CURRENT_DIR)) {
-    return path.resolve(cwd, imp);
+    imp = path.resolve(cwd, imp);
+    console.log({ imp });
+    return imp;
   }
 
   // Just normalizes it
-  return path.normalize(imp);
+  imp = path.normalize(imp);
+  console.log({ imp });
+  return imp;
 }
 
 /** Removes the extension from a path, if present. */
