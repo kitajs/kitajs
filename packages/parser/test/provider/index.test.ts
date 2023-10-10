@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('Providers', async () => {
@@ -18,7 +19,7 @@ describe('Providers', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       schema: { response: { ['2xx']: { type: 'number', const: 1 } }, operationId: 'getIndex' },
       kind: 'rest',
       parameters: [
@@ -42,7 +43,7 @@ describe('Providers', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [
         {
           value: 'param0',

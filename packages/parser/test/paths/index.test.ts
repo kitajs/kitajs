@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('Cookies', async () => {
@@ -18,7 +19,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'NameController',
-      controllerPath: './routes/[name].ts',
+      controllerPath: cwdRelative('routes/[name].ts'),
       kind: 'rest',
       parameters: [{ value: 'req.params.name' }],
       schema: {
@@ -42,7 +43,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'NameController',
-      controllerPath: './routes/[name].ts',
+      controllerPath: cwdRelative('routes/[name].ts'),
       parameters: [{ value: 'req.params.name' }],
       kind: 'rest',
       schema: {
@@ -66,8 +67,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'NumController',
-
-      controllerPath: './routes/[num].ts',
+      controllerPath: cwdRelative('routes/[num].ts'),
       parameters: [{ value: 'req.params.num' }],
       kind: 'rest',
       schema: {
@@ -91,7 +91,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'NumController',
-      controllerPath: './routes/[num].ts',
+      controllerPath: cwdRelative('routes/[num].ts'),
       parameters: [{ value: 'req.params.num' }],
       kind: 'rest',
       schema: {

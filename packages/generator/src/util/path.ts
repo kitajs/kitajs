@@ -1,11 +1,14 @@
 import path from 'path';
 
+/** Posix: `./`, in windows: `.\\` */
+export const CURRENT_DIR = path.join('./');
+
 /** Remove extension from import path */
 export function formatImport(imp: string, cwd: string) {
   const withoutExtension = removeExt(imp);
 
   // Makes sure the relative import is absolute
-  if (withoutExtension.startsWith('./')) {
+  if (withoutExtension.startsWith(CURRENT_DIR)) {
     return path.resolve(cwd, imp);
   }
 

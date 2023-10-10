@@ -12,6 +12,7 @@ import { StringType } from 'ts-json-schema-generator';
 import ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
 import { getReturnType, isExportedFunction } from '../util/nodes';
+import { cwdRelative } from '../util/paths';
 import { findUrlAndControllerName } from '../util/string';
 import { buildAccessProperty } from '../util/syntax';
 import { traverseParameters } from '../util/traverser';
@@ -59,7 +60,7 @@ export class HtmlRouteParser implements RouteParser {
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,
       controllerName: controller,
-      controllerPath: './' + path.relative(this.config.cwd, source.fileName),
+      controllerPath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],
       schema: {
         operationId: method.toLowerCase() + controller.replace(/controller$/i, 'View'),

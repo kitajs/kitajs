@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('JSDoc usage on route', async () => {
@@ -18,7 +19,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [],
       schema: {
@@ -39,7 +40,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [],
       schema: {
@@ -58,7 +59,7 @@ describe('JSDoc usage on route', async () => {
       controllerMethod: 'put',
       method: 'DELETE',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [],
       schema: {

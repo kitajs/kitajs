@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe, it } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('Cookies', async () => {
@@ -19,7 +20,7 @@ describe('Cookies', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.tsx',
+      controllerPath: cwdRelative('routes/index.tsx'),
       parameters: [{ value: 'req.id', __type: 'SuspenseId' }],
       schema: {
         operationId: 'getIndexView',
@@ -41,7 +42,7 @@ describe('Cookies', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.tsx',
+      controllerPath: cwdRelative('routes/index.tsx'),
       parameters: [],
       schema: {
         operationId: 'postIndexView',
@@ -61,7 +62,7 @@ describe('Cookies', async () => {
       controllerMethod: 'put',
       method: 'PUT',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.tsx',
+      controllerPath: cwdRelative('routes/index.tsx'),
       parameters: [],
       schema: {
         operationId: 'putIndexView',
