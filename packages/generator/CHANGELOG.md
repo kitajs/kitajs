@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.1.3
+
+### Patch Changes
+
+- 9e3fd78: Imports for windows
+
 ## 1.1.2
 
 ### Patch Changes
