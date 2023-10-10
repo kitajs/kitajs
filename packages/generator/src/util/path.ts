@@ -2,12 +2,25 @@ import path from 'path';
 
 /** Remove extension from import path */
 export function formatImport(imp: string, cwd: string) {
-  imp = imp.replace(/\.[^/\\.]+$/, '');
+  const withoutExtension = removeExt(imp);
 
   // Makes sure the relative import is absolute
-  if (imp.startsWith('./')) {
-    imp = path.posix.resolve(cwd, imp);
+  if (withoutExtension.startsWith('./')) {
+    return path.resolve(cwd, imp);
   }
 
-  return path.posix.normalize(imp);
+  // Just normalizes it
+  return path.normalize(imp);
+}
+
+/** Removes the extension from a path, if present. */
+export function removeExt(p: string) {
+  const ext = path.extname(p);
+
+  // Only remove the extension if its present
+  if (ext) {
+    return p.slice(0, -ext.length);
+  } else {
+    return p;
+  }
 }
