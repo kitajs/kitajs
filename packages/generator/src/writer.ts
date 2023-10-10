@@ -77,6 +77,8 @@ export class KitaWriter implements SourceWriter {
     // we keep aliases inside tsconfig for dts files and use relative
     // paths inside .js files
     host.writeFile = (filename, content) => {
+      console.log(content);
+
       // Change javascript code to import from the correct location
       if (this.userDirPath && filename.endsWith('.js')) {
         // TODO: Add support for other entry folders than src, like `lib` or `source`
