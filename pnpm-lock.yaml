@@ -98,8 +98,8 @@ importers:
         version: 5.1.6
     devDependencies:
       '@types/node':
-        specifier: ^20.5.0
-        version: 20.5.0
+        specifier: ^20.8.4
+        version: 20.8.4
 
   packages/example:
     dependencies:
@@ -126,8 +126,8 @@ importers:
         specifier: workspace:^
         version: link:../ts-plugin
       '@types/node':
-        specifier: ^20.5.0
-        version: 20.8.3
+        specifier: ^20.8.4
+        version: 20.8.4
       c8:
         specifier: ^8.0.1
         version: 8.0.1
@@ -206,8 +206,8 @@ importers:
         specifier: workspace:^
         version: link:../runtime
       '@types/node':
-        specifier: ^20.5.0
-        version: 20.5.0
+        specifier: ^20.8.4
+        version: 20.8.4
       c8:
         specifier: ^8.0.1
         version: 8.0.1
@@ -255,8 +255,8 @@ importers:
         specifier: ^0.1.3
         version: 0.1.3
       '@types/node':
-        specifier: ^20.5.0
-        version: 20.5.1
+        specifier: ^20.8.4
+        version: 20.8.4
       type-fest:
         specifier: ^4.4.0
         version: 4.4.0
@@ -1556,18 +1556,6 @@ packages:
 
   /@types/node@15.14.9:
     resolution: {integrity: sha512-qjd88DrCxupx/kJD5yQgZdcYKZKSIGBVDIBE1/LTGcNm3d2Np/jxojkdePDdfnBHJc5W7vSMpbJ1aB7p/Py69A==}
-    dev: true
-
-  /@types/node@20.5.0:
-    resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
-    dev: true
-
-  /@types/node@20.5.1:
-    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
-    dev: true
-
-  /@types/node@20.8.3:
-    resolution: {integrity: sha512-jxiZQFpb+NlH5kjW49vXxvxTjeeqlbsnTAdBTKpzEdPs9itay7MscYXz3Fo9VYFEsfQ6LJFitHad3faerLAjCw==}
     dev: true
 
   /@types/node@20.8.4:
