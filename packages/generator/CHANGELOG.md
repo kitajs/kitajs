@@ -1,5 +1,13 @@
 # @kitajs/generator
 
+## 1.1.2
+
+### Patch Changes
+
+- 4798255: Pinned typescript to 5.1.6
+- Updated dependencies [4798255]
+  - @kitajs/common@1.1.2
+
 ## 1.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @kitajs/common
 
+## 1.1.2
+
+### Patch Changes
+
+- 4798255: Pinned typescript to 5.1.6
+
 ## 1.1.1
 
 ### Patch Changes
