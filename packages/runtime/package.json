@@ -10,6 +10,7 @@
     "index.js",
     "index.d.ts",
     "generated",
+    "types",
     "CHANGELOG.md"
   ],
   "scripts": {
