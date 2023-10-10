@@ -4,12 +4,13 @@ import path from 'path';
 /** Synchronously walks the given directory and returns all files in it. */
 export function walk(dir: string): string[] {
   try {
-    return fs
-      .readdirSync(dir, { recursive: true, withFileTypes: true })
-      .filter((f) => f.isFile())
-      .map((f) => {
-        return path.resolve(f.path, f.name);
-      });
+    return (
+      fs
+        .readdirSync(dir, { recursive: true, withFileTypes: true })
+        .filter((f) => f.isFile())
+        // Node <20 f.path may be undefined
+        .map((f) => path.resolve(f.path || dir, f.name))
+    );
   } catch (e: any) {
     // Ignore if folder does not exist
     if (e.code === 'ENOENT') {
