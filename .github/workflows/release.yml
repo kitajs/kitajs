@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Fetch tags to allow changesets to only tag if needed
+          fetch-tags: true
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
