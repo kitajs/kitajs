@@ -52,9 +52,9 @@ jobs:
           commit: 'chore: update versions'
           title: 'chore: update versions'
 
-        # https://github.com/changesets/action/issues/246
-        # https://github.com/changesets/changesets/pull/674
-        publish: pnpm ci:publish
+          # https://github.com/changesets/action/issues/246
+          # https://github.com/changesets/changesets/pull/674
+          publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
