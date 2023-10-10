@@ -19,16 +19,13 @@
     "build": "pnpm -r build",
     "change": "changeset",
     "ci:publish": "pnpm publish -r --access public",
-    "ci:version": "changeset version",
+    "ci:version": "changeset version && pnpm install --no-frozen-lockfile",
     "docs": "cd packages/docs && pnpm dev",
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "test": "pnpm -r --parallel test",
     "watch": "pnpm -r --parallel --no-bail build --watch "
-  },
-  "resolutions": {
-    "typescript": "~5.1.6"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.11",
