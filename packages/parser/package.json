@@ -25,7 +25,7 @@
   "devDependencies": {
     "@kitajs/html": "^3.0.2",
     "@kitajs/runtime": "workspace:^",
-    "@types/node": "^20.5.0",
+    "@types/node": "^20.8.4",
     "c8": "^8.0.1",
     "tsx": "^3.13.0"
   },
