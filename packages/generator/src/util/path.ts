@@ -9,11 +9,18 @@ export function formatImport(imp: string, cwd: string) {
 
   // Makes sure the relative import is absolute
   if (withoutExtension.startsWith(CURRENT_DIR)) {
-    return path.resolve(cwd, imp);
+    imp = path.resolve(cwd, imp);
+
+    // Just normalizes it
+  } else {
+    imp = path.normalize(imp);
   }
 
-  // Just normalizes it
-  return path.normalize(imp);
+  // Double escape windows paths
+  // Value: `\a`
+  // String: `\\a`
+  // String of source code: `\\\\a`
+  return imp.replace(/\\/g, '\\\\');
 }
 
 /** Removes the extension from a path, if present. */
