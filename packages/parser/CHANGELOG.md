@@ -1,5 +1,14 @@
 # @kitajs/parser
 
+## 1.1.1
+
+### Patch Changes
+
+- 9e47783: Added package descriptions
+- 7dd662f: Fixed undefined paths in node <20 windows
+- Updated dependencies [9e47783]
+  - @kitajs/common@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

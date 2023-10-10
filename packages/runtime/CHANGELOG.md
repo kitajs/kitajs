@@ -1,5 +1,14 @@
 # @kitajs/runtime
 
+## 1.1.1
+
+### Patch Changes
+
+- d907a69: Included types folder
+- 9e47783: Added package descriptions
+- Updated dependencies [9e47783]
+  - @kitajs/common@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
