@@ -1,5 +1,16 @@
 # @kitajs/cli
 
+## 1.1.2
+
+### Patch Changes
+
+- 0899417: Bump cli version before publish
+- 4798255: Pinned typescript to 5.1.6
+- Updated dependencies [4798255]
+  - @kitajs/generator@1.1.2
+  - @kitajs/common@1.1.2
+  - @kitajs/parser@1.1.2
+
 ## 1.1.1
 
 ### Patch Changes
