@@ -64,9 +64,6 @@ export class KitaWriter implements SourceWriter {
   }
 
   async flush() {
-    console.log(this.files);
-    console.log(this.compilerOptions);
-
     const host = ts.createCompilerHost(this.compilerOptions, false);
 
     // Reads the file from memory
@@ -78,15 +75,11 @@ export class KitaWriter implements SourceWriter {
     // we keep aliases inside tsconfig for dts files and use relative
     // paths inside .js files
     host.writeFile = (filename, content) => {
-      console.log(content);
-
       // Change javascript code to import from the correct location
-      if (this.userDirPath && filename.endsWith('.js')) {
+      if (this.userDirPath && filename.startsWith(this.userDirPath) && filename.endsWith('.js')) {
         // TODO: Add support for other entry folders than src, like `lib` or `source`
-        content = content.replaceAll(`require("${this.config.cwd}/src`, `require("${this.userDirPath}`);
+        content = content.replaceAll(`require("${path.join(this.config.cwd, 'src')}`, `require("${this.userDirPath}`);
       }
-
-      console.log(content);
 
       return ts.sys.writeFile(filename, content);
     };
@@ -94,6 +87,7 @@ export class KitaWriter implements SourceWriter {
     // Creates the program and emits the files
     const program = ts.createProgram(Array.from(this.files.keys()), this.compilerOptions, host);
 
+    // TODO: Only call diagnostics if needed
     const diagnostics = [
       program.emit().diagnostics,
       program.getGlobalDiagnostics(),
