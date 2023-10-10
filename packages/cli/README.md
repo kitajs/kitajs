@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita help [COMMANDS]`](#kita-help-commands)
@@ -62,7 +62,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version)
-@kitajs/cli/1.1.0 linux-x64 node-v20.8.0
+@kitajs/cli/1.1.1 linux-x64 node-v20.8.0
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
@@ -120,14 +120,14 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita build [-s] [-c <value>] [--print] [-d]
+  $ kita build [-s] [-c <value>] [--debug] [-d]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   -d, --dry-run         Skips generation process. Useful for testing your code.
   -s, --import-source   Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node to
                         work.
-  --print               Prints full resolved config
+  --debug               Prints full resolved config to stdout.
 
 DESCRIPTION
   Analyses your backend searching for routes and bakes it into the runtime.

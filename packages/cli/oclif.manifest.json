@@ -30,9 +30,9 @@
           "multiple": false,
           "type": "option"
         },
-        "print": {
-          "description": "Prints full resolved config",
-          "name": "print",
+        "debug": {
+          "description": "Prints full resolved config to stdout.",
+          "name": "debug",
           "allowNo": false,
           "type": "boolean"
         },
@@ -80,5 +80,5 @@
       "relativePath": ["dist", "commands", "init.js"]
     }
   },
-  "version": "1.1.0"
+  "version": "1.1.1"
 }

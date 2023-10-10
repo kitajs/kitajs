@@ -18,6 +18,7 @@
   "scripts": {
     "build": "tsc",
     "postbuild": "oclif manifest && oclif readme",
+    "prepublish": "oclif manifest",
     "start": "node -r tsx/csj index.ts"
   },
   "dependencies": {
