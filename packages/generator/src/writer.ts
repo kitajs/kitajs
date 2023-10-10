@@ -79,6 +79,8 @@ export class KitaWriter implements SourceWriter {
         content = content.replaceAll(`require("${this.config.cwd}/src`, `require("${this.userDirPath}`);
       }
 
+      console.log(content);
+
       return ts.sys.writeFile(filename, content);
     };
 
