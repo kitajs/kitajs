@@ -45,10 +45,6 @@ export class KitaWriter implements SourceWriter {
     // We use @internal to hide some generated code
     this.compilerOptions.stripInternal = true;
     this.compilerOptions.noResolve = true;
-
-    // We use the same line endings as the current OS
-    this.compilerOptions.newLine =
-      path.posix.sep === path.sep ? ts.NewLineKind.LineFeed : ts.NewLineKind.CarriageReturnLineFeed;
   }
 
   write(filename: string, content: string) {
