@@ -39,7 +39,7 @@ export = function initHtmlPlugin() {
             let root = program.getCurrentDirectory();
 
             try {
-              config = importConfig(path.join(root, 'kita.config.js'));
+              config = importConfig(path.posix.join(root, 'kita.config.js'));
             } catch {
               config = parseConfig({}, root);
             }
@@ -49,8 +49,8 @@ export = function initHtmlPlugin() {
               config.cwd = root;
             }
 
-            rootRoute = path.resolve(config.cwd, config.routeFolder);
-            rootProvider = path.resolve(config.cwd, config.providerFolder);
+            rootRoute = path.posix.resolve(config.cwd, config.routeFolder);
+            rootProvider = path.posix.resolve(config.cwd, config.providerFolder);
             providerPaths = walk(config.providerFolder);
 
             parser = new KitaParser(config, [], [], program);

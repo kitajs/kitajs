@@ -12,7 +12,7 @@ export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {})
       cwd,
       providerFolder: 'providers',
       routeFolder: 'routes',
-      runtimePath: path.resolve(cwd, 'runtime'),
+      runtimePath: path.posix.resolve(cwd, 'runtime'),
       ...config
     })
   );

@@ -6,7 +6,7 @@ export function formatImport(imp: string, cwd: string) {
 
   // Makes sure the relative import is absolute
   if (imp.startsWith('./')) {
-    imp = path.resolve(cwd, imp);
+    imp = path.posix.resolve(cwd, imp);
   }
 
   return path.posix.normalize(imp);

@@ -58,7 +58,7 @@ export class DefaultProviderParser implements ProviderParser {
     return {
       async,
       type,
-      providerPath: './' + path.relative(this.config.cwd, source.fileName),
+      providerPath: './' + path.posix.relative(this.config.cwd, source.fileName),
       parameters,
       schemaTransformer: hasSchemaTransformer
     };

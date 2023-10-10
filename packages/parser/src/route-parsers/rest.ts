@@ -47,7 +47,7 @@ export class RestRouteParser implements RouteParser {
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,
       controllerName: controller,
-      controllerPath: './' + path.relative(this.config.cwd, source.fileName),
+      controllerPath: './' + path.posix.relative(this.config.cwd, source.fileName),
       parameters: [],
       schema: {
         operationId: method.toLowerCase() + controller.replace(/controller$/i, ''),

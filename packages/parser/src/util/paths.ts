@@ -9,7 +9,7 @@ export function walk(dir: string): string[] {
         .readdirSync(dir, { recursive: true, withFileTypes: true })
         .filter((f) => f.isFile())
         // Node <20 f.path may be undefined
-        .map((f) => path.resolve(f.path || dir, f.name))
+        .map((f) => path.posix.resolve(f.path || dir, f.name))
     );
   } catch (e: any) {
     // Ignore if folder does not exist
