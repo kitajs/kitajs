@@ -18,7 +18,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "change": "changeset",
-    "ci:publish": "pnpm publish -r",
+    "ci:publish": "pnpm publish -r --access public",
     "ci:version": "changeset version",
     "docs": "cd packages/docs && pnpm dev",
     "format": "prettier --write .",

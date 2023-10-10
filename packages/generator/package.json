@@ -1,6 +1,7 @@
 {
   "name": "@kitajs/generator",
   "version": "1.1.0",
+  "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abtraction cost!",
   "funding": "https://github.com/sponsors/arthurfiorette",
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",
