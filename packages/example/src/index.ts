@@ -1,5 +1,3 @@
-import '@kitajs/html/register';
-
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import { Kita } from '@kitajs/runtime';
