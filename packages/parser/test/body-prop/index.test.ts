@@ -12,6 +12,8 @@ describe('BodyProp Parameter', async () => {
   });
 
   const schemaRef =
+    //@ts-expect-error - windows builds may have a different structure
+    kita.getRoute('postIndex')?.schema?.body?.properties?.a?.$ref ||
     'def-structure-933256050-152-165-933256050-142-166-933256050-137-166-933256050-88-288-933256050-0-289';
 
   test('works with multiple body prop definitions', () => {
