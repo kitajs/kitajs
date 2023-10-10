@@ -18,7 +18,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "change": "changeset",
-    "ci:publish": "pnpm publish -r --access public && changeset publish",
+    "ci:publish": "pnpm publish -r --access public && changeset tag",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile",
     "docs": "cd packages/docs && pnpm dev",
     "format": "prettier --write .",
