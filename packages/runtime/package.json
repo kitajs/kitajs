@@ -9,7 +9,8 @@
   "files": [
     "index.js",
     "index.d.ts",
-    "generated",
+    "generated/index.js",
+    "generated/index.d.ts",
     "types",
     "CHANGELOG.md"
   ],
