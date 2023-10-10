@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.1.5
+
+### Patch Changes
+
+- f9c378f: Support for windows
+
 ## 1.1.4
 
 ### Patch Changes
