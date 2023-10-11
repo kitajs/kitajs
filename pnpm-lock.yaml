@@ -67,8 +67,8 @@ importers:
         specifier: ^20.8.4
         version: 20.8.4
       oclif:
-        specifier: ^4.0.0
-        version: 4.0.0(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6)
+        specifier: ^4.0.1
+        version: 4.0.1(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6)
       tsx:
         specifier: ^3.13.0
         version: 3.13.0
@@ -3432,7 +3432,7 @@ packages:
       foreground-child: 3.1.1
       jackspeak: 2.2.1
       minimatch: 9.0.3
-      minipass: 6.0.2
+      minipass: 7.0.4
       path-scurry: 1.10.1
     dev: true
 
@@ -4805,11 +4805,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /minipass@6.0.2:
-    resolution: {integrity: sha512-MzWSV5nYVT7mVyWCwn2o7JH13w2TBRmmSqSRCKzTw+lmft9X4z+3wjvs06Tzijo5z4W/kahUCDpRXTF+ZrmF/w==}
-    engines: {node: '>=16 || 14 >=14.17'}
-    dev: true
-
   /minipass@7.0.4:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
     engines: {node: '>=16 || 14 >=14.17'}
@@ -5185,8 +5180,8 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.0.0(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6):
-    resolution: {integrity: sha512-ZGJBNibk+tIf6+PMDoGteBE1i/bMNgIlm36/PnZNBXVIVrRZIkCsvaPgtrmti2rCf2E92OFKqmWyD2TMsLFB3g==}
+  /oclif@4.0.1(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6):
+    resolution: {integrity: sha512-GvCrCYLfHG98cD1UA9eYo+cUyKyTf80gvaOVvaTChQXLBhG6VV4NJrk4+2ESqRFZeWpAvUcxAMVmTdZUcMjN8w==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
@@ -5512,7 +5507,7 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       lru-cache: 9.1.2
-      minipass: 6.0.2
+      minipass: 7.0.4
     dev: true
 
   /path-type@4.0.0:
