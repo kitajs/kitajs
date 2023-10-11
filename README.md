@@ -36,9 +36,13 @@
 
 <br />
 
+## You are probably looking for the [minimal-example](https://github.com/kitajs/minimal-example)
+
+<br />
+<br />
+
 > [!NOTE]  
 > This project is undocumented and WIP. I'm working as hard as I can to make it usable, but it's not ready yet. Expect
 > the first oficial release ~jan/2024.
 
-<br />
 <br />
