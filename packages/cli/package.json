@@ -32,7 +32,7 @@
     "@oclif/plugin-warn-if-update-available": "^2.1.1",
     "chalk": "^4.1.2",
     "tslib": "^2.6.2",
-    "typescript": "~5.1.6"
+    "typescript": "~5.2.2"
   },
   "devDependencies": {
     "@types/node": "^20.8.4",
@@ -40,7 +40,7 @@
     "tsx": "^3.13.0"
   },
   "peerDependencies": {
-    "typescript": "~5.1.6"
+    "typescript": "~5.2.2"
   },
   "oclif": {
     "bin": "kita",
