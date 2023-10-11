@@ -85,3 +85,12 @@ export async function get(MYerRORnAMe: HttpErrors) {
   //@ts-ignore - never executes
   throw MYerRORnAMe.conflict('Error!');
 }
+
+/**
+ * @throws 403
+ * @throws 404
+ * @throws 405
+ */
+export async function post() {
+  return { hello: 'world' };
+}

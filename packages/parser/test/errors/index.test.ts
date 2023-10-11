@@ -5,9 +5,9 @@ import { parseRoutes } from '../runner';
 describe('Http errors', async () => {
   const kita = await parseRoutes(__dirname);
 
-  test('expects 1 routes were generated', () => {
+  test('expects 2 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
-    assert.equal(kita.getRouteCount(), 1);
+    assert.equal(kita.getRouteCount(), 2);
   });
 
   test('assigns all possible errors', () => {
@@ -29,6 +29,29 @@ describe('Http errors', async () => {
           '502': { $ref: 'HttpError' },
           '503': { $ref: 'HttpError' },
           '2xx': { $ref: 'getIndexResponse' }
+        }
+      }
+    });
+  });
+
+  test('@throws jsdoc also works', () => {
+    const route = kita.getRoute('postIndex');
+
+    assert.deepStrictEqual(route, {
+      kind: 'rest',
+      url: '/',
+      controllerMethod: 'post',
+      method: 'POST',
+      controllerName: 'IndexController',
+      controllerPath: './routes/index.ts',
+      parameters: [],
+      schema: {
+        operationId: 'postIndex',
+        response: {
+          '403': { $ref: 'HttpError' },
+          '404': { $ref: 'HttpError' },
+          '405': { $ref: 'HttpError' },
+          '2xx': { $ref: 'postIndexResponse' }
         }
       }
     });
