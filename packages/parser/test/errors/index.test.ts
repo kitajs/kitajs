@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('Http errors', async () => {
@@ -19,7 +20,7 @@ describe('Http errors', async () => {
       controllerMethod: 'get',
       method: 'GET',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [{ value: 'req.server.httpErrors' }],
       schema: {
         operationId: 'getIndex',
@@ -43,7 +44,7 @@ describe('Http errors', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [],
       schema: {
         operationId: 'postIndex',
