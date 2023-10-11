@@ -140,3 +140,13 @@ export class InvalidHtmlRoute extends KitaError {
     });
   }
 }
+
+export class UnknownHttpError extends KitaError {
+  constructor(node: ts.Node) {
+    super({
+      code: 409,
+      messageText: `Could not resolve a http status code for this error, are you using a method exposed by @fastify/sensible?`,
+      node
+    });
+  }
+}

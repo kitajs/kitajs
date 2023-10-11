@@ -24,6 +24,7 @@
     "type-fest": "^4.4.0"
   },
   "peerDependencies": {
+    "@fastify/sensible": ">=5.3",
     "fastify": ">=4.23"
   }
 }

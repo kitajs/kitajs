@@ -36,9 +36,7 @@ export ${needsAsync(r.parameters)} function ${
     r.customReturn ||
     /* ts */ `
     
-    return reply.send(${r.controllerName}.${r.controllerMethod}.call(null, ${r.parameters
-      .map((p) => p.value)
-      .join(', ')}));
+    return ${r.controllerName}.${r.controllerMethod}.call(null, ${r.parameters.map((p) => p.value).join(', ')});
     
     `.trim()
   }
