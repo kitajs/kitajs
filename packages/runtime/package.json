@@ -24,6 +24,6 @@
     "type-fest": "^4.4.0"
   },
   "peerDependencies": {
-    "fastify": ">=4.23"
+    "fastify": ">=4"
   }
 }

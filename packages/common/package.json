@@ -24,7 +24,7 @@
     "@types/node": "^20.8.4"
   },
   "peerDependencies": {
-    "fastify": "^4.23.2",
+    "fastify": ">=4",
     "ts-json-schema-generator": "^1",
     "typescript": "~5.1.6"
   }
