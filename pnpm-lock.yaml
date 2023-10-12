@@ -48,8 +48,8 @@ importers:
         specifier: ^5.2.20
         version: 5.2.20(@types/node@20.8.4)(typescript@5.1.6)
       '@oclif/plugin-not-found':
-        specifier: ^2.4.3
-        version: 2.4.3(@types/node@20.8.4)(typescript@5.1.6)
+        specifier: ^3.0.1
+        version: 3.0.1
       '@oclif/plugin-warn-if-update-available':
         specifier: ^2.1.1
         version: 2.1.1(@types/node@20.8.4)(typescript@5.1.6)
@@ -1167,6 +1167,16 @@ packages:
       - '@swc/wasm'
       - '@types/node'
       - typescript
+    dev: true
+
+  /@oclif/plugin-not-found@3.0.1:
+    resolution: {integrity: sha512-5tbLvxwb7bNkQn5M9F4nE43QttlrL/oHm6SeTqstvstyquJs3u251Iy2uGPP1tF7lZAvD/VMrsZ3tznTe4SoJg==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@oclif/core': 3.0.6
+      chalk: 5.3.0
+      fast-levenshtein: 3.0.0
+    dev: false
 
   /@oclif/plugin-warn-if-update-available@2.1.1(@types/node@20.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-y7eSzT6R5bmTIJbiMMXgOlbBpcWXGlVhNeQJBLBCCy1+90Wbjyqf6uvY0i2WcO4sh/THTJ20qCW80j3XUlgDTA==}
@@ -2253,6 +2263,11 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+
+  /chalk@5.3.0:
+    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: false
 
   /change-case@4.1.2:
     resolution: {integrity: sha512-bSxY2ws9OtviILG1EiY5K7NNxkqg/JnRnFxLtKQ96JaviiIxi7djMrSd0ECT9AC+lttClmYwKw53BWpOMblo7A==}
