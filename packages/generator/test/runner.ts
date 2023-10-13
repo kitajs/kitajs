@@ -17,6 +17,7 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
     routeFolder: 'routes',
     providerFolder: 'providers',
     runtimePath: path.resolve(cwd, 'runtime'),
+    dist: false,
     ...partialCfg
   });
 

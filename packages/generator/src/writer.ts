@@ -1,17 +1,18 @@
 import { GeneratedDiagnosticsErrors, KitaConfig, SourceWriter } from '@kitajs/common';
 import path from 'path';
 import ts from 'typescript';
+import { toWin32SourcePath } from './util/path';
 
 export class KitaWriter implements SourceWriter {
   private readonly files: Map<string, string> = new Map();
 
-  private userDirPath: string | false;
+  private userDistPath: string | false;
 
   constructor(
     private compilerOptions: ts.CompilerOptions,
     private config: KitaConfig
   ) {
-    this.userDirPath = this.config.dist ? path.resolve(this.config.cwd, this.compilerOptions.outDir || 'dist') : false;
+    this.userDistPath = this.config.dist ? path.resolve(this.config.cwd, this.compilerOptions.outDir || 'dist') : false;
 
     // Copies the compiler options
     this.compilerOptions = Object.assign({}, this.compilerOptions);
@@ -67,14 +68,18 @@ export class KitaWriter implements SourceWriter {
       return this.files.get(filename) || ts.sys.readFile(filename);
     };
 
+    // TODO: Add support for other entry folders than src, like `lib` or `source`
+    const src = toWin32SourcePath(path.join(this.config.cwd, 'src'));
+    const dist = !!this.userDistPath && toWin32SourcePath(this.userDistPath);
+
     // To avoid overwrite source files after second `tsc` run,
     // we keep aliases inside tsconfig for dts files and use relative
     // paths inside .js files
     host.writeFile = (filename, content) => {
       // Change javascript code to import from the correct location
-      if (this.userDirPath && filename.startsWith(this.userDirPath) && filename.endsWith('.js')) {
+      if (dist && filename.endsWith('.js')) {
         // TODO: Add support for other entry folders than src, like `lib` or `source`
-        content = content.replaceAll(`require("${path.join(this.config.cwd, 'src')}`, `require("${this.userDirPath}`);
+        content = content.replaceAll(`require("${src}`, `require("${dist}`);
       }
 
       return ts.sys.writeFile(filename, content);
