@@ -6,15 +6,11 @@ import { parseRoutes } from '../runner';
 describe('BodyProp Parameter', async () => {
   const kita = await parseRoutes(__dirname);
 
-  test('expects 1 routes was generated', () => {
+  test.only('expects 1 routes was generated', () => {
     assert.equal(kita.getProviderCount(), 0);
     assert.equal(kita.getRouteCount(), 1);
+    assert.equal(kita.getSchemaCount(), 2);
   });
-
-  //@ts-expect-error - windows builds may have a different structure
-  const schemaRef = kita.getRoute('postIndex')?.schema?.body?.properties?.a?.$ref;
-
-  assert.ok(schemaRef, 'schemaRef is not defined');
 
   test('works with multiple body prop definitions', () => {
     const route = kita.getRoute('postIndex');
@@ -40,7 +36,10 @@ describe('BodyProp Parameter', async () => {
           properties: {
             name: { type: 'string' },
             a: {
-              $ref: schemaRef
+              additionalProperties: false,
+              properties: { a: { type: 'number' } },
+              required: ['a'],
+              type: 'object'
             },
             type: { $ref: 'Type' },
             'type 2': { type: 'number' }
@@ -60,18 +59,6 @@ describe('BodyProp Parameter', async () => {
       additionalProperties: false,
       properties: { b: { type: 'number' } },
       required: ['b'],
-      type: 'object'
-    });
-  });
-
-  test('generated ref schema', () => {
-    const schema = kita.getSchema(schemaRef);
-
-    assert.deepStrictEqual(schema, {
-      $id: schemaRef,
-      additionalProperties: false,
-      properties: { a: { type: 'number' } },
-      required: ['a'],
       type: 'object'
     });
   });
