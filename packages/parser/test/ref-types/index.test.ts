@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('Schema Refs generation', async () => {
@@ -20,7 +21,7 @@ describe('Schema Refs generation', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [{ value: 'req.body' }],
       schema: {
         operationId: 'postIndex',
