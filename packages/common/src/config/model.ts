@@ -74,7 +74,7 @@ export interface KitaConfig {
   providerParserAugmentor(parser: ChainParser<ProviderParser>): void | Promise<void>;
 }
 
-export interface KitaGeneratorConfig extends Omit<JsonConfig, 'tsconfig'> {
+export interface KitaGeneratorConfig extends Omit<JsonConfig, 'tsconfig' | 'discriminatorType'> {
   /** Extra parsers to handle ts.Nodes into Schema Nodes */
   parsers: SubNodeParser[];
   /** Extra formatters to handle Schema Nodes into json schemas */

@@ -6,7 +6,7 @@ import { parseRoutes } from '../runner';
 describe('BodyProp Parameter', async () => {
   const kita = await parseRoutes(__dirname);
 
-  test.only('expects 1 routes was generated', () => {
+  test('expects 1 routes was generated', () => {
     assert.equal(kita.getProviderCount(), 0);
     assert.equal(kita.getRouteCount(), 1);
     assert.equal(kita.getSchemaCount(), 2);

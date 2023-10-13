@@ -16,6 +16,7 @@ import {
   PrimitiveType,
   ReferenceType,
   Schema,
+  Config as TsjConfig,
   TupleType,
   TypeFormatter,
   UndefinedType,
@@ -39,7 +40,11 @@ export class SchemaBuilder {
     program: ts.Program,
     private collector: AstCollector
   ) {
-    const generatorCfg = { ...config.generatorConfig, tsconfig: config.tsconfig };
+    const generatorCfg: TsjConfig = {
+      ...config.generatorConfig,
+      tsconfig: config.tsconfig,
+      discriminatorType: 'open-api'
+    };
 
     this.parser = createParser(program, generatorCfg, (mut) => {
       for (const parser of config.generatorConfig.parsers) {
