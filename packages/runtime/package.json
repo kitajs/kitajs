@@ -25,6 +25,6 @@
   },
   "peerDependencies": {
     "@fastify/sensible": ">=5.3",
-    "fastify": ">=4.23"
+    "fastify": ">=4"
   }
 }

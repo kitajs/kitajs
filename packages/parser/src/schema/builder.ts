@@ -16,6 +16,7 @@ import {
   PrimitiveType,
   ReferenceType,
   Schema,
+  Config as TsjConfig,
   TupleType,
   TypeFormatter,
   UndefinedType,
@@ -39,7 +40,11 @@ export class SchemaBuilder {
     program: ts.Program,
     private collector: AstCollector
   ) {
-    const generatorCfg = { ...config.generatorConfig, tsconfig: config.tsconfig };
+    const generatorCfg: TsjConfig = {
+      ...config.generatorConfig,
+      tsconfig: config.tsconfig,
+      discriminatorType: 'open-api'
+    };
 
     this.parser = createParser(program, generatorCfg, (mut) => {
       for (const parser of config.generatorConfig.parsers) {
@@ -69,7 +74,7 @@ export class SchemaBuilder {
 
   /** Saves and returns a {@linkcode ts.Node}'s respective json schema. */
   consumeNodeSchema(node: ts.TypeNode, overrideName?: string): Schema {
-    const type = this.createTypeSchema(node);
+    let type = this.createTypeSchema(node);
 
     {
       // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
@@ -85,6 +90,12 @@ export class SchemaBuilder {
 
     // Includes this node into our recursive definition
     this.appendChildDefinitions(type);
+
+    // @ts-expect-error - unnamed references usually means literal types
+    // inside other definitions, so we just unwrap them.
+    if (type instanceof DefinitionType && !type.name) {
+      type = type.getType();
+    }
 
     // Returns reference to this node
     return this.formatDefinition(type);
@@ -218,6 +229,11 @@ export class SchemaBuilder {
 
       // Add child definition
       if (!(name in this.definitions)) {
+        // @ts-expect-error - unnamed child should be kept inside the original definition
+        if (!child.name) {
+          continue;
+        }
+
         this.definitions[name] = this.formatter.getDefinition(child.getType());
 
         // Call schema callback if present

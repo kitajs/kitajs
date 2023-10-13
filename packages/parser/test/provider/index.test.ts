@@ -26,7 +26,7 @@ describe('Providers', async () => {
         {
           value: 'param0',
           helper: 'const param0 = Resolver0();',
-          imports: [{ name: 'Resolver0', path: cwdRelative('./providers/test.ts') }],
+          imports: [{ name: 'Resolver0', path: cwdRelative('providers/test.ts') }],
           providerName: 'Resolver0',
           schemaTransformer: false
         }
@@ -47,7 +47,7 @@ describe('Providers', async () => {
       parameters: [
         {
           value: 'param0',
-          imports: [{ name: '* as Resolver0', path: cwdRelative('./providers/transformer.ts') }],
+          imports: [{ name: '* as Resolver0', path: cwdRelative('providers/transformer.ts') }],
           helper: 'const param0 = await Resolver0.default();',
           providerName: 'Resolver0',
           schemaTransformer: true
@@ -66,7 +66,7 @@ describe('Providers', async () => {
     assert.deepStrictEqual(provider, {
       async: false,
       type: 'Test',
-      providerPath: cwdRelative('./providers/test.ts'),
+      providerPath: cwdRelative('providers/test.ts'),
       parameters: [],
       schemaTransformer: false
     });
@@ -78,7 +78,7 @@ describe('Providers', async () => {
     assert.deepStrictEqual(provider, {
       async: true,
       type: 'Transformer',
-      providerPath: cwdRelative('./providers/transformer.ts'),
+      providerPath: cwdRelative('providers/transformer.ts'),
       parameters: [],
       schemaTransformer: true
     });

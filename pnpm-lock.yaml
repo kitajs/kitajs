@@ -39,8 +39,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@oclif/core':
-        specifier: ^3.0.4
-        version: 3.0.4
+        specifier: ^3.0.6
+        version: 3.0.6
       '@oclif/plugin-autocomplete':
         specifier: ^2.3.9
         version: 2.3.9(@types/node@20.8.4)(typescript@5.1.6)
@@ -48,8 +48,8 @@ importers:
         specifier: ^5.2.20
         version: 5.2.20(@types/node@20.8.4)(typescript@5.1.6)
       '@oclif/plugin-not-found':
-        specifier: ^2.4.3
-        version: 2.4.3(@types/node@20.8.4)(typescript@5.1.6)
+        specifier: ^3.0.1
+        version: 3.0.1
       '@oclif/plugin-warn-if-update-available':
         specifier: ^2.1.1
         version: 2.1.1(@types/node@20.8.4)(typescript@5.1.6)
@@ -67,8 +67,8 @@ importers:
         specifier: ^20.8.4
         version: 20.8.4
       oclif:
-        specifier: ^4.0.1
-        version: 4.0.1(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6)
+        specifier: ^4.0.2
+        version: 4.0.2(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6)
       tsx:
         specifier: ^3.13.0
         version: 3.13.0
@@ -79,8 +79,8 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       fastify:
-        specifier: ^4.23.2
-        version: 4.23.2
+        specifier: '>=4'
+        version: 4.24.0
       ts-json-schema-generator:
         specifier: ^1
         version: 1.3.0
@@ -129,8 +129,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       fastify:
-        specifier: ^4.23.2
-        version: 4.23.2
+        specifier: ^4.24.0
+        version: 4.24.0
       fastify-plugin:
         specifier: ^4.5.1
         version: 4.5.1
@@ -180,6 +180,9 @@ importers:
       c8:
         specifier: ^8.0.1
         version: 8.0.1
+      fastify:
+        specifier: ^4.24.0
+        version: 4.24.0
 
   packages/runtime:
     dependencies:
@@ -190,8 +193,8 @@ importers:
         specifier: workspace:^
         version: link:../common
       fastify:
-        specifier: '>=4.23'
-        version: 4.23.2
+        specifier: '>=4'
+        version: 4.24.0
       fastify-plugin:
         specifier: ^4.5.1
         version: 4.5.1
@@ -1120,8 +1123,8 @@ packages:
       - '@types/node'
       - typescript
 
-  /@oclif/core@3.0.4:
-    resolution: {integrity: sha512-zP+OF/PVCgPLVNfoBMevafki71Zn6t1SbU4AIQcsNNAsoC2SpBiUFx81yvJbMG2172ss58ePT5odr1JweuYdhA==}
+  /@oclif/core@3.0.6:
+    resolution: {integrity: sha512-tBe72CDHkst4bpbL1wVspleFnIkwNYgNeXI5dWyWP+Z0Rk4HUe3AdZzqndbm8a9n1OG5l4SOm0O4Qmp60gmsQQ==}
     engines: {node: '>=18.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
@@ -1188,6 +1191,16 @@ packages:
       - '@swc/wasm'
       - '@types/node'
       - typescript
+    dev: true
+
+  /@oclif/plugin-not-found@3.0.1:
+    resolution: {integrity: sha512-5tbLvxwb7bNkQn5M9F4nE43QttlrL/oHm6SeTqstvstyquJs3u251Iy2uGPP1tF7lZAvD/VMrsZ3tznTe4SoJg==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@oclif/core': 3.0.6
+      chalk: 5.3.0
+      fast-levenshtein: 3.0.0
+    dev: false
 
   /@oclif/plugin-warn-if-update-available@2.1.1(@types/node@20.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-y7eSzT6R5bmTIJbiMMXgOlbBpcWXGlVhNeQJBLBCCy1+90Wbjyqf6uvY0i2WcO4sh/THTJ20qCW80j3XUlgDTA==}
@@ -2275,6 +2288,11 @@ packages:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
+  /chalk@5.3.0:
+    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: false
+
   /change-case@4.1.2:
     resolution: {integrity: sha512-bSxY2ws9OtviILG1EiY5K7NNxkqg/JnRnFxLtKQ96JaviiIxi7djMrSd0ECT9AC+lttClmYwKw53BWpOMblo7A==}
     dependencies:
@@ -2486,22 +2504,6 @@ packages:
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  /concurrently@7.6.0:
-    resolution: {integrity: sha512-BKtRgvcJGeZ4XttiDiNcFiRlxoAeZOseqUvyYRUp/Vtd+9p1ULmeoSqGsDA+2ivdeDFpqrJvGvmI+StKfKl5hw==}
-    engines: {node: ^12.20.0 || ^14.13.0 || >=16.0.0}
-    hasBin: true
-    dependencies:
-      chalk: 4.1.2
-      date-fns: 2.30.0
-      lodash: 4.17.21
-      rxjs: 7.8.1
-      shell-quote: 1.8.1
-      spawn-command: 0.0.2-1
-      supports-color: 8.1.1
-      tree-kill: 1.2.2
-      yargs: 17.7.2
-    dev: true
-
   /console-control-strings@1.1.0:
     resolution: {integrity: sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==}
     dev: true
@@ -2578,13 +2580,6 @@ packages:
   /dargs@7.0.0:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
     engines: {node: '>=8'}
-    dev: true
-
-  /date-fns@2.30.0:
-    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
-    engines: {node: '>=0.11'}
-    dependencies:
-      '@babel/runtime': 7.23.1
     dev: true
 
   /dateformat@4.6.3:
@@ -3147,8 +3142,8 @@ packages:
   /fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
 
-  /fastify@4.23.2:
-    resolution: {integrity: sha512-WFSxsHES115svC7NrerNqZwwM0UOxbC/P6toT9LRHgAAFvG7o2AN5W+H4ihCtOGuYXjZf4z+2jXC89rVEoPWOA==}
+  /fastify@4.24.0:
+    resolution: {integrity: sha512-6Uu2cCAV1UgexPnWKchgRt77lng9ivNmyFhPMcgUbJ4VaVBE1l6aYluiYZiVsgOBFpHrmdj7FD6n1aHswln4yQ==}
     dependencies:
       '@fastify/ajv-compiler': 3.5.0
       '@fastify/error': 3.2.0
@@ -3157,7 +3152,7 @@ packages:
       avvio: 8.2.1
       fast-content-type-parse: 1.0.0
       fast-json-stringify: 5.7.0
-      find-my-way: 7.6.2
+      find-my-way: 7.7.0
       light-my-request: 5.9.1
       pino: 8.14.1
       process-warning: 2.2.0
@@ -3203,8 +3198,8 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
 
-  /find-my-way@7.6.2:
-    resolution: {integrity: sha512-0OjHn1b1nCX3eVbm9ByeEHiscPYiHLfhei1wOUU9qffQkk98wE0Lo8VrVYfSGMgnSnDh86DxedduAnBf4nwUEw==}
+  /find-my-way@7.7.0:
+    resolution: {integrity: sha512-+SrHpvQ52Q6W9f3wJoJBbAQULJuNEEQwBvlvYwACDhBTLOTMiQ0HYWh4+vC3OivGP2ENcTI1oKlFA2OepJNjhQ==}
     engines: {node: '>=14'}
     dependencies:
       fast-deep-equal: 3.1.3
@@ -5229,19 +5224,18 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.0.1(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6):
-    resolution: {integrity: sha512-GvCrCYLfHG98cD1UA9eYo+cUyKyTf80gvaOVvaTChQXLBhG6VV4NJrk4+2ESqRFZeWpAvUcxAMVmTdZUcMjN8w==}
+  /oclif@4.0.2(@types/node@20.8.4)(eslint@8.51.0)(typescript@5.1.6):
+    resolution: {integrity: sha512-yTlNy6bMPKJ4OPPeARg2GIV1PyFT4saIkePvl2q5Ca6hu9B5xmJSimn9XyjxQe1SSldp+L9LOhyzEUkEFB5I6A==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
-      '@oclif/core': 3.0.4
+      '@oclif/core': 3.0.6
       '@oclif/plugin-help': 5.2.20(@types/node@20.8.4)(typescript@5.1.6)
       '@oclif/plugin-not-found': 2.4.3(@types/node@20.8.4)(typescript@5.1.6)
       '@oclif/plugin-warn-if-update-available': 2.1.1(@types/node@20.8.4)(typescript@5.1.6)
       async-retry: 1.3.3
       aws-sdk: 2.1472.0
       change-case: 4.1.2
-      concurrently: 7.6.0
       debug: 4.3.4(supports-color@8.1.1)
       eslint-plugin-perfectionist: 2.1.0(eslint@8.51.0)(typescript@5.1.6)
       find-yarn-workspace-root: 2.0.0
@@ -6149,10 +6143,6 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  /shell-quote@1.8.1:
-    resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
-    dev: true
-
   /shelljs@0.8.5:
     resolution: {integrity: sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==}
     engines: {node: '>=4'}
@@ -6304,10 +6294,6 @@ packages:
   /source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-    dev: true
-
-  /spawn-command@0.0.2-1:
-    resolution: {integrity: sha512-n98l9E2RMSJ9ON1AKisHzz7V42VDiBQGY6PB1BwRglz99wpVsSuGzQ+jOi6lFXBGVTCrRpltvjm+/XA+tpeJrg==}
     dev: true
 
   /spawndamnit@2.0.0:
@@ -6592,11 +6578,6 @@ packages:
 
   /tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
-    dev: true
-
-  /tree-kill@1.2.2:
-    resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
-    hasBin: true
     dev: true
 
   /treeverse@1.0.4:

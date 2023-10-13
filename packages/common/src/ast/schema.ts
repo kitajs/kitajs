@@ -13,8 +13,6 @@ export interface RouteSchema extends Partial<Record<keyof FastifySchema, Definit
    */
   operationId: string;
 
-  /**
-   * Any possible other key is also allowed
-   */
+  /** Any possible other key is also allowed */
   [key: string]: unknown;
 }
