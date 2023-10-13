@@ -7,10 +7,10 @@ import { readCompilerOptions } from '@kitajs/common';
 import ts from 'typescript';
 import type Runtime from './runtime';
 
-describe('Dist usage', async () => {
-  const tsconfig = require.resolve('./tsconfig.json');
-  const compilerOptions = readCompilerOptions(tsconfig);
+const tsconfig = require.resolve('./tsconfig.json');
+const compilerOptions = readCompilerOptions(tsconfig);
 
+describe('Dist usage', async () => {
   const program = ts.createProgram(
     [require.resolve('./src/_ignore.ts'), require.resolve('./src/routes/index.ts')],
     compilerOptions
