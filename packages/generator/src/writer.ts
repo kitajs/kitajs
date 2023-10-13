@@ -71,7 +71,7 @@ export class KitaWriter implements SourceWriter {
 
     // TODO: Add support for other entry folders than src, like `lib` or `source`
     const src = toWin32SourcePath(path.join(this.config.cwd, 'src'));
-    const dist = !!this.userDistPath && toWin32SourcePath(this.userDistPath);
+    const dist = !!this.userDistPath && this.userDistPath;
 
     // To avoid overwrite source files after second `tsc` run,
     // we keep aliases inside tsconfig for dts files and use relative
@@ -86,7 +86,7 @@ export class KitaWriter implements SourceWriter {
           const dirsDeep = rest.split(path.sep).length - 1;
 
           // dist + the amount of deep dist
-          return `require("${path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist))}`;
+          return `require("${toWin32SourcePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`;
         });
       }
 
