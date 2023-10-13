@@ -1,7 +1,8 @@
 import { GeneratedDiagnosticsErrors, KitaConfig, SourceWriter } from '@kitajs/common';
+import { EOL } from 'os';
 import path from 'path';
 import ts from 'typescript';
-import { toWin32SourcePath } from './util/path';
+import { PREVIOUS_DIR, toWin32SourcePath } from './util/path';
 
 export class KitaWriter implements SourceWriter {
   private readonly files: Map<string, string> = new Map();
@@ -52,7 +53,7 @@ export class KitaWriter implements SourceWriter {
     let current = this.files.get(filename);
 
     if (current) {
-      current = current + '\n' + content;
+      current = current + EOL + content;
     } else {
       current = content;
     }
@@ -79,7 +80,14 @@ export class KitaWriter implements SourceWriter {
       // Change javascript code to import from the correct location
       if (dist && filename.endsWith('.js')) {
         // TODO: Add support for other entry folders than src, like `lib` or `source`
-        content = content.replaceAll(`require("${src}`, `require("${dist}`);
+        content = content.replaceAll(`require("${src}`, (line, index) => {
+          // `/path/file");\n...` -> `path/file");`
+          const rest = content.slice(index + line.length + 1).split(EOL)[0] || '';
+          const dirsDeep = rest.split(path.sep).length - 1;
+
+          // dist + the amount of deep dist
+          return `require("${path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist))}`;
+        });
       }
 
       return ts.sys.writeFile(filename, content);

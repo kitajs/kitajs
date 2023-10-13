@@ -3,27 +3,32 @@ import test, { describe } from 'node:test';
 import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
-import path from 'node:path';
+import { readCompilerOptions } from '@kitajs/common';
 import ts from 'typescript';
 import type Runtime from './runtime';
 
-describe('Hello World', async () => {
-  const program = ts.createProgram([require.resolve('./src/_ignore.ts'), require.resolve('./src/routes/index.ts')], {
-    outDir: path.join('./dist'),
-    target: ts.ScriptTarget.ES2022,
-    module: ts.ModuleKind.CommonJS,
-    baseUrl: __dirname
-  });
+describe('Dist usage', async () => {
+  const tsconfig = require.resolve('./tsconfig.json');
+  const compilerOptions = readCompilerOptions(tsconfig);
+
+  const program = ts.createProgram(
+    [require.resolve('./src/_ignore.ts'), require.resolve('./src/routes/index.ts')],
+    compilerOptions
+  );
 
   program.emit();
 
-  const rt = await generateRuntime<typeof Runtime>(__dirname, {
-    cwd: __dirname,
-    dist: true,
-    routeFolder: 'src/routes',
-    providerFolder: 'src/providers',
-    tsconfig: require.resolve('./tsconfig.json')
-  });
+  const rt = await generateRuntime<typeof Runtime>(
+    __dirname,
+    {
+      cwd: __dirname,
+      dist: true,
+      routeFolder: 'src/routes',
+      providerFolder: 'src/providers',
+      tsconfig: tsconfig
+    },
+    compilerOptions
+  );
 
   test('expects getIndex was generated', () => {
     assert.ok(rt);

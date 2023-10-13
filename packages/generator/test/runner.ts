@@ -8,9 +8,11 @@ import { KitaFormatter } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');
 
-export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaConfig = {}): Promise<R> {
-  const compilerOptions = readCompilerOptions(tsconfig);
-
+export async function generateRuntime<R>(
+  cwd: string,
+  partialCfg: PartialKitaConfig = {},
+  compilerOptions = readCompilerOptions(tsconfig)
+): Promise<R> {
   const config = parseConfig({
     cwd,
     tsconfig,

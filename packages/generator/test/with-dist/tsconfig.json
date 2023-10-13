@@ -2,7 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "module": "CommonJS",
-    "target": "ES2021"
+    "target": "ES2021",
+    "baseUrl": "."
   },
   "include": ["src"]
 }
