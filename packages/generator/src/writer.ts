@@ -82,7 +82,8 @@ export class KitaWriter implements SourceWriter {
         // TODO: Add support for other entry folders than src, like `lib` or `source`
         content = content.replaceAll(`require("${src}`, (line, index) => {
           // `/path/file");\n...` -> `path/file");`
-          const rest = content.slice(index + line.length + 1).split(EOL)[0] || '';
+          // \n used because we do not change newLine setting inside tsconfig
+          const rest = content.slice(index + line.length + 1).split('\n')[0] || '';
           const dirsDeep = rest.split(path.sep).length - 1;
 
           // dist + the amount of deep dist
