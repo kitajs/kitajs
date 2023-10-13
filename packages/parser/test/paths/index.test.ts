@@ -3,7 +3,7 @@ import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
-describe('Cookies', async () => {
+describe('Path parameter', async () => {
   const kita = await parseRoutes(__dirname);
 
   test('expects 2 routes were generated', () => {
