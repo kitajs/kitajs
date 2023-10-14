@@ -21,7 +21,7 @@
     "typescript": "~5.1.6"
   },
   "devDependencies": {
-    "@types/node": "^20.8.4"
+    "@types/node": "^20.8.6"
   },
   "peerDependencies": {
     "fastify": ">=4",
