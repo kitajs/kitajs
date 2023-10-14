@@ -4,6 +4,8 @@ import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
 import { readCompilerOptions } from '@kitajs/common';
+import { walk } from '@kitajs/parser';
+import path from 'node:path';
 import ts from 'typescript';
 import type Runtime from './runtime';
 
@@ -11,10 +13,10 @@ const tsconfig = require.resolve('./tsconfig.json');
 const compilerOptions = readCompilerOptions(tsconfig);
 
 describe('Dist usage', async () => {
-  const program = ts.createProgram(
-    [require.resolve('./src/_ignore.ts'), require.resolve('./src/routes/index.ts')],
-    compilerOptions
-  );
+  const program = ts.createIncrementalProgram({
+    options: compilerOptions,
+    rootNames: walk(path.join(__dirname, 'src'))
+  });
 
   program.emit();
 

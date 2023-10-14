@@ -46,7 +46,12 @@ export class KitaWriter implements SourceWriter {
 
     // We use @internal to hide some generated code
     this.compilerOptions.stripInternal = true;
+
+    // Performance improvements
     this.compilerOptions.noResolve = true;
+    this.compilerOptions.skipDefaultLibCheck = true;
+    this.compilerOptions.skipLibCheck = true;
+    this.compilerOptions.incremental = false;
   }
 
   write(filename: string, content: string) {
@@ -62,7 +67,7 @@ export class KitaWriter implements SourceWriter {
   }
 
   async flush() {
-    const host = ts.createCompilerHost(this.compilerOptions, false);
+    const host = ts.createIncrementalCompilerHost(this.compilerOptions);
 
     // Reads the file from memory
     host.readFile = (filename) => {
@@ -75,7 +80,7 @@ export class KitaWriter implements SourceWriter {
     // To avoid overwrite source files after second `tsc` run,
     // we keep aliases inside tsconfig for dts files and use relative
     // paths inside .js files
-    host.writeFile = (filename, content) => {
+    host.writeFile = (filename, content, writeByteOrderMark) => {
       // Change javascript code to import from the correct location
       if (this.userDistPath && filename.endsWith('.js')) {
         content = content.replaceAll(`require("${src}`, (line, index) => {
@@ -91,13 +96,16 @@ export class KitaWriter implements SourceWriter {
         });
       }
 
-      return ts.sys.writeFile(filename, content);
+      return ts.sys.writeFile(filename, content, writeByteOrderMark);
     };
 
     // Creates the program and emits the files
-    const program = ts.createProgram(Array.from(this.files.keys()), this.compilerOptions, host);
+    const program = ts.createIncrementalProgram({
+      options: this.compilerOptions,
+      rootNames: Array.from(this.files.keys()),
+      host
+    });
 
-    // TODO: Only call diagnostics if needed
     const diagnostics = [
       program.emit().diagnostics,
       program.getGlobalDiagnostics(),
