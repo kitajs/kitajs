@@ -54,10 +54,12 @@ export class KitaParser implements AstCollector {
     protected readonly config: KitaConfig,
     readonly routePaths: string[],
     readonly providerPaths: string[],
-    protected readonly program: ts.EmitAndSemanticDiagnosticsBuilderProgram
+    protected readonly program: ts.EmitAndSemanticDiagnosticsBuilderProgram | ts.Program
   ) {
+    const realProgram = 'getProgram' in program ? program.getProgram() : program;
+
     // Json schema
-    this.schemaBuilder = new SchemaBuilder(this.config, this.program.getProgram(), this);
+    this.schemaBuilder = new SchemaBuilder(this.config, realProgram, this);
 
     // Parsing
     this.rootParameterParser = buildParameterParser(this.config, this.schemaBuilder, this);
@@ -65,7 +67,7 @@ export class KitaParser implements AstCollector {
       this.config,
       this.schemaBuilder,
       this.rootParameterParser,
-      this.program.getProgram().getTypeChecker()
+      realProgram.getTypeChecker()
     );
     this.rootProviderParser = buildProviderParser(this.config, this.rootParameterParser);
   }
