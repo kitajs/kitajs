@@ -3,7 +3,12 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "target": "ES2021",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "incremental": true,
+    "noResolve": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "strict": false
   },
   "include": ["src"]
 }

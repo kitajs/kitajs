@@ -41,11 +41,11 @@ export class KitaParser implements AstCollector {
     const providerPaths = walk(config.providerFolder);
 
     // Typescript program
-    const program = ts.createProgram(
+    const program = ts.createIncrementalProgram({
+      options: compilerOptions,
       // Adds both providers and controllers
-      routePaths.concat(providerPaths),
-      compilerOptions
-    );
+      rootNames: routePaths.concat(providerPaths)
+    });
 
     return new KitaParser(config, routePaths, providerPaths, program);
   }
@@ -54,10 +54,12 @@ export class KitaParser implements AstCollector {
     protected readonly config: KitaConfig,
     readonly routePaths: string[],
     readonly providerPaths: string[],
-    protected readonly program: ts.Program
+    protected readonly program: ts.EmitAndSemanticDiagnosticsBuilderProgram | ts.Program
   ) {
+    const realProgram = 'getProgram' in program ? program.getProgram() : program;
+
     // Json schema
-    this.schemaBuilder = new SchemaBuilder(this.config, this.program, this);
+    this.schemaBuilder = new SchemaBuilder(this.config, realProgram, this);
 
     // Parsing
     this.rootParameterParser = buildParameterParser(this.config, this.schemaBuilder, this);
@@ -65,7 +67,7 @@ export class KitaParser implements AstCollector {
       this.config,
       this.schemaBuilder,
       this.rootParameterParser,
-      this.program.getTypeChecker()
+      realProgram.getTypeChecker()
     );
     this.rootProviderParser = buildProviderParser(this.config, this.rootParameterParser);
   }
@@ -123,7 +125,6 @@ export class KitaParser implements AstCollector {
 
       if (duplicated) {
         yield new DuplicateOperationIdError(route.schema.operationId, duplicated.controllerPath, route.controllerPath);
-
         continue;
       }
 
