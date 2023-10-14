@@ -1,5 +1,14 @@
 # @kitajs/runtime
 
+## 1.1.4
+
+### Patch Changes
+
+- 0090a7e: Added typed errors with HttpErrors and @fastify/ansible.
+- Updated dependencies [0090a7e]
+- Updated dependencies [d4aad0e]
+  - @kitajs/common@1.1.4
+
 ## 1.1.3
 
 ### Patch Changes

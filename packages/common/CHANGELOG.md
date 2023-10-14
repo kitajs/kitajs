@@ -1,5 +1,12 @@
 # @kitajs/common
 
+## 1.1.4
+
+### Patch Changes
+
+- 0090a7e: Added typed errors with HttpErrors and @fastify/ansible.
+- d4aad0e: Inlined literal object types instead of phantom references
+
 ## 1.1.3
 
 ### Patch Changes
