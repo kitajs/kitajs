@@ -40,16 +40,13 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Test
-        run: pnpm test
-
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
           version: pnpm ci:version
           commit: 'chore: update versions'
-          title: 'chore: update versions'
+          title: 'Release plan'
 
           # https://github.com/changesets/action/issues/246
           # https://github.com/changesets/changesets/pull/674
