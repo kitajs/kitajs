@@ -1,5 +1,16 @@
 # @kitajs/generator
 
+## 1.1.6
+
+### Patch Changes
+
+- dacfd17: Transpilation improvements with ts incremental program
+- 0090a7e: Added typed errors with HttpErrors and @fastify/ansible.
+- 745f34a: Relative runtime paths to dist
+- Updated dependencies [0090a7e]
+- Updated dependencies [d4aad0e]
+  - @kitajs/common@1.1.4
+
 ## 1.1.5
 
 ### Patch Changes
