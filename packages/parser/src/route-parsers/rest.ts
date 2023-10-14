@@ -32,7 +32,6 @@ export class RestRouteParser implements RouteParser {
       return false;
     }
 
-    // TODO: Check if the present this parameter is a Route<> type.
     return true;
   }
 
