@@ -41,6 +41,13 @@ export interface KitaConfig {
   dist?: boolean;
 
   /**
+   * The custom path to your source root. Used when replacing the source path with the dist path.
+   *
+   * @default 'src'
+   */
+  src: string;
+
+  /**
    * The tsconfig path to use to parse the files.
    *
    * @default 'tsconfig.json'

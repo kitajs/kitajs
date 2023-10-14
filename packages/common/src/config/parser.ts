@@ -23,6 +23,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     tsconfig,
     providerFolder,
     dist: config.dist ?? true,
+    src: config.src ?? 'src',
     runtimePath: config.runtimePath,
     routeFolder,
     responses: config.responses ?? {},

@@ -70,7 +70,7 @@ export class KitaWriter implements SourceWriter {
     };
 
     // TODO: Add support for other entry folders than src, like `lib` or `source`
-    const src = escapePath(path.join(this.config.cwd, 'src'));
+    const src = escapePath(path.join(this.config.cwd, this.config.src));
     const dist = !!this.userDistPath && this.userDistPath;
     const escapedSep = escapePath(path.sep);
 
@@ -86,15 +86,6 @@ export class KitaWriter implements SourceWriter {
           // \n used because we do not change newLine setting inside tsconfig
           const rest = content.slice(index + line.length + escapedSep.length).split('\n')[0] || '';
           const dirsDeep = rest.split(escapedSep).length - 1;
-
-          console.log({
-            dirsDeep,
-            rest,
-            line: content.slice(index + line.length + 1),
-            index,
-            relative: path.relative(src, dist),
-            return: `require("${escapePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`
-          });
 
           // dist + the amount of deep dist
           return `require("${escapePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`;
