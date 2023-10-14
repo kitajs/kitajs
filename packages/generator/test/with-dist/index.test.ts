@@ -11,10 +11,10 @@ const tsconfig = require.resolve('./tsconfig.json');
 const compilerOptions = readCompilerOptions(tsconfig);
 
 describe('Dist usage', async () => {
-  const program = ts.createProgram(
-    [require.resolve('./src/_ignore.ts'), require.resolve('./src/routes/index.ts')],
-    compilerOptions
-  );
+  const program = ts.createIncrementalProgram({
+    options: compilerOptions,
+    rootNames: [require.resolve('./src/_ignore.ts'), require.resolve('./src/routes/index.ts')]
+  });
 
   program.emit();
 
