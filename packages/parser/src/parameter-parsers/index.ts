@@ -5,6 +5,7 @@ import { BodyPropParameterParser } from './body-prop';
 import { ChainParameterParser } from './chain';
 import { CookieParameterParser } from './cookie';
 import { ProviderParameterParser } from './custom';
+import { ErrorsParameterParser } from './errors';
 import { FastifyParameterParser } from './fastify';
 import { HeaderParameterParser } from './header';
 import { PathParameterParser } from './path';
@@ -33,7 +34,8 @@ export function buildParameterParser(
     .add(new HeaderParameterParser(config))
     .add(new CookieParameterParser())
     .add(new ThisParameterParser())
-    .add(new SuspenseIdParameterParser());
+    .add(new SuspenseIdParameterParser())
+    .add(new ErrorsParameterParser());
 
   return chain;
 }

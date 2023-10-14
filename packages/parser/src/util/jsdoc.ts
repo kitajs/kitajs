@@ -1,4 +1,4 @@
-import { EmptyJsdocError, JsdocAlreadyDefinedError, Route } from '@kitajs/common';
+import { EmptyJsdocError, JsdocAlreadyDefinedError, Route, UnknownHttpJsdocError } from '@kitajs/common';
 import ts from 'typescript';
 import { mergeSchema } from '../schema/helpers';
 
@@ -49,6 +49,31 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
         });
 
         break;
+
+      case 'throws': {
+        if (!value) {
+          throw new EmptyJsdocError(tag.tagName || tag);
+        }
+
+        const number = Number(value);
+
+        if (isNaN(number)) {
+          throw new UnknownHttpJsdocError(tag.tagName || tag);
+        }
+
+        // Adds the route schema
+        mergeSchema(route, {
+          response: {
+            [number]: {
+              // This type will be registered by `sharedSchemaId` option
+              // from @fastify/sensible
+              $ref: 'HttpError'
+            }
+          }
+        });
+
+        break;
+      }
 
       case 'summary':
         if (!value) {
