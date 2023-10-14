@@ -1,5 +1,6 @@
 import { KitaConfig, KitaError, importConfig, parseConfig } from '@kitajs/common';
 import { KitaParser, walk } from '@kitajs/parser';
+import { EOL } from 'os';
 import path from 'path';
 import ts, { server } from 'typescript/lib/tsserverlibrary';
 import { appendProviderDiagnostics } from './parsers/provider';
@@ -86,7 +87,7 @@ export = function initHtmlPlugin() {
             return diagnostics;
           }
 
-          info.project.projectService.logger.msg(`[kita-plugin] Error:\n${error.stack}`, ts.server.Msg.Err);
+          info.project.projectService.logger.msg(`[kita-plugin] Error:${EOL}${error.stack}`, ts.server.Msg.Err);
         }
 
         return diagnostics;
