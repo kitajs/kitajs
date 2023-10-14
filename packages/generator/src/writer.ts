@@ -2,7 +2,7 @@ import { GeneratedDiagnosticsErrors, KitaConfig, SourceWriter } from '@kitajs/co
 import { EOL } from 'os';
 import path from 'path';
 import ts from 'typescript';
-import { PREVIOUS_DIR, toWin32SourcePath } from './util/path';
+import { PREVIOUS_DIR, escapePath } from './util/path';
 
 export class KitaWriter implements SourceWriter {
   private readonly files: Map<string, string> = new Map();
@@ -70,8 +70,9 @@ export class KitaWriter implements SourceWriter {
     };
 
     // TODO: Add support for other entry folders than src, like `lib` or `source`
-    const src = toWin32SourcePath(path.join(this.config.cwd, 'src'));
+    const src = escapePath(path.join(this.config.cwd, 'src'));
     const dist = !!this.userDistPath && this.userDistPath;
+    const escapedSep = escapePath(path.sep);
 
     // To avoid overwrite source files after second `tsc` run,
     // we keep aliases inside tsconfig for dts files and use relative
@@ -83,8 +84,8 @@ export class KitaWriter implements SourceWriter {
         content = content.replaceAll(`require("${src}`, (line, index) => {
           // `/path/file");\n...` -> `path/file");`
           // \n used because we do not change newLine setting inside tsconfig
-          const rest = content.slice(index + line.length + 1).split('\n')[0] || '';
-          const dirsDeep = rest.split(path.sep).length - 1;
+          const rest = content.slice(index + line.length + escapedSep.length).split('\n')[0] || '';
+          const dirsDeep = rest.split(escapedSep).length - 1;
 
           console.log({
             dirsDeep,
@@ -92,11 +93,11 @@ export class KitaWriter implements SourceWriter {
             line: content.slice(index + line.length + 1),
             index,
             relative: path.relative(src, dist),
-            return: `require("${toWin32SourcePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`
+            return: `require("${escapePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`
           });
 
           // dist + the amount of deep dist
-          return `require("${toWin32SourcePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`;
+          return `require("${escapePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`;
         });
       }
 

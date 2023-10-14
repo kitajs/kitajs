@@ -28,7 +28,7 @@ export function formatImport(imp: string, cwd: string) {
     imp = path.resolve(cwd, imp);
   }
 
-  return toWin32SourcePath(imp);
+  return escapePath(imp);
 }
 
 /** Removes the extension from a path, if present. */
@@ -50,6 +50,6 @@ export function removeExt(p: string) {
  * - String: `\\a`
  * - String of source code: `\\\\a`
  */
-export function toWin32SourcePath(p: string) {
+export function escapePath(p: string) {
   return p.replace(DOUBLE_BACKSLASH, '\\\\');
 }
