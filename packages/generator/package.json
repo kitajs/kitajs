@@ -23,7 +23,7 @@
   "devDependencies": {
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
-    "@types/node": "^20.8.4",
+    "@types/node": "^20.8.6",
     "c8": "^8.0.1",
     "fastify": "^4.24.0",
     "fastify-plugin": "^4.5.1",
