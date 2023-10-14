@@ -39,8 +39,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@oclif/core':
-        specifier: ^3.0.6
-        version: 3.0.6
+        specifier: ^3.2.1
+        version: 3.2.1
       '@oclif/plugin-autocomplete':
         specifier: ^2.3.9
         version: 2.3.9(@types/node@20.8.6)(typescript@5.1.6)
@@ -1123,36 +1123,6 @@ packages:
       - '@types/node'
       - typescript
 
-  /@oclif/core@3.0.6:
-    resolution: {integrity: sha512-tBe72CDHkst4bpbL1wVspleFnIkwNYgNeXI5dWyWP+Z0Rk4HUe3AdZzqndbm8a9n1OG5l4SOm0O4Qmp60gmsQQ==}
-    engines: {node: '>=18.0.0'}
-    dependencies:
-      ansi-escapes: 4.3.2
-      ansi-styles: 4.3.0
-      cardinal: 2.1.1
-      chalk: 4.1.2
-      clean-stack: 3.0.1
-      cli-progress: 3.12.0
-      debug: 4.3.4(supports-color@8.1.1)
-      ejs: 3.1.9
-      get-package-type: 0.1.0
-      globby: 11.1.0
-      hyperlinker: 1.0.0
-      indent-string: 4.0.0
-      is-wsl: 2.2.0
-      js-yaml: 3.14.1
-      natural-orderby: 2.0.3
-      object-treeify: 1.1.33
-      password-prompt: 1.1.3
-      slice-ansi: 4.0.0
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-      supports-color: 8.1.1
-      supports-hyperlinks: 2.3.0
-      widest-line: 3.1.0
-      wordwrap: 1.0.0
-      wrap-ansi: 7.0.0
-
   /@oclif/core@3.2.1:
     resolution: {integrity: sha512-QY9csFjADbRa4RH7wcKSvIowaGI+Kc5oFCODYrKy9nj3x/RPGXG9KJ2848+9ZWJKUxv3KPHBX9CULHwvrwpVdg==}
     engines: {node: '>=18.0.0'}
@@ -1182,7 +1152,6 @@ packages:
       widest-line: 3.1.0
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
-    dev: false
 
   /@oclif/plugin-autocomplete@2.3.9(@types/node@20.8.6)(typescript@5.1.6):
     resolution: {integrity: sha512-MLmJtyp2iVnihDaogMDy+U323wI5vlV2raHOHKfe6mwzq6ObowimiOXnT9l2a0HELGHI0Fmd1tKeCgPrJE152A==}
@@ -1236,7 +1205,7 @@ packages:
     resolution: {integrity: sha512-5tbLvxwb7bNkQn5M9F4nE43QttlrL/oHm6SeTqstvstyquJs3u251Iy2uGPP1tF7lZAvD/VMrsZ3tznTe4SoJg==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.0.6
+      '@oclif/core': 3.2.1
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
     dev: false
@@ -5268,7 +5237,7 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
-      '@oclif/core': 3.0.6
+      '@oclif/core': 3.2.1
       '@oclif/plugin-help': 5.2.20(@types/node@20.8.6)(typescript@5.1.6)
       '@oclif/plugin-not-found': 2.4.3(@types/node@20.8.6)(typescript@5.1.6)
       '@oclif/plugin-warn-if-update-available': 2.1.1(@types/node@20.8.6)(typescript@5.1.6)
