@@ -86,6 +86,15 @@ export class KitaWriter implements SourceWriter {
           const rest = content.slice(index + line.length + 1).split('\n')[0] || '';
           const dirsDeep = rest.split(path.sep).length - 1;
 
+          console.log({
+            dirsDeep,
+            rest,
+            line: content.slice(index + line.length + 1),
+            index,
+            relative: path.relative(src, dist),
+            return: `require("${toWin32SourcePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`
+          });
+
           // dist + the amount of deep dist
           return `require("${toWin32SourcePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`;
         });
