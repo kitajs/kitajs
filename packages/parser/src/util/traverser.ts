@@ -14,7 +14,7 @@ import ts from 'typescript';
 
 /** Traverse each statement of a source file for the given path and yields the result of the provided parser or an error. */
 export async function* traverseStatements<R>(
-  program: ts.Program,
+  program: Pick<ts.Program, 'getSourceFile'>,
   parser: Parser<ts.Statement, R, []>,
   files: string[]
 ) {
@@ -56,7 +56,11 @@ export async function* traverseStatements<R>(
 }
 
 /** Traverse each source file for the given path and yields the result of the provided parser or an error. */
-export async function* traverseSource<R>(program: ts.Program, parser: Parser<ts.SourceFile, R, []>, files: string[]) {
+export async function* traverseSource<R>(
+  program: Pick<ts.Program, 'getSourceFile'>,
+  parser: Parser<ts.SourceFile, R, []>,
+  files: string[]
+) {
   for (const file of files) {
     const sourceFile = program.getSourceFile(file);
 
