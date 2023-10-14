@@ -69,9 +69,7 @@ export class KitaWriter implements SourceWriter {
       return this.files.get(filename) || ts.sys.readFile(filename);
     };
 
-    // TODO: Add support for other entry folders than src, like `lib` or `source`
     const src = escapePath(path.join(this.config.cwd, this.config.src));
-    const dist = !!this.userDistPath && this.userDistPath;
     const escapedSep = escapePath(path.sep);
 
     // To avoid overwrite source files after second `tsc` run,
@@ -79,8 +77,7 @@ export class KitaWriter implements SourceWriter {
     // paths inside .js files
     host.writeFile = (filename, content) => {
       // Change javascript code to import from the correct location
-      if (dist && filename.endsWith('.js')) {
-        // TODO: Add support for other entry folders than src, like `lib` or `source`
+      if (this.userDistPath && filename.endsWith('.js')) {
         content = content.replaceAll(`require("${src}`, (line, index) => {
           // `/path/file");\n...` -> `path/file");`
           // \n used because we do not change newLine setting inside tsconfig
@@ -88,7 +85,9 @@ export class KitaWriter implements SourceWriter {
           const dirsDeep = rest.split(escapedSep).length - 1;
 
           // dist + the amount of deep dist
-          return `require("${escapePath(path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, dist)))}`;
+          return `require("${escapePath(
+            path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, this.userDistPath as string))
+          )}`;
         });
       }
 
