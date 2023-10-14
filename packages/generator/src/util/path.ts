@@ -1,26 +1,34 @@
 import path from 'path';
 
 /** Posix: `./`, in windows: `.\\` */
-export const CURRENT_DIR = path.join('./');
+export const CURRENT_DIR = `.${path.sep}`;
+export const PREVIOUS_DIR = `..${path.sep}`;
+
+export function isRelative(p: string) {
+  if (p.startsWith(CURRENT_DIR)) {
+    return CURRENT_DIR;
+  }
+
+  if (p.startsWith(PREVIOUS_DIR)) {
+    return PREVIOUS_DIR;
+  }
+
+  return false;
+}
+
+/** Matches all \ in a string */
+const DOUBLE_BACKSLASH = /\\/g;
 
 /** Remove extension from import path */
 export function formatImport(imp: string, cwd: string) {
-  const withoutExtension = removeExt(imp);
+  imp = removeExt(imp);
 
   // Makes sure the relative import is absolute
-  if (withoutExtension.startsWith(CURRENT_DIR)) {
+  if (isRelative(imp)) {
     imp = path.resolve(cwd, imp);
-
-    // Just normalizes it
-  } else {
-    imp = path.normalize(imp);
   }
 
-  // Double escape windows paths
-  // Value: `\a`
-  // String: `\\a`
-  // String of source code: `\\\\a`
-  return imp.replace(/\\/g, '\\\\');
+  return escapePath(imp);
 }
 
 /** Removes the extension from a path, if present. */
@@ -33,4 +41,15 @@ export function removeExt(p: string) {
   } else {
     return p;
   }
+}
+
+/**
+ * Double escape windows paths
+ *
+ * - Value: `\a`
+ * - String: `\\a`
+ * - String of source code: `\\\\a`
+ */
+export function escapePath(p: string) {
+  return p.replace(DOUBLE_BACKSLASH, '\\\\');
 }
