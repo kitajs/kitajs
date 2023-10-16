@@ -2,7 +2,7 @@ import { GeneratedDiagnosticsErrors, KitaConfig, SourceWriter } from '@kitajs/co
 import { EOL } from 'os';
 import path from 'path';
 import ts from 'typescript';
-import { PREVIOUS_DIR, escapePath } from './util/path';
+import { escapePath } from './util/path';
 
 export class KitaWriter implements SourceWriter {
   private readonly files: Map<string, string> = new Map();
@@ -75,25 +75,34 @@ export class KitaWriter implements SourceWriter {
     };
 
     const src = escapePath(path.join(this.config.cwd, this.config.src));
-    const escapedSep = escapePath(path.sep);
 
     // To avoid overwrite source files after second `tsc` run,
     // we keep aliases inside tsconfig for dts files and use relative
     // paths inside .js files
     host.writeFile = (filename, content, writeByteOrderMark) => {
-      // Change javascript code to import from the correct location
-      if (this.userDistPath && filename.endsWith('.js')) {
-        content = content.replaceAll(`require("${src}`, (line, index) => {
-          // `/path/file");\n...` -> `path/file");`
-          // \n used because we do not change newLine setting inside tsconfig
-          const rest = content.slice(index + line.length + escapedSep.length).split('\n')[0] || '';
-          const dirsDeep = rest.split(escapedSep).length - 1;
-
-          // dist + the amount of deep dist
-          return `require("${escapePath(
-            path.join(PREVIOUS_DIR.repeat(dirsDeep), path.relative(src, this.userDistPath as string))
-          )}`;
-        });
+      if (
+        // Only if we should switch to the dist folder
+        this.userDistPath &&
+        // only JS files should be changed
+        filename.endsWith('.js')
+      ) {
+        // Replace's all require statements with the dist folder
+        content = content.replaceAll(
+          `require("${src}`,
+          (line) =>
+            `require("${escapePath(
+              path.relative(
+                // The file directory
+                path.dirname(filename),
+                path.join(
+                  // the user's dist folder
+                  this.userDistPath as string,
+                  // the user's source folder without the `require("` and the source folder
+                  line.slice(`require("`.length + src.length)
+                )
+              )
+            )}`
+        );
       }
 
       return ts.sys.writeFile(filename, content, writeByteOrderMark);
