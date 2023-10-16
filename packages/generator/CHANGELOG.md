@@ -1,5 +1,12 @@
 # @kitajs/generator
 
+## 1.1.7
+
+### Patch Changes
+
+- d15537a: Fixed runtime relative paths
+- 3756548: Correct path escaping for weird filenames
+
 ## 1.1.6
 
 ### Patch Changes
