@@ -1,5 +1,13 @@
 # @kitajs/runtime
 
+## 1.1.5
+
+### Patch Changes
+
+- a2ed13d: Correct typescript imports with tjsg
+- Updated dependencies [a2ed13d]
+  - @kitajs/common@1.1.5
+
 ## 1.1.4
 
 ### Patch Changes

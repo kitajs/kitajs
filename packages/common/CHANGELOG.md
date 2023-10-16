@@ -1,5 +1,11 @@
 # @kitajs/common
 
+## 1.1.5
+
+### Patch Changes
+
+- a2ed13d: Correct typescript imports with tjsg
+
 ## 1.1.4
 
 ### Patch Changes
