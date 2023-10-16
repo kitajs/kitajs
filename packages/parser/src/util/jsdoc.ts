@@ -1,5 +1,5 @@
 import { EmptyJsdocError, JsdocAlreadyDefinedError, Route, UnknownHttpJsdocError } from '@kitajs/common';
-import ts from 'typescript';
+import { ts } from 'ts-json-schema-generator';
 import { mergeSchema } from '../schema/helpers';
 
 /** Parses all jsdoc tags of a route function and applies them to the route. */

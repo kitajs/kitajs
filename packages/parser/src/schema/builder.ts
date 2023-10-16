@@ -1,5 +1,6 @@
 import type { AstCollector, KitaConfig } from '@kitajs/common';
 import { CannotCreateNodeTypeError, MultipleDefinitionsError } from '@kitajs/common';
+import type { ts } from 'ts-json-schema-generator';
 import {
   AliasType,
   AnnotatedType,
@@ -25,7 +26,6 @@ import {
   createFormatter,
   createParser
 } from 'ts-json-schema-generator';
-import type ts from 'typescript';
 import { correctFormatterChildrenOrder, removeFormatterDefinitions } from './helpers';
 
 export class SchemaBuilder {

@@ -6,7 +6,7 @@ import {
   RouteMapperNotExportedError,
   RouteOptionsAlreadyDefinedError
 } from '@kitajs/common';
-import ts from 'typescript';
+import { ts } from 'ts-json-schema-generator';
 import {
   getParameterGenerics,
   getTypeName,

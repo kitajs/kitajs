@@ -6,8 +6,8 @@ import {
   Route,
   kRequestParam
 } from '@kitajs/common';
+import type { ts } from 'ts-json-schema-generator';
 import { ArrayType, Definition } from 'ts-json-schema-generator';
-import type ts from 'typescript';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { getParameterGenerics, getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';

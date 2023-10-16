@@ -1,5 +1,5 @@
 import { ChainParser, Route, RouteParser, RouteResolverNotFoundError } from '@kitajs/common';
-import type ts from 'typescript';
+import type { ts } from 'ts-json-schema-generator';
 
 export class ChainRouteParser extends ChainParser<RouteParser> implements RouteParser {
   async parse(node: ts.Node): Promise<Route> {

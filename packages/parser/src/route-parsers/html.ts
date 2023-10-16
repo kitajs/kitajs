@@ -8,8 +8,7 @@ import {
   kRequestParam
 } from '@kitajs/common';
 import path from 'path';
-import { StringType } from 'ts-json-schema-generator';
-import ts from 'typescript';
+import { StringType, ts } from 'ts-json-schema-generator';
 import { SchemaBuilder } from '../schema/builder';
 import { getReturnType, isExportedFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';

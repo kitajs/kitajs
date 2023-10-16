@@ -12,9 +12,8 @@ import {
   type ParameterParser,
   type RouteParser
 } from '@kitajs/common';
-import { Definition } from 'ts-json-schema-generator';
+import { Definition, ts } from 'ts-json-schema-generator';
 import { Promisable } from 'type-fest';
-import ts from 'typescript';
 import { buildParameterParser } from './parameter-parsers';
 import { buildProviderParser } from './provider-parsers';
 import { buildRouteParser } from './route-parsers';
