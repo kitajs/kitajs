@@ -1,5 +1,14 @@
 # @kitajs/ts-plugin
 
+## 1.1.6
+
+### Patch Changes
+
+- a2ed13d: Correct typescript imports with tjsg
+- Updated dependencies [a2ed13d]
+  - @kitajs/common@1.1.5
+  - @kitajs/parser@1.1.6
+
 ## 1.1.5
 
 ### Patch Changes

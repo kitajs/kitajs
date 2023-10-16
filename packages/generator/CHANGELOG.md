@@ -1,5 +1,13 @@
 # @kitajs/generator
 
+## 1.1.8
+
+### Patch Changes
+
+- a2ed13d: Correct typescript imports with tjsg
+- Updated dependencies [a2ed13d]
+  - @kitajs/common@1.1.5
+
 ## 1.1.7
 
 ### Patch Changes
