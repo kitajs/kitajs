@@ -16,9 +16,6 @@ export function isRelative(p: string) {
   return false;
 }
 
-/** Matches all \ in a string */
-const DOUBLE_BACKSLASH = /\\/g;
-
 /** Remove extension from import path */
 export function formatImport(imp: string, cwd: string) {
   imp = removeExt(imp);
@@ -43,13 +40,17 @@ export function removeExt(p: string) {
   }
 }
 
-/**
- * Double escape windows paths
- *
- * - Value: `\a`
- * - String: `\\a`
- * - String of source code: `\\\\a`
- */
+/** Matches all \ in a string */
+const DOUBLE_BACKSLASH = /\\/g;
+const DOLLAR_SIGN = /\$/g;
+const SINGLE_QUOTE = /'/g;
+const DOUBLE_QUOTE = /"/g;
+
+/** Escape string for use inside path strings. */
 export function escapePath(p: string) {
-  return p.replace(DOUBLE_BACKSLASH, '\\\\');
+  return p
+    .replace(DOUBLE_BACKSLASH, '\\\\')
+    .replace(DOLLAR_SIGN, '\\$')
+    .replace(SINGLE_QUOTE, "\\'")
+    .replace(DOUBLE_QUOTE, '\\"');
 }
