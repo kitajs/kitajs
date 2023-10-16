@@ -1,8 +1,8 @@
-import { Definition } from 'ts-json-schema-generator';
 import { Promisable } from 'type-fest';
 import { KitaError } from '../errors';
 import { Provider } from './provider';
 import { Route } from './route';
+import { JsonSchema } from './schema';
 
 /**
  * A KitaParser instance is a representation of a AST parser. It is used to read all source files and parse them into an
@@ -28,10 +28,10 @@ export interface AstCollector {
   getRouteCount(): number;
 
   /** Returns a schema by its reference id. */
-  getSchema(ref: string): Definition | undefined;
+  getSchema(ref: string): JsonSchema | undefined;
 
   /** Returns all schemas defined by this server. */
-  getSchemas(): Definition[];
+  getSchemas(): JsonSchema[];
 
   /** Returns the number of schemas defined by this server. */
   getSchemaCount(): number;
@@ -47,5 +47,5 @@ export interface AstCollector {
   // hooks
   onRoute?: (r: Route) => Promisable<void>;
   onProvider?: (r: Provider) => Promisable<void>;
-  onSchema?: (r: Definition) => void;
+  onSchema?: (r: JsonSchema) => void;
 }

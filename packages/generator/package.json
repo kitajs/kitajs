@@ -18,7 +18,7 @@
     "@kitajs/common": "workspace:^",
     "tslib": "^2.6.2",
     "type-fest": "^4.4.0",
-    "typescript": "~5.1.6"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@fastify/sensible": "^5.3.0",
@@ -26,12 +26,11 @@
     "@kitajs/runtime": "workspace:^",
     "@types/node": "^20.8.6",
     "c8": "^8.0.1",
-    "fastify": "^4.24.1",
+    "fastify": "^4.24.2",
     "fastify-plugin": "^4.5.1",
-    "ts-json-schema-generator": "^1.3.0",
     "tsc-alias": "^1.8.8"
   },
   "peerDependencies": {
-    "typescript": "~5.1.6"
+    "typescript": "^5.2"
   }
 }

@@ -44,13 +44,11 @@ describe('Dist usage', async () => {
   });
 
   test('getIndex options were generated', async () => {
-    const app = createApp(rt);
+    await using app = createApp(rt);
 
     const res = await app.inject({ method: 'GET', url: '/' });
 
     assert.equal(res.statusCode, 200);
     assert.equal(res.body, 'Hello World!');
-
-    await app.close();
   });
 });

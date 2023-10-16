@@ -1,5 +1,6 @@
 import {
   InvalidParameterUsageError,
+  JsonSchema,
   KitaConfig,
   Parameter,
   ParameterParser,
@@ -7,7 +8,7 @@ import {
   kRequestParam
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
-import { ArrayType, Definition } from 'ts-json-schema-generator';
+import { ArrayType } from 'ts-json-schema-generator';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { getParameterGenerics, getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';
@@ -33,7 +34,7 @@ export class PathParameterParser implements ParameterParser {
     const name = getParameterName(param, 1);
     const [type] = getParameterGenerics(param);
 
-    let schema: Definition;
+    let schema: JsonSchema;
 
     if (type) {
       const primitive = this.builder.toPrimitive(type);

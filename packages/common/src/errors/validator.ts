@@ -1,4 +1,3 @@
-import { BaseType } from 'ts-json-schema-generator';
 import ts from 'typescript';
 import { KitaError } from './base';
 
@@ -131,7 +130,7 @@ export class QueryMixError extends KitaError {
 export class InvalidHtmlRoute extends KitaError {
   constructor(
     node: ts.Node,
-    readonly primitive?: BaseType
+    readonly primitive?: unknown
   ) {
     super({
       code: 409,

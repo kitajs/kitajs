@@ -15,17 +15,18 @@
     "test": "tsc --noEmit"
   },
   "dependencies": {
+    "@types/json-schema": "^7.0.13",
     "deepmerge": "^4.3.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.4.0",
-    "typescript": "~5.1.6"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@types/node": "^20.8.6"
   },
   "peerDependencies": {
-    "fastify": ">=4",
-    "ts-json-schema-generator": "^1",
-    "typescript": "~5.1.6"
+    "fastify": "^4.24",
+    "ts-json-schema-generator": "^1.4.0",
+    "typescript": "^5.2"
   }
 }

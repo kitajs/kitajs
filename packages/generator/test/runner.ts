@@ -1,7 +1,7 @@
 import { PartialKitaConfig, parseConfig, readCompilerOptions } from '@kitajs/common';
 import { KitaParser } from '@kitajs/parser';
 import assert from 'assert';
-import fastify, { FastifyInstance } from 'fastify';
+import fastify from 'fastify';
 import fs from 'fs/promises';
 import path from 'path';
 import { KitaFormatter } from '../src';
@@ -46,8 +46,6 @@ export async function generateRuntime<R>(
 
 export function createApp<R>(runtime: R, opts?: Parameters<typeof fastify>[0]) {
   const app = fastify(opts);
-
   app.register((runtime as any).Kita);
-
-  return app as FastifyInstance;
+  return app;
 }
