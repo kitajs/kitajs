@@ -68,7 +68,7 @@ export class RestRouteParser implements RouteParser {
         }
       });
     } catch (error) {
-      throw new ReturnTypeError(node, error);
+      throw new ReturnTypeError(node.name || node, error);
     }
 
     // Parses all jsdoc functions
