@@ -34,7 +34,7 @@ describe('This & Use usage', async () => {
   });
 
   test('getIndex registers handler 2', async () => {
-    const app = createApp(rt);
+    await using app = createApp(rt);
 
     const res = await app.inject({ method: 'GET', url: '/' });
 
@@ -43,12 +43,10 @@ describe('This & Use usage', async () => {
     assert.equal(res.headers['x-handler1'], undefined);
     assert.equal(res.headers['x-handler2'], 'true');
     assert.equal(res.headers['x-handler3'], undefined);
-
-    await app.close();
   });
 
   test('postIndex registers 3 handlers', async () => {
-    const app = createApp(rt);
+    await using app = createApp(rt);
 
     const res = await app.inject({ method: 'POST', url: '/' });
 
@@ -57,7 +55,5 @@ describe('This & Use usage', async () => {
     assert.equal(res.headers['x-handler1'], 'true');
     assert.equal(res.headers['x-handler2'], 'true');
     assert.equal(res.headers['x-handler3'], 'true');
-
-    await app.close();
   });
 });

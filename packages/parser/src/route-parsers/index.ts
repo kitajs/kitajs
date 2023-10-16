@@ -1,5 +1,5 @@
 import type { KitaConfig, ParameterParser, RouteParser } from '@kitajs/common';
-import type ts from 'typescript';
+import type { ts } from 'ts-json-schema-generator';
 import type { SchemaBuilder } from '../schema/builder';
 import { ChainRouteParser } from './chain';
 import { HtmlRouteParser } from './html';

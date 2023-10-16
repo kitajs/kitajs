@@ -1,12 +1,12 @@
-import type { AstCollector, KitaConfig } from '@kitajs/common';
+import type { AstCollector, JsonSchema, KitaConfig } from '@kitajs/common';
 import { CannotCreateNodeTypeError, MultipleDefinitionsError } from '@kitajs/common';
+import type { ts } from 'ts-json-schema-generator';
 import {
   AliasType,
   AnnotatedType,
   ArrayType,
   BaseType,
   Context,
-  Definition,
   DefinitionType,
   EnumType,
   IntersectionType,
@@ -25,12 +25,11 @@ import {
   createFormatter,
   createParser
 } from 'ts-json-schema-generator';
-import type ts from 'typescript';
 import { correctFormatterChildrenOrder, removeFormatterDefinitions } from './helpers';
 
 export class SchemaBuilder {
   /** All definitions read from this schema builder */
-  private definitions: Record<string, Definition> = {};
+  private definitions: Record<string, JsonSchema> = {};
 
   private parser: NodeParser;
   private formatter: TypeFormatter;
@@ -175,7 +174,7 @@ export class SchemaBuilder {
   }
 
   /** Get all definitions as an array. */
-  toSchemaArray(): Definition[] {
+  toSchemaArray(): JsonSchema[] {
     return Object.keys(this.definitions).map((name) => this.getDefinition(name)!);
   }
 
@@ -185,7 +184,7 @@ export class SchemaBuilder {
   }
 
   /** Get the definition for a type name */
-  getDefinition(name: string): Definition | undefined {
+  getDefinition(name: string): JsonSchema | undefined {
     const definition = this.definitions[name];
 
     if (!definition) {

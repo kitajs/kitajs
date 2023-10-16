@@ -16,7 +16,7 @@ describe('Http Errors', async () => {
   });
 
   test('getIndex throws correctly', async () => {
-    const app = createApp(rt);
+    await using app = createApp(rt);
 
     //@ts-expect-error - https://github.com/fastify/fastify-sensible/pull/147
     app.register(fastifySensible, {
@@ -37,7 +37,5 @@ describe('Http Errors', async () => {
 
     assert.equal(res2.statusCode, 500);
     assert.deepStrictEqual(res2.json(), { statusCode: 500, error: 'Internal Server Error', message: 'Error 2!' });
-
-    await app.close();
   });
 });

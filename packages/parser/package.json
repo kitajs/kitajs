@@ -17,21 +17,21 @@
   "dependencies": {
     "@kitajs/common": "workspace:^",
     "deepmerge": "^4.3.1",
-    "ts-json-schema-generator": "^1.3.0",
+    "ts-json-schema-generator": "^1.4.0",
     "tslib": "^2.6.2",
     "type-fest": "^4.4.0",
-    "typescript": "~5.1.6"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@kitajs/html": "^3.0.2",
+    "@kitajs/html": "^3.0.3",
     "@kitajs/runtime": "workspace:^",
     "@swc-node/register": "^1.6.8",
     "@swc/helpers": "^0.5.3",
     "@types/node": "^20.8.6",
     "c8": "^8.0.1",
-    "fastify": "^4.24.1"
+    "fastify": "^4.24.2"
   },
   "peerDependencies": {
-    "typescript": "~5.1.6"
+    "typescript": "^5.2"
   }
 }

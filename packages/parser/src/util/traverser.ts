@@ -10,7 +10,7 @@ import {
   UnknownKitaError,
   isPromiseLike
 } from '@kitajs/common';
-import ts from 'typescript';
+import { ts } from 'ts-json-schema-generator';
 
 /** Traverse each statement of a source file for the given path and yields the result of the provided parser or an error. */
 export async function* traverseStatements<R>(

@@ -1,5 +1,5 @@
 import { ChainParser, Provider, ProviderParser, ProviderResolverNotFound } from '@kitajs/common';
-import type ts from 'typescript';
+import type { ts } from 'ts-json-schema-generator';
 
 export class ChainProviderParser extends ChainParser<ProviderParser> implements ProviderParser {
   async parse(node: ts.SourceFile): Promise<Provider> {

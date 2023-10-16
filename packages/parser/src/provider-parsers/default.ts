@@ -8,8 +8,8 @@ import {
   WronglyTypedProviderError
 } from '@kitajs/common';
 import path from 'path';
+import { ts } from 'ts-json-schema-generator';
 import type { Promisable } from 'type-fest';
-import ts from 'typescript';
 import { getTypeName, hasName, isDefaultExportFunction, isExportedFunction, unwrapPromiseType } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
 import { traverseParameters } from '../util/traverser';

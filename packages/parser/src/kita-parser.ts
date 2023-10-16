@@ -2,6 +2,7 @@ import {
   AstCollector,
   DuplicateOperationIdError,
   DuplicateProviderTypeError,
+  JsonSchema,
   KitaError,
   Provider,
   ProviderParser,
@@ -12,9 +13,8 @@ import {
   type ParameterParser,
   type RouteParser
 } from '@kitajs/common';
-import { Definition } from 'ts-json-schema-generator';
+import { ts } from 'ts-json-schema-generator';
 import { Promisable } from 'type-fest';
-import ts from 'typescript';
 import { buildParameterParser } from './parameter-parsers';
 import { buildProviderParser } from './provider-parsers';
 import { buildRouteParser } from './route-parsers';
@@ -32,7 +32,7 @@ export class KitaParser implements AstCollector {
   readonly rootProviderParser: ProviderParser;
 
   onRoute?: (r: Route) => Promisable<void>;
-  onSchema?: (r: Definition) => Promisable<void>;
+  onSchema?: (r: JsonSchema) => Promisable<void>;
   onProvider?: (r: Provider) => Promisable<void>;
 
   /** Creates a KitaParser instance with the given config. */
@@ -166,11 +166,11 @@ export class KitaParser implements AstCollector {
     return this.routes.size;
   }
 
-  getSchema(ref: string): Definition | undefined {
+  getSchema(ref: string): JsonSchema | undefined {
     return this.schemaBuilder.getDefinition(ref);
   }
 
-  getSchemas(): Definition[] {
+  getSchemas(): JsonSchema[] {
     return this.schemaBuilder.toSchemaArray();
   }
 

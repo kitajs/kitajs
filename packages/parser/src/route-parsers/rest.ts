@@ -1,6 +1,6 @@
 import { KitaConfig, ParameterParser, ReturnTypeError, Route, RouteParser } from '@kitajs/common';
 import path from 'path';
-import ts from 'typescript';
+import { ts } from 'ts-json-schema-generator';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { parseJsDocTags } from '../util/jsdoc';
@@ -68,7 +68,7 @@ export class RestRouteParser implements RouteParser {
         }
       });
     } catch (error) {
-      throw new ReturnTypeError(node, error);
+      throw new ReturnTypeError(node.name || node, error);
     }
 
     // Parses all jsdoc functions

@@ -6,8 +6,8 @@ import {
   ParameterResolverNotFoundError,
   Route
 } from '@kitajs/common';
+import type { ts } from 'ts-json-schema-generator';
 import type { Promisable } from 'type-fest';
-import type ts from 'typescript';
 
 export class ChainParameterParser extends ChainParser<ParameterParser> implements ParameterParser {
   agnostic = true;

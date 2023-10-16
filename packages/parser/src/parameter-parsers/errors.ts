@@ -7,7 +7,7 @@ import {
   kFastifyParam
 } from '@kitajs/common';
 import http from 'node:http';
-import ts from 'typescript';
+import { ts } from 'ts-json-schema-generator';
 import { mergeSchema } from '../schema/helpers';
 import { getTypeName, getTypeNodeName } from '../util/nodes';
 

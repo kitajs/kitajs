@@ -21,7 +21,14 @@ export = function initHtmlPlugin() {
       let rootProvider: string;
       let rootRoute: string;
 
+      info.project.projectService.logger.info(
+        `[kita-plugin] Started plugin for ${info.project.getProjectName()} at ${info.project.getCurrentDirectory()}`
+      );
+
       proxy.getSemanticDiagnostics = function clonedSemanticDiagnostics(filename) {
+        // ts typescript will return the path with / on windows
+        filename = path.normalize(filename);
+
         const diagnostics = info.languageService.getSemanticDiagnostics(filename);
 
         const start = performance.now();
@@ -37,7 +44,8 @@ export = function initHtmlPlugin() {
         try {
           // Lazy load the parser
           if (!config) {
-            let root = program.getCurrentDirectory();
+            // ts typescript will return the path with / on windows
+            let root = path.normalize(program.getCurrentDirectory());
 
             try {
               config = importConfig(path.join(root, 'kita.config.js'));
@@ -55,6 +63,11 @@ export = function initHtmlPlugin() {
             providerPaths = walk(config.providerFolder);
 
             parser = new KitaParser(config, [], [], program);
+
+            info.project.projectService.logger.info(
+              `[kita-plugin] Successfully parsed config in ${performance.now() - start}ms`
+            );
+            info.project.projectService.logger.info(`[kita-plugin] ${JSON.stringify(config, null, 2)}`);
           }
 
           // Only parse files inside the cwd
