@@ -3,13 +3,19 @@ import { ChainParser, ParameterParser, ProviderParser, RouteParser } from '../pa
 
 /** The kita config interface. all possible customizations are done through this interface. */
 export interface KitaConfig {
-  /** The current working directory of the project. This is used to evaluate all relative paths. */
+  /**
+   * The current working directory of the project. This is used to evaluate all relative paths.
+   *
+   * @default process.cwd()
+   * @env `KITA_CWD` - The environment variable to override this setting.
+   */
   cwd: string;
 
   /**
    * The root provider folder to search and register providers
    *
    * @default 'src/providers'
+   * @env `KITA_PROVIDER_FOLDER` - The environment variable to override this setting.
    */
   providerFolder: string;
 
@@ -17,6 +23,7 @@ export interface KitaConfig {
    * The root route folder to search and register routes
    *
    * @default 'src/routes'
+   * @env `KITA_ROUTE_FOLDER` - The environment variable to override this setting.
    */
   routeFolder: string;
 
@@ -24,7 +31,8 @@ export interface KitaConfig {
    * Uses a different located @kitajs/runtime. You should only override this setting if you are having problems with
    * your package manger or the runtime cannot be found by default.
    *
-   * **please use absolute paths**
+   * @default undefined
+   * @env `KITA_RUNTIME_PATH` - The environment variable to override this setting.
    */
   runtimePath?: string;
 
@@ -37,6 +45,7 @@ export interface KitaConfig {
    * Tries to resolve `compilerOptions.outDir` and if not found, fallbacks to `'dist'`.
    *
    * @default true
+   * @env `KITA_DIST` - The environment variable to override this setting.
    */
   dist?: boolean;
 
@@ -44,6 +53,7 @@ export interface KitaConfig {
    * The custom path to your source root. Used when replacing the source path with the dist path.
    *
    * @default 'src'
+   * @env `KITA_SRC` - The environment variable to override this setting.
    */
   src: string;
 
@@ -51,6 +61,7 @@ export interface KitaConfig {
    * The tsconfig path to use to parse the files.
    *
    * @default 'tsconfig.json'
+   * @env `KITA_TSCONFIG` - The environment variable to override this setting.
    */
   tsconfig: string;
 
@@ -58,6 +69,7 @@ export interface KitaConfig {
    * The config to the ts-json-schema-generator that is used to generate schemas from typescript AST.
    *
    * @default { encodeRefs: true, sortProps: true, strictTuples: true, jsDoc: 'extended' }
+   * @env `KITA_GENERATOR_CONFIG` - The environment variable to override this setting as **json**.
    */
   generatorConfig: KitaGeneratorConfig;
 
@@ -65,7 +77,7 @@ export interface KitaConfig {
    * General response types to append on all routes schemas.
    *
    * @default { }
-   * @see https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/#serialization
+   * @env `KITA_RESPONSES` - The environment variable to override this setting as **json**.
    */
   responses: {
     [key: string | number]: any;

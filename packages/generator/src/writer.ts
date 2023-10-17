@@ -20,7 +20,7 @@ export class KitaWriter implements SourceWriter {
 
     // Finds the correct runtime directory
     if (this.config.runtimePath) {
-      this.compilerOptions.outDir = path.resolve(this.config.runtimePath);
+      this.compilerOptions.outDir = path.resolve(this.config.cwd, this.config.runtimePath);
     } else {
       this.compilerOptions.outDir = path.dirname(
         require.resolve('@kitajs/runtime/generated', {
