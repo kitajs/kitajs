@@ -22,7 +22,12 @@ export class KitaWriter implements SourceWriter {
     if (this.config.runtimePath) {
       this.compilerOptions.outDir = path.resolve(this.config.runtimePath);
     } else {
-      this.compilerOptions.outDir = path.dirname(require.resolve('@kitajs/runtime/generated'));
+      this.compilerOptions.outDir = path.dirname(
+        require.resolve('@kitajs/runtime/generated', {
+          // Allows global installations to work
+          paths: [this.config.cwd]
+        })
+      );
     }
 
     // TODO: Figure out esm
