@@ -1,5 +1,14 @@
 # @kitajs/generator
 
+## 1.1.9
+
+### Patch Changes
+
+- 2583a56: Fixed runtime resolve for global installs
+- cdced20: Read configurations from env varibles
+- Updated dependencies [cdced20]
+  - @kitajs/common@1.1.6
+
 ## 1.1.8
 
 ### Patch Changes

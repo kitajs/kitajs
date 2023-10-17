@@ -1,5 +1,11 @@
 # @kitajs/common
 
+## 1.1.6
+
+### Patch Changes
+
+- cdced20: Read configurations from env varibles
+
 ## 1.1.5
 
 ### Patch Changes

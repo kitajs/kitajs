@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/runtime",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abtraction cost!",
   "funding": "https://github.com/sponsors/arthurfiorette",
   "license": "MIT",

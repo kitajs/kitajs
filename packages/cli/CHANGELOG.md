@@ -1,5 +1,16 @@
 # @kitajs/cli
 
+## 1.1.9
+
+### Patch Changes
+
+- cdced20: Read configurations from env varibles
+- Updated dependencies [2583a56]
+- Updated dependencies [cdced20]
+  - @kitajs/generator@1.1.9
+  - @kitajs/common@1.1.6
+  - @kitajs/parser@1.1.7
+
 ## 1.1.8
 
 ### Patch Changes
