@@ -83,17 +83,20 @@ export class HtmlRouteParser implements RouteParser {
 
     const routeParameters = route.parameters.map((r) => r.value).join(', ');
     const handler = buildAccessProperty(route.controllerName, route.controllerMethod);
-    const handlerCall = `${handler}.call(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
 
     if (
       // If the SuspenseId parameter was used, we need to render as a stream.
       //@ts-expect-error - internal property
       route.parameters.some((p) => p.__type === 'SuspenseId')
     ) {
+      const boundCall = `${handler}.bind(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
+
       route.imports ??= [];
       route.imports.push({ name: '{ renderToStream }', path: '@kitajs/html/suspense' });
-      route.customReturn = `return ${kReplyParam}.type('text/html; charset=utf-8').send(renderToStream(${handlerCall}, ${kRequestParam}.id));`;
+      route.customReturn = `return ${kReplyParam}.type('text/html; charset=utf-8').send(renderToStream(${boundCall}, ${kRequestParam}.id));`;
     } else {
+      const handlerCall = `${handler}.call(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
+
       route.customReturn = `${kReplyParam}.type('text/html; charset=utf-8'); return ${handlerCall}`;
     }
 
