@@ -29,7 +29,7 @@ describe('Html routes', async () => {
       },
       imports: [{ name: '{ renderToStream }', path: '@kitajs/html/suspense' }],
       customReturn:
-        "return reply.type('text/html; charset=utf-8').send(renderToStream(IndexController.get.call(undefined, req.id), req.id));"
+        "return reply.type('text/html; charset=utf-8').send(renderToStream(IndexController.get.bind(undefined, req.id), req.id));"
     });
   });
 
