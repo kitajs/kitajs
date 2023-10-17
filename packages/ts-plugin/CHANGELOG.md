@@ -1,5 +1,13 @@
 # @kitajs/ts-plugin
 
+## 1.1.7
+
+### Patch Changes
+
+- Updated dependencies [cdced20]
+  - @kitajs/common@1.1.6
+  - @kitajs/parser@1.1.7
+
 ## 1.1.6
 
 ### Patch Changes
