@@ -25,7 +25,7 @@
     "@kitajs/common": "workspace:^",
     "@kitajs/generator": "workspace:^",
     "@kitajs/parser": "workspace:^",
-    "@oclif/core": "^3.2.1",
+    "@oclif/core": "^3.3.2",
     "@oclif/plugin-autocomplete": "^2.3.10",
     "@oclif/plugin-help": "^6.0.3",
     "@oclif/plugin-not-found": "^3.0.2",

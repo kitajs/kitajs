@@ -39,8 +39,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@oclif/core':
-        specifier: ^3.2.1
-        version: 3.2.1
+        specifier: ^3.3.2
+        version: 3.3.2
       '@oclif/plugin-autocomplete':
         specifier: ^2.3.10
         version: 2.3.10(@types/node@20.8.6)(typescript@5.2.2)
@@ -1124,8 +1124,8 @@ packages:
       - '@types/node'
       - typescript
 
-  /@oclif/core@3.2.1:
-    resolution: {integrity: sha512-QY9csFjADbRa4RH7wcKSvIowaGI+Kc5oFCODYrKy9nj3x/RPGXG9KJ2848+9ZWJKUxv3KPHBX9CULHwvrwpVdg==}
+  /@oclif/core@3.3.2:
+    resolution: {integrity: sha512-8bZa42d86t5BayJUENKqZN6c5CnX0n3j+JyCWmqI5PP7VsRWZl4YSXFoLFw+mZXKtvwAMrgzMxSGltm5iIXT7w==}
     engines: {node: '>=18.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
@@ -1185,7 +1185,7 @@ packages:
     resolution: {integrity: sha512-4oJ/rqf9kIzNyNZ4R5dmOXSC5S8kKxn2NHMW2kRIBHzQBg2R0RCrY7aHPHqFWCArPUk4K+YlRyhsiSgdslkV4A==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.2.1
+      '@oclif/core': 3.3.2
     dev: false
 
   /@oclif/plugin-not-found@2.4.3(@types/node@20.8.6)(typescript@5.2.2):
@@ -1206,7 +1206,7 @@ packages:
     resolution: {integrity: sha512-tmm/Q/hxZRRAjb2tbx0hg9LUEnuIhIafEAhZBQW7kWg+dYYAb8ut3UfYrIVGNz3K42r+SSMQCdu8QsheZhQi5A==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.2.1
+      '@oclif/core': 3.3.2
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
     dev: false
@@ -5365,7 +5365,7 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
-      '@oclif/core': 3.2.1
+      '@oclif/core': 3.3.2
       '@oclif/plugin-help': 5.2.20(@types/node@20.8.6)(typescript@5.2.2)
       '@oclif/plugin-not-found': 2.4.3(@types/node@20.8.6)(typescript@5.2.2)
       '@oclif/plugin-warn-if-update-available': 2.1.1(@types/node@20.8.6)(typescript@5.2.2)
