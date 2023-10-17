@@ -1,5 +1,14 @@
 # @kitajs/cli
 
+## 1.1.10
+
+### Patch Changes
+
+- a252854: Fixed html suspense routes
+- Updated dependencies [a252854]
+  - @kitajs/generator@1.1.10
+  - @kitajs/parser@1.1.8
+
 ## 1.1.9
 
 ### Patch Changes

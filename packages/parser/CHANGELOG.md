@@ -1,5 +1,11 @@
 # @kitajs/parser
 
+## 1.1.8
+
+### Patch Changes
+
+- a252854: Fixed html suspense routes
+
 ## 1.1.7
 
 ### Patch Changes
