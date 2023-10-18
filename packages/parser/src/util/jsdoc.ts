@@ -113,8 +113,8 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
           throw new EmptyJsdocError(tag.tagName || tag);
         }
 
-        // Does not override the default operationId
-        route.schema.operationId ??= value;
+        // Overwrites the default operationId (method + path)
+        route.schema.operationId = value;
         break;
 
       case 'deprecated':
