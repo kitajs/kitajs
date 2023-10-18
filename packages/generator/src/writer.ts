@@ -52,6 +52,9 @@ export class KitaWriter implements SourceWriter {
     // We use @internal to hide some generated code
     this.compilerOptions.stripInternal = true;
 
+    // Make sure we always emit the files
+    this.compilerOptions.noEmit = false;
+
     // Performance improvements
     this.compilerOptions.noResolve = true;
     this.compilerOptions.skipDefaultLibCheck = true;
