@@ -31,3 +31,11 @@ export function post() {
 export function put() {
   return 'Hello world!';
 }
+
+/**
+ * @internal
+ * @method put
+ */
+export function Delete() {
+  return 'Hello world!';
+}
