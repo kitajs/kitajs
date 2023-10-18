@@ -8,7 +8,7 @@ describe('JSDoc usage on route', async () => {
 
   test('expects 3 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
-    assert.equal(kita.getRouteCount(), 3);
+    assert.equal(kita.getRouteCount(), 4);
   });
 
   test('works with simple jsdocs', () => {
@@ -52,7 +52,7 @@ describe('JSDoc usage on route', async () => {
   });
 
   test('works with complex jsdocs', () => {
-    const route = kita.getRoute('putIndex');
+    const route = kita.getRoute('deleteIndex');
 
     assert.deepStrictEqual(route, {
       url: '/not-index',
@@ -64,9 +64,28 @@ describe('JSDoc usage on route', async () => {
       parameters: [],
       schema: {
         response: { ['2xx']: { type: 'string' } },
-        operationId: 'putIndex',
+        operationId: 'deleteIndex',
         deprecated: true,
         description: undefined
+      }
+    });
+  });
+
+  test('@internal adds hide', () => {
+    const route = kita.getRoute('putIndex');
+
+    assert.deepStrictEqual(route, {
+      url: '/',
+      controllerMethod: 'Delete',
+      method: 'PUT',
+      controllerName: 'IndexController',
+      controllerPath: cwdRelative('routes/index.ts'),
+      kind: 'rest',
+      parameters: [],
+      schema: {
+        response: { ['2xx']: { type: 'string' } },
+        operationId: 'putIndex',
+        hide: true
       }
     });
   });
