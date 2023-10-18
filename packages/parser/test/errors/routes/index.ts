@@ -89,7 +89,7 @@ export async function get(MYerRORnAMe: HttpErrors) {
 /**
  * @throws 403
  * @throws 404
- * @throws 405
+ * @throws 405, 406
  */
 export async function post() {
   return { hello: 'world' };

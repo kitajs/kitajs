@@ -52,6 +52,7 @@ describe('Http errors', async () => {
           '403': { $ref: 'HttpError' },
           '404': { $ref: 'HttpError' },
           '405': { $ref: 'HttpError' },
+          '406': { $ref: 'HttpError' },
           '2xx': { $ref: 'postIndexResponse' }
         }
       }
