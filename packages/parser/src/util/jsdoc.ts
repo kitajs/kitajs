@@ -55,22 +55,24 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
           throw new EmptyJsdocError(tag.tagName || tag);
         }
 
-        const number = Number(value);
+        const numbers = value.split(',').map(Number);
 
-        if (isNaN(number)) {
-          throw new UnknownHttpJsdocError(tag.tagName || tag);
-        }
-
-        // Adds the route schema
-        mergeSchema(route, {
-          response: {
-            [number]: {
-              // This type will be registered by `sharedSchemaId` option
-              // from @fastify/sensible
-              $ref: 'HttpError'
-            }
+        for (const number of numbers) {
+          if (isNaN(number)) {
+            throw new UnknownHttpJsdocError(tag.tagName || tag);
           }
-        });
+
+          // Adds the route schema
+          mergeSchema(route, {
+            response: {
+              [number]: {
+                // This type will be registered by `sharedSchemaId` option
+                // from @fastify/sensible
+                $ref: 'HttpError'
+              }
+            }
+          });
+        }
 
         break;
       }
