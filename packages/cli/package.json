@@ -37,7 +37,7 @@
   "devDependencies": {
     "@types/node": "^20.8.6",
     "oclif": "^4.0.3",
-    "tsx": "^3.13.0"
+    "tsx": "^3.14.0"
   },
   "peerDependencies": {
     "typescript": "~5.1.6"
