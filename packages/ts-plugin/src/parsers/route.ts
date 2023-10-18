@@ -53,7 +53,7 @@ export function appendRouteDiagnostics(
 
       // @ts-expect-error - Manually push the provider to the parser providers array
       parser.providers.set(parsed.type, parsed);
-    } catch (err) {
+    } catch {
       // We are not checking for provider errors here. So its safe to silently fail
       // In case a used provider fails, it will also fail in in this parameter parser.
       // But there's nothing we can do (for now.)

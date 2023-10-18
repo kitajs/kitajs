@@ -34,10 +34,10 @@ export class CannotResolveParameterNameError extends KitaError {
 }
 
 export class CannotCreateNodeTypeError extends KitaError {
-  constructor(node: ts.Node) {
+  constructor(node: ts.Node, error: unknown) {
     super({
       code: 303,
-      messageText: 'Could not create type node for specified type',
+      messageText: `Could not create type node for specified type: ${String(error)}`,
       node
     });
   }

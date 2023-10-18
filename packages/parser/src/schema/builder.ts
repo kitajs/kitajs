@@ -67,7 +67,7 @@ export class SchemaBuilder {
     try {
       return this.parser.createType(node, new Context(node));
     } catch (error) {
-      throw new CannotCreateNodeTypeError(node);
+      throw new CannotCreateNodeTypeError(node, error);
     }
   }
 
