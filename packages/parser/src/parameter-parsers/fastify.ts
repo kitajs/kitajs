@@ -25,13 +25,22 @@ export class FastifyParameterParser implements ParameterParser {
 
     switch (typeName) {
       case 'FastifyRequest':
-        return { value: kRequestParam };
+        return {
+          name: FastifyParameterParser.name,
+          value: kRequestParam
+        };
 
       case 'FastifyReply':
-        return { value: kReplyParam };
+        return {
+          name: FastifyParameterParser.name,
+          value: kReplyParam
+        };
 
       case 'FastifyInstance':
-        return { value: kFastifyParam };
+        return {
+          name: FastifyParameterParser.name,
+          value: kFastifyParam
+        };
 
       default:
         throw new Error(`Unknown Fastify parameter type: ${typeName}`);

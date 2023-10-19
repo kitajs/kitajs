@@ -12,9 +12,8 @@ export class SuspenseIdParameterParser implements ParameterParser {
 
   parse(): Parameter {
     return {
-      value: buildAccessProperty(kRequestParam, 'id'),
-      //@ts-expect-error - internal property
-      __type: 'SuspenseId'
+      name: SuspenseIdParameterParser.name,
+      value: buildAccessProperty(kRequestParam, 'id')
     };
   }
 }

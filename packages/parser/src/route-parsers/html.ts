@@ -9,6 +9,7 @@ import {
 } from '@kitajs/common';
 import path from 'path';
 import { StringType, ts } from 'ts-json-schema-generator';
+import { SuspenseIdParameterParser } from '../parameter-parsers/suspense-id';
 import { SchemaBuilder } from '../schema/builder';
 import { getReturnType, isExportedFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
@@ -86,8 +87,7 @@ export class HtmlRouteParser implements RouteParser {
 
     if (
       // If the SuspenseId parameter was used, we need to render as a stream.
-      //@ts-expect-error - internal property
-      route.parameters.some((p) => p.__type === 'SuspenseId')
+      route.parameters.some((p) => p.name === SuspenseIdParameterParser.name)
     ) {
       const boundCall = `${handler}.bind(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
 

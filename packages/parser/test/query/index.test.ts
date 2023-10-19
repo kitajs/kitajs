@@ -20,7 +20,11 @@ describe('Query Parameter', async () => {
       controllerMethod: 'get',
       controllerName: 'PrimitiveController',
       controllerPath: cwdRelative('routes/primitive.ts'),
-      parameters: [{ value: 'req.query.name' }, { value: 'req.query.age' }, { value: 'req.query["custom name"]' }],
+      parameters: [
+        { name: 'QueryParameterParser', value: 'req.query.name' },
+        { name: 'QueryParameterParser', value: 'req.query.age' },
+        { name: 'QueryParameterParser', value: 'req.query["custom name"]' }
+      ],
       kind: 'rest',
       schema: {
         operationId: 'getPrimitive',
@@ -48,7 +52,7 @@ describe('Query Parameter', async () => {
       controllerName: 'ComplexController',
       controllerPath: cwdRelative('routes/complex.ts'),
       method: 'GET',
-      parameters: [{ value: 'req.query' }],
+      parameters: [{ name: 'QueryParameterParser', value: 'req.query' }],
       kind: 'rest',
       schema: {
         operationId: 'getComplex',

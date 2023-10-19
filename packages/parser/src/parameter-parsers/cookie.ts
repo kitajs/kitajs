@@ -17,6 +17,7 @@ export class CookieParameterParser implements ParameterParser {
     const optional = isParamOptional(param);
 
     return {
+      name: CookieParameterParser.name,
       value: value,
       helper: optional
         ? undefined

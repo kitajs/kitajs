@@ -14,7 +14,7 @@ describe('Providers', async () => {
     assert.ok(rt.getIndexHandler);
   });
 
-  test('schema was overridden', () => {
+  test('get schema was overridden', () => {
     //@ts-expect-error - internal property
     const options = rt.getIndexOptions;
 
@@ -30,6 +30,30 @@ describe('Providers', async () => {
     });
   });
 
+  test('post schema was overridden', () => {
+    //@ts-expect-error - internal property
+    const options = rt.postIndexOptions;
+
+    assert.deepStrictEqual(options, {
+      url: '/',
+      method: 'POST',
+      handler: rt.postIndexHandler,
+      schema: {
+        operationId: 'postIndex',
+        response: {
+          '2xx': {
+            items: [{ type: 'string' }, { type: 'number' }, { type: 'string' }],
+            maxItems: 3,
+            minItems: 3,
+            type: 'array'
+          }
+        },
+        // Only 1 was inside generics
+        description: '1'
+      }
+    });
+  });
+
   test('getIndex returns request id', async () => {
     await using app = createApp(rt);
 
@@ -37,5 +61,14 @@ describe('Providers', async () => {
 
     assert.equal(res.statusCode, 200);
     assert.equal(res.body, 'req-1');
+  });
+
+  test('provider generics works', async () => {
+    await using app = createApp(rt);
+
+    const res = await app.inject({ method: 'POST', url: '/' });
+
+    assert.equal(res.statusCode, 200);
+    assert.deepStrictEqual(res.json(), ['req-1', 1, app.version]);
   });
 });

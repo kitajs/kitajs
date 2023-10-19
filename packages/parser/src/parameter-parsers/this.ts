@@ -82,7 +82,11 @@ export class ThisParameterParser implements ParameterParser {
 
       route.options = `${route.controllerName}.${type}($1)`;
 
-      return { value: '', ignore: true };
+      return {
+        name: ThisParameterParser.name,
+        value: '',
+        ignore: true
+      };
     }
 
     // Maps all typeof references
@@ -117,6 +121,10 @@ export class ThisParameterParser implements ParameterParser {
     }
 
     // This parameter is synthetic, so this result will not be used.
-    return { value: '', ignore: true };
+    return {
+      name: ThisParameterParser.name,
+      value: '',
+      ignore: true
+    };
   }
 }

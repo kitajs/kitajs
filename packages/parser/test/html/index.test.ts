@@ -21,7 +21,7 @@ describe('Html routes', async () => {
       method: 'GET',
       controllerName: 'IndexController',
       controllerPath: cwdRelative('routes/index.tsx'),
-      parameters: [{ value: 'req.id', __type: 'SuspenseId' }],
+      parameters: [{ name: 'SuspenseIdParameterParser', value: 'req.id' }],
       schema: {
         operationId: 'getIndexView',
         hide: true,

@@ -49,6 +49,7 @@ export class QueryParameterParser implements ParameterParser {
       });
 
       return {
+        name: QueryParameterParser.name,
         value: buildAccessProperty(kRequestParam, 'query', name)
       };
     }
@@ -72,6 +73,7 @@ export class QueryParameterParser implements ParameterParser {
     });
 
     return {
+      name: QueryParameterParser.name,
       value: buildAccessProperty(kRequestParam, 'query')
     };
   }
