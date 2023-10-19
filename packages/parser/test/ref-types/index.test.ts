@@ -25,7 +25,7 @@ describe('Schema Refs generation', async () => {
       parameters: [{ name: 'BodyParameterParser', value: 'req.body' }],
       schema: {
         operationId: 'postIndex',
-        response: { '2xx': { $ref: 'postIndexResponse' } },
+        response: { '2xx': { $ref: 'PostIndexResponse' } },
         body: {
           type: 'object',
           properties: {
@@ -147,11 +147,11 @@ describe('Schema Refs generation', async () => {
     });
   });
 
-  test('postIndexResponse was also generated', () => {
-    const response = kita.getSchema('postIndexResponse');
+  test('PostIndexResponse was also generated', () => {
+    const response = kita.getSchema('PostIndexResponse');
 
     assert.deepStrictEqual(response, {
-      $id: 'postIndexResponse',
+      $id: 'PostIndexResponse',
       type: 'object',
       properties: {
         a: { type: 'number' },
