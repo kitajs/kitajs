@@ -1,6 +1,7 @@
 import {
   BodyInGetRequestError,
   InvalidParameterUsageError,
+  Parameter,
   ParameterConflictError,
   ParameterParser,
   Route,
@@ -19,7 +20,7 @@ export class BodyParameterParser implements ParameterParser {
     return getTypeNodeName(param) === 'Body';
   }
 
-  parse(param: ts.ParameterDeclaration, route: Route) {
+  parse(param: ts.ParameterDeclaration, route: Route): Parameter {
     if (route.method === 'GET') {
       throw new BodyInGetRequestError(param.type || param);
     }
@@ -40,6 +41,7 @@ export class BodyParameterParser implements ParameterParser {
     });
 
     return {
+      name: BodyParameterParser.name,
       value: buildAccessProperty(kRequestParam, 'body')
     };
   }

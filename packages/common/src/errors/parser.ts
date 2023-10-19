@@ -146,3 +146,13 @@ export class RouteParameterMultipleErrors extends KitaError {
     });
   }
 }
+
+export class InvalidProviderGenericType extends KitaError {
+  constructor(node: ts.Node) {
+    super({
+      code: 314,
+      messageText: 'You can only use literal types as generic types for providers, such as `1`, `true` and `"string"`',
+      node
+    });
+  }
+}

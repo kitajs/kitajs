@@ -1,5 +1,8 @@
 /** The AST definition for a kitajs route parameter. */
 export interface Parameter {
+  /** The parameter Id, like `Body`, `Query`, `Provider`, etc. */
+  name: string;
+
   /**
    * The resolved parameter text to be evaluated
    *

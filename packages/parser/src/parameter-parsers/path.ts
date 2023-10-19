@@ -62,6 +62,7 @@ export class PathParameterParser implements ParameterParser {
     });
 
     return {
+      name: PathParameterParser.name,
       value: buildAccessProperty(kRequestParam, 'params', name)
     };
   }

@@ -38,4 +38,13 @@ describe('Providers', async () => {
     assert.equal(res.statusCode, 200);
     assert.equal(res.body, 'req-1');
   });
+
+  test('provider generics works', async () => {
+    await using app = createApp(rt);
+
+    const res = await app.inject({ method: 'POST', url: '/' });
+
+    assert.equal(res.statusCode, 200);
+    assert.deepStrictEqual(res.json(), ['req-1', 1, app.version]);
+  });
 });

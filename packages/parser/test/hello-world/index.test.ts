@@ -21,7 +21,7 @@ describe('Hello World', async () => {
       method: 'GET',
       controllerName: 'IndexController',
       controllerPath: cwdRelative('routes/index.ts'),
-      parameters: [{ value: 'req.query.name' }],
+      parameters: [{ name: 'QueryParameterParser', value: 'req.query.name' }],
       schema: {
         querystring: {
           type: 'object',

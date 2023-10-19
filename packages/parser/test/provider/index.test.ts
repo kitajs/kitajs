@@ -7,8 +7,8 @@ describe('Providers', async () => {
   const kita = await parseRoutes(__dirname);
 
   test('expects 2 route was generated', () => {
-    assert.equal(kita.getProviderCount(), 2);
-    assert.equal(kita.getRouteCount(), 2);
+    assert.equal(kita.getProviderCount(), 3);
+    assert.equal(kita.getRouteCount(), 3);
   });
 
   test('hello world route', () => {
@@ -25,6 +25,7 @@ describe('Providers', async () => {
       parameters: [
         {
           value: 'param0',
+          name: 'ProviderParameterParser',
           helper: 'const param0 = Resolver0();',
           imports: [{ name: 'Resolver0', path: cwdRelative('providers/test.ts') }],
           providerName: 'Resolver0',
@@ -47,6 +48,7 @@ describe('Providers', async () => {
       parameters: [
         {
           value: 'param0',
+          name: 'ProviderParameterParser',
           imports: [{ name: '* as Resolver0', path: cwdRelative('providers/transformer.ts') }],
           helper: 'const param0 = await Resolver0.default();',
           providerName: 'Resolver0',
@@ -81,6 +83,44 @@ describe('Providers', async () => {
       providerPath: cwdRelative('providers/transformer.ts'),
       parameters: [],
       schemaTransformer: true
+    });
+  });
+
+  test('provider with generics', () => {
+    const route = kita.getRoute('putIndex');
+
+    assert.deepStrictEqual(route, {
+      kind: 'rest',
+      url: '/',
+      controllerMethod: 'put',
+      method: 'PUT',
+      controllerName: 'IndexController',
+      controllerPath: './routes/index.ts',
+      parameters: [
+        {
+          name: 'ProviderParameterParser',
+          value: 'param0',
+          imports: [{ name: 'Resolver0', path: './providers/generics.ts' }],
+          schemaTransformer: false,
+          providerName: 'Resolver0',
+          helper: `const param0 = Resolver0([123, false, 'Hello']);`
+        }
+      ],
+      schema: {
+        operationId: 'putIndex',
+        response: {
+          '2xx': {
+            type: 'array',
+            minItems: 3,
+            items: [
+              { type: 'number', const: 123 },
+              { type: 'boolean', const: false },
+              { type: 'string', const: 'Hello' }
+            ],
+            maxItems: 3
+          }
+        }
+      }
     });
   });
 });

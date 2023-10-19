@@ -23,10 +23,10 @@ describe('BodyProp Parameter', async () => {
       controllerName: 'IndexController',
       controllerPath: cwdRelative('routes/index.ts'),
       parameters: [
-        { value: 'req.body.name' },
-        { value: 'req.body.a' },
-        { value: 'req.body.type' },
-        { value: 'req.body["type 2"]' }
+        { name: 'BodyPropParameterParser', value: 'req.body.name' },
+        { name: 'BodyPropParameterParser', value: 'req.body.a' },
+        { name: 'BodyPropParameterParser', value: 'req.body.type' },
+        { name: 'BodyPropParameterParser', value: 'req.body["type 2"]' }
       ],
       schema: {
         operationId: 'postIndex',
