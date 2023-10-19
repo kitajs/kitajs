@@ -136,7 +136,7 @@ export class SchemaBuilder {
 
     // Array type can have only one type
     if (type instanceof ArrayType) {
-      if ((this.toPrimitive(type.getItem()), skipWrappers)) {
+      if (this.toPrimitive(type.getItem(), skipWrappers)) {
         return type;
       }
 
