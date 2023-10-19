@@ -52,6 +52,13 @@ export default class Build extends Command {
 
     this.log(chalk.yellow`Thanks for using Kita! 🎉\n`);
 
+    ux.action.start('Warming up', '', {
+      stdout: true,
+      style: 'clock'
+    });
+
+    ux.action.status = 'Reading config';
+
     try {
       let readConfig: KitaConfig | undefined;
 
@@ -80,12 +87,15 @@ export default class Build extends Command {
         }
       }
 
+      ux.action.status = 'Parsing config';
       const config = parseConfig(readConfig, flags.root);
 
       // Overrides dist if source is enabled
       if (flags['import-source']) {
         config.dist = false;
       }
+
+      ux.action.status = 'Parsing compiler options';
 
       const compilerOptions = readCompilerOptions(config.tsconfig);
 
@@ -94,7 +104,12 @@ export default class Build extends Command {
         this.exit(0);
       }
 
+      ux.action.status = 'Building formatter';
+
       const formatter = new KitaFormatter(config, compilerOptions);
+
+      ux.action.status = 'Creating parser';
+
       const parser = KitaParser.create(config, compilerOptions);
 
       if (!parser.routePaths.length) {
@@ -114,6 +129,8 @@ export default class Build extends Command {
       parser.onSchema = async (schema) => {
         ux.action.status = schema.title;
       };
+
+      ux.action.stop(chalk.cyan`Ready to build!`);
 
       ux.action.start('Reading sources', '', {
         stdout: true,

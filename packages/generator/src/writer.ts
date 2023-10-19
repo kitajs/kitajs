@@ -59,6 +59,7 @@ export class KitaWriter implements SourceWriter {
     this.compilerOptions.noResolve = true;
     this.compilerOptions.skipDefaultLibCheck = true;
     this.compilerOptions.skipLibCheck = true;
+    this.compilerOptions.checkJs = false;
     this.compilerOptions.incremental = false;
   }
 
