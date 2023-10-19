@@ -1,4 +1,5 @@
-import type { HttpErrors, Query } from '@kitajs/runtime';
+import { HttpErrors } from '@fastify/sensible';
+import type { Query } from '@kitajs/runtime';
 
 export function get(errors: HttpErrors, num?: Query<number>) {
   switch (num) {
