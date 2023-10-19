@@ -95,13 +95,13 @@ describe('Providers', async () => {
       controllerMethod: 'put',
       method: 'PUT',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [
         {
           name: 'ProviderParameterParser',
           value: 'param0',
-          imports: [{ name: 'Resolver0', path: './providers/generics.ts' }],
-          schemaTransformer: false,
+          imports: [{ name: 'Resolver0', path: cwdRelative('providers/generics.ts') }],
+          schemaTransformer: ["[123, false, 'Hello']"],
           providerName: 'Resolver0',
           helper: `const param0 = Resolver0([123, false, 'Hello']);`
         }
