@@ -1,5 +1,16 @@
 # @kitajs/runtime
 
+## 1.1.7
+
+### Patch Changes
+
+- 265fa5e: Prefer HttpErrors from @fastify/sensible
+- 296492e: Added support for provider parameters
+- Updated dependencies [71167da]
+- Updated dependencies [eb53fb4]
+- Updated dependencies [296492e]
+  - @kitajs/common@1.1.7
+
 ## 1.1.6
 
 ### Patch Changes
