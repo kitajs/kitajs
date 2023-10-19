@@ -11,8 +11,8 @@ describe('JSDoc usage on route', async () => {
     assert.equal(kita.getRouteCount(), 4);
   });
 
-  test('works with simple jsdocs', () => {
-    const route = kita.getRoute('getIndex');
+  test('works with simple jsDocs', () => {
+    const route = kita.getRoute('hello-world');
 
     assert.deepStrictEqual(route, {
       url: '/',
@@ -26,7 +26,7 @@ describe('JSDoc usage on route', async () => {
         summary: 'C',
         tags: ['A', 'B'],
         response: { ['2xx']: { type: 'string' } },
-        operationId: 'getIndex',
+        operationId: 'hello-world',
         description: 'D'
       }
     });
