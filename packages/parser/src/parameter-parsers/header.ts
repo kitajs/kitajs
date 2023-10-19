@@ -25,6 +25,7 @@ export class HeaderParameterParser implements ParameterParser {
     });
 
     return {
+      name: HeaderParameterParser.name,
       value: buildAccessProperty(kRequestParam, 'headers', name.toLowerCase())
     };
   }

@@ -2,6 +2,7 @@ import {
   BodyInGetRequestError,
   InvalidParameterUsageError,
   KitaConfig,
+  Parameter,
   ParameterConflictError,
   ParameterParser,
   Route,
@@ -23,7 +24,7 @@ export class BodyPropParameterParser implements ParameterParser {
     return getTypeNodeName(param) === 'BodyProp';
   }
 
-  parse(param: ts.ParameterDeclaration, route: Route) {
+  parse(param: ts.ParameterDeclaration, route: Route): Parameter {
     if (route.method === 'GET') {
       throw new BodyInGetRequestError(param.type || param);
     }
@@ -60,6 +61,7 @@ export class BodyPropParameterParser implements ParameterParser {
     });
 
     return {
+      name: BodyPropParameterParser.name,
       value: buildAccessProperty(kRequestParam, 'body', name)
     };
   }

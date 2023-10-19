@@ -32,6 +32,8 @@ function normalize(code: string, msg: string) {
 }
 
 export class ErrorsParameterParser implements ParameterParser {
+  agnostic = true;
+
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'HttpErrors';
   }
@@ -83,6 +85,7 @@ export class ErrorsParameterParser implements ParameterParser {
     });
 
     return {
+      name: ErrorsParameterParser.name,
       value: `${kFastifyParam}.httpErrors`
     };
   }

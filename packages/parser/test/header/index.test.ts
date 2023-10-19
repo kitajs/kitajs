@@ -25,9 +25,9 @@ describe('Header Parameter', async () => {
         controllerName: 'IndexController',
         controllerPath: cwdRelative('routes/index.ts'),
         parameters: [
-          { value: 'req.headers.name' },
-          { value: 'req.headers.age' },
-          { value: 'req.headers["custom name"]' }
+          { name: 'HeaderParameterParser', value: 'req.headers.name' },
+          { name: 'HeaderParameterParser', value: 'req.headers.age' },
+          { name: 'HeaderParameterParser', value: 'req.headers["custom name"]' }
         ],
         schema: {
           headers: {

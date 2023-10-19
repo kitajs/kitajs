@@ -22,7 +22,7 @@ describe('Schema Refs generation', async () => {
       method: 'POST',
       controllerName: 'IndexController',
       controllerPath: cwdRelative('routes/index.ts'),
-      parameters: [{ value: 'req.body' }],
+      parameters: [{ name: 'BodyParameterParser', value: 'req.body' }],
       schema: {
         operationId: 'postIndex',
         response: { '2xx': { $ref: 'postIndexResponse' } },
