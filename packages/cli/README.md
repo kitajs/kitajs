@@ -125,7 +125,7 @@ USAGE
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   -d, --dry-run         Skips generation process. Useful for testing your code.
-  -s, --import-source   Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node to
+  -s, --import-source   Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node/swc to
                         work.
   --debug               Prints full resolved config to stdout.
 

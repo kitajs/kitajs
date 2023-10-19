@@ -17,7 +17,7 @@
       "flags": {
         "import-source": {
           "char": "s",
-          "description": "Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node to work.",
+          "description": "Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node/swc to work.",
           "name": "import-source",
           "allowNo": false,
           "type": "boolean"
