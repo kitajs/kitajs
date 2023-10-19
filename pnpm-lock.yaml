@@ -43,7 +43,7 @@ importers:
         version: 3.3.2
       '@oclif/plugin-autocomplete':
         specifier: ^2.3.10
-        version: 2.3.10(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
+        version: 2.3.10(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
       '@oclif/plugin-help':
         specifier: ^6.0.3
         version: 6.0.3
@@ -52,7 +52,7 @@ importers:
         version: 3.0.2
       '@oclif/plugin-warn-if-update-available':
         specifier: ^2.1.1
-        version: 2.1.1(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
+        version: 2.1.1(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
@@ -70,11 +70,11 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3
       '@types/node':
-        specifier: ^20.8.6
-        version: 20.8.6
+        specifier: ^20.8.7
+        version: 20.8.7
       oclif:
         specifier: ^4.0.3
-        version: 4.0.3(@swc/core@1.3.93)(@types/node@20.8.6)(eslint@8.51.0)(typescript@5.2.2)
+        version: 4.0.3(@swc/core@1.3.93)(@types/node@20.8.7)(eslint@8.51.0)(typescript@5.2.2)
 
   packages/common:
     dependencies:
@@ -101,8 +101,8 @@ importers:
         version: 5.2.2
     devDependencies:
       '@types/node':
-        specifier: ^20.8.6
-        version: 20.8.6
+        specifier: ^20.8.7
+        version: 20.8.7
 
   packages/generator:
     dependencies:
@@ -132,8 +132,8 @@ importers:
         specifier: workspace:^
         version: link:../runtime
       '@types/node':
-        specifier: ^20.8.6
-        version: 20.8.6
+        specifier: ^20.8.7
+        version: 20.8.7
       c8:
         specifier: ^8.0.1
         version: 8.0.1
@@ -184,8 +184,8 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3
       '@types/node':
-        specifier: ^20.8.6
-        version: 20.8.6
+        specifier: ^20.8.7
+        version: 20.8.7
       c8:
         specifier: ^8.0.1
         version: 8.0.1
@@ -236,8 +236,8 @@ importers:
         specifier: ^0.1.4
         version: 0.1.4
       '@types/node':
-        specifier: ^20.8.6
-        version: 20.8.6
+        specifier: ^20.8.7
+        version: 20.8.7
       type-fest:
         specifier: ^4.4.0
         version: 4.4.0
@@ -897,7 +897,7 @@ packages:
       - supports-color
     dev: true
 
-  /@oclif/core@2.15.0(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2):
+  /@oclif/core@2.15.0(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2):
     resolution: {integrity: sha512-fNEMG5DzJHhYmI3MgpByTvltBOMyFcnRIUMxbiz2ai8rhaYgaTHMG3Q38HcosfIvtw9nCjxpcQtC8MN8QtVCcA==}
     engines: {node: '>=14.0.0'}
     dependencies:
@@ -924,7 +924,7 @@ packages:
       strip-ansi: 6.0.1
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
-      ts-node: 10.9.1(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
+      ts-node: 10.9.1(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
       tslib: 2.6.2
       widest-line: 3.1.0
       wordwrap: 1.0.0
@@ -965,11 +965,11 @@ packages:
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
 
-  /@oclif/plugin-autocomplete@2.3.10(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2):
+  /@oclif/plugin-autocomplete@2.3.10(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2):
     resolution: {integrity: sha512-Ow1AR8WtjzlyCtiWWPgzMyT8SbcDJFr47009riLioHa+MHX2BCDtVn2DVnN/E6b9JlPV5ptQpjefoRSNWBesmg==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
     transitivePeerDependencies:
@@ -980,11 +980,11 @@ packages:
       - typescript
     dev: false
 
-  /@oclif/plugin-help@5.2.20(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2):
+  /@oclif/plugin-help@5.2.20(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2):
     resolution: {integrity: sha512-u+GXX/KAGL9S10LxAwNUaWdzbEBARJ92ogmM7g3gDVud2HioCmvWQCDohNRVZ9GYV9oKwZ/M8xwd6a1d95rEKQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -999,11 +999,11 @@ packages:
       '@oclif/core': 3.3.2
     dev: false
 
-  /@oclif/plugin-not-found@2.4.3(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2):
+  /@oclif/plugin-not-found@2.4.3(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2):
     resolution: {integrity: sha512-nIyaR4y692frwh7wIHZ3fb+2L6XEecQwRDIb4zbEam0TvaVmBQWZoColQyWA84ljFBPZ8XWiQyTz+ixSwdRkqg==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
       chalk: 4.1.2
       fast-levenshtein: 3.0.0
     transitivePeerDependencies:
@@ -1022,11 +1022,11 @@ packages:
       fast-levenshtein: 3.0.0
     dev: false
 
-  /@oclif/plugin-warn-if-update-available@2.1.1(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2):
+  /@oclif/plugin-warn-if-update-available@2.1.1(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2):
     resolution: {integrity: sha512-y7eSzT6R5bmTIJbiMMXgOlbBpcWXGlVhNeQJBLBCCy1+90Wbjyqf6uvY0i2WcO4sh/THTJ20qCW80j3XUlgDTA==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
@@ -1414,14 +1414,14 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.2
       '@types/keyv': 3.1.4
-      '@types/node': 20.8.6
+      '@types/node': 20.8.7
       '@types/responselike': 1.0.1
     dev: true
 
   /@types/cli-progress@3.11.3:
     resolution: {integrity: sha512-/+C9xAdVtc+g5yHHkGBThgAA8rYpi5B+2ve3wLtybYj0JHEBs57ivR4x/zGfSsplRnV+psE91Nfin1soNKqz5Q==}
     dependencies:
-      '@types/node': 20.8.6
+      '@types/node': 20.8.7
 
   /@types/deasync@0.1.4:
     resolution: {integrity: sha512-dcQbMOlj4+1ZekRwOi+96FWjHWslNpnK2mfymAZaVKN+Fne9ZCBWxovMcIu9lYLWZOGX6qOlD7vXllx8nYRohw==}
@@ -1457,7 +1457,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 20.8.6
+      '@types/node': 20.8.7
     dev: true
 
   /@types/mdast@4.0.1:
@@ -1486,8 +1486,8 @@ packages:
     resolution: {integrity: sha512-qjd88DrCxupx/kJD5yQgZdcYKZKSIGBVDIBE1/LTGcNm3d2Np/jxojkdePDdfnBHJc5W7vSMpbJ1aB7p/Py69A==}
     dev: true
 
-  /@types/node@20.8.6:
-    resolution: {integrity: sha512-eWO4K2Ji70QzKUqRy6oyJWUeB7+g2cRagT3T/nxYibYcT4y2BDL8lqolRXjTHmkZCdJfIPaY73KbJAZmcryxTQ==}
+  /@types/node@20.8.7:
+    resolution: {integrity: sha512-21TKHHh3eUHIi2MloeptJWALuCu5H7HQTdTrWIFReA8ad+aggoX+lRes3ex7/FtpC+sVUpFMQ+QTfYr74mruiQ==}
     dependencies:
       undici-types: 5.25.3
 
@@ -1498,7 +1498,7 @@ packages:
   /@types/responselike@1.0.1:
     resolution: {integrity: sha512-TiGnitEDxj2X0j+98Eqk5lv/Cij8oHd32bU4D/Yw6AOq7vvTk0gSD2GPj0G/HkvhMoVsdlhYF4yqqlyPBTM6Sg==}
     dependencies:
-      '@types/node': 20.8.6
+      '@types/node': 20.8.7
     dev: true
 
   /@types/semver@7.5.3:
@@ -1513,7 +1513,7 @@ packages:
     resolution: {integrity: sha512-bls3EAsYVnVoPKoqgFC4Rtq7Kzte4MCk8xMA9UEPPVncJFsov9FJWYj0uxqJRwNEi9b4i4zX13FydaDrhadmHg==}
     dependencies:
       '@types/expect': 1.20.4
-      '@types/node': 20.8.6
+      '@types/node': 20.8.7
     dev: true
 
   /@typescript-eslint/scope-manager@6.7.5:
@@ -5134,14 +5134,14 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.0.3(@swc/core@1.3.93)(@types/node@20.8.6)(eslint@8.51.0)(typescript@5.2.2):
+  /oclif@4.0.3(@swc/core@1.3.93)(@types/node@20.8.7)(eslint@8.51.0)(typescript@5.2.2):
     resolution: {integrity: sha512-Bq7t1bJvAKYwW3DKQIzok3jkXv7yUIMneoSec1qUr9wfSqzRTZQB0UUDovwlT/L+3TBMVoRyw1WeX+YDvfRJNA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
       '@oclif/core': 3.3.2
-      '@oclif/plugin-help': 5.2.20(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
-      '@oclif/plugin-not-found': 2.4.3(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2)
+      '@oclif/plugin-help': 5.2.20(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
+      '@oclif/plugin-not-found': 2.4.3(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2)
       '@oclif/plugin-warn-if-update-available': 3.0.2
       async-retry: 1.3.3
       aws-sdk: 2.1473.0
@@ -6564,7 +6564,7 @@ packages:
       typescript: 5.2.2
     dev: false
 
-  /ts-node@10.9.1(@swc/core@1.3.93)(@types/node@20.8.6)(typescript@5.2.2):
+  /ts-node@10.9.1(@swc/core@1.3.93)(@types/node@20.8.7)(typescript@5.2.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -6584,7 +6584,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.8.6
+      '@types/node': 20.8.7
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3

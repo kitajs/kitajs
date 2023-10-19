@@ -22,7 +22,7 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@types/node": "^20.8.6"
+    "@types/node": "^20.8.7"
   },
   "peerDependencies": {
     "fastify": "^4.24",
