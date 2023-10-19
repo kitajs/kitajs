@@ -23,7 +23,8 @@ describe('Query Parameter', async () => {
       parameters: [
         { name: 'QueryParameterParser', value: 'req.query.name' },
         { name: 'QueryParameterParser', value: 'req.query.age' },
-        { name: 'QueryParameterParser', value: 'req.query["custom name"]' }
+        { name: 'QueryParameterParser', value: 'req.query["custom name"]' },
+        { name: 'QueryParameterParser', value: 'req.query.date' }
       ],
       kind: 'rest',
       schema: {
@@ -33,9 +34,10 @@ describe('Query Parameter', async () => {
           properties: {
             'custom name': { type: 'string' },
             age: { type: 'number' },
-            name: { type: 'string' }
+            name: { type: 'string' },
+            date: { format: 'date-time', type: 'string' }
           },
-          required: ['name', 'age', 'custom name'],
+          required: ['name', 'age', 'custom name', 'date'],
           type: 'object'
         },
         response: { ['2xx']: { type: 'string' } }
