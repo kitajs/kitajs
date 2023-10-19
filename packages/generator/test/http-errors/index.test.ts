@@ -18,6 +18,7 @@ describe('Http Errors', async () => {
   test('getIndex throws correctly', async () => {
     await using app = createApp(rt);
 
+    //@ts-expect-error - https://github.com/fastify/fastify-sensible/pull/147
     app.register(fastifySensible, {
       sharedSchemaId: 'HttpError'
     });

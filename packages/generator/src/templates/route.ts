@@ -94,7 +94,9 @@ const schema = (r: Route) => {
 
   for (const param of r.parameters) {
     if (param.schemaTransformer) {
-      code = `${param.providerName}.transformSchema(${code})`;
+      code = `${param.providerName}.transformSchema(${code}${
+        Array.isArray(param.schemaTransformer) ? `, ${param.schemaTransformer.join(', ')}` : ''
+      })`;
     }
   }
 

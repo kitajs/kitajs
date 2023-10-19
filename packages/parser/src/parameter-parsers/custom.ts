@@ -31,6 +31,8 @@ export class ProviderParameterParser implements ParameterParser {
 
     const providerGenericsIndex = provider.parameters.findIndex((p) => p.name === ProviderGenericsParameterParser.name);
 
+    let providerGenerics = '';
+
     // Changes the default [] to the generics passed to the Provider
     if (providerGenericsIndex !== -1) {
       const generics = getParameterGenerics(param);
@@ -52,7 +54,11 @@ export class ProviderParameterParser implements ParameterParser {
       name: ProviderParameterParser.name,
       value,
       imports: [{ name: importName, path: provider.providerPath }],
-      schemaTransformer: provider.schemaTransformer,
+      schemaTransformer:
+        provider.schemaTransformer &&
+        (providerGenericsIndex !== -1
+          ? [provider.parameters[providerGenericsIndex]!.value]
+          : provider.schemaTransformer),
       providerName: originalProviderName,
       helper: /* ts */ `${joinParameters(provider.parameters)}
 const ${value} = ${provider.async ? 'await ' : ''}${providerName}(${provider.parameters
