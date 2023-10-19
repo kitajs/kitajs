@@ -1,5 +1,23 @@
 # @kitajs/cli
 
+## 1.1.11
+
+### Patch Changes
+
+- eb53fb4: Removed tsx requirement
+- Updated dependencies [71167da]
+- Updated dependencies [49d47d1]
+- Updated dependencies [47b1b05]
+- Updated dependencies [e9d7292]
+- Updated dependencies [8962743]
+- Updated dependencies [265fa5e]
+- Updated dependencies [eb53fb4]
+- Updated dependencies [296492e]
+- Updated dependencies [5c9709a]
+  - @kitajs/common@1.1.7
+  - @kitajs/parser@1.1.9
+  - @kitajs/generator@1.1.11
+
 ## 1.1.10
 
 ### Patch Changes

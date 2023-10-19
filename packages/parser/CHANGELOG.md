@@ -1,5 +1,21 @@
 # @kitajs/parser
 
+## 1.1.9
+
+### Patch Changes
+
+- 71167da: Add meaningful error message on return type error
+- 49d47d1: Fixed primitive detection
+- 47b1b05: Added support for @internal
+- 8962743: Fixed operationId jsdoc
+- 265fa5e: Prefer HttpErrors from @fastify/sensible
+- 296492e: Added support for provider parameters
+- 5c9709a: Multiple throws in a single line
+- Updated dependencies [71167da]
+- Updated dependencies [eb53fb4]
+- Updated dependencies [296492e]
+  - @kitajs/common@1.1.7
+
 ## 1.1.8
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @kitajs/common
 
+## 1.1.7
+
+### Patch Changes
+
+- 71167da: Add meaningful error message on return type error
+- eb53fb4: Removed tsx requirement
+- 296492e: Added support for provider parameters
+
 ## 1.1.6
 
 ### Patch Changes

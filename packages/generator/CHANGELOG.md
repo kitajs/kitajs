@@ -1,5 +1,17 @@
 # @kitajs/generator
 
+## 1.1.11
+
+### Patch Changes
+
+- e9d7292: Prevent noEmit from ignoring the generation process
+- 265fa5e: Prefer HttpErrors from @fastify/sensible
+- 296492e: Added support for provider parameters
+- Updated dependencies [71167da]
+- Updated dependencies [eb53fb4]
+- Updated dependencies [296492e]
+  - @kitajs/common@1.1.7
+
 ## 1.1.10
 
 ### Patch Changes
