@@ -31,8 +31,6 @@ export class ProviderParameterParser implements ParameterParser {
 
     const providerGenericsIndex = provider.parameters.findIndex((p) => p.name === ProviderGenericsParameterParser.name);
 
-    let providerGenerics = '';
-
     // Changes the default [] to the generics passed to the Provider
     if (providerGenericsIndex !== -1) {
       const generics = getParameterGenerics(param);
