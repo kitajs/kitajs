@@ -19,7 +19,7 @@
     "build": "tsc",
     "postbuild": "oclif manifest && oclif readme",
     "prepublish": "oclif manifest",
-    "start": "node -r tsx/csj index.ts"
+    "start": "node --require @swc-node/register index.ts"
   },
   "dependencies": {
     "@kitajs/common": "workspace:^",
@@ -35,9 +35,10 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@swc-node/register": "^1.6.8",
+    "@swc/helpers": "^0.5.3",
     "@types/node": "^20.8.6",
-    "oclif": "^4.0.3",
-    "tsx": "^3.13.0"
+    "oclif": "^4.0.3"
   },
   "peerDependencies": {
     "typescript": "~5.1.6"

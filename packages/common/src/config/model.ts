@@ -40,7 +40,8 @@ export interface KitaConfig {
    * If the generated could should import routes from the dist folder instead of the source folder. Type declarations
    * still are always imported from the source folder.
    *
-   * Useful if you are using tsx/ts-node/swc to run your backend as raw typescript files instead of transpiling them.
+   * Useful if you are using tsx/ts-node/swc/swc to run your backend as raw typescript files instead of transpiling
+   * them.
    *
    * Tries to resolve `compilerOptions.outDir` and if not found, fallbacks to `'dist'`.
    *

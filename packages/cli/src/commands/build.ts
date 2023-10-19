@@ -26,7 +26,7 @@ export default class Build extends Command {
     ['import-source']: Flags.boolean({
       char: 's',
       description:
-        'Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node to work.',
+        'Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node/swc to work.',
       default: false
     }),
     config: Flags.file({
