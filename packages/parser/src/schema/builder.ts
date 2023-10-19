@@ -125,12 +125,10 @@ export class SchemaBuilder {
 
     // Wrappers that should return itself
     if (type instanceof OptionalType || type instanceof AnnotatedType) {
-      if (skipWrappers) {
-        return this.toPrimitive(type.getType(), skipWrappers);
-      }
+      const primitive = this.toPrimitive(type.getType(), skipWrappers);
 
-      if ((this.toPrimitive(type.getType()), skipWrappers)) {
-        return type;
+      if (primitive) {
+        return skipWrappers ? primitive : type;
       }
 
       return undefined;
