@@ -6,7 +6,7 @@ import { mergeSchema } from '../schema/helpers';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportedFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
-import { findUrlAndControllerName } from '../util/string';
+import { capital, findUrlAndControllerName } from '../util/string';
 import { traverseParameters } from '../util/traverser';
 
 export class RestRouteParser implements RouteParser {
@@ -63,7 +63,7 @@ export class RestRouteParser implements RouteParser {
         response: {
           ['2xx' as string]: this.schema.consumeNodeSchema(
             getReturnType(node, this.typeChecker),
-            `${route.schema.operationId}Response`
+            capital(`${route.schema.operationId}Response`)
           )
         }
       });

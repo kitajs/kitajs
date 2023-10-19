@@ -29,7 +29,7 @@ describe('Http errors', async () => {
           '424': { $ref: 'HttpError' },
           '502': { $ref: 'HttpError' },
           '503': { $ref: 'HttpError' },
-          '2xx': { $ref: 'getIndexResponse' }
+          '2xx': { $ref: 'GetIndexResponse' }
         }
       }
     });
@@ -53,7 +53,7 @@ describe('Http errors', async () => {
           '404': { $ref: 'HttpError' },
           '405': { $ref: 'HttpError' },
           '406': { $ref: 'HttpError' },
-          '2xx': { $ref: 'postIndexResponse' }
+          '2xx': { $ref: 'PostIndexResponse' }
         }
       }
     });
