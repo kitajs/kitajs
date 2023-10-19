@@ -101,7 +101,7 @@ describe('Providers', async () => {
           name: 'ProviderParameterParser',
           value: 'param0',
           imports: [{ name: 'Resolver0', path: cwdRelative('providers/generics.ts') }],
-          schemaTransformer: ["[123, false, 'Hello']"],
+          schemaTransformer: false,
           providerName: 'Resolver0',
           helper: `const param0 = Resolver0([123, false, 'Hello']);`
         }
