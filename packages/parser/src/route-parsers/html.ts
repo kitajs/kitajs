@@ -11,6 +11,7 @@ import path from 'path';
 import { StringType, ts } from 'ts-json-schema-generator';
 import { SuspenseIdParameterParser } from '../parameter-parsers/suspense-id';
 import { SchemaBuilder } from '../schema/builder';
+import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportedFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
 import { findUrlAndControllerName } from '../util/string';
@@ -68,6 +69,9 @@ export class HtmlRouteParser implements RouteParser {
         response: { [200 as number]: { type: 'string' } }
       }
     };
+
+    // Parses all jsdoc tags
+    parseJsDocTags(node, route);
 
     const returnType = this.builder.createTypeSchema(getReturnType(node, this.checker));
     const primitive = this.builder.toPrimitive(returnType, true);
