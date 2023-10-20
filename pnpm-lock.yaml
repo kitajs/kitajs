@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@arthurfiorette/prettier-config':
         specifier: ^1.0.12
-        version: 1.0.12(prettier@3.0.3)(typescript@5.1.6)
+        version: 1.0.12(prettier@3.0.3)(typescript@5.2.2)
       '@changesets/cli':
         specifier: ^2.26.2
         version: 2.26.2
@@ -24,8 +24,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       typescript:
-        specifier: ~5.1.6
-        version: 5.1.6
+        specifier: ^5.2.2
+        version: 5.2.2
 
   packages/cli:
     dependencies:
@@ -258,7 +258,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@arthurfiorette/prettier-config@1.0.12(prettier@3.0.3)(typescript@5.1.6):
+  /@arthurfiorette/prettier-config@1.0.12(prettier@3.0.3)(typescript@5.2.2):
     resolution: {integrity: sha512-jR36bHWLVv71FuKkU9XYeBe6ry/AN98EDh0WVyfo3QwjJFbhpeElFTS4nluwxeXfu6nJ8/Hv8bJf6cYeXzfeoA==}
     hasBin: true
     peerDependencies:
@@ -266,7 +266,7 @@ packages:
     dependencies:
       prettier: 3.0.3
       prettier-plugin-jsdoc: 1.1.1(prettier@3.0.3)
-      prettier-plugin-organize-imports: 3.2.3(prettier@3.0.3)(typescript@5.1.6)
+      prettier-plugin-organize-imports: 3.2.3(prettier@3.0.3)(typescript@5.2.2)
       prettier-plugin-packagejson: 2.4.6(prettier@3.0.3)
     transitivePeerDependencies:
       - '@volar/vue-language-plugin-pug'
@@ -5703,7 +5703,7 @@ packages:
       - supports-color
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.3(prettier@3.0.3)(typescript@5.1.6):
+  /prettier-plugin-organize-imports@3.2.3(prettier@3.0.3)(typescript@5.2.2):
     resolution: {integrity: sha512-KFvk8C/zGyvUaE3RvxN2MhCLwzV6OBbFSkwZ2OamCrs9ZY4i5L77jQ/w4UmUr+lqX8qbaqVq6bZZkApn+IgJSg==}
     peerDependencies:
       '@volar/vue-language-plugin-pug': ^1.0.4
@@ -5717,7 +5717,7 @@ packages:
         optional: true
     dependencies:
       prettier: 3.0.3
-      typescript: 5.1.6
+      typescript: 5.2.2
     dev: true
 
   /prettier-plugin-packagejson@2.4.6(prettier@3.0.3):
@@ -6856,12 +6856,6 @@ packages:
       call-bind: 1.0.2
       for-each: 0.3.3
       is-typed-array: 1.1.12
-    dev: true
-
-  /typescript@5.1.6:
-    resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
-    engines: {node: '>=14.17'}
-    hasBin: true
     dev: true
 
   /typescript@5.2.2:
