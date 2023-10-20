@@ -159,3 +159,13 @@ export class UnknownHttpJsdocError extends KitaError {
     });
   }
 }
+
+export class FileInGetRequestError extends KitaError {
+  constructor(node: ts.Node) {
+    super({
+      code: 412,
+      messageText: `You cannot use any File and SavedFile in a GET request.`,
+      node
+    });
+  }
+}
