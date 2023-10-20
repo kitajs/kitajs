@@ -23,7 +23,7 @@
   "devDependencies": {
     "@fastify/multipart": "^8.0.0",
     "@fastify/sensible": "^5.5.0",
-    "@kitajs/html": "^3.0.3",
+    "@kitajs/html": "^3.0.4",
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
     "@types/node": "^20.8.7",
@@ -34,6 +34,6 @@
     "tsc-alias": "^1.8.8"
   },
   "peerDependencies": {
-    "typescript": "^5.2"
+    "typescript": "^5.2.2"
   }
 }

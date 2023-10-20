@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@fastify/sensible": "^5.5.0",
-    "@kitajs/html": "^3.0.3",
+    "@kitajs/html": "^3.0.4",
     "@kitajs/runtime": "workspace:^",
     "@swc-node/register": "^1.6.8",
     "@swc/helpers": "^0.5.3",
@@ -33,6 +33,6 @@
     "fastify": "^4.24.3"
   },
   "peerDependencies": {
-    "typescript": "^5.2"
+    "typescript": "^5.2.2"
   }
 }
