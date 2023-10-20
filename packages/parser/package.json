@@ -2,6 +2,15 @@
   "name": "@kitajs/parser",
   "version": "1.1.10",
   "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abtraction cost!",
+  "homepage": "https://kita.js.org",
+  "bugs": {
+    "url": "https://github.com/kitajs/kitajs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitajs/kitajs.git",
+    "directory": "packages/parser"
+  },
   "funding": "https://github.com/sponsors/arthurfiorette",
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",

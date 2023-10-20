@@ -2,13 +2,13 @@
   "name": "@kitajs/monorepo",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://github.com/arthurfiorette/kita#readme",
+  "homepage": "https://kita.js.org",
   "bugs": {
-    "url": "https://github.com/arthurfiorette/kita/issues"
+    "url": "https://github.com/kitajs/kitajs/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arthurfiorette/kita.git"
+    "url": "git+https://github.com/kitajs/kitajs.git"
   },
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",
@@ -25,7 +25,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "test": "pnpm -r --no-bail --aggregate-output --parallel test",
-    "watch": "pnpm -r --parallel --no-bail build --watch "
+    "watch": "pnpm -r --parallel --no-bail build --watch"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.12",
@@ -33,7 +33,7 @@
     "@kitajs/ts-plugin": "workspace:^",
     "husky": "^8.0.3",
     "prettier": "^3.0.3",
-    "typescript": "~5.1.6"
+    "typescript": "^5.2.2"
   },
   "packageManager": "pnpm@8.8.0",
   "engines": {

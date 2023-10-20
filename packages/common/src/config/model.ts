@@ -69,7 +69,7 @@ export interface KitaConfig {
   /**
    * The config to the ts-json-schema-generator that is used to generate schemas from typescript AST.
    *
-   * @default { encodeRefs: true, sortProps: true, strictTuples: true, jsDoc: 'extended' }
+   * @default { encodeRefs: false, sortProps: true, strictTuples: true, jsDoc: 'extended' }
    * @env `KITA_GENERATOR_CONFIG` - The environment variable to override this setting as **json**.
    */
   generatorConfig: KitaGeneratorConfig;

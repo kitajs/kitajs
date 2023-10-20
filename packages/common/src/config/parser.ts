@@ -67,7 +67,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 
   const generatorConfig = env('generator_config') ??
     config.generatorConfig ?? {
-      encodeRefs: true,
+      encodeRefs: false,
       sortProps: true,
       strictTuples: true,
       jsDoc: 'extended',
