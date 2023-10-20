@@ -1,5 +1,18 @@
 # @kitajs/cli
 
+## 1.1.12
+
+### Patch Changes
+
+- a0ebee7: Better CLI status report
+- Updated dependencies [54ff609]
+- Updated dependencies [b9fb8fd]
+- Updated dependencies [a0ebee7]
+- Updated dependencies [788695e]
+  - @kitajs/parser@1.1.10
+  - @kitajs/generator@1.1.12
+  - @kitajs/common@1.1.8
+
 ## 1.1.11
 
 ### Patch Changes

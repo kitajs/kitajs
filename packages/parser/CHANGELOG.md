@@ -1,5 +1,15 @@
 # @kitajs/parser
 
+## 1.1.10
+
+### Patch Changes
+
+- 54ff609: Primitive support for arrays
+- b9fb8fd: Multipart formdata file support
+- 788695e: Capitalized return type name
+- Updated dependencies [b9fb8fd]
+  - @kitajs/common@1.1.8
+
 ## 1.1.9
 
 ### Patch Changes

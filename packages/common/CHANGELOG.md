@@ -1,5 +1,11 @@
 # @kitajs/common
 
+## 1.1.8
+
+### Patch Changes
+
+- b9fb8fd: Multipart formdata file support
+
 ## 1.1.7
 
 ### Patch Changes

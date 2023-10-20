@@ -1,5 +1,14 @@
 # @kitajs/generator
 
+## 1.1.12
+
+### Patch Changes
+
+- b9fb8fd: Multipart formdata file support
+- a0ebee7: Better CLI status report
+- Updated dependencies [b9fb8fd]
+  - @kitajs/common@1.1.8
+
 ## 1.1.11
 
 ### Patch Changes
