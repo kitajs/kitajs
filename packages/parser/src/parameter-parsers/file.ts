@@ -13,7 +13,7 @@ export class FileParameterParser implements ParameterParser {
     return getTypeNodeName(param) === 'File' || getTypeNodeName(param) === 'SavedFile';
   }
 
-  parse(param: ts.ParameterDeclaration, route: Route, _fn: ts.FunctionDeclaration, index: number): Parameter {
+  parse(param: ts.ParameterDeclaration, route: Route): Parameter {
     if (route.method === 'GET') {
       throw new BodyInGetRequestError(param.type || param);
     }

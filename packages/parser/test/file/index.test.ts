@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('File and SavedFile', async () => {
@@ -19,14 +20,14 @@ describe('File and SavedFile', async () => {
       controllerMethod: 'post',
       method: 'POST',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [
         { name: 'FileParameterParser', value: 'req.body.file' },
         { name: 'FileParameterParser', value: 'req.body.named' }
       ],
       schema: {
         operationId: 'postIndex',
-        response: { '2xx': { $ref: 'postIndexResponse' } },
+        response: { '2xx': { $ref: 'PostIndexResponse' } },
         consumes: ['multipart/form-data'],
         body: {
           type: 'object',
@@ -47,7 +48,7 @@ describe('File and SavedFile', async () => {
       controllerMethod: 'put',
       method: 'PUT',
       controllerName: 'IndexController',
-      controllerPath: './routes/index.ts',
+      controllerPath: cwdRelative('routes/index.ts'),
       parameters: [
         {
           name: 'FileParameterParser',
@@ -62,7 +63,7 @@ describe('File and SavedFile', async () => {
       ],
       schema: {
         operationId: 'putIndex',
-        response: { '2xx': { $ref: 'putIndexResponse' } },
+        response: { '2xx': { $ref: 'PutIndexResponse' } },
         consumes: ['multipart/form-data'],
         body: {
           type: 'object',

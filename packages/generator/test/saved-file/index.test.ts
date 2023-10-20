@@ -23,7 +23,7 @@ describe('Saved File', async () => {
   });
 
   test('Works with SavedFile', async () => {
-    await using app = fastify({ ajv: { plugins: [ajvFilePlugin] }, logger: true });
+    await using app = fastify({ ajv: { plugins: [ajvFilePlugin] } });
     await app.register(fastifyMultipart, { attachFieldsToBody: true });
     await app.register(rt.Kita);
 
