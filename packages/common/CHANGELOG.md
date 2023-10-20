@@ -1,5 +1,12 @@
 # @kitajs/common
 
+## 1.1.9
+
+### Patch Changes
+
+- 8e6cc7c: Fixed package json links
+- 8e6cc7c: Encode refs defaults to false
+
 ## 1.1.8
 
 ### Patch Changes

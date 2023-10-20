@@ -1,5 +1,15 @@
 # @kitajs/parser
 
+## 1.1.11
+
+### Patch Changes
+
+- 8e6cc7c: Fixed package json links
+- 573dfb2: Read JSDoc before response
+- Updated dependencies [8e6cc7c]
+- Updated dependencies [8e6cc7c]
+  - @kitajs/common@1.1.9
+
 ## 1.1.10
 
 ### Patch Changes
