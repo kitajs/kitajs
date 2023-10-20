@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@arthurfiorette/prettier-config':
-        specifier: ^1.0.11
-        version: 1.0.11(prettier@3.0.3)(typescript@5.1.6)
+        specifier: ^1.0.12
+        version: 1.0.12(prettier@3.0.3)(typescript@5.1.6)
       '@changesets/cli':
         specifier: ^2.26.2
         version: 2.26.2
@@ -258,11 +258,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@arthurfiorette/prettier-config@1.0.11(prettier@3.0.3)(typescript@5.1.6):
-    resolution: {integrity: sha512-GyLSQopqd/0HY7SmZX/LrXmNZQGeAHBiIoewR81RLrnAInSXl2HLuhh+GxBj10MFoH+46kYytbYT0Z6Y+sOOfw==}
+  /@arthurfiorette/prettier-config@1.0.12(prettier@3.0.3)(typescript@5.1.6):
+    resolution: {integrity: sha512-jR36bHWLVv71FuKkU9XYeBe6ry/AN98EDh0WVyfo3QwjJFbhpeElFTS4nluwxeXfu6nJ8/Hv8bJf6cYeXzfeoA==}
     hasBin: true
     peerDependencies:
-      prettier: '>=3.0.0'
+      prettier: ^3.0.3
     dependencies:
       prettier: 3.0.3
       prettier-plugin-jsdoc: 1.1.1(prettier@3.0.3)
