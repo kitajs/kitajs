@@ -2,7 +2,7 @@
   "name": "@kitajs/monorepo",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://github.com/kitajs/kitajs#readme",
+  "homepage": "https://kita.js.org",
   "bugs": {
     "url": "https://github.com/kitajs/kitajs/issues"
   },
