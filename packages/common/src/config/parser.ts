@@ -1,3 +1,4 @@
+import deepmerge from 'deepmerge';
 import fs from 'fs';
 import path from 'path';
 import { InvalidConfigError } from '../errors';
@@ -65,15 +66,14 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const generatorConfig = env('generator_config') ??
-    config.generatorConfig ?? {
-      encodeRefs: false,
-      sortProps: true,
-      strictTuples: true,
-      jsDoc: 'extended',
-      parsers: [],
-      formatters: []
-    };
+  const generatorConfig = deepmerge(env('generator_config') ?? config.generatorConfig, {
+    encodeRefs: false,
+    sortProps: true,
+    strictTuples: true,
+    jsDoc: 'extended',
+    parsers: [],
+    formatters: []
+  });
 
   if (typeof generatorConfig !== 'object') {
     throw new InvalidConfigError(
