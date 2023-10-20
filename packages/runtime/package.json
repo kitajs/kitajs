@@ -26,6 +26,6 @@
   "peerDependencies": {
     "@fastify/multipart": "^8.0",
     "@fastify/sensible": "^5.5",
-    "fastify": "^4.24"
+    "fastify": "^4.24.3"
   }
 }

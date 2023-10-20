@@ -85,8 +85,8 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       fastify:
-        specifier: ^4.24
-        version: 4.24.2
+        specifier: ^4.24.3
+        version: 4.24.3
       ts-json-schema-generator:
         specifier: ^1.4.0
         version: 1.4.0
@@ -126,8 +126,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       '@kitajs/html':
-        specifier: ^3.0.3
-        version: 3.0.3(@kitajs/ts-html-plugin@1.3.0)
+        specifier: ^3.0.4
+        version: 3.0.4(@kitajs/ts-html-plugin@1.3.0)
       '@kitajs/parser':
         specifier: workspace:^
         version: link:../parser
@@ -141,8 +141,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       fastify:
-        specifier: ^4.24.2
-        version: 4.24.2
+        specifier: ^4.24.3
+        version: 4.24.3
       fastify-plugin:
         specifier: ^4.5.1
         version: 4.5.1
@@ -178,8 +178,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       '@kitajs/html':
-        specifier: ^3.0.3
-        version: 3.0.3(@kitajs/ts-html-plugin@1.3.0)
+        specifier: ^3.0.4
+        version: 3.0.4(@kitajs/ts-html-plugin@1.3.0)
       '@kitajs/runtime':
         specifier: workspace:^
         version: link:../runtime
@@ -196,8 +196,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       fastify:
-        specifier: ^4.24.2
-        version: 4.24.2
+        specifier: ^4.24.3
+        version: 4.24.3
 
   packages/runtime:
     dependencies:
@@ -211,8 +211,8 @@ importers:
         specifier: workspace:^
         version: link:../common
       fastify:
-        specifier: ^4.24
-        version: 4.24.2
+        specifier: ^4.24.3
+        version: 4.24.3
       fastify-plugin:
         specifier: ^4.5.1
         version: 4.5.1
@@ -692,24 +692,24 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@kitajs/html@3.0.3(@kitajs/ts-html-plugin@1.3.0):
-    resolution: {integrity: sha512-YrazFjWrlDEOVxhFoe7zkJWg1LwtrLLUTIRnAjpoaZSy+hicAzvlNHHKZWGQObQdlLpMV4UWRHbvfnJR+lGuHw==}
+  /@kitajs/html@3.0.4(@kitajs/ts-html-plugin@1.3.0):
+    resolution: {integrity: sha512-sTZx+u+RukwXa9PcxXkrdo2EvD2hcjKF+0Pa4NwUz6Whqa02ziiT1lyo/lLbuRnzCpNC63uwINvoijUuY+SYPg==}
     engines: {node: '>=12'}
     peerDependencies:
       '@kitajs/ts-html-plugin': '>=1.2.0'
     dependencies:
-      '@kitajs/ts-html-plugin': 1.3.0(@kitajs/html@3.0.3)(typescript@5.2.2)
+      '@kitajs/ts-html-plugin': 1.3.0(@kitajs/html@3.0.4)(typescript@5.2.2)
       csstype: 3.1.2
     dev: true
 
-  /@kitajs/ts-html-plugin@1.3.0(@kitajs/html@3.0.3)(typescript@5.2.2):
+  /@kitajs/ts-html-plugin@1.3.0(@kitajs/html@3.0.4)(typescript@5.2.2):
     resolution: {integrity: sha512-1zrx+bNtP6Sh/mDklnkGuGcPF2hjJpiR7pwWm7HormmMHYvk8zUFQnAA0XWqrVwWW9g/q+WGxqHRPxxEprbooA==}
     hasBin: true
     peerDependencies:
       '@kitajs/html': '>=3'
       typescript: '>=5'
     dependencies:
-      '@kitajs/html': 3.0.3(@kitajs/ts-html-plugin@1.3.0)
+      '@kitajs/html': 3.0.4(@kitajs/ts-html-plugin@1.3.0)
       chalk: 4.1.2
       tslib: 2.6.2
       typescript: 5.2.2
@@ -3124,8 +3124,8 @@ packages:
   /fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
 
-  /fastify@4.24.2:
-    resolution: {integrity: sha512-V/7fdhFas7HoAyjD8ha8wPCeiRLUzPgwwM5dSSUx/eBUv7GvG61YzjggqOchMOsa7Sw32MNN4uCCoFrl+9ccJA==}
+  /fastify@4.24.3:
+    resolution: {integrity: sha512-6HHJ+R2x2LS3y1PqxnwEIjOTZxFl+8h4kSC/TuDPXtA+v2JnV9yEtOsNSKK1RMD7sIR2y1ZsA4BEFaid/cK5pg==}
     dependencies:
       '@fastify/ajv-compiler': 3.5.0
       '@fastify/error': 3.4.0
