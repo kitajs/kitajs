@@ -21,7 +21,7 @@
     "@kitajs/common": "workspace:^",
     "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
-    "type-fest": "^4.4.0"
+    "type-fest": "^4.5.0"
   },
   "peerDependencies": {
     "@fastify/multipart": "^8.0",
