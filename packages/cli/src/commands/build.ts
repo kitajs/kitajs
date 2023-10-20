@@ -75,7 +75,7 @@ export default class Build extends Command {
           this.error(`Config file does not exist: ${flags.config}`);
         }
 
-        let cfg = require.main?.require(flags.config);
+        const cfg = require(flags.config);
 
         if (typeof cfg !== 'object') {
           this.error(`Config file must export an object.`);
@@ -83,9 +83,9 @@ export default class Build extends Command {
 
         // Esm
         if (typeof cfg.default === 'object') {
-          cfg = cfg.default;
+          readConfig = cfg.default;
         } else {
-          cfg = cfg;
+          readConfig = cfg;
         }
 
         ux.action.stop(chalk.cyan(`.${path.sep}${path.relative(root, flags.config)}`));
