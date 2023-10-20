@@ -88,7 +88,7 @@ export default class Build extends Command {
           cfg = cfg;
         }
 
-        ux.action.stop(chalk.cyan`Using found config!`);
+        ux.action.stop(chalk.cyan(`.${path.sep}${path.relative(root, flags.config)}`));
       }
 
       ux.action.start('Warming up', '', {
