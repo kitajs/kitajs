@@ -2,6 +2,15 @@
   "name": "@kitajs/common",
   "version": "1.1.8",
   "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abtraction cost!",
+  "homepage": "https://github.com/kitajs/kitajs#readme",
+  "bugs": {
+    "url": "https://github.com/kitajs/kitajs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitajs/kitajs.git",
+    "directory": "packages/common"
+  },
   "funding": "https://github.com/sponsors/arthurfiorette",
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",
