@@ -52,20 +52,22 @@ export default class Build extends Command {
 
     this.log(chalk.yellow`Thanks for using Kita! 🎉\n`);
 
-    ux.action.start('Warming up', '', {
-      stdout: true,
-      style: 'clock'
-    });
-
-    ux.action.status = 'Reading config';
-
     try {
       let readConfig: KitaConfig | undefined;
 
+      const root = flags.root ?? process.cwd();
+
+      // Tries to lookup for a default config file
+      const defaultConfigPath = path.resolve(root, 'kita.config.js');
+
       if (flags.config) {
-        if (flags.root) {
-          flags.config = path.resolve(flags.root, flags.config);
-        }
+        flags.config = path.resolve(root, flags.config);
+      } else if (await fs.stat(defaultConfigPath).catch(() => false)) {
+        flags.config = defaultConfigPath;
+      }
+
+      if (flags.config) {
+        ux.action.start('Reading config', '', { stdout: true, style: 'clock' });
 
         const exists = await fs.stat(flags.config).catch(() => false);
 
@@ -73,7 +75,7 @@ export default class Build extends Command {
           this.error(`Config file does not exist: ${flags.config}`);
         }
 
-        let cfg = require(flags.config);
+        let cfg = require.main?.require(flags.config);
 
         if (typeof cfg !== 'object') {
           this.error(`Config file must export an object.`);
@@ -85,7 +87,14 @@ export default class Build extends Command {
         } else {
           cfg = cfg;
         }
+
+        ux.action.stop(chalk.green`Using found config!`);
       }
+
+      ux.action.start('Warming up', '', {
+        stdout: true,
+        style: 'clock'
+      });
 
       ux.action.status = 'Parsing config';
       const config = parseConfig(readConfig, flags.root);
