@@ -2,7 +2,7 @@ import deepmerge from 'deepmerge';
 import fs from 'fs';
 import path from 'path';
 import { InvalidConfigError } from '../errors';
-import { KitaConfig, PartialKitaConfig } from './model';
+import { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
 export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()): KitaConfig {
@@ -66,7 +66,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const generatorConfig = deepmerge(env('generator_config') ?? config.generatorConfig, {
+  const generatorConfig = deepmerge<KitaGeneratorConfig>(env('generator_config') ?? config.generatorConfig, {
     encodeRefs: false,
     sortProps: true,
     strictTuples: true,

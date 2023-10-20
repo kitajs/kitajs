@@ -57,6 +57,9 @@ export class RestRouteParser implements RouteParser {
       }
     };
 
+    // Parses all jsdoc tags
+    parseJsDocTags(node, route);
+
     // Adds response type.
     try {
       mergeSchema(route, {
@@ -70,9 +73,6 @@ export class RestRouteParser implements RouteParser {
     } catch (error) {
       throw new ReturnTypeError(node.name || node, error);
     }
-
-    // Parses all jsdoc functions
-    parseJsDocTags(node, route);
 
     // Adds all parameters in their respective position
     for await (const { param, index } of traverseParameters(node, this.paramParser, route)) {
