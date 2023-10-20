@@ -24,6 +24,7 @@
     "type-fest": "^4.4.0"
   },
   "peerDependencies": {
+    "@fastify/multipart": "^8.0",
     "@fastify/sensible": "^5.5",
     "fastify": "^4.24"
   }

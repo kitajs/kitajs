@@ -7,6 +7,7 @@ import { CookieParameterParser } from './cookie';
 import { ProviderParameterParser } from './custom';
 import { ErrorsParameterParser } from './errors';
 import { FastifyParameterParser } from './fastify';
+import { FileParameterParser } from './file';
 import { HeaderParameterParser } from './header';
 import { PathParameterParser } from './path';
 import { ProviderGenericsParameterParser } from './provider-generics';
@@ -37,6 +38,7 @@ export function buildParameterParser(
     .add(new ThisParameterParser())
     .add(new SuspenseIdParameterParser())
     .add(new ProviderGenericsParameterParser())
+    .add(new FileParameterParser(config))
     .add(new ErrorsParameterParser());
 
   return chain;
