@@ -1,5 +1,19 @@
 # @kitajs/cli
 
+## 1.1.13
+
+### Patch Changes
+
+- 7de6f0e: Autodetect kita.config.js
+- 8e6cc7c: Fixed package json links
+- 573dfb2: Fixed parsed config
+- Updated dependencies [8e6cc7c]
+- Updated dependencies [573dfb2]
+- Updated dependencies [8e6cc7c]
+  - @kitajs/generator@1.1.13
+  - @kitajs/common@1.1.9
+  - @kitajs/parser@1.1.11
+
 ## 1.1.12
 
 ### Patch Changes

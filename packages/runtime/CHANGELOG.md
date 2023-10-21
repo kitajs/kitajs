@@ -1,5 +1,14 @@
 # @kitajs/runtime
 
+## 1.1.9
+
+### Patch Changes
+
+- 8e6cc7c: Fixed package json links
+- Updated dependencies [8e6cc7c]
+- Updated dependencies [8e6cc7c]
+  - @kitajs/common@1.1.9
+
 ## 1.1.8
 
 ### Patch Changes
