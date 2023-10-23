@@ -45,5 +45,6 @@ jobs:
         # We only need to upload once
         if: matrix.os == 'ubuntu-latest'
         with:
-          fail_ci_if_error: true
+          # Codecov backend may be unstable
+          fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}

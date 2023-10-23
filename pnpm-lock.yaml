@@ -232,8 +232,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       deasync:
-        specifier: ^0.1.28
-        version: 0.1.28
+        specifier: ^0.1.29
+        version: 0.1.29
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
@@ -2534,8 +2534,8 @@ packages:
     resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
     dev: true
 
-  /deasync@0.1.28:
-    resolution: {integrity: sha512-QqLF6inIDwiATrfROIyQtwOQxjZuek13WRYZ7donU5wJPLoP67MnYxA6QtqdvdBy2mMqv5m3UefBVdJjvevOYg==}
+  /deasync@0.1.29:
+    resolution: {integrity: sha512-EBtfUhVX23CE9GR6m+F8WPeImEE4hR/FW9RkK0PMl9V1t283s0elqsTD8EZjaKX28SY1BW2rYfCgNsAYdpamUw==}
     engines: {node: '>=0.11.0'}
     requiresBuild: true
     dependencies:
