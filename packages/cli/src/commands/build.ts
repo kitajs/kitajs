@@ -5,7 +5,6 @@ import { Command, Flags, ux } from '@oclif/core';
 import chalk from 'chalk';
 import fs from 'fs/promises';
 import path from 'path';
-import { inspect } from 'util';
 import { formatDiagnostic } from '../util/diagnostics';
 
 export default class Build extends Command {
@@ -109,8 +108,9 @@ export default class Build extends Command {
       const compilerOptions = readCompilerOptions(config.tsconfig);
 
       if (flags.debug) {
-        this.log(inspect({ config, compilerOptions }, { colors: !flags.noColor, depth: 10 }));
-        this.exit(0);
+        ux.action.stop();
+        ux.styledJSON({ config, compilerOptions });
+        return this.exit(0);
       }
 
       ux.action.status = 'Building formatter';
@@ -136,7 +136,15 @@ export default class Build extends Command {
       };
 
       parser.onSchema = async (schema) => {
-        ux.action.status = schema.title;
+        if (schema.title) {
+          ux.action.status = schema.title;
+        } else if (schema.$ref) {
+          ux.action.status = schema.$ref;
+        }
+      };
+
+      formatter.onWrite = (filename) => {
+        ux.action.status = filename;
       };
 
       ux.action.stop(chalk.cyan`Ready to build!`);

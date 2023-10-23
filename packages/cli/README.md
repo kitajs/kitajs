@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita help [COMMANDS]`](#kita-help-commands)
@@ -62,7 +62,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version)
-@kitajs/cli/1.1.8 linux-x64 node-v20.8.0
+@kitajs/cli/1.1.13 linux-x64 node-v20.8.1
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
@@ -125,8 +125,8 @@ USAGE
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   -d, --dry-run         Skips generation process. Useful for testing your code.
-  -s, --import-source   Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node/swc to
-                        work.
+  -s, --import-source   Maps all imports directly to source files instead of the usual dist folder. Needs
+                        tsx/ts-node/swc to work.
   --debug               Prints full resolved config to stdout.
 
 DESCRIPTION
@@ -141,6 +141,8 @@ EXAMPLES
 
     $ kita build -d
 ```
+
+_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.13/src/commands/build.ts)_
 
 ## `kita help [COMMANDS]`
 
@@ -160,7 +162,7 @@ DESCRIPTION
   Display help for kita.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.4/src/commands/help.ts)_
 
 ## `kita init`
 
@@ -179,6 +181,8 @@ DESCRIPTION
 EXAMPLES
   $ kita init
 ```
+
+_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.13/src/commands/init.ts)_
 
 <!-- commandsstop -->
 

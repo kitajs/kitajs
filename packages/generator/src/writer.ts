@@ -75,7 +75,7 @@ export class KitaWriter implements SourceWriter {
     this.files.set(filename, current.trim());
   }
 
-  async flush() {
+  async flush(onWrite?: (filename: string) => void) {
     const host = ts.createIncrementalCompilerHost(this.compilerOptions);
 
     // Reads the file from memory
@@ -112,6 +112,11 @@ export class KitaWriter implements SourceWriter {
               )
             )}`
         );
+      }
+
+      // onWrite callback
+      if (onWrite) {
+        onWrite(path.basename(filename));
       }
 
       return ts.sys.writeFile(filename, content, writeByteOrderMark);

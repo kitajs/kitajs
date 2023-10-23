@@ -34,7 +34,7 @@
     "@kitajs/common": "workspace:^",
     "@kitajs/generator": "workspace:^",
     "@kitajs/parser": "workspace:^",
-    "@oclif/core": "^3.5.0",
+    "@oclif/core": "^3.6.0",
     "@oclif/plugin-autocomplete": "^2.3.10",
     "@oclif/plugin-help": "^6.0.4",
     "@oclif/plugin-not-found": "^3.0.2",
@@ -50,7 +50,7 @@
     "oclif": "^4.0.3"
   },
   "peerDependencies": {
-    "typescript": "~5.1.6"
+    "typescript": "^5.2.2"
   },
   "oclif": {
     "bin": "kita",
