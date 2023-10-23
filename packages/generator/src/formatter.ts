@@ -8,6 +8,8 @@ import { KitaWriter } from './writer';
 export class KitaFormatter implements SourceFormatter {
   readonly writer: KitaWriter;
 
+  public onWrite?: (filename: string) => void;
+
   constructor(
     readonly config: KitaConfig,
     readonly compilerOptions: ts.CompilerOptions
@@ -26,6 +28,6 @@ export class KitaFormatter implements SourceFormatter {
   }
 
   flush() {
-    this.writer.flush();
+    return this.writer.flush(this.onWrite);
   }
 }

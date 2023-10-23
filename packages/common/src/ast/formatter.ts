@@ -11,4 +11,7 @@ export interface SourceFormatter {
 
   /** Writes all the files to disk */
   flush(): Promisable<void>;
+
+  /** Called when a file is written */
+  onWrite?: (filename: string) => void;
 }
