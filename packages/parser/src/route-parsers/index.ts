@@ -1,4 +1,4 @@
-import type { KitaConfig, ParameterParser, RouteParser } from '@kitajs/common';
+import type { AstCollector, KitaConfig, ParameterParser, RouteParser } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import type { SchemaBuilder } from '../schema/builder';
 import { ChainRouteParser } from './chain';
@@ -9,7 +9,8 @@ export function buildRouteParser(
   config: KitaConfig,
   schema: SchemaBuilder,
   paramParser: ParameterParser,
-  typeChecker: ts.TypeChecker
+  typeChecker: ts.TypeChecker,
+  collector: AstCollector
 ): RouteParser {
   const chain = new ChainRouteParser();
 
@@ -17,7 +18,7 @@ export function buildRouteParser(
 
   chain
     .add(new HtmlRouteParser(config, paramParser, typeChecker, schema))
-    .add(new RestRouteParser(config, schema, paramParser, typeChecker));
+    .add(new RestRouteParser(config, schema, paramParser, typeChecker, collector));
 
   return chain;
 }

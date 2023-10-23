@@ -1,5 +1,6 @@
 import { Promisable } from 'type-fest';
 import { KitaError } from '../errors';
+import { KitaPlugin } from './plugin';
 import { Provider } from './provider';
 import { Route } from './route';
 import { JsonSchema } from './schema';
@@ -35,6 +36,18 @@ export interface AstCollector {
 
   /** Returns the number of schemas defined by this server. */
   getSchemaCount(): number;
+
+  /** Returns a kita plugin by its name. If the plugin is not registered, undefined is returned. */
+  getPlugin(name: string): KitaPlugin | undefined;
+
+  /** Returns all kita plugins registered by this server. */
+  getPlugins(): KitaPlugin[];
+
+  /** Returns the number of kita plugins registered by this server. */
+  getPluginCount(): number;
+
+  /** Adds a kita plugin to the parser. */
+  addPlugin(name: string, plugin: KitaPlugin): void;
 
   /**
    * Parses all the given files, one by one, and yields the errors. If the array is empty, the parsing was successful.

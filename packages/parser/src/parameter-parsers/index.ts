@@ -34,12 +34,12 @@ export function buildParameterParser(
     .add(new ProviderParameterParser(collector))
     .add(new PathParameterParser(schema, config))
     .add(new HeaderParameterParser(config))
-    .add(new CookieParameterParser())
+    .add(new CookieParameterParser(collector))
     .add(new ThisParameterParser())
     .add(new SuspenseIdParameterParser())
     .add(new ProviderGenericsParameterParser())
     .add(new FileParameterParser(config))
-    .add(new ErrorsParameterParser());
+    .add(new ErrorsParameterParser(collector));
 
   return chain;
 }

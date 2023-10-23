@@ -42,6 +42,7 @@ export class HtmlRouteParser implements RouteParser {
       return false;
     }
 
+    // all should not be allowed
     if (!node.name.text.trim().match(/^get|post|put|delete$/i)) {
       return false;
     }
