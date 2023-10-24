@@ -35,7 +35,7 @@
     "@kitajs/html": "^3.0.4",
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
-    "@types/node": "^20.8.7",
+    "@types/node": "^20.8.8",
     "c8": "^8.0.1",
     "fastify": "^4.24.3",
     "fastify-plugin": "^4.5.1",
