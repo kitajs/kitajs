@@ -1,5 +1,18 @@
 # @kitajs/parser
 
+## 1.1.12
+
+### Patch Changes
+
+- 59d2207: Automatically add properties to all required plugins.
+- d004483: Warn on file without routes
+- c79637a: Validate transformSchema function
+- e29ff3f: Improved performance without incremental
+- Updated dependencies [59d2207]
+- Updated dependencies [d004483]
+- Updated dependencies [c79637a]
+  - @kitajs/common@1.1.10
+
 ## 1.1.11
 
 ### Patch Changes

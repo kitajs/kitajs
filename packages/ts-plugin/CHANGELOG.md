@@ -1,5 +1,17 @@
 # @kitajs/ts-plugin
 
+## 1.1.12
+
+### Patch Changes
+
+- 59d2207: Automatically add properties to all required plugins.
+- Updated dependencies [59d2207]
+- Updated dependencies [d004483]
+- Updated dependencies [c79637a]
+- Updated dependencies [e29ff3f]
+  - @kitajs/common@1.1.10
+  - @kitajs/parser@1.1.12
+
 ## 1.1.11
 
 ### Patch Changes
