@@ -35,8 +35,13 @@ export const Kita: FastifyPluginAsync<${pluginType(plugins)}> = fp<${pluginType(
     // Add all schemas
     ${schemas.map(schema).join(EOL)}
 
-    // Register all routes
-    ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schema.operationId}Options)`).join(EOL)}
+    // Register all routes - inside a plugin to make sure capsulation works
+    // https://github.com/fastify/fastify-plugin/issues/78#issuecomment-672692334
+    await ${kFastifyVariable}.register(async ${kFastifyVariable} => {
+      ${routes
+        .map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schema.operationId}Options)`)
+        .join(EOL)}
+    }, ${kKitaOptions});
   },
   {
     name: 'Kita',
