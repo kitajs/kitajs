@@ -1,5 +1,17 @@
 # @kitajs/generator
 
+## 1.1.14
+
+### Patch Changes
+
+- 59d2207: Automatically add properties to all required plugins.
+- 2ccf1f1: Fixed cyclic dependencies problem
+- e29ff3f: Improved performance without incremental
+- Updated dependencies [59d2207]
+- Updated dependencies [d004483]
+- Updated dependencies [c79637a]
+  - @kitajs/common@1.1.10
+
 ## 1.1.13
 
 ### Patch Changes

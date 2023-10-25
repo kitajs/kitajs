@@ -1,5 +1,13 @@
 # @kitajs/common
 
+## 1.1.10
+
+### Patch Changes
+
+- 59d2207: Automatically add properties to all required plugins.
+- d004483: Warn on file without routes
+- c79637a: Validate transformSchema function
+
 ## 1.1.9
 
 ### Patch Changes
