@@ -90,8 +90,8 @@ export class KitaWriter implements SourceWriter {
     host.writeFile = (filename, content, writeByteOrderMark) => {
       // Simple hack to make the runtime work with cyclic dependencies
       if (content.includes('// set-immediate-start')) {
-        content = content.replaceAll('// set-immediate-start', ';(async () => {');
-        content = content.replaceAll('// set-immediate-end', '})().catch(console.error);');
+        content = content.replaceAll('// set-immediate-start', 'setImmediate(() => {');
+        content = content.replaceAll('// set-immediate-end', '});');
       }
 
       if (
