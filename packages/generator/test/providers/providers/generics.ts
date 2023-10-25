@@ -12,6 +12,7 @@ export default function (
 }
 
 export function transformSchema(schema: RouteSchema, params: ProviderGenerics<[number]>) {
+  //@ts-ignore - this is a test
   schema.description = params.join(',');
   return schema;
 }

@@ -13,6 +13,7 @@ import {
   type ParameterParser,
   type RouteParser
 } from '@kitajs/common';
+import { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
 import { ts } from 'ts-json-schema-generator';
 import { Promisable } from 'type-fest';
 import { buildParameterParser } from './parameter-parsers';
@@ -25,6 +26,7 @@ import { traverseSource, traverseStatements } from './util/traverser';
 export class KitaParser implements AstCollector {
   protected readonly providers: Map<string, Provider> = new Map();
   protected readonly routes: Map<string, Route> = new Map();
+  protected readonly plugins: Map<string, KitaPlugin> = new Map();
   protected readonly schemaBuilder: SchemaBuilder;
 
   readonly rootRouteParser: RouteParser;
@@ -67,7 +69,8 @@ export class KitaParser implements AstCollector {
       this.config,
       this.schemaBuilder,
       this.rootParameterParser,
-      realProgram.getTypeChecker()
+      realProgram.getTypeChecker(),
+      this
     );
     this.rootProviderParser = buildProviderParser(this.config, this.rootParameterParser);
   }
@@ -176,5 +179,21 @@ export class KitaParser implements AstCollector {
 
   getSchemaCount(): number {
     return this.schemaBuilder.getDefinitionCount();
+  }
+
+  getPlugin(name: string): KitaPlugin | undefined {
+    return this.plugins.get(name);
+  }
+
+  getPlugins(): KitaPlugin[] {
+    return Array.from(this.plugins.values());
+  }
+
+  getPluginCount(): number {
+    return this.plugins.size;
+  }
+
+  addPlugin(name: string, plugin: KitaPlugin): void {
+    this.plugins.set(name, plugin);
   }
 }

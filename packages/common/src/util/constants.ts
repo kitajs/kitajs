@@ -12,3 +12,6 @@ export const kFastifyVariable = `fastify`;
 
 /** The name of the transformSchema function */
 export const kTransformSchema = 'transformSchema';
+
+/** The name of the request parameter */
+export const kKitaOptions = 'options';

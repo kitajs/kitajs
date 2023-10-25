@@ -164,6 +164,7 @@ export default class Build extends Command {
 
       const routes = parser.getRoutes();
       const schemas = parser.getSchemas();
+      const plugins = parser.getPlugins();
       const providers = parser.getProviderCount();
 
       ux.action.stop(
@@ -179,7 +180,7 @@ export default class Build extends Command {
       }
 
       if (!flags['dry-run']) {
-        await formatter.generate(routes, schemas);
+        await formatter.generate(routes, schemas, plugins);
 
         ux.action.start(`Generating ${chalk.cyan`@kitajs/runtime`}`, '', {
           stdout: true,

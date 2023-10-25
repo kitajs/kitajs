@@ -27,14 +27,16 @@
     "test": "tsc --noEmit"
   },
   "dependencies": {
+    "@fastify/multipart": "^8.0.0",
+    "@fastify/sensible": "^5.5.0",
+    "@fastify/swagger": "^8.12.0",
+    "@fastify/swagger-ui": "^1.10.1",
     "@kitajs/common": "workspace:^",
     "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.5.0"
   },
   "peerDependencies": {
-    "@fastify/multipart": "^8.0",
-    "@fastify/sensible": "^5.5",
     "fastify": "^4.24.3"
   }
 }

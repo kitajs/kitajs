@@ -1,4 +1,4 @@
-import { KitaConfig, ParameterParser, ReturnTypeError, Route, RouteParser } from '@kitajs/common';
+import { AstCollector, KitaConfig, ParameterParser, ReturnTypeError, Route, RouteParser } from '@kitajs/common';
 import path from 'path';
 import { ts } from 'ts-json-schema-generator';
 import { SchemaBuilder } from '../schema/builder';
@@ -14,7 +14,8 @@ export class RestRouteParser implements RouteParser {
     private config: KitaConfig,
     private schema: SchemaBuilder,
     private paramParser: ParameterParser,
-    private typeChecker: ts.TypeChecker
+    private typeChecker: ts.TypeChecker,
+    private collector: AstCollector
   ) {}
 
   supports(node: ts.Node): boolean {
@@ -36,6 +37,37 @@ export class RestRouteParser implements RouteParser {
   }
 
   async parse(node: ts.FunctionDeclaration): Promise<Route> {
+    // Adds fastify swagger plugin
+    if (!this.collector.getPlugin('fastifySwagger')) {
+      this.collector.addPlugin('fastifySwagger', {
+        name: 'fastifySwagger',
+        importUrl: '@fastify/swagger',
+        options: {
+          mode: 'dynamic',
+          openapi: { openapi: '3.1.0' },
+          refResolver: {
+            _raw: `{ buildLocalReference(json: any, _: unknown, __: unknown, i: number) { return json.$id || json.$title || json.name || \`def-\${i}\` } }`
+          }
+        }
+      });
+    }
+
+    // Swagger UI is on a different package
+    if (!this.collector.getPlugin('fastifySwaggerUi')) {
+      this.collector.addPlugin('fastifySwaggerUi', {
+        name: 'fastifySwaggerUi',
+        importUrl: '@fastify/swagger-ui',
+        options: {
+          staticCSP: true,
+          uiConfig: {
+            displayOperationId: true,
+            displayRequestDuration: true,
+            requestSnippetsEnabled: true
+          }
+        }
+      });
+    }
+
     const source = node.getSourceFile();
 
     const { url, controller } = findUrlAndControllerName(source.fileName, this.config);

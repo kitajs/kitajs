@@ -1,4 +1,3 @@
-import fastifySensible from '@fastify/sensible';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { createApp, generateRuntime } from '../runner';
@@ -17,10 +16,6 @@ describe('Http Errors', async () => {
 
   test('getIndex throws correctly', async () => {
     await using app = createApp(rt);
-
-    app.register(fastifySensible, {
-      sharedSchemaId: 'HttpError'
-    });
 
     const res = await app.inject({ method: 'GET', url: '/' });
 

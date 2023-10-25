@@ -1,4 +1,12 @@
-import { BodyInGetRequestError, KitaConfig, Parameter, ParameterParser, Route, kRequestParam } from '@kitajs/common';
+import {
+  AstCollector,
+  BodyInGetRequestError,
+  KitaConfig,
+  Parameter,
+  ParameterParser,
+  Route,
+  kRequestParam
+} from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import { mergeSchema } from '../schema/helpers';
 import { getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';
@@ -7,13 +15,25 @@ import { buildAccessProperty } from '../util/syntax';
 export class FileParameterParser implements ParameterParser {
   agnostic = true;
 
-  constructor(private config: KitaConfig) {}
+  constructor(
+    private config: KitaConfig,
+    private readonly collector: AstCollector
+  ) {}
 
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'File' || getTypeNodeName(param) === 'SavedFile';
   }
 
   parse(param: ts.ParameterDeclaration, route: Route): Parameter {
+    // Adds fastify sensible plugin
+    if (!this.collector.getPlugin('fastifyMultipart')) {
+      this.collector.addPlugin('fastifyMultipart', {
+        name: 'fastifyMultipart',
+        importUrl: '@fastify/multipart',
+        options: { attachFieldsToBody: true }
+      });
+    }
+
     if (route.method === 'GET') {
       throw new BodyInGetRequestError(param.type || param);
     }

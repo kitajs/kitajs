@@ -9,6 +9,11 @@ describe('Http errors', async () => {
   test('expects 2 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
     assert.equal(kita.getRouteCount(), 2);
+    assert.equal(kita.getPluginCount(), 3);
+  });
+
+  test('created fastifySensible plugin', () => {
+    assert.ok(kita.getPlugin('fastifySensible'));
   });
 
   test('assigns all possible errors', () => {

@@ -1,11 +1,10 @@
-import fastifyMultipart, { ajvFilePlugin } from '@fastify/multipart';
-import fastify from 'fastify';
+import { ajvFilePlugin } from '@fastify/multipart';
 import formAutoContent from 'form-auto-content';
 import assert from 'node:assert';
 import { createReadStream } from 'node:fs';
 import path from 'node:path';
 import test, { describe } from 'node:test';
-import { generateRuntime } from '../runner';
+import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
 import type Runtime from './runtime';
@@ -23,9 +22,18 @@ describe('Saved File', async () => {
   });
 
   test('Works with SavedFile', async () => {
-    await using app = fastify({ ajv: { plugins: [ajvFilePlugin] } });
-    await app.register(fastifyMultipart, { attachFieldsToBody: true });
-    await app.register(rt.Kita);
+    await using app = createApp(rt, { ajv: { plugins: [ajvFilePlugin] } });
+
+    // type test
+    if (-1 > 1) {
+      app.register(rt.Kita, {
+        fastifyMultipart: {
+          throwFileSizeLimit: true
+        },
+        //@ts-expect-error - type test
+        notPresent: { a: true }
+      });
+    }
 
     const res = await app.inject({
       method: 'POST',

@@ -1,4 +1,5 @@
 import {
+  AstCollector,
   InvalidParameterUsageError,
   Parameter,
   ParameterParser,
@@ -34,11 +35,22 @@ function normalize(code: string, msg: string) {
 export class ErrorsParameterParser implements ParameterParser {
   agnostic = true;
 
+  constructor(private readonly collector: AstCollector) {}
+
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'HttpErrors';
   }
 
   parse(param: ts.ParameterDeclaration, route: Route, fn: ts.FunctionDeclaration): Parameter {
+    // Adds fastify sensible plugin
+    if (!this.collector.getPlugin('fastifySensible')) {
+      this.collector.addPlugin('fastifySensible', {
+        name: 'fastifySensible',
+        importUrl: '@fastify/sensible',
+        options: { sharedSchemaId: 'HttpError' }
+      });
+    }
+
     // To find throw declarations
     const paramValue = getTypeName(param);
 

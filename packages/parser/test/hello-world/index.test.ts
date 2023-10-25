@@ -9,6 +9,15 @@ describe('Hello World', async () => {
   test('expects 1 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
     assert.equal(kita.getRouteCount(), 1);
+    assert.equal(kita.getPluginCount(), 2);
+  });
+
+  test('created fastifySwagger plugin', () => {
+    assert.ok(kita.getPlugin('fastifySwagger'));
+  });
+
+  test('created fastifySwaggerUi plugin', () => {
+    assert.ok(kita.getPlugin('fastifySwaggerUi'));
   });
 
   test('generates hello world', () => {

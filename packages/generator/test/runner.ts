@@ -38,7 +38,7 @@ export async function generateRuntime<R>(
     assert.fail(error);
   }
 
-  await formatter.generate(kita.getRoutes(), kita.getSchemas());
+  await formatter.generate(kita.getRoutes(), kita.getSchemas(), kita.getPlugins());
   await formatter.flush();
 
   return require(config.runtimePath!) as R;
