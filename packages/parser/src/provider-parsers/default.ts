@@ -1,4 +1,5 @@
 import {
+  InvalidProviderSchemaTransformerError,
   KitaConfig,
   NoProviderExportedError,
   ParameterParser,
@@ -10,7 +11,14 @@ import {
 import path from 'path';
 import { ts } from 'ts-json-schema-generator';
 import type { Promisable } from 'type-fest';
-import { getTypeName, hasName, isDefaultExportFunction, isExportedFunction, unwrapPromiseType } from '../util/nodes';
+import {
+  getTypeName,
+  getTypeNodeName,
+  hasName,
+  isDefaultExportFunction,
+  isExportedFunction,
+  unwrapPromiseType
+} from '../util/nodes';
 import { cwdRelative } from '../util/paths';
 import { traverseParameters } from '../util/traverser';
 
@@ -52,16 +60,70 @@ export class DefaultProviderParser implements ProviderParser {
       parameters[index] = param;
     }
 
-    const hasSchemaTransformer = !!source.statements.find(
-      (s) => isExportedFunction(s) && hasName(s, 'transformSchema')
-    );
+    const schemaTransformer = source.statements.find(
+      (s) => ts.isFunctionDeclaration(s) && hasName(s, 'transformSchema')
+    ) as ts.FunctionDeclaration | undefined;
+
+    // validations
+    if (schemaTransformer) {
+      if (!isExportedFunction(schemaTransformer)) {
+        throw new InvalidProviderSchemaTransformerError(
+          schemaTransformer.name || schemaTransformer,
+          'please export this function.'
+        );
+      }
+
+      if (schemaTransformer.parameters.length < 1) {
+        throw new InvalidProviderSchemaTransformerError(
+          schemaTransformer.name || schemaTransformer,
+          'it must receive the schema as the first parameter.'
+        );
+      }
+
+      if (schemaTransformer.parameters.length > 2) {
+        throw new InvalidProviderSchemaTransformerError(
+          schemaTransformer.name || schemaTransformer,
+          'only RouteSchema and ProviderGenerics are allowed as parameters.'
+        );
+      }
+
+      if (getTypeNodeName(schemaTransformer.parameters[0]!) !== 'RouteSchema') {
+        throw new InvalidProviderSchemaTransformerError(
+          schemaTransformer.parameters[0]!.type ||
+            schemaTransformer.parameters[0]!.name ||
+            schemaTransformer.name ||
+            schemaTransformer,
+          'the first parameter must be of type `RouteSchema`.'
+        );
+      }
+
+      // provider generics
+      if (schemaTransformer.parameters[1]) {
+        if (getTypeNodeName(schemaTransformer.parameters[1]!) !== 'ProviderGenerics') {
+          throw new InvalidProviderSchemaTransformerError(
+            schemaTransformer.parameters[1]!.type ||
+              schemaTransformer.parameters[1]!.name ||
+              schemaTransformer.name ||
+              schemaTransformer,
+            'if the second parameter is present, its type must be `ProviderGenerics`.'
+          );
+        }
+      }
+
+      if (!schemaTransformer.type || getTypeNodeName(schemaTransformer) !== 'RouteSchema') {
+        throw new InvalidProviderSchemaTransformerError(
+          schemaTransformer.type || schemaTransformer.name || schemaTransformer,
+          'it must have the `RouteSchema` return type explicitly.'
+        );
+      }
+    }
 
     return {
       async,
       type,
       providerPath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters,
-      schemaTransformer: hasSchemaTransformer
+      schemaTransformer: !!schemaTransformer
     };
   }
 }

@@ -1,4 +1,4 @@
-import { AstCollector, InvalidProviderGenericType, Parameter, ParameterParser, Route } from '@kitajs/common';
+import { AstCollector, InvalidProviderGenericTypeError, Parameter, ParameterParser, Route } from '@kitajs/common';
 import { ts } from 'ts-json-schema-generator';
 import { getParameterGenerics, getTypeNodeName } from '../util/nodes';
 import { joinParameters } from '../util/syntax';
@@ -39,7 +39,7 @@ export class ProviderParameterParser implements ParameterParser {
       for (const generic of generics) {
         // 01, 'str', true
         if (!ts.isLiteralTypeNode(generic)) {
-          throw new InvalidProviderGenericType(generic);
+          throw new InvalidProviderGenericTypeError(generic);
         }
 
         arr.push(generic.literal.getText());

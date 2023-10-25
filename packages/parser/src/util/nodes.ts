@@ -118,7 +118,7 @@ export function isDefaultExportFunction(
   );
 }
 
-/** Returns true if the provided node is a default exported function. */
+/** Asserts if this node identifier name */
 export function hasName(node: { name?: ts.Identifier }, name: string): boolean {
   return !!node.name && getIdentifierName(node.name) === name;
 }
