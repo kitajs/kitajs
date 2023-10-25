@@ -147,7 +147,7 @@ export class RouteParameterMultipleErrors extends KitaError {
   }
 }
 
-export class InvalidProviderGenericType extends KitaError {
+export class InvalidProviderGenericTypeError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 314,
@@ -162,6 +162,19 @@ export class EmptyRouteFileError extends KitaError {
     super({
       code: 315,
       messageText: 'You cannot have empty route files inside a route directory. Please add at least one route.',
+      node
+    });
+  }
+}
+
+export class InvalidProviderSchemaTransformerError extends KitaError {
+  constructor(
+    node: ts.ReadonlyTextRange,
+    readonly msg: string
+  ) {
+    super({
+      code: 316,
+      messageText: `Invalid schemaTransformer function: ${msg}`,
       node
     });
   }
