@@ -60,7 +60,6 @@ export class KitaWriter implements SourceWriter {
     this.compilerOptions.skipDefaultLibCheck = true;
     this.compilerOptions.skipLibCheck = true;
     this.compilerOptions.checkJs = false;
-    this.compilerOptions.incremental = false;
   }
 
   write(filename: string, content: string) {
@@ -76,7 +75,7 @@ export class KitaWriter implements SourceWriter {
   }
 
   async flush(onWrite?: (filename: string) => void) {
-    const host = ts.createIncrementalCompilerHost(this.compilerOptions);
+    const host = ts.createCompilerHost(this.compilerOptions);
 
     // Reads the file from memory
     host.readFile = (filename) => {
@@ -129,7 +128,7 @@ export class KitaWriter implements SourceWriter {
     };
 
     // Creates the program and emits the files
-    const program = ts.createIncrementalProgram({
+    const program = ts.createProgram({
       options: this.compilerOptions,
       rootNames: Array.from(this.files.keys()),
       host

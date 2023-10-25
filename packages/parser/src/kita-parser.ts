@@ -43,7 +43,7 @@ export class KitaParser implements AstCollector {
     const providerPaths = walk(config.providerFolder);
 
     // Typescript program
-    const program = ts.createIncrementalProgram({
+    const program = ts.createProgram({
       options: compilerOptions,
       // Adds both providers and controllers
       rootNames: routePaths.concat(providerPaths)

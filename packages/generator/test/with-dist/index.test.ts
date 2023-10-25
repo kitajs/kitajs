@@ -13,7 +13,7 @@ const tsconfig = require.resolve('./tsconfig.json');
 const compilerOptions = readCompilerOptions(tsconfig);
 
 describe('Dist usage', async () => {
-  const program = ts.createIncrementalProgram({
+  const program = ts.createProgram({
     options: compilerOptions,
     rootNames: walk(path.join(__dirname, 'src'))
   });
