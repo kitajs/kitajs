@@ -8,7 +8,7 @@ import { KitaFormatter } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');
 
-export async function generateRuntime<R>(
+export async function generateRuntime<R extends { ready: Promise<void> }>(
   cwd: string,
   partialCfg: PartialKitaConfig = {},
   compilerOptions = readCompilerOptions(tsconfig)
@@ -41,7 +41,10 @@ export async function generateRuntime<R>(
   await formatter.generate(kita.getRoutes(), kita.getSchemas(), kita.getPlugins());
   await formatter.flush();
 
-  return require(config.runtimePath!) as R;
+  // Waits for the cyclic imports to be resolved
+  const rt = require(config.runtimePath!) as R;
+  await rt.ready;
+  return rt;
 }
 
 export function createApp<R>(runtime: R, opts?: FastifyHttpOptions<any, any>) {

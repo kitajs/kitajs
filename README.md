@@ -51,5 +51,6 @@ Things to document:
 
 - Route operationId re-exports cannot be used in the first tick of the nodejs process in order to avoid circular
   dependencies. They must be used in the second tick or imported directly from the routes/... file.
+  (`await Runtime.ready`)
 
 - `keyword: "isFile"` error when multipart ajv plugin is not present.
