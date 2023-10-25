@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.1.15
+
+### Patch Changes
+
+- c78343d: Fixed set immediate generation
+
 ## 1.1.14
 
 ### Patch Changes
