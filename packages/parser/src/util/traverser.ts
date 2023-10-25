@@ -1,4 +1,5 @@
 import {
+  EmptyRouteFileError,
   KitaError,
   Parameter,
   ParameterParser,
@@ -22,8 +23,11 @@ export async function* traverseStatements<R>(
     const sourceFile = program.getSourceFile(file);
 
     if (!sourceFile) {
-      throw new SourceFileNotFoundError(file);
+      yield new SourceFileNotFoundError(file);
+      return;
     }
+
+    let parsed = 0;
 
     for (const statement of sourceFile.statements) {
       let supports = parser.supports(statement);
@@ -33,6 +37,8 @@ export async function* traverseStatements<R>(
       }
 
       if (supports) {
+        parsed++;
+
         try {
           let parsed = parser.parse(statement);
 
@@ -51,6 +57,10 @@ export async function* traverseStatements<R>(
           }
         }
       }
+    }
+
+    if (parsed === 0) {
+      yield new EmptyRouteFileError(sourceFile);
     }
   }
 }

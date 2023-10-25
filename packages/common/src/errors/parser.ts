@@ -156,3 +156,13 @@ export class InvalidProviderGenericType extends KitaError {
     });
   }
 }
+
+export class EmptyRouteFileError extends KitaError {
+  constructor(readonly node: ts.Node) {
+    super({
+      code: 315,
+      messageText: 'You cannot have empty route files inside a route directory. Please add at least one route.',
+      node
+    });
+  }
+}
