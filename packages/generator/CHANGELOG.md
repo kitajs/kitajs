@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.1.16
+
+### Patch Changes
+
+- 5ddc1ef: Fixed plugin encapsulation
+
 ## 1.1.15
 
 ### Patch Changes
