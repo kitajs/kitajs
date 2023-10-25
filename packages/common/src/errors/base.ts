@@ -7,7 +7,7 @@ export type PartialDiagnostic = Omit<ts.Diagnostic, 'category' | 'file' | 'start
   length?: number;
 
   /** If we should populate `file`, `source`, `start` and `length` with this node information */
-  node?: ts.ReadonlyTextRange;
+  node?: ts.Node;
 
   /** @default Error */
   category?: ts.DiagnosticCategory;

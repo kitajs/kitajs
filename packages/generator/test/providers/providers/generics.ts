@@ -11,7 +11,7 @@ export default function (
   return [request.id, params[0], instance.version];
 }
 
-export function transformSchema(schema: RouteSchema, params: ProviderGenerics<[number]>) {
+export function transformSchema(schema: RouteSchema, params: ProviderGenerics<[number]>): RouteSchema {
   //@ts-ignore - this is a test
   schema.description = params.join(',');
   return schema;

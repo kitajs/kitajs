@@ -80,6 +80,13 @@ export class DefaultProviderParser implements ProviderParser {
         );
       }
 
+      if (schemaTransformer.parameters.length > 2) {
+        throw new InvalidProviderSchemaTransformerError(
+          schemaTransformer.name || schemaTransformer,
+          'only RouteSchema and ProviderGenerics are allowed as parameters.'
+        );
+      }
+
       if (getTypeNodeName(schemaTransformer.parameters[0]!) !== 'RouteSchema') {
         throw new InvalidProviderSchemaTransformerError(
           schemaTransformer.parameters[0]!.type ||
@@ -90,7 +97,20 @@ export class DefaultProviderParser implements ProviderParser {
         );
       }
 
-      if (!schemaTransformer.type || getTypeName(schemaTransformer) !== 'RouteSchema') {
+      // provider generics
+      if (schemaTransformer.parameters[1]) {
+        if (getTypeNodeName(schemaTransformer.parameters[1]!) !== 'ProviderGenerics') {
+          throw new InvalidProviderSchemaTransformerError(
+            schemaTransformer.parameters[1]!.type ||
+              schemaTransformer.parameters[1]!.name ||
+              schemaTransformer.name ||
+              schemaTransformer,
+            'if the second parameter is present, its type must be `ProviderGenerics`.'
+          );
+        }
+      }
+
+      if (!schemaTransformer.type || getTypeNodeName(schemaTransformer) !== 'RouteSchema') {
         throw new InvalidProviderSchemaTransformerError(
           schemaTransformer.type || schemaTransformer.name || schemaTransformer,
           'it must have the `RouteSchema` return type explicitly.'

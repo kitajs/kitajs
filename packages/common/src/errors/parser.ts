@@ -169,7 +169,7 @@ export class EmptyRouteFileError extends KitaError {
 
 export class InvalidProviderSchemaTransformerError extends KitaError {
   constructor(
-    node: ts.ReadonlyTextRange,
+    node: ts.Node,
     readonly msg: string
   ) {
     super({
