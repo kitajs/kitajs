@@ -7,6 +7,8 @@ export const index = (routes: Route[]) =>
 
 export * from './plugin';
 
+// set-immediate-start
 ${routes.map((r) => `export * from './routes/${r.schema.operationId}';`).join(EOL)}
+// set-immediate-end
 
 `.trim();

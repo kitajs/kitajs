@@ -6,9 +6,6 @@ export const plugin = (routes: Route[], schemas: JsonSchema[]) =>
 
 import fp from 'fastify-plugin';
 import type { FastifyPluginAsync } from 'fastify'
-import { RouteSchemas } from './schemas';
-
-${routes.map((r) => `import { ${r.schema.operationId}Options } from './routes/${r.schema.operationId}';`).join(EOL)}  
 
 /**
  * The Kita generated fastify plugin. Registering it into your fastify instance will
@@ -29,10 +26,16 @@ ${routes.map((r) => `import { ${r.schema.operationId}Options } from './routes/${
  */
 export const Kita: FastifyPluginAsync = fp<{}>(
   async (${kFastifyVariable}) => {
+    // Import all routes
+    ${routes
+      .map((r) => `const ${r.schema.operationId} = await import('./routes/${r.schema.operationId}');`)
+      .join(EOL)}  
+
+    // Add all schemas
     ${schemas.map(schema).join(EOL)}
 
     // Register all routes
-    ${routes.map((r) => `fastify.route(${r.schema.operationId}Options)`).join(EOL)}
+    ${routes.map((r) => `fastify.route(${r.schema.operationId}.${r.schema.operationId}Options)`).join(EOL)}
   },
   {
     name: 'Kita',
