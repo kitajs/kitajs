@@ -89,6 +89,12 @@ export class KitaWriter implements SourceWriter {
     // we keep aliases inside tsconfig for dts files and use relative
     // paths inside .js files
     host.writeFile = (filename, content, writeByteOrderMark) => {
+      // Simple hack to make the runtime work with cyclic dependencies
+      if (content.includes('// set-immediate-start')) {
+        content = content.replaceAll('// set-immediate-start', ';(async () => {');
+        content = content.replaceAll('// set-immediate-end', '})().catch(console.error);');
+      }
+
       if (
         // Only if we should switch to the dist folder
         this.userDistPath &&
