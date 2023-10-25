@@ -17,5 +17,5 @@ export interface RouteSchema extends Partial<Record<keyof FastifySchema, JsonSch
   operationId: string;
 
   /** Any possible other key is also allowed */
-  [key: string]: unknown;
+  [key: string]: any;
 }

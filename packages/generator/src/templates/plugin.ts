@@ -1,7 +1,7 @@
-import { JsonSchema, Route, kFastifyVariable } from '@kitajs/common';
+import { JsonSchema, KitaPlugin, Route, kFastifyVariable, kKitaOptions, stringifyOptions } from '@kitajs/common';
 import { EOL } from 'os';
 
-export const plugin = (routes: Route[], schemas: JsonSchema[]) =>
+export const plugin = (routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]) =>
   /* ts */ `
 
 import fp from 'fastify-plugin';
@@ -24,24 +24,23 @@ import type { FastifyPluginAsync } from 'fastify'
  * 
  * @see {@link https://kita.js.org/}
  */
-export const Kita: FastifyPluginAsync = fp<{}>(
-  async (${kFastifyVariable}) => {
+export const Kita: FastifyPluginAsync<${pluginType(plugins)}> = fp<${pluginType(plugins)}>(
+  async (${kFastifyVariable}, ${kKitaOptions}) => {
+    // Register all plugins
+    ${plugins.map(kitaPlugin).join(EOL)}
+
     // Import all routes
-    ${routes
-      .map((r) => `const ${r.schema.operationId} = await import('./routes/${r.schema.operationId}');`)
-      .join(EOL)}  
+    ${routes.map((r) => `const ${r.schema.operationId} = await import('./routes/${r.schema.operationId}');`).join(EOL)}
 
     // Add all schemas
     ${schemas.map(schema).join(EOL)}
 
     // Register all routes
-    ${routes.map((r) => `fastify.route(${r.schema.operationId}.${r.schema.operationId}Options)`).join(EOL)}
+    ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schema.operationId}Options)`).join(EOL)}
   },
   {
     name: 'Kita',
-    fastify: '4.x',
-    // Ensure KitaJS does not pollute the global namespace
-    encapsulate: true
+    fastify: '4.x'
   }
 );
 
@@ -51,5 +50,44 @@ const schema = (s: JsonSchema) =>
   /* ts */ `
 
 ${kFastifyVariable}.addSchema(${JSON.stringify(s, null, 2)});
+
+`.trim();
+
+const pluginType = (plugins: KitaPlugin[]) =>
+  /* ts */ `
+
+{
+  ${plugins
+    .map((p) =>
+      `
+  
+  /**
+   * Options for the ${p.name} plugin. Use false to disable it manually.
+   * 
+   * Defaults to:
+   * 
+   * \`\`\`ts
+   * ${stringifyOptions(p.options)}
+   * \`\`\`
+   *
+   * @see {@link ${p.importUrl}}
+   */
+  ${p.name}?: Parameters<typeof import("${p.importUrl}").default>[1] | false
+  
+  `.trim()
+    )
+    .join(`,${EOL}`)}
+}
+
+`.trim();
+
+const kitaPlugin = (plugin: KitaPlugin) =>
+  /* ts */ `
+
+if (${kKitaOptions}.${plugin.name} !== false) {
+  await ${kFastifyVariable}.register(await import("${plugin.importUrl}"), Object.assign(${stringifyOptions(
+    plugin.options
+  )}, ${kKitaOptions}.${plugin.name} || {}))
+}
 
 `.trim();

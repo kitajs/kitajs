@@ -23,10 +23,8 @@ describe('Html routes', async () => {
 
     assert.equal(res.statusCode, 200);
     assert.equal(res.headers['content-type'], 'text/html; charset=utf-8');
-    assert.equal(
-      res.body,
-      `<!doctype html><div id="B:1" data-sf><div>fallback</div></div>${SuspenseScript}<template id="N:1" data-sr>Hello World</template><script id="S:1" data-ss>$RC(1)</script>`
-    );
+    // This ensures kita's suspense script is present, but its locked to a specific implementation
+    assert.ok(res.body.includes(SuspenseScript));
   });
 
   test('normal html works', async () => {

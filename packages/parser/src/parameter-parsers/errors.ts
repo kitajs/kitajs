@@ -45,6 +45,7 @@ export class ErrorsParameterParser implements ParameterParser {
     // Adds fastify sensible plugin
     if (!this.collector.getPlugin('fastifySensible')) {
       this.collector.addPlugin('fastifySensible', {
+        name: 'fastifySensible',
         importUrl: '@fastify/sensible',
         options: { sharedSchemaId: 'HttpError' }
       });

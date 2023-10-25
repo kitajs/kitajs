@@ -1,4 +1,5 @@
 import { Promisable } from 'type-fest';
+import { KitaPlugin } from './plugin';
 import { Route } from './route';
 import { JsonSchema } from './schema';
 
@@ -7,7 +8,7 @@ export interface SourceFormatter {
   generateRoute(r: Route): Promisable<void>;
 
   /** Called after all routes were generated */
-  generate(routes: Route[], schemas: JsonSchema[]): Promisable<void>;
+  generate(routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]): Promisable<void>;
 
   /** Writes all the files to disk */
   flush(): Promisable<void>;

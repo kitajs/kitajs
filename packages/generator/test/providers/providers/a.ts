@@ -8,6 +8,7 @@ export default function (req: FastifyRequest): MyProvider {
 }
 
 export function transformSchema(schema: RouteSchema) {
+  //@ts-ignore - this is a test
   schema.description = 'Overridden description';
 
   return schema;

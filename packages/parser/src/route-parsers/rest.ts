@@ -40,16 +40,31 @@ export class RestRouteParser implements RouteParser {
     // Adds fastify swagger plugin
     if (!this.collector.getPlugin('fastifySwagger')) {
       this.collector.addPlugin('fastifySwagger', {
+        name: 'fastifySwagger',
         importUrl: '@fastify/swagger',
-        options: { mode: 'dynamic' }
+        options: {
+          mode: 'dynamic',
+          openapi: { openapi: '3.1.0' },
+          refResolver: {
+            _raw: `{ buildLocalReference(json: any, _: unknown, __: unknown, i: number) { return json.$id || json.$title || json.name || \`def-\${i}\` } }`
+          }
+        }
       });
     }
 
     // Swagger UI is on a different package
     if (!this.collector.getPlugin('fastifySwaggerUi')) {
       this.collector.addPlugin('fastifySwaggerUi', {
+        name: 'fastifySwaggerUi',
         importUrl: '@fastify/swagger-ui',
-        options: {}
+        options: {
+          staticCSP: true,
+          uiConfig: {
+            displayOperationId: true,
+            displayRequestDuration: true,
+            requestSnippetsEnabled: true
+          }
+        }
       });
     }
 

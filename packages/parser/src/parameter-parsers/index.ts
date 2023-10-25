@@ -38,7 +38,7 @@ export function buildParameterParser(
     .add(new ThisParameterParser())
     .add(new SuspenseIdParameterParser())
     .add(new ProviderGenericsParameterParser())
-    .add(new FileParameterParser(config))
+    .add(new FileParameterParser(config, collector))
     .add(new ErrorsParameterParser(collector));
 
   return chain;

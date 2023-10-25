@@ -1,4 +1,5 @@
 import { JsonSchema, KitaConfig, Route, SourceFormatter } from '@kitajs/common';
+import { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
 import ts from 'typescript';
 import { index } from './templates';
 import { plugin } from './templates/plugin';
@@ -22,9 +23,9 @@ export class KitaFormatter implements SourceFormatter {
     this.writer.write(filename, route(r, this.config.cwd));
   }
 
-  generate(routes: Route[], definitions: JsonSchema[]) {
+  generate(routes: Route[], definitions: JsonSchema[], plugins: KitaPlugin[]) {
     this.writer.write('index.ts', index(routes));
-    this.writer.write('plugin.ts', plugin(routes, definitions));
+    this.writer.write('plugin.ts', plugin(routes, definitions, plugins));
   }
 
   flush() {
