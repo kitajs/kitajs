@@ -1,5 +1,11 @@
 # @kitajs/parser
 
+## 1.1.13
+
+### Patch Changes
+
+- 92b6e28: Fixed win32 deep paths
+
 ## 1.1.12
 
 ### Patch Changes
