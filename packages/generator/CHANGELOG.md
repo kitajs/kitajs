@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.1.17
+
+### Patch Changes
+
+- 92b6e28: Fixed win32 deep paths
+
 ## 1.1.16
 
 ### Patch Changes
