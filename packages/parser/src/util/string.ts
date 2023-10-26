@@ -11,7 +11,7 @@ export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
   strip = strip.slice(0, -path.extname(strip).length);
 
   // Replaces windows separators with /
-  // strip = strip.replace(path.sep, '/');
+  strip = strip.replace(path.sep, '/');
 
   // Replaces spaces with dashes
   strip = strip.replace(/\s|\./g, '-');
