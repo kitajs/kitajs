@@ -8,7 +8,10 @@ export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
   strip = path.relative(config.routeFolder, filepath);
 
   // Keeps everything before first . (removes extensions like .test.ts or .js)
-  strip = strip.split('.')[0]!;
+  strip = strip.slice(0, -path.extname(strip).length);
+
+  // Replaces windows separators with /
+  strip = strip.replace(path.sep, '/');
 
   // Replaces spaces with dashes
   strip = strip.replace(/\s|\./g, '-');
