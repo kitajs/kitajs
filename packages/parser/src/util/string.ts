@@ -1,6 +1,8 @@
 import { KitaConfig } from '@kitajs/common';
 import path from 'node:path';
 
+const WIN32_SEP_REGEX = /\\/g;
+
 export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
   let strip = filepath;
 
@@ -8,7 +10,10 @@ export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
   strip = path.relative(config.routeFolder, filepath);
 
   // Keeps everything before first . (removes extensions like .test.ts or .js)
-  strip = strip.split('.')[0]!;
+  strip = strip.slice(0, -path.extname(strip).length);
+
+  // Replaces windows separators with /
+  strip = strip.replace(WIN32_SEP_REGEX, '/');
 
   // Replaces spaces with dashes
   strip = strip.replace(/\s|\./g, '-');
@@ -17,10 +22,12 @@ export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
   let url = strip.replace(/(\[.+?\])/g, (match) => `:${match.substring(1, match.length - 1)}`);
 
   // Removes index from name
-  url = url.replace(/\/?index\/?/gi, '/');
+  url = url.replace(/\/?index\/?/g, '/');
 
   // Remove trailing slash
-  url = url.replace(/\/$/, '');
+  if (url[url.length - 1] === '/') {
+    url = url.slice(0, -1);
+  }
 
   // Adds leading slash
   url = '/' + url;
