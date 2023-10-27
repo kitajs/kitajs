@@ -1,4 +1,5 @@
 import { JsonSchema, KitaPlugin, Route, kFastifyVariable, kKitaOptions, stringifyOptions } from '@kitajs/common';
+import stringify from 'json-stable-stringify';
 import { EOL } from 'os';
 
 export const plugin = (routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]) =>
@@ -54,7 +55,7 @@ export const Kita: FastifyPluginAsync<${pluginType(plugins)}> = fp<${pluginType(
 const schema = (s: JsonSchema) =>
   /* ts */ `
 
-${kFastifyVariable}.addSchema(${JSON.stringify(s, null, 2)});
+${kFastifyVariable}.addSchema(${stringify(s, { space: 2 })});
 
 `.trim();
 

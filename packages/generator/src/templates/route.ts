@@ -1,4 +1,5 @@
 import { Parameter, Route, kReplyParam, kRequestParam } from '@kitajs/common';
+import stringify from 'json-stable-stringify';
 import { EOL } from 'os';
 import { formatImport } from '../util/path';
 
@@ -90,7 +91,7 @@ if (${kReplyParam}.sent) {
 const needsAsync = (parameters: Parameter[]) => (parameters.some((p) => p.helper?.includes('await')) ? 'async ' : '');
 
 const schema = (r: Route) => {
-  let code = JSON.stringify(r.schema, null, 2);
+  let code = stringify(r.schema, { space: 2 });
 
   for (const param of r.parameters) {
     if (param.schemaTransformer) {
