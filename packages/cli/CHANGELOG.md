@@ -1,5 +1,12 @@
 # @kitajs/cli
 
+## 1.1.18
+
+### Patch Changes
+
+- Updated dependencies [54a0d75]
+  - @kitajs/generator@1.1.18
+
 ## 1.1.17
 
 ### Patch Changes
