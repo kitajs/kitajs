@@ -1,5 +1,11 @@
 # @kitajs/generator
 
+## 1.1.18
+
+### Patch Changes
+
+- 54a0d75: Stable schema serialization
+
 ## 1.1.17
 
 ### Patch Changes
