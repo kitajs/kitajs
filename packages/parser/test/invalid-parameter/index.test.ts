@@ -1,8 +1,12 @@
 import { ParameterResolverNotFoundError, RouteParameterMultipleErrors, parseConfig } from '@kitajs/common';
 import assert from 'node:assert';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test, { describe } from 'node:test';
 import { KitaParser } from '../../src';
+
+const ROUTE_SOURCE = readFileSync(path.resolve(__dirname, 'routes/index.ts'), 'utf-8');
+const PROVIDER_SOURCE = readFileSync(path.resolve(__dirname, 'providers/index.ts'), 'utf-8');
 
 describe('Hello World', async () => {
   const kita = KitaParser.create(
@@ -26,13 +30,9 @@ describe('Hello World', async () => {
     if (first instanceof ParameterResolverNotFoundError) {
       // export default function (_: ASD): Provider {
       //                             ~~~
-
-      // I know this isn't the best way,
-      // but it works for now (windows adds \\ (2 chars) instead of / (1 char)
-      assert.equal(first.diagnostic.start, process.platform === 'win32' ? 96 : 93);
-
+      assert.equal(first.diagnostic.start, PROVIDER_SOURCE.indexOf('_: ASD') + '_: '.length);
       assert.equal(first.diagnostic.length, 'ASD'.length);
-      assert.equal(first.diagnostic.file?.fileName, path.resolve(__dirname, 'providers/index.ts')); // full path
+      assert.equal(first.diagnostic.file?.fileName, path.resolve(__dirname, 'providers', 'index.ts')); // full path
     } else {
       assert.fail('Expected ParameterResolverNotFoundError');
     }
@@ -40,24 +40,24 @@ describe('Hello World', async () => {
     const second = errors[1];
     if (second instanceof RouteParameterMultipleErrors) {
       // export function get(_: ASD, __: Provider) {
-      //                     ~~~
-      assert.equal(second.diagnostic.relatedInformation?.[0]?.start, process.platform === 'win32' ? 95 : 92);
+      //                        ~~~      ~~~~~~~~
+      assert.equal(second.diagnostic.relatedInformation?.[0]?.start, ROUTE_SOURCE.indexOf('_: ASD') + '_: '.length);
       assert.equal(second.diagnostic.relatedInformation?.[0]?.length, 'ASD'.length);
       assert.equal(
         second.diagnostic.relatedInformation?.[0]?.file?.fileName,
         // needs full path
-        path.resolve(__dirname, 'routes/index.ts')
+        path.resolve(__dirname, 'routes', 'index.ts')
       );
-
-      // export default function (_: ASD): Provider {
-      //                             ~~~
-      assert.equal(second.diagnostic.relatedInformation?.[1]?.start, process.platform === 'win32' ? 104 : 101);
+      assert.equal(
+        second.diagnostic.relatedInformation?.[1]?.start,
+        ROUTE_SOURCE.indexOf('__: Provider') + '__: '.length
+      );
       assert.equal(second.diagnostic.relatedInformation?.[1]?.length, 'Provider'.length);
 
       assert.equal(
         second.diagnostic.relatedInformation?.[1]?.file?.fileName,
         // needs full path
-        path.resolve(__dirname, 'routes/index.ts')
+        path.resolve(__dirname, 'routes', 'index.ts')
       );
 
       // only 2 errors
