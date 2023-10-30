@@ -1,9 +1,8 @@
-import { EOL } from 'os';
 import ts from 'typescript';
 
 export function formatDiagnostic(diagnostics: readonly ts.Diagnostic[]) {
   return (
-    EOL +
+    '\n' +
     ts.formatDiagnosticsWithColorAndContext(diagnostics, {
       getCanonicalFileName(fileName) {
         return fileName;
@@ -12,7 +11,7 @@ export function formatDiagnostic(diagnostics: readonly ts.Diagnostic[]) {
         return process.cwd();
       },
       getNewLine() {
-        return EOL;
+        return '\n';
       }
     })
   );

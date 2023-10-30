@@ -1,6 +1,5 @@
 import { JsonSchema, KitaPlugin, Route, kFastifyVariable, kKitaOptions, stringifyOptions } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
-import { EOL } from 'os';
 
 export const plugin = (routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]) =>
   /* ts */ `
@@ -82,7 +81,7 @@ const pluginType = (plugins: KitaPlugin[]) =>
   
   `.trim()
     )
-    .join(`,${EOL}`)}
+    .join(`,\n`)}
 }
 
 `.trim();

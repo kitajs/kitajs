@@ -1,5 +1,4 @@
 import { GeneratedDiagnosticsErrors, KitaConfig, SourceWriter } from '@kitajs/common';
-import { EOL } from 'os';
 import path from 'path';
 import ts from 'typescript';
 import { escapePath } from './util/path';
@@ -66,7 +65,7 @@ export class KitaWriter implements SourceWriter {
     let current = this.files.get(filename);
 
     if (current) {
-      current = current + EOL + content;
+      current = current + '\n' + content;
     } else {
       current = content;
     }

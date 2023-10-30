@@ -1,4 +1,3 @@
-import { EOL } from 'os';
 import ts from 'typescript';
 
 export type PartialDiagnostic = Omit<ts.Diagnostic, 'category' | 'file' | 'start' | 'length'> & {
@@ -42,7 +41,7 @@ export abstract class KitaError extends Error {
   readonly diagnostic: ts.Diagnostic;
 
   constructor(diagnostic: PartialDiagnostic) {
-    super(ts.flattenDiagnosticMessageText(diagnostic.messageText, EOL));
+    super(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
     this.diagnostic = KitaError.createDiagnostic(diagnostic);
     this.code = this.diagnostic.code;
   }
