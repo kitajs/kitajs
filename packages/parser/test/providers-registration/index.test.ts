@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
+import { cwdRelative } from '../../src/util/paths';
 import { parseRoutes } from '../runner';
 
 describe('Providers Registration', async () => {
@@ -15,33 +16,33 @@ describe('Providers Registration', async () => {
       {
         async: false,
         type: 'ProviderA',
-        providerPath: './providers/a.ts',
+        providerPath: cwdRelative('providers/a.ts'),
         parameters: [],
         schemaTransformer: false
       },
       {
         async: false,
         type: 'ProviderB',
-        providerPath: './providers/b.ts',
+        providerPath: cwdRelative('providers/b.ts'),
         parameters: [],
         schemaTransformer: false
       },
       {
         async: false,
         type: 'ProviderD',
-        providerPath: './providers/d.ts',
+        providerPath: cwdRelative('providers/d.ts'),
         parameters: [],
         schemaTransformer: false
       },
       {
         async: false,
         type: 'ProviderC',
-        providerPath: './providers/c.ts',
+        providerPath: cwdRelative('providers/c.ts'),
         parameters: [
           {
             name: 'ProviderParameterParser',
             value: 'param0',
-            imports: [{ name: 'Resolver0', path: './providers/d.ts' }],
+            imports: [{ name: 'Resolver0', path: cwdRelative('providers/d.ts') }],
             schemaTransformer: false,
             providerName: 'Resolver0',
             helper: 'const param0 = Resolver0();'
@@ -60,12 +61,12 @@ describe('Providers Registration', async () => {
         controllerMethod: 'get',
         method: 'GET',
         controllerName: 'IndexController',
-        controllerPath: './routes/index.ts',
+        controllerPath: cwdRelative('routes/index.ts'),
         parameters: [
           {
             name: 'ProviderParameterParser',
             value: 'param0',
-            imports: [{ name: 'Resolver0', path: './providers/a.ts' }],
+            imports: [{ name: 'Resolver0', path: cwdRelative('providers/a.ts') }],
             schemaTransformer: false,
             providerName: 'Resolver0',
             helper: 'const param0 = Resolver0();'
@@ -73,7 +74,7 @@ describe('Providers Registration', async () => {
           {
             name: 'ProviderParameterParser',
             value: 'param1',
-            imports: [{ name: 'Resolver1', path: './providers/b.ts' }],
+            imports: [{ name: 'Resolver1', path: cwdRelative('providers/b.ts') }],
             schemaTransformer: false,
             providerName: 'Resolver1',
             helper: 'const param1 = Resolver1();'
@@ -90,12 +91,12 @@ describe('Providers Registration', async () => {
         controllerMethod: 'post',
         method: 'POST',
         controllerName: 'IndexController',
-        controllerPath: './routes/index.ts',
+        controllerPath: cwdRelative('routes/index.ts'),
         parameters: [
           {
             name: 'ProviderParameterParser',
             value: 'param0',
-            imports: [{ name: 'Resolver0', path: './providers/c.ts' }],
+            imports: [{ name: 'Resolver0', path: cwdRelative('providers/c.ts') }],
             schemaTransformer: false,
             providerName: 'Resolver0',
             helper:
@@ -110,7 +111,7 @@ describe('Providers Registration', async () => {
           {
             name: 'ProviderParameterParser',
             value: 'param1',
-            imports: [{ name: 'Resolver1', path: './providers/a.ts' }],
+            imports: [{ name: 'Resolver1', path: cwdRelative('providers/a.ts') }],
             schemaTransformer: false,
             providerName: 'Resolver1',
             helper: 'const param1 = Resolver1();'
