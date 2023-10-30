@@ -1,5 +1,4 @@
 import { Route } from '@kitajs/common';
-import { EOL } from 'os';
 
 /** Re-exports everything this plugin have */
 export const index = (routes: Route[]) =>
@@ -15,7 +14,7 @@ let resolve;
 export const ready = new Promise<void>((res) => void (resolve = res));
 
 // set-immediate-start
-${routes.map((r) => `export * from './routes/${r.schema.operationId}';`).join(EOL)}
+${routes.map((r) => `export * from './routes/${r.schema.operationId}';`).join('\n')}
 
 resolve();
 // set-immediate-end

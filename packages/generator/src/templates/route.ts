@@ -1,6 +1,5 @@
 import { Parameter, Route, kReplyParam, kRequestParam } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
-import { EOL } from 'os';
 import { formatImport } from '../util/path';
 
 /** Generates a route file. */
@@ -11,14 +10,14 @@ import type { RouteOptions, FastifyRequest, FastifyReply } from 'fastify';
 
 import * as ${r.controllerName} from '${formatImport(r.controllerPath, cwd)}';
 
-${r.imports?.map((r) => `import ${r.name} from '${formatImport(r.path, cwd)}'`).join(EOL) || ''}
+${r.imports?.map((r) => `import ${r.name} from '${formatImport(r.path, cwd)}'`).join('\n') || ''}
 
 ${
   r.parameters
     .flatMap((p) => p.imports)
     .filter(Boolean)
     .map((r) => `import ${r!.name} from '${formatImport(r!.path, cwd)}'`)
-    .join(EOL) || ''
+    .join('\n') || ''
 }
 
 export const ${r.schema.operationId}: typeof ${r.controllerName}['${r.controllerMethod}'] = ${r.controllerName}.${
@@ -31,7 +30,7 @@ export const ${r.schema.operationId}: typeof ${r.controllerName}['${r.controller
 export ${needsAsync(r.parameters)} function ${
     r.schema.operationId
   }Handler(${kRequestParam}: FastifyRequest, ${kReplyParam}: FastifyReply) {
-  ${r.parameters.map(paramHelper).filter(Boolean).join(EOL)}
+  ${r.parameters.map(paramHelper).filter(Boolean).join('\n')}
 
   ${
     r.customReturn ||

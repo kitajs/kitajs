@@ -1,5 +1,3 @@
-import { EOL } from 'node:os';
-
 /** Join code lines with a semicolon. */
 export function join<I>(items: I[], mapper: (this: void, t: I) => string, filter?: (this: void, t: I) => boolean) {
   let code = '';
@@ -9,7 +7,7 @@ export function join<I>(items: I[], mapper: (this: void, t: I) => string, filter
       continue;
     }
 
-    code += mapper(item).trim() + EOL;
+    code += mapper(item).trim() + '\n';
   }
 
   return code;

@@ -1,6 +1,5 @@
 import { JsonSchema, KitaPlugin, Route, kFastifyVariable, kKitaOptions, stringifyOptions } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
-import { EOL } from 'os';
 
 export const plugin = (routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]) =>
   /* ts */ `
@@ -28,20 +27,20 @@ import type { FastifyPluginAsync } from 'fastify'
 export const Kita: FastifyPluginAsync<${pluginType(plugins)}> = fp<${pluginType(plugins)}>(
   async (${kFastifyVariable}, ${kKitaOptions}) => {
     // Register all plugins
-    ${plugins.map(kitaPlugin).join(EOL)}
+    ${plugins.map(kitaPlugin).join('\n')}
 
     // Import all routes
-    ${routes.map((r) => `const ${r.schema.operationId} = await import('./routes/${r.schema.operationId}');`).join(EOL)}
+    ${routes.map((r) => `const ${r.schema.operationId} = await import('./routes/${r.schema.operationId}');`).join('\n')}
 
     // Add all schemas
-    ${schemas.map(schema).join(EOL)}
+    ${schemas.map(schema).join('\n')}
 
     // Register all routes - inside a plugin to make sure capsulation works
     // https://github.com/fastify/fastify-plugin/issues/78#issuecomment-672692334
     await ${kFastifyVariable}.register(async ${kFastifyVariable} => {
       ${routes
         .map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schema.operationId}Options)`)
-        .join(EOL)}
+        .join('\n')}
     }, ${kKitaOptions});
   },
   {
@@ -82,7 +81,7 @@ const pluginType = (plugins: KitaPlugin[]) =>
   
   `.trim()
     )
-    .join(`,${EOL}`)}
+    .join(`,\n`)}
 }
 
 `.trim();
