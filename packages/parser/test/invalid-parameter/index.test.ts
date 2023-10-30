@@ -34,7 +34,7 @@ describe('Hello World', async () => {
       assert.equal(first.diagnostic.length, 'ASD'.length);
       assert.equal(
         first.diagnostic.file?.fileName,
-        path.resolve(__dirname.replaceAll(path.sep, '/'), 'providers', 'index.ts')
+        path.posix.resolve(__dirname.replaceAll(path.sep, '/'), 'providers', 'index.ts')
       ); // full path
     } else {
       assert.fail('Expected ParameterResolverNotFoundError');
