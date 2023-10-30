@@ -34,7 +34,7 @@ describe('Hello World', async () => {
       assert.equal(first.diagnostic.length, 'ASD'.length);
       assert.equal(
         first.diagnostic.file?.fileName,
-        path.posix.resolve(__dirname.replaceAll(path.sep, '/'), 'providers', 'index.ts')
+        path.posix.join(__dirname.replaceAll(path.sep, '/'), 'providers', 'index.ts')
       ); // full path
     } else {
       assert.fail('Expected ParameterResolverNotFoundError');
@@ -49,7 +49,7 @@ describe('Hello World', async () => {
       assert.equal(
         second.diagnostic.relatedInformation?.[0]?.file?.fileName,
         // needs full posix paths
-        path.posix.resolve(__dirname.replaceAll(path.sep, '/'), 'routes', 'index.ts')
+        path.posix.join(__dirname.replaceAll(path.sep, '/'), 'routes', 'index.ts')
       );
       assert.equal(
         second.diagnostic.relatedInformation?.[1]?.start,
@@ -60,7 +60,7 @@ describe('Hello World', async () => {
       assert.equal(
         second.diagnostic.relatedInformation?.[1]?.file?.fileName,
         // needs full path
-        path.posix.resolve(__dirname.replaceAll(path.sep, '/'), 'routes', 'index.ts')
+        path.posix.join(__dirname.replaceAll(path.sep, '/'), 'routes', 'index.ts')
       );
 
       // only 2 errors
