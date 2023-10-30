@@ -1,5 +1,11 @@
 # @kitajs/parser
 
+## 1.1.14
+
+### Patch Changes
+
+- cf9f086: Unusual providers registration order
+
 ## 1.1.13
 
 ### Patch Changes
