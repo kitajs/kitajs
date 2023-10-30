@@ -21,7 +21,7 @@ import { buildProviderParser } from './provider-parsers';
 import { buildRouteParser } from './route-parsers';
 import { SchemaBuilder } from './schema/builder';
 import { walk } from './util/paths';
-import { traverseSource, traverseStatements } from './util/traverser';
+import { traverseProviders, traverseStatements } from './util/traverser';
 
 export class KitaParser implements AstCollector {
   protected readonly providers: Map<string, Provider> = new Map();
@@ -81,7 +81,7 @@ export class KitaParser implements AstCollector {
     }
 
     // Parses all providers first
-    for await (const provider of traverseSource(this.program, this.rootProviderParser, this.providerPaths)) {
+    for await (const provider of traverseProviders(this.program, this.rootProviderParser, this.providerPaths)) {
       if (provider instanceof KitaError) {
         yield provider;
         continue;
