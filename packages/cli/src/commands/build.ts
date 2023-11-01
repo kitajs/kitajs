@@ -41,10 +41,12 @@ export default class Build extends Command {
       char: 'd',
       description: 'Skips generation process. Useful for testing your code.',
       default: false
+    }),
+    root: Flags.string({
+      char: 'r',
+      description: 'Custom root directory for your project.'
     })
   };
-
-  static override args = {};
 
   async run(): Promise<void> {
     const { flags } = await this.parse(Build);

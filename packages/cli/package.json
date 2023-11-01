@@ -40,12 +40,21 @@
     "@oclif/plugin-not-found": "^3.0.2",
     "@oclif/plugin-warn-if-update-available": "^2.1.1",
     "chalk": "^4.1.2",
+    "chokidar": "^3.5.3",
+    "close-with-grace": "^1.2.0",
+    "cross-spawn": "^7.0.3",
+    "debounce": "^1.2.1",
+    "fast-defer": "^1.1.7",
+    "is-running": "^2.1.0",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@swc-node/register": "^1.6.8",
     "@swc/helpers": "^0.5.3",
+    "@types/cross-spawn": "^6.0.4",
+    "@types/debounce": "^1.2.3",
+    "@types/is-running": "^2.1.1",
     "@types/node": "^20.8.10",
     "oclif": "^4.0.3"
   },

@@ -55,6 +55,31 @@
       "isESM": false,
       "relativePath": ["dist", "commands", "build.js"]
     },
+    "dev": {
+      "aliases": [],
+      "args": {},
+      "description": "Watches your source code and rebuilds the runtime on changes.",
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your kita.config.js file, if any.",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "dev",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "dev.js"]
+    },
     "init": {
       "aliases": [],
       "args": {},
@@ -82,5 +107,5 @@
       "relativePath": ["dist", "commands", "init.js"]
     }
   },
-  "version": "1.1.13"
+  "version": "1.1.19"
 }

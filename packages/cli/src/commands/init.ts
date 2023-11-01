@@ -15,8 +15,6 @@ export default class Init extends Command {
     })
   };
 
-  static override args = {};
-
   async run(): Promise<void> {
     const { flags } = await this.parse(Init);
 

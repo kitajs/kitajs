@@ -54,3 +54,6 @@ Things to document:
   (`await Runtime.ready`)
 
 - `keyword: "isFile"` error when multipart ajv plugin is not present.
+
+- Serialized fields may not be in the same order, as safe-json-stringify is used and JSON spec itself says that order is
+  not guaranteed.
