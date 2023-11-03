@@ -32,7 +32,6 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
     assert.fail(error);
   }
 
-  await formatter.generateRuntime(kita);
   await formatter.flush();
 
   globalThis.KITA_PROJECT_ROOT = config.cwd;
