@@ -1,4 +1,5 @@
 import { JsonSchema, KitaPlugin, Route, kFastifyVariable, kKitaOptions, stringifyOptions } from '@kitajs/common';
+import stringify from 'json-stable-stringify';
 import { ts } from 'ts-writer';
 
 export function generatePlugin(routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]) {
@@ -72,7 +73,7 @@ function toPlugin(plugin: KitaPlugin) {
 }
 
 function toSchema(schema: JsonSchema) {
-  return `${kFastifyVariable}.addSchema(${schema}})`;
+  return `${kFastifyVariable}.addSchema(${stringify(schema, { space: 4 })})`;
 }
 
 function toPluginType(plugin: KitaPlugin) {

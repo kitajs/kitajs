@@ -26,7 +26,7 @@
   "dependencies": {
     "@kitajs/common": "workspace:^",
     "json-stable-stringify": "^1.0.2",
-    "ts-writer": "^1.3.0",
+    "ts-writer": "^1.3.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.6.0"
   },
