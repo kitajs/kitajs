@@ -1,10 +1,9 @@
-import { KitaConfig, KitaError, parseConfig, readCompilerOptions } from '@kitajs/common';
+import { KitaError, readCompilerOptions } from '@kitajs/common';
 import { KitaFormatter } from '@kitajs/generator';
 import { KitaParser } from '@kitajs/parser';
 import { Command, Flags, ux } from '@oclif/core';
 import chalk from 'chalk';
-import fs from 'fs/promises';
-import path from 'path';
+import { readConfig } from '../util/config';
 import { formatDiagnostic } from '../util/diagnostics';
 
 export default class Build extends Command {
@@ -52,51 +51,12 @@ export default class Build extends Command {
     this.log(chalk.yellow`Thanks for using Kita! 🎉\n`);
 
     try {
-      let readConfig: KitaConfig | undefined;
-
-      const root = flags.root ?? process.cwd();
-
-      // Tries to lookup for a default config file
-      const defaultConfigPath = path.resolve(root, 'kita.config.js');
-
-      if (flags.config) {
-        flags.config = path.resolve(root, flags.config);
-      } else if (await fs.stat(defaultConfigPath).catch(() => false)) {
-        flags.config = defaultConfigPath;
-      }
-
-      if (flags.config) {
-        ux.action.start('Reading config', '', { stdout: true, style: 'clock' });
-
-        const exists = await fs.stat(flags.config).catch(() => false);
-
-        if (!exists) {
-          this.error(`Config file does not exist: ${flags.config}`);
-        }
-
-        const cfg = require(flags.config);
-
-        if (typeof cfg !== 'object') {
-          this.error(`Config file must export an object.`);
-        }
-
-        // Esm
-        if (typeof cfg.default === 'object') {
-          readConfig = cfg.default;
-        } else {
-          readConfig = cfg;
-        }
-
-        ux.action.stop(chalk.cyan(`.${path.sep}${path.relative(root, flags.config)}`));
-      }
+      const config = readConfig(flags.root ?? process.cwd(), this.error, flags.config, true);
 
       ux.action.start('Warming up', '', {
         stdout: true,
         style: 'clock'
       });
-
-      ux.action.status = 'Parsing config';
-      const config = parseConfig(readConfig, flags.root);
 
       // Overrides dist if source is enabled
       if (flags['import-source']) {
@@ -115,7 +75,7 @@ export default class Build extends Command {
 
       ux.action.status = 'Building formatter';
 
-      const formatter = new KitaFormatter(config, compilerOptions);
+      const formatter = new KitaFormatter(config);
 
       ux.action.status = 'Creating parser';
 
@@ -127,24 +87,7 @@ export default class Build extends Command {
 
       // Generate routes on the fly
       parser.onRoute = async (route) => {
-        ux.action.status = route.schema.operationId;
         formatter.generateRoute(route);
-      };
-
-      parser.onProvider = async (provider) => {
-        ux.action.status = provider.type;
-      };
-
-      parser.onSchema = async (schema) => {
-        if (schema.title) {
-          ux.action.status = schema.title;
-        } else if (schema.$ref) {
-          ux.action.status = schema.$ref;
-        }
-      };
-
-      formatter.onWrite = (filename) => {
-        ux.action.status = filename;
       };
 
       ux.action.stop(chalk.cyan`Ready to build!`);
@@ -158,7 +101,6 @@ export default class Build extends Command {
 
       // Should not emit any errors
       for await (const error of parser.parse()) {
-        ux.action.status = error.name;
         diagnostics.push(error.diagnostic);
       }
 
@@ -180,16 +122,14 @@ export default class Build extends Command {
       }
 
       if (!flags['dry-run']) {
-        await formatter.generate(routes, schemas, plugins);
+        await formatter.generateRuntime(routes, schemas, plugins);
 
         ux.action.start(`Generating ${chalk.cyan`@kitajs/runtime`}`, '', {
           stdout: true,
           style: 'clock'
         });
 
-        await formatter.flush();
-
-        ux.action.stop(`${chalk.green(formatter.writer.fileCount())} files written.`);
+        ux.action.stop(`${chalk.green(formatter.writeCount)} files written.`);
       }
 
       if (diagnostics.length > 0) {

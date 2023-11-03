@@ -9,4 +9,7 @@ export interface SourceFormatter {
 
   /** Called after all routes have been generated. This is the place to generate the runtime and everything it may needs. */
   generateRuntime(routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]): Promisable<void>;
+
+  /** Returns the number of files written */
+  readonly writeCount: number;
 }

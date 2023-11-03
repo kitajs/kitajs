@@ -9,6 +9,8 @@ import { generateRoute } from './templates/route';
 export class KitaFormatter implements SourceFormatter {
   private readonly outDir: string;
 
+  writeCount = 0;
+
   constructor(readonly config: KitaConfig) {
     if (this.config.runtimePath) {
       this.outDir = path.resolve(this.config.cwd, this.config.runtimePath);
@@ -33,9 +35,11 @@ export class KitaFormatter implements SourceFormatter {
     await fs.promises.mkdir(path.join(this.outDir, path.dirname(file.source.filename)), { recursive: true });
 
     await fs.promises.writeFile(path.join(this.outDir, file.source.filename), file.source.content);
+    this.writeCount += 1;
 
     if (this.config.declaration) {
       await fs.promises.writeFile(path.join(this.outDir, file.types.filename), file.types.content);
+      this.writeCount += 1;
     }
   }
 
@@ -48,11 +52,15 @@ export class KitaFormatter implements SourceFormatter {
       fs.promises.writeFile(path.join(this.outDir, plugin.source.filename), plugin.source.content)
     ]);
 
+    this.writeCount += 2;
+
     if (this.config.declaration) {
       await Promise.all([
         fs.promises.writeFile(path.join(this.outDir, index.types.filename), index.types.content),
         fs.promises.writeFile(path.join(this.outDir, plugin.types.filename), plugin.types.content)
       ]);
+
+      this.writeCount += 2;
     }
   }
 }

@@ -41,7 +41,7 @@ export default class Init extends Command {
   }
 }
 
-const defaultConfig = /* ts */ `
+const defaultConfig = `
 
 // Documentation: https://kita.js.org/
 
