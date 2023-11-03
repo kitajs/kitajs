@@ -22,8 +22,7 @@ describe('Header Parameter', async () => {
         url: '/',
         controllerMethod: 'get',
         method: 'GET',
-        controllerName: 'IndexController',
-        controllerPath: cwdRelative('routes/index.ts'),
+        relativePath: cwdRelative('routes/index.ts'),
         parameters: [
           { name: 'HeaderParameterParser', value: 'req.headers.name' },
           { name: 'HeaderParameterParser', value: 'req.headers.age' },

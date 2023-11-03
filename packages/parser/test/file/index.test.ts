@@ -24,8 +24,7 @@ describe('File and SavedFile', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [
         { name: 'FileParameterParser', value: 'req.body.file' },
         { name: 'FileParameterParser', value: 'req.body.named' }
@@ -52,8 +51,7 @@ describe('File and SavedFile', async () => {
       url: '/',
       controllerMethod: 'put',
       method: 'PUT',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [
         {
           name: 'FileParameterParser',

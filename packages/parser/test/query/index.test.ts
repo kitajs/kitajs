@@ -18,8 +18,7 @@ describe('Query Parameter', async () => {
       url: '/primitive',
       method: 'GET',
       controllerMethod: 'get',
-      controllerName: 'PrimitiveController',
-      controllerPath: cwdRelative('routes/primitive.ts'),
+      relativePath: cwdRelative('routes/primitive.ts'),
       parameters: [
         { name: 'QueryParameterParser', value: 'req.query.name' },
         { name: 'QueryParameterParser', value: 'req.query.age' },
@@ -53,8 +52,7 @@ describe('Query Parameter', async () => {
     assert.deepStrictEqual(route, {
       url: '/complex',
       controllerMethod: 'get',
-      controllerName: 'ComplexController',
-      controllerPath: cwdRelative('routes/complex.ts'),
+      relativePath: cwdRelative('routes/complex.ts'),
       method: 'GET',
       parameters: [{ name: 'QueryParameterParser', value: 'req.query' }],
       kind: 'rest',

@@ -1,4 +1,12 @@
-import { AstCollector, KitaConfig, ParameterParser, ReturnTypeError, Route, RouteParser } from '@kitajs/common';
+import {
+  AstCollector,
+  KitaConfig,
+  ParameterParser,
+  ReturnTypeError,
+  Route,
+  RouteParser,
+  capital
+} from '@kitajs/common';
 import path from 'path';
 import { ts } from 'ts-json-schema-generator';
 import { SchemaBuilder } from '../schema/builder';
@@ -6,7 +14,7 @@ import { mergeSchema } from '../schema/helpers';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportedFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
-import { capital, findUrlAndControllerName } from '../util/string';
+import { parseUrl } from '../util/string';
 import { traverseParameters } from '../util/traverser';
 
 export class RestRouteParser implements RouteParser {
@@ -46,7 +54,7 @@ export class RestRouteParser implements RouteParser {
           mode: 'dynamic',
           openapi: { openapi: '3.1.0' },
           refResolver: {
-            _raw: `{ buildLocalReference(json: any, _: unknown, __: unknown, i: number) { return json.$id || json.$title || json.name || \`def-\${i}\` } }`
+            _raw: `{ buildLocalReference(json, _, __, i) { return json.$id || json.$title || json.name || \`def-\${i}\` } }`
           }
         }
       });
@@ -70,7 +78,7 @@ export class RestRouteParser implements RouteParser {
 
     const source = node.getSourceFile();
 
-    const { url, controller } = findUrlAndControllerName(source.fileName, this.config);
+    const { url, routeId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();
 
     const route: Route = {
@@ -78,11 +86,10 @@ export class RestRouteParser implements RouteParser {
       url,
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,
-      controllerName: controller,
-      controllerPath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
+      relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],
       schema: {
-        operationId: method.toLowerCase() + controller.replace(/controller$/i, ''),
+        operationId: method.toLowerCase() + routeId,
 
         // Applies default responses
         response: this.config.responses

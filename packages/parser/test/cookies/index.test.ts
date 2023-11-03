@@ -23,8 +23,7 @@ describe('Cookies', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [
         {
@@ -57,8 +56,7 @@ describe('Cookies', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [
         { name: 'CookieParameterParser', value: 'req.cookies.a', helper: undefined },

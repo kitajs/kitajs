@@ -1,9 +1,9 @@
-import { KitaConfig } from '@kitajs/common';
+import { KitaConfig, capitalize } from '@kitajs/common';
 import path from 'node:path';
 
 const WIN32_SEP_REGEX = /\\/g;
 
-export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
+export function parseUrl(filepath: string, config: KitaConfig) {
   let strip = filepath;
 
   // Strips any possible regex that the user might have added
@@ -29,33 +29,17 @@ export function findUrlAndControllerName(filepath: string, config: KitaConfig) {
     url = url.slice(0, -1);
   }
 
-  // Adds leading slash
-  url = '/' + url;
+  return {
+    // Adds leading slash
+    url: '/' + url,
 
-  // Removes a/[b]/c -> a/b/c
-  let controller = strip.replace(/\[(.+?)\]/g, '$1');
-
-  // Camel case paths or dash case paths
-  controller = controller
-    .split('/')
-    .flatMap((p) => p.split('-'))
-    .map(capitalize)
-    .join('');
-
-  // Defaults to Index
-  controller = controller || 'Index';
-
-  // Adds Controller suffix
-  controller = controller + 'Controller';
-
-  return { url, controller };
-}
-
-export function capitalize(this: void, str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
-
-/** The same as {@linkcode capitalize} but does not care if the remaining string is capitalized or not. */
-export function capital(this: void, str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+    // Camel case paths or dash case paths
+    routeId:
+      strip
+        .replace(/\[(.+?)\]/g, '$1')
+        .split('/')
+        .flatMap((p) => p.split('-'))
+        .map(capitalize)
+        .join('') || 'Omdex'
+  };
 }

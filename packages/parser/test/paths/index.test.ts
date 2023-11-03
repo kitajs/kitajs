@@ -18,8 +18,7 @@ describe('Path parameter', async () => {
       url: '/:name',
       controllerMethod: 'get',
       method: 'GET',
-      controllerName: 'NameController',
-      controllerPath: cwdRelative('routes/[name].ts'),
+      relativePath: cwdRelative('routes/[name].ts'),
       kind: 'rest',
       parameters: [{ name: 'PathParameterParser', value: 'req.params.name' }],
       schema: {
@@ -42,8 +41,7 @@ describe('Path parameter', async () => {
       url: '/:name',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'NameController',
-      controllerPath: cwdRelative('routes/[name].ts'),
+      relativePath: cwdRelative('routes/[name].ts'),
       parameters: [{ name: 'PathParameterParser', value: 'req.params.name' }],
       kind: 'rest',
       schema: {
@@ -66,8 +64,7 @@ describe('Path parameter', async () => {
       url: '/:num',
       controllerMethod: 'get',
       method: 'GET',
-      controllerName: 'NumController',
-      controllerPath: cwdRelative('routes/[num].ts'),
+      relativePath: cwdRelative('routes/[num].ts'),
       parameters: [{ name: 'PathParameterParser', value: 'req.params.num' }],
       kind: 'rest',
       schema: {
@@ -90,8 +87,7 @@ describe('Path parameter', async () => {
       url: '/:num',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'NumController',
-      controllerPath: cwdRelative('routes/[num].ts'),
+      relativePath: cwdRelative('routes/[num].ts'),
       parameters: [{ name: 'PathParameterParser', value: 'req.params.num' }],
       kind: 'rest',
       schema: {

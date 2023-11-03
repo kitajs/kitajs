@@ -1,3 +1,4 @@
+import { kKitaGlobalRoot } from '@kitajs/common';
 import path from 'path';
 
 /** Posix: `./`, in windows: `.\\` */
@@ -16,16 +17,18 @@ export function isRelative(p: string) {
   return false;
 }
 
-/** Remove extension from import path */
-export function formatImport(imp: string, cwd: string) {
+/* Returns an already quoted import-ready string */
+export function toMaybeRelativeImport(imp: string) {
   imp = removeExt(imp);
 
-  // Makes sure the relative import is absolute
-  if (isRelative(imp)) {
-    imp = path.resolve(cwd, imp);
+  const relative = isRelative(imp);
+
+  if (!relative) {
+    return `'${imp}'`;
   }
 
-  return escapePath(imp);
+  // removes the dots from the relative path but keeps the sep to be used with the root variable
+  return `\`\${${kKitaGlobalRoot}}${imp.slice(relative.length - path.sep.length)}\``;
 }
 
 /** Removes the extension from a path, if present. */

@@ -1,3 +1,4 @@
+import { kControllerName } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -18,15 +19,14 @@ describe('This & Use usage', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [],
       schema: {
         response: { ['2xx']: { type: 'string' } },
         operationId: 'getIndex'
       },
-      options: 'IndexController.test2($1)'
+      options: `${kControllerName}.test2($1)`
     });
   });
 
@@ -37,15 +37,14 @@ describe('This & Use usage', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [],
       schema: {
         response: { ['2xx']: { type: 'string' } },
         operationId: 'postIndex'
       },
-      options: 'IndexController.test3(IndexController.test2(IndexController.test($1)))'
+      options: `${kControllerName}.test3(${kControllerName}.test2(${kControllerName}.test($1)))`
     });
   });
 });

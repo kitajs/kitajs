@@ -57,6 +57,15 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
+  const declaration = env('declaration') ?? config.declaration ?? true;
+
+  if (typeof declaration !== 'boolean') {
+    throw new InvalidConfigError(
+      `'declaration' must be a boolean: (${JSON.stringify(declaration)}). Read from ${envOrigin('declaration')}`,
+      config
+    );
+  }
+
   const responses = env('responses') ?? config.responses ?? {};
 
   if (typeof responses !== 'object') {
@@ -100,6 +109,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     routeFolder: path.resolve(cwd, routeFolder),
     dist: dist === true,
     src: src,
+    declaration: declaration,
     runtimePath: runtimePath,
     responses: responses,
     generatorConfig: generatorConfig,

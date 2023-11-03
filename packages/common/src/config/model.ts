@@ -12,6 +12,14 @@ export interface KitaConfig {
   cwd: string;
 
   /**
+   * The custom path to your source root. Used when replacing the source path with the dist path.
+   *
+   * @default 'src'
+   * @env `KITA_SRC` - The environment variable to override this setting.
+   */
+  src: string;
+
+  /**
    * The root provider folder to search and register providers
    *
    * @default 'src/providers'
@@ -51,12 +59,13 @@ export interface KitaConfig {
   dist?: boolean;
 
   /**
-   * The custom path to your source root. Used when replacing the source path with the dist path.
+   * If the generated runtime should include declaration files alongside the javascript files. This is only helpful for
+   * development purposes and can be disabled once you are building the runtime for production.
    *
-   * @default 'src'
-   * @env `KITA_SRC` - The environment variable to override this setting.
+   * @default true
+   * @env `KITA_DECLARATION` - The environment variable to override this setting.
    */
-  src: string;
+  declaration: boolean;
 
   /**
    * The tsconfig path to use to parse the files.

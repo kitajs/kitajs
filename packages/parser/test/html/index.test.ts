@@ -1,3 +1,4 @@
+import { kControllerName } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe, it } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -19,8 +20,7 @@ describe('Html routes', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.tsx'),
+      relativePath: cwdRelative('routes/index.tsx'),
       parameters: [{ name: 'SuspenseIdParameterParser', value: 'req.id' }],
       schema: {
         operationId: 'getIndexView',
@@ -28,8 +28,7 @@ describe('Html routes', async () => {
         response: { [200]: { type: 'string' } }
       },
       imports: [{ name: '{ renderToStream }', path: '@kitajs/html/suspense' }],
-      customReturn:
-        "return reply.type('text/html; charset=utf-8').send(renderToStream(IndexController.get.bind(undefined, req.id), req.id));"
+      customReturn: `return reply.type('text/html; charset=utf-8').send(renderToStream(${kControllerName}.get.bind(undefined, req.id), req.id));`
     });
   });
 
@@ -41,15 +40,14 @@ describe('Html routes', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.tsx'),
+      relativePath: cwdRelative('routes/index.tsx'),
       parameters: [],
       schema: {
         operationId: 'postIndexView',
         hide: true,
         response: { [200]: { type: 'string' } }
       },
-      customReturn: "reply.type('text/html; charset=utf-8'); return IndexController.post.call(undefined)"
+      customReturn: `reply.type('text/html; charset=utf-8'); return ${kControllerName}.post.call(undefined)`
     });
   });
 
@@ -61,15 +59,14 @@ describe('Html routes', async () => {
       url: '/',
       controllerMethod: 'put',
       method: 'PUT',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.tsx'),
+      relativePath: cwdRelative('routes/index.tsx'),
       parameters: [],
       schema: {
         operationId: 'putIndexView',
         hide: true,
         response: { [200]: { type: 'string' } }
       },
-      customReturn: "reply.type('text/html; charset=utf-8'); return IndexController.put.call(undefined)"
+      customReturn: `reply.type('text/html; charset=utf-8'); return ${kControllerName}.put.call(undefined)`
     });
   });
 });

@@ -18,8 +18,7 @@ describe('Providers', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       schema: { response: { ['2xx']: { type: 'number', const: 1 } }, operationId: 'getIndex' },
       kind: 'rest',
       parameters: [
@@ -43,13 +42,12 @@ describe('Providers', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [
         {
           value: 'param0',
           name: 'ProviderParameterParser',
-          imports: [{ name: '* as Resolver0', path: cwdRelative('providers/transformer.ts') }],
+          imports: [{ name: 'Resolver0', path: cwdRelative('providers/transformer.ts') }],
           helper: 'const param0 = await Resolver0.default();',
           providerName: 'Resolver0',
           schemaTransformer: true
@@ -94,8 +92,7 @@ describe('Providers', async () => {
       url: '/',
       controllerMethod: 'put',
       method: 'PUT',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [
         {
           name: 'ProviderParameterParser',

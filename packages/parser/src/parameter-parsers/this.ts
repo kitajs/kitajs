@@ -4,7 +4,8 @@ import {
   ParameterParser,
   Route,
   RouteMapperNotExportedError,
-  RouteOptionsAlreadyDefinedError
+  RouteOptionsAlreadyDefinedError,
+  kControllerName
 } from '@kitajs/common';
 import { ts } from 'ts-json-schema-generator';
 import {
@@ -14,7 +15,6 @@ import {
   isExportedFunction,
   isExportedVariable
 } from '../util/nodes';
-import { buildAccessProperty } from '../util/syntax';
 
 export class ThisParameterParser implements ParameterParser {
   agnostic = true;
@@ -80,7 +80,7 @@ export class ThisParameterParser implements ParameterParser {
         throw new RouteMapperNotExportedError(config);
       }
 
-      route.options = `${route.controllerName}.${type}($1)`;
+      route.options = `${kControllerName}.${type}($1)`;
 
       return {
         name: ThisParameterParser.name,
@@ -117,7 +117,7 @@ export class ThisParameterParser implements ParameterParser {
         route.options = '$1';
       }
 
-      route.options = `${buildAccessProperty(route.controllerName, type)}(${route.options})`;
+      route.options = `${kControllerName}.${type}(${route.options})`;
     }
 
     // This parameter is synthetic, so this result will not be used.

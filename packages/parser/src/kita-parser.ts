@@ -127,7 +127,7 @@ export class KitaParser implements AstCollector {
       const duplicated = this.routes.get(route.schema.operationId);
 
       if (duplicated) {
-        yield new DuplicateOperationIdError(route.schema.operationId, duplicated.controllerPath, route.controllerPath);
+        yield new DuplicateOperationIdError(route.schema.operationId, duplicated.relativePath, route.relativePath);
         continue;
       }
 

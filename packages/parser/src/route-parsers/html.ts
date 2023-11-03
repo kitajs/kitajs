@@ -4,6 +4,7 @@ import {
   ParameterParser,
   Route,
   RouteParser,
+  kControllerName,
   kReplyParam,
   kRequestParam
 } from '@kitajs/common';
@@ -14,8 +15,7 @@ import { SchemaBuilder } from '../schema/builder';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportedFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
-import { findUrlAndControllerName } from '../util/string';
-import { buildAccessProperty } from '../util/syntax';
+import { parseUrl } from '../util/string';
 import { traverseParameters } from '../util/traverser';
 
 export class HtmlRouteParser implements RouteParser {
@@ -53,7 +53,7 @@ export class HtmlRouteParser implements RouteParser {
   async parse(node: ts.FunctionDeclaration): Promise<Route> {
     const source = node.getSourceFile();
 
-    const { url, controller } = findUrlAndControllerName(source.fileName, this.config);
+    const { url, routeId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();
 
     const route: Route = {
@@ -61,11 +61,10 @@ export class HtmlRouteParser implements RouteParser {
       url,
       controllerMethod: method,
       method: method.toUpperCase() as Uppercase<string>,
-      controllerName: controller,
-      controllerPath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
+      relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],
       schema: {
-        operationId: method.toLowerCase() + controller.replace(/controller$/i, 'View'),
+        operationId: method.toLowerCase() + routeId + 'View',
         hide: true,
         response: { [200 as number]: { type: 'string' } }
       }
@@ -88,19 +87,22 @@ export class HtmlRouteParser implements RouteParser {
     }
 
     const routeParameters = route.parameters.map((r) => r.value).join(', ');
-    const handler = buildAccessProperty(route.controllerName, route.controllerMethod);
 
     if (
       // If the SuspenseId parameter was used, we need to render as a stream.
       route.parameters.some((p) => p.name === SuspenseIdParameterParser.name)
     ) {
-      const boundCall = `${handler}.bind(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
+      const boundCall = `${kControllerName}.${route.controllerMethod}.bind(undefined${
+        routeParameters ? `, ${routeParameters}` : ''
+      })`;
 
       route.imports ??= [];
       route.imports.push({ name: '{ renderToStream }', path: '@kitajs/html/suspense' });
       route.customReturn = `return ${kReplyParam}.type('text/html; charset=utf-8').send(renderToStream(${boundCall}, ${kRequestParam}.id));`;
     } else {
-      const handlerCall = `${handler}.call(undefined${routeParameters ? `, ${routeParameters}` : ''})`;
+      const handlerCall = `${kControllerName}.${route.controllerMethod}.call(undefined${
+        routeParameters ? `, ${routeParameters}` : ''
+      })`;
 
       route.customReturn = `${kReplyParam}.type('text/html; charset=utf-8'); return ${handlerCall}`;
     }

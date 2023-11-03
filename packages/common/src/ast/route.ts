@@ -11,18 +11,11 @@ export interface Route {
   kind: string;
 
   /**
-   * The name of the source controller.
-   *
-   * @example `UserController`
-   */
-  controllerName: string;
-
-  /**
-   * The full **IMPORTABLE** path to the original controller method.
+   * The config's `cwd` relative path to the controller.
    *
    * @example `usr/file.ts`
    */
-  controllerPath: string;
+  relativePath: string;
 
   /**
    * The method of the controller. To be used as `Controller.<METHOD>()`
