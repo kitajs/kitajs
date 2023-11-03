@@ -28,24 +28,6 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const dist = env('dist') ?? config.dist ?? true;
-
-  if (typeof dist !== 'boolean') {
-    throw new InvalidConfigError(
-      `'dist' must be a boolean: (${JSON.stringify(dist)}). Read from ${envOrigin('dist')}`,
-      config
-    );
-  }
-
-  const src = env('src') ?? config.src ?? 'src';
-
-  if (src !== undefined && typeof src !== 'string') {
-    throw new InvalidConfigError(
-      `'src' must be a string or undefined: (${JSON.stringify(src)}). Read from ${envOrigin('src')}`,
-      config
-    );
-  }
-
   const runtimePath = env('runtime_path') ?? config.runtimePath;
 
   if (runtimePath !== undefined && typeof runtimePath !== 'string') {
@@ -107,8 +89,6 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     tsconfig,
     providerFolder: path.resolve(cwd, providerFolder),
     routeFolder: path.resolve(cwd, routeFolder),
-    dist: dist === true,
-    src: src,
     declaration: declaration,
     runtimePath: runtimePath,
     responses: responses,

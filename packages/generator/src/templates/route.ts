@@ -7,7 +7,7 @@ import { removeExt, toMaybeRelativeImport } from '../util/path';
 export function generateRoute(route: Route, cwd: string) {
   const returnTypeName = capital(`${route.schema.operationId}Response`);
 
-  return ts/*ts*/ `${`routes/${route.schema.operationId}`}
+  return ts`${`routes/${route.schema.operationId}`}
   'use strict';
 
   const ${kControllerName} = require(${toMaybeRelativeImport(route.relativePath)});

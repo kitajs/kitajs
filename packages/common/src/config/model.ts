@@ -12,14 +12,6 @@ export interface KitaConfig {
   cwd: string;
 
   /**
-   * The custom path to your source root. Used when replacing the source path with the dist path.
-   *
-   * @default 'src'
-   * @env `KITA_SRC` - The environment variable to override this setting.
-   */
-  src: string;
-
-  /**
    * The root provider folder to search and register providers
    *
    * @default 'src/providers'
@@ -43,20 +35,6 @@ export interface KitaConfig {
    * @env `KITA_RUNTIME_PATH` - The environment variable to override this setting.
    */
   runtimePath?: string;
-
-  /**
-   * If the generated could should import routes from the dist folder instead of the source folder. Type declarations
-   * still are always imported from the source folder.
-   *
-   * Useful if you are using tsx/ts-node/swc/swc to run your backend as raw typescript files instead of transpiling
-   * them.
-   *
-   * Tries to resolve `compilerOptions.outDir` and if not found, fallbacks to `'dist'`.
-   *
-   * @default true
-   * @env `KITA_DIST` - The environment variable to override this setting.
-   */
-  dist?: boolean;
 
   /**
    * If the generated runtime should include declaration files alongside the javascript files. This is only helpful for

@@ -4,6 +4,7 @@ import assert from 'assert';
 import fastify, { FastifyHttpOptions } from 'fastify';
 import fs from 'fs/promises';
 import path from 'path';
+import ts from 'typescript';
 import { KitaFormatter } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');
@@ -11,7 +12,7 @@ const tsconfig = require.resolve('../tsconfig.json');
 export async function generateRuntime<R>(
   cwd: string,
   partialCfg: PartialKitaConfig = {},
-  compilerOptions = readCompilerOptions(tsconfig)
+  compilerOptions: ts.CompilerOptions = readCompilerOptions(tsconfig)
 ): Promise<R> {
   const config = parseConfig({
     cwd,
@@ -19,7 +20,6 @@ export async function generateRuntime<R>(
     routeFolder: 'routes',
     providerFolder: 'providers',
     runtimePath: path.resolve(cwd, 'runtime'),
-    dist: false,
     ...partialCfg
   });
 

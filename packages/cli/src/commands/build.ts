@@ -21,12 +21,6 @@ export default class Build extends Command {
   ];
 
   static override flags = {
-    ['import-source']: Flags.boolean({
-      char: 's',
-      description:
-        'Maps all imports directly to source files instead of the usual dist folder. Needs tsx/ts-node/swc to work.',
-      default: false
-    }),
     config: Flags.file({
       char: 'c',
       exists: true,
@@ -57,11 +51,6 @@ export default class Build extends Command {
         stdout: true,
         style: 'clock'
       });
-
-      // Overrides dist if source is enabled
-      if (flags['import-source']) {
-        config.dist = false;
-      }
 
       ux.action.status = 'Parsing compiler options';
 
