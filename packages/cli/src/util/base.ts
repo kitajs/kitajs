@@ -18,7 +18,7 @@ export abstract class BaseKitaCommand extends Command {
     }),
     cwd: Flags.directory({
       description: 'Sets the current working directory for your command.',
-      default: async () => process.cwd()
+      required: false
     })
   };
 

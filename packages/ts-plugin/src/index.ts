@@ -1,5 +1,5 @@
 import { KitaConfig, KitaError, importConfig, parseConfig } from '@kitajs/common';
-import { KitaParser } from '@kitajs/parser';
+import { KitaParser, toTsPath } from '@kitajs/parser';
 import path from 'path';
 import ts, { server } from 'typescript/lib/tsserverlibrary';
 import { appendProviderDiagnostics } from './parsers/provider';
@@ -62,7 +62,7 @@ export = function initHtmlPlugin() {
             providerPaths = program
               .getSourceFiles()
               .map((f) => f.fileName)
-              .filter((f) => f.startsWith(rootProvider));
+              .filter((f) => f.startsWith(toTsPath(rootProvider)));
 
             parser = new KitaParser(config, program);
 

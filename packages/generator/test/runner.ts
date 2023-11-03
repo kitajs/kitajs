@@ -1,5 +1,5 @@
 import { PartialKitaConfig, parseConfig, readCompilerOptions } from '@kitajs/common';
-import { KitaParser, walk } from '@kitajs/parser';
+import { KitaParser } from '@kitajs/parser';
 import assert from 'assert';
 import fastify, { FastifyHttpOptions } from 'fastify';
 import fs from 'fs/promises';
@@ -24,7 +24,7 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
   await fs.mkdir(config.runtimePath!, { recursive: true });
 
   const formatter = new KitaFormatter(config);
-  const kita = KitaParser.create(config, compilerOptions, walk(config.cwd), formatter);
+  const kita = KitaParser.create(config, compilerOptions, compilerOptions.rootNames, formatter);
 
   // Should not emit any errors
   for await (const error of kita.parse()) {

@@ -32,7 +32,7 @@
         "cwd": {
           "description": "Sets the current working directory for your command.",
           "name": "cwd",
-          "default": "/home/hzk/dev/kitajs/kitajs/packages/cli",
+          "required": false,
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
@@ -86,7 +86,7 @@
         "cwd": {
           "description": "Sets the current working directory for your command.",
           "name": "cwd",
-          "default": "/home/hzk/dev/kitajs/kitajs/packages/cli",
+          "required": false,
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
@@ -131,7 +131,7 @@
         "cwd": {
           "description": "Sets the current working directory for your command.",
           "name": "cwd",
-          "default": "/home/hzk/dev/kitajs/kitajs/packages/cli",
+          "required": false,
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
@@ -180,7 +180,7 @@
         "cwd": {
           "description": "Sets the current working directory for your command.",
           "name": "cwd",
-          "default": "/home/hzk/dev/kitajs/kitajs/packages/cli",
+          "required": false,
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"

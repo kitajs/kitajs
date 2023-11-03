@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita help [COMMANDS]`](#kita-help-commands)
@@ -139,8 +139,7 @@ FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   -d, --[no-]dry-run    Skips generation process and only type-checks your files.
   -t, --[no-]types      Skips emitting declaration files.
-  --cwd=<value>         [default: /home/hzk/dev/kitajs/kitajs/packages/cli] Sets the current working directory for your
-                        command.
+  --cwd=<value>         Sets the current working directory for your command.
   --[no-]print-config   Prints full resolved config to stdout.
 
 DESCRIPTION
@@ -171,8 +170,7 @@ FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   -d, --[no-]dry-run    Skips generation process and only type-checks your files.
   -t, --[no-]types      Skips emitting declaration files.
-  --cwd=<value>         [default: /home/hzk/dev/kitajs/kitajs/packages/cli] Sets the current working directory for your
-                        command.
+  --cwd=<value>         Sets the current working directory for your command.
   --[no-]print-config   Prints full resolved config to stdout.
 
 DESCRIPTION
@@ -223,8 +221,7 @@ USAGE
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  --cwd=<value>         [default: /home/hzk/dev/kitajs/kitajs/packages/cli] Sets the current working directory for your
-                        command.
+  --cwd=<value>         Sets the current working directory for your command.
   --[no-]print-config   Prints full resolved config to stdout.
 
 DESCRIPTION
@@ -496,8 +493,7 @@ USAGE
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  --cwd=<value>         [default: /home/hzk/dev/kitajs/kitajs/packages/cli] Sets the current working directory for your
-                        command.
+  --cwd=<value>         Sets the current working directory for your command.
   --[no-]print-config   Prints full resolved config to stdout.
 
 DESCRIPTION
@@ -524,8 +520,7 @@ FLAGS
   -d, --[no-]dry-run       Skips generation process and only type-checks your files.
   -i, --ignore=<value>...  [default: node_modules] Watches for changes and rebuilds the runtime.
   -t, --[no-]types         Skips emitting declaration files.
-  --cwd=<value>            [default: /home/hzk/dev/kitajs/kitajs/packages/cli] Sets the current working directory for
-                           your command.
+  --cwd=<value>            Sets the current working directory for your command.
   --[no-]print-config      Prints full resolved config to stdout.
 
 DESCRIPTION
@@ -557,8 +552,7 @@ FLAGS
   -d, --[no-]dry-run       Skips generation process and only type-checks your files.
   -i, --ignore=<value>...  [default: node_modules] Watches for changes and rebuilds the runtime.
   -t, --[no-]types         Skips emitting declaration files.
-  --cwd=<value>            [default: /home/hzk/dev/kitajs/kitajs/packages/cli] Sets the current working directory for
-                           your command.
+  --cwd=<value>            Sets the current working directory for your command.
   --[no-]print-config      Prints full resolved config to stdout.
 
 DESCRIPTION

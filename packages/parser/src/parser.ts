@@ -20,6 +20,7 @@ import { buildProviderParser } from './provider-parsers';
 import { buildRouteParser } from './route-parsers';
 import { SchemaBuilder } from './schema/builder';
 import { isExportedFunction } from './util/nodes';
+import { toTsPath } from './util/paths';
 import { traverseProviders, traverseStatements } from './util/traverser';
 
 export class KitaParser implements AstCollector {
@@ -170,7 +171,7 @@ export class KitaParser implements AstCollector {
     for await (const provider of traverseProviders(
       this.program,
       this.rootProviderParser,
-      files.filter((f) => f.startsWith(this.config.providerFolder))
+      files.filter((f) => f.startsWith(toTsPath(this.config.providerFolder)))
     )) {
       if (provider instanceof KitaError) {
         yield provider;
@@ -196,7 +197,7 @@ export class KitaParser implements AstCollector {
     for await (const result of traverseStatements(
       this.program,
       this.rootRouteParser,
-      files.filter((f) => f.startsWith(this.config.routeFolder))
+      files.filter((f) => f.startsWith(toTsPath(this.config.routeFolder)))
     )) {
       if (result instanceof KitaError) {
         yield result;

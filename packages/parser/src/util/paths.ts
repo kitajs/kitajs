@@ -29,3 +29,15 @@ export function walk(dir: string): string[] {
 export function cwdRelative(p: string) {
   return path.join('./') + path.normalize(p);
 }
+
+const WIN32_PATH_SEP = /\\/g;
+
+/** Replaces all path separators with `/` to make it compatible with TS compiler. */
+export function toTsPath(p: string) {
+  // TS compiler always uses `/` as path separator
+  if (path.sep === path.win32.sep) {
+    return p.replace(WIN32_PATH_SEP, '/');
+  }
+
+  return p;
+}
