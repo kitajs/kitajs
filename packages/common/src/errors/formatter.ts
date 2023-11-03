@@ -12,10 +12,12 @@ export class GeneratedDiagnosticsErrors extends KitaError {
 }
 
 export class RuntimeNotFoundError extends KitaError {
-  constructor(readonly path: string) {
+  constructor(readonly path?: string) {
     super({
       code: 501,
-      messageText: `Could not find the runtime package at ${path}. Did you forget to install @kitajs/runtime?`
+      messageText: `Could not find the runtime package${
+        path ? `at ${path}` : ''
+      }. Did you forget to install @kitajs/runtime?`
     });
   }
 }

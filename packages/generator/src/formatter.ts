@@ -1,4 +1,4 @@
-import { JsonSchema, KitaConfig, Route, SourceFormatter } from '@kitajs/common';
+import { JsonSchema, KitaConfig, Route, RuntimeNotFoundError, SourceFormatter } from '@kitajs/common';
 import { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
 import fs from 'fs';
 import path from 'path';
@@ -15,16 +15,24 @@ export class KitaFormatter implements SourceFormatter {
     if (this.config.runtimePath) {
       this.outDir = path.resolve(this.config.cwd, this.config.runtimePath);
     } else {
-      this.outDir = path.join(
-        // Joined @kitajs/runtime and generated separately because when
-        // resolve is called on a package name (instead of folder if it was @kitajs/runtime/generated)
-        // it will look only for the package.json and resolve from there.
-        path.dirname(
-          // Allows global installations to work
-          require.resolve('@kitajs/runtime', { paths: [this.config.cwd] })
-        ),
-        'generated'
-      );
+      try {
+        this.outDir = path.join(
+          // Joined @kitajs/runtime and generated separately because when
+          // resolve is called on a package name (instead of folder if it was @kitajs/runtime/generated)
+          // it will look only for the package.json and resolve from there.
+          path.dirname(
+            // Allows global installations to work
+            require.resolve('@kitajs/runtime', { paths: [this.config.cwd] })
+          ),
+          'generated'
+        );
+      } catch (error: any) {
+        if ((error as Error).message.startsWith("Cannot find module '@kitajs/runtime'")) {
+          throw new RuntimeNotFoundError();
+        }
+
+        throw error;
+      }
     }
   }
 
