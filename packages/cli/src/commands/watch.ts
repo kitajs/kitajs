@@ -6,21 +6,21 @@ import chalk from 'chalk';
 import { BaseKitaCommand } from '../util/base';
 import { formatDiagnostic } from '../util/diagnostics';
 
-export default class Build extends BaseKitaCommand {
-  static override description = 'Analyses your backend searching for routes and bakes it into the runtime.';
+export default class Watch extends BaseKitaCommand {
+  static override description = 'Watch for changes in your source code and rebuilds the runtime.';
 
   static override examples = [
     {
       command: `<%= config.bin %> <%= command.id %> -c kita.config.js`,
-      description: 'Builds your backend with a custom config file.'
+      description: 'Watches your source with a custom config file.'
     },
     {
       command: `<%= config.bin %> <%= command.id %> -d`,
-      description: 'Fast checks your backend for errors without generating the runtime.'
+      description: 'Watches your source and only emits errors.'
     }
   ];
 
-  static override aliases = ['b'];
+  static override aliases = ['w'];
 
   static override flags = {
     ['dry-run']: Flags.boolean({
@@ -34,11 +34,17 @@ export default class Build extends BaseKitaCommand {
       description: 'Skips emitting declaration files.',
       default: true,
       allowNo: true
+    }),
+    ignore: Flags.directory({
+      description: 'Watches for changes and rebuilds the runtime.',
+      multiple: true,
+      default: ['node_modules'],
+      char: 'i'
     })
   };
 
   async run(): Promise<void> {
-    const { flags } = await this.parse(Build);
+    const { flags } = await this.parse(Watch);
 
     if (!flags['print-config']) {
       ux.action.start('Warming up', '', {
@@ -52,30 +58,21 @@ export default class Build extends BaseKitaCommand {
     try {
       const formatter = new KitaFormatter(config);
 
-      const parser = KitaParser.create(
+      const parser = KitaParser.createWatcher(
         config,
         compilerOptions,
-        // Prefer already looked up files instead of walking the folder again
-        compilerOptions.rootNames,
         // Dry runs should not generate any files
         flags['dry-run'] ? undefined : formatter
       );
 
       ux.action.stop(chalk.cyan`Ready to build!`);
 
-      const diagnostics = await this.runParser(parser, formatter, flags['dry-run']);
+      parser.onError = (err) => this.logToStderr(String(err));
 
-      if (diagnostics.length > 0) {
-        this.error(chalk.red`Finished with errors!`);
-      }
-
-      if (process.stdout.isTTY) {
-        if (flags['dry-run']) {
-          this.log(chalk.green`\nNo errors were found!`);
-        } else {
-          this.log(chalk.green`\nRuntime is ready to use!`);
-        }
-      }
+      parser.onChange = async (parser) => {
+        await this.runParser(parser, formatter, flags['dry-run']);
+        this.log('');
+      };
     } catch (error) {
       if (error instanceof KitaError) {
         this.error(formatDiagnostic([error.diagnostic]));

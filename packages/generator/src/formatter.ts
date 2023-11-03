@@ -1,74 +1,43 @@
-import { JsonSchema, KitaConfig, Route, RuntimeNotFoundError, SourceFormatter } from '@kitajs/common';
-import { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
+import { AstCollector, KitaConfig, Route, SourceFormatter } from '@kitajs/common';
 import fs from 'fs';
 import path from 'path';
+import { TsFile } from 'ts-writer';
 import { generateIndex } from './templates';
 import { generatePlugin } from './templates/plugin';
 import { generateRoute } from './templates/route';
 
 export class KitaFormatter implements SourceFormatter {
-  private readonly outDir: string;
+  private files: TsFile[] = [];
 
-  writeCount = 0;
+  constructor(readonly config: KitaConfig) {}
 
-  constructor(readonly config: KitaConfig) {
-    if (this.config.runtimePath) {
-      this.outDir = path.resolve(this.config.cwd, this.config.runtimePath);
-    } else {
-      try {
-        this.outDir = path.join(
-          // Joined @kitajs/runtime and generated separately because when
-          // resolve is called on a package name (instead of folder if it was @kitajs/runtime/generated)
-          // it will look only for the package.json and resolve from there.
-          path.dirname(
-            // Allows global installations to work
-            require.resolve('@kitajs/runtime', { paths: [this.config.cwd] })
-          ),
-          'generated'
-        );
-      } catch (error: any) {
-        if ((error as Error).message.startsWith("Cannot find module '@kitajs/runtime'")) {
-          throw new RuntimeNotFoundError();
-        }
-
-        throw error;
-      }
-    }
+  generateRoute(route: Route) {
+    this.files.push(generateRoute(route, this.config.cwd));
   }
 
-  async generateRoute(route: Route) {
-    const file = generateRoute(route, this.config.cwd);
-
-    // The route may be in a deep folder
-    await fs.promises.mkdir(path.join(this.outDir, path.dirname(file.source.filename)), { recursive: true });
-
-    await fs.promises.writeFile(path.join(this.outDir, file.source.filename), file.source.content);
-    this.writeCount += 1;
-
-    if (this.config.declaration) {
-      await fs.promises.writeFile(path.join(this.outDir, file.types.filename), file.types.content);
-      this.writeCount += 1;
-    }
+  generateRuntime(collector: AstCollector) {
+    this.files.push(generateIndex(collector.getRoutes()));
+    this.files.push(generatePlugin(collector.getRoutes(), collector.getSchemas(), collector.getPlugins()));
   }
 
-  async generateRuntime(routes: Route[], definitions: JsonSchema[], plugins: KitaPlugin[]) {
-    const index = generateIndex(routes);
-    const plugin = generatePlugin(routes, definitions, plugins);
+  async flush() {
+    const files = this.files.flatMap((file) => (this.config.declaration ? [file.source, file.types] : file.source));
 
-    await Promise.all([
-      fs.promises.writeFile(path.join(this.outDir, index.source.filename), index.source.content),
-      fs.promises.writeFile(path.join(this.outDir, plugin.source.filename), plugin.source.content)
-    ]);
+    // Make sure all directories exists
+    const dirs = files.map((f) => path.dirname(f.filename)).filter((v, i, a) => a.indexOf(v) === i);
+    await Promise.all(
+      dirs.map((dir) => fs.promises.mkdir(path.join(this.config.runtimePath, dir), { recursive: true }))
+    );
 
-    this.writeCount += 2;
+    // Write all files
+    await Promise.all(
+      files.map((file) => fs.promises.writeFile(path.join(this.config.runtimePath, file.filename), file.content))
+    );
 
-    if (this.config.declaration) {
-      await Promise.all([
-        fs.promises.writeFile(path.join(this.outDir, index.types.filename), index.types.content),
-        fs.promises.writeFile(path.join(this.outDir, plugin.types.filename), plugin.types.content)
-      ]);
+    // Clear files
+    const length = this.files.length;
+    this.files = [];
 
-      this.writeCount += 2;
-    }
+    return this.config.declaration ? length * 2 : length;
   }
 }

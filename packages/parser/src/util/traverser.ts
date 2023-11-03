@@ -46,7 +46,7 @@ export async function* traverseStatements<R>(
             parsed = await parsed;
           }
 
-          yield parsed;
+          yield { parsed, statement };
         } catch (error) {
           // Also returns errors as values to be handled by the caller
           // This allows us to keep parsing even if some routes fail

@@ -1,4 +1,4 @@
-import type { AstCollector, JsonSchema, KitaConfig } from '@kitajs/common';
+import type { JsonSchema, KitaConfig } from '@kitajs/common';
 import { CannotCreateNodeTypeError, MultipleDefinitionsError } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import {
@@ -36,8 +36,7 @@ export class SchemaBuilder {
 
   constructor(
     private config: KitaConfig,
-    program: ts.Program,
-    private collector: AstCollector
+    program: ts.Program
   ) {
     const generatorCfg: TsjConfig = {
       ...config.generatorConfig,
@@ -232,9 +231,6 @@ export class SchemaBuilder {
         }
 
         this.definitions[name] = this.formatter.getDefinition(child.getType());
-
-        // Call schema callback if present
-        this.collector.onSchema?.(this.formatter.getDefinition(child.getType()));
       }
     }
   }

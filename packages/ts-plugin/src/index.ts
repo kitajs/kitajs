@@ -1,5 +1,5 @@
 import { KitaConfig, KitaError, importConfig, parseConfig } from '@kitajs/common';
-import { KitaParser, walk } from '@kitajs/parser';
+import { KitaParser } from '@kitajs/parser';
 import path from 'path';
 import ts, { server } from 'typescript/lib/tsserverlibrary';
 import { appendProviderDiagnostics } from './parsers/provider';
@@ -59,9 +59,12 @@ export = function initHtmlPlugin() {
 
             rootRoute = path.resolve(config.cwd, config.routeFolder);
             rootProvider = path.resolve(config.cwd, config.providerFolder);
-            providerPaths = walk(config.providerFolder);
+            providerPaths = program
+              .getSourceFiles()
+              .map((f) => f.fileName)
+              .filter((f) => f.startsWith(rootProvider));
 
-            parser = new KitaParser(config, [], [], program);
+            parser = new KitaParser(config, program);
 
             info.project.projectService.logger.info(
               `[kita-plugin] Successfully parsed config in ${performance.now() - start}ms`

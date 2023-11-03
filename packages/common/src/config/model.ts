@@ -31,10 +31,10 @@ export interface KitaConfig {
    * Uses a different located @kitajs/runtime. You should only override this setting if you are having problems with
    * your package manger or the runtime cannot be found by default.
    *
-   * @default undefined
+   * @default 'node_modules/@kitajs/runtime/generated'
    * @env `KITA_RUNTIME_PATH` - The environment variable to override this setting.
    */
-  runtimePath?: string;
+  runtimePath: string;
 
   /**
    * If the generated runtime should include declaration files alongside the javascript files. This is only helpful for
@@ -79,6 +79,16 @@ export interface KitaConfig {
 
   /** Use this callback to include new route parsers. */
   providerParserAugmentor(parser: ChainParser<ProviderParser>): void | Promise<void>;
+
+  /** Configurations required by the watcher. */
+  watch: {
+    /**
+     * All directories changes should be ignored.
+     *
+     * @default ['node_modules', 'dist', <runtime>]
+     */
+    ignore: string[];
+  };
 }
 
 export interface KitaGeneratorConfig extends Omit<JsonConfig, 'tsconfig' | 'discriminatorType'> {

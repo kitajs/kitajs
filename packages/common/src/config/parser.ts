@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 import fs from 'fs';
 import path from 'path';
-import { InvalidConfigError } from '../errors';
+import { InvalidConfigError, RuntimeNotFoundError } from '../errors';
 import { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
@@ -28,9 +28,29 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const runtimePath = env('runtime_path') ?? config.runtimePath;
+  let runtimePath = env('runtime_path') ?? config.runtimePath;
 
-  if (runtimePath !== undefined && typeof runtimePath !== 'string') {
+  if (!runtimePath) {
+    try {
+      runtimePath = path.join(
+        // Joined @kitajs/runtime and generated separately because when
+        // resolve is called on a package name (instead of folder if it was @kitajs/runtime/generated)
+        // it will look only for the package.json and resolve from there.
+        path.dirname(
+          // Allows global installations to work
+          require.resolve('@kitajs/runtime', { paths: [cwd] })
+        ),
+        'generated'
+      );
+    } catch (error: any) {
+      if ((error as Error).message.startsWith("Cannot find module '@kitajs/runtime'")) {
+        throw new RuntimeNotFoundError();
+      }
+      throw error;
+    }
+  }
+
+  if (typeof runtimePath !== 'string') {
     throw new InvalidConfigError(
       `'runtimePath' must be a string or undefined: (${JSON.stringify(runtimePath)}). Read from ${envOrigin(
         'runtime_path'
@@ -84,6 +104,16 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
+  const watchIgnore = env('watch_ignore') ??
+    config.watch?.ignore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), runtimePath];
+
+  if (!Array.isArray(watchIgnore)) {
+    throw new InvalidConfigError(
+      `'watch.ignore' must be an array: (${JSON.stringify(watchIgnore)}). Read from ${envOrigin('watch_ignore')}`,
+      config
+    );
+  }
+
   return {
     cwd,
     tsconfig,
@@ -91,6 +121,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     routeFolder: path.resolve(cwd, routeFolder),
     declaration: declaration,
     runtimePath: runtimePath,
+    watch: { ignore: watchIgnore },
     responses: responses,
     generatorConfig: generatorConfig,
     parameterParserAugmentor: config.parameterParserAugmentor || noop,

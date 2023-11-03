@@ -27,7 +27,7 @@
   "scripts": {
     "build": "tsc",
     "postbuild": "oclif manifest && oclif readme",
-    "prepublish": "oclif manifest",
+    "prepublish": "cp -r ../runtime/generated ./runtime",
     "start": "node --require @swc-node/register index.ts"
   },
   "dependencies": {
@@ -38,9 +38,11 @@
     "@oclif/plugin-autocomplete": "^2.3.10",
     "@oclif/plugin-help": "^6.0.5",
     "@oclif/plugin-not-found": "^3.0.2",
+    "@oclif/plugin-plugins": "^4.0.2",
     "@oclif/plugin-warn-if-update-available": "^2.1.1",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
+    "deepmerge": "^4.3.1",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
   },
@@ -58,11 +60,26 @@
     "dirname": "kita",
     "commands": "dist/commands",
     "topicSeparator": " ",
+    "hooks": {
+      "init": "dist/hooks/motd"
+    },
+    "additionalHelpFlags": [
+      "-h"
+    ],
+    "additionalVersionFlags": [
+      "-v"
+    ],
     "plugins": [
       "@oclif/plugin-autocomplete",
       "@oclif/plugin-help",
       "@oclif/plugin-not-found",
-      "@oclif/plugin-warn-if-update-available"
-    ]
+      "@oclif/plugin-warn-if-update-available",
+      "@oclif/plugin-plugins"
+    ],
+    "warn-if-update-available": {
+      "frequency": 30,
+      "frequencyUnit": "seconds",
+      "timeoutInDays": 7
+    }
   }
 }
