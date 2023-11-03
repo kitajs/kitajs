@@ -1,4 +1,4 @@
-import { KitaConfig, capitalize } from '@kitajs/common';
+import { KitaConfig, capitalize, kRoutesFolder } from '@kitajs/common';
 import path from 'node:path';
 
 const WIN32_SEP_REGEX = /\\/g;
@@ -7,7 +7,7 @@ export function parseUrl(filepath: string, config: KitaConfig) {
   let strip = filepath;
 
   // Strips any possible regex that the user might have added
-  strip = path.relative(config.routeFolder, filepath);
+  strip = path.relative(path.join(config.src, kRoutesFolder), filepath);
 
   // Keeps everything before first . (removes extensions like .test.ts or .js)
   strip = strip.slice(0, -path.extname(strip).length);

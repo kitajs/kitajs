@@ -8,22 +8,11 @@ import { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()): KitaConfig {
   const cwd = env('cwd') ?? config.cwd ?? root;
 
-  const providerFolder = env('provider_folder') ?? config.providerFolder ?? 'src/providers';
+  const src = env('src') ?? config.src ?? 'src';
 
-  if (typeof providerFolder !== 'string') {
+  if (typeof src !== 'string') {
     throw new InvalidConfigError(
-      `'providerFolder' must be a string: (${JSON.stringify(providerFolder)}). Read from ${envOrigin(
-        'provider_folder'
-      )}`,
-      config
-    );
-  }
-
-  const routeFolder = env('route_folder') ?? config.routeFolder ?? 'src/routes';
-
-  if (typeof routeFolder !== 'string') {
-    throw new InvalidConfigError(
-      `'routeFolder' must be a string: (${JSON.stringify(routeFolder)}). Read from ${envOrigin('route_folder')}`,
+      `'src' must be a string: (${JSON.stringify(src)}). Read from ${envOrigin('src')}`,
       config
     );
   }
@@ -117,8 +106,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
   return {
     cwd,
     tsconfig,
-    providerFolder: path.resolve(cwd, providerFolder),
-    routeFolder: path.resolve(cwd, routeFolder),
+    src: path.resolve(cwd, src),
     declaration: declaration,
     runtimePath: runtimePath,
     watch: { ignore: watchIgnore },

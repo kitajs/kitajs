@@ -19,8 +19,7 @@ describe('Hello World', async () => {
     parseConfig({
       tsconfig,
       cwd: __dirname,
-      providerFolder: 'providers',
-      routeFolder: 'routes',
+      src: __dirname,
       runtimePath: path.resolve(__dirname, 'runtime')
     }),
     readCompilerOptions(tsconfig),

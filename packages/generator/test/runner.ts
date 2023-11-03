@@ -12,8 +12,7 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
   const config = parseConfig({
     cwd,
     tsconfig,
-    routeFolder: 'routes',
-    providerFolder: 'providers',
+    src: cwd,
     runtimePath: path.resolve(cwd, 'runtime'),
     ...partialCfg
   });
@@ -34,7 +33,7 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
 
   await formatter.flush();
 
-  globalThis.KITA_PROJECT_ROOT = config.cwd;
+  globalThis.KITA_PROJECT_ROOT = config.src;
   return require(config.runtimePath!) as R;
 }
 

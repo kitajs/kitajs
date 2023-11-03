@@ -12,7 +12,7 @@ export class KitaFormatter implements SourceFormatter {
   constructor(readonly config: KitaConfig) {}
 
   generateRoute(route: Route) {
-    this.files.push(generateRoute(route, this.config.cwd));
+    this.files.push(generateRoute(route, this.config.cwd, this.config.src));
   }
 
   generateRuntime(collector: AstCollector) {

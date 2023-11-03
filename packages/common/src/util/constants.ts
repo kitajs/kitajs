@@ -27,3 +27,9 @@ export const kKitaRoot = `KITA_PROJECT_ROOT`;
 
 /** The name of the root property kita will assign to `globalThis` */
 export const kKitaGlobalRoot = `globalThis.${kKitaRoot}`;
+
+/** The folder name where routes are stored */
+export const kRoutesFolder = 'routes';
+
+/** The folder name where providers are stored */
+export const kProvidersFolder = 'providers';

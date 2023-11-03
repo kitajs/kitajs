@@ -12,20 +12,13 @@ export interface KitaConfig {
   cwd: string;
 
   /**
-   * The root provider folder to search and register providers
+   * The root folder to search and register providers. It must be the same relative directory as your
+   * `KITA_PROJECT_ROOT` runtime variable.
    *
-   * @default 'src/providers'
-   * @env `KITA_PROVIDER_FOLDER` - The environment variable to override this setting.
+   * @default 'src'
+   * @env `KITA_SRC` - The environment variable to override this setting.
    */
-  providerFolder: string;
-
-  /**
-   * The root route folder to search and register routes
-   *
-   * @default 'src/routes'
-   * @env `KITA_ROUTE_FOLDER` - The environment variable to override this setting.
-   */
-  routeFolder: string;
+  src: string;
 
   /**
    * Uses a different located @kitajs/runtime. You should only override this setting if you are having problems with

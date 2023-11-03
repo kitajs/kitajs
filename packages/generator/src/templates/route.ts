@@ -4,18 +4,18 @@ import path from 'path';
 import { ts } from 'ts-writer';
 import { removeExt, toMaybeRelativeImport } from '../util/path';
 
-export function generateRoute(route: Route, cwd: string) {
+export function generateRoute(route: Route, cwd: string, src: string) {
   const returnTypeName = capital(`${route.schema.operationId}Response`);
 
   return ts`${`routes/${route.schema.operationId}`}
   'use strict';
 
-  const ${kControllerName} = require(${toMaybeRelativeImport(route.relativePath)});
+  const ${kControllerName} = require(${toMaybeRelativeImport(route.relativePath, cwd, src)});
 
-  ${route.imports?.map((r) => `const ${r.name} = require(${toMaybeRelativeImport(r.path)});`)}
+  ${route.imports?.map((r) => `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwd, src)});`)}
   ${route.parameters
     .flatMap((p) => p.imports)
-    .map((r) => (r ? `const ${r.name} = require(${toMaybeRelativeImport(r.path)});` : null))}
+    .map((r) => (r ? `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwd, src)});` : null))}
   
   exports.${route.schema.operationId} = ${kControllerName}.${route.controllerMethod}.bind(null);
   

@@ -9,11 +9,14 @@ import {
   Route,
   SourceFormatter,
   UnknownKitaError,
+  kProvidersFolder,
+  kRoutesFolder,
   type KitaConfig,
   type ParameterParser,
   type RouteParser
 } from '@kitajs/common';
 import { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
+import path from 'path';
 import { ts } from 'ts-json-schema-generator';
 import { buildParameterParser } from './parameter-parsers';
 import { buildProviderParser } from './provider-parsers';
@@ -171,7 +174,7 @@ export class KitaParser implements AstCollector {
     for await (const provider of traverseProviders(
       this.program,
       this.rootProviderParser,
-      files.filter((f) => f.startsWith(toTsPath(this.config.providerFolder)))
+      files.filter((f) => f.startsWith(toTsPath(path.join(this.config.src, kProvidersFolder))))
     )) {
       if (provider instanceof KitaError) {
         yield provider;
@@ -197,7 +200,7 @@ export class KitaParser implements AstCollector {
     for await (const result of traverseStatements(
       this.program,
       this.rootRouteParser,
-      files.filter((f) => f.startsWith(toTsPath(this.config.routeFolder)))
+      files.filter((f) => f.startsWith(toTsPath(path.join(this.config.src, kRoutesFolder))))
     )) {
       if (result instanceof KitaError) {
         yield result;
