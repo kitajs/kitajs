@@ -28,12 +28,20 @@ export default class Build extends Command {
     }),
     debug: Flags.boolean({
       description: 'Prints full resolved config to stdout.',
-      default: false
+      default: false,
+      allowNo: true
     }),
     ['dry-run']: Flags.boolean({
       char: 'd',
-      description: 'Skips generation process. Useful for testing your code.',
-      default: false
+      description: 'Skips generation process and only type-checks your files.',
+      default: false,
+      allowNo: true
+    }),
+    types: Flags.boolean({
+      char: 't',
+      description: 'Skips emitting declaration files.',
+      default: true,
+      allowNo: true
     })
   };
 
@@ -51,6 +59,9 @@ export default class Build extends Command {
         stdout: true,
         style: 'clock'
       });
+
+      // Overrides types flag
+      config.declaration = flags.types;
 
       ux.action.status = 'Parsing compiler options';
 
