@@ -24,11 +24,11 @@ export function toMaybeRelativeImport(imp: string) {
   const relative = isRelative(imp);
 
   if (!relative) {
-    return `'${imp}'`;
+    return `'${escapePath(imp)}'`;
   }
 
   // removes the dots from the relative path but keeps the sep to be used with the root variable
-  return `\`\${${kKitaGlobalRoot}}${imp.slice(relative.length - path.sep.length)}\``;
+  return `\`\${${kKitaGlobalRoot}}${escapePath(imp.slice(relative.length - path.sep.length))}\``;
 }
 
 /** Removes the extension from a path, if present. */
