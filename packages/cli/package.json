@@ -40,6 +40,7 @@
     "@oclif/plugin-not-found": "^3.0.2",
     "@oclif/plugin-warn-if-update-available": "^2.1.1",
     "chalk": "^4.1.2",
+    "chokidar": "^3.5.3",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
   },
