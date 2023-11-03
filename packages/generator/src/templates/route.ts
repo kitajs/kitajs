@@ -19,9 +19,9 @@ export function generateRoute(route: Route, cwd: string) {
   
   exports.${route.schema.operationId} = ${kControllerName}.${route.controllerMethod}.bind(null);
   
-  exports.${route.schema.operationId}Handler = ${toAsyncStatement(
-    route.parameters
-  )} function(${kRequestParam}, ${kReplyParam}) {
+  exports.${route.schema.operationId}Handler = ${toAsyncStatement(route.parameters)}function ${
+    route.schema.operationId
+  }Handler(${kRequestParam}, ${kReplyParam}) {
     ${route.parameters.map(toParamHelper)}
     ${
       route.customReturn ||
@@ -39,7 +39,7 @@ export function generateRoute(route: Route, cwd: string) {
   ${ts.types}
 
   import type * as ${kControllerName} from '${removeExt(path.join(cwd, route.relativePath))}';
-  import type { RouteOptions, FastifyRequest, FastifyReply } from 'fastify';
+  import type { FastifyRequest, FastifyReply } from 'fastify';
 
   /**
    * The controller method for the ${route.schema.operationId} route.
@@ -51,15 +51,15 @@ export function generateRoute(route: Route, cwd: string) {
    *
    * ${String(route.schema.description) || ''}
    */
-  export type ${route.schema.operationId}Response = Awaited<ReturnType<typeof ${route.schema.operationId}>>;
+  export type ${returnTypeName} = ReturnType<typeof ${route.schema.operationId}>;
 
   /**
    * Parses the request and reply parameters and calls the ${route.schema.operationId} controller method.
    */
-  export declare ${toAsyncStatement(route.parameters)} function ${route.schema.operationId}Handler(
+  export declare ${toAsyncStatement(route.parameters)}function ${route.schema.operationId}Handler(
     ${kRequestParam}: FastifyRequest,
     ${kReplyParam}: FastifyReply
-  ): ${toAsyncStatement(route.parameters) ? `Promise<${returnTypeName}>` : returnTypeName};
+  ): ${toAsyncStatement(route.parameters) ? `Promise<Awaited<${returnTypeName}>>` : returnTypeName};
   `;
 }
 
@@ -69,7 +69,7 @@ export function toOptions(r: Route) {
     method: '${r.method}',
     handler: exports.${r.schema.operationId}Handler,
     schema: ${toReplacedSchema(r)},
-  }`;
+ }`;
 
   return r.options ? r.options.replace('$1', handler) : handler;
 }
@@ -96,7 +96,7 @@ export function toAsyncStatement(parameters: Parameter[]) {
 }
 
 export function toReplacedSchema(r: Route) {
-  let code = stringify(r.schema, { space: 2 });
+  let code = stringify(r.schema, { space: 4 });
 
   for (const param of r.parameters) {
     if (param.schemaTransformer) {
