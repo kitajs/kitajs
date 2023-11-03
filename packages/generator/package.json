@@ -38,6 +38,8 @@
     "@kitajs/html": "^3.0.5",
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
+    "@swc-node/register": "^1.6.8",
+    "@swc/helpers": "^0.5.3",
     "@types/json-stable-stringify": "^1.0.35",
     "@types/node": "^20.8.10",
     "c8": "^8.0.1",

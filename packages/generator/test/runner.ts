@@ -8,7 +8,10 @@ import { KitaFormatter } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');
 
-export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaConfig = {}): Promise<R> {
+export async function generateRuntime<R extends { ready: Promise<void> }>(
+  cwd: string,
+  partialCfg: PartialKitaConfig = {}
+): Promise<R> {
   const config = parseConfig({
     cwd,
     tsconfig,
@@ -34,7 +37,9 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
   await formatter.flush();
 
   globalThis.KITA_PROJECT_ROOT = config.src;
-  return require(config.runtimePath!) as R;
+  const rt = require(config.runtimePath!) as R;
+  await rt.ready;
+  return rt;
 }
 
 export function createApp<R>(runtime: R, opts?: FastifyHttpOptions<any, any>) {

@@ -152,6 +152,12 @@ importers:
       '@kitajs/runtime':
         specifier: workspace:^
         version: link:../runtime
+      '@swc-node/register':
+        specifier: ^1.6.8
+        version: 1.6.8(@swc/core@1.3.93)(typescript@5.2.2)
+      '@swc/helpers':
+        specifier: ^0.5.3
+        version: 0.5.3
       '@types/json-stable-stringify':
         specifier: ^1.0.35
         version: 1.0.35
