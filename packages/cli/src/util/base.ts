@@ -4,17 +4,13 @@ import chalk from 'chalk';
 import { readConfig } from './config';
 import { formatDiagnostic, formatStatus } from './diagnostics';
 
+chalk.level;
 export abstract class BaseKitaCommand extends Command {
   static override baseFlags = {
     config: Flags.file({
       char: 'c',
       exists: true,
       description: 'Path to your kita.config.js file, if any.'
-    }),
-    ['print-config']: Flags.boolean({
-      description: 'Prints full resolved config to stdout.',
-      default: false,
-      allowNo: true
     }),
     cwd: Flags.directory({
       description: 'Sets the current working directory for your command.',
@@ -25,11 +21,6 @@ export abstract class BaseKitaCommand extends Command {
   protected parseConfig(flags: Record<string, any>, extension?: Partial<KitaConfig>) {
     const config = readConfig(flags.cwd ?? process.cwd(), this.error, flags.config, extension);
 
-    if (flags['print-config']) {
-      ux.styledJSON(config);
-      this.exit(0);
-    }
-
     return {
       config,
       compilerOptions: readCompilerOptions(config.tsconfig)
@@ -38,18 +29,19 @@ export abstract class BaseKitaCommand extends Command {
 
   protected printSponsor() {
     if (process.stdout.isTTY) {
-      this.log(chalk.yellow`Thanks for using Kita! 🎉`);
-
       if (
         // defined environments should not show the message
         process.env.NODE_ENV === undefined &&
-        // 30% chance of showing the sponsor message
-        Math.random() < 0.3
+        // 50% chance of showing the sponsor message
+        Math.random() < 0.5
       ) {
-        this.log(chalk.grey`Please support my work ❤️ https://github.com/sponsors/arthurfiorette`);
+        this.log(
+          chalk`{grey    Please support my open source work ❤️  \nhttps://github.com/sponsors/arthurfiorette\n}`
+        );
       }
 
-      this.log('');
+      // terminal may not be 256 color compatible
+      this.log(chalk`Thanks for using {${chalk.level > 1 ? `hex('#b58d88')` : 'yellow'} Kita}! 🎉\n`);
     }
   }
 
@@ -73,16 +65,16 @@ export abstract class BaseKitaCommand extends Command {
     }
 
     if (dryRun) {
-      this.log(chalk.yellow`Skipping generation process.`);
+      this.log(chalk`{yellow Skipping generation process.}`);
     } else {
-      ux.action.start(`Generating ${chalk.cyan`@kitajs/runtime`}`, '', {
+      ux.action.start(chalk`Generating {cyan @kitajs/runtime}`, '', {
         stdout: true,
         style: 'clock'
       });
 
       const writeCount = await formatter.flush();
 
-      ux.action.stop(`${chalk.green(writeCount)} files written.`);
+      ux.action.stop(chalk`{green ${writeCount}} files written.`);
     }
 
     return diagnostics;

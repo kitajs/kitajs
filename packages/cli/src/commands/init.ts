@@ -19,16 +19,16 @@ export default class Init extends BaseKitaCommand {
     const exists = fs.existsSync(configPath);
 
     if (exists) {
-      this.error(chalk.red`File already exists: ${path.relative(process.cwd(), configPath)}`);
+      this.error(chalk`{red File already exists: ${path.relative(process.cwd(), configPath)}}`);
     }
 
     ux.action.start('Creating config file');
 
     fs.writeFileSync(configPath, defaultConfig);
 
-    ux.action.stop(chalk.green`Created!`);
+    ux.action.stop(chalk`{green Created!}`);
 
-    this.warn(chalk.yellow`Kita's defaults are often the option configuration, be careful with what you change.`);
+    this.warn(chalk`{yellow Kita's defaults are often the option configuration, be careful with what you change.}`);
   }
 }
 

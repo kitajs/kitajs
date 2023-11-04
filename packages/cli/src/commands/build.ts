@@ -42,12 +42,10 @@ export default class Build extends BaseKitaCommand {
 
     const { flags } = await this.parse(Build);
 
-    if (!flags['print-config']) {
-      ux.action.start('Warming up', '', {
-        stdout: true,
-        style: 'clock'
-      });
-    }
+    ux.action.start('Warming up', '', {
+      stdout: true,
+      style: 'clock'
+    });
 
     const { config, compilerOptions } = this.parseConfig(flags, { declaration: flags.types });
 
@@ -63,19 +61,19 @@ export default class Build extends BaseKitaCommand {
         flags['dry-run'] ? undefined : formatter
       );
 
-      ux.action.stop(chalk.cyan`Ready to build!`);
+      ux.action.stop(chalk`{cyan Ready to build!}`);
 
       const diagnostics = await this.runParser(parser, formatter, flags['dry-run']);
 
       if (diagnostics.length > 0) {
-        this.error(chalk.red`Finished with errors!`);
+        this.error(chalk`{red Finished with errors!}`);
       }
 
       if (process.stdout.isTTY) {
         if (flags['dry-run']) {
-          this.log(chalk.green`\nNo errors were found!`);
+          this.log(chalk`{green \nNo errors were found!}`);
         } else {
-          this.log(chalk.green`\nRuntime is ready to use!`);
+          this.log(chalk`{green \nRuntime is ready to use!}`);
         }
       }
     } catch (error) {

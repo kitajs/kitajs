@@ -48,14 +48,15 @@ export default class Watch extends BaseKitaCommand {
 
     const { flags } = await this.parse(Watch);
 
-    if (!flags['print-config']) {
-      ux.action.start('Warming up', '', {
-        stdout: true,
-        style: 'clock'
-      });
-    }
+    ux.action.start('Warming up', '', {
+      stdout: true,
+      style: 'clock'
+    });
 
-    const { config, compilerOptions } = this.parseConfig(flags, { declaration: flags.types });
+    const { config, compilerOptions } = this.parseConfig(flags, {
+      declaration: flags.types,
+      watch: { ignore: flags.ignore }
+    });
 
     try {
       const formatter = new KitaFormatter(config);
@@ -67,7 +68,7 @@ export default class Watch extends BaseKitaCommand {
         flags['dry-run'] ? undefined : formatter
       );
 
-      ux.action.stop(chalk.cyan`Ready to build!`);
+      ux.action.stop(chalk`{cyan Ready to build!}`);
 
       parser.onError = (err) => this.logToStderr(String(err));
 

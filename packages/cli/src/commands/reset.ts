@@ -18,21 +18,18 @@ export default class Reset extends BaseKitaCommand {
     this.printSponsor();
 
     const { flags } = await this.parse(Reset);
-    const { config } = this.parseConfig(flags, { declaration: flags.types });
+    const { config } = this.parseConfig(flags);
 
     ux.action.start('Clearing runtime', '', {
       stdout: true,
       style: 'clock'
     });
 
-    fs.rmSync(config.runtimePath, {
-      recursive: true
-    });
-
+    fs.rmSync(config.runtimePath, { recursive: true });
     fs.cpSync(path.resolve(__dirname, '../../runtime'), config.runtimePath, {
       recursive: true
     });
 
-    ux.action.stop(chalk.yellow(`.${path.sep}${path.relative(config.cwd, config.runtimePath)}`));
+    ux.action.stop(chalk`{cyan .${path.sep}${path.relative(config.cwd, config.runtimePath)}}`);
   }
 }
