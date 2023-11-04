@@ -15,8 +15,9 @@ export default class Reset extends BaseKitaCommand {
   ];
 
   async run(): Promise<void> {
-    const { flags } = await this.parse(Reset);
+    this.printSponsor();
 
+    const { flags } = await this.parse(Reset);
     const { config } = this.parseConfig(flags, { declaration: flags.types });
 
     ux.action.start('Clearing runtime', '', {

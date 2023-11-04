@@ -30,9 +30,27 @@ export abstract class BaseKitaCommand extends Command {
       this.exit(0);
     }
 
-    const compilerOptions = readCompilerOptions(config.tsconfig);
+    return {
+      config,
+      compilerOptions: readCompilerOptions(config.tsconfig)
+    };
+  }
 
-    return { config, compilerOptions };
+  protected printSponsor() {
+    if (process.stdout.isTTY) {
+      this.log(chalk.yellow`Thanks for using Kita! 🎉`);
+
+      if (
+        // defined environments should not show the message
+        process.env.NODE_ENV === undefined &&
+        // 30% chance of showing the sponsor message
+        Math.random() < 0.3
+      ) {
+        this.log(chalk.grey`Please support my work ❤️ https://github.com/sponsors/arthurfiorette`);
+      }
+
+      this.log('');
+    }
   }
 
   protected async runParser(parser: AstCollector, formatter: SourceFormatter, dryRun: boolean) {

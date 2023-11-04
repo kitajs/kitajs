@@ -60,9 +60,6 @@
     "dirname": "kita",
     "commands": "dist/commands",
     "topicSeparator": " ",
-    "hooks": {
-      "init": "dist/hooks/motd"
-    },
     "additionalHelpFlags": [
       "-h"
     ],

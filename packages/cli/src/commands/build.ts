@@ -38,6 +38,8 @@ export default class Build extends BaseKitaCommand {
   };
 
   async run(): Promise<void> {
+    this.printSponsor();
+
     const { flags } = await this.parse(Build);
 
     if (!flags['print-config']) {

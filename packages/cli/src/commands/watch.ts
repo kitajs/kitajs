@@ -44,6 +44,8 @@ export default class Watch extends BaseKitaCommand {
   };
 
   async run(): Promise<void> {
+    this.printSponsor();
+
     const { flags } = await this.parse(Watch);
 
     if (!flags['print-config']) {

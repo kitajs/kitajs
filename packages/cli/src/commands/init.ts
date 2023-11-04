@@ -10,6 +10,8 @@ export default class Init extends BaseKitaCommand {
   static override examples = [`<%= config.bin %> <%= command.id %>`];
 
   async run(): Promise<void> {
+    this.printSponsor();
+
     const { flags } = await this.parse(Init);
 
     const configPath = path.resolve(flags.cwd || process.cwd(), 'kita.config.js');
