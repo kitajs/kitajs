@@ -49,7 +49,7 @@ export function generateRoute(route: Route, cwd: string, src: string) {
   /**
    * The return type of the controller method.
    *
-   * ${String(route.schema.description) || ''}
+   * ${String(route.schema.description || '')}
    */
   export type ${returnTypeName} = ReturnType<typeof ${route.schema.operationId}>;
 
