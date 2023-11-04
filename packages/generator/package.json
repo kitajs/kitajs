@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "c8 --reporter lcov --reporter text node --trace-warnings --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
+    "test": "c8 --reporter lcov --reporter text node --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
   },
   "dependencies": {
     "@kitajs/common": "workspace:^",
