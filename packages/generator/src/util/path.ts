@@ -28,7 +28,7 @@ export function toMaybeRelativeImport(imp: string, cwd: string, src: string) {
   }
 
   // Removes source folder from path, as it will be contained in the `KITA_GLOBAL_ROOT` variable
-  return `\`\${${kKitaGlobalRoot}}${path.sep}${escapePath(path.relative(path.relative(cwd, src), imp))}\``;
+  return `\`\${${kKitaGlobalRoot}}${escapePath(path.sep + path.relative(path.relative(cwd, src), imp))}\``;
 }
 
 /** Removes the extension from a path, if present. */
