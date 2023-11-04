@@ -1,4 +1,4 @@
-import { KitaConfig, KitaError, importConfig, parseConfig } from '@kitajs/common';
+import { KitaConfig, KitaError, importConfig, kProvidersFolder, kRoutesFolder, parseConfig } from '@kitajs/common';
 import { KitaParser, toTsPath } from '@kitajs/parser';
 import path from 'path';
 import ts, { server } from 'typescript/lib/tsserverlibrary';
@@ -57,8 +57,8 @@ export = function initHtmlPlugin() {
               config.cwd = root;
             }
 
-            rootRoute = path.resolve(config.cwd, config.routeFolder);
-            rootProvider = path.resolve(config.cwd, config.providerFolder);
+            rootRoute = path.resolve(config.cwd, config.src, kRoutesFolder);
+            rootProvider = path.resolve(config.cwd, config.src, kProvidersFolder);
             providerPaths = program
               .getSourceFiles()
               .map((f) => f.fileName)
