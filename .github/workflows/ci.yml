@@ -42,8 +42,6 @@ jobs:
 
       - name: Publish to Codecov
         uses: codecov/codecov-action@v3
-        # We only need to upload once
-        if: matrix.os == 'ubuntu-latest'
         with:
           # Codecov backend may be unstable
           fail_ci_if_error: false
