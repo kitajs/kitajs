@@ -40,6 +40,6 @@ export function parseUrl(filepath: string, config: KitaConfig) {
         .split('/')
         .flatMap((p) => p.split('-'))
         .map(capitalize)
-        .join('') || 'Omdex'
+        .join('') || 'Index'
   };
 }
