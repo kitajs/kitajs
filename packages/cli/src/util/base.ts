@@ -4,7 +4,6 @@ import chalk from 'chalk';
 import { readConfig } from './config';
 import { formatDiagnostic, formatStatus } from './diagnostics';
 
-chalk.level;
 export abstract class BaseKitaCommand extends Command {
   static override baseFlags = {
     config: Flags.file({
