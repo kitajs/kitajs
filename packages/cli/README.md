@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita help [COMMANDS]`](#kita-help-commands)
@@ -80,6 +80,7 @@ USAGE
 - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
 - [`kita b`](#kita-b)
 - [`kita build`](#kita-build)
+- [`kita config`](#kita-config)
 - [`kita help [COMMANDS]`](#kita-help-commands)
 - [`kita init`](#kita-init)
 - [`kita plugins`](#kita-plugins)
@@ -133,14 +134,13 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita b [-c <value>] [--print-config] [--cwd <value>] [-d] [-t]
+  $ kita b [-c <value>] [--cwd <value>] [-d] [-t]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   -d, --[no-]dry-run    Skips generation process and only type-checks your files.
   -t, --[no-]types      Skips emitting declaration files.
   --cwd=<value>         Sets the current working directory for your command.
-  --[no-]print-config   Prints full resolved config to stdout.
 
 DESCRIPTION
   Analyses your backend searching for routes and bakes it into the runtime.
@@ -164,14 +164,13 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita build [-c <value>] [--print-config] [--cwd <value>] [-d] [-t]
+  $ kita build [-c <value>] [--cwd <value>] [-d] [-t]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   -d, --[no-]dry-run    Skips generation process and only type-checks your files.
   -t, --[no-]types      Skips emitting declaration files.
   --cwd=<value>         Sets the current working directory for your command.
-  --[no-]print-config   Prints full resolved config to stdout.
 
 DESCRIPTION
   Analyses your backend searching for routes and bakes it into the runtime.
@@ -190,6 +189,29 @@ EXAMPLES
 ```
 
 _See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.19/src/commands/build.ts)_
+
+## `kita config`
+
+Prints the full resolved configuration file
+
+```
+USAGE
+  $ kita config [-c <value>] [--cwd <value>]
+
+FLAGS
+  -c, --config=<value>  Path to your kita.config.js file, if any.
+  --cwd=<value>         Sets the current working directory for your command.
+
+DESCRIPTION
+  Prints the full resolved configuration file
+
+EXAMPLES
+  Builds your backend with a custom config file.
+
+    $ kita config -c kita.config.js
+```
+
+_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.19/src/commands/config.ts)_
 
 ## `kita help [COMMANDS]`
 
@@ -217,12 +239,11 @@ Creates a basic kita.config.js
 
 ```
 USAGE
-  $ kita init [-c <value>] [--print-config] [--cwd <value>]
+  $ kita init [-c <value>] [--cwd <value>]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   --cwd=<value>         Sets the current working directory for your command.
-  --[no-]print-config   Prints full resolved config to stdout.
 
 DESCRIPTION
   Creates a basic kita.config.js
@@ -489,12 +510,11 @@ Resets your runtime in an attempt to fix any issues.
 
 ```
 USAGE
-  $ kita reset [-c <value>] [--print-config] [--cwd <value>]
+  $ kita reset [-c <value>] [--cwd <value>]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
   --cwd=<value>         Sets the current working directory for your command.
-  --[no-]print-config   Prints full resolved config to stdout.
 
 DESCRIPTION
   Resets your runtime in an attempt to fix any issues.
@@ -513,7 +533,7 @@ Watch for changes in your source code and rebuilds the runtime.
 
 ```
 USAGE
-  $ kita w [-c <value>] [--print-config] [--cwd <value>] [-d] [-t] [-i <value>]
+  $ kita w [-c <value>] [--cwd <value>] [-d] [-t] [-i <value>]
 
 FLAGS
   -c, --config=<value>     Path to your kita.config.js file, if any.
@@ -521,7 +541,6 @@ FLAGS
   -i, --ignore=<value>...  [default: node_modules] Watches for changes and rebuilds the runtime.
   -t, --[no-]types         Skips emitting declaration files.
   --cwd=<value>            Sets the current working directory for your command.
-  --[no-]print-config      Prints full resolved config to stdout.
 
 DESCRIPTION
   Watch for changes in your source code and rebuilds the runtime.
@@ -545,7 +564,7 @@ Watch for changes in your source code and rebuilds the runtime.
 
 ```
 USAGE
-  $ kita watch [-c <value>] [--print-config] [--cwd <value>] [-d] [-t] [-i <value>]
+  $ kita watch [-c <value>] [--cwd <value>] [-d] [-t] [-i <value>]
 
 FLAGS
   -c, --config=<value>     Path to your kita.config.js file, if any.
@@ -553,7 +572,6 @@ FLAGS
   -i, --ignore=<value>...  [default: node_modules] Watches for changes and rebuilds the runtime.
   -t, --[no-]types         Skips emitting declaration files.
   --cwd=<value>            Sets the current working directory for your command.
-  --[no-]print-config      Prints full resolved config to stdout.
 
 DESCRIPTION
   Watch for changes in your source code and rebuilds the runtime.

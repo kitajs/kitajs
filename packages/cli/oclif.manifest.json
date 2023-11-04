@@ -23,12 +23,6 @@
           "multiple": false,
           "type": "option"
         },
-        "print-config": {
-          "description": "Prints full resolved config to stdout.",
-          "name": "print-config",
-          "allowNo": true,
-          "type": "boolean"
-        },
         "cwd": {
           "description": "Sets the current working directory for your command.",
           "name": "cwd",
@@ -63,6 +57,45 @@
       "isESM": false,
       "relativePath": ["dist", "commands", "build.js"]
     },
+    "config": {
+      "aliases": [],
+      "args": {},
+      "description": "Prints the full resolved configuration file",
+      "examples": [
+        {
+          "command": "<%= config.bin %> <%= command.id %> -c kita.config.js",
+          "description": "Builds your backend with a custom config file."
+        }
+      ],
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your kita.config.js file, if any.",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "cwd": {
+          "description": "Sets the current working directory for your command.",
+          "name": "cwd",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "config",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "config.js"]
+    },
     "init": {
       "aliases": [],
       "args": {},
@@ -76,12 +109,6 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
-        },
-        "print-config": {
-          "description": "Prints full resolved config to stdout.",
-          "name": "print-config",
-          "allowNo": true,
-          "type": "boolean"
         },
         "cwd": {
           "description": "Sets the current working directory for your command.",
@@ -121,12 +148,6 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
-        },
-        "print-config": {
-          "description": "Prints full resolved config to stdout.",
-          "name": "print-config",
-          "allowNo": true,
-          "type": "boolean"
         },
         "cwd": {
           "description": "Sets the current working directory for your command.",
@@ -170,12 +191,6 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
-        },
-        "print-config": {
-          "description": "Prints full resolved config to stdout.",
-          "name": "print-config",
-          "allowNo": true,
-          "type": "boolean"
         },
         "cwd": {
           "description": "Sets the current working directory for your command.",
