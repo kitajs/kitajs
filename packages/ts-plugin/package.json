@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "postbuild": "pnpm install",
     "test": "node --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
   },
   "dependencies": {
