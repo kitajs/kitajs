@@ -286,9 +286,6 @@ importers:
       '@types/node':
         specifier: ^20.8.10
         version: 20.8.10
-      c8:
-        specifier: ^8.0.1
-        version: 8.0.1
       self:
         specifier: file:.
         version: file:packages/ts-plugin(typescript@5.2.2)
