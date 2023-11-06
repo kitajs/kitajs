@@ -20,7 +20,6 @@
     "change": "changeset",
     "ci:publish": "pnpm publish -r --access public && changeset tag",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile",
-    "docs": "cd packages/docs && pnpm dev",
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
@@ -29,6 +28,7 @@
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.12",
+    "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.2",
     "@kitajs/ts-plugin": "workspace:^",
     "husky": "^8.0.3",
