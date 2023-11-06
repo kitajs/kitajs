@@ -1,4 +1,11 @@
-import { AstCollector, KitaConfig, KitaError, SourceFormatter, readCompilerOptions } from '@kitajs/common';
+import {
+  AstCollector,
+  KitaConfig,
+  KitaError,
+  PartialKitaConfig,
+  SourceFormatter,
+  readCompilerOptions
+} from '@kitajs/common';
 import { Command, Flags, ux } from '@oclif/core';
 import { CommandError } from '@oclif/core/lib/interfaces';
 import chalk from 'chalk';
@@ -12,15 +19,18 @@ export abstract class BaseKitaCommand extends Command {
     config: Flags.file({
       char: 'c',
       exists: true,
-      description: 'Path to your kita.config.js file, if any.'
+      description: 'Path to your kita.config.js file, if any.',
+      helpGroup: 'global'
     }),
     cwd: Flags.directory({
       description: 'Sets the current working directory for your command.',
-      required: false
+      required: false,
+      helpGroup: 'global',
+      exists: true
     })
   };
 
-  protected parseConfig(flags: Record<string, any>, extension?: Partial<KitaConfig>) {
+  protected parseConfig(flags: Record<string, any>, extension?: PartialKitaConfig) {
     const config = readConfig(flags.cwd ?? process.cwd(), this.error, flags.config, extension);
 
     return {
@@ -96,7 +106,7 @@ export abstract class BaseKitaCommand extends Command {
 
       const writeCount = await formatter.flush();
 
-      ux.action.stop(chalk`{green ${writeCount}} files written.`);
+      ux.action.stop(chalk`{${config?.declaration ? 'blue' : 'yellow'} ${writeCount}} files written.`);
     } else {
       this.log(chalk`{yellow Skipping generation process.}`);
     }

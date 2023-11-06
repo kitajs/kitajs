@@ -3,6 +3,7 @@ import { KitaParser } from '@kitajs/parser';
 import { Flags, ux } from '@oclif/core';
 import chalk from 'chalk';
 import { BaseKitaCommand } from '../util/base';
+import Build from './build';
 
 export default class Watch extends BaseKitaCommand {
   static override description = 'Watch for changes in your source code and rebuilds the runtime.';
@@ -21,28 +22,15 @@ export default class Watch extends BaseKitaCommand {
   static override aliases = ['w'];
 
   static override flags = {
-    ['dry-run']: Flags.boolean({
-      char: 'd',
-      description: 'Skips generation process and only type-checks your files.',
-      default: false
-    }),
-    ['js-only']: Flags.boolean({
-      char: 'j',
-      description: 'Skips emitting declaration files.',
-      default: false,
-      exclusive: ['dry-run']
-    }),
-    reset: Flags.boolean({
-      char: 'r',
-      description: 'Removes previous generated files before each build.',
-      default: false,
-      exclusive: ['dry-run']
-    }),
+    ...Build.flags,
     ignore: Flags.directory({
-      description: 'Directories to ignore when watching for changes.',
+      description: 'Comma separated directories to ignore when watching for changes.',
       multiple: true,
-      default: ['node_modules'],
-      char: 'i'
+      delimiter: ',',
+      char: 'i',
+      name: 'ignore',
+      exists: true,
+      helpGroup: 'watch'
     })
   };
 
@@ -52,8 +40,8 @@ export default class Watch extends BaseKitaCommand {
     const { flags } = await this.parse(Watch);
 
     const { config, compilerOptions } = this.parseConfig(flags, {
-      declaration: !flags['js-only'],
-      watch: { ignore: flags.ignore }
+      declaration: flags.dts,
+      watchIgnore: flags.ignore
     });
 
     ux.action.start('Warming up', '', {

@@ -5,8 +5,8 @@ export default class Reset extends BaseKitaCommand {
 
   static override examples = [
     {
-      command: `<%= config.bin %> <%= command.id %> -c kita.config.js`,
-      description: 'Builds your backend with a custom config file.'
+      command: `<%= config.bin %> <%= command.id %>`,
+      description: 'Resets your runtime'
     }
   ];
 

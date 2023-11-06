@@ -18,6 +18,7 @@
         "config": {
           "char": "c",
           "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
           "name": "config",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -25,6 +26,7 @@
         },
         "cwd": {
           "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
           "name": "cwd",
           "required": false,
           "hasDynamicHelp": false,
@@ -34,22 +36,25 @@
         "dry-run": {
           "char": "d",
           "description": "Skips generation process and only type-checks your files.",
+          "helpGroup": "build",
           "name": "dry-run",
           "allowNo": false,
           "type": "boolean"
         },
-        "js-only": {
-          "char": "j",
-          "description": "Skips emitting declaration files.",
+        "dts": {
+          "char": "D",
+          "description": "Skips emitting declaration files (d.ts).",
           "exclusive": ["dry-run"],
-          "name": "js-only",
-          "allowNo": false,
+          "helpGroup": "build",
+          "name": "dts",
+          "allowNo": true,
           "type": "boolean"
         },
         "reset": {
           "char": "r",
           "description": "Removes previous generated files before each build.",
           "exclusive": ["dry-run"],
+          "helpGroup": "build",
           "name": "reset",
           "allowNo": false,
           "type": "boolean"
@@ -80,6 +85,7 @@
         "config": {
           "char": "c",
           "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
           "name": "config",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -87,6 +93,7 @@
         },
         "cwd": {
           "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
           "name": "cwd",
           "required": false,
           "hasDynamicHelp": false,
@@ -121,6 +128,7 @@
         "config": {
           "char": "c",
           "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
           "name": "config",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -128,6 +136,7 @@
         },
         "cwd": {
           "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
           "name": "cwd",
           "required": false,
           "hasDynamicHelp": false,
@@ -152,14 +161,15 @@
       "description": "Resets your runtime in an attempt to fix any issues.",
       "examples": [
         {
-          "command": "<%= config.bin %> <%= command.id %> -c kita.config.js",
-          "description": "Builds your backend with a custom config file."
+          "command": "<%= config.bin %> <%= command.id %>",
+          "description": "Resets your runtime"
         }
       ],
       "flags": {
         "config": {
           "char": "c",
           "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
           "name": "config",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -167,6 +177,7 @@
         },
         "cwd": {
           "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
           "name": "cwd",
           "required": false,
           "hasDynamicHelp": false,
@@ -203,6 +214,7 @@
         "config": {
           "char": "c",
           "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
           "name": "config",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -210,6 +222,7 @@
         },
         "cwd": {
           "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
           "name": "cwd",
           "required": false,
           "hasDynamicHelp": false,
@@ -219,31 +232,35 @@
         "dry-run": {
           "char": "d",
           "description": "Skips generation process and only type-checks your files.",
+          "helpGroup": "build",
           "name": "dry-run",
           "allowNo": false,
           "type": "boolean"
         },
-        "js-only": {
-          "char": "j",
-          "description": "Skips emitting declaration files.",
+        "dts": {
+          "char": "D",
+          "description": "Skips emitting declaration files (d.ts).",
           "exclusive": ["dry-run"],
-          "name": "js-only",
-          "allowNo": false,
+          "helpGroup": "build",
+          "name": "dts",
+          "allowNo": true,
           "type": "boolean"
         },
         "reset": {
           "char": "r",
           "description": "Removes previous generated files before each build.",
           "exclusive": ["dry-run"],
+          "helpGroup": "build",
           "name": "reset",
           "allowNo": false,
           "type": "boolean"
         },
         "ignore": {
           "char": "i",
-          "description": "Directories to ignore when watching for changes.",
+          "description": "Comma separated directories to ignore when watching for changes.",
+          "helpGroup": "watch",
           "name": "ignore",
-          "default": ["node_modules"],
+          "delimiter": ",",
           "hasDynamicHelp": false,
           "multiple": true,
           "type": "option"
@@ -261,5 +278,5 @@
       "relativePath": ["dist", "commands", "watch.js"]
     }
   },
-  "version": "1.1.19"
+  "version": "1.1.20"
 }
