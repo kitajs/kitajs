@@ -54,3 +54,5 @@ Things to document:
   (`await Runtime.ready`)
 
 - `keyword: "isFile"` error when multipart ajv plugin is not present.
+
+- Document that kita global root is required.

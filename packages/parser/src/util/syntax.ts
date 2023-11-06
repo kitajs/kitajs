@@ -30,7 +30,7 @@ export function unquote(str: string) {
 export function joinParameters(parameters: Parameter[]) {
   return join(
     parameters,
-    (p) => /* ts */ `
+    (p) => `
      ${p.helper};
 
      if (reply.sent) {

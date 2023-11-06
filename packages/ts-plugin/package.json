@@ -20,8 +20,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
-    "test": "tsc --noEmit"
+    "build": "tsc -p tsconfig.build.json",
+    "postbuild": "pnpm install",
+    "test": "node --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
   },
   "dependencies": {
     "@kitajs/common": "workspace:^",
@@ -31,8 +32,11 @@
     "typescript": "~5.2.2"
   },
   "devDependencies": {
+    "@swc-node/register": "^1.6.8",
+    "@swc/helpers": "^0.5.3",
     "@types/deasync": "^0.1.4",
     "@types/node": "^20.8.10",
+    "self": "file:.",
     "type-fest": "^4.6.0"
   },
   "peerDependencies": {

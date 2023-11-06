@@ -28,8 +28,7 @@ describe('Hello World', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [{ name: 'QueryParameterParser', value: 'req.query.name' }],
       schema: {
         querystring: {

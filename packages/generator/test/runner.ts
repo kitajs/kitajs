@@ -10,27 +10,23 @@ const tsconfig = require.resolve('../tsconfig.json');
 
 export async function generateRuntime<R extends { ready: Promise<void> }>(
   cwd: string,
-  partialCfg: PartialKitaConfig = {},
-  compilerOptions = readCompilerOptions(tsconfig)
+  partialCfg: PartialKitaConfig = {}
 ): Promise<R> {
   const config = parseConfig({
     cwd,
     tsconfig,
-    routeFolder: 'routes',
-    providerFolder: 'providers',
+    src: cwd,
     runtimePath: path.resolve(cwd, 'runtime'),
-    dist: false,
     ...partialCfg
   });
+
+  const compilerOptions = readCompilerOptions(tsconfig);
 
   // Create runtime directory if not exists
   await fs.mkdir(config.runtimePath!, { recursive: true });
 
-  const kita = KitaParser.create(config, compilerOptions);
-  const formatter = new KitaFormatter(config, compilerOptions);
-
-  // Generate routes on the fly
-  kita.onRoute = (route) => formatter.generateRoute(route);
+  const formatter = new KitaFormatter(config);
+  const kita = KitaParser.create(config, compilerOptions, compilerOptions.rootNames, formatter);
 
   // Should not emit any errors
   for await (const error of kita.parse()) {
@@ -38,10 +34,9 @@ export async function generateRuntime<R extends { ready: Promise<void> }>(
     assert.fail(error);
   }
 
-  await formatter.generate(kita.getRoutes(), kita.getSchemas(), kita.getPlugins());
   await formatter.flush();
 
-  // Waits for the cyclic imports to be resolved
+  globalThis.KITA_PROJECT_ROOT = config.src;
   const rt = require(config.runtimePath!) as R;
   await rt.ready;
   return rt;

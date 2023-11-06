@@ -1,22 +1,29 @@
-import { ParameterResolverNotFoundError, RouteParameterMultipleErrors, parseConfig } from '@kitajs/common';
+import {
+  ParameterResolverNotFoundError,
+  RouteParameterMultipleErrors,
+  parseConfig,
+  readCompilerOptions
+} from '@kitajs/common';
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test, { describe } from 'node:test';
-import { KitaParser } from '../../src';
+import { KitaParser, walk } from '../../src';
 
 const ROUTE_SOURCE = readFileSync(path.resolve(__dirname, 'routes/index.ts'), 'utf-8');
 const PROVIDER_SOURCE = readFileSync(path.resolve(__dirname, 'providers/index.ts'), 'utf-8');
+const tsconfig = require.resolve('../../tsconfig.json');
 
 describe('Hello World', async () => {
   const kita = KitaParser.create(
     parseConfig({
-      tsconfig: require.resolve('../../tsconfig.json'),
+      tsconfig,
       cwd: __dirname,
-      providerFolder: 'providers',
-      routeFolder: 'routes',
+      src: __dirname,
       runtimePath: path.resolve(__dirname, 'runtime')
-    })
+    }),
+    readCompilerOptions(tsconfig),
+    walk(__dirname)
   );
 
   test('expect 2 errors', async () => {

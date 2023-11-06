@@ -20,8 +20,7 @@ describe('BodyProp Parameter', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [
         { name: 'BodyPropParameterParser', value: 'req.body.name' },
         { name: 'BodyPropParameterParser', value: 'req.body.a' },

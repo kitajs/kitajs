@@ -1,58 +1,58 @@
 import deepmerge from 'deepmerge';
 import fs from 'fs';
 import path from 'path';
-import { InvalidConfigError } from '../errors';
+import { InvalidConfigError, RuntimeNotFoundError } from '../errors';
 import { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
 export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()): KitaConfig {
   const cwd = env('cwd') ?? config.cwd ?? root;
 
-  const providerFolder = env('provider_folder') ?? config.providerFolder ?? 'src/providers';
-
-  if (typeof providerFolder !== 'string') {
-    throw new InvalidConfigError(
-      `'providerFolder' must be a string: (${JSON.stringify(providerFolder)}). Read from ${envOrigin(
-        'provider_folder'
-      )}`,
-      config
-    );
-  }
-
-  const routeFolder = env('route_folder') ?? config.routeFolder ?? 'src/routes';
-
-  if (typeof routeFolder !== 'string') {
-    throw new InvalidConfigError(
-      `'routeFolder' must be a string: (${JSON.stringify(routeFolder)}). Read from ${envOrigin('route_folder')}`,
-      config
-    );
-  }
-
-  const dist = env('dist') ?? config.dist ?? true;
-
-  if (typeof dist !== 'boolean') {
-    throw new InvalidConfigError(
-      `'dist' must be a boolean: (${JSON.stringify(dist)}). Read from ${envOrigin('dist')}`,
-      config
-    );
-  }
-
   const src = env('src') ?? config.src ?? 'src';
 
-  if (src !== undefined && typeof src !== 'string') {
+  if (typeof src !== 'string') {
     throw new InvalidConfigError(
-      `'src' must be a string or undefined: (${JSON.stringify(src)}). Read from ${envOrigin('src')}`,
+      `'src' must be a string: (${JSON.stringify(src)}). Read from ${envOrigin('src')}`,
       config
     );
   }
 
-  const runtimePath = env('runtime_path') ?? config.runtimePath;
+  let runtimePath = env('runtime_path') ?? config.runtimePath;
 
-  if (runtimePath !== undefined && typeof runtimePath !== 'string') {
+  if (!runtimePath) {
+    try {
+      runtimePath = path.join(
+        // Joined @kitajs/runtime and generated separately because when
+        // resolve is called on a package name (instead of folder if it was @kitajs/runtime/generated)
+        // it will look only for the package.json and resolve from there.
+        path.dirname(
+          // Allows global installations to work
+          require.resolve('@kitajs/runtime', { paths: [cwd] })
+        ),
+        'generated'
+      );
+    } catch (error: any) {
+      if ((error as Error).message.startsWith("Cannot find module '@kitajs/runtime'")) {
+        throw new RuntimeNotFoundError();
+      }
+      throw error;
+    }
+  }
+
+  if (typeof runtimePath !== 'string') {
     throw new InvalidConfigError(
       `'runtimePath' must be a string or undefined: (${JSON.stringify(runtimePath)}). Read from ${envOrigin(
         'runtime_path'
       )}`,
+      config
+    );
+  }
+
+  const declaration = env('declaration') ?? config.declaration ?? true;
+
+  if (typeof declaration !== 'boolean') {
+    throw new InvalidConfigError(
+      `'declaration' must be a boolean: (${JSON.stringify(declaration)}). Read from ${envOrigin('declaration')}`,
       config
     );
   }
@@ -93,14 +93,23 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
+  const watchIgnore = env('watch_ignore') ??
+    config.watch?.ignore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), runtimePath];
+
+  if (!Array.isArray(watchIgnore)) {
+    throw new InvalidConfigError(
+      `'watch.ignore' must be an array: (${JSON.stringify(watchIgnore)}). Read from ${envOrigin('watch_ignore')}`,
+      config
+    );
+  }
+
   return {
     cwd,
     tsconfig,
-    providerFolder: path.resolve(cwd, providerFolder),
-    routeFolder: path.resolve(cwd, routeFolder),
-    dist: dist === true,
-    src: src,
+    src: path.resolve(cwd, src),
+    declaration: declaration,
     runtimePath: runtimePath,
+    watch: { ignore: watchIgnore },
     responses: responses,
     generatorConfig: generatorConfig,
     parameterParserAugmentor: config.parameterParserAugmentor || noop,

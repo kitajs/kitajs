@@ -12,51 +12,31 @@ export interface KitaConfig {
   cwd: string;
 
   /**
-   * The root provider folder to search and register providers
-   *
-   * @default 'src/providers'
-   * @env `KITA_PROVIDER_FOLDER` - The environment variable to override this setting.
-   */
-  providerFolder: string;
-
-  /**
-   * The root route folder to search and register routes
-   *
-   * @default 'src/routes'
-   * @env `KITA_ROUTE_FOLDER` - The environment variable to override this setting.
-   */
-  routeFolder: string;
-
-  /**
-   * Uses a different located @kitajs/runtime. You should only override this setting if you are having problems with
-   * your package manger or the runtime cannot be found by default.
-   *
-   * @default undefined
-   * @env `KITA_RUNTIME_PATH` - The environment variable to override this setting.
-   */
-  runtimePath?: string;
-
-  /**
-   * If the generated could should import routes from the dist folder instead of the source folder. Type declarations
-   * still are always imported from the source folder.
-   *
-   * Useful if you are using tsx/ts-node/swc/swc to run your backend as raw typescript files instead of transpiling
-   * them.
-   *
-   * Tries to resolve `compilerOptions.outDir` and if not found, fallbacks to `'dist'`.
-   *
-   * @default true
-   * @env `KITA_DIST` - The environment variable to override this setting.
-   */
-  dist?: boolean;
-
-  /**
-   * The custom path to your source root. Used when replacing the source path with the dist path.
+   * The root folder to search and register providers. It must be the same relative directory as your
+   * `KITA_PROJECT_ROOT` runtime variable.
    *
    * @default 'src'
    * @env `KITA_SRC` - The environment variable to override this setting.
    */
   src: string;
+
+  /**
+   * Uses a different located @kitajs/runtime. You should only override this setting if you are having problems with
+   * your package manger or the runtime cannot be found by default.
+   *
+   * @default 'node_modules/@kitajs/runtime/generated'
+   * @env `KITA_RUNTIME_PATH` - The environment variable to override this setting.
+   */
+  runtimePath: string;
+
+  /**
+   * If the generated runtime should include declaration files alongside the javascript files. This is only helpful for
+   * development purposes and can be disabled once you are building the runtime for production.
+   *
+   * @default true
+   * @env `KITA_DECLARATION` - The environment variable to override this setting.
+   */
+  declaration: boolean;
 
   /**
    * The tsconfig path to use to parse the files.
@@ -92,6 +72,16 @@ export interface KitaConfig {
 
   /** Use this callback to include new route parsers. */
   providerParserAugmentor(parser: ChainParser<ProviderParser>): void | Promise<void>;
+
+  /** Configurations required by the watcher. */
+  watch: {
+    /**
+     * All directories changes should be ignored.
+     *
+     * @default ['node_modules', 'dist', <runtime>]
+     */
+    ignore: string[];
+  };
 }
 
 export interface KitaGeneratorConfig extends Omit<JsonConfig, 'tsconfig' | 'discriminatorType'> {

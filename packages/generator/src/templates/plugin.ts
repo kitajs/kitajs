@@ -1,98 +1,94 @@
 import { JsonSchema, KitaPlugin, Route, kFastifyVariable, kKitaOptions, stringifyOptions } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
+import { ts } from 'ts-writer';
 
-export const plugin = (routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]) =>
-  /* ts */ `
+export function generatePlugin(routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]) {
+  return ts`${'plugin'}
+    'use strict';
 
-import fp from 'fastify-plugin';
-import type { FastifyPluginAsync } from 'fastify'
+    const fp = require('fastify-plugin');
 
-/**
- * The Kita generated fastify plugin. Registering it into your fastify instance will
- * automatically register all routes, schemas and providers.
- *
- * @example
- * \`\`\`ts
- * import { Kita } from '@kitajs/runtime';
- * 
- * const app = fastify();
- * 
- * app.register(Kita)
- * 
- * app.listen().then(console.log);
- * \`\`\`
- * 
- * @see {@link https://kita.js.org/}
- */
-export const Kita: FastifyPluginAsync<${pluginType(plugins)}> = fp<${pluginType(plugins)}>(
-  async (${kFastifyVariable}, ${kKitaOptions}) => {
-    // Register all plugins
-    ${plugins.map(kitaPlugin).join('\n')}
+    /**
+     * The Kita generated fastify plugin. Registering it into your fastify instance will
+     * automatically register all routes, schemas and providers.
+     *
+     * @example
+     * \`\`\`ts
+     * import { Kita } from '@kitajs/runtime';
+     * 
+     * const app = fastify();
+     * 
+     * app.register(Kita)
+     * 
+     * app.listen().then(console.log);
+     * \`\`\`
+     * 
+     * @see {@link https://kita.js.org}
+     */
+    exports.Kita = fp(
+      async (${kFastifyVariable}, ${kKitaOptions}) => {
+        // Register all plugins
+        ${plugins.map(toPlugin)}
 
-    // Import all routes
-    ${routes.map((r) => `const ${r.schema.operationId} = await import('./routes/${r.schema.operationId}');`).join('\n')}
+        // Import all routes
+        ${routes.map(toRoute)}
 
-    // Add all schemas
-    ${schemas.map(schema).join('\n')}
+        // Add all schemas
+        ${schemas.map(toSchema)}
 
-    // Register all routes - inside a plugin to make sure capsulation works
-    // https://github.com/fastify/fastify-plugin/issues/78#issuecomment-672692334
-    await ${kFastifyVariable}.register(async ${kFastifyVariable} => {
-      ${routes
-        .map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schema.operationId}Options)`)
-        .join('\n')}
-    }, ${kKitaOptions});
-  },
-  {
-    name: 'Kita',
-    fastify: '4.x'
-  }
-);
+        // Register all routes - inside a plugin to make sure capsulation works
+        // https://github.com/fastify/fastify-plugin/issues/78#issuecomment-672692334
+        await ${kFastifyVariable}.register(async ${kFastifyVariable} => {
+          ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schema.operationId}Options)`)}
+        }, ${kKitaOptions});
+      },
+      {
+        name: 'Kita',
+        fastify: '4.x'
+      }
+    );
 
-`.trim();
+    exports.__esModule = true;
 
-const schema = (s: JsonSchema) =>
-  /* ts */ `
+    ${ts.types}
 
-${kFastifyVariable}.addSchema(${stringify(s, { space: 2 })});
+    import type { FastifyPluginAsync } from 'fastify'
 
-`.trim();
-
-const pluginType = (plugins: KitaPlugin[]) =>
-  /* ts */ `
-
-{
-  ${plugins
-    .map((p) =>
-      `
-  
-  /**
-   * Options for the ${p.name} plugin. Use false to disable it manually.
-   * 
-   * Defaults to:
-   * 
-   * \`\`\`ts
-   * ${stringifyOptions(p.options)}
-   * \`\`\`
-   *
-   * @see {@link ${p.importUrl}}
-   */
-  ${p.name}?: Parameters<typeof import("${p.importUrl}").default>[1] | false
-  
-  `.trim()
-    )
-    .join(`,\n`)}
+    export declare const Kita: FastifyPluginAsync<{${plugins.map(toPluginType).join(',\n')}}>;
+  `;
 }
 
-`.trim();
-
-const kitaPlugin = (plugin: KitaPlugin) =>
-  /* ts */ `
-
-if (${kKitaOptions}.${plugin.name} !== false) {
-  await ${kFastifyVariable}.register(await import("${plugin.importUrl}"), Object.assign(${stringifyOptions(
-    plugin.options
-  )}, ${kKitaOptions}.${plugin.name} || {}))
+function toRoute(route: Route) {
+  return `const ${route.schema.operationId} = require('./routes/${route.schema.operationId}');`;
 }
 
-`.trim();
+function toPlugin(plugin: KitaPlugin) {
+  return `
+   if (${kKitaOptions}.${plugin.name} !== false) {
+     await ${kFastifyVariable}.register(require("${plugin.importUrl}"), Object.assign(${stringifyOptions(
+       plugin.options
+     )}, ${kKitaOptions}.${plugin.name} || {}))
+   }
+  `;
+}
+
+function toSchema(schema: JsonSchema) {
+  return `${kFastifyVariable}.addSchema(${stringify(schema, { space: 4 })})`;
+}
+
+function toPluginType(plugin: KitaPlugin) {
+  return `
+    /**
+     * Options for the ${plugin.name} plugin. Use false to disable it manually.
+     * 
+     * Defaults to:
+     * 
+     * \`\`\`ts
+     * ${stringifyOptions(plugin.options)}
+     * \`\`\`
+     *
+     * @see {@link ${plugin.importUrl}}
+     */
+    ${plugin.name}?: Parameters<typeof import("${plugin.importUrl}").default>[1] | false
+  `;
+}

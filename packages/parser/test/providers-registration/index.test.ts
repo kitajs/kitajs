@@ -60,8 +60,7 @@ describe('Providers Registration', async () => {
         url: '/',
         controllerMethod: 'get',
         method: 'GET',
-        controllerName: 'IndexController',
-        controllerPath: cwdRelative('routes/index.ts'),
+        relativePath: cwdRelative('routes/index.ts'),
         parameters: [
           {
             name: 'ProviderParameterParser',
@@ -90,8 +89,7 @@ describe('Providers Registration', async () => {
         url: '/',
         controllerMethod: 'post',
         method: 'POST',
-        controllerName: 'IndexController',
-        controllerPath: cwdRelative('routes/index.ts'),
+        relativePath: cwdRelative('routes/index.ts'),
         parameters: [
           {
             name: 'ProviderParameterParser',

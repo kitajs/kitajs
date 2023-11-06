@@ -24,8 +24,7 @@ describe('Http errors', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [{ name: 'ErrorsParameterParser', value: 'req.server.httpErrors' }],
       schema: {
         operationId: 'getIndex',
@@ -48,8 +47,7 @@ describe('Http errors', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [],
       schema: {
         operationId: 'postIndex',

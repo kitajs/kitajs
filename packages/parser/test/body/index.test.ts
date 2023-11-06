@@ -19,8 +19,7 @@ describe('Body Parameter', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
-      controllerName: 'IndexController',
-      controllerPath: cwdRelative('routes/index.ts'),
+      relativePath: cwdRelative('routes/index.ts'),
       parameters: [{ name: 'BodyParameterParser', value: 'req.body' }],
       schema: {
         body: { $ref: 'Complex' },

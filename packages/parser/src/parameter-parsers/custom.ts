@@ -20,10 +20,9 @@ export class ProviderParameterParser implements ParameterParser {
 
     const originalProviderName = `Resolver${index}`;
     let providerName = originalProviderName;
-    let importName = providerName;
+    const importName = providerName;
 
     if (provider.schemaTransformer) {
-      importName = `* as ${providerName}`;
       providerName = `${providerName}.default`;
     }
 
@@ -58,7 +57,7 @@ export class ProviderParameterParser implements ParameterParser {
           ? [provider.parameters[providerGenericsIndex]!.value]
           : provider.schemaTransformer),
       providerName: originalProviderName,
-      helper: /* ts */ `${joinParameters(provider.parameters)}
+      helper: `${joinParameters(provider.parameters)}
 const ${value} = ${provider.async ? 'await ' : ''}${providerName}(${provider.parameters
         .map((p) => p.value)
         .join(',')});`.trim()

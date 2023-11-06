@@ -50,24 +50,12 @@ export class InvalidParameterUsageError extends KitaError {
 export class DuplicateOperationIdError extends KitaError {
   constructor(
     readonly operationId: string,
-    readonly previousPath: string,
-    readonly currentPath: string
+    readonly node?: ts.Node
   ) {
     super({
       code: 404,
-      messageText: `Duplicate operationId: ${operationId}`,
-      relatedInformation: [
-        KitaError.createDiagnostic({
-          file: ts.createSourceFile(previousPath, '', ts.ScriptTarget.ES2015),
-          code: 404,
-          messageText: `Previous operationId: ${operationId}`
-        }),
-        KitaError.createDiagnostic({
-          file: ts.createSourceFile(currentPath, '', ts.ScriptTarget.ES2015),
-          code: 404,
-          messageText: `Current operationId: ${operationId}`
-        })
-      ]
+      node,
+      messageText: `Duplicate operationId: ${operationId}`
     });
   }
 }

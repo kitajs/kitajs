@@ -1,96 +1,102 @@
-import { Parameter, Route, kReplyParam, kRequestParam } from '@kitajs/common';
+import { Parameter, Route, capital, kControllerName, kReplyParam, kRequestParam } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
-import { formatImport } from '../util/path';
+import path from 'path';
+import { ts } from 'ts-writer';
+import { removeExt, toMaybeRelativeImport } from '../util/path';
 
-/** Generates a route file. */
-export const route = (r: Route, cwd: string) =>
-  /* ts */ `
+export function generateRoute(route: Route, cwd: string, src: string) {
+  const returnTypeName = capital(`${route.schema.operationId}Response`);
 
-import type { RouteOptions, FastifyRequest, FastifyReply } from 'fastify';
+  return ts`${`routes/${route.schema.operationId}`}
+  'use strict';
 
-import * as ${r.controllerName} from '${formatImport(r.controllerPath, cwd)}';
+  const ${kControllerName} = require(${toMaybeRelativeImport(route.relativePath, cwd, src)});
 
-${r.imports?.map((r) => `import ${r.name} from '${formatImport(r.path, cwd)}'`).join('\n') || ''}
-
-${
-  r.parameters
+  ${route.imports?.map((r) => `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwd, src)});`)}
+  ${route.parameters
     .flatMap((p) => p.imports)
-    .filter(Boolean)
-    .map((r) => `import ${r!.name} from '${formatImport(r!.path, cwd)}'`)
-    .join('\n') || ''
-}
-
-export const ${r.schema.operationId}: typeof ${r.controllerName}['${r.controllerMethod}'] = ${r.controllerName}.${
-    r.controllerMethod
-  }.bind(null);
-
-/**
- * Parses the request and reply parameters and calls the ${r.schema.operationId} controller method.
- */
-export ${needsAsync(r.parameters)} function ${
-    r.schema.operationId
-  }Handler(${kRequestParam}: FastifyRequest, ${kReplyParam}: FastifyReply) {
-  ${r.parameters.map(paramHelper).filter(Boolean).join('\n')}
-
-  ${
-    r.customReturn ||
-    /* ts */ `
-    
-    return ${r.schema.operationId}(${r.parameters.map((p) => p.value).join(', ')});
-    
-    `.trim()
-  }
-}
-
-/**
- * Options for the ${r.schema.operationId} route.
- * 
- * @internal
- */
-export const ${r.schema.operationId}Options: RouteOptions = ${options(r)};
-
-`.trim();
-
-/** Renders the options for a route and wraps it in the options wrapper if needed. */
-const options = (r: Route) => {
-  let handler = /* ts */ `
-
-{
-  url: '${r.url}',
-  method: '${r.method}',
-  handler: ${r.schema.operationId}Handler,
-  schema: ${schema(r)},
-}
-
-`.trim();
-
-  if (r.options) {
-    handler = r.options.replace('$1', handler);
+    .map((r) => (r ? `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwd, src)});` : null))}
+  
+  exports.${route.schema.operationId} = ${kControllerName}.${route.controllerMethod}.bind(null);
+  
+  exports.${route.schema.operationId}Handler = ${toAsyncStatement(route.parameters)}function ${
+    route.schema.operationId
+  }Handler(${kRequestParam}, ${kReplyParam}) {
+    ${route.parameters.map(toParamHelper)}
+    ${
+      route.customReturn ||
+      `return exports.${route.schema.operationId}(${ts.join(
+        route.parameters.map((p) => p.value),
+        ','
+      )});`
+    }
   }
 
-  return handler;
-};
+  exports.${route.schema.operationId}Options = ${toOptions(route)};  
 
-/** Renders all parameter helpers */
-const paramHelper = (param: Parameter) =>
-  param.helper
-    ? /* ts */ `
+  exports.__esModule = true;
 
-${param.helper}
+  ${ts.types}
 
-// This helper may have already resolved this request
-if (${kReplyParam}.sent) {
-  return reply;
+  import type * as ${kControllerName} from '${removeExt(path.join(cwd, route.relativePath))}';
+  import type { FastifyRequest, FastifyReply } from 'fastify';
+
+  /**
+   * The controller method for the ${route.schema.operationId} route.
+   */
+  export declare const ${route.schema.operationId}: typeof ${kControllerName}.${route.controllerMethod};
+
+  /**
+   * The return type of the controller method.
+   *
+   * ${String(route.schema.description || '')}
+   */
+  export type ${returnTypeName} = ReturnType<typeof ${route.schema.operationId}>;
+
+  /**
+   * Parses the request and reply parameters and calls the ${route.schema.operationId} controller method.
+   */
+  export declare ${toAsyncStatement(route.parameters)}function ${route.schema.operationId}Handler(
+    ${kRequestParam}: FastifyRequest,
+    ${kReplyParam}: FastifyReply
+  ): ${toAsyncStatement(route.parameters) ? `Promise<Awaited<${returnTypeName}>>` : returnTypeName};
+  `;
 }
 
-`.trim()
-    : undefined;
+export function toOptions(r: Route) {
+  const handler = `{
+    url: '${r.url}',
+    method: '${r.method}',
+    handler: exports.${r.schema.operationId}Handler,
+    schema: ${toReplacedSchema(r)},
+ }`;
 
-/** Renders `async` if some parameter helper needs it */
-const needsAsync = (parameters: Parameter[]) => (parameters.some((p) => p.helper?.includes('await')) ? 'async ' : '');
+  return r.options ? r.options.replace('$1', handler) : handler;
+}
 
-const schema = (r: Route) => {
-  let code = stringify(r.schema, { space: 2 });
+export function toParamHelper(param: Parameter) {
+  if (!param.helper) {
+    return undefined;
+  }
+
+  return `${param.helper}
+  
+  // This helper may have already resolved this request
+  if (${kReplyParam}.sent) {
+    return reply;
+  }`;
+}
+
+export function toAsyncStatement(parameters: Parameter[]) {
+  if (!parameters.some((p) => p.helper?.includes('await'))) {
+    return undefined;
+  }
+
+  return 'async ';
+}
+
+export function toReplacedSchema(r: Route) {
+  let code = stringify(r.schema, { space: 4 });
 
   for (const param of r.parameters) {
     if (param.schemaTransformer) {
@@ -101,4 +107,4 @@ const schema = (r: Route) => {
   }
 
   return code;
-};
+}
