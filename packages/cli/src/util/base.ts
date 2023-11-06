@@ -1,6 +1,9 @@
-import { AstCollector, KitaConfig, SourceFormatter, readCompilerOptions } from '@kitajs/common';
+import { AstCollector, KitaConfig, KitaError, SourceFormatter, readCompilerOptions } from '@kitajs/common';
 import { Command, Flags, ux } from '@oclif/core';
+import { CommandError } from '@oclif/core/lib/interfaces';
 import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
 import { readConfig } from './config';
 import { formatDiagnostic, formatStatus } from './diagnostics';
 
@@ -44,7 +47,25 @@ export abstract class BaseKitaCommand extends Command {
     }
   }
 
-  protected async runParser(parser: AstCollector, formatter: SourceFormatter, dryRun: boolean) {
+  protected async resetRuntime(config: KitaConfig, copyRuntime = true) {
+    ux.action.start('Clearing runtime', '', {
+      stdout: true,
+      style: 'clock'
+    });
+
+    await fs.promises.rm(config.runtimePath, { recursive: true });
+
+    // Maybe the generation step is being called shortly after the reset
+    if (copyRuntime) {
+      await fs.promises.cp(path.resolve(__dirname, '../../runtime'), config.runtimePath, {
+        recursive: true
+      });
+    }
+
+    ux.action.stop(chalk`{cyan .${path.sep}${path.relative(config.cwd, config.runtimePath)}}`);
+  }
+
+  protected async runParser(parser: AstCollector, formatter?: SourceFormatter, reset?: boolean, config?: KitaConfig) {
     ux.action.start('Parsing sources', '', {
       stdout: true,
       style: 'clock'
@@ -63,19 +84,33 @@ export abstract class BaseKitaCommand extends Command {
       this.log(formatDiagnostic(diagnostics));
     }
 
-    if (dryRun) {
-      this.log(chalk`{yellow Skipping generation process.}`);
-    } else {
+    if (formatter) {
       ux.action.start(chalk`Generating {cyan @kitajs/runtime}`, '', {
         stdout: true,
         style: 'clock'
       });
 
+      if (reset && config) {
+        await this.resetRuntime(config, false);
+      }
+
       const writeCount = await formatter.flush();
 
       ux.action.stop(chalk`{green ${writeCount}} files written.`);
+    } else {
+      this.log(chalk`{yellow Skipping generation process.}`);
     }
 
     return diagnostics;
+  }
+
+  protected override catch(error: CommandError): Promise<any> {
+    // Pretty handle kita errors
+    if (error instanceof KitaError) {
+      this.logToStderr(formatDiagnostic([error.diagnostic]));
+      this.exit(1);
+    }
+
+    throw error;
   }
 }

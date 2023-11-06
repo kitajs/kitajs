@@ -35,14 +35,23 @@
           "char": "d",
           "description": "Skips generation process and only type-checks your files.",
           "name": "dry-run",
-          "allowNo": true,
+          "allowNo": false,
           "type": "boolean"
         },
-        "types": {
-          "char": "t",
+        "js-only": {
+          "char": "j",
           "description": "Skips emitting declaration files.",
-          "name": "types",
-          "allowNo": true,
+          "exclusive": ["dry-run"],
+          "name": "js-only",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "reset": {
+          "char": "r",
+          "description": "Removes previous generated files before each build.",
+          "exclusive": ["dry-run"],
+          "name": "reset",
+          "allowNo": false,
           "type": "boolean"
         }
       },
@@ -58,7 +67,7 @@
       "relativePath": ["dist", "commands", "build.js"]
     },
     "config": {
-      "aliases": [],
+      "aliases": ["c"],
       "args": {},
       "description": "Prints the full resolved configuration file",
       "examples": [
@@ -83,6 +92,13 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
+        },
+        "raw": {
+          "char": "r",
+          "description": "Prints a JSON string instead of a pretty printed object.",
+          "name": "raw",
+          "allowNo": true,
+          "type": "boolean"
         }
       },
       "hasDynamicHelp": false,
@@ -97,7 +113,7 @@
       "relativePath": ["dist", "commands", "config.js"]
     },
     "init": {
-      "aliases": [],
+      "aliases": ["i"],
       "args": {},
       "description": "Creates a basic kita.config.js",
       "examples": ["<%= config.bin %> <%= command.id %>"],
@@ -131,7 +147,7 @@
       "relativePath": ["dist", "commands", "init.js"]
     },
     "reset": {
-      "aliases": [],
+      "aliases": ["r"],
       "args": {},
       "description": "Resets your runtime in an attempt to fix any issues.",
       "examples": [
@@ -204,19 +220,28 @@
           "char": "d",
           "description": "Skips generation process and only type-checks your files.",
           "name": "dry-run",
-          "allowNo": true,
+          "allowNo": false,
           "type": "boolean"
         },
-        "types": {
-          "char": "t",
+        "js-only": {
+          "char": "j",
           "description": "Skips emitting declaration files.",
-          "name": "types",
-          "allowNo": true,
+          "exclusive": ["dry-run"],
+          "name": "js-only",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "reset": {
+          "char": "r",
+          "description": "Removes previous generated files before each build.",
+          "exclusive": ["dry-run"],
+          "name": "reset",
+          "allowNo": false,
           "type": "boolean"
         },
         "ignore": {
           "char": "i",
-          "description": "Watches for changes and rebuilds the runtime.",
+          "description": "Directories to ignore when watching for changes.",
           "name": "ignore",
           "default": ["node_modules"],
           "hasDynamicHelp": false,

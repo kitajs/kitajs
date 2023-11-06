@@ -23,6 +23,13 @@ export class KitaFormatter implements SourceFormatter {
   async flush() {
     const files = this.files.flatMap((file) => (this.config.declaration ? [file.source, file.types] : file.source));
 
+    // Tries to delete previous index.js and index.d.ts original files
+    // Ignores errors
+    await Promise.allSettled([
+      fs.promises.unlink(path.join(this.config.runtimePath, 'index.js')),
+      fs.promises.unlink(path.join(this.config.runtimePath, 'index.d.ts'))
+    ]);
+
     // Make sure all directories exists
     const dirs = files.map((f) => path.dirname(f.filename)).filter((v, i, a) => a.indexOf(v) === i);
     await Promise.all(

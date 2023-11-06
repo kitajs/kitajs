@@ -1,10 +1,8 @@
-import { KitaError } from '@kitajs/common';
 import { KitaFormatter } from '@kitajs/generator';
 import { KitaParser } from '@kitajs/parser';
 import { Flags, ux } from '@oclif/core';
 import chalk from 'chalk';
 import { BaseKitaCommand } from '../util/base';
-import { formatDiagnostic } from '../util/diagnostics';
 
 export default class Watch extends BaseKitaCommand {
   static override description = 'Watch for changes in your source code and rebuilds the runtime.';
@@ -26,17 +24,22 @@ export default class Watch extends BaseKitaCommand {
     ['dry-run']: Flags.boolean({
       char: 'd',
       description: 'Skips generation process and only type-checks your files.',
-      default: false,
-      allowNo: true
+      default: false
     }),
-    types: Flags.boolean({
-      char: 't',
+    ['js-only']: Flags.boolean({
+      char: 'j',
       description: 'Skips emitting declaration files.',
-      default: true,
-      allowNo: true
+      default: false,
+      exclusive: ['dry-run']
+    }),
+    reset: Flags.boolean({
+      char: 'r',
+      description: 'Removes previous generated files before each build.',
+      default: false,
+      exclusive: ['dry-run']
     }),
     ignore: Flags.directory({
-      description: 'Watches for changes and rebuilds the runtime.',
+      description: 'Directories to ignore when watching for changes.',
       multiple: true,
       default: ['node_modules'],
       char: 'i'
@@ -48,40 +51,39 @@ export default class Watch extends BaseKitaCommand {
 
     const { flags } = await this.parse(Watch);
 
+    const { config, compilerOptions } = this.parseConfig(flags, {
+      declaration: !flags['js-only'],
+      watch: { ignore: flags.ignore }
+    });
+
     ux.action.start('Warming up', '', {
       stdout: true,
       style: 'clock'
     });
 
-    const { config, compilerOptions } = this.parseConfig(flags, {
-      declaration: flags.types,
-      watch: { ignore: flags.ignore }
-    });
+    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config);
 
-    try {
-      const formatter = new KitaFormatter(config);
+    const parser = KitaParser.createWatcher(
+      config,
+      compilerOptions,
+      // Dry runs should not generate any files
+      formatter
+    );
 
-      const parser = KitaParser.createWatcher(
-        config,
-        compilerOptions,
-        // Dry runs should not generate any files
-        flags['dry-run'] ? undefined : formatter
-      );
+    ux.action.stop(chalk`{cyan Ready to build!}`);
 
-      ux.action.stop(chalk`{cyan Ready to build!}`);
+    parser.onError = (err) => this.logToStderr(String(err));
 
-      parser.onError = (err) => this.logToStderr(String(err));
+    parser.onChange = async (parser) => {
+      await this.runParser(parser, formatter, flags.reset, config);
 
-      parser.onChange = async (parser) => {
-        await this.runParser(parser, formatter, flags['dry-run']);
-        this.log('');
-      };
-    } catch (error) {
-      if (error instanceof KitaError) {
-        this.error(formatDiagnostic([error.diagnostic]));
+      if (parser.getRouteCount() === 0) {
+        this.warn(chalk`{yellow No routes were found!}`);
       }
 
-      throw error;
-    }
+      // This newline is important to avoid mixing the output with the
+      // previous parser output
+      this.log('');
+    };
   }
 }

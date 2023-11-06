@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita help [COMMANDS]`](#kita-help-commands)
@@ -80,8 +80,10 @@ USAGE
 - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
 - [`kita b`](#kita-b)
 - [`kita build`](#kita-build)
+- [`kita c`](#kita-c)
 - [`kita config`](#kita-config)
 - [`kita help [COMMANDS]`](#kita-help-commands)
+- [`kita i`](#kita-i)
 - [`kita init`](#kita-init)
 - [`kita plugins`](#kita-plugins)
 - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
@@ -92,6 +94,7 @@ USAGE
 - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
 - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
 - [`kita plugins update`](#kita-plugins-update)
+- [`kita r`](#kita-r)
 - [`kita reset`](#kita-reset)
 - [`kita w`](#kita-w)
 - [`kita watch`](#kita-watch)
@@ -134,12 +137,13 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita b [-c <value>] [--cwd <value>] [-d] [-t]
+  $ kita b [-c <value>] [--cwd <value>] [-j | -d] [-r | ]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  -d, --[no-]dry-run    Skips generation process and only type-checks your files.
-  -t, --[no-]types      Skips emitting declaration files.
+  -d, --dry-run         Skips generation process and only type-checks your files.
+  -j, --js-only         Skips emitting declaration files.
+  -r, --reset           Removes previous generated files before each build.
   --cwd=<value>         Sets the current working directory for your command.
 
 DESCRIPTION
@@ -164,12 +168,13 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita build [-c <value>] [--cwd <value>] [-d] [-t]
+  $ kita build [-c <value>] [--cwd <value>] [-j | -d] [-r | ]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  -d, --[no-]dry-run    Skips generation process and only type-checks your files.
-  -t, --[no-]types      Skips emitting declaration files.
+  -d, --dry-run         Skips generation process and only type-checks your files.
+  -j, --js-only         Skips emitting declaration files.
+  -r, --reset           Removes previous generated files before each build.
   --cwd=<value>         Sets the current working directory for your command.
 
 DESCRIPTION
@@ -190,20 +195,49 @@ EXAMPLES
 
 _See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.19/src/commands/build.ts)_
 
+## `kita c`
+
+Prints the full resolved configuration file
+
+```
+USAGE
+  $ kita c [-c <value>] [--cwd <value>] [-r]
+
+FLAGS
+  -c, --config=<value>  Path to your kita.config.js file, if any.
+  -r, --[no-]raw        Prints a JSON string instead of a pretty printed object.
+  --cwd=<value>         Sets the current working directory for your command.
+
+DESCRIPTION
+  Prints the full resolved configuration file
+
+ALIASES
+  $ kita c
+
+EXAMPLES
+  Builds your backend with a custom config file.
+
+    $ kita c -c kita.config.js
+```
+
 ## `kita config`
 
 Prints the full resolved configuration file
 
 ```
 USAGE
-  $ kita config [-c <value>] [--cwd <value>]
+  $ kita config [-c <value>] [--cwd <value>] [-r]
 
 FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
+  -r, --[no-]raw        Prints a JSON string instead of a pretty printed object.
   --cwd=<value>         Sets the current working directory for your command.
 
 DESCRIPTION
   Prints the full resolved configuration file
+
+ALIASES
+  $ kita c
 
 EXAMPLES
   Builds your backend with a custom config file.
@@ -233,6 +267,28 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.5/src/commands/help.ts)_
 
+## `kita i`
+
+Creates a basic kita.config.js
+
+```
+USAGE
+  $ kita i [-c <value>] [--cwd <value>]
+
+FLAGS
+  -c, --config=<value>  Path to your kita.config.js file, if any.
+  --cwd=<value>         Sets the current working directory for your command.
+
+DESCRIPTION
+  Creates a basic kita.config.js
+
+ALIASES
+  $ kita i
+
+EXAMPLES
+  $ kita i
+```
+
 ## `kita init`
 
 Creates a basic kita.config.js
@@ -247,6 +303,9 @@ FLAGS
 
 DESCRIPTION
   Creates a basic kita.config.js
+
+ALIASES
+  $ kita i
 
 EXAMPLES
   $ kita init
@@ -504,6 +563,30 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.0.2/src/commands/plugins/update.ts)_
 
+## `kita r`
+
+Resets your runtime in an attempt to fix any issues.
+
+```
+USAGE
+  $ kita r [-c <value>] [--cwd <value>]
+
+FLAGS
+  -c, --config=<value>  Path to your kita.config.js file, if any.
+  --cwd=<value>         Sets the current working directory for your command.
+
+DESCRIPTION
+  Resets your runtime in an attempt to fix any issues.
+
+ALIASES
+  $ kita r
+
+EXAMPLES
+  Builds your backend with a custom config file.
+
+    $ kita r -c kita.config.js
+```
+
 ## `kita reset`
 
 Resets your runtime in an attempt to fix any issues.
@@ -519,6 +602,9 @@ FLAGS
 DESCRIPTION
   Resets your runtime in an attempt to fix any issues.
 
+ALIASES
+  $ kita r
+
 EXAMPLES
   Builds your backend with a custom config file.
 
@@ -533,13 +619,14 @@ Watch for changes in your source code and rebuilds the runtime.
 
 ```
 USAGE
-  $ kita w [-c <value>] [--cwd <value>] [-d] [-t] [-i <value>]
+  $ kita w [-c <value>] [--cwd <value>] [-j | -d] [-r | ] [-i <value>]
 
 FLAGS
   -c, --config=<value>     Path to your kita.config.js file, if any.
-  -d, --[no-]dry-run       Skips generation process and only type-checks your files.
-  -i, --ignore=<value>...  [default: node_modules] Watches for changes and rebuilds the runtime.
-  -t, --[no-]types         Skips emitting declaration files.
+  -d, --dry-run            Skips generation process and only type-checks your files.
+  -i, --ignore=<value>...  [default: node_modules] Directories to ignore when watching for changes.
+  -j, --js-only            Skips emitting declaration files.
+  -r, --reset              Removes previous generated files before each build.
   --cwd=<value>            Sets the current working directory for your command.
 
 DESCRIPTION
@@ -564,13 +651,14 @@ Watch for changes in your source code and rebuilds the runtime.
 
 ```
 USAGE
-  $ kita watch [-c <value>] [--cwd <value>] [-d] [-t] [-i <value>]
+  $ kita watch [-c <value>] [--cwd <value>] [-j | -d] [-r | ] [-i <value>]
 
 FLAGS
   -c, --config=<value>     Path to your kita.config.js file, if any.
-  -d, --[no-]dry-run       Skips generation process and only type-checks your files.
-  -i, --ignore=<value>...  [default: node_modules] Watches for changes and rebuilds the runtime.
-  -t, --[no-]types         Skips emitting declaration files.
+  -d, --dry-run            Skips generation process and only type-checks your files.
+  -i, --ignore=<value>...  [default: node_modules] Directories to ignore when watching for changes.
+  -j, --js-only            Skips emitting declaration files.
+  -r, --reset              Removes previous generated files before each build.
   --cwd=<value>            Sets the current working directory for your command.
 
 DESCRIPTION
