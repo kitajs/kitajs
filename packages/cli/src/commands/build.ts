@@ -24,18 +24,22 @@ export default class Build extends BaseKitaCommand {
     ['dry-run']: Flags.boolean({
       char: 'd',
       description: 'Skips generation process and only type-checks your files.',
-      default: false
-    }),
-    ['js-only']: Flags.boolean({
-      char: 'j',
-      description: 'Skips emitting declaration files.',
       default: false,
+      helpGroup: 'build'
+    }),
+    dts: Flags.boolean({
+      char: 'D',
+      description: 'Skips emitting declaration files (d.ts).',
+      default: true,
+      allowNo: true,
+      helpGroup: 'build',
       exclusive: ['dry-run']
     }),
     reset: Flags.boolean({
       char: 'r',
       description: 'Removes previous generated files before each build.',
       default: false,
+      helpGroup: 'build',
       exclusive: ['dry-run']
     })
   };
@@ -45,7 +49,7 @@ export default class Build extends BaseKitaCommand {
 
     const { flags } = await this.parse(Build);
 
-    const { config, compilerOptions } = this.parseConfig(flags, { declaration: !flags['js-only'] });
+    const { config, compilerOptions } = this.parseConfig(flags, { declaration: flags.dts });
 
     ux.action.start('Warming up', '', {
       stdout: true,

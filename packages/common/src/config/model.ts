@@ -73,15 +73,12 @@ export interface KitaConfig {
   /** Use this callback to include new route parsers. */
   providerParserAugmentor(parser: ChainParser<ProviderParser>): void | Promise<void>;
 
-  /** Configurations required by the watcher. */
-  watch: {
-    /**
-     * All directories changes should be ignored.
-     *
-     * @default ['node_modules', 'dist', <runtime>]
-     */
-    ignore: string[];
-  };
+  /**
+   * All directories changes should be ignored.
+   *
+   * @default ['node_modules', 'dist', <runtime>]
+   */
+  watchIgnore: string[];
 }
 
 export interface KitaGeneratorConfig extends Omit<JsonConfig, 'tsconfig' | 'discriminatorType'> {

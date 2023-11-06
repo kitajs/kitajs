@@ -94,7 +94,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
   }
 
   const watchIgnore = env('watch_ignore') ??
-    config.watch?.ignore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), runtimePath];
+    config.watchIgnore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), runtimePath];
 
   if (!Array.isArray(watchIgnore)) {
     throw new InvalidConfigError(
@@ -109,7 +109,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     src: path.resolve(cwd, src),
     declaration: declaration,
     runtimePath: runtimePath,
-    watch: { ignore: watchIgnore },
+    watchIgnore: watchIgnore,
     responses: responses,
     generatorConfig: generatorConfig,
     parameterParserAugmentor: config.parameterParserAugmentor || noop,

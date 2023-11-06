@@ -116,7 +116,7 @@ export class KitaParser implements AstCollector {
         }
       },
       {
-        excludeFiles: config.watch.ignore
+        excludeFiles: config.watchIgnore
       }
     );
 
