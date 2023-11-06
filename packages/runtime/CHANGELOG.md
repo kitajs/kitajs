@@ -1,5 +1,16 @@
 # @kitajs/runtime
 
+## 1.1.11
+
+### Patch Changes
+
+- Updated dependencies [[`e7f9862`](https://github.com/kitajs/kitajs/commit/e7f9862753db3956a0499b38e47b98af1a283407),
+  [`e7f9862`](https://github.com/kitajs/kitajs/commit/e7f9862753db3956a0499b38e47b98af1a283407),
+  [`e7f9862`](https://github.com/kitajs/kitajs/commit/e7f9862753db3956a0499b38e47b98af1a283407),
+  [`01dc430`](https://github.com/kitajs/kitajs/commit/01dc430d070aca17ee4494799651412b2ea8f9e2),
+  [`e7f9862`](https://github.com/kitajs/kitajs/commit/e7f9862753db3956a0499b38e47b98af1a283407)]:
+  - @kitajs/common@1.1.11
+
 ## 1.1.10
 
 ### Patch Changes

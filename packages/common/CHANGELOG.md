@@ -1,5 +1,29 @@
 # @kitajs/common
 
+## 1.1.11
+
+### Patch Changes
+
+- [#128](https://github.com/kitajs/kitajs/pull/128)
+  [`e7f9862`](https://github.com/kitajs/kitajs/commit/e7f9862753db3956a0499b38e47b98af1a283407) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Reduced the number of configuration requried
+
+- [#128](https://github.com/kitajs/kitajs/pull/128)
+  [`e7f9862`](https://github.com/kitajs/kitajs/commit/e7f9862753db3956a0499b38e47b98af1a283407) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Watch mode
+
+- [#128](https://github.com/kitajs/kitajs/pull/128)
+  [`e7f9862`](https://github.com/kitajs/kitajs/commit/e7f9862753db3956a0499b38e47b98af1a283407) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Useful error message when runtime cannot be found
+
+- [#122](https://github.com/kitajs/kitajs/pull/122)
+  [`01dc430`](https://github.com/kitajs/kitajs/commit/01dc430d070aca17ee4494799651412b2ea8f9e2) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - RouteSchema support for swagger types
+
+- [#128](https://github.com/kitajs/kitajs/pull/128)
+  [`e7f9862`](https://github.com/kitajs/kitajs/commit/e7f9862753db3956a0499b38e47b98af1a283407) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Super fast code generation without tsc api
+
 ## 1.1.10
 
 ### Patch Changes
