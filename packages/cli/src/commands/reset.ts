@@ -1,7 +1,3 @@
-import { ux } from '@oclif/core';
-import chalk from 'chalk';
-import fs from 'fs';
-import path from 'path';
 import { BaseKitaCommand } from '../util/base';
 
 export default class Reset extends BaseKitaCommand {
@@ -14,22 +10,14 @@ export default class Reset extends BaseKitaCommand {
     }
   ];
 
+  static override aliases = ['r'];
+
   async run(): Promise<void> {
     this.printSponsor();
 
     const { flags } = await this.parse(Reset);
     const { config } = this.parseConfig(flags);
 
-    ux.action.start('Clearing runtime', '', {
-      stdout: true,
-      style: 'clock'
-    });
-
-    fs.rmSync(config.runtimePath, { recursive: true });
-    fs.cpSync(path.resolve(__dirname, '../../runtime'), config.runtimePath, {
-      recursive: true
-    });
-
-    ux.action.stop(chalk`{cyan .${path.sep}${path.relative(config.cwd, config.runtimePath)}}`);
+    await this.resetRuntime(config);
   }
 }

@@ -56,7 +56,7 @@ export function generateRoute(route: Route, cwd: string, src: string) {
   /**
    * Parses the request and reply parameters and calls the ${route.schema.operationId} controller method.
    */
-  export declare ${toAsyncStatement(route.parameters)}function ${route.schema.operationId}Handler(
+  export declare function ${route.schema.operationId}Handler(
     ${kRequestParam}: FastifyRequest,
     ${kReplyParam}: FastifyReply
   ): ${toAsyncStatement(route.parameters) ? `Promise<Awaited<${returnTypeName}>>` : returnTypeName};

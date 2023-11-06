@@ -3,9 +3,11 @@ import chalk from 'chalk';
 import ts from 'typescript';
 
 export function formatDiagnostic(diagnostics: readonly ts.Diagnostic[]) {
+  const formatter = process.stdout.isTTY ? ts.formatDiagnosticsWithColorAndContext : ts.formatDiagnostics;
+
   return (
     '\n' +
-    ts.formatDiagnosticsWithColorAndContext(diagnostics, {
+    formatter(diagnostics, {
       getCanonicalFileName(fileName) {
         return fileName;
       },

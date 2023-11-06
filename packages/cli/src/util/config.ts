@@ -9,7 +9,7 @@ export function readConfig(
   root: string,
   error: (msg: string) => never,
   configPath?: string,
-  flags?: Partial<KitaConfig>
+  extension?: Partial<KitaConfig>
 ): KitaConfig {
   // Tries to lookup for a default config file
   const defaultConfigPath = path.resolve(root, 'kita.config.js');
@@ -21,7 +21,7 @@ export function readConfig(
   }
 
   if (!configPath) {
-    return parseConfig(undefined, root);
+    return parseConfig(extension ?? {}, root);
   }
 
   ux.action.start('Reading config', '', { stdout: true, style: 'clock' });
@@ -41,7 +41,7 @@ export function readConfig(
   const config =
     // ESM Module support
     parseConfig(
-      deepmerge(flags ?? {}, typeof cfg.default === 'object' ? cfg.default : cfg, {
+      deepmerge(extension ?? {}, typeof cfg.default === 'object' ? cfg.default : cfg, {
         arrayMerge: (_, source) => source
       }),
       root

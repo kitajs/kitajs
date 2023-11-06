@@ -57,8 +57,8 @@ export = function initHtmlPlugin() {
               config.cwd = root;
             }
 
-            rootRoute = path.resolve(config.cwd, config.src, kRoutesFolder);
-            rootProvider = path.resolve(config.cwd, config.src, kProvidersFolder);
+            rootRoute = path.resolve(config.src, kRoutesFolder);
+            rootProvider = path.resolve(config.src, kProvidersFolder);
             providerPaths = program
               .getSourceFiles()
               .map((f) => f.fileName)
