@@ -177,8 +177,8 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1
       form-auto-content:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^3.2.1
+        version: 3.2.1
       tsc-alias:
         specifier: ^1.8.8
         version: 1.8.8
@@ -3353,8 +3353,8 @@ packages:
       signal-exit: 4.1.0
     dev: true
 
-  /form-auto-content@3.2.0:
-    resolution: {integrity: sha512-e9Fxx0XRUa/V9t7uG45qYdaW3gxkXU3q7EMVi7302sxaniTikNIcAgmIx6MtXWXe4t+FYry6TidZb/UuCKDE+A==}
+  /form-auto-content@3.2.1:
+    resolution: {integrity: sha512-e9dajOhS0QbfNUpwHUTd/2o64jqeWPft/JByATwxSJb0vpV2siT1k3FnnNyntm2ZBpH+bfA6JTpvjvTZtDhmEw==}
     engines: {node: '>=14.0.0'}
     dependencies:
       fast-querystring: 1.1.2
