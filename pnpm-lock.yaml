@@ -42,8 +42,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@oclif/core':
-        specifier: ^3.10.6
-        version: 3.10.6(typescript@5.2.2)
+        specifier: ^3.10.7
+        version: 3.10.7(typescript@5.2.2)
       '@oclif/plugin-autocomplete':
         specifier: ^3.0.1
         version: 3.0.1(typescript@5.2.2)
@@ -1071,8 +1071,8 @@ packages:
       - '@types/node'
       - typescript
 
-  /@oclif/core@3.10.6(typescript@5.2.2):
-    resolution: {integrity: sha512-A752i/hnPCiW9+9SIk6y3RZYxY8l28hJK1i6tLN2CiaiOV4TRhuOYPVQCI8pcSsNq0MJpcXSzU1YvsXXQ1/E5g==}
+  /@oclif/core@3.10.7(typescript@5.2.2):
+    resolution: {integrity: sha512-LaFszuYfJJpQP/hYrrwRZOA7qCAJFVPcyo4qsZiRTMyrB3CrFtWkpSoYaaWVsoCwIcYgGLXCNc2pIFZUBgWBnQ==}
     engines: {node: '>=18.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
@@ -1108,7 +1108,7 @@ packages:
     resolution: {integrity: sha512-s2w6YRkVGVYW1re6wQrgYso+2mLy3O+22kVbmPAwvlngvuq3nYbeIvYu/ToLR8lds7iG7JaAUMAaAROFSNUaYA==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.10.6(typescript@5.2.2)
+      '@oclif/core': 3.10.7(typescript@5.2.2)
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       ejs: 3.1.9
@@ -1133,7 +1133,7 @@ packages:
     resolution: {integrity: sha512-PnwmnpNGE3y7zZBKMH7Le+iFKuvKViO1lboJbz8BEhM+XXvTDkIJ1TYFlETMHzK+KSB2JyFCJmqn2AnAKSyTKA==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.10.6(typescript@5.2.2)
+      '@oclif/core': 3.10.7(typescript@5.2.2)
     transitivePeerDependencies:
       - typescript
     dev: false
@@ -1156,7 +1156,7 @@ packages:
     resolution: {integrity: sha512-L/Xca1VZaFSFZM8Hp5wdfKEvfEioNSTFu3bHlWaGeYR2ao0bGXaOKQU8AtmqQz2QzZ8EPA5vxbeofkGbxxtQwA==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.10.6(typescript@5.2.2)
+      '@oclif/core': 3.10.7(typescript@5.2.2)
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
     transitivePeerDependencies:
@@ -1167,7 +1167,7 @@ packages:
     resolution: {integrity: sha512-ibdupO8Hpkij8Q8nS4nGAYTEFtrJGuFjF6h/NoiXOJhrEZfBK0J1q544DJkMH3XCLldCMILK7H5QWq/EiRojHw==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.10.6(typescript@5.2.2)
+      '@oclif/core': 3.10.7(typescript@5.2.2)
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       npm: 9.8.1
@@ -1203,7 +1203,7 @@ packages:
     resolution: {integrity: sha512-dUXfRNFtnezS4uqQ+Ap4qb6UP0DWExTvoqghNvvGTIN4PEgfYHogvBORn+rFnDXXE8kgZFuqP4ZQJRP9NyLhOA==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.10.6(typescript@5.2.2)
+      '@oclif/core': 3.10.7(typescript@5.2.2)
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
@@ -5439,7 +5439,7 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
-      '@oclif/core': 3.10.6(typescript@5.2.2)
+      '@oclif/core': 3.10.7(typescript@5.2.2)
       '@oclif/plugin-help': 5.2.20(@swc/core@1.3.93)(@types/node@20.9.0)(typescript@5.2.2)
       '@oclif/plugin-not-found': 2.4.3(@swc/core@1.3.93)(@types/node@20.9.0)(typescript@5.2.2)
       '@oclif/plugin-warn-if-update-available': 3.0.2(typescript@5.2.2)
