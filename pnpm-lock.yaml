@@ -284,8 +284,8 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3
       '@types/deasync':
-        specifier: ^0.1.4
-        version: 0.1.4
+        specifier: ^0.1.5
+        version: 0.1.5
       '@types/node':
         specifier: ^20.9.0
         version: 20.9.0
@@ -1583,8 +1583,8 @@ packages:
     dependencies:
       '@types/node': 20.9.0
 
-  /@types/deasync@0.1.4:
-    resolution: {integrity: sha512-dcQbMOlj4+1ZekRwOi+96FWjHWslNpnK2mfymAZaVKN+Fne9ZCBWxovMcIu9lYLWZOGX6qOlD7vXllx8nYRohw==}
+  /@types/deasync@0.1.5:
+    resolution: {integrity: sha512-mLov/tw+fOX4ZsrT9xuHOJv8xToOpNsp6W4gp8VDHy2qniJ58izyOzHlisnz5r8HdZ+WItDHtANWZy/W0JEJwg==}
     dev: true
 
   /@types/debug@4.1.9:
