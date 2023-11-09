@@ -37,7 +37,7 @@
     "@types/deasync": "^0.1.5",
     "@types/node": "^20.9.0",
     "self": "file:.",
-    "type-fest": "^4.6.0"
+    "type-fest": "^4.7.1"
   },
   "peerDependencies": {
     "typescript": "^5.2"
