@@ -21,13 +21,14 @@
   "files": [
     "bin",
     "dist",
+    "runtime",
     "npm-shrinkwrap.json",
     "oclif.manifest.json"
   ],
   "scripts": {
     "build": "tsc",
     "postbuild": "oclif manifest && oclif readme",
-    "prepublish": "cp -r ../runtime/generated ./runtime",
+    "prepublish": "mkdir -p runtime && cp -r ../runtime/generated/* ./runtime",
     "start": "node --require @swc-node/register index.ts"
   },
   "dependencies": {
