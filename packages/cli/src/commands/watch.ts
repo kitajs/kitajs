@@ -19,8 +19,6 @@ export default class Watch extends BaseKitaCommand {
     }
   ];
 
-  static override aliases = ['w'];
-
   static override flags = {
     ...Build.flags,
     ignore: Flags.directory({

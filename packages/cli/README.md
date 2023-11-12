@@ -20,7 +20,7 @@
   <a title="MIT license" target="_blank" href="https://github.com/kitajs/kitajs/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/kitajs/kitajs"></a>
   <a title="Codecov" target="_blank" href="https://app.codecov.io/gh/kitajs/kitajs"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/kitajs/kitajs?token=ML0KGCU0VM"></a>
   <a title="NPM Package" target="_blank" href="https://www.npmjs.com/package/@kitajs/cli"><img alt="Downloads" src="https://img.shields.io/npm/dw/@kitajs/cli?style=flat"></a>
-  <a title="Bundle size" target="_blank" href="https://bundlephobia.com/package/@kitajs/cli@latest"><img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/@kitajs/cli/latest?style=flat"></a>
+  <a title="Install size" target="_blank" href="https://packagephobia.com/result?p=@kitajs/cli"><img alt="Bundlephobia" src="https://packagephobia.com/badge?p=@kitajs/cli"></a>
   <a title="Last Commit" target="_blank" href="https://github.com/kitajs/kitajs/commits/master"><img alt="Last commit" src="https://img.shields.io/github/last-commit/kitajs/kitajs"></a>
   <a href="https://github.com/kitajs/kitajs/stargazers"><img src="https://img.shields.io/github/stars/kitajs/kitajs?logo=github&label=Stars" alt="Stars"></a>
 </div>
@@ -47,9 +47,26 @@
 - [Usage](#usage)
 - [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
+  - [`kita b`](#kita-b)
   - [`kita build`](#kita-build)
+  - [`kita c`](#kita-c)
+  - [`kita config`](#kita-config)
   - [`kita help [COMMANDS]`](#kita-help-commands)
+  - [`kita i`](#kita-i)
   - [`kita init`](#kita-init)
+  - [`kita plugins`](#kita-plugins)
+  - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
+  - [`kita plugins:inspect PLUGIN...`](#kita-pluginsinspect-plugin)
+  - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
+  - [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
+  - [`kita plugins update`](#kita-plugins-update)
+  - [`kita r`](#kita-r)
+  - [`kita reset`](#kita-reset)
+  - [`kita w`](#kita-w)
+  - [`kita watch`](#kita-watch)
 
 <br />
 
@@ -77,27 +94,29 @@ USAGE
 
 <!-- commands -->
 
-- [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
-- [`kita b`](#kita-b)
-- [`kita build`](#kita-build)
-- [`kita c`](#kita-c)
-- [`kita config`](#kita-config)
-- [`kita help [COMMANDS]`](#kita-help-commands)
-- [`kita i`](#kita-i)
-- [`kita init`](#kita-init)
-- [`kita plugins`](#kita-plugins)
-- [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
-- [`kita plugins:inspect PLUGIN...`](#kita-pluginsinspect-plugin)
-- [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
-- [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
-- [`kita plugins update`](#kita-plugins-update)
-- [`kita r`](#kita-r)
-- [`kita reset`](#kita-reset)
-- [`kita w`](#kita-w)
-- [`kita watch`](#kita-watch)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
+  - [`kita b`](#kita-b)
+  - [`kita build`](#kita-build)
+  - [`kita c`](#kita-c)
+  - [`kita config`](#kita-config)
+  - [`kita help [COMMANDS]`](#kita-help-commands)
+  - [`kita i`](#kita-i)
+  - [`kita init`](#kita-init)
+  - [`kita plugins`](#kita-plugins)
+  - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
+  - [`kita plugins:inspect PLUGIN...`](#kita-pluginsinspect-plugin)
+  - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
+  - [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
+  - [`kita plugins update`](#kita-plugins-update)
+  - [`kita r`](#kita-r)
+  - [`kita reset`](#kita-reset)
+  - [`kita w`](#kita-w)
+  - [`kita watch`](#kita-watch)
 
 ## `kita autocomplete [SHELL]`
 
