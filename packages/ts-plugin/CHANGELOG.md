@@ -1,5 +1,14 @@
 # @kitajs/ts-plugin
 
+## 1.1.16
+
+### Patch Changes
+
+- Updated dependencies [[`e571909`](https://github.com/kitajs/kitajs/commit/e5719094f9c0a81d1db5877f1cc32fe5ba12f218),
+  [`d7d94de`](https://github.com/kitajs/kitajs/commit/d7d94de3290ae713c3c59f8236a328260ca76568)]:
+  - @kitajs/parser@1.1.16
+  - @kitajs/common@1.1.12
+
 ## 1.1.15
 
 ### Patch Changes

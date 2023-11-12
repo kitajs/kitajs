@@ -1,5 +1,20 @@
 # @kitajs/parser
 
+## 1.1.16
+
+### Patch Changes
+
+- [#150](https://github.com/kitajs/kitajs/pull/150)
+  [`e571909`](https://github.com/kitajs/kitajs/commit/e5719094f9c0a81d1db5877f1cc32fe5ba12f218) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Provider type errors points to the correct node
+
+- [#133](https://github.com/kitajs/kitajs/pull/133)
+  [`d7d94de`](https://github.com/kitajs/kitajs/commit/d7d94de3290ae713c3c59f8236a328260ca76568) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Fixed watch mode infinite loop
+
+- Updated dependencies [[`d7d94de`](https://github.com/kitajs/kitajs/commit/d7d94de3290ae713c3c59f8236a328260ca76568)]:
+  - @kitajs/common@1.1.12
+
 ## 1.1.15
 
 ### Patch Changes

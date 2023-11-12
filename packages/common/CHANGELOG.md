@@ -1,5 +1,13 @@
 # @kitajs/common
 
+## 1.1.12
+
+### Patch Changes
+
+- [#133](https://github.com/kitajs/kitajs/pull/133)
+  [`d7d94de`](https://github.com/kitajs/kitajs/commit/d7d94de3290ae713c3c59f8236a328260ca76568) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Fixed watch mode infinite loop
+
 ## 1.1.11
 
 ### Patch Changes
