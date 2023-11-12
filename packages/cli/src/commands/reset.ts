@@ -10,8 +10,6 @@ export default class Reset extends BaseKitaCommand {
     }
   ];
 
-  static override aliases = ['r'];
-
   async run(): Promise<void> {
     this.printSponsor();
 

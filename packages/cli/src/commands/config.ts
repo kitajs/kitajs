@@ -12,8 +12,6 @@ export default class Config extends BaseKitaCommand {
     }
   ];
 
-  static override aliases = ['c'];
-
   static override flags = {
     raw: Flags.boolean({
       char: 'r',

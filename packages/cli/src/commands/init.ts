@@ -9,8 +9,6 @@ export default class Init extends BaseKitaCommand {
 
   static override examples = [`<%= config.bin %> <%= command.id %>`];
 
-  static override aliases = ['i'];
-
   async run(): Promise<void> {
     this.printSponsor();
 

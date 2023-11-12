@@ -18,8 +18,6 @@ export default class Build extends BaseKitaCommand {
     }
   ];
 
-  static override aliases = ['b'];
-
   static override flags = {
     ['dry-run']: Flags.boolean({
       char: 'd',
