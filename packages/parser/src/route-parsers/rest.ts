@@ -110,7 +110,7 @@ export class RestRouteParser implements RouteParser {
         }
       });
     } catch (error) {
-      throw new ReturnTypeError(node.name || node, error);
+      throw new ReturnTypeError(node.type || node.name || node, error);
     }
 
     // Adds all parameters in their respective position
