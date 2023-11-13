@@ -1,5 +1,27 @@
 # @kitajs/cli
 
+## 1.1.21
+
+### Patch Changes
+
+- [#151](https://github.com/kitajs/kitajs/pull/151)
+  [`7419443`](https://github.com/kitajs/kitajs/commit/741944308d67be011ca449e16bdc9f67be087e3e) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Removed command alias
+
+- [#133](https://github.com/kitajs/kitajs/pull/133)
+  [`d7d94de`](https://github.com/kitajs/kitajs/commit/d7d94de3290ae713c3c59f8236a328260ca76568) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Fixed watch mode infinite loop
+
+- [#150](https://github.com/kitajs/kitajs/pull/150)
+  [`e571909`](https://github.com/kitajs/kitajs/commit/e5719094f9c0a81d1db5877f1cc32fe5ba12f218) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Include empty runtime folder
+
+- Updated dependencies [[`e571909`](https://github.com/kitajs/kitajs/commit/e5719094f9c0a81d1db5877f1cc32fe5ba12f218),
+  [`d7d94de`](https://github.com/kitajs/kitajs/commit/d7d94de3290ae713c3c59f8236a328260ca76568)]:
+  - @kitajs/parser@1.1.16
+  - @kitajs/common@1.1.12
+  - @kitajs/generator@1.1.20
+
 ## 1.1.20
 
 ### Patch Changes
