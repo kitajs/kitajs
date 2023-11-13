@@ -95,14 +95,14 @@ export abstract class BaseKitaCommand extends Command {
     }
 
     if (formatter) {
+      if (reset && config) {
+        await this.resetRuntime(config, false);
+      }
+
       ux.action.start(chalk`Generating {cyan @kitajs/runtime}`, '', {
         stdout: true,
         style: 'clock'
       });
-
-      if (reset && config) {
-        await this.resetRuntime(config, false);
-      }
 
       const writeCount = await formatter.flush();
 
