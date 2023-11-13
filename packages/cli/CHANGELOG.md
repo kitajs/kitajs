@@ -1,5 +1,13 @@
 # @kitajs/cli
 
+## 1.1.22
+
+### Patch Changes
+
+- [#153](https://github.com/kitajs/kitajs/pull/153)
+  [`a477375`](https://github.com/kitajs/kitajs/commit/a4773755c2d7c91115dc10e416fb04a2e209bca5) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Correct logs with --reset
+
 ## 1.1.21
 
 ### Patch Changes
