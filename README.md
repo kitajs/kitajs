@@ -56,3 +56,6 @@ Things to document:
 - `keyword: "isFile"` error when multipart ajv plugin is not present.
 
 - Document that kita global root is required.
+
+- Build only dts runtime inside single-thread builds to prevent circular dependencies to messing up return type of
+  routes using another routes.

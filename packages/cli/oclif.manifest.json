@@ -1,7 +1,7 @@
 {
   "commands": {
     "build": {
-      "aliases": ["b"],
+      "aliases": [],
       "args": {},
       "description": "Analyses your backend searching for routes and bakes it into the runtime.",
       "examples": [
@@ -72,7 +72,7 @@
       "relativePath": ["dist", "commands", "build.js"]
     },
     "config": {
-      "aliases": ["c"],
+      "aliases": [],
       "args": {},
       "description": "Prints the full resolved configuration file",
       "examples": [
@@ -120,7 +120,7 @@
       "relativePath": ["dist", "commands", "config.js"]
     },
     "init": {
-      "aliases": ["i"],
+      "aliases": [],
       "args": {},
       "description": "Creates a basic kita.config.js",
       "examples": ["<%= config.bin %> <%= command.id %>"],
@@ -156,7 +156,7 @@
       "relativePath": ["dist", "commands", "init.js"]
     },
     "reset": {
-      "aliases": ["r"],
+      "aliases": [],
       "args": {},
       "description": "Resets your runtime in an attempt to fix any issues.",
       "examples": [
@@ -197,7 +197,7 @@
       "relativePath": ["dist", "commands", "reset.js"]
     },
     "watch": {
-      "aliases": ["w"],
+      "aliases": [],
       "args": {},
       "description": "Watch for changes in your source code and rebuilds the runtime.",
       "examples": [
