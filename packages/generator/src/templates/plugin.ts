@@ -79,16 +79,10 @@ function toSchema(schema: JsonSchema) {
 function toPluginType(plugin: KitaPlugin) {
   return `
     /**
-     * Options for the ${plugin.name} plugin. Use false to disable it manually.
+     * Options for the \`${plugin.name}\` plugin. Use \`false\` to disable it manually.
      * 
-     * Defaults to:
-     * 
-     * \`\`\`ts
-     * ${stringifyOptions(plugin.options)}
-     * \`\`\`
-     *
+     * @default ${stringifyOptions(plugin.options)}
      * @see {@link ${plugin.importUrl}}
      */
-    ${plugin.name}?: Parameters<typeof import("${plugin.importUrl}").default>[1] | false
-  `;
+    ${plugin.name}?: Parameters<typeof import("${plugin.importUrl}").default>[1] | false`;
 }
