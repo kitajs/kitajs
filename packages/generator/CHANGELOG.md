@@ -1,5 +1,13 @@
 # @kitajs/generator
 
+## 1.1.21
+
+### Patch Changes
+
+- [#162](https://github.com/kitajs/kitajs/pull/162)
+  [`8b9cced`](https://github.com/kitajs/kitajs/commit/8b9cced40302c29d23d06414d21bed9585de9e7c) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Fixed types generation on win32
+
 ## 1.1.20
 
 ### Patch Changes
