@@ -54,8 +54,8 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.2.2)
       '@oclif/plugin-plugins':
-        specifier: ^4.1.5
-        version: 4.1.5(typescript@5.2.2)
+        specifier: ^4.1.7
+        version: 4.1.7(typescript@5.2.2)
       '@oclif/plugin-warn-if-update-available':
         specifier: ^2.1.1
         version: 2.1.1(@swc/core@1.3.93)(@types/node@20.9.0)(typescript@5.2.2)
@@ -1163,8 +1163,8 @@ packages:
       - typescript
     dev: false
 
-  /@oclif/plugin-plugins@4.1.5(typescript@5.2.2):
-    resolution: {integrity: sha512-/f+fTZfW4I7QCeNkD744AmLAkzEcAYbheC2lUJ5mWHGCf16ReXm+sN0oDyonzF/KeXbhOq6yKR5cr3LLVYFyvw==}
+  /@oclif/plugin-plugins@4.1.7(typescript@5.2.2):
+    resolution: {integrity: sha512-oIIfveSgCqmjCSATrurYxi83VVkDOoZGDPgw+KYC0ndJ5k9tZJjLXoI0Ol9MMfmhppLChWm2avh1IPDOI785yg==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.11.0(typescript@5.2.2)
