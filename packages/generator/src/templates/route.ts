@@ -2,7 +2,7 @@ import { Parameter, Route, capital, kControllerName, kReplyParam, kRequestParam 
 import stringify from 'json-stable-stringify';
 import path from 'path';
 import { ts } from 'ts-writer';
-import { removeExt, toMaybeRelativeImport } from '../util/path';
+import { escapePath, removeExt, toMaybeRelativeImport } from '../util/path';
 
 export function generateRoute(route: Route, cwd: string, src: string) {
   const returnTypeName = capital(`${route.schema.operationId}Response`);
@@ -38,7 +38,7 @@ export function generateRoute(route: Route, cwd: string, src: string) {
 
   ${ts.types}
 
-  import type * as ${kControllerName} from '${removeExt(path.join(cwd, route.relativePath))}';
+  import type * as ${kControllerName} from '${escapePath(removeExt(path.join(cwd, route.relativePath)))}';
   import type { FastifyRequest, FastifyReply } from 'fastify';
 
   /**
