@@ -1,3 +1,4 @@
+import { JsonSchema } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -228,10 +229,10 @@ describe('Schema Refs generation', async () => {
     });
 
     // the same object as the body
-    const body = kita.getRoute('postIndex')!.schema.body;
+    const body = kita.getRoute('postIndex')?.schema.body;
 
     // $id is defined only for external schemas
-    const responseWithoutId: any = { ...response };
+    const responseWithoutId = Object.assign<Partial<JsonSchema>, unknown>({}, response);
     delete responseWithoutId.$id;
 
     assert.deepStrictEqual(body, responseWithoutId);

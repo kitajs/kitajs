@@ -144,7 +144,7 @@ export async function* traverseProviders<R>(
 export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: ParameterParser, route: Route | null) {
   let parameterIndex = 0;
 
-  let errors: KitaError[] = [];
+  const errors: KitaError[] = [];
 
   for (let index = 0; index < fn.parameters.length; index++) {
     try {

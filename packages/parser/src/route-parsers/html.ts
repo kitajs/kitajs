@@ -64,7 +64,7 @@ export class HtmlRouteParser implements RouteParser {
       relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],
       schema: {
-        operationId: method.toLowerCase() + routeId + 'View',
+        operationId: `${method.toLowerCase() + routeId}View`,
         hide: true,
         response: { [200 as number]: { type: 'string' } }
       }
@@ -97,7 +97,10 @@ export class HtmlRouteParser implements RouteParser {
       })`;
 
       route.imports ??= [];
-      route.imports.push({ name: '{ renderToStream }', path: '@kitajs/html/suspense' });
+      route.imports.push({
+        name: '{ renderToStream }',
+        path: '@kitajs/html/suspense'
+      });
       route.customReturn = `return ${kReplyParam}.type('text/html; charset=utf-8').send(renderToStream(${boundCall}, ${kRequestParam}.id));`;
     } else {
       const handlerCall = `${kControllerName}.${route.controllerMethod}.call(undefined${

@@ -9,7 +9,7 @@ export function post(this: Use<[typeof handler1, typeof handler2, typeof handler
   return 'Hello World!';
 }
 
-export let handler1: RouteMapper = function handler1(config) {
+export const handler1: RouteMapper = function handler1(config) {
   if (!Array.isArray(config.preHandler)) {
     if (config.preHandler) {
       config.preHandler = [config.preHandler];

@@ -28,7 +28,7 @@ describe('Path parameter', async () => {
           required: ['name'],
           additionalProperties: undefined
         },
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'getName'
       }
     });
@@ -51,7 +51,7 @@ describe('Path parameter', async () => {
           required: ['name'],
           additionalProperties: undefined
         },
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'postName'
       }
     });
@@ -74,7 +74,7 @@ describe('Path parameter', async () => {
           required: ['num'],
           additionalProperties: undefined
         },
-        response: { ['2xx']: { type: 'number' } },
+        response: { '2xx': { type: 'number' } },
         operationId: 'getNum'
       }
     });
@@ -97,7 +97,7 @@ describe('Path parameter', async () => {
           required: ['num'],
           additionalProperties: undefined
         },
-        response: { ['2xx']: { type: 'number' } },
+        response: { '2xx': { type: 'number' } },
         operationId: 'postNum'
       }
     });

@@ -7,7 +7,7 @@ export function join<I>(items: I[], mapper: (this: void, t: I) => string, filter
       continue;
     }
 
-    code += mapper(item).trim() + '\n';
+    code += `${mapper(item).trim()}\n`;
   }
 
   return code;

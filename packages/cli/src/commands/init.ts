@@ -7,7 +7,7 @@ import { BaseKitaCommand } from '../util/base';
 export default class Init extends BaseKitaCommand {
   static override description = 'Creates a basic kita.config.js';
 
-  static override examples = [`<%= config.bin %> <%= command.id %>`];
+  static override examples = ['<%= config.bin %> <%= command.id %>'];
 
   async run(): Promise<void> {
     this.printSponsor();

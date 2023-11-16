@@ -5,7 +5,7 @@ export class GeneratedDiagnosticsErrors extends KitaError {
   constructor(diagnostics: readonly ts.Diagnostic[]) {
     super({
       code: 500,
-      messageText: `Generated code was invalid. Please report this issue to the KitaJS team.`,
+      messageText: 'Generated code was invalid. Please report this issue to the KitaJS team.',
       relatedInformation: Array.from(diagnostics)
     });
   }

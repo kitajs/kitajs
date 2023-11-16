@@ -5,7 +5,7 @@ export class MultipleDefinitionsError extends KitaError {
   constructor(readonly typename: string) {
     super({
       code: 400,
-      messageText: `Provided typename has multiple definitions.`
+      messageText: 'Provided typename has multiple definitions.'
     });
   }
 }
@@ -14,7 +14,7 @@ export class BodyInGetRequestError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 401,
-      messageText: `You cannot use any Body dependent code in a GET request.`,
+      messageText: 'You cannot use any Body dependent code in a GET request.',
       node
     });
   }
@@ -89,7 +89,8 @@ export class AgnosticRouteConflictError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 406,
-      messageText: `You cannot use dependent routes within agnostic contexts. You are probably using a method dependent route parameter within a provider.`,
+      messageText:
+        'You cannot use dependent routes within agnostic contexts. You are probably using a method dependent route parameter within a provider.',
       node
     });
   }
@@ -99,7 +100,7 @@ export class JsdocAlreadyDefinedError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 407,
-      messageText: `You are trying to use a JSDoc tag on a node that already had this value explicit set.`,
+      messageText: 'You are trying to use a JSDoc tag on a node that already had this value explicit set.',
       node
     });
   }
@@ -109,7 +110,7 @@ export class QueryMixError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 408,
-      messageText: `You are mixing primitive and deep query types inside the same route.`,
+      messageText: 'You are mixing primitive and deep query types inside the same route.',
       node
     });
   }
@@ -122,7 +123,7 @@ export class InvalidHtmlRoute extends KitaError {
   ) {
     super({
       code: 409,
-      messageText: `You cannot use a non-string return type in a HTML route.`,
+      messageText: 'You cannot use a non-string return type in a HTML route.',
       node
     });
   }
@@ -132,7 +133,8 @@ export class UnknownHttpError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 410,
-      messageText: `Could not resolve a http status code for this error, are you using a method exposed by @fastify/sensible?`,
+      messageText:
+        'Could not resolve a http status code for this error, are you using a method exposed by @fastify/sensible?',
       node
     });
   }
@@ -142,7 +144,7 @@ export class UnknownHttpJsdocError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 411,
-      messageText: `Could not resolve a http status code for this error, please only use @throws <number>`,
+      messageText: 'Could not resolve a http status code for this error, please only use @throws <number>',
       node
     });
   }
@@ -152,7 +154,7 @@ export class FileInGetRequestError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 412,
-      messageText: `You cannot use any File and SavedFile in a GET request.`,
+      messageText: 'You cannot use any File and SavedFile in a GET request.',
       node
     });
   }

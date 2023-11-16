@@ -7,7 +7,7 @@ export default class Config extends BaseKitaCommand {
 
   static override examples = [
     {
-      command: `<%= config.bin %> <%= command.id %> -c kita.config.js`,
+      command: '<%= config.bin %> <%= command.id %> -c kita.config.js',
       description: 'Builds your backend with a custom config file.'
     }
   ];
@@ -28,7 +28,7 @@ export default class Config extends BaseKitaCommand {
     //@ts-expect-error - Just to allow the compilerOptions to be printed
     config.compilerOptions = compilerOptions;
     //@ts-expect-error - Just to allow the compilerOptions to be pretty printed
-    delete compilerOptions.rootNames;
+    compilerOptions.rootNames = undefined;
 
     if (flags.raw || !process.stdout.isTTY) {
       this.log(JSON.stringify(config, null, 2));

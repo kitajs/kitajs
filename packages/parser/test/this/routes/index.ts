@@ -8,14 +8,14 @@ export function post(this: Use<[typeof test, typeof test2, typeof test3]>) {
   return 'Hello World!';
 }
 
-export let test: RouteMapper = function (config) {
+export const test: RouteMapper = function (config) {
   return config;
 };
 
-export let test2: RouteMapper = function (config) {
+export const test2: RouteMapper = function (config) {
   return config;
 };
 
-export let test3: RouteMapper = function (config) {
+export const test3: RouteMapper = function (config) {
   return config;
 };

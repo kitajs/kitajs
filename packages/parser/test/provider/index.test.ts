@@ -19,7 +19,10 @@ describe('Providers', async () => {
       controllerMethod: 'get',
       method: 'GET',
       relativePath: cwdRelative('routes/index.ts'),
-      schema: { response: { ['2xx']: { type: 'number', const: 1 } }, operationId: 'getIndex' },
+      schema: {
+        response: { '2xx': { type: 'number', const: 1 } },
+        operationId: 'getIndex'
+      },
       kind: 'rest',
       parameters: [
         {
@@ -47,7 +50,12 @@ describe('Providers', async () => {
         {
           value: 'param0',
           name: 'ProviderParameterParser',
-          imports: [{ name: 'Resolver0', path: cwdRelative('providers/transformer.ts') }],
+          imports: [
+            {
+              name: 'Resolver0',
+              path: cwdRelative('providers/transformer.ts')
+            }
+          ],
           helper: 'const param0 = await Resolver0.default();',
           providerName: 'Resolver0',
           schemaTransformer: true

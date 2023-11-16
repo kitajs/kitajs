@@ -43,7 +43,7 @@ describe('Cookies', async () => {
         }
       ],
       schema: {
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'getIndex'
       }
     });
@@ -59,17 +59,29 @@ describe('Cookies', async () => {
       relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [
-        { name: 'CookieParameterParser', value: 'req.cookies.a', helper: undefined },
-        { name: 'CookieParameterParser', value: 'req.cookies.b', helper: undefined },
+        {
+          name: 'CookieParameterParser',
+          value: 'req.cookies.a',
+          helper: undefined
+        },
+        {
+          name: 'CookieParameterParser',
+          value: 'req.cookies.b',
+          helper: undefined
+        },
         {
           name: 'CookieParameterParser',
           value: 'req.cookies.c',
           helper: "if (req.cookies.c === undefined) { throw new Error('Missing cookie c') };"
         },
-        { name: 'CookieParameterParser', value: 'req.cookies.d', helper: undefined }
+        {
+          name: 'CookieParameterParser',
+          value: 'req.cookies.d',
+          helper: undefined
+        }
       ],
       schema: {
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'postIndex'
       }
     });

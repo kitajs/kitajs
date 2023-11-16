@@ -3,14 +3,11 @@ import { Suspense } from '@kitajs/html/suspense';
 import { SuspenseId } from '@kitajs/runtime';
 
 export function get(id: SuspenseId) {
-  return (
-    '<!doctype html>' +
-    (
-      <Suspense rid={id} fallback={<div>fallback</div>}>
-        Hello World
-      </Suspense>
-    )
-  );
+  return `<!doctype html>${(
+    <Suspense rid={id} fallback={<div>fallback</div>}>
+      Hello World
+    </Suspense>
+  )}`;
 }
 
 export function post() {

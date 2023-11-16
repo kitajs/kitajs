@@ -30,8 +30,8 @@ export abstract class BaseKitaCommand extends Command {
     })
   };
 
-  protected parseConfig(flags: Record<string, any>, extension?: PartialKitaConfig) {
-    const config = readConfig(flags.cwd ?? process.cwd(), this.error, flags.config, extension);
+  protected parseConfig(flags: Record<string, unknown>, extension?: PartialKitaConfig) {
+    const config = readConfig(String(flags.cwd) ?? process.cwd(), this.error, String(flags.config), extension);
 
     return {
       config,
@@ -114,7 +114,7 @@ export abstract class BaseKitaCommand extends Command {
     return diagnostics;
   }
 
-  protected override catch(error: CommandError): Promise<any> {
+  protected override async catch(error: CommandError) {
     // Pretty handle kita errors
     if (error instanceof KitaError) {
       this.logToStderr(formatDiagnostic([error.diagnostic]));

@@ -3,4 +3,4 @@ import type { Provider } from '../ast';
 import { Parser } from './parser';
 
 /** A route parser is responsible for parsing a node into a route. */
-export interface ProviderParser extends Parser<ts.SourceFile, Provider> {}
+export type ProviderParser = Parser<ts.SourceFile, Provider>;

@@ -9,17 +9,17 @@ export default class Build extends BaseKitaCommand {
 
   static override examples = [
     {
-      command: `<%= config.bin %> <%= command.id %> -c kita.config.js`,
+      command: '<%= config.bin %> <%= command.id %> -c kita.config.js',
       description: 'Builds your backend with a custom config file.'
     },
     {
-      command: `<%= config.bin %> <%= command.id %> -d`,
+      command: '<%= config.bin %> <%= command.id %> -d',
       description: 'Fast checks your backend for errors without generating the runtime.'
     }
   ];
 
   static override flags = {
-    ['dry-run']: Flags.boolean({
+    'dry-run': Flags.boolean({
       char: 'd',
       description: 'Skips generation process and only type-checks your files.',
       default: false,
@@ -47,7 +47,9 @@ export default class Build extends BaseKitaCommand {
 
     const { flags } = await this.parse(Build);
 
-    const { config, compilerOptions } = this.parseConfig(flags, { declaration: flags.dts });
+    const { config, compilerOptions } = this.parseConfig(flags, {
+      declaration: flags.dts
+    });
 
     ux.action.start('Warming up', '', {
       stdout: true,

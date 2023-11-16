@@ -7,7 +7,7 @@ export default function (
   request: FastifyRequest,
   params: ProviderGenerics<[number]>,
   instance: FastifyInstance
-): GenericTest<any> {
+): GenericTest<number> {
   return [request.id, params[0], instance.version];
 }
 

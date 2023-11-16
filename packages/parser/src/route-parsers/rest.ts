@@ -54,7 +54,7 @@ export class RestRouteParser implements RouteParser {
           mode: 'dynamic',
           openapi: { openapi: '3.1.0' },
           refResolver: {
-            _raw: `{ buildLocalReference(json, _, __, i) { return json.$id || json.$title || json.name || \`def-\${i}\` } }`
+            _raw: '{ buildLocalReference(json, _, __, i) { return json.$id || json.$title || json.name || `def-${i}` } }'
           }
         }
       });

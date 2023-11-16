@@ -22,14 +22,30 @@ describe('Http Errors', async () => {
     assert.equal(res.statusCode, 200);
     assert.equal(res.body, 'Success!');
 
-    const res1 = await app.inject({ method: 'GET', url: '/', query: { num: '1' } });
+    const res1 = await app.inject({
+      method: 'GET',
+      url: '/',
+      query: { num: '1' }
+    });
 
     assert.equal(res1.statusCode, 400);
-    assert.deepStrictEqual(res1.json(), { statusCode: 400, error: 'Bad Request', message: 'Error 1!' });
+    assert.deepStrictEqual(res1.json(), {
+      statusCode: 400,
+      error: 'Bad Request',
+      message: 'Error 1!'
+    });
 
-    const res2 = await app.inject({ method: 'GET', url: '/', query: { num: '2' } });
+    const res2 = await app.inject({
+      method: 'GET',
+      url: '/',
+      query: { num: '2' }
+    });
 
     assert.equal(res2.statusCode, 500);
-    assert.deepStrictEqual(res2.json(), { statusCode: 500, error: 'Internal Server Error', message: 'Error 2!' });
+    assert.deepStrictEqual(res2.json(), {
+      statusCode: 500,
+      error: 'Internal Server Error',
+      message: 'Error 2!'
+    });
   });
 });

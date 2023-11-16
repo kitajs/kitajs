@@ -18,17 +18,17 @@ export function isRelative(p: string) {
 }
 
 /* Returns an already quoted import-ready string */
-export function toMaybeRelativeImport(imp: string, cwd: string, src: string) {
-  imp = removeExt(imp);
+export function toMaybeRelativeImport(imp: string, cwdSrcRelativity: string) {
+  const withoutExt = removeExt(imp);
 
-  const relative = isRelative(imp);
+  const relative = isRelative(withoutExt);
 
   if (!relative) {
-    return `'${escapePath(imp)}'`;
+    return `'${escapePath(withoutExt)}'`;
   }
 
   // Removes source folder from path, as it will be contained in the `KITA_GLOBAL_ROOT` variable
-  return `\`\${${kKitaGlobalRoot}}${escapePath(path.sep + path.relative(path.relative(cwd, src), imp))}\``;
+  return `\`\${${kKitaGlobalRoot}}${escapePath(path.sep + path.relative(cwdSrcRelativity, withoutExt))}\``;
 }
 
 /** Removes the extension from a path, if present. */

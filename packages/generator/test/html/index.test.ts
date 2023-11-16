@@ -1,9 +1,9 @@
 import test, { describe } from 'node:test';
 import { createApp, generateRuntime } from '../runner';
 
+import assert from 'assert';
 //@ts-ignore - first test may not have been run yet
 import { SuspenseScript } from '@kitajs/html/suspense';
-import assert from 'assert';
 import type Runtime from './runtime';
 
 describe('Html routes', async () => {
@@ -34,7 +34,7 @@ describe('Html routes', async () => {
 
     assert.equal(res.statusCode, 200);
     assert.equal(res.headers['content-type'], 'text/html; charset=utf-8');
-    assert.equal(res.body, `<div>Hello World 1</div>`);
+    assert.equal(res.body, '<div>Hello World 1</div>');
   });
 
   test('async html works', async () => {
@@ -44,6 +44,6 @@ describe('Html routes', async () => {
 
     assert.equal(res.statusCode, 200);
     assert.equal(res.headers['content-type'], 'text/html; charset=utf-8');
-    assert.equal(res.body, `<div>Hello World 2</div>`);
+    assert.equal(res.body, '<div>Hello World 2</div>');
   });
 });

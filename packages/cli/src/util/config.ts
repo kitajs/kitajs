@@ -35,7 +35,7 @@ export function readConfig(
   const cfg = require(configPath);
 
   if (typeof cfg !== 'object') {
-    error(`Config file must export an object.`);
+    error('Config file must export an object.');
   }
 
   const config =

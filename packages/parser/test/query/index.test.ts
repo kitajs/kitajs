@@ -41,7 +41,7 @@ describe('Query Parameter', async () => {
           required: ['name', 'age', 'custom name', 'date', 'arr'],
           type: 'object'
         },
-        response: { ['2xx']: { type: 'string' } }
+        response: { '2xx': { type: 'string' } }
       }
     });
   });
@@ -59,7 +59,7 @@ describe('Query Parameter', async () => {
       schema: {
         operationId: 'getComplex',
         querystring: { $ref: 'Complex' },
-        response: { ['2xx']: { type: 'number' } }
+        response: { '2xx': { type: 'number' } }
       }
     });
 
