@@ -31,7 +31,7 @@ export function parseUrl(filepath: string, config: KitaConfig) {
 
   return {
     // Adds leading slash
-    url: '/' + url,
+    url: `/${url}`,
 
     // Camel case paths or dash case paths
     routeId:

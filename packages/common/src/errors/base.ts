@@ -53,7 +53,7 @@ export abstract class KitaError extends Error {
       diagnostic.start = diagnostic.node.getStart();
       diagnostic.length = diagnostic.node.getWidth();
 
-      delete diagnostic.node;
+      diagnostic.node = undefined;
     }
 
     // @ts-expect-error - TODO: Should we keep as string or do some maths to get

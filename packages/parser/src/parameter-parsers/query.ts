@@ -42,7 +42,9 @@ export class QueryParameterParser implements ParameterParser {
       mergeSchema(route, {
         querystring: {
           type: 'object',
-          properties: { [name]: this.schemaBuilder.formatDefinition(primitiveType) },
+          properties: {
+            [name]: this.schemaBuilder.formatDefinition(primitiveType)
+          },
           required: optional ? [] : [name],
           additionalProperties: this.config.generatorConfig.additionalProperties
         }

@@ -5,14 +5,12 @@ const array = [1, 2, 3];
 
 export async function get(MYerRORnAMe: HttpErrors) {
   if (maybe) {
-    // 503
-    throw MYerRORnAMe.serviceUnavailable();
+    throw MYerRORnAMe.serviceUnavailable(); // 503
   }
 
   array.filter((item) => {
     if (item > 4) {
-      // 502
-      throw MYerRORnAMe.badGateway('Error!');
+      throw MYerRORnAMe.badGateway('Error!'); // 502
     }
   });
 
@@ -34,40 +32,39 @@ export async function get(MYerRORnAMe: HttpErrors) {
     //@ts-ignore
     function a() {
       //@ts-ignore
-      function a() {
+      function c() {
         //@ts-ignore
-        function a() {
+        function d() {
           //@ts-ignore
-          function a() {
+          function e() {
             //@ts-ignore
-            function a() {
+            function f() {
               //@ts-ignore
-              function a() {
+              function g() {
                 //@ts-ignore
-                function a() {
+                function h() {
                   //@ts-ignore
-                  function a() {
+                  function i() {
                     //@ts-ignore
-                    function a() {}
+                    function j() {}
                   }
                 }
               }
             }
           }
           //@ts-ignore
-          function a() {
+          function k() {
             //@ts-ignore
-            function a() {
+            function l() {
               //@ts-ignore
-              function a() {
+              function m() {
                 //@ts-ignore
-                function a() {
+                function n() {
                   //@ts-ignore
-                  function a() {
+                  function o() {
                     //@ts-ignore
-                    function a() {
-                      // 424
-                      throw MYerRORnAMe.failedDependency('Error!');
+                    function p() {
+                      throw MYerRORnAMe.failedDependency('Error!'); // 424
                     }
                   }
                 }
@@ -81,9 +78,8 @@ export async function get(MYerRORnAMe: HttpErrors) {
 
   return { hello: 'world' };
 
-  // 409
   //@ts-ignore - never executes
-  throw MYerRORnAMe.conflict('Error!');
+  throw MYerRORnAMe.conflict('Error!'); //409
 }
 
 /**

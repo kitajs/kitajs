@@ -25,17 +25,13 @@ export interface KitaPlugin {
 }
 
 export function stringifyOptions(options: KitaPlugin['options']): string {
-  return (
-    '{ ' +
-    Object.entries(options)
-      .map(([key, value]) => {
-        if (typeof value === 'object' && value && '_raw' in value) {
-          return `${key}: ${value._raw}`;
-        }
+  return `{ ${Object.entries(options)
+    .map(([key, value]) => {
+      if (typeof value === 'object' && value && '_raw' in value) {
+        return `${key}: ${value._raw}`;
+      }
 
-        return `${key}: ${JSON.stringify(value)}`;
-      })
-      .join(', ') +
-    ' }'
-  );
+      return `${key}: ${JSON.stringify(value)}`;
+    })
+    .join(', ')} }`;
 }

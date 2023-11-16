@@ -24,7 +24,7 @@ describe('JSDoc usage on route', async () => {
       schema: {
         summary: 'C',
         tags: ['A', 'B'],
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'hello-world',
         description: 'D'
       }
@@ -43,7 +43,7 @@ describe('JSDoc usage on route', async () => {
       parameters: [],
       schema: {
         description: 'B',
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'postIndex'
       }
     });
@@ -60,7 +60,7 @@ describe('JSDoc usage on route', async () => {
       kind: 'rest',
       parameters: [],
       schema: {
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'deleteIndex',
         deprecated: true,
         description: undefined
@@ -79,7 +79,7 @@ describe('JSDoc usage on route', async () => {
       kind: 'rest',
       parameters: [],
       schema: {
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'putIndex',
         hide: true
       }

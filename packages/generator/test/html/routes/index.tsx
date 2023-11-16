@@ -5,12 +5,9 @@ import { setTimeout } from 'node:timers/promises';
 
 export async function get(id: SuspenseId) {
   return (
-    '<!doctype html>' +
-    (
-      <Suspense rid={id} fallback={<div>fallback</div>}>
-        {setTimeout(100, 'Hello World')}
-      </Suspense>
-    )
+    <Suspense rid={id} fallback={<div>fallback</div>}>
+      {setTimeout(100, 'Hello World')}
+    </Suspense>
   );
 }
 

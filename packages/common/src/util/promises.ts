@@ -9,7 +9,7 @@ export function predicateRace<
   let resolved = 0;
   let promise: Promisable<boolean>;
 
-  return new Promise((resolve, reject) => {
+  return new Promise(function predicatePromise(resolve, reject) {
     for (const resolver of resolvers) {
       promise = resolver[callKey](...args);
 
@@ -18,7 +18,7 @@ export function predicateRace<
       }
 
       promise.then(
-        (result) => {
+        function resolvePredicate(result) {
           // Promise was resolved before
           if (resolved >= maxTries) {
             return;
@@ -42,7 +42,7 @@ export function predicateRace<
             return resolve(false);
           }
         },
-        (error) => {
+        function handlePredicateError(error) {
           // Marks all other resolvers as resolved (so we can ignore their results)
           resolved = maxTries;
 

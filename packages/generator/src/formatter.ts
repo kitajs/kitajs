@@ -12,7 +12,7 @@ export class KitaFormatter implements SourceFormatter {
   constructor(readonly config: KitaConfig) {}
 
   generateRoute(route: Route) {
-    this.files.push(generateRoute(route, this.config.cwd, this.config.src));
+    this.files.push(generateRoute(route, this.config.cwd, path.relative(this.config.cwd, this.config.src)));
   }
 
   generateRuntime(collector: AstCollector) {
@@ -33,7 +33,11 @@ export class KitaFormatter implements SourceFormatter {
     // Make sure all directories exists
     const dirs = files.map((f) => path.dirname(f.filename)).filter((v, i, a) => a.indexOf(v) === i);
     await Promise.all(
-      dirs.map((dir) => fs.promises.mkdir(path.join(this.config.runtimePath, dir), { recursive: true }))
+      dirs.map((dir) =>
+        fs.promises.mkdir(path.join(this.config.runtimePath, dir), {
+          recursive: true
+        })
+      )
     );
 
     // Write all files

@@ -7,7 +7,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
   // Base description
   {
     //@ts-expect-error - TODO: Improve jsdoc parsing
-    let description = fn.jsDoc?.[0]?.comment;
+    const description = fn.jsDoc?.[0]?.comment;
 
     if (description) {
       mergeSchema(route, {
@@ -22,7 +22,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
     const value = typeof tag.comment === 'string' ? tag.comment.trim() : ts.getTextOfJSDocComment(tag.comment)?.trim();
 
     switch (name) {
-      case 'security':
+      case 'security': {
         if (!value) {
           throw new EmptyJsdocError(tag.tagName || tag);
         }
@@ -38,6 +38,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
         });
 
         break;
+      }
 
       case 'tag':
         if (!value) {
@@ -58,7 +59,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
         const numbers = value.split(',').map(Number);
 
         for (const number of numbers) {
-          if (isNaN(number)) {
+          if (Number.isNaN(number)) {
             throw new UnknownHttpJsdocError(tag.tagName || tag);
           }
 

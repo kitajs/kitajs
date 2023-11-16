@@ -61,7 +61,7 @@ export interface KitaConfig {
    * @env `KITA_RESPONSES` - The environment variable to override this setting as **json**.
    */
   responses: {
-    [key: string | number]: any;
+    [key: string | number]: unknown;
   };
 
   /** Use this callback to include new parameter parsers. */

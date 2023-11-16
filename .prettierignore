@@ -1,8 +1,8 @@
 dist
 node_modules
-packages/generator/templates
 coverage
-
-# This file should be ignore by prettier-jsdoc
-packages/parser/test/jsdoc/routes/index.ts
+packages/generator/test/**/runtime
 pnpm-lock.yaml
+
+# This file should be ignored by prettier-jsdoc
+packages/parser/test/jsdoc/routes/index.ts

@@ -4,18 +4,18 @@ import path from 'path';
 import { ts } from 'ts-writer';
 import { escapePath, removeExt, toMaybeRelativeImport } from '../util/path';
 
-export function generateRoute(route: Route, cwd: string, src: string) {
+export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: string) {
   const returnTypeName = capital(`${route.schema.operationId}Response`);
 
   return ts`${`routes/${route.schema.operationId}`}
   'use strict';
 
-  const ${kControllerName} = require(${toMaybeRelativeImport(route.relativePath, cwd, src)});
+  const ${kControllerName} = require(${toMaybeRelativeImport(route.relativePath, cwdSrcRelativity)});
 
-  ${route.imports?.map((r) => `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwd, src)});`)}
+  ${route.imports?.map((r) => `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwdSrcRelativity)});`)}
   ${route.parameters
     .flatMap((p) => p.imports)
-    .map((r) => (r ? `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwd, src)});` : null))}
+    .map((r) => (r ? `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwdSrcRelativity)});` : null))}
   
   exports.${route.schema.operationId} = ${kControllerName}.${route.controllerMethod}.bind(null);
   

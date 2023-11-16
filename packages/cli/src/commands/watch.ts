@@ -10,11 +10,11 @@ export default class Watch extends BaseKitaCommand {
 
   static override examples = [
     {
-      command: `<%= config.bin %> <%= command.id %> -c kita.config.js`,
+      command: '<%= config.bin %> <%= command.id %> -c kita.config.js',
       description: 'Watches your source with a custom config file.'
     },
     {
-      command: `<%= config.bin %> <%= command.id %> -d`,
+      command: '<%= config.bin %> <%= command.id %> -d',
       description: 'Watches your source and only emits errors.'
     }
   ];

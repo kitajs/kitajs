@@ -44,6 +44,6 @@ export async function generateRuntime<R extends { ready: Promise<void> }>(
 
 export function createApp<R>(runtime: R, opts?: FastifyHttpOptions<any, any>) {
   const app = fastify(opts);
-  app.register((runtime as any).Kita);
+  app.register((runtime as { Kita: () => void }).Kita);
   return app;
 }

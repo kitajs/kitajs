@@ -81,9 +81,9 @@ export function getReturnType(node: ts.SignatureDeclaration, typeChecker: ts.Typ
 }
 
 /** Returns true if the provided node is a exported function. */
-export function isExportedFunction(
-  node: ts.Node
-): node is ts.FunctionDeclaration & { modifiers: ts.NodeArray<ts.ModifierLike> } {
+export function isExportedFunction(node: ts.Node): node is ts.FunctionDeclaration & {
+  modifiers: ts.NodeArray<ts.ModifierLike>;
+} {
   return (
     // Is a function type
     ts.isFunctionDeclaration(node) &&
@@ -108,9 +108,9 @@ export function isExportedVariable(
 }
 
 /** Returns true if the provided node is a default exported function. */
-export function isDefaultExportFunction(
-  node: ts.Node
-): node is ts.FunctionDeclaration & { modifiers: ts.NodeArray<ts.ModifierLike> } {
+export function isDefaultExportFunction(node: ts.Node): node is ts.FunctionDeclaration & {
+  modifiers: ts.NodeArray<ts.ModifierLike>;
+} {
   return (
     isExportedFunction(node) &&
     // `default` modifier needs to be present

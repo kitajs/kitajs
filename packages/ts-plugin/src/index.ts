@@ -44,7 +44,7 @@ export = function initHtmlPlugin() {
           // Lazy load the parser
           if (!config) {
             // ts typescript will return the path with / on windows
-            let root = path.normalize(program.getCurrentDirectory());
+            const root = path.normalize(program.getCurrentDirectory());
 
             try {
               config = importConfig(path.join(root, 'kita.config.js'));

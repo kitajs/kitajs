@@ -5,7 +5,7 @@ export default class Reset extends BaseKitaCommand {
 
   static override examples = [
     {
-      command: `<%= config.bin %> <%= command.id %>`,
+      command: '<%= config.bin %> <%= command.id %>',
       description: 'Resets your runtime'
     }
   ];

@@ -26,7 +26,10 @@ describe('Header Parameter', async () => {
         parameters: [
           { name: 'HeaderParameterParser', value: 'req.headers.name' },
           { name: 'HeaderParameterParser', value: 'req.headers.age' },
-          { name: 'HeaderParameterParser', value: 'req.headers["custom name"]' }
+          {
+            name: 'HeaderParameterParser',
+            value: 'req.headers["custom name"]'
+          }
         ],
         schema: {
           headers: {
@@ -39,7 +42,7 @@ describe('Header Parameter', async () => {
             required: ['name', 'age'],
             additionalProperties: undefined
           },
-          response: { ['2xx']: { type: 'string' } },
+          response: { '2xx': { type: 'string' } },
           operationId: 'getIndex'
         }
       }

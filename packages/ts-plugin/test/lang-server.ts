@@ -39,9 +39,7 @@ export class TSLangServer {
   }
 
   public send(command: Omit<Requests, 'seq' | 'type'>) {
-    const seq = ++this.sequence;
-    const req = JSON.stringify(Object.assign({ seq: seq, type: 'request' }, command)) + '\n';
-    this.server.stdin!.write(req);
+    this.server.stdin!.write(`${JSON.stringify(Object.assign({ seq: ++this.sequence, type: 'request' }, command))}\n`);
   }
 
   [Symbol.asyncDispose]() {
@@ -53,11 +51,11 @@ export class TSLangServer {
     return this.exitPromise;
   }
 
-  waitEvent(eventName: string): Promise<any> {
+  waitEvent(eventName: string) {
     return new Promise((res) => this.responseEventEmitter.once(eventName, res));
   }
 
-  waitResponse(commandName: string): Promise<any> {
+  waitResponse(commandName: string) {
     return new Promise((res) => this.responseCommandEmitter.once(commandName, res));
   }
 }

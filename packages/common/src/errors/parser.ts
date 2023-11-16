@@ -67,7 +67,7 @@ export class UntypedProviderError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 306,
-      messageText: `The provider default export needs to have a explicit return type declared.`,
+      messageText: 'The provider default export needs to have a explicit return type declared.',
       node
     });
   }
@@ -77,7 +77,7 @@ export class EmptyJsdocError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 307,
-      messageText: `You forgot to provide a value for this JSDoc tag.`,
+      messageText: 'You forgot to provide a value for this JSDoc tag.',
       node
     });
   }
@@ -87,7 +87,7 @@ export class ProviderResolverNotFound extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 308,
-      messageText: `Could not find a provider resolver for this function.`,
+      messageText: 'Could not find a provider resolver for this function.',
       node
     });
   }
@@ -97,7 +97,7 @@ export class WronglyTypedProviderError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 309,
-      messageText: `The provider function resolver return type must be a type reference, no other types are allowed.`,
+      messageText: 'The provider function resolver return type must be a type reference, no other types are allowed.',
       node
     });
   }
@@ -130,7 +130,8 @@ export class RouteMapperNotExportedError extends KitaError {
   constructor(node: ts.Node) {
     super({
       code: 312,
-      messageText: `You are using a route mapper inside a \`this: Use<>\` parameter, but the mapper is not exported in the same file.`,
+      messageText:
+        'You are using a route mapper inside a `this: Use<>` parameter, but the mapper is not exported in the same file.',
       node
     });
   }
@@ -140,7 +141,7 @@ export class RouteParameterMultipleErrors extends KitaError {
   constructor(node: ts.Node, errors: KitaError[]) {
     super({
       code: 313,
-      messageText: `Multiple errors were found while parsing this route.`,
+      messageText: 'Multiple errors were found while parsing this route.',
       node,
       relatedInformation: errors.map((e) => e.diagnostic)
     });

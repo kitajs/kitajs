@@ -8,7 +8,7 @@ export const kReplyParam = 'reply';
 export const kFastifyParam = `${kRequestParam}.server`;
 
 /** The name of the fastify variable */
-export const kFastifyVariable = `fastify`;
+export const kFastifyVariable = 'fastify';
 
 /** The name of the transformSchema function */
 export const kTransformSchema = 'transformSchema';
@@ -20,10 +20,10 @@ export const kKitaOptions = 'options';
 export const kControllerName = 'Controller';
 
 /** The name of the root kita options. */
-export const kOptionsRoot = `root`;
+export const kOptionsRoot = 'root';
 
 /** The name of the root kita options. */
-export const kKitaRoot = `KITA_PROJECT_ROOT`;
+export const kKitaRoot = 'KITA_PROJECT_ROOT';
 
 /** The name of the root property kita will assign to `globalThis` */
 export const kKitaGlobalRoot = `globalThis.${kKitaRoot}`;

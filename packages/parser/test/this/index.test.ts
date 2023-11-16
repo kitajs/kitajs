@@ -23,7 +23,7 @@ describe('This & Use usage', async () => {
       kind: 'rest',
       parameters: [],
       schema: {
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'getIndex'
       },
       options: `${kControllerName}.test2($1)`
@@ -41,7 +41,7 @@ describe('This & Use usage', async () => {
       kind: 'rest',
       parameters: [],
       schema: {
-        response: { ['2xx']: { type: 'string' } },
+        response: { '2xx': { type: 'string' } },
         operationId: 'postIndex'
       },
       options: `${kControllerName}.test3(${kControllerName}.test2(${kControllerName}.test($1)))`
