@@ -1,5 +1,13 @@
 # @kitajs/generator
 
+## 1.1.22
+
+### Patch Changes
+
+- [#172](https://github.com/kitajs/kitajs/pull/172)
+  [`b367a8e`](https://github.com/kitajs/kitajs/commit/b367a8e3bbbef63e0e0b98ac63e680f7b5cf17d8) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Support for all-methods http route
+
 ## 1.1.21
 
 ### Patch Changes
