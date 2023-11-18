@@ -32,6 +32,8 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
     }
   }
 
+  ${route.method === 'ALL' ? `const { supportedMethods } = require('fastify/lib/httpMethods');` : ''}
+
   exports.${route.schema.operationId}Options = ${toOptions(route)};  
 
   exports.__esModule = true;
@@ -66,7 +68,7 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
 export function toOptions(r: Route) {
   const handler = `{
     url: '${r.url}',
-    method: '${r.method}',
+    method: ${r.method === 'ALL' ? 'supportedMethods' : `'${r.method}'`},
     handler: exports.${r.schema.operationId}Handler,
     schema: ${toReplacedSchema(r)},
  }`;
