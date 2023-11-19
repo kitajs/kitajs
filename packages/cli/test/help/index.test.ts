@@ -3,8 +3,8 @@ import { spawnSync } from 'node:child_process';
 import { it } from 'node:test';
 import { KITA_BIN } from '../constants';
 
-it('Prints Help Text', async () => {
-  const cmd = await spawnSync(KITA_BIN, ['--help'], {
+it('Prints Help Text', () => {
+  const cmd = spawnSync(KITA_BIN, ['--help'], {
     cwd: __dirname,
     env: process.env,
     encoding: 'utf-8'

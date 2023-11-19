@@ -4,8 +4,8 @@ import path from 'node:path';
 import { it } from 'node:test';
 import { KITA_BIN } from '../constants';
 
-it('Prints overridden config', async () => {
-  const cmd = await spawnSync(KITA_BIN, ['config'], {
+it('Prints overridden config', () => {
+  const cmd = spawnSync(KITA_BIN, ['config'], {
     cwd: __dirname,
     stdio: 'pipe',
     encoding: 'utf-8',

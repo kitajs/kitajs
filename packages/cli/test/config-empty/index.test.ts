@@ -3,8 +3,8 @@ import { spawnSync } from 'node:child_process';
 import { it } from 'node:test';
 import { KITA_BIN } from '../constants';
 
-it('Prints default config', async () => {
-  const cmd = await spawnSync(KITA_BIN, ['config'], {
+it('Prints default config', () => {
+  const cmd = spawnSync(KITA_BIN, ['config'], {
     cwd: __dirname,
     stdio: 'pipe',
     encoding: 'utf-8',

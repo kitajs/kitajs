@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita b`](#kita-b)
   - [`kita build`](#kita-build)
@@ -79,7 +79,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version|-v)
-@kitajs/cli/1.1.23 linux-x64 node-v20.9.0
+@kitajs/cli/1.1.24 linux-x64 node-v20.9.0
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
@@ -174,7 +174,7 @@ EXAMPLES
     $ kita build -d
 ```
 
-_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.23/src/commands/build.ts)_
+_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/build.ts)_
 
 ## `kita config`
 
@@ -200,7 +200,7 @@ EXAMPLES
     $ kita config -c kita.config.js
 ```
 
-_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.23/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/config.ts)_
 
 ## `kita help [COMMANDS]`
 
@@ -241,7 +241,7 @@ EXAMPLES
   $ kita init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.23/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/init.ts)_
 
 ## `kita plugins`
 
@@ -540,7 +540,7 @@ EXAMPLES
     $ kita reset
 ```
 
-_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.23/src/commands/reset.ts)_
+_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/reset.ts)_
 
 ## `kita watch`
 
@@ -575,7 +575,7 @@ EXAMPLES
     $ kita watch -d
 ```
 
-_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.23/src/commands/watch.ts)_
+_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/watch.ts)_
 
 <!-- commandsstop -->
 
