@@ -24,7 +24,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "test": "tsc --noEmit"
+    "test": "c8 --reporter lcov --reporter text node --test test/**/*.test.js && tsc --noEmit"
   },
   "dependencies": {
     "@fastify/multipart": "^8.0.0",
@@ -35,6 +35,9 @@
     "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.7.1"
+  },
+  "devDependencies": {
+    "c8": "^8.0.1"
   },
   "peerDependencies": {
     "fastify": "^4.24.3"
