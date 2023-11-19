@@ -1,5 +1,13 @@
 # @kitajs/common
 
+## 1.1.13
+
+### Patch Changes
+
+- [#174](https://github.com/kitajs/kitajs/pull/174)
+  [`5f11bba`](https://github.com/kitajs/kitajs/commit/5f11bbae5fd755efc6953c47ddd494c45358954e) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Fixed CLI build
+
 ## 1.1.12
 
 ### Patch Changes
