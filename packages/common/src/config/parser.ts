@@ -6,9 +6,9 @@ import { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
 export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()): KitaConfig {
-  const cwd = env('cwd') ?? config.cwd ?? root;
+  const cwd = env('cwd', String) ?? config.cwd ?? root;
 
-  const src = env('src') ?? config.src ?? 'src';
+  const src = env('src', String) ?? config.src ?? 'src';
 
   if (typeof src !== 'string') {
     throw new InvalidConfigError(
@@ -17,7 +17,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  let runtimePath = env('runtime_path') ?? config.runtimePath;
+  let runtimePath = env('runtime_path', String) ?? config.runtimePath;
 
   if (!runtimePath) {
     try {
@@ -49,7 +49,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const declaration = env('declaration') ?? config.declaration ?? true;
+  const declaration = env('declaration', Boolean) ?? config.declaration ?? true;
 
   if (typeof declaration !== 'boolean') {
     throw new InvalidConfigError(
@@ -58,7 +58,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const responses = env('responses') ?? config.responses ?? {};
+  const responses = env('responses', JSON.parse) ?? config.responses ?? {};
 
   if (typeof responses !== 'object') {
     throw new InvalidConfigError(
@@ -67,14 +67,17 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const generatorConfig = deepmerge<KitaGeneratorConfig>(env('generator_config') ?? config.generatorConfig, {
-    encodeRefs: false,
-    sortProps: true,
-    strictTuples: true,
-    jsDoc: 'extended',
-    parsers: [],
-    formatters: []
-  });
+  const generatorConfig = deepmerge<KitaGeneratorConfig>(
+    env('generator_config', JSON.parse) ?? config.generatorConfig,
+    {
+      encodeRefs: false,
+      sortProps: true,
+      strictTuples: true,
+      jsDoc: 'extended',
+      parsers: [],
+      formatters: []
+    }
+  );
 
   if (typeof generatorConfig !== 'object') {
     throw new InvalidConfigError(
@@ -85,7 +88,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const tsconfig = path.resolve(cwd, env('cwd') ?? config.tsconfig ?? 'tsconfig.json');
+  const tsconfig = path.resolve(cwd, env('cwd', String) ?? config.tsconfig ?? 'tsconfig.json');
 
   if (!fs.existsSync(tsconfig)) {
     throw new InvalidConfigError(
@@ -94,7 +97,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const watchIgnore = env('watch_ignore') ??
+  const watchIgnore = env('watch_ignore', (x) => String(x).split(',')) ??
     config.watchIgnore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), runtimePath];
 
   if (!Array.isArray(watchIgnore)) {
@@ -120,9 +123,14 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 }
 
 /** Reads and parses as json a environment variable. Following the format: `KITA_${name.toUpperCase()}` */
-function env(name: string) {
+function env<T>(name: string, cast: (x: any) => T) {
   const key = `KITA_${name.toUpperCase()}`;
-  return process.env[key] ? JSON.parse(process.env[key]!) : undefined;
+
+  if (!process.env.hasOwnProperty(key)) {
+    return undefined;
+  }
+
+  return cast(process.env[key]!);
 }
 
 /** Returns the origin of a environment variable. Following the format: `KITA_${name.toUpperCase()}` */

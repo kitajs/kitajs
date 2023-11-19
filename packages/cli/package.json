@@ -1,7 +1,7 @@
 {
   "name": "@kitajs/cli",
   "version": "1.1.24",
-  "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abtraction cost!",
+  "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!",
   "homepage": "https://kita.js.org",
   "bugs": {
     "url": "https://github.com/kitajs/kitajs/issues"
@@ -26,10 +26,11 @@
     "oclif.manifest.json"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "postbuild": "oclif manifest && oclif readme",
     "prepublish": "mkdir -p runtime && cp -r ../runtime/generated/* ./runtime",
-    "start": "node --require @swc-node/register index.ts"
+    "start": "node --require @swc-node/register index.ts",
+    "test": "c8 --reporter lcov --reporter text node --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
   },
   "dependencies": {
     "@kitajs/common": "workspace:^",
@@ -42,7 +43,6 @@
     "@oclif/plugin-plugins": "^4.1.8",
     "@oclif/plugin-warn-if-update-available": "^2.1.1",
     "chalk": "^4.1.2",
-    "chokidar": "^3.5.3",
     "deepmerge": "^4.3.1",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
@@ -51,6 +51,7 @@
     "@swc-node/register": "^1.6.8",
     "@swc/helpers": "^0.5.3",
     "@types/node": "^20.9.1",
+    "c8": "^8.0.1",
     "oclif": "^4.0.3"
   },
   "peerDependencies": {

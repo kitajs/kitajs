@@ -23,7 +23,7 @@ export default class Config extends BaseKitaCommand {
 
   async run(): Promise<void> {
     const { flags } = await this.parse(Config);
-    const { config, compilerOptions } = this.parseConfig(flags);
+    const { config, compilerOptions } = this.parseConfig(flags, undefined, false);
 
     //@ts-expect-error - Just to allow the compilerOptions to be printed
     config.compilerOptions = compilerOptions;

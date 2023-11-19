@@ -79,7 +79,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version|-v)
-@kitajs/cli/1.1.20 linux-x64 node-v20.9.0
+@kitajs/cli/1.1.24 linux-x64 node-v20.9.0
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
@@ -159,7 +159,7 @@ BUILD FLAGS
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  --cwd=<value>         Sets the current working directory for your command.
+      --cwd=<value>     Sets the current working directory for your command.
 
 DESCRIPTION
   Analyses your backend searching for routes and bakes it into the runtime.
@@ -174,7 +174,7 @@ EXAMPLES
     $ kita build -d
 ```
 
-_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.20/src/commands/build.ts)_
+_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/build.ts)_
 
 ## `kita config`
 
@@ -189,7 +189,7 @@ FLAGS
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  --cwd=<value>         Sets the current working directory for your command.
+      --cwd=<value>     Sets the current working directory for your command.
 
 DESCRIPTION
   Prints the full resolved configuration file
@@ -200,7 +200,7 @@ EXAMPLES
     $ kita config -c kita.config.js
 ```
 
-_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.20/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/config.ts)_
 
 ## `kita help [COMMANDS]`
 
@@ -220,7 +220,7 @@ DESCRIPTION
   Display help for kita.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.5/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.6/src/commands/help.ts)_
 
 ## `kita init`
 
@@ -232,7 +232,7 @@ USAGE
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  --cwd=<value>         Sets the current working directory for your command.
+      --cwd=<value>     Sets the current working directory for your command.
 
 DESCRIPTION
   Creates a basic kita.config.js
@@ -241,7 +241,7 @@ EXAMPLES
   $ kita init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.20/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/init.ts)_
 
 ## `kita plugins`
 
@@ -264,7 +264,7 @@ EXAMPLES
   $ kita plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.2/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.8/src/commands/plugins/index.ts)_
 
 ## `kita plugins:install PLUGIN...`
 
@@ -283,6 +283,9 @@ FLAGS
   -s, --silent   Silences yarn output.
   -v, --verbose  Show verbose yarn output.
 
+GLOBAL FLAGS
+  --json  Format output as json.
+
 DESCRIPTION
   Installs a plugin into the CLI.
   Can be installed from npm or a git url.
@@ -298,11 +301,11 @@ ALIASES
   $ kita plugins add
 
 EXAMPLES
-  $ kita plugins:install myplugin
+  $ kita plugins add myplugin
 
-  $ kita plugins:install https://github.com/someuser/someplugin
+  $ kita plugins add https://github.com/someuser/someplugin
 
-  $ kita plugins:install someuser/someplugin
+  $ kita plugins add someuser/someplugin
 ```
 
 ## `kita plugins:inspect PLUGIN...`
@@ -327,10 +330,10 @@ DESCRIPTION
   Displays installation properties of a plugin.
 
 EXAMPLES
-  $ kita plugins:inspect myplugin
+  $ kita plugins inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.2/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.8/src/commands/plugins/inspect.ts)_
 
 ## `kita plugins:install PLUGIN...`
 
@@ -349,6 +352,9 @@ FLAGS
   -s, --silent   Silences yarn output.
   -v, --verbose  Show verbose yarn output.
 
+GLOBAL FLAGS
+  --json  Format output as json.
+
 DESCRIPTION
   Installs a plugin into the CLI.
   Can be installed from npm or a git url.
@@ -364,14 +370,14 @@ ALIASES
   $ kita plugins add
 
 EXAMPLES
-  $ kita plugins:install myplugin
+  $ kita plugins install myplugin
 
-  $ kita plugins:install https://github.com/someuser/someplugin
+  $ kita plugins install https://github.com/someuser/someplugin
 
-  $ kita plugins:install someuser/someplugin
+  $ kita plugins install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.2/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.8/src/commands/plugins/install.ts)_
 
 ## `kita plugins:link PLUGIN`
 
@@ -385,9 +391,9 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 
 FLAGS
-  -h, --help      Show CLI help.
+  -h, --help          Show CLI help.
   -v, --verbose
-  --[no-]install  Install dependencies after linking the plugin.
+      --[no-]install  Install dependencies after linking the plugin.
 
 DESCRIPTION
   Links a plugin into the CLI for development.
@@ -398,10 +404,10 @@ DESCRIPTION
 
 
 EXAMPLES
-  $ kita plugins:link myplugin
+  $ kita plugins link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.2/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.8/src/commands/plugins/link.ts)_
 
 ## `kita plugins:uninstall PLUGIN...`
 
@@ -424,6 +430,9 @@ DESCRIPTION
 ALIASES
   $ kita plugins unlink
   $ kita plugins remove
+
+EXAMPLES
+  $ kita plugins remove myplugin
 ```
 
 ## `kita plugins reset`
@@ -435,7 +444,7 @@ USAGE
   $ kita plugins reset
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.2/src/commands/plugins/reset.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.8/src/commands/plugins/reset.ts)_
 
 ## `kita plugins:uninstall PLUGIN...`
 
@@ -458,10 +467,13 @@ DESCRIPTION
 ALIASES
   $ kita plugins unlink
   $ kita plugins remove
+
+EXAMPLES
+  $ kita plugins uninstall myplugin
 ```
 
 _See code:
-[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.2/src/commands/plugins/uninstall.ts)_
+[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.8/src/commands/plugins/uninstall.ts)_
 
 ## `kita plugins:uninstall PLUGIN...`
 
@@ -484,6 +496,9 @@ DESCRIPTION
 ALIASES
   $ kita plugins unlink
   $ kita plugins remove
+
+EXAMPLES
+  $ kita plugins unlink myplugin
 ```
 
 ## `kita plugins update`
@@ -502,7 +517,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.2/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.8/src/commands/plugins/update.ts)_
 
 ## `kita reset`
 
@@ -514,7 +529,7 @@ USAGE
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  --cwd=<value>         Sets the current working directory for your command.
+      --cwd=<value>     Sets the current working directory for your command.
 
 DESCRIPTION
   Resets your runtime in an attempt to fix any issues.
@@ -525,7 +540,7 @@ EXAMPLES
     $ kita reset
 ```
 
-_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.20/src/commands/reset.ts)_
+_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/reset.ts)_
 
 ## `kita watch`
 
@@ -542,7 +557,7 @@ BUILD FLAGS
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
-  --cwd=<value>         Sets the current working directory for your command.
+      --cwd=<value>     Sets the current working directory for your command.
 
 WATCH FLAGS
   -i, --ignore=<value>...  Comma separated directories to ignore when watching for changes.
@@ -560,7 +575,7 @@ EXAMPLES
     $ kita watch -d
 ```
 
-_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.20/src/commands/watch.ts)_
+_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.24/src/commands/watch.ts)_
 
 <!-- commandsstop -->
 
