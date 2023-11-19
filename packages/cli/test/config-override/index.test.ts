@@ -15,9 +15,12 @@ it('Prints overridden config', () => {
     }
   });
 
+  if (cmd.status !== 0) {
+    console.debug(cmd);
+  }
+
   assert.equal(cmd.status, 0);
   assert.equal(cmd.stderr, '');
-  assert.notEqual(cmd.stdout, '');
 
   const cfg = JSON.parse(cmd.stdout);
   assert.equal(typeof cfg, 'object');

@@ -17,12 +17,11 @@ it('Builds code', () => {
   });
 
   if (cmd.status !== 0) {
-    console.log(cmd);
+    console.debug(cmd);
   }
 
   assert.equal(cmd.status, 0);
   assert.equal(cmd.stderr, '');
-  assert.notEqual(cmd.stdout, '');
   assert.ok(cmd.stdout.startsWith('Warming up'));
   assert.ok(existsSync(path.join(__dirname, 'runtime', 'routes', 'customOperationId.js')));
 });

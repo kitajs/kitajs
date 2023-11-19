@@ -10,9 +10,12 @@ it('Prints Help Text', () => {
     encoding: 'utf-8'
   });
 
+  if (cmd.status !== 0) {
+    console.debug(cmd);
+  }
+
   assert.equal(cmd.stderr, '');
   assert.equal(cmd.status, 0);
-  assert.notEqual(cmd.stdout, '');
   assert.ok(
     cmd.stdout.startsWith(
       'Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!\n'
