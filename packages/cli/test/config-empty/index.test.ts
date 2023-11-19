@@ -1,12 +1,10 @@
 import assert from 'node:assert';
 import { spawnSync } from 'node:child_process';
-import path from 'node:path';
 import { it } from 'node:test';
-
-const bin = path.resolve(__dirname, '../../bin/dev');
+import { KITA_BIN } from '../constants';
 
 it('Prints default config', async () => {
-  const cmd = await spawnSync(bin, ['config'], {
+  const cmd = await spawnSync(KITA_BIN, ['config'], {
     cwd: __dirname,
     stdio: 'pipe',
     encoding: 'utf-8',
