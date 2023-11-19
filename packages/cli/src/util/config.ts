@@ -9,7 +9,8 @@ export function readConfig(
   root: string,
   error: (msg: string) => never,
   configPath?: string,
-  extension?: Partial<KitaConfig>
+  extension?: Partial<KitaConfig>,
+  useUx = true
 ): KitaConfig {
   // Tries to lookup for a default config file
   const defaultConfigPath = path.resolve(root, 'kita.config.js');
@@ -24,7 +25,9 @@ export function readConfig(
     return parseConfig(extension ?? {}, root);
   }
 
-  ux.action.start('Reading config', '', { stdout: true, style: 'clock' });
+  if (useUx) {
+    ux.action.start('Reading config', '', { stdout: true, style: 'clock' });
+  }
 
   const exists = fs.existsSync(configPath);
 
@@ -47,7 +50,9 @@ export function readConfig(
       root
     );
 
-  ux.action.stop(chalk.cyan(`.${path.sep}${path.relative(root, configPath)}`));
+  if (useUx) {
+    ux.action.stop(chalk.cyan(`.${path.sep}${path.relative(root, configPath)}`));
+  }
 
   // @ts-expect-error - internal property
   config.extends = configPath;

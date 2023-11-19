@@ -1,7 +1,7 @@
 {
   "name": "@kitajs/parser",
   "version": "1.1.16",
-  "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abtraction cost!",
+  "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!",
   "homepage": "https://kita.js.org",
   "bugs": {
     "url": "https://github.com/kitajs/kitajs/issues"

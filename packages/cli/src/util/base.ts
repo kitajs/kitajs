@@ -30,8 +30,14 @@ export abstract class BaseKitaCommand extends Command {
     })
   };
 
-  protected parseConfig(flags: Record<string, unknown>, extension?: PartialKitaConfig) {
-    const config = readConfig(String(flags.cwd) ?? process.cwd(), this.error, String(flags.config), extension);
+  protected parseConfig(flags: Record<string, unknown>, extension?: PartialKitaConfig, useUx = true) {
+    const config = readConfig(
+      String(flags.cwd ?? process.cwd()),
+      this.error,
+      String(flags.config ?? ''),
+      extension,
+      useUx
+    );
 
     return {
       config,
