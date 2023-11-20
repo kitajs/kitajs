@@ -1,5 +1,18 @@
 # @kitajs/cli
 
+## 1.1.26
+
+### Patch Changes
+
+- [#177](https://github.com/kitajs/kitajs/pull/177)
+  [`dd14264`](https://github.com/kitajs/kitajs/commit/dd1426441f78df9d17146e6941d09f5a05a68d7b) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added provider hook support
+
+- Updated dependencies [[`dd14264`](https://github.com/kitajs/kitajs/commit/dd1426441f78df9d17146e6941d09f5a05a68d7b)]:
+  - @kitajs/generator@1.1.24
+  - @kitajs/common@1.1.14
+  - @kitajs/parser@1.1.18
+
 ## 1.1.25
 
 ### Patch Changes

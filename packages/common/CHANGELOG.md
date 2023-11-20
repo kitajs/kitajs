@@ -1,5 +1,13 @@
 # @kitajs/common
 
+## 1.1.14
+
+### Patch Changes
+
+- [#177](https://github.com/kitajs/kitajs/pull/177)
+  [`dd14264`](https://github.com/kitajs/kitajs/commit/dd1426441f78df9d17146e6941d09f5a05a68d7b) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added provider hook support
+
 ## 1.1.13
 
 ### Patch Changes
