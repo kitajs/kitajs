@@ -20,4 +20,39 @@ export interface Provider {
 
   /** All possible parameters for this route. */
   parameters: Parameter[];
+
+  /**
+   * A name of all hooks that are attached to this provider.
+   *
+   * They must follow this signature `(this: FastifyInstance) => Promise<void>`
+   *
+   * @see {@linkcode ApplicationHookNames}
+   */
+  applicationHooks: string[];
+
+  /**
+   * A name of all hooks that are attached to this provider.
+   *
+   * They must follow this signature `(this: FastifyInstance, request: FastifyRequest, reply: FastifyReply) =>
+   * Promise<void>`
+   *
+   * @see {@linkcode LifecycleHookNames}
+   */
+  lifecycleHooks: string[];
 }
+
+export const ApplicationHookNames = ['onRoute', 'onRegister', 'onReady', 'onListen', 'onClose', 'preClose'] as const;
+
+export const LifecycleHookNames = [
+  'onRequest',
+  'preParsing',
+  'preValidation',
+  'preHandler',
+  'preSerialization',
+  'onSend',
+  'onResponse',
+  'onRequest',
+  'onError',
+  'onTimeout',
+  'onRequestAbort'
+] as const;

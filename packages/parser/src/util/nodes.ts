@@ -90,7 +90,9 @@ export function isExportedFunction(node: ts.Node): node is ts.FunctionDeclaratio
     // needs to have modifiers
     !!node.modifiers &&
     // `export` modifier needs to be present
-    node.modifiers.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)
+    node.modifiers.some((m) => m.kind === ts.SyntaxKind.ExportKeyword) &&
+    // cannot be a default export
+    !node.modifiers.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword)
   );
 }
 
@@ -103,7 +105,9 @@ export function isExportedVariable(
     // needs to have modifiers
     !!node.modifiers &&
     // `export` modifier needs to be present
-    node.modifiers.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)
+    node.modifiers.some((m) => m.kind === ts.SyntaxKind.ExportKeyword) &&
+    // cannot be a default export
+    !node.modifiers.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword)
   );
 }
 
@@ -112,14 +116,17 @@ export function isDefaultExportFunction(node: ts.Node): node is ts.FunctionDecla
   modifiers: ts.NodeArray<ts.ModifierLike>;
 } {
   return (
-    isExportedFunction(node) &&
-    // `default` modifier needs to be present
+    // Is a function type
+    ts.isFunctionDeclaration(node) &&
+    // needs to have modifiers
+    !!node.modifiers &&
+    // has a default export
     node.modifiers.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword)
   );
 }
 
 /** Asserts if this node identifier name */
-export function hasName(node: { name?: ts.Identifier }, name: string): boolean {
+export function nodeNameEquals(node: { name?: ts.Identifier }, name: string): boolean {
   return !!node.name && getIdentifierName(node.name) === name;
 }
 

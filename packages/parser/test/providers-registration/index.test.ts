@@ -18,21 +18,27 @@ describe('Providers Registration', async () => {
         type: 'ProviderA',
         providerPath: cwdRelative('providers/a.ts'),
         parameters: [],
-        schemaTransformer: false
+        schemaTransformer: false,
+        applicationHooks: [],
+        lifecycleHooks: []
       },
       {
         async: false,
         type: 'ProviderB',
         providerPath: cwdRelative('providers/b.ts'),
         parameters: [],
-        schemaTransformer: false
+        schemaTransformer: false,
+        applicationHooks: [],
+        lifecycleHooks: []
       },
       {
         async: false,
         type: 'ProviderD',
         providerPath: cwdRelative('providers/d.ts'),
         parameters: [],
-        schemaTransformer: false
+        schemaTransformer: false,
+        applicationHooks: [],
+        lifecycleHooks: []
       },
       {
         async: false,
@@ -42,19 +48,21 @@ describe('Providers Registration', async () => {
           {
             name: 'ProviderParameterParser',
             value: 'param0',
-            imports: [{ name: 'Resolver0', path: cwdRelative('providers/d.ts') }],
+            imports: [{ name: 'ProviderD', path: cwdRelative('providers/d.ts') }],
             schemaTransformer: false,
-            providerName: 'Resolver0',
-            helper: 'const param0 = Resolver0();'
+            providerName: 'ProviderD',
+            helper: 'const param0 = ProviderD.default();'
           }
         ],
-        schemaTransformer: false
+        schemaTransformer: false,
+        applicationHooks: [],
+        lifecycleHooks: []
       }
     ]);
   });
 
   test('routes were parsed correctly', () => {
-    return assert.deepStrictEqual(kita.getRoutes(), [
+    assert.deepStrictEqual(kita.getRoutes(), [
       {
         kind: 'rest',
         url: '/',
@@ -65,18 +73,18 @@ describe('Providers Registration', async () => {
           {
             name: 'ProviderParameterParser',
             value: 'param0',
-            imports: [{ name: 'Resolver0', path: cwdRelative('providers/a.ts') }],
+            imports: [{ name: 'ProviderA', path: cwdRelative('providers/a.ts') }],
             schemaTransformer: false,
-            providerName: 'Resolver0',
-            helper: 'const param0 = Resolver0();'
+            providerName: 'ProviderA',
+            helper: 'const param0 = ProviderA.default();'
           },
           {
             name: 'ProviderParameterParser',
             value: 'param1',
-            imports: [{ name: 'Resolver1', path: cwdRelative('providers/b.ts') }],
+            imports: [{ name: 'ProviderB', path: cwdRelative('providers/b.ts') }],
             schemaTransformer: false,
-            providerName: 'Resolver1',
-            helper: 'const param1 = Resolver1();'
+            providerName: 'ProviderB',
+            helper: 'const param1 = ProviderB.default();'
           }
         ],
         schema: {
@@ -93,26 +101,29 @@ describe('Providers Registration', async () => {
         parameters: [
           {
             name: 'ProviderParameterParser',
-            value: 'param0',
-            imports: [{ name: 'Resolver0', path: cwdRelative('providers/c.ts') }],
+            value: 'param1',
+            imports: [
+              { name: 'ProviderC', path: cwdRelative('providers/c.ts') },
+              { name: 'ProviderD', path: cwdRelative('providers/d.ts') }
+            ],
             schemaTransformer: false,
-            providerName: 'Resolver0',
+            providerName: 'ProviderC',
             helper:
-              'const param0 = Resolver0();;\n' +
+              'const param0 = ProviderD.default();;\n' +
               '\n' +
               '     if (reply.sent) {\n' +
               '       return;\n' +
               '     }\n' +
               '\n' +
-              'const param0 = Resolver0(param0);'
+              'const param1 = ProviderC.default(param0);'
           },
           {
             name: 'ProviderParameterParser',
             value: 'param1',
-            imports: [{ name: 'Resolver1', path: cwdRelative('providers/a.ts') }],
+            imports: [{ name: 'ProviderA', path: cwdRelative('providers/a.ts') }],
             schemaTransformer: false,
-            providerName: 'Resolver1',
-            helper: 'const param1 = Resolver1();'
+            providerName: 'ProviderA',
+            helper: 'const param1 = ProviderA.default();'
           }
         ],
         schema: {
