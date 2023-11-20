@@ -9,7 +9,6 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     name: CI flow ${{ matrix.os }}
-    if: ${{ github.actor != 'dependabot[bot]' }}
 
     strategy:
       matrix:
