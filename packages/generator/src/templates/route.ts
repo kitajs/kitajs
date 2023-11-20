@@ -1,13 +1,4 @@
-import {
-  Parameter,
-  Provider,
-  ProviderHookNotFound,
-  Route,
-  capital,
-  kControllerName,
-  kReplyParam,
-  kRequestParam
-} from '@kitajs/common';
+import { Parameter, Provider, Route, capital, kControllerName, kReplyParam, kRequestParam } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
 import path from 'path';
 import { ts } from 'ts-writer';
@@ -132,11 +123,7 @@ export function toLifecycleArray(parameters: Parameter[], providers: Provider[])
       continue;
     }
 
-    const provider = providers.find((p) => p.type === parameter.providerName);
-
-    if (!provider) {
-      throw new ProviderHookNotFound(parameter.providerName);
-    }
+    const provider = providers.find((p) => p.type === parameter.providerName)!;
 
     for (const hook of provider.lifecycleHooks) {
       (hookTypes[hook] ??= []).push(parameter.providerName!);

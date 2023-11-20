@@ -21,12 +21,3 @@ export class RuntimeNotFoundError extends KitaError {
     });
   }
 }
-
-export class ProviderHookNotFound extends KitaError {
-  constructor(name?: string) {
-    super({
-      code: 501,
-      messageText: `Received a hook for a provider that does not exist: ${name}`
-    });
-  }
-}
