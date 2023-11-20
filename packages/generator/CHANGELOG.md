@@ -1,5 +1,16 @@
 # @kitajs/generator
 
+## 1.1.24
+
+### Patch Changes
+
+- [#177](https://github.com/kitajs/kitajs/pull/177)
+  [`dd14264`](https://github.com/kitajs/kitajs/commit/dd1426441f78df9d17146e6941d09f5a05a68d7b) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added provider hook support
+
+- Updated dependencies [[`dd14264`](https://github.com/kitajs/kitajs/commit/dd1426441f78df9d17146e6941d09f5a05a68d7b)]:
+  - @kitajs/common@1.1.14
+
 ## 1.1.23
 
 ### Patch Changes
