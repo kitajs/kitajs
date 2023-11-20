@@ -18,16 +18,6 @@ export class ProviderParameterParser implements ParameterParser {
     const name = getTypeNodeName(param)!;
     const provider = this.collector.getProvider(name)!;
 
-    const originalProviderName = `Resolver${index}`;
-    let providerName = originalProviderName;
-    const importName = providerName;
-
-    if (provider.schemaTransformer) {
-      providerName = `${providerName}.default`;
-    }
-
-    const value = `param${index}`;
-
     const providerGenericsIndex = provider.parameters.findIndex((p) => p.name === ProviderGenericsParameterParser.name);
 
     // Changes the default [] to the generics passed to the Provider
@@ -47,18 +37,22 @@ export class ProviderParameterParser implements ParameterParser {
       provider.parameters[providerGenericsIndex]!.value = `[${arr.join(', ')}]`;
     }
 
+    const value = `param${index + provider.parameters.length}`;
+
     return {
       name: ProviderParameterParser.name,
       value,
-      imports: [{ name: importName, path: provider.providerPath }],
+      imports: [{ name: provider.type, path: provider.providerPath }].concat(
+        provider.parameters.flatMap((p) => p.imports || [])
+      ),
       schemaTransformer:
         provider.schemaTransformer &&
         (providerGenericsIndex !== -1
           ? [provider.parameters[providerGenericsIndex]!.value]
           : provider.schemaTransformer),
-      providerName: originalProviderName,
+      providerName: provider.type,
       helper: `${joinParameters(provider.parameters)}
-const ${value} = ${provider.async ? 'await ' : ''}${providerName}(${provider.parameters
+const ${value} = ${provider.async ? 'await ' : ''}${provider.type}.default(${provider.parameters
         .map((p) => p.value)
         .join(',')});`.trim()
     };

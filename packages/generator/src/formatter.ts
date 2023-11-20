@@ -11,13 +11,23 @@ export class KitaFormatter implements SourceFormatter {
 
   constructor(readonly config: KitaConfig) {}
 
-  generateRoute(route: Route) {
-    this.files.push(generateRoute(route, this.config.cwd, path.relative(this.config.cwd, this.config.src)));
+  generateRoute(route: Route, collector: AstCollector) {
+    this.files.push(
+      generateRoute(route, this.config.cwd, path.relative(this.config.cwd, this.config.src), collector.getProviders())
+    );
   }
 
   generateRuntime(collector: AstCollector) {
     this.files.push(generateIndex(collector.getRoutes()));
-    this.files.push(generatePlugin(collector.getRoutes(), collector.getSchemas(), collector.getPlugins()));
+    this.files.push(
+      generatePlugin(
+        collector.getRoutes(),
+        collector.getSchemas(),
+        collector.getPlugins(),
+        collector.getProviders(),
+        path.relative(this.config.cwd, this.config.src)
+      )
+    );
   }
 
   async flush() {

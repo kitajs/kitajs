@@ -244,7 +244,7 @@ export class KitaParser implements AstCollector {
       this.routes.set(route.schema.operationId, route);
 
       if (this.formatter) {
-        const promise = this.formatter.generateRoute(route);
+        const promise = this.formatter.generateRoute(route, this);
 
         // Only await if needs to
         if (promise) {

@@ -28,9 +28,9 @@ describe('Providers', async () => {
         {
           value: 'param0',
           name: 'ProviderParameterParser',
-          helper: 'const param0 = Resolver0();',
-          imports: [{ name: 'Resolver0', path: cwdRelative('providers/test.ts') }],
-          providerName: 'Resolver0',
+          helper: 'const param0 = Test.default();',
+          imports: [{ name: 'Test', path: cwdRelative('providers/test.ts') }],
+          providerName: 'Test',
           schemaTransformer: false
         }
       ]
@@ -52,12 +52,12 @@ describe('Providers', async () => {
           name: 'ProviderParameterParser',
           imports: [
             {
-              name: 'Resolver0',
+              name: 'Transformer',
               path: cwdRelative('providers/transformer.ts')
             }
           ],
-          helper: 'const param0 = await Resolver0.default();',
-          providerName: 'Resolver0',
+          helper: 'const param0 = await Transformer.default();',
+          providerName: 'Transformer',
           schemaTransformer: true
         }
       ],
@@ -76,7 +76,9 @@ describe('Providers', async () => {
       type: 'Test',
       providerPath: cwdRelative('providers/test.ts'),
       parameters: [],
-      schemaTransformer: false
+      schemaTransformer: false,
+      applicationHooks: [],
+      lifecycleHooks: []
     });
   });
 
@@ -88,7 +90,9 @@ describe('Providers', async () => {
       type: 'Transformer',
       providerPath: cwdRelative('providers/transformer.ts'),
       parameters: [],
-      schemaTransformer: true
+      schemaTransformer: true,
+      applicationHooks: [],
+      lifecycleHooks: []
     });
   });
 
@@ -104,11 +108,11 @@ describe('Providers', async () => {
       parameters: [
         {
           name: 'ProviderParameterParser',
-          value: 'param0',
-          imports: [{ name: 'Resolver0', path: cwdRelative('providers/generics.ts') }],
+          value: 'param1',
+          imports: [{ name: 'GenericTest', path: cwdRelative('providers/generics.ts') }],
           schemaTransformer: false,
-          providerName: 'Resolver0',
-          helper: `const param0 = Resolver0([123, false, 'Hello']);`
+          providerName: 'GenericTest',
+          helper: `const param1 = GenericTest.default([123, false, 'Hello']);`
         }
       ],
       schema: {

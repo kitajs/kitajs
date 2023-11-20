@@ -4,7 +4,7 @@ import { Route } from './route';
 
 export interface SourceFormatter {
   /** Called each time a route needs to be generated */
-  generateRoute(r: Route): Promisable<void>;
+  generateRoute(r: Route, collector: AstCollector): Promisable<void>;
 
   /** Called after all routes have been generated. This is the place to generate the runtime and everything it may needs. */
   generateRuntime(collector: AstCollector): Promisable<void>;

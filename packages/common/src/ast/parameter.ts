@@ -27,7 +27,11 @@ export interface Parameter {
    */
   schemaTransformer?: boolean | string[];
 
-  /** The name of the provider to import for the schemaTransformer */
+  /**
+   * The name of the provider to import for the schemaTransformer
+   *
+   * @example `TestProvider`
+   */
   providerName?: string;
 
   /** If this is true, the current parameter will be ignored by the parser. */

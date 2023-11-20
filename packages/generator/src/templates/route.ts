@@ -1,10 +1,19 @@
-import { Parameter, Route, capital, kControllerName, kReplyParam, kRequestParam } from '@kitajs/common';
+import {
+  Parameter,
+  Provider,
+  ProviderHookNotFound,
+  Route,
+  capital,
+  kControllerName,
+  kReplyParam,
+  kRequestParam
+} from '@kitajs/common';
 import stringify from 'json-stable-stringify';
 import path from 'path';
 import { ts } from 'ts-writer';
 import { escapePath, removeExt, toMaybeRelativeImport } from '../util/path';
 
-export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: string) {
+export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: string, providers: Provider[]) {
   const returnTypeName = capital(`${route.schema.operationId}Response`);
 
   return ts`${`routes/${route.schema.operationId}`}
@@ -12,10 +21,13 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
 
   const ${kControllerName} = require(${toMaybeRelativeImport(route.relativePath, cwdSrcRelativity)});
 
-  ${route.imports?.map((r) => `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwdSrcRelativity)});`)}
   ${route.parameters
     .flatMap((p) => p.imports)
-    .map((r) => (r ? `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwdSrcRelativity)});` : null))}
+    .concat(route.imports || [])
+    .filter((imp): imp is { name: string; path: string } => !!imp)
+    // Remove duplicates
+    .filter((imp, index, arr) => arr.findIndex((i) => i.name === imp.name) === index)
+    .map((r) => `const ${r.name} = require(${toMaybeRelativeImport(r.path, cwdSrcRelativity)});`)}
   
   exports.${route.schema.operationId} = ${kControllerName}.${route.controllerMethod}.bind(null);
   
@@ -34,7 +46,7 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
 
   ${route.method === 'ALL' ? `const { supportedMethods } = require('fastify/lib/httpMethods');` : ''}
 
-  exports.${route.schema.operationId}Options = ${toOptions(route)};  
+  exports.${route.schema.operationId}Options = ${toOptions(route, providers)};  
 
   exports.__esModule = true;
 
@@ -65,12 +77,13 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
   `;
 }
 
-export function toOptions(r: Route) {
+export function toOptions(r: Route, providers: Provider[]) {
   const handler = `{
     url: '${r.url}',
     method: ${r.method === 'ALL' ? 'supportedMethods' : `'${r.method}'`},
     handler: exports.${r.schema.operationId}Handler,
     schema: ${toReplacedSchema(r)},
+    ${toLifecycleArray(r.parameters, providers)}
  }`;
 
   return r.options ? r.options.replace('$1', handler) : handler;
@@ -109,4 +122,28 @@ export function toReplacedSchema(r: Route) {
   }
 
   return code;
+}
+
+export function toLifecycleArray(parameters: Parameter[], providers: Provider[]) {
+  const hookTypes: Record<string, string[]> = {};
+
+  for (const parameter of parameters) {
+    if (!parameter.providerName) {
+      continue;
+    }
+
+    const provider = providers.find((p) => p.type === parameter.providerName);
+
+    if (!provider) {
+      throw new ProviderHookNotFound(parameter.providerName);
+    }
+
+    for (const hook of provider.lifecycleHooks) {
+      (hookTypes[hook] ??= []).push(parameter.providerName!);
+    }
+  }
+
+  return Object.entries(hookTypes)
+    .map(([hook, values]) => `${hook}: [${values.map((v) => `${v}.${hook}`).join(', ')}]`)
+    .join(',');
 }

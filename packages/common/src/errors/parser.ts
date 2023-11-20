@@ -175,7 +175,20 @@ export class InvalidProviderSchemaTransformerError extends KitaError {
   ) {
     super({
       code: 316,
-      messageText: `Invalid schemaTransformer function: ${msg}`,
+      messageText: `Invalid schemaTransformer: ${msg}`,
+      node
+    });
+  }
+}
+
+export class InvalidProviderHookError extends KitaError {
+  constructor(
+    node: ts.Node,
+    readonly msg: string
+  ) {
+    super({
+      code: 317,
+      messageText: `Invalid provider hook: ${msg}`,
       node
     });
   }

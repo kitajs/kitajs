@@ -1,8 +1,23 @@
-import { JsonSchema, KitaPlugin, Route, kFastifyVariable, kKitaOptions, stringifyOptions } from '@kitajs/common';
+import {
+  JsonSchema,
+  KitaPlugin,
+  Provider,
+  Route,
+  kFastifyVariable,
+  kKitaOptions,
+  stringifyOptions
+} from '@kitajs/common';
 import stringify from 'json-stable-stringify';
 import { ts } from 'ts-writer';
+import { toMaybeRelativeImport } from '../util/path';
 
-export function generatePlugin(routes: Route[], schemas: JsonSchema[], plugins: KitaPlugin[]) {
+export function generatePlugin(
+  routes: Route[],
+  schemas: JsonSchema[],
+  plugins: KitaPlugin[],
+  providers: Provider[],
+  cwdSrcRelativity: string
+) {
   return ts`${'plugin'}
     'use strict';
 
@@ -28,18 +43,23 @@ export function generatePlugin(routes: Route[], schemas: JsonSchema[], plugins: 
     exports.Kita = fp(
       async (${kFastifyVariable}, ${kKitaOptions}) => {
         // Register all plugins
-        ${plugins.map(toPlugin)}
+${plugins.map(toPlugin)}
 
         // Import all routes
-        ${routes.map(toRoute)}
+${routes.map(toRoute)}
+
+        // Import all providers with application hooks
+${providers.filter((p) => p.applicationHooks.length).map((p) => toProvider(p, cwdSrcRelativity))}
 
         // Add all schemas
-        ${schemas.map(toSchema)}
+${schemas.map(toSchema)}
 
         // Register all routes - inside a plugin to make sure capsulation works
         // https://github.com/fastify/fastify-plugin/issues/78#issuecomment-672692334
         await ${kFastifyVariable}.register(async ${kFastifyVariable} => {
-          ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schema.operationId}Options)`)}
+${providers.flatMap((p) => p.applicationHooks.map((h) => `${kFastifyVariable}.addHook('${h}', ${p.type}.${h});`))}
+
+${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schema.operationId}Options)`)}
         }, ${kKitaOptions});
       },
       {
@@ -60,6 +80,10 @@ export function generatePlugin(routes: Route[], schemas: JsonSchema[], plugins: 
 
 function toRoute(route: Route) {
   return `const ${route.schema.operationId} = require('./routes/${route.schema.operationId}');`;
+}
+
+function toProvider(provider: Provider, cwdSrcRelativity: string) {
+  return `const ${provider.type} = require(${toMaybeRelativeImport(provider.providerPath, cwdSrcRelativity)});`;
 }
 
 function toPlugin(plugin: KitaPlugin) {
