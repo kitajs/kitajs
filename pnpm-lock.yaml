@@ -147,8 +147,8 @@ importers:
         specifier: ^1.10.1
         version: 1.10.1
       '@kitajs/html':
-        specifier: ^3.0.8
-        version: 3.0.8(@kitajs/ts-html-plugin@1.3.0)
+        specifier: ^3.0.10
+        version: 3.0.10(@kitajs/ts-html-plugin@1.3.0)
       '@kitajs/parser':
         specifier: workspace:^
         version: link:../parser
@@ -208,8 +208,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       '@kitajs/html':
-        specifier: ^3.0.8
-        version: 3.0.8(@kitajs/ts-html-plugin@1.3.0)
+        specifier: ^3.0.10
+        version: 3.0.10(@kitajs/ts-html-plugin@1.3.0)
       '@kitajs/runtime':
         specifier: workspace:^
         version: link:../runtime
@@ -760,24 +760,24 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@kitajs/html@3.0.8(@kitajs/ts-html-plugin@1.3.0):
-    resolution: {integrity: sha512-A4JX6xNDJdbwVA/+ugqLCP9nlNGh3BCmEymzeNoZY0GoLkSoI3hqPz7jo07qV1gWJqI+uMjR+qcxRMbancKvPw==}
+  /@kitajs/html@3.0.10(@kitajs/ts-html-plugin@1.3.0):
+    resolution: {integrity: sha512-3SblgDWCJOVrXFTf5dciXF3sj96CazDfHteuXHX8OHibjdYAmyLj3j0+s3y6B0ppcICR4x0i90CkkOvk2q+M7Q==}
     engines: {node: '>=12'}
     peerDependencies:
       '@kitajs/ts-html-plugin': '>=1.2.0'
     dependencies:
-      '@kitajs/ts-html-plugin': 1.3.0(@kitajs/html@3.0.8)(typescript@5.2.2)
+      '@kitajs/ts-html-plugin': 1.3.0(@kitajs/html@3.0.10)(typescript@5.2.2)
       csstype: 3.1.2
     dev: true
 
-  /@kitajs/ts-html-plugin@1.3.0(@kitajs/html@3.0.8)(typescript@5.2.2):
+  /@kitajs/ts-html-plugin@1.3.0(@kitajs/html@3.0.10)(typescript@5.2.2):
     resolution: {integrity: sha512-1zrx+bNtP6Sh/mDklnkGuGcPF2hjJpiR7pwWm7HormmMHYvk8zUFQnAA0XWqrVwWW9g/q+WGxqHRPxxEprbooA==}
     hasBin: true
     peerDependencies:
       '@kitajs/html': '>=3'
       typescript: '>=5'
     dependencies:
-      '@kitajs/html': 3.0.8(@kitajs/ts-html-plugin@1.3.0)
+      '@kitajs/html': 3.0.10(@kitajs/ts-html-plugin@1.3.0)
       chalk: 4.1.2
       tslib: 2.6.2
       typescript: 5.2.2
