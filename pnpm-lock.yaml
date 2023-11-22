@@ -85,8 +85,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       oclif:
-        specifier: ^4.0.3
-        version: 4.0.3(@swc/core@1.3.93)(@types/node@20.9.3)(eslint@8.51.0)(typescript@5.2.2)
+        specifier: ^4.0.4
+        version: 4.0.4(@swc/core@1.3.93)(@types/node@20.9.3)(eslint@8.51.0)(typescript@5.2.2)
 
   packages/common:
     dependencies:
@@ -5457,8 +5457,8 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.0.3(@swc/core@1.3.93)(@types/node@20.9.3)(eslint@8.51.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-Bq7t1bJvAKYwW3DKQIzok3jkXv7yUIMneoSec1qUr9wfSqzRTZQB0UUDovwlT/L+3TBMVoRyw1WeX+YDvfRJNA==}
+  /oclif@4.0.4(@swc/core@1.3.93)(@types/node@20.9.3)(eslint@8.51.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-2rebdu1Ow9/TRolMI7s1IsJmKH7RpwlBzIKZFtE8eFiDmGenX6GEsWaxSEtgMXmzCSSQ1DbCRDv0hwcwVGIJuA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
