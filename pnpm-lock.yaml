@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@arthurfiorette/prettier-config':
         specifier: ^1.0.12
-        version: 1.0.12(prettier@3.1.0)(typescript@5.2.2)
+        version: 1.0.12(prettier@3.1.0)(typescript@5.3.2)
       '@changesets/changelog-github':
         specifier: ^0.4.8
         version: 0.4.8
@@ -27,8 +27,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ^5.3.2
+        version: 5.3.2
 
   packages/cli:
     dependencies:
@@ -43,22 +43,22 @@ importers:
         version: link:../parser
       '@oclif/core':
         specifier: ^3.12.0
-        version: 3.12.0(typescript@5.2.2)
+        version: 3.12.0(typescript@5.3.2)
       '@oclif/plugin-autocomplete':
         specifier: ^3.0.2
-        version: 3.0.2(typescript@5.2.2)
+        version: 3.0.2(typescript@5.3.2)
       '@oclif/plugin-help':
         specifier: ^6.0.7
-        version: 6.0.7(typescript@5.2.2)
+        version: 6.0.7(typescript@5.3.2)
       '@oclif/plugin-not-found':
         specifier: ^3.0.4
-        version: 3.0.4(typescript@5.2.2)
+        version: 3.0.4(typescript@5.3.2)
       '@oclif/plugin-plugins':
         specifier: ^4.1.8
-        version: 4.1.8(typescript@5.2.2)
+        version: 4.1.8(typescript@5.3.2)
       '@oclif/plugin-warn-if-update-available':
         specifier: ^2.1.1
-        version: 2.1.1(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2)
+        version: 2.1.1(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2)
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
@@ -69,12 +69,12 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ^5.3.2
+        version: 5.3.2
     devDependencies:
       '@swc-node/register':
         specifier: ^1.6.8
-        version: 1.6.8(@swc/core@1.3.93)(typescript@5.2.2)
+        version: 1.6.8(@swc/core@1.3.93)(typescript@5.3.2)
       '@swc/helpers':
         specifier: ^0.5.3
         version: 0.5.3
@@ -86,7 +86,7 @@ importers:
         version: 8.0.1
       oclif:
         specifier: ^4.0.4
-        version: 4.0.4(@swc/core@1.3.93)(@types/node@20.9.5)(eslint@8.51.0)(typescript@5.2.2)
+        version: 4.0.4(@swc/core@1.3.93)(@types/node@20.9.5)(eslint@8.51.0)(typescript@5.3.2)
 
   packages/common:
     dependencies:
@@ -109,8 +109,8 @@ importers:
         specifier: ^4.8.2
         version: 4.8.2
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ^5.3.2
+        version: 5.3.2
     devDependencies:
       '@types/node':
         specifier: ^20.9.5
@@ -126,7 +126,7 @@ importers:
         version: 1.1.0
       ts-writer:
         specifier: ^1.3.1
-        version: 1.3.1(typescript@5.2.2)
+        version: 1.3.1(typescript@5.3.2)
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
@@ -157,7 +157,7 @@ importers:
         version: link:../runtime
       '@swc-node/register':
         specifier: ^1.6.8
-        version: 1.6.8(@swc/core@1.3.93)(typescript@5.2.2)
+        version: 1.6.8(@swc/core@1.3.93)(typescript@5.3.2)
       '@swc/helpers':
         specifier: ^0.5.3
         version: 0.5.3
@@ -201,8 +201,8 @@ importers:
         specifier: ^4.8.2
         version: 4.8.2
       typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
+        specifier: ^5.3.2
+        version: 5.3.2
     devDependencies:
       '@fastify/sensible':
         specifier: ^5.5.0
@@ -215,7 +215,7 @@ importers:
         version: link:../runtime
       '@swc-node/register':
         specifier: ^1.6.8
-        version: 1.6.8(@swc/core@1.3.93)(typescript@5.2.2)
+        version: 1.6.8(@swc/core@1.3.93)(typescript@5.3.2)
       '@swc/helpers':
         specifier: ^0.5.3
         version: 0.5.3
@@ -278,12 +278,12 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       typescript:
-        specifier: ~5.2.2
-        version: 5.2.2
+        specifier: ~5.3.2
+        version: 5.3.2
     devDependencies:
       '@swc-node/register':
         specifier: ^1.6.8
-        version: 1.6.8(@swc/core@1.3.93)(typescript@5.2.2)
+        version: 1.6.8(@swc/core@1.3.93)(typescript@5.3.2)
       '@swc/helpers':
         specifier: ^0.5.3
         version: 0.5.3
@@ -295,7 +295,7 @@ importers:
         version: 20.9.5
       self:
         specifier: file:.
-        version: file:packages/ts-plugin(typescript@5.2.2)
+        version: file:packages/ts-plugin(typescript@5.3.2)
       type-fest:
         specifier: ^4.8.2
         version: 4.8.2
@@ -307,7 +307,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@arthurfiorette/prettier-config@1.0.12(prettier@3.1.0)(typescript@5.2.2):
+  /@arthurfiorette/prettier-config@1.0.12(prettier@3.1.0)(typescript@5.3.2):
     resolution: {integrity: sha512-jR36bHWLVv71FuKkU9XYeBe6ry/AN98EDh0WVyfo3QwjJFbhpeElFTS4nluwxeXfu6nJ8/Hv8bJf6cYeXzfeoA==}
     hasBin: true
     peerDependencies:
@@ -315,7 +315,7 @@ packages:
     dependencies:
       prettier: 3.1.0
       prettier-plugin-jsdoc: 1.1.1(prettier@3.1.0)
-      prettier-plugin-organize-imports: 3.2.3(prettier@3.1.0)(typescript@5.2.2)
+      prettier-plugin-organize-imports: 3.2.3(prettier@3.1.0)(typescript@5.3.2)
       prettier-plugin-packagejson: 2.4.6(prettier@3.1.0)
     transitivePeerDependencies:
       - '@volar/vue-language-plugin-pug'
@@ -766,11 +766,11 @@ packages:
     peerDependencies:
       '@kitajs/ts-html-plugin': '>=1.2.0'
     dependencies:
-      '@kitajs/ts-html-plugin': 1.3.0(@kitajs/html@3.0.10)(typescript@5.2.2)
+      '@kitajs/ts-html-plugin': 1.3.0(@kitajs/html@3.0.10)(typescript@5.3.2)
       csstype: 3.1.2
     dev: true
 
-  /@kitajs/ts-html-plugin@1.3.0(@kitajs/html@3.0.10)(typescript@5.2.2):
+  /@kitajs/ts-html-plugin@1.3.0(@kitajs/html@3.0.10)(typescript@5.3.2):
     resolution: {integrity: sha512-1zrx+bNtP6Sh/mDklnkGuGcPF2hjJpiR7pwWm7HormmMHYvk8zUFQnAA0XWqrVwWW9g/q+WGxqHRPxxEprbooA==}
     hasBin: true
     peerDependencies:
@@ -780,7 +780,7 @@ packages:
       '@kitajs/html': 3.0.10(@kitajs/ts-html-plugin@1.3.0)
       chalk: 4.1.2
       tslib: 2.6.2
-      typescript: 5.2.2
+      typescript: 5.3.2
       yargs: 17.7.2
     dev: true
 
@@ -1037,7 +1037,7 @@ packages:
       - supports-color
     dev: true
 
-  /@oclif/core@2.15.0(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2):
+  /@oclif/core@2.15.0(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2):
     resolution: {integrity: sha512-fNEMG5DzJHhYmI3MgpByTvltBOMyFcnRIUMxbiz2ai8rhaYgaTHMG3Q38HcosfIvtw9nCjxpcQtC8MN8QtVCcA==}
     engines: {node: '>=14.0.0'}
     dependencies:
@@ -1064,7 +1064,7 @@ packages:
       strip-ansi: 6.0.1
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
-      ts-node: 10.9.1(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2)
+      ts-node: 10.9.1(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2)
       tslib: 2.6.2
       widest-line: 3.1.0
       wordwrap: 1.0.0
@@ -1075,7 +1075,7 @@ packages:
       - '@types/node'
       - typescript
 
-  /@oclif/core@3.12.0(typescript@5.2.2):
+  /@oclif/core@3.12.0(typescript@5.3.2):
     resolution: {integrity: sha512-mT1Vpd1E20IJ7P6GDYOivylPdTHq/xVgFjeCDjitFW86UAklFM8BEFyFB7KpsTvpmjRbCoda3yU10lSI1224lw==}
     engines: {node: '>=18.0.0'}
     dependencies:
@@ -1102,18 +1102,18 @@ packages:
       strip-ansi: 6.0.1
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
-      tsconfck: 3.0.0(typescript@5.2.2)
+      tsconfck: 3.0.0(typescript@5.3.2)
       widest-line: 3.1.0
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
     transitivePeerDependencies:
       - typescript
 
-  /@oclif/plugin-autocomplete@3.0.2(typescript@5.2.2):
+  /@oclif/plugin-autocomplete@3.0.2(typescript@5.3.2):
     resolution: {integrity: sha512-Y0vIwJwEv36FOeUG7a6wcftx4cdi1fTNIdMQKiQwFgkrdblL5Ojo766BPSiUOzBzl0Q/SpxxY8uRQGHwUhdONg==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.12.0(typescript@5.2.2)
+      '@oclif/core': 3.12.0(typescript@5.3.2)
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       ejs: 3.1.9
@@ -1122,11 +1122,11 @@ packages:
       - typescript
     dev: false
 
-  /@oclif/plugin-help@5.2.20(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2):
+  /@oclif/plugin-help@5.2.20(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2):
     resolution: {integrity: sha512-u+GXX/KAGL9S10LxAwNUaWdzbEBARJ92ogmM7g3gDVud2HioCmvWQCDohNRVZ9GYV9oKwZ/M8xwd6a1d95rEKQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -1134,20 +1134,20 @@ packages:
       - typescript
     dev: true
 
-  /@oclif/plugin-help@6.0.7(typescript@5.2.2):
+  /@oclif/plugin-help@6.0.7(typescript@5.3.2):
     resolution: {integrity: sha512-+apYpLuNk6VGNuZZbFdwUlTcFb+FkQnySWR5S5pZYC+yHcT39zgOK06NAheHHhd5KSzroFwQu7RTdHnK6Tzakg==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.12.0(typescript@5.2.2)
+      '@oclif/core': 3.12.0(typescript@5.3.2)
     transitivePeerDependencies:
       - typescript
     dev: false
 
-  /@oclif/plugin-not-found@2.4.3(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2):
+  /@oclif/plugin-not-found@2.4.3(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2):
     resolution: {integrity: sha512-nIyaR4y692frwh7wIHZ3fb+2L6XEecQwRDIb4zbEam0TvaVmBQWZoColQyWA84ljFBPZ8XWiQyTz+ixSwdRkqg==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2)
       chalk: 4.1.2
       fast-levenshtein: 3.0.0
     transitivePeerDependencies:
@@ -1157,22 +1157,22 @@ packages:
       - typescript
     dev: true
 
-  /@oclif/plugin-not-found@3.0.4(typescript@5.2.2):
+  /@oclif/plugin-not-found@3.0.4(typescript@5.3.2):
     resolution: {integrity: sha512-42Sef7/G81Pr+SesNTbkf4NwytZJkV7CZuFMNZNzqZms+0j1cRLwmkAlnDIcDWJs9jugF13ehdw3/5Xa6WrjQA==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.12.0(typescript@5.2.2)
+      '@oclif/core': 3.12.0(typescript@5.3.2)
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
     transitivePeerDependencies:
       - typescript
     dev: false
 
-  /@oclif/plugin-plugins@4.1.8(typescript@5.2.2):
+  /@oclif/plugin-plugins@4.1.8(typescript@5.3.2):
     resolution: {integrity: sha512-sowXVWJyUALqzB2tekGtB9gnKANfSL2Gy5ov9ZliqVj7jU643JH3n4g7j5sDEziR6rQ14/ZMiyDwbweeSWb9gQ==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.12.0(typescript@5.2.2)
+      '@oclif/core': 3.12.0(typescript@5.3.2)
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       npm: 9.9.1
@@ -1186,11 +1186,11 @@ packages:
       - typescript
     dev: false
 
-  /@oclif/plugin-warn-if-update-available@2.1.1(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2):
+  /@oclif/plugin-warn-if-update-available@2.1.1(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2):
     resolution: {integrity: sha512-y7eSzT6R5bmTIJbiMMXgOlbBpcWXGlVhNeQJBLBCCy1+90Wbjyqf6uvY0i2WcO4sh/THTJ20qCW80j3XUlgDTA==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2)
+      '@oclif/core': 2.15.0(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2)
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
@@ -1204,11 +1204,11 @@ packages:
       - typescript
     dev: false
 
-  /@oclif/plugin-warn-if-update-available@3.0.2(typescript@5.2.2):
+  /@oclif/plugin-warn-if-update-available@3.0.2(typescript@5.3.2):
     resolution: {integrity: sha512-dUXfRNFtnezS4uqQ+Ap4qb6UP0DWExTvoqghNvvGTIN4PEgfYHogvBORn+rFnDXXE8kgZFuqP4ZQJRP9NyLhOA==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.12.0(typescript@5.2.2)
+      '@oclif/core': 3.12.0(typescript@5.3.2)
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
@@ -1391,7 +1391,7 @@ packages:
       '@swc/core': 1.3.93(@swc/helpers@0.5.3)
     dev: true
 
-  /@swc-node/register@1.6.8(@swc/core@1.3.93)(typescript@5.2.2):
+  /@swc-node/register@1.6.8(@swc/core@1.3.93)(typescript@5.3.2):
     resolution: {integrity: sha512-74ijy7J9CWr1Z88yO+ykXphV29giCrSpANQPQRooE0bObpkTO1g4RzQovIfbIaniBiGDDVsYwDoQ3FIrCE8HcQ==}
     peerDependencies:
       '@swc/core': '>= 1.3'
@@ -1404,7 +1404,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       pirates: 4.0.6
       tslib: 2.6.2
-      typescript: 5.2.2
+      typescript: 5.3.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1698,7 +1698,7 @@ packages:
     engines: {node: ^16.0.0 || >=18.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree@6.7.5(typescript@5.2.2):
+  /@typescript-eslint/typescript-estree@6.7.5(typescript@5.3.2):
     resolution: {integrity: sha512-NhJiJ4KdtwBIxrKl0BqG1Ur+uw7FiOnOThcYx9DpOGJ/Abc9z2xNzLeirCG02Ig3vkvrc2qFLmYSSsaITbKjlg==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -1713,13 +1713,13 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.4
-      ts-api-utils: 1.0.3(typescript@5.2.2)
-      typescript: 5.2.2
+      ts-api-utils: 1.0.3(typescript@5.3.2)
+      typescript: 5.3.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils@6.7.5(eslint@8.51.0)(typescript@5.2.2):
+  /@typescript-eslint/utils@6.7.5(eslint@8.51.0)(typescript@5.3.2):
     resolution: {integrity: sha512-pfRRrH20thJbzPPlPc4j0UNGvH1PjPlhlCMq4Yx7EGjV7lvEeGX0U6MJYe8+SyFutWgSHsdbJ3BXzZccYggezA==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -1730,7 +1730,7 @@ packages:
       '@types/semver': 7.5.3
       '@typescript-eslint/scope-manager': 6.7.5
       '@typescript-eslint/types': 6.7.5
-      '@typescript-eslint/typescript-estree': 6.7.5(typescript@5.2.2)
+      '@typescript-eslint/typescript-estree': 6.7.5(typescript@5.3.2)
       eslint: 8.51.0
       semver: 7.5.4
     transitivePeerDependencies:
@@ -2990,7 +2990,7 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  /eslint-plugin-perfectionist@2.2.0(eslint@8.51.0)(typescript@5.2.2):
+  /eslint-plugin-perfectionist@2.2.0(eslint@8.51.0)(typescript@5.3.2):
     resolution: {integrity: sha512-/nG2Uurd6AY7CI6zlgjHPOoiPY8B7EYMUWdNb5w+EzyauYiQjjD5lQwAI1FlkBbCCFFZw/CdZIPQhXumYoiyaw==}
     peerDependencies:
       astro-eslint-parser: ^0.16.0
@@ -3008,7 +3008,7 @@ packages:
       vue-eslint-parser:
         optional: true
     dependencies:
-      '@typescript-eslint/utils': 6.7.5(eslint@8.51.0)(typescript@5.2.2)
+      '@typescript-eslint/utils': 6.7.5(eslint@8.51.0)(typescript@5.3.2)
       eslint: 8.51.0
       minimatch: 9.0.3
       natural-compare-lite: 1.4.0
@@ -5457,20 +5457,20 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.0.4(@swc/core@1.3.93)(@types/node@20.9.5)(eslint@8.51.0)(typescript@5.2.2):
+  /oclif@4.0.4(@swc/core@1.3.93)(@types/node@20.9.5)(eslint@8.51.0)(typescript@5.3.2):
     resolution: {integrity: sha512-2rebdu1Ow9/TRolMI7s1IsJmKH7RpwlBzIKZFtE8eFiDmGenX6GEsWaxSEtgMXmzCSSQ1DbCRDv0hwcwVGIJuA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
-      '@oclif/core': 3.12.0(typescript@5.2.2)
-      '@oclif/plugin-help': 5.2.20(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2)
-      '@oclif/plugin-not-found': 2.4.3(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2)
-      '@oclif/plugin-warn-if-update-available': 3.0.2(typescript@5.2.2)
+      '@oclif/core': 3.12.0(typescript@5.3.2)
+      '@oclif/plugin-help': 5.2.20(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2)
+      '@oclif/plugin-not-found': 2.4.3(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2)
+      '@oclif/plugin-warn-if-update-available': 3.0.2(typescript@5.3.2)
       async-retry: 1.3.3
       aws-sdk: 2.1473.0
       change-case: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
-      eslint-plugin-perfectionist: 2.2.0(eslint@8.51.0)(typescript@5.2.2)
+      eslint-plugin-perfectionist: 2.2.0(eslint@8.51.0)(typescript@5.3.2)
       find-yarn-workspace-root: 2.0.0
       fs-extra: 8.1.0
       github-slugger: 1.5.0
@@ -5895,7 +5895,7 @@ packages:
       - supports-color
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.3(prettier@3.1.0)(typescript@5.2.2):
+  /prettier-plugin-organize-imports@3.2.3(prettier@3.1.0)(typescript@5.3.2):
     resolution: {integrity: sha512-KFvk8C/zGyvUaE3RvxN2MhCLwzV6OBbFSkwZ2OamCrs9ZY4i5L77jQ/w4UmUr+lqX8qbaqVq6bZZkApn+IgJSg==}
     peerDependencies:
       '@volar/vue-language-plugin-pug': ^1.0.4
@@ -5909,7 +5909,7 @@ packages:
         optional: true
     dependencies:
       prettier: 3.1.0
-      typescript: 5.2.2
+      typescript: 5.3.2
     dev: true
 
   /prettier-plugin-packagejson@2.4.6(prettier@3.1.0):
@@ -6881,13 +6881,13 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-api-utils@1.0.3(typescript@5.2.2):
+  /ts-api-utils@1.0.3(typescript@5.3.2):
     resolution: {integrity: sha512-wNMeqtMz5NtwpT/UZGY5alT+VoKdSsOOP/kqHFcUW1P/VRhH2wJ48+DN2WwUliNbQ976ETwDL0Ifd2VVvgonvg==}
     engines: {node: '>=16.13.0'}
     peerDependencies:
       typescript: '>=4.2.0'
     dependencies:
-      typescript: 5.2.2
+      typescript: 5.3.2
     dev: true
 
   /ts-json-schema-generator@1.4.0:
@@ -6904,7 +6904,7 @@ packages:
       typescript: 5.2.2
     dev: false
 
-  /ts-node@10.9.1(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.2.2):
+  /ts-node@10.9.1(@swc/core@1.3.93)(@types/node@20.9.5)(typescript@5.3.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -6931,18 +6931,18 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.2.2
+      typescript: 5.3.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
-  /ts-writer@1.3.1(typescript@5.2.2):
+  /ts-writer@1.3.1(typescript@5.3.2):
     resolution: {integrity: sha512-I/uvF/evEuXr0ym7imZnmRDiPeuBpFrj4Zsk8gJyIW3kca8uMLbImnwPQzrsOCQ8JjLQuWSLSJqn0VBfRVWl9A==}
     peerDependencies:
       typescript: ^5.2.2
     dependencies:
       json-stable-stringify: 1.1.0
       tslib: 2.6.2
-      typescript: 5.2.2
+      typescript: 5.3.2
     dev: false
 
   /tsc-alias@1.8.8:
@@ -6957,7 +6957,7 @@ packages:
       plimit-lit: 1.6.1
     dev: true
 
-  /tsconfck@3.0.0(typescript@5.2.2):
+  /tsconfck@3.0.0(typescript@5.3.2):
     resolution: {integrity: sha512-w3wnsIrJNi7avf4Zb0VjOoodoO0woEqGgZGQm+LHH9przdUI+XDKsWAXwxHA1DaRTjeuZNcregSzr7RaA8zG9A==}
     engines: {node: ^18 || >=20}
     hasBin: true
@@ -6967,7 +6967,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      typescript: 5.2.2
+      typescript: 5.3.2
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
@@ -7084,6 +7084,12 @@ packages:
 
   /typescript@5.2.2:
     resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: false
+
+  /typescript@5.3.2:
+    resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -7558,7 +7564,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  file:packages/ts-plugin(typescript@5.2.2):
+  file:packages/ts-plugin(typescript@5.3.2):
     resolution: {directory: packages/ts-plugin, type: directory}
     id: file:packages/ts-plugin
     name: '@kitajs/ts-plugin'
@@ -7569,5 +7575,5 @@ packages:
       '@kitajs/parser': link:packages/parser
       deasync: 0.1.29
       tslib: 2.6.2
-      typescript: 5.2.2
+      typescript: 5.3.2
     dev: true
