@@ -24,7 +24,6 @@ export function post() {
  * This should not be used as an empty description is used.
  *
  * @url /not-index
- * @method delete
  * @deprecated
  * @description
  */
@@ -34,7 +33,6 @@ export function put() {
 
 /**
  * @internal
- * @method put
  */
 export function Delete() {
   return 'Hello world!';

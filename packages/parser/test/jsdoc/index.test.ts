@@ -50,30 +50,11 @@ describe('JSDoc usage on route', async () => {
   });
 
   test('works with complex jsdocs', () => {
-    const route = kita.getRoute('deleteIndex');
+    const route = kita.getRoute('putIndex');
 
     assert.deepStrictEqual(route, {
       url: '/not-index',
       controllerMethod: 'put',
-      method: 'DELETE',
-      relativePath: cwdRelative('routes/index.ts'),
-      kind: 'rest',
-      parameters: [],
-      schema: {
-        response: { '2xx': { type: 'string' } },
-        operationId: 'deleteIndex',
-        deprecated: true,
-        description: undefined
-      }
-    });
-  });
-
-  test('@internal adds hide', () => {
-    const route = kita.getRoute('putIndex');
-
-    assert.deepStrictEqual(route, {
-      url: '/',
-      controllerMethod: 'Delete',
       method: 'PUT',
       relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
@@ -81,6 +62,25 @@ describe('JSDoc usage on route', async () => {
       schema: {
         response: { '2xx': { type: 'string' } },
         operationId: 'putIndex',
+        deprecated: true,
+        description: undefined
+      }
+    });
+  });
+
+  test('@internal adds hide', () => {
+    const route = kita.getRoute('deleteIndex');
+
+    assert.deepStrictEqual(route, {
+      url: '/',
+      controllerMethod: 'Delete',
+      method: 'DELETE',
+      relativePath: cwdRelative('routes/index.ts'),
+      kind: 'rest',
+      parameters: [],
+      schema: {
+        response: { '2xx': { type: 'string' } },
+        operationId: 'deleteIndex',
         hide: true
       }
     });

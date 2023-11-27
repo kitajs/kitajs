@@ -124,16 +124,6 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
         route.schema.deprecated = true;
         break;
 
-      case 'method':
-        if (!value) {
-          throw new EmptyJsdocError(tag.tagName || tag);
-        }
-
-        // changes the operationId to match the method
-        route.schema.operationId = value.toLowerCase() + route.schema.operationId.slice(route.method.length);
-        route.method = value.toUpperCase();
-        break;
-
       case 'internal': {
         route.schema.hide = true;
         break;
