@@ -38,7 +38,7 @@ export class RestRouteParser implements RouteParser {
 
     // Allows this parameter to not be defined as this is the last
     // resolver and should try to catch as many routes as possible.
-    if (!HttpMethods.includes(node.name.text.toUpperCase())) {
+    if (!HttpMethods.includes(node.name.text.toUpperCase()) && node.name.text.toUpperCase() !== 'ALL') {
       return false;
     }
 
