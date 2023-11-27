@@ -41,7 +41,7 @@
     "@swc-node/register": "^1.6.8",
     "@swc/helpers": "^0.5.3",
     "@types/json-stable-stringify": "^1.0.36",
-    "@types/node": "^20.9.5",
+    "@types/node": "^20.10.0",
     "c8": "^8.0.1",
     "fastify": "^4.24.3",
     "fastify-plugin": "^4.5.1",
