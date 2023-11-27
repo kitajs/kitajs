@@ -44,8 +44,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita b`](#kita-b)
   - [`kita build`](#kita-build)
@@ -79,7 +79,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version|-v)
-@kitajs/cli/1.1.25 linux-x64 node-v20.9.0
+@kitajs/cli/1.1.26 linux-x64 node-v20.9.0
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
@@ -142,7 +142,7 @@ EXAMPLES
 ```
 
 _See code:
-[@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.1/src/commands/autocomplete/index.ts)_
+[@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.2/src/commands/autocomplete/index.ts)_
 
 ## `kita build`
 
@@ -174,7 +174,7 @@ EXAMPLES
     $ kita build -d
 ```
 
-_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.25/src/commands/build.ts)_
+_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.26/src/commands/build.ts)_
 
 ## `kita config`
 
@@ -200,7 +200,7 @@ EXAMPLES
     $ kita config -c kita.config.js
 ```
 
-_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.25/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.26/src/commands/config.ts)_
 
 ## `kita help [COMMANDS]`
 
@@ -220,7 +220,7 @@ DESCRIPTION
   Display help for kita.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.6/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.7/src/commands/help.ts)_
 
 ## `kita init`
 
@@ -241,7 +241,7 @@ EXAMPLES
   $ kita init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.25/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.26/src/commands/init.ts)_
 
 ## `kita plugins`
 
@@ -272,7 +272,7 @@ Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ kita plugins:install PLUGIN...
+  $ kita plugins add plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -314,7 +314,7 @@ Displays installation properties of a plugin.
 
 ```
 USAGE
-  $ kita plugins:inspect PLUGIN...
+  $ kita plugins inspect PLUGIN...
 
 ARGUMENTS
   PLUGIN  [default: .] Plugin to inspect.
@@ -341,7 +341,7 @@ Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ kita plugins:install PLUGIN...
+  $ kita plugins install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -385,7 +385,7 @@ Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ kita plugins:link PLUGIN
+  $ kita plugins link PLUGIN
 
 ARGUMENTS
   PATH  [default: .] path to plugin
@@ -415,7 +415,7 @@ Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ kita plugins:uninstall PLUGIN...
+  $ kita plugins remove plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -452,7 +452,7 @@ Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ kita plugins:uninstall PLUGIN...
+  $ kita plugins uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -481,7 +481,7 @@ Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ kita plugins:uninstall PLUGIN...
+  $ kita plugins unlink plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -540,7 +540,7 @@ EXAMPLES
     $ kita reset
 ```
 
-_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.25/src/commands/reset.ts)_
+_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.26/src/commands/reset.ts)_
 
 ## `kita watch`
 
@@ -575,7 +575,7 @@ EXAMPLES
     $ kita watch -d
 ```
 
-_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.25/src/commands/watch.ts)_
+_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.26/src/commands/watch.ts)_
 
 <!-- commandsstop -->
 

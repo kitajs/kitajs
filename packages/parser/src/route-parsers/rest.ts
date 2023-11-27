@@ -11,6 +11,7 @@ import path from 'path';
 import { ts } from 'ts-json-schema-generator';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
+import { HttpMethods } from '../util/http';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportedFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
@@ -37,7 +38,7 @@ export class RestRouteParser implements RouteParser {
 
     // Allows this parameter to not be defined as this is the last
     // resolver and should try to catch as many routes as possible.
-    if (!node.name.text.trim().match(/^get|post|put|delete|all$/i)) {
+    if (!HttpMethods.includes(node.name.text.toUpperCase()) && node.name.text.toUpperCase() !== 'ALL') {
       return false;
     }
 
