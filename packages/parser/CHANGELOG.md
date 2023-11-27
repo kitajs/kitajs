@@ -1,5 +1,13 @@
 # @kitajs/parser
 
+## 1.1.19
+
+### Patch Changes
+
+- [#192](https://github.com/kitajs/kitajs/pull/192)
+  [`33a27a3`](https://github.com/kitajs/kitajs/commit/33a27a339959ded18559e676d52ebe522a93c22a) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Support for all HTTP methods
+
 ## 1.1.18
 
 ### Patch Changes
