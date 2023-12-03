@@ -107,13 +107,15 @@ export class KitaParser implements AstCollector {
           }
         }
 
-        if (parser.onChange) {
-          const promise = parser.onChange(parser.ref);
+        setImmediate(() => {
+          if (parser.onChange) {
+            const promise = parser.onChange(parser.ref);
 
-          if (promise && parser.onError) {
-            promise.catch(parser.onError);
+            if (promise && parser.onError) {
+              promise.catch(parser.onError);
+            }
           }
-        }
+        });
       },
       {
         excludeFiles: config.watchIgnore
@@ -263,11 +265,11 @@ export class KitaParser implements AstCollector {
     }
   }
 
-  getProvider(name: string) {
+  getProvider(name: string): Provider | undefined {
     return this.providers.get(name);
   }
 
-  getProviders() {
+  getProviders(): Provider[] {
     return Array.from(this.providers.values());
   }
 
@@ -275,11 +277,11 @@ export class KitaParser implements AstCollector {
     return this.providers.size;
   }
 
-  getRoute(operationId: string) {
+  getRoute(operationId: string): Route | undefined {
     return this.routes.get(operationId);
   }
 
-  getRoutes() {
+  getRoutes(): Route[] {
     return Array.from(this.routes.values());
   }
 
@@ -315,7 +317,7 @@ export class KitaParser implements AstCollector {
     this.plugins.set(name, plugin);
   }
 
-  getProgram() {
+  getProgram(): ts.Program {
     return this.program;
   }
 }
