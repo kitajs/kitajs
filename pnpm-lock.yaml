@@ -100,8 +100,8 @@ importers:
         specifier: ^4.24.3
         version: 4.24.3
       ts-json-schema-generator:
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
@@ -6876,20 +6876,6 @@ packages:
       typescript: 5.3.2
     dev: true
 
-  /ts-json-schema-generator@1.4.0:
-    resolution: {integrity: sha512-wm8vyihmGgYpxrqRshmYkWGNwEk+sf3xV2rUgxv8Ryeh7bSpMO7pZQOht+2rS002eDkFTxR7EwRPXVzrS0WJTg==}
-    engines: {node: '>=10.0.0'}
-    hasBin: true
-    dependencies:
-      '@types/json-schema': 7.0.15
-      commander: 11.1.0
-      glob: 8.1.0
-      json5: 2.2.3
-      normalize-path: 3.0.0
-      safe-stable-stringify: 2.4.3
-      typescript: 5.2.2
-    dev: false
-
   /ts-json-schema-generator@1.4.1:
     resolution: {integrity: sha512-wnhPMtskk9KvsTuU8AYx0TNdm1YrLVUEontT22+jL12JIPqPXdaoxPgsYBhlqDXsR9R9Nm2bJgH5r4IrTMbTSg==}
     engines: {node: '>=10.0.0'}
@@ -7081,12 +7067,6 @@ packages:
       for-each: 0.3.3
       is-typed-array: 1.1.12
     dev: true
-
-  /typescript@5.2.2:
-    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-    dev: false
 
   /typescript@5.3.2:
     resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
