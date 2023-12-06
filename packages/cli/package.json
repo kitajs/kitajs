@@ -40,7 +40,7 @@
     "@oclif/plugin-autocomplete": "^3.0.2",
     "@oclif/plugin-help": "^6.0.7",
     "@oclif/plugin-not-found": "^3.0.4",
-    "@oclif/plugin-plugins": "^4.1.8",
+    "@oclif/plugin-plugins": "^4.1.10",
     "@oclif/plugin-warn-if-update-available": "^2.1.1",
     "chalk": "^4.1.2",
     "deepmerge": "^4.3.1",
