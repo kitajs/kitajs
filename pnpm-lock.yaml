@@ -51,8 +51,8 @@ importers:
         specifier: ^6.0.8
         version: 6.0.8(typescript@5.3.3)
       '@oclif/plugin-not-found':
-        specifier: ^3.0.4
-        version: 3.0.4(typescript@5.3.3)
+        specifier: ^3.0.5
+        version: 3.0.5(typescript@5.3.3)
       '@oclif/plugin-plugins':
         specifier: ^4.1.10
         version: 4.1.10(typescript@5.3.3)
@@ -1156,8 +1156,8 @@ packages:
       - typescript
     dev: true
 
-  /@oclif/plugin-not-found@3.0.4(typescript@5.3.3):
-    resolution: {integrity: sha512-42Sef7/G81Pr+SesNTbkf4NwytZJkV7CZuFMNZNzqZms+0j1cRLwmkAlnDIcDWJs9jugF13ehdw3/5Xa6WrjQA==}
+  /@oclif/plugin-not-found@3.0.5(typescript@5.3.3):
+    resolution: {integrity: sha512-6viweQvOyHQW/HXoYgXi0V+1Wt7j4dAwRYeso+7donAsgFaPhwKJ4CGu6yUPU0ij3e1CfdNajxmR3nXTf+BIuw==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.14.1(typescript@5.3.3)
