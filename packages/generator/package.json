@@ -43,7 +43,7 @@
     "@types/json-stable-stringify": "^1.0.36",
     "@types/node": "^20.10.4",
     "c8": "^8.0.1",
-    "fastify": "^4.24.3",
+    "fastify": "^4.25.0",
     "fastify-plugin": "^4.5.1",
     "form-auto-content": "^3.2.1",
     "tsc-alias": "^1.8.8"
