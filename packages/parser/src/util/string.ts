@@ -15,11 +15,14 @@ export function parseUrl(filepath: string, config: KitaConfig) {
   // Replaces windows separators with /
   strip = strip.replace(WIN32_SEP_REGEX, '/');
 
-  // Replaces spaces with dashes
-  strip = strip.replace(/\s|\./g, '-');
+  // Replaces spaces with underlines
+  strip = strip.replace(/\s/g, '_');
+
+  // Replaces [...] to *
+  let url = strip.replace(/\[\.{3}\]/g, '*');
 
   // Replaces [param] syntax to :param
-  let url = strip.replace(/(\[.+?\])/g, (match) => `:${match.substring(1, match.length - 1)}`);
+  url = url.replace(/\[(.+?)\]/g, ':$1');
 
   // Removes index from name
   url = url.replace(/\/?index\/?/g, '/');
@@ -36,7 +39,12 @@ export function parseUrl(filepath: string, config: KitaConfig) {
     // Camel case paths or dash case paths
     routeId:
       strip
+        // Replaces [...] to Wilcard
+        .replace(/\[\.{3}\]/g, 'Wildcard')
+        // Replaces other parameters to their name
         .replace(/\[(.+?)\]/g, '$1')
+        // replaces all non JS valid variable names
+        .replace(/[^a-zA-Z0-9_$]/g, '_')
         .split('/')
         .flatMap((p) => p.split('-'))
         .map(capitalize)
