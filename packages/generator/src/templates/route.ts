@@ -56,7 +56,7 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
    *
    * ${String(route.schema.description || '')}
    */
-  export type ${returnTypeName} = ReturnType<typeof ${route.schema.operationId}>;
+  export type ${returnTypeName} = Awaited<ReturnType<typeof ${route.schema.operationId}>>;
 
   /**
    * Parses the request and reply parameters and calls the ${route.schema.operationId} controller method.
@@ -64,7 +64,7 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
   export declare function ${route.schema.operationId}Handler(
     ${kRequestParam}: FastifyRequest,
     ${kReplyParam}: FastifyReply
-  ): ${toAsyncStatement(route.parameters) ? `Promise<Awaited<${returnTypeName}>>` : returnTypeName};
+  ): ${toAsyncStatement(route.parameters) ? `Promise<${returnTypeName}>` : returnTypeName};
   `;
 }
 
