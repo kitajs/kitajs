@@ -51,6 +51,8 @@ export default class Build extends BaseKitaCommand {
       declaration: flags.dts
     });
 
+    await this.prepareFirstRun(config, compilerOptions);
+
     ux.action.start('Warming up', '', {
       stdout: true,
       style: 'clock'

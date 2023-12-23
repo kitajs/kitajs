@@ -9,7 +9,10 @@ import { generateRoute } from './templates/route';
 export class KitaFormatter implements SourceFormatter {
   private files: TsFile[] = [];
 
-  constructor(readonly config: KitaConfig) {}
+  constructor(
+    readonly config: KitaConfig,
+    readonly typeOnly?: boolean
+  ) {}
 
   generateRoute(route: Route, collector: AstCollector) {
     this.files.push(
@@ -31,7 +34,9 @@ export class KitaFormatter implements SourceFormatter {
   }
 
   async flush() {
-    const files = this.files.flatMap((file) => (this.config.declaration ? [file.source, file.types] : file.source));
+    const files = this.files.flatMap((file) =>
+      this.typeOnly ? [file.types] : this.config.declaration ? [file.source, file.types] : file.source
+    );
 
     // Tries to delete previous index.js and index.d.ts original files
     // Ignores errors

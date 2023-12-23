@@ -42,6 +42,8 @@ export default class Watch extends BaseKitaCommand {
       watchIgnore: flags.ignore
     });
 
+    await this.prepareFirstRun(config, compilerOptions);
+
     ux.action.start('Warming up', '', {
       stdout: true,
       style: 'clock'
