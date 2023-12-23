@@ -1,5 +1,4 @@
 import { AstCollector, KitaConfig, parseConfig, readCompilerOptions } from '@kitajs/common';
-import assert from 'assert';
 import path from 'path';
 import { KitaParser, walk } from '../src';
 
@@ -18,9 +17,29 @@ export async function parseRoutes(cwd: string, config: Partial<KitaConfig> = {})
 
   // Should not emit any errors
   for await (const error of kita.parse()) {
-    console.error(error);
-    assert.fail(error);
+    throw error;
   }
 
   return kita;
+}
+
+export async function parseRoutesWithErrors(cwd: string, config: Partial<KitaConfig> = {}) {
+  const cfg = parseConfig({
+    tsconfig,
+    cwd,
+    src: cwd,
+    runtimePath: path.resolve(cwd, 'runtime'),
+    ...config
+  });
+
+  const kita = KitaParser.create(cfg, readCompilerOptions(tsconfig), walk(cwd));
+
+  const errors = [];
+
+  // Should not emit any errors
+  for await (const error of kita.parse()) {
+    errors.push(error);
+  }
+
+  return { kita, errors };
 }

@@ -2,14 +2,16 @@ import {
   AstCollector,
   DefaultExportedRoute,
   KitaConfig,
+  KitaError,
   ParameterParser,
   ReturnTypeError,
   Route,
   RouteParser,
+  RouteWithoutReturnError,
   capital
 } from '@kitajs/common';
 import path from 'path';
-import { ts } from 'ts-json-schema-generator';
+import { UndefinedType, VoidType, ts } from 'ts-json-schema-generator';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { HttpMethods } from '../util/http';
@@ -43,16 +45,16 @@ export class RestRouteParser implements RouteParser {
       return false;
     }
 
-    const defaultExport = node.modifiers.find((s) => s.kind === ts.SyntaxKind.DefaultKeyword);
+    return true;
+  }
+
+  async parse(node: ts.FunctionDeclaration): Promise<Route> {
+    const defaultExport = node.modifiers!.find((s) => s.kind === ts.SyntaxKind.DefaultKeyword);
 
     if (defaultExport) {
       throw new DefaultExportedRoute(defaultExport || node.name || node);
     }
 
-    return true;
-  }
-
-  async parse(node: ts.FunctionDeclaration): Promise<Route> {
     // Adds fastify swagger plugin
     if (!this.collector.getPlugin('fastifySwagger')) {
       this.collector.addPlugin('fastifySwagger', {
@@ -109,15 +111,23 @@ export class RestRouteParser implements RouteParser {
 
     // Adds response type.
     try {
+      const returnType = this.schema.createTypeSchema(getReturnType(node, this.typeChecker));
+      const primitiveReturn = this.schema.toPrimitive(returnType, true);
+
+      if (primitiveReturn instanceof VoidType || primitiveReturn instanceof UndefinedType) {
+        throw new RouteWithoutReturnError(node.type || node.name || node);
+      }
+
       mergeSchema(route, {
         response: {
-          ['2xx' as string]: this.schema.consumeNodeSchema(
-            getReturnType(node, this.typeChecker),
-            capital(`${route.schema.operationId}Response`)
-          )
+          ['2xx' as string]: this.schema.consumeNodeSchema(returnType, capital(`${route.schema.operationId}Response`))
         }
       });
     } catch (error) {
+      if (error instanceof KitaError) {
+        throw error;
+      }
+
       throw new ReturnTypeError(node.type || node.name || node, error);
     }
 

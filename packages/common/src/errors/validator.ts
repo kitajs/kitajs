@@ -169,3 +169,14 @@ export class DefaultExportedRoute extends KitaError {
     });
   }
 }
+
+export class RouteWithoutReturnError extends KitaError {
+  constructor(node: ts.Node) {
+    super({
+      code: 414,
+      messageText:
+        'You cannot have a route that returns `undefined`, please use other value such as `true`, `""` or `null`.',
+      node
+    });
+  }
+}

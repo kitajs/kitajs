@@ -71,8 +71,8 @@ export class SchemaBuilder {
   }
 
   /** Saves and returns a {@linkcode ts.Node}'s respective json schema. */
-  consumeNodeSchema(node: ts.TypeNode, overrideName?: string): Schema {
-    let type = this.createTypeSchema(node);
+  consumeNodeSchema(node: ts.TypeNode | BaseType, overrideName?: string): Schema {
+    let type = node instanceof BaseType ? node : this.createTypeSchema(node);
 
     {
       // Prevents from creating multiple `{ id: '...', type: 'string' }`-like definitions
