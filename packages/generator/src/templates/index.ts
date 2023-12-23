@@ -35,15 +35,6 @@ ${routes.map((r) => `    tslib.__exportStar(require("./routes/${r.schema.operati
 
 ${ts.types}
 
-  // Declares required global variables
-  declare global {
-    /**
-     * This variable is required to be defined before any routes are imported. It should
-     * be the dirname of your source files, usually the \`src\` or \`dist\` folder.
-     */
-    var ${kKitaRoot}: string;
-  }
-
   /**
    * You can await this promise to make sure the runtime is ready and all cyclic
    * imports are resolved.
