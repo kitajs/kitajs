@@ -1,3 +1,5 @@
+/// <reference types="@kitajs/runtime" />
+
 import { PartialKitaConfig, parseConfig, readCompilerOptions } from '@kitajs/common';
 import { KitaParser } from '@kitajs/parser';
 import assert from 'assert';

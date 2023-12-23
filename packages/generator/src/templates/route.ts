@@ -37,7 +37,11 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
 
   ${route.method === 'ALL' ? `const { supportedMethods } = require('fastify/lib/httpMethods');` : ''}
 
-  exports.${route.schema.operationId}Options = ${toOptions(route, providers)};  
+  exports.${route.schema.operationId}Options = ${toOptions(route, providers)};
+
+  exports.${route.schema.operationId}Url = ${JSON.stringify(route.url)};
+
+  exports.${route.schema.operationId}Method = ${JSON.stringify(route.method)};
 
   exports.__esModule = true;
 
@@ -52,11 +56,21 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
   export declare const ${route.schema.operationId}: typeof ${kControllerName}.${route.controllerMethod};
 
   /**
+   * The url for the ${route.schema.operationId} route.
+   */
+  export declare const ${route.schema.operationId}Url: string;
+
+  /**
+   * The method for the ${route.schema.operationId} route.
+   */
+  export declare const ${route.schema.operationId}Method: string;
+
+  /**
    * The return type of the controller method.
    *
    * ${String(route.schema.description || '')}
    */
-  export type ${returnTypeName} = ReturnType<typeof ${route.schema.operationId}>;
+  export type ${returnTypeName} = Awaited<ReturnType<typeof ${route.schema.operationId}>>;
 
   /**
    * Parses the request and reply parameters and calls the ${route.schema.operationId} controller method.
@@ -64,7 +78,7 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
   export declare function ${route.schema.operationId}Handler(
     ${kRequestParam}: FastifyRequest,
     ${kReplyParam}: FastifyReply
-  ): ${toAsyncStatement(route.parameters) ? `Promise<Awaited<${returnTypeName}>>` : returnTypeName};
+  ): ${toAsyncStatement(route.parameters) ? `Promise<${returnTypeName}>` : returnTypeName};
   `;
 }
 

@@ -1,19 +1,22 @@
 import {
   AstCollector,
+  DefaultExportedRoute,
   KitaConfig,
+  KitaError,
   ParameterParser,
   ReturnTypeError,
   Route,
   RouteParser,
+  RouteWithoutReturnError,
   capital
 } from '@kitajs/common';
 import path from 'path';
-import { ts } from 'ts-json-schema-generator';
+import { UndefinedType, VoidType, ts } from 'ts-json-schema-generator';
 import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { HttpMethods } from '../util/http';
 import { parseJsDocTags } from '../util/jsdoc';
-import { getReturnType, isExportedFunction } from '../util/nodes';
+import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
 import { parseUrl } from '../util/string';
 import { traverseParameters } from '../util/traverser';
@@ -28,7 +31,7 @@ export class RestRouteParser implements RouteParser {
   ) {}
 
   supports(node: ts.Node): boolean {
-    if (!isExportedFunction(node)) {
+    if (!isExportFunction(node)) {
       return false;
     }
 
@@ -46,6 +49,12 @@ export class RestRouteParser implements RouteParser {
   }
 
   async parse(node: ts.FunctionDeclaration): Promise<Route> {
+    const defaultExport = node.modifiers!.find((s) => s.kind === ts.SyntaxKind.DefaultKeyword);
+
+    if (defaultExport) {
+      throw new DefaultExportedRoute(defaultExport || node.name || node);
+    }
+
     // Adds fastify swagger plugin
     if (!this.collector.getPlugin('fastifySwagger')) {
       this.collector.addPlugin('fastifySwagger', {
@@ -102,15 +111,23 @@ export class RestRouteParser implements RouteParser {
 
     // Adds response type.
     try {
+      const returnType = this.schema.createTypeSchema(getReturnType(node, this.typeChecker));
+      const primitiveReturn = this.schema.toPrimitive(returnType, true);
+
+      if (primitiveReturn instanceof VoidType || primitiveReturn instanceof UndefinedType) {
+        throw new RouteWithoutReturnError(node.type || node.name || node);
+      }
+
       mergeSchema(route, {
         response: {
-          ['2xx' as string]: this.schema.consumeNodeSchema(
-            getReturnType(node, this.typeChecker),
-            capital(`${route.schema.operationId}Response`)
-          )
+          ['2xx' as string]: this.schema.consumeNodeSchema(returnType, capital(`${route.schema.operationId}Response`))
         }
       });
     } catch (error) {
+      if (error instanceof KitaError) {
+        throw error;
+      }
+
       throw new ReturnTypeError(node.type || node.name || node, error);
     }
 

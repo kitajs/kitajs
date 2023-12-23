@@ -6,6 +6,8 @@ import {
   SourceFormatter,
   readCompilerOptions
 } from '@kitajs/common';
+import { KitaFormatter } from '@kitajs/generator';
+import { KitaParser } from '@kitajs/parser';
 import { Command, Flags, ux } from '@oclif/core';
 import { CommandError } from '@oclif/core/lib/interfaces';
 import chalk from 'chalk';
@@ -79,6 +81,36 @@ export abstract class BaseKitaCommand extends Command {
     }
 
     ux.action.stop(chalk`{cyan .${path.sep}${path.relative(config.cwd, config.runtimePath)}}`);
+  }
+
+  /**
+   * If the user's source code imports any type only available inside the generated runtime, the first build will fail
+   * because these imports resolves to an inexistent file, by running the parser twice we can avoid this problem.
+   */
+  protected async prepareFirstRun(config: KitaConfig, compilerOptions: any) {
+    ux.action.start('Searching runtime', '', {
+      stdout: true,
+      style: 'clock'
+    });
+
+    if (
+      await fs.promises.access(path.join(config.runtimePath, 'plugin.js')).then(
+        () => true,
+        () => false
+      )
+    ) {
+      ux.action.stop(chalk`{cyan Found!}`);
+      return;
+    }
+
+    const formatter = new KitaFormatter(config, true);
+    const parser = KitaParser.create(config, compilerOptions, compilerOptions.rootNames, formatter);
+
+    // Ignores all errors, just generates something
+    for await (const _ of parser.parse());
+    await formatter.flush();
+
+    ux.action.stop(chalk`{yellow First run!}`);
   }
 
   protected async runParser(parser: AstCollector, formatter?: SourceFormatter, reset?: boolean, config?: KitaConfig) {

@@ -159,3 +159,24 @@ export class FileInGetRequestError extends KitaError {
     });
   }
 }
+
+export class DefaultExportedRoute extends KitaError {
+  constructor(node: ts.Node) {
+    super({
+      code: 413,
+      messageText: 'You cannot use default exported routes. Please remove the `default` modifier',
+      node
+    });
+  }
+}
+
+export class RouteWithoutReturnError extends KitaError {
+  constructor(node: ts.Node) {
+    super({
+      code: 414,
+      messageText:
+        'You cannot have a route that returns `undefined`, please use other value such as `true`, `""` or `null`.',
+      node
+    });
+  }
+}
