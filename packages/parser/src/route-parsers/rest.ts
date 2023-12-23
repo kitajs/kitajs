@@ -1,5 +1,6 @@
 import {
   AstCollector,
+  DefaultExportedRoute,
   KitaConfig,
   ParameterParser,
   ReturnTypeError,
@@ -13,7 +14,7 @@ import { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { HttpMethods } from '../util/http';
 import { parseJsDocTags } from '../util/jsdoc';
-import { getReturnType, isExportedFunction } from '../util/nodes';
+import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
 import { parseUrl } from '../util/string';
 import { traverseParameters } from '../util/traverser';
@@ -28,7 +29,7 @@ export class RestRouteParser implements RouteParser {
   ) {}
 
   supports(node: ts.Node): boolean {
-    if (!isExportedFunction(node)) {
+    if (!isExportFunction(node)) {
       return false;
     }
 
@@ -40,6 +41,12 @@ export class RestRouteParser implements RouteParser {
     // resolver and should try to catch as many routes as possible.
     if (!HttpMethods.includes(node.name.text.toUpperCase()) && node.name.text.toUpperCase() !== 'ALL') {
       return false;
+    }
+
+    const defaultExport = node.modifiers.find((s) => s.kind === ts.SyntaxKind.DefaultKeyword);
+
+    if (defaultExport) {
+      throw new DefaultExportedRoute(defaultExport || node.name || node);
     }
 
     return true;

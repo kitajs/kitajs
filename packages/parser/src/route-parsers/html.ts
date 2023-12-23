@@ -1,4 +1,5 @@
 import {
+  DefaultExportedRoute,
   InvalidHtmlRoute,
   KitaConfig,
   ParameterParser,
@@ -13,7 +14,7 @@ import { StringType, ts } from 'ts-json-schema-generator';
 import { SuspenseIdParameterParser } from '../parameter-parsers/suspense-id';
 import { SchemaBuilder } from '../schema/builder';
 import { parseJsDocTags } from '../util/jsdoc';
-import { getReturnType, isExportedFunction } from '../util/nodes';
+import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
 import { parseUrl } from '../util/string';
 import { traverseParameters } from '../util/traverser';
@@ -27,7 +28,7 @@ export class HtmlRouteParser implements RouteParser {
   ) {}
 
   supports(node: ts.Node): boolean {
-    if (!isExportedFunction(node)) {
+    if (!isExportFunction(node)) {
       return false;
     }
 
@@ -45,6 +46,12 @@ export class HtmlRouteParser implements RouteParser {
     // all should not be allowed
     if (!node.name.text.trim().match(/^get|post|put|delete$/i)) {
       return false;
+    }
+
+    const defaultExport = node.modifiers.find((s) => s.kind === ts.SyntaxKind.DefaultKeyword);
+
+    if (defaultExport) {
+      throw new DefaultExportedRoute(defaultExport || node.name || node);
     }
 
     return true;

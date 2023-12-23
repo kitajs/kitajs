@@ -159,3 +159,13 @@ export class FileInGetRequestError extends KitaError {
     });
   }
 }
+
+export class DefaultExportedRoute extends KitaError {
+  constructor(node: ts.Node) {
+    super({
+      code: 413,
+      messageText: 'You cannot use default exported routes. Please remove the `default` modifier',
+      node
+    });
+  }
+}

@@ -80,22 +80,6 @@ export function getReturnType(node: ts.SignatureDeclaration, typeChecker: ts.Typ
   )!;
 }
 
-/** Returns true if the provided node is a exported function. */
-export function isExportedFunction(node: ts.Node): node is ts.FunctionDeclaration & {
-  modifiers: ts.NodeArray<ts.ModifierLike>;
-} {
-  return (
-    // Is a function type
-    ts.isFunctionDeclaration(node) &&
-    // needs to have modifiers
-    !!node.modifiers &&
-    // `export` modifier needs to be present
-    node.modifiers.some((m) => m.kind === ts.SyntaxKind.ExportKeyword) &&
-    // cannot be a default export
-    !node.modifiers.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword)
-  );
-}
-
 export function isExportedVariable(
   node: ts.Node
 ): node is ts.VariableStatement & { modifiers: ts.NodeArray<ts.ModifierLike> } {
@@ -111,8 +95,32 @@ export function isExportedVariable(
   );
 }
 
+/** Returns true if the provided node is a exported function. */
+export function isExportedFunction(node: ts.Node): node is ts.FunctionDeclaration & {
+  modifiers: ts.NodeArray<ts.ModifierLike>;
+} {
+  return (
+    // Is a exported function
+    isExportFunction(node) &&
+    // cannot be a default export
+    !node.modifiers.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword)
+  );
+}
+
 /** Returns true if the provided node is a default exported function. */
 export function isDefaultExportFunction(node: ts.Node): node is ts.FunctionDeclaration & {
+  modifiers: ts.NodeArray<ts.ModifierLike>;
+} {
+  return (
+    // Is a exported function
+    isExportFunction(node) &&
+    // has a default export
+    node.modifiers.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword)
+  );
+}
+
+/** Returns true if the provided node is a **default or not exported** function. */
+export function isExportFunction(node: ts.Node): node is ts.FunctionDeclaration & {
   modifiers: ts.NodeArray<ts.ModifierLike>;
 } {
   return (
@@ -120,8 +128,8 @@ export function isDefaultExportFunction(node: ts.Node): node is ts.FunctionDecla
     ts.isFunctionDeclaration(node) &&
     // needs to have modifiers
     !!node.modifiers &&
-    // has a default export
-    node.modifiers.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword)
+    // `export` modifier needs to be present
+    node.modifiers.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)
   );
 }
 
