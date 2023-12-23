@@ -1,2 +1,4 @@
 /** @operationId customOperationId */
-export function post() {}
+export function post() {
+  return true;
+}

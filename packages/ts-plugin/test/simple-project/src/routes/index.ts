@@ -3,4 +3,6 @@ export function post(a: 'not a kita parameter' /* ParameterResolverNotFoundError
 }
 
 // No errors should be thrown for this method
-export function get() {}
+export function get() {
+  return true;
+}

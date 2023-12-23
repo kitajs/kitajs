@@ -22,6 +22,6 @@ it('Builds code', () => {
 
   assert.equal(cmd.status, 0);
   assert.equal(cmd.stderr, '');
-  assert.ok(cmd.stdout.startsWith('Warming up'));
+  assert.ok(cmd.stdout.startsWith('Searching runtime...'));
   assert.ok(existsSync(path.join(__dirname, 'runtime', 'routes', 'customOperationId.js')));
 });
