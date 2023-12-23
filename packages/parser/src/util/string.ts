@@ -25,7 +25,7 @@ export function parseUrl(filepath: string, config: KitaConfig) {
   url = url.replace(/\[(.+?)\]/g, ':$1');
 
   // Removes index from name
-  url = url.replace(/\/?index\/?/g, '/');
+  url = url.replace(/(\/|^)index(\/|$)/g, '/');
 
   // Remove trailing slash
   if (url[url.length - 1] === '/') {
@@ -43,8 +43,6 @@ export function parseUrl(filepath: string, config: KitaConfig) {
         .replace(/\[\.{3}\]/g, 'Wildcard')
         // Replaces other parameters to their name
         .replace(/\[(.+?)\]/g, '$1')
-        // replaces all non JS valid variable names
-        .replace(/[^a-zA-Z0-9_$/]/g, '_')
         .split('/')
         .flatMap((p) => p.split('-'))
         .map(capitalize)

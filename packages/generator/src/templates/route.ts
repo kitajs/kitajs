@@ -37,7 +37,11 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
 
   ${route.method === 'ALL' ? `const { supportedMethods } = require('fastify/lib/httpMethods');` : ''}
 
-  exports.${route.schema.operationId}Options = ${toOptions(route, providers)};  
+  exports.${route.schema.operationId}Options = ${toOptions(route, providers)};
+
+  exports.${route.schema.operationId}Url = ${JSON.stringify(route.url)};
+
+  exports.${route.schema.operationId}Method = ${JSON.stringify(route.method)};
 
   exports.__esModule = true;
 
@@ -50,6 +54,16 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
    * The controller method for the ${route.schema.operationId} route.
    */
   export declare const ${route.schema.operationId}: typeof ${kControllerName}.${route.controllerMethod};
+
+  /**
+   * The url for the ${route.schema.operationId} route.
+   */
+  export declare const ${route.schema.operationId}Url: string;
+
+  /**
+   * The method for the ${route.schema.operationId} route.
+   */
+  export declare const ${route.schema.operationId}Method: string;
 
   /**
    * The return type of the controller method.
