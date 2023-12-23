@@ -44,7 +44,7 @@ export function parseUrl(filepath: string, config: KitaConfig) {
         // Replaces other parameters to their name
         .replace(/\[(.+?)\]/g, '$1')
         // replaces all non JS valid variable names
-        .replace(/[^a-zA-Z0-9_$]/g, '_')
+        .replace(/[^a-zA-Z0-9_$/]/g, '_')
         .split('/')
         .flatMap((p) => p.split('-'))
         .map(capitalize)
