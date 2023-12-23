@@ -16,7 +16,7 @@ describe('Default export', () => {
         error.diagnostic.file
           ?.getText()
           .slice(error.diagnostic.start!, error.diagnostic.start! + error.diagnostic.length!),
-        'export'
+        'default'
       );
     }
   });
