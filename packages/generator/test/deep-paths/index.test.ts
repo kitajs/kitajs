@@ -5,7 +5,7 @@ import { createApp, generateRuntime } from '../runner';
 //@ts-ignore - first test may not have been run yet
 import type Runtime from './runtime';
 
-describe('Hello World', async () => {
+describe('Deep Paths', async () => {
   const rt = await generateRuntime<typeof Runtime>(__dirname);
 
   test('expects getIndex was generated', () => {
