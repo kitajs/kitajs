@@ -45,8 +45,8 @@ importers:
         specifier: ^3.15.1
         version: 3.15.1(typescript@5.3.3)
       '@oclif/plugin-autocomplete':
-        specifier: ^3.0.3
-        version: 3.0.3(typescript@5.3.3)
+        specifier: ^3.0.4
+        version: 3.0.4(typescript@5.3.3)
       '@oclif/plugin-help':
         specifier: ^6.0.9
         version: 6.0.9(typescript@5.3.3)
@@ -1117,8 +1117,8 @@ packages:
     transitivePeerDependencies:
       - typescript
 
-  /@oclif/plugin-autocomplete@3.0.3(typescript@5.3.3):
-    resolution: {integrity: sha512-Kr2z1SON4bAUzO5EXDvYhLoQMSAmaeuTxqilNokdfSKNsSwWT8g+gzzs5F2jvaW/jRID6thxIamq7h+DmRVf3Q==}
+  /@oclif/plugin-autocomplete@3.0.4(typescript@5.3.3):
+    resolution: {integrity: sha512-GaksKwIM/dop8ax/A5/HDL7/WVWLhxrK/exIayG2d3B9I5IdXqHKNBWcO3jlucKsaZ8UjxQODqBVq7t+wcvU6w==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.15.1(typescript@5.3.3)
