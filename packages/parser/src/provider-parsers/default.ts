@@ -1,13 +1,17 @@
 import {
   ApplicationHookNames,
+  IncompatibleProviderError,
   InvalidProviderHookError,
   InvalidProviderSchemaTransformerError,
   KitaConfig,
+  KitaError,
   LifecycleHookNames,
   NoProviderExportedError,
   ParameterParser,
   Provider,
   ProviderParser,
+  RouteParameterMultipleErrors,
+  UnknownKitaError,
   UntypedProviderError,
   WronglyTypedProviderError
 } from '@kitajs/common';
@@ -56,13 +60,6 @@ export class DefaultProviderParser implements ProviderParser {
       throw new WronglyTypedProviderError(returnType);
     }
 
-    const parameters = [];
-
-    // Adds all parameters in their respective position
-    for await (const { param, index } of traverseParameters(fn, this.paramParser, null)) {
-      parameters[index] = param;
-    }
-
     const [schemaTransformer] = this.searchHelper(source, ['transformSchema']);
 
     // validations
@@ -86,10 +83,36 @@ export class DefaultProviderParser implements ProviderParser {
       async,
       type,
       providerPath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
-      parameters,
       schemaTransformer: !!schemaTransformer,
       applicationHooks: applicationHooks.map((h) => h.name!.text),
-      lifecycleHooks: lifecycleHooks.map((h) => h.name!.text)
+      lifecycleHooks: lifecycleHooks.map((h) => h.name!.text),
+
+      parseParameters: async (route, parameterNode) => {
+        const parameters = [];
+
+        // Adds all parameters in their respective position
+        try {
+          for await (const { param, index } of traverseParameters(fn, this.paramParser, route)) {
+            parameters[index] = param;
+          }
+        } catch (error: any) {
+          if (!(error instanceof KitaError)) {
+            error = new UnknownKitaError(String(error), error);
+          }
+
+          // Only wraps validation errors, other errors should have their stack trace from the
+          // provider file, validation errors should have the trace where they are used.
+          if (error.type === 'validator') {
+            throw new IncompatibleProviderError(
+              parameterNode.type || parameterNode,
+              error instanceof RouteParameterMultipleErrors ? error.children : [error]
+            );
+          }
+
+          throw error;
+        }
+        return parameters;
+      }
     };
   }
 

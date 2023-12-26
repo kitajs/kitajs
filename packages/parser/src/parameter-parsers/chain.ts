@@ -1,17 +1,8 @@
-import {
-  AgnosticRouteConflictError,
-  ChainParser,
-  Parameter,
-  ParameterParser,
-  ParameterResolverNotFoundError,
-  Route
-} from '@kitajs/common';
+import { ChainParser, Parameter, ParameterParser, ParameterResolverNotFoundError, Route } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import type { Promisable } from 'type-fest';
 
 export class ChainParameterParser extends ChainParser<ParameterParser> implements ParameterParser {
-  agnostic = true;
-
   parse(
     param: ts.ParameterDeclaration,
     route: Route | null,
@@ -22,10 +13,6 @@ export class ChainParameterParser extends ChainParser<ParameterParser> implement
 
     if (!parser) {
       throw new ParameterResolverNotFoundError(param.type || param);
-    }
-
-    if (parser.agnostic === false && !route) {
-      throw new AgnosticRouteConflictError(param);
     }
 
     return parser.parse(param, route, routeNode, paramIndex);

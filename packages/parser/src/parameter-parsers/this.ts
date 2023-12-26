@@ -17,8 +17,6 @@ import {
 } from '../util/nodes';
 
 export class ThisParameterParser implements ParameterParser {
-  agnostic = true;
-
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'Use' || getTypeName(param) === 'this';
   }

@@ -3,8 +3,6 @@ import type { ts } from 'ts-json-schema-generator';
 import { getTypeNodeName } from '../util/nodes';
 
 export class ProviderGenericsParameterParser implements ParameterParser {
-  agnostic = true;
-
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'ProviderGenerics';
   }

@@ -1,9 +1,4 @@
-import {
-  ParameterResolverNotFoundError,
-  RouteParameterMultipleErrors,
-  parseConfig,
-  readCompilerOptions
-} from '@kitajs/common';
+import { RouteParameterMultipleErrors, parseConfig, readCompilerOptions } from '@kitajs/common';
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -33,49 +28,33 @@ describe('Hello World', async () => {
       errors.push(error);
     }
 
-    const first = errors[0];
-    if (first instanceof ParameterResolverNotFoundError) {
-      // export default function (_: ASD): Provider {
-      //                             ~~~
-      assert.equal(first.diagnostic.start, PROVIDER_SOURCE.indexOf('_: ASD') + '_: '.length);
-      assert.equal(first.diagnostic.length, 'ASD'.length);
-      assert.equal(
-        first.diagnostic.file?.fileName,
-        path.posix.join(__dirname.replaceAll(path.sep, '/'), 'providers', 'index.ts')
-      ); // full path
-    } else {
-      assert.fail('Expected ParameterResolverNotFoundError');
+    assert.equal(errors.length, 1);
+
+    if (!errors[0] || !(errors[0] instanceof RouteParameterMultipleErrors)) {
+      assert.fail('Expected RouteParameterMultipleErrors');
     }
 
-    const second = errors[1];
-    if (second instanceof RouteParameterMultipleErrors) {
-      // export function get(_: ASD, __: Provider) {
-      //                        ~~~      ~~~~~~~~
-      assert.equal(second.diagnostic.relatedInformation?.[0]?.start, ROUTE_SOURCE.indexOf('_: ASD') + '_: '.length);
-      assert.equal(second.diagnostic.relatedInformation?.[0]?.length, 'ASD'.length);
-      assert.equal(
-        second.diagnostic.relatedInformation?.[0]?.file?.fileName,
-        // needs full posix paths
-        path.posix.join(__dirname.replaceAll(path.sep, '/'), 'routes', 'index.ts')
-      );
-      assert.equal(
-        second.diagnostic.relatedInformation?.[1]?.start,
-        ROUTE_SOURCE.indexOf('__: Provider') + '__: '.length
-      );
-      assert.equal(second.diagnostic.relatedInformation?.[1]?.length, 'Provider'.length);
+    // export function get(_: ASD, __: Provider) {
+    //                        ~~~
 
-      assert.equal(
-        second.diagnostic.relatedInformation?.[1]?.file?.fileName,
-        // needs full path
-        path.posix.join(__dirname.replaceAll(path.sep, '/'), 'routes', 'index.ts')
-      );
+    assert.equal(errors[0].diagnostic.relatedInformation?.[0]?.start, ROUTE_SOURCE.indexOf('_: ASD') + '_: '.length);
+    assert.equal(errors[0].diagnostic.relatedInformation?.[0]?.length, 'ASD'.length);
+    assert.equal(
+      errors[0].diagnostic.relatedInformation?.[0]?.file?.fileName,
+      // needs full posix paths
+      path.posix.join(__dirname.replaceAll(path.sep, '/'), 'routes', 'index.ts')
+    );
 
-      // only 2 errors
-      assert.equal(second.diagnostic.relatedInformation?.length, 2);
-    } else {
-      assert.fail('Expected ParameterResolverNotFoundError');
-    }
+    // export default function (_: ASD): Provider {
+    //                             ~~~
+    assert.equal(errors[0].diagnostic.relatedInformation?.[1]?.start, PROVIDER_SOURCE.indexOf('_: ASD') + '_: '.length);
+    assert.equal(errors[0].diagnostic.relatedInformation?.[1]?.length, 'ASD'.length);
+    assert.equal(
+      errors[0].diagnostic.relatedInformation?.[1]?.file?.fileName,
+      path.posix.join(__dirname.replaceAll(path.sep, '/'), 'providers', 'index.ts')
+    ); // full path
 
-    assert.equal(errors.length, 2);
+    // only 2 errors
+    assert.equal(errors[0].diagnostic.relatedInformation?.length, 2);
   });
 });

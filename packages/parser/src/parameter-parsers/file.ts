@@ -13,8 +13,6 @@ import { getParameterName, getTypeNodeName, isParamOptional } from '../util/node
 import { buildAccessProperty } from '../util/syntax';
 
 export class FileParameterParser implements ParameterParser {
-  agnostic = true;
-
   constructor(
     private config: KitaConfig,
     private readonly collector: AstCollector

@@ -75,7 +75,7 @@ describe('Providers', async () => {
       async: false,
       type: 'Test',
       providerPath: cwdRelative('providers/test.ts'),
-      parameters: [],
+      parseParameters: provider?.parseParameters,
       schemaTransformer: false,
       applicationHooks: [],
       lifecycleHooks: []
@@ -89,7 +89,7 @@ describe('Providers', async () => {
       async: true,
       type: 'Transformer',
       providerPath: cwdRelative('providers/transformer.ts'),
-      parameters: [],
+      parseParameters: provider?.parseParameters,
       schemaTransformer: true,
       applicationHooks: [],
       lifecycleHooks: []

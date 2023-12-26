@@ -4,8 +4,6 @@ import { Parameter, ParameterParser, Route, kFastifyParam, kReplyParam, kRequest
 import { getTypeNodeName } from '../util/nodes';
 
 export class FastifyParameterParser implements ParameterParser {
-  agnostic = true;
-
   supports(param: ts.ParameterDeclaration) {
     const typeName = getTypeNodeName(param);
 
