@@ -33,8 +33,6 @@ function normalize(code: string, msg: string) {
 }
 
 export class ErrorsParameterParser implements ParameterParser {
-  agnostic = true;
-
   constructor(private readonly collector: AstCollector) {}
 
   supports(param: ts.ParameterDeclaration) {

@@ -4,8 +4,6 @@ import { getParameterName, getTypeNodeName, isParamOptional } from '../util/node
 import { buildAccessProperty } from '../util/syntax';
 
 export class CookieParameterParser implements ParameterParser {
-  agnostic = true;
-
   constructor(private readonly collector: AstCollector) {}
 
   supports(param: ts.ParameterDeclaration) {

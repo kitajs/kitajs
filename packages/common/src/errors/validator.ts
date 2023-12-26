@@ -2,6 +2,8 @@ import ts from 'typescript';
 import { KitaError } from './base';
 
 export class MultipleDefinitionsError extends KitaError {
+  override type = 'validator';
+
   constructor(readonly typename: string) {
     super({
       code: 400,
@@ -11,6 +13,8 @@ export class MultipleDefinitionsError extends KitaError {
 }
 
 export class BodyInGetRequestError extends KitaError {
+  override type = 'validator';
+
   constructor(node: ts.Node) {
     super({
       code: 401,
@@ -21,6 +25,8 @@ export class BodyInGetRequestError extends KitaError {
 }
 
 export class ParameterConflictError extends KitaError {
+  override type = 'validator';
+
   constructor(
     readonly existing: string,
     readonly attempt: string,
@@ -35,6 +41,8 @@ export class ParameterConflictError extends KitaError {
 }
 
 export class InvalidParameterUsageError extends KitaError {
+  override type = 'validator';
+
   constructor(
     readonly usage: string,
     node: ts.Node
@@ -48,6 +56,8 @@ export class InvalidParameterUsageError extends KitaError {
 }
 
 export class DuplicateOperationIdError extends KitaError {
+  override type = 'validator';
+
   constructor(
     readonly operationId: string,
     readonly node?: ts.Node
@@ -61,14 +71,16 @@ export class DuplicateOperationIdError extends KitaError {
 }
 
 export class DuplicateProviderTypeError extends KitaError {
+  override type = 'validator';
+
   constructor(
-    readonly type: string,
+    readonly provider: string,
     readonly pathA: string,
     readonly pathB: string
   ) {
     super({
       code: 405,
-      messageText: `Duplicate provider: ${type}`,
+      messageText: `Duplicate provider: ${provider}`,
       relatedInformation: [
         KitaError.createDiagnostic({
           file: ts.createSourceFile(pathA, '', ts.ScriptTarget.ES2015),
@@ -85,21 +97,12 @@ export class DuplicateProviderTypeError extends KitaError {
   }
 }
 
-export class AgnosticRouteConflictError extends KitaError {
+export class JsdocAlreadyDefinedError extends KitaError {
+  override type = 'validator';
+
   constructor(node: ts.Node) {
     super({
       code: 406,
-      messageText:
-        'You cannot use dependent routes within agnostic contexts. You are probably using a method dependent route parameter within a provider.',
-      node
-    });
-  }
-}
-
-export class JsdocAlreadyDefinedError extends KitaError {
-  constructor(node: ts.Node) {
-    super({
-      code: 407,
       messageText: 'You are trying to use a JSDoc tag on a node that already had this value explicit set.',
       node
     });
@@ -107,9 +110,11 @@ export class JsdocAlreadyDefinedError extends KitaError {
 }
 
 export class QueryMixError extends KitaError {
+  override type = 'validator';
+
   constructor(node: ts.Node) {
     super({
-      code: 408,
+      code: 407,
       messageText: 'You are mixing primitive and deep query types inside the same route.',
       node
     });
@@ -117,12 +122,14 @@ export class QueryMixError extends KitaError {
 }
 
 export class InvalidHtmlRoute extends KitaError {
+  override type = 'validator';
+
   constructor(
     node: ts.Node,
     readonly primitive?: unknown
   ) {
     super({
-      code: 409,
+      code: 408,
       messageText: 'You cannot use a non-string return type in a HTML route.',
       node
     });
@@ -130,9 +137,11 @@ export class InvalidHtmlRoute extends KitaError {
 }
 
 export class UnknownHttpError extends KitaError {
+  override type = 'validator';
+
   constructor(node: ts.Node) {
     super({
-      code: 410,
+      code: 409,
       messageText:
         'Could not resolve a http status code for this error, are you using a method exposed by @fastify/sensible?',
       node
@@ -141,9 +150,11 @@ export class UnknownHttpError extends KitaError {
 }
 
 export class UnknownHttpJsdocError extends KitaError {
+  override type = 'validator';
+
   constructor(node: ts.Node) {
     super({
-      code: 411,
+      code: 410,
       messageText: 'Could not resolve a http status code for this error, please only use @throws <number>',
       node
     });
@@ -151,9 +162,11 @@ export class UnknownHttpJsdocError extends KitaError {
 }
 
 export class FileInGetRequestError extends KitaError {
+  override type = 'validator';
+
   constructor(node: ts.Node) {
     super({
-      code: 412,
+      code: 411,
       messageText: 'You cannot use any File and SavedFile in a GET request.',
       node
     });
@@ -161,9 +174,11 @@ export class FileInGetRequestError extends KitaError {
 }
 
 export class DefaultExportedRoute extends KitaError {
+  override type = 'validator';
+
   constructor(node: ts.Node) {
     super({
-      code: 413,
+      code: 412,
       messageText: 'You cannot use default exported routes. Please remove the `default` modifier',
       node
     });
@@ -171,9 +186,11 @@ export class DefaultExportedRoute extends KitaError {
 }
 
 export class RouteWithoutReturnError extends KitaError {
+  override type = 'validator';
+
   constructor(node: ts.Node) {
     super({
-      code: 414,
+      code: 413,
       messageText:
         'You cannot have a route that returns `undefined`, please use other value such as `true`, `""` or `null`.',
       node

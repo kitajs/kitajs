@@ -4,8 +4,6 @@ import { getTypeNodeName } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';
 
 export class SuspenseIdParameterParser implements ParameterParser {
-  agnostic = true;
-
   supports(param: ts.ParameterDeclaration) {
     return getTypeNodeName(param) === 'SuspenseId';
   }

@@ -2,6 +2,8 @@ import ts from 'typescript';
 import { KitaError } from './base';
 
 export class RouteResolverNotFoundError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 300,
@@ -12,6 +14,8 @@ export class RouteResolverNotFoundError extends KitaError {
 }
 
 export class ParameterResolverNotFoundError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 301,
@@ -23,6 +27,8 @@ export class ParameterResolverNotFoundError extends KitaError {
 }
 
 export class CannotResolveParameterNameError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 302,
@@ -34,6 +40,8 @@ export class CannotResolveParameterNameError extends KitaError {
 }
 
 export class CannotCreateNodeTypeError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node, error: unknown) {
     super({
       code: 303,
@@ -44,6 +52,8 @@ export class CannotCreateNodeTypeError extends KitaError {
 }
 
 export class SourceFileNotFoundError extends KitaError {
+  override type = 'parser';
+
   constructor(readonly path: string) {
     super({
       code: 304,
@@ -53,6 +63,8 @@ export class SourceFileNotFoundError extends KitaError {
 }
 
 export class NoProviderExportedError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 305,
@@ -64,6 +76,8 @@ export class NoProviderExportedError extends KitaError {
 }
 
 export class UntypedProviderError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 306,
@@ -74,6 +88,8 @@ export class UntypedProviderError extends KitaError {
 }
 
 export class EmptyJsdocError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 307,
@@ -84,6 +100,8 @@ export class EmptyJsdocError extends KitaError {
 }
 
 export class ProviderResolverNotFound extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 308,
@@ -94,6 +112,8 @@ export class ProviderResolverNotFound extends KitaError {
 }
 
 export class WronglyTypedProviderError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 309,
@@ -104,6 +124,8 @@ export class WronglyTypedProviderError extends KitaError {
 }
 
 export class ReturnTypeError extends KitaError {
+  override type = 'parser';
+
   constructor(
     node: ts.Node,
     readonly error: unknown
@@ -117,6 +139,8 @@ export class ReturnTypeError extends KitaError {
 }
 
 export class RouteOptionsAlreadyDefinedError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 311,
@@ -127,6 +151,8 @@ export class RouteOptionsAlreadyDefinedError extends KitaError {
 }
 
 export class RouteMapperNotExportedError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 312,
@@ -138,17 +164,25 @@ export class RouteMapperNotExportedError extends KitaError {
 }
 
 export class RouteParameterMultipleErrors extends KitaError {
-  constructor(node: ts.Node, errors: KitaError[]) {
+  override type = 'parser';
+
+  constructor(
+    node: ts.Node,
+    readonly children: KitaError[]
+  ) {
     super({
       code: 313,
-      messageText: 'Multiple errors were found while parsing this route.',
+      messageText:
+        'Multiple errors were found while parsing this route: \n' + children.map((e) => e.message).join('\n'),
       node,
-      relatedInformation: errors.map((e) => e.diagnostic)
+      relatedInformation: children.map((e) => e.diagnostic)
     });
   }
 }
 
 export class InvalidProviderGenericTypeError extends KitaError {
+  override type = 'parser';
+
   constructor(node: ts.Node) {
     super({
       code: 314,
@@ -169,6 +203,8 @@ export class EmptyRouteFileError extends KitaError {
 }
 
 export class InvalidProviderSchemaTransformerError extends KitaError {
+  override type = 'parser';
+
   constructor(
     node: ts.Node,
     readonly msg: string
@@ -182,6 +218,8 @@ export class InvalidProviderSchemaTransformerError extends KitaError {
 }
 
 export class InvalidProviderHookError extends KitaError {
+  override type = 'parser';
+
   constructor(
     node: ts.Node,
     readonly msg: string
@@ -190,6 +228,22 @@ export class InvalidProviderHookError extends KitaError {
       code: 317,
       messageText: `Invalid provider hook: ${msg}`,
       node
+    });
+  }
+}
+
+export class IncompatibleProviderError extends KitaError {
+  override type = 'parser';
+
+  constructor(
+    node: ts.Node,
+    readonly children: KitaError[]
+  ) {
+    super({
+      code: 318,
+      messageText: 'This provider cannot be used here: \n' + children.map((e) => e.message).join('\n'),
+      node,
+      relatedInformation: children.map((e) => e.diagnostic)
     });
   }
 }

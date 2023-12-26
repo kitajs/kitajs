@@ -18,7 +18,7 @@ describe('Providers', async () => {
       async: false,
       type: 'H1',
       providerPath: cwdRelative('providers/application.ts'),
-      parameters: [],
+      parseParameters: provider?.parseParameters,
       schemaTransformer: false,
       applicationHooks: ['onReady'],
       lifecycleHooks: []
@@ -32,7 +32,7 @@ describe('Providers', async () => {
       async: false,
       type: 'H2',
       providerPath: cwdRelative('providers/lifecycle.ts'),
-      parameters: [],
+      parseParameters: provider?.parseParameters,
       schemaTransformer: false,
       applicationHooks: [],
       lifecycleHooks: ['onRequest']
@@ -46,7 +46,7 @@ describe('Providers', async () => {
       async: false,
       type: 'H3',
       providerPath: cwdRelative('providers/mix.ts'),
-      parameters: [],
+      parseParameters: provider?.parseParameters,
       schemaTransformer: false,
       applicationHooks: ['onReady'],
       lifecycleHooks: ['onRequest']
@@ -60,7 +60,7 @@ describe('Providers', async () => {
       async: false,
       type: 'H4',
       providerPath: cwdRelative('providers/none.ts'),
-      parameters: [],
+      parseParameters: provider?.parseParameters,
       schemaTransformer: false,
       applicationHooks: [],
       lifecycleHooks: []

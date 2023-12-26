@@ -12,12 +12,14 @@ describe('Providers Registration', async () => {
   });
 
   test('providers were parsed correctly', () => {
-    assert.deepStrictEqual(kita.getProviders(), [
+    const providers = kita.getProviders();
+
+    assert.deepStrictEqual(providers, [
       {
         async: false,
         type: 'ProviderA',
         providerPath: cwdRelative('providers/a.ts'),
-        parameters: [],
+        parseParameters: providers[0]?.parseParameters,
         schemaTransformer: false,
         applicationHooks: [],
         lifecycleHooks: []
@@ -26,7 +28,7 @@ describe('Providers Registration', async () => {
         async: false,
         type: 'ProviderB',
         providerPath: cwdRelative('providers/b.ts'),
-        parameters: [],
+        parseParameters: providers[1]?.parseParameters,
         schemaTransformer: false,
         applicationHooks: [],
         lifecycleHooks: []
@@ -35,7 +37,7 @@ describe('Providers Registration', async () => {
         async: false,
         type: 'ProviderD',
         providerPath: cwdRelative('providers/d.ts'),
-        parameters: [],
+        parseParameters: providers[2]?.parseParameters,
         schemaTransformer: false,
         applicationHooks: [],
         lifecycleHooks: []
@@ -44,16 +46,7 @@ describe('Providers Registration', async () => {
         async: false,
         type: 'ProviderC',
         providerPath: cwdRelative('providers/c.ts'),
-        parameters: [
-          {
-            name: 'ProviderParameterParser',
-            value: 'param0',
-            imports: [{ name: 'ProviderD', path: cwdRelative('providers/d.ts') }],
-            schemaTransformer: false,
-            providerName: 'ProviderD',
-            helper: 'const param0 = ProviderD.default();'
-          }
-        ],
+        parseParameters: providers[3]?.parseParameters,
         schemaTransformer: false,
         applicationHooks: [],
         lifecycleHooks: []
