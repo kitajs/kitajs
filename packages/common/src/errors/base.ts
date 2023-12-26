@@ -22,6 +22,13 @@ export abstract class KitaError extends Error {
   public suppress = false;
 
   /**
+   * The error type.
+   *
+   * @example 'validator' | 'parser'
+   */
+  public type?: string;
+
+  /**
    * The error code.
    *
    * This is a 3 digit number, where the first digit is the category of the error, and the last 2 digits are the error

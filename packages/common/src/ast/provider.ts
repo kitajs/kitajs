@@ -1,4 +1,7 @@
+import { Promisable } from 'type-fest';
+import ts from 'typescript';
 import { Parameter } from './parameter';
+import { Route } from './route';
 
 /** The AST definition for a kitajs provider. */
 export interface Provider {
@@ -18,9 +21,6 @@ export interface Provider {
   /** If this provider is async */
   async: boolean;
 
-  /** All possible parameters for this route. */
-  parameters: Parameter[];
-
   /**
    * A name of all hooks that are attached to this provider.
    *
@@ -39,6 +39,9 @@ export interface Provider {
    * @see {@linkcode LifecycleHookNames}
    */
   lifecycleHooks: string[];
+
+  /** Parses all parameters taking into account a specific route */
+  parseParameters: (this: void, route: Route, parameterNode: ts.ParameterDeclaration) => Promisable<Parameter[]>;
 }
 
 export const ApplicationHookNames = ['onRoute', 'onRegister', 'onReady', 'onListen', 'onClose', 'preClose'] as const;

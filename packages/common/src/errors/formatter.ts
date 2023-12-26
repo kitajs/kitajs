@@ -2,6 +2,8 @@ import ts from 'typescript';
 import { KitaError } from './base';
 
 export class GeneratedDiagnosticsErrors extends KitaError {
+  override type = 'formatter';
+
   constructor(diagnostics: readonly ts.Diagnostic[]) {
     super({
       code: 500,
@@ -12,6 +14,8 @@ export class GeneratedDiagnosticsErrors extends KitaError {
 }
 
 export class RuntimeNotFoundError extends KitaError {
+  override type = 'formatter';
+
   constructor(readonly path?: string) {
     super({
       code: 501,
