@@ -1,5 +1,24 @@
 # @kitajs/cli
 
+## 1.1.28
+
+### Patch Changes
+
+- [#225](https://github.com/kitajs/kitajs/pull/225)
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Correct type generation in the first run
+
+- Updated dependencies [[`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed),
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed),
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed),
+  [`219e11e`](https://github.com/kitajs/kitajs/commit/219e11ecea4301a7e727c6bae38b35040b065b73),
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed),
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed),
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed)]:
+  - @kitajs/generator@1.1.25
+  - @kitajs/parser@1.1.20
+  - @kitajs/common@1.1.15
+
 ## 1.1.27
 
 ### Patch Changes

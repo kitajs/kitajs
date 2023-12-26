@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/runtime",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!",
   "homepage": "https://kita.js.org",
   "bugs": {
