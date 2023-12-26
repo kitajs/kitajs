@@ -1,5 +1,29 @@
 # @kitajs/parser
 
+## 1.1.20
+
+### Patch Changes
+
+- [#225](https://github.com/kitajs/kitajs/pull/225)
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Wilcard routes with [...]
+
+- [#225](https://github.com/kitajs/kitajs/pull/225)
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Correctly handle default exported routes
+
+- [#232](https://github.com/kitajs/kitajs/pull/232)
+  [`219e11e`](https://github.com/kitajs/kitajs/commit/219e11ecea4301a7e727c6bae38b35040b065b73) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Support for providers to interact with route schema
+
+- [#225](https://github.com/kitajs/kitajs/pull/225)
+  [`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Handle routes without returns
+
+- Updated dependencies [[`ae9fd08`](https://github.com/kitajs/kitajs/commit/ae9fd0886902e48dba8a958c54054d5b99e387ed),
+  [`219e11e`](https://github.com/kitajs/kitajs/commit/219e11ecea4301a7e727c6bae38b35040b065b73)]:
+  - @kitajs/common@1.1.15
+
 ## 1.1.19
 
 ### Patch Changes
