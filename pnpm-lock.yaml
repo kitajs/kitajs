@@ -141,8 +141,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       '@fastify/swagger':
-        specifier: ^8.12.1
-        version: 8.12.1
+        specifier: ^8.12.2
+        version: 8.12.2
       '@fastify/swagger-ui':
         specifier: ^2.0.1
         version: 2.0.1
@@ -238,8 +238,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       '@fastify/swagger':
-        specifier: ^8.12.1
-        version: 8.12.1
+        specifier: ^8.12.2
+        version: 8.12.2
       '@fastify/swagger-ui':
         specifier: ^2.0.1
         version: 2.0.1
@@ -636,7 +636,7 @@ packages:
       '@fastify/busboy': 1.2.1
       '@fastify/deepmerge': 1.3.0
       '@fastify/error': 3.4.0
-      '@fastify/swagger': 8.12.1
+      '@fastify/swagger': 8.12.2
       '@fastify/swagger-ui': 1.10.2
       fastify-plugin: 4.5.1
       secure-json-parse: 2.7.0
@@ -692,8 +692,8 @@ packages:
       rfdc: 1.3.0
       yaml: 2.3.3
 
-  /@fastify/swagger@8.12.1:
-    resolution: {integrity: sha512-0GATwS+a1QHHhTYtyZfoIpRD5lL1XlDSiV2DqsTVMQxKpL18kx5o6oMz0l0rtFr4883XIGiRuvTv2rxFRIxp4Q==}
+  /@fastify/swagger@8.12.2:
+    resolution: {integrity: sha512-tux8oxrxrYpxwjkqJigzgFJIz4EZUecAMqnHr6RL/yjStWODLT89A7sCh5oL2r2uD+/N5z3wGwj7WmkPOeY5Iw==}
     dependencies:
       fastify-plugin: 4.5.1
       json-schema-resolver: 2.0.0
