@@ -33,7 +33,7 @@
   "devDependencies": {
     "@fastify/multipart": "^8.0.0",
     "@fastify/sensible": "^5.5.0",
-    "@fastify/swagger": "^8.12.2",
+    "@fastify/swagger": "^8.13.0",
     "@fastify/swagger-ui": "^2.0.1",
     "@kitajs/html": "^3.0.10",
     "@kitajs/parser": "workspace:^",
