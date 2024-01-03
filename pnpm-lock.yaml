@@ -54,8 +54,8 @@ importers:
         specifier: ^3.0.7
         version: 3.0.7(typescript@5.3.3)
       '@oclif/plugin-plugins':
-        specifier: ^4.1.13
-        version: 4.1.13(typescript@5.3.3)
+        specifier: ^4.1.14
+        version: 4.1.14(typescript@5.3.3)
       '@oclif/plugin-warn-if-update-available':
         specifier: ^2.1.1
         version: 2.1.1(@swc/core@1.3.93)(@types/node@20.10.6)(typescript@5.3.3)
@@ -1176,14 +1176,14 @@ packages:
       - typescript
     dev: false
 
-  /@oclif/plugin-plugins@4.1.13(typescript@5.3.3):
-    resolution: {integrity: sha512-ljeo5gxpZDAyARmCOA+9cqUr3RdnIcLujT7pMC4zKTvgyrQprFlRrS8UUtn+bw01zAw4XaIAUU8pRzeffFEdnQ==}
+  /@oclif/plugin-plugins@4.1.14(typescript@5.3.3):
+    resolution: {integrity: sha512-wx8eY/ze9ypXsmITI2hM564bmTlChidW3gsAUeyyVHPAldmzmic/Vh6nXPHF10nOvvl0RXwOpjyA/IgrTyyVvQ==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.15.1(typescript@5.3.3)
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
-      npm: 10.2.5
+      npm: 10.2.3
       npm-run-path: 4.0.1
       semver: 7.5.4
       shelljs: 0.8.5
@@ -5329,8 +5329,8 @@ packages:
       path-key: 4.0.0
     dev: true
 
-  /npm@10.2.5:
-    resolution: {integrity: sha512-lXdZ7titEN8CH5YJk9C/aYRU9JeDxQ4d8rwIIDsvH3SMjLjHTukB2CFstMiB30zXs4vCrPN2WH6cDq1yHBeJAw==}
+  /npm@10.2.3:
+    resolution: {integrity: sha512-GbUui/rHTl0mW8HhJSn4A0Xg89yCR3I9otgJT1i0z1QBPOVlgbh6rlcUTpHT8Gut9O1SJjWRUU0nEcAymhG2tQ==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
