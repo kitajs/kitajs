@@ -85,8 +85,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       oclif:
-        specifier: ^4.1.2
-        version: 4.1.2(eslint@8.51.0)(typescript@5.3.3)
+        specifier: ^4.1.3
+        version: 4.1.3(eslint@8.51.0)(typescript@5.3.3)
 
   packages/common:
     dependencies:
@@ -5429,8 +5429,8 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.1.2(eslint@8.51.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-vMdk1IRvbENXjmr31LVvxOqKMqsxE4yboqi9YRLIwKj3YzdszfWanQEg4IcyIHRS2MbcNM86Slv9xiKVPCFXoA==}
+  /oclif@4.1.3(eslint@8.51.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-9OmzHaOmn58BZZt8S2USh1gW5RFfa69cDfOtXCWUyYrcRdO4wIJ3DPb0xZ3UxHHbPZKsDImuP/A54weFMH2izw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
