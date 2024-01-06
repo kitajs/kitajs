@@ -29,7 +29,7 @@
   "dependencies": {
     "@fastify/multipart": "^8.0.0",
     "@fastify/sensible": "^5.5.0",
-    "@fastify/swagger": "^8.12.2",
+    "@fastify/swagger": "^8.13.0",
     "@fastify/swagger-ui": "^2.0.1",
     "@kitajs/common": "workspace:^",
     "fastify-plugin": "^4.5.1",
@@ -37,7 +37,7 @@
     "type-fest": "^4.9.0"
   },
   "devDependencies": {
-    "c8": "^8.0.1"
+    "c8": "^9.0.0"
   },
   "peerDependencies": {
     "fastify": "^4.25.2"
