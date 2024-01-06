@@ -198,9 +198,11 @@ export class SchemaBuilder {
   }
 
   /** Appends new definitions to the schema builder. */
-  appendChildDefinitions(type: BaseType, definitions: Record<string, JsonSchema> = this.definitions) {
+  appendChildDefinitions(type: BaseType, inner?: string) {
     const seen = new Set();
     const nameIdMap = new Map<string, string>();
+
+    const definitions = inner ? ((this.definitions[inner] ??= {}) as Record<string, JsonSchema>) : this.definitions;
 
     for (const child of this.formatter.getChildren(type)) {
       if (!(child instanceof DefinitionType) || seen.has(child.getId())) {

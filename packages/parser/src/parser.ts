@@ -193,6 +193,11 @@ export class KitaParser implements AstCollector {
         continue;
       }
 
+      // Ignore providers that resolved elsewhere, like in a plugin
+      if (!provider) {
+        continue;
+      }
+
       const duplicated = this.providers.get(provider.type);
 
       if (duplicated) {

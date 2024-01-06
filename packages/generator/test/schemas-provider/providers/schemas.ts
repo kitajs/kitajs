@@ -7,4 +7,4 @@ export declare type C = {
   g: 2;
 };
 
-export { ApplicationHookNames } from '@kitajs/common';
+export * from '../types/index';

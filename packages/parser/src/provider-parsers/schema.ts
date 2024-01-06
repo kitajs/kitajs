@@ -1,4 +1,4 @@
-import { CannotCreateNodeTypeError, JsonSchema, Provider, ProviderParser } from '@kitajs/common';
+import { CannotCreateNodeTypeError, Provider, ProviderParser, kSchemaDefinitions } from '@kitajs/common';
 import path from 'path';
 import { ts } from 'ts-json-schema-generator';
 import type { Promisable } from 'type-fest';
@@ -15,7 +15,7 @@ export class SchemasProviderParser implements ProviderParser {
     return path.basename(file.fileName) === 'schemas.ts';
   }
 
-  async parse(source: ts.SourceFile): Promise<Provider> {
+  async parse(source: ts.SourceFile): Promise<Provider | undefined> {
     const symbol = this.checker.getSymbolAtLocation(source);
 
     if (!symbol) {
@@ -23,8 +23,6 @@ export class SchemasProviderParser implements ProviderParser {
     }
 
     const exports = this.checker.getExportsOfModule(symbol);
-
-    const definitions: Record<string, JsonSchema> = {};
 
     for (const exportedNode of exports) {
       const originalNode = exportedNode.declarations?.[0] || exportedNode.valueDeclaration!;
@@ -37,77 +35,23 @@ export class SchemasProviderParser implements ProviderParser {
 
       const schema = this.schemaBuilder.createTypeSchema(typeNode);
 
-      console.dir(schema, { depth: 10 });
+      if (
+        schema &&
+        //@ts-expect-error - always define a
+        !schema.name
+      ) {
+        // @ts-expect-error - try to find a name
+        schema.name = (originalNode?.name as ts.Identifier)?.getText();
+      }
 
       try {
         // Applies to a custom definition
-        this.schemaBuilder.appendChildDefinitions(schema, definitions);
+        this.schemaBuilder.appendChildDefinitions(schema, kSchemaDefinitions);
       } catch (error) {
         throw new CannotCreateNodeTypeError(originalNode, error);
       }
     }
 
-    throw 1;
+    return undefined;
   }
 }
-
-// import { CannotCreateNodeTypeError, JsonSchema, Provider, ProviderParser } from '@kitajs/common';
-// import path from 'path';
-// import { ts } from 'ts-json-schema-generator';
-// import type { Promisable } from 'type-fest';
-// import { SchemaBuilder } from '../schema/builder';
-
-// export class SchemasProviderParser implements ProviderParser {
-//   constructor(
-//     private checker: ts.TypeChecker,
-//     private schemaBuilder: SchemaBuilder
-//   ) {}
-
-//   /** Default provider handles all files. */
-//   supports(file: ts.SourceFile): Promisable<boolean> {
-//     return path.basename(file.fileName) === 'schemas.ts';
-//   }
-
-//   async parse(source: ts.SourceFile): Promise<Provider> {
-//     const symbol = this.checker.getSymbolAtLocation(source);
-
-//     if (!symbol) {
-//       throw new CannotCreateNodeTypeError(source, 'Could not find symbol for source file');
-//     }
-
-//     const exports = this.checker.getExportsOfModule(symbol);
-
-//     const definitions: Record<string, JsonSchema> = {};
-
-//     for (const exportedNode of exports) {
-//       const originalNode = exportedNode.declarations?.[0] || exportedNode.valueDeclaration!;
-//       const type = this.checker.getTypeAtLocation(originalNode);
-//       const typeNode = this.checker.typeToTypeNode(type, originalNode, ts.NodeBuilderFlags.NoTypeReduction);
-
-//       if (!typeNode) {
-//         throw new CannotCreateNodeTypeError(source, 'Could not find node for exported symbol');
-//       }
-
-//       const schema = this.schemaBuilder.createTypeSchema(typeNode);
-
-//       // if(schema &&
-//       //   //@ts-expect-error - always define a
-//       //   !schema.name) {
-
-//       // }
-
-//       console.dir(schema, { depth: 10 });
-
-//       try {
-//         // Applies to a custom definition
-//         this.schemaBuilder.appendChildDefinitions(schema, definitions);
-//       } catch (error) {
-//         throw new CannotCreateNodeTypeError(originalNode, error);
-//       }
-//     }
-
-//     console.dir(definitions, { depth: 10 });
-
-//     throw 1;
-//   }
-// }
