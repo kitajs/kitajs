@@ -27,7 +27,7 @@
     "test": "c8 --reporter lcov --reporter text node --test test/**/*.test.js && tsc --noEmit"
   },
   "dependencies": {
-    "@fastify/multipart": "^8.0.0",
+    "@fastify/multipart": "^8.1.0",
     "@fastify/sensible": "^5.5.0",
     "@fastify/swagger": "^8.13.0",
     "@fastify/swagger-ui": "^2.0.1",
