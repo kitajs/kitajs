@@ -82,8 +82,8 @@ importers:
         specifier: ^20.11.0
         version: 20.11.0
       c8:
-        specifier: ^9.0.0
-        version: 9.0.0
+        specifier: ^9.1.0
+        version: 9.1.0
       oclif:
         specifier: ^4.3.1
         version: 4.3.1(eslint@8.51.0)(typescript@5.3.3)
@@ -168,8 +168,8 @@ importers:
         specifier: ^20.11.0
         version: 20.11.0
       c8:
-        specifier: ^9.0.0
-        version: 9.0.0
+        specifier: ^9.1.0
+        version: 9.1.0
       fastify:
         specifier: ^4.25.2
         version: 4.25.2
@@ -223,8 +223,8 @@ importers:
         specifier: ^20.11.0
         version: 20.11.0
       c8:
-        specifier: ^9.0.0
-        version: 9.0.0
+        specifier: ^9.1.0
+        version: 9.1.0
       fastify:
         specifier: ^4.25.2
         version: 4.25.2
@@ -260,8 +260,8 @@ importers:
         version: 4.9.0
     devDependencies:
       c8:
-        specifier: ^9.0.0
-        version: 9.0.0
+        specifier: ^9.1.0
+        version: 9.1.0
 
   packages/ts-plugin:
     dependencies:
@@ -3180,8 +3180,8 @@ packages:
       run-applescript: 5.0.0
     dev: true
 
-  /c8@9.0.0:
-    resolution: {integrity: sha512-nFJhU2Cz6Frh2awk3IW7wwk3wx27/U2v8ojQCHGc1GWTCHS6aMu4lal327/ZnnYj7oSThGF1X3qUP1yzAJBcOQ==}
+  /c8@9.1.0:
+    resolution: {integrity: sha512-mBWcT5iqNir1zIkzSPyI3NCR9EZCVI3WUD+AVO17MVWTSFNyUueXE82qTeampNtTr+ilN/5Ua3j24LgbCKjDVg==}
     engines: {node: '>=14.14.0'}
     hasBin: true
     dependencies:
