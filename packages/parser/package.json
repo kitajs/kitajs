@@ -37,7 +37,7 @@
     "@kitajs/runtime": "workspace:^",
     "@swc-node/register": "^1.6.8",
     "@swc/helpers": "^0.5.3",
-    "@types/node": "^20.11.3",
+    "@types/node": "^20.11.5",
     "c8": "^9.1.0",
     "fastify": "^4.25.2"
   },
