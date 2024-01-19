@@ -52,7 +52,7 @@
     "@swc/helpers": "^0.5.3",
     "@types/node": "^20.11.5",
     "c8": "^9.1.0",
-    "oclif": "^4.3.5"
+    "oclif": "^4.3.6"
   },
   "peerDependencies": {
     "typescript": "^5.3.3"
