@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@fastify/sensible": "^5.5.0",
-    "@kitajs/html": "^3.0.11",
+    "@kitajs/html": "^3.1.0",
     "@kitajs/runtime": "workspace:^",
     "@swc-node/register": "^1.6.8",
     "@swc/helpers": "^0.5.3",
