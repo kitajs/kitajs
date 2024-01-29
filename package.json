@@ -22,7 +22,7 @@
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile",
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "husky install",
+    "prepare": "husky",
     "test": "pnpm -r --no-bail --aggregate-output --parallel test",
     "watch": "pnpm -r --parallel --no-bail build --watch"
   },
