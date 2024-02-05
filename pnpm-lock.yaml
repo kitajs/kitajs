@@ -21,8 +21,8 @@ importers:
         specifier: workspace:^
         version: link:packages/ts-plugin
       husky:
-        specifier: ^9.0.6
-        version: 9.0.6
+        specifier: ^9.0.10
+        version: 9.0.10
       prettier:
         specifier: ^3.2.4
         version: 3.2.4
@@ -5258,8 +5258,8 @@ packages:
       ms: 2.1.3
     dev: true
 
-  /husky@9.0.6:
-    resolution: {integrity: sha512-EEuw/rfTiMjOfuL7pGO/i9otg1u36TXxqjIA6D9qxVjd/UXoDOsLor/BSFf5hTK50shwzCU3aVVwdXDp/lp7RA==}
+  /husky@9.0.10:
+    resolution: {integrity: sha512-TQGNknoiy6bURzIO77pPRu+XHi6zI7T93rX+QnJsoYFf3xdjKOur+IlfqzJGMHIK/wXrLg+GsvMs8Op7vI2jVA==}
     engines: {node: '>=18'}
     hasBin: true
     dev: true
