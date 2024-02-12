@@ -39,7 +39,7 @@
     "@swc/helpers": "^0.5.6",
     "@types/node": "^20.11.10",
     "c8": "^9.1.0",
-    "fastify": "^4.25.2"
+    "fastify": "^4.26.0"
   },
   "peerDependencies": {
     "typescript": "^5.3.3"
