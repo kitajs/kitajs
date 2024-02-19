@@ -48,8 +48,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8
       '@oclif/plugin-help':
-        specifier: ^6.0.12
-        version: 6.0.12
+        specifier: ^6.0.13
+        version: 6.0.13
       '@oclif/plugin-not-found':
         specifier: ^3.0.10
         version: 3.0.10
@@ -2142,6 +2142,38 @@ packages:
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
 
+  /@oclif/core@3.19.2:
+    resolution: {integrity: sha512-/kUZZQZO92esToSTn+fnfMQdAj8uDJ/lsMNXBRBCiLQpwnIskHXy8JzYpynxxkzY2wbGREBceQhxCyDV0XpY4g==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@types/cli-progress': 3.11.5
+      ansi-escapes: 4.3.2
+      ansi-styles: 4.3.0
+      cardinal: 2.1.1
+      chalk: 4.1.2
+      clean-stack: 3.0.1
+      cli-progress: 3.12.0
+      color: 4.2.3
+      debug: 4.3.4(supports-color@8.1.1)
+      ejs: 3.1.9
+      get-package-type: 0.1.0
+      globby: 11.1.0
+      hyperlinker: 1.0.0
+      indent-string: 4.0.0
+      is-wsl: 2.2.0
+      js-yaml: 3.14.1
+      natural-orderby: 2.0.3
+      object-treeify: 1.1.33
+      password-prompt: 1.1.3
+      slice-ansi: 4.0.0
+      string-width: 4.2.3
+      strip-ansi: 6.0.1
+      supports-color: 8.1.1
+      supports-hyperlinks: 2.3.0
+      widest-line: 3.1.0
+      wordwrap: 1.0.0
+      wrap-ansi: 7.0.0
+
   /@oclif/plugin-autocomplete@3.0.8:
     resolution: {integrity: sha512-8h9PU56msmSD+s+mZcS/b+YYJwyxDwONC8FFQUbfeWAB/rRqMFj2tOMbh7VGk6ZUTU5KcQvMDeDQ3UXfTKVPqA==}
     engines: {node: '>=18.0.0'}
@@ -2154,11 +2186,11 @@ packages:
       - supports-color
     dev: false
 
-  /@oclif/plugin-help@6.0.12:
-    resolution: {integrity: sha512-KMxQ5Oli1tkWiWNSdrjNtiFIFZvX0+IsvuuGcDwJIn1Jm+SzEQF90vkK6WzIjFACmyKIwXbGMmimcFaLrslJPQ==}
+  /@oclif/plugin-help@6.0.13:
+    resolution: {integrity: sha512-D/hiHmg+c6eOny95VfbhBcdgGxbi4AU2I3s1nFit0wpV2YziZnjmD7NQvYUCUJB052RcVmni6NiegttLgM4y5g==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.18.2
+      '@oclif/core': 3.19.2
 
   /@oclif/plugin-not-found@3.0.10:
     resolution: {integrity: sha512-vjY0nh+QcnAnKYP1SW/c4YhSBS8AkVsv4J61X2Bg2uedLi8Xaj5wCE8zTkqi/gSUtCH3SC3XZ5XGiqGVJegkTw==}
@@ -2207,7 +2239,7 @@ packages:
     resolution: {integrity: sha512-6XjYNJWWu6B4LyW73hzuM9Ihb23WamrABZhwYVJTVMBHdU30pRa1i3rvHCPfmn5c4iv8ZXudS/0zCNuhR121ng==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.19.1
+      '@oclif/core': 3.19.2
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
@@ -6558,7 +6590,7 @@ packages:
       '@aws-sdk/client-cloudfront': 3.511.0
       '@aws-sdk/client-s3': 3.504.0
       '@oclif/core': 3.19.1
-      '@oclif/plugin-help': 6.0.12
+      '@oclif/plugin-help': 6.0.13
       '@oclif/plugin-not-found': 3.0.10
       '@oclif/plugin-warn-if-update-available': 3.0.9
       async-retry: 1.3.3
