@@ -1,5 +1,13 @@
 # @kitajs/runtime
 
+## 1.1.16
+
+### Patch Changes
+
+- [#315](https://github.com/kitajs/kitajs/pull/315)
+  [`537cba1`](https://github.com/kitajs/kitajs/commit/537cba1780c7568a909169c90af3c0b263e517c0) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Moved from swagger ui to Scalar ui
+
 ## 1.1.15
 
 ### Patch Changes
