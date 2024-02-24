@@ -75,9 +75,7 @@ export class RestRouteParser implements RouteParser {
       this.collector.addPlugin('fastifyScalarUi', {
         name: 'fastifyScalarUi',
         importUrl: '@scalar/fastify-api-reference',
-        options: {
-          routePrefix: '/reference'
-        }
+        options: { routePrefix: '/reference' }
       });
     }
 
