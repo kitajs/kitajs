@@ -40,6 +40,6 @@
     "type-fest": "^4.10.3"
   },
   "peerDependencies": {
-    "typescript": "^5.2"
+    "typescript": "^5.3"
   }
 }

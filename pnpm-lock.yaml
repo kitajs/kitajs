@@ -131,8 +131,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.10.2
-        version: 4.10.2
+        specifier: ^4.10.3
+        version: 4.10.3
     devDependencies:
       '@fastify/multipart':
         specifier: ^8.1.0
@@ -168,8 +168,8 @@ importers:
         specifier: ^1.0.36
         version: 1.0.36
       '@types/node':
-        specifier: ^20.11.10
-        version: 20.11.10
+        specifier: ^20.11.20
+        version: 20.11.20
       c8:
         specifier: ^9.1.0
         version: 9.1.0
@@ -248,10 +248,10 @@ importers:
         version: link:../common
       '@scalar/fastify-api-reference':
         specifier: ^1.17.3
-        version: 1.17.3(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.25.2)
+        version: 1.17.3(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.1)
       fastify:
-        specifier: ^4.25.2
-        version: 4.25.2
+        specifier: ^4.26
+        version: 4.26.1
       fastify-plugin:
         specifier: ^4.5.1
         version: 4.5.1
@@ -2590,19 +2590,6 @@ packages:
       - typescript
     dev: true
 
-  /@scalar/fastify-api-reference@1.17.3(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.25.2):
-    resolution: {integrity: sha512-MNL/qmzh9bmw4XSItHrdlXi1N3M0Y/RPsOQdXd2novlJ99EoCtzU/3JosnIJZe5pUd2nvR9p+JV8s2+G8VN9Hg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      fastify: ^4.0.0
-      fastify-html: ^0.3.0
-      fastify-plugin: ^4.0.0
-    dependencies:
-      fastify: 4.25.2
-      fastify-html: 0.3.3
-      fastify-plugin: 4.5.1
-    dev: false
-
   /@scalar/fastify-api-reference@1.17.3(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.1):
     resolution: {integrity: sha512-MNL/qmzh9bmw4XSItHrdlXi1N3M0Y/RPsOQdXd2novlJ99EoCtzU/3JosnIJZe5pUd2nvR9p+JV8s2+G8VN9Hg==}
     engines: {node: '>=18'}
@@ -2614,7 +2601,6 @@ packages:
       fastify: 4.26.1
       fastify-html: 0.3.3
       fastify-plugin: 4.5.1
-    dev: true
 
   /@scalar/snippetz-core@0.1.3:
     resolution: {integrity: sha512-pHRi23VhxMddKMo/2zEnaRcc1QUTEva5H2tryuq+tER7imGWf2O09IGexiV9vY/8jzYh0QVl/2dlJUmnF9Ww5w==}
@@ -3826,12 +3812,6 @@ packages:
     resolution: {integrity: sha512-qjd88DrCxupx/kJD5yQgZdcYKZKSIGBVDIBE1/LTGcNm3d2Np/jxojkdePDdfnBHJc5W7vSMpbJ1aB7p/Py69A==}
     dev: true
 
-  /@types/node@20.11.10:
-    resolution: {integrity: sha512-rZEfe/hJSGYmdfX9tvcPMYeYPW2sNl50nsw4jZmRcaG0HIAb0WYEpsB05GOb53vjqpyE9GUhlDQ4jLSoB5q9kg==}
-    dependencies:
-      undici-types: 5.26.5
-    dev: true
-
   /@types/node@20.11.20:
     resolution: {integrity: sha512-7/rR21OS+fq8IyHTgtLkDK949uzsa6n8BkziAKtPVpugIkO6D+/ooXMvzXxDnZrmtXVfjb1bKQafYpb8s89LOg==}
     dependencies:
@@ -4241,16 +4221,6 @@ packages:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
     dev: true
-
-  /avvio@8.2.1:
-    resolution: {integrity: sha512-TAlMYvOuwGyLK3PfBb5WKBXZmXz2fVCgv23d6zZFdle/q3gPjmxBaeuC0pY0Dzs5PWMSgfqqEZkrye19GlDTgw==}
-    dependencies:
-      archy: 1.0.0
-      debug: 4.3.4(supports-color@8.1.1)
-      fastq: 1.17.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /avvio@8.3.0:
     resolution: {integrity: sha512-VBVH0jubFr9LdFASy/vNtm5giTrnbVquWBhT0fyizuNK2rQ7e7ONU2plZQWUNqtE1EmxFEb+kbSkFRkstiaS9Q==}
@@ -5429,29 +5399,6 @@ packages:
   /fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
 
-  /fastify@4.25.2:
-    resolution: {integrity: sha512-SywRouGleDHvRh054onj+lEZnbC1sBCLkR0UY3oyJwjD4BdZJUrxBqfkfCaqn74pVCwBaRHGuL3nEWeHbHzAfw==}
-    dependencies:
-      '@fastify/ajv-compiler': 3.5.0
-      '@fastify/error': 3.4.0
-      '@fastify/fast-json-stringify-compiler': 4.3.0
-      abstract-logging: 2.0.1
-      avvio: 8.2.1
-      fast-content-type-parse: 1.1.0
-      fast-json-stringify: 5.8.0
-      find-my-way: 7.7.0
-      light-my-request: 5.11.0
-      pino: 8.17.1
-      process-warning: 3.0.0
-      proxy-addr: 2.0.7
-      rfdc: 1.3.0
-      secure-json-parse: 2.7.0
-      semver: 7.5.4
-      toad-cache: 3.3.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /fastify@4.26.1:
     resolution: {integrity: sha512-tznA/G55dsxzM5XChBfcvVSloG2ejeeotfPPJSFaWmHyCDVGMpvf3nRNbsCb/JTBF9RmQFBfuujWt3Nphjesng==}
     dependencies:
@@ -5469,7 +5416,7 @@ packages:
       proxy-addr: 2.0.7
       rfdc: 1.3.0
       secure-json-parse: 2.7.0
-      semver: 7.5.4
+      semver: 7.6.0
       toad-cache: 3.3.0
     transitivePeerDependencies:
       - supports-color
@@ -5499,15 +5446,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       to-regex-range: 5.0.1
-
-  /find-my-way@7.7.0:
-    resolution: {integrity: sha512-+SrHpvQ52Q6W9f3wJoJBbAQULJuNEEQwBvlvYwACDhBTLOTMiQ0HYWh4+vC3OivGP2ENcTI1oKlFA2OepJNjhQ==}
-    engines: {node: '>=14'}
-    dependencies:
-      fast-deep-equal: 3.1.3
-      fast-querystring: 1.1.2
-      safe-regex2: 2.0.0
-    dev: false
 
   /find-my-way@8.1.0:
     resolution: {integrity: sha512-41QwjCGcVTODUmLLqTMeoHeiozbMXYMAE1CKFiDyi9zVZ2Vjh0yz3MF0WQZoIb+cmzP/XlbFjlF2NtJmvZHznA==}
@@ -9028,6 +8966,7 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+    dev: true
 
   /semver@7.6.0:
     resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
@@ -9701,11 +9640,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /type-fest@4.10.2:
-    resolution: {integrity: sha512-anpAG63wSpdEbLwOqH8L84urkL6PiVIov3EMmgIhhThevh9aiMQov+6Btx0wldNcvm4wV+e2/Rt1QdDwKHFbHw==}
-    engines: {node: '>=16'}
-    dev: false
-
   /type-fest@4.10.3:
     resolution: {integrity: sha512-JLXyjizi072smKGGcZiAJDCNweT8J+AuRxmPZ1aG7TERg4ijx9REl8CNhbr36RV4qXqL1gO1FF9HL8OkVmmrsA==}
     engines: {node: '>=16'}
@@ -10374,7 +10308,7 @@ packages:
     id: file:packages/ts-plugin
     name: '@kitajs/ts-plugin'
     peerDependencies:
-      typescript: ^5.2
+      typescript: ^5.3
     dependencies:
       '@kitajs/common': link:packages/common
       '@kitajs/parser': link:packages/parser

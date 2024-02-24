@@ -40,6 +40,6 @@
     "c8": "^9.1.0"
   },
   "peerDependencies": {
-    "fastify": "^4.25.2"
+    "fastify": "^4.26"
   }
 }
