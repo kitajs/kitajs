@@ -16,8 +16,8 @@ describe('Hello World', async () => {
     assert.ok(kita.getPlugin('fastifySwagger'));
   });
 
-  test('created fastifySwaggerUi plugin', () => {
-    assert.ok(kita.getPlugin('fastifySwaggerUi'));
+  test('created fastifyScalarUi plugin', () => {
+    assert.ok(kita.getPlugin('fastifyScalarUi'));
   });
 
   test('generates hello world', () => {

@@ -70,19 +70,12 @@ export class RestRouteParser implements RouteParser {
       });
     }
 
-    // Swagger UI is on a different package
-    if (!this.collector.getPlugin('fastifySwaggerUi')) {
-      this.collector.addPlugin('fastifySwaggerUi', {
-        name: 'fastifySwaggerUi',
-        importUrl: '@fastify/swagger-ui',
-        options: {
-          staticCSP: true,
-          uiConfig: {
-            displayOperationId: true,
-            displayRequestDuration: true,
-            requestSnippetsEnabled: true
-          }
-        }
+    // Scalar Ui is on a different package
+    if (!this.collector.getPlugin('fastifyScalarUi')) {
+      this.collector.addPlugin('fastifyScalarUi', {
+        name: 'fastifyScalarUi',
+        importUrl: '@scalar/fastify-api-reference',
+        options: { routePrefix: '/reference' }
       });
     }
 
