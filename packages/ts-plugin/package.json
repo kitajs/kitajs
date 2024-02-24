@@ -35,11 +35,11 @@
     "@swc-node/register": "^1.8.0",
     "@swc/helpers": "^0.5.6",
     "@types/deasync": "^0.1.5",
-    "@types/node": "^20.11.10",
+    "@types/node": "^20.11.20",
     "self": "file:.",
-    "type-fest": "^4.10.2"
+    "type-fest": "^4.10.3"
   },
   "peerDependencies": {
-    "typescript": "^5.2"
+    "typescript": "^5.3"
   }
 }
