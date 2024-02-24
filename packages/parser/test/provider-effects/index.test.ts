@@ -16,8 +16,8 @@ describe('Provider effects', async () => {
     assert.ok(kita.getPlugin('fastifySwagger'));
   });
 
-  test('created fastifySwaggerUi plugin', () => {
-    assert.ok(kita.getPlugin('fastifySwaggerUi'));
+  test('created fastifyScalarUi plugin', () => {
+    assert.ok(kita.getPlugin('fastifyScalarUi'));
   });
 
   test('provider has a parameter generator', () => {
