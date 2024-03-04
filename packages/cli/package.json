@@ -50,7 +50,7 @@
   "devDependencies": {
     "@swc-node/register": "^1.8.0",
     "@swc/helpers": "^0.5.6",
-    "@types/node": "^20.11.20",
+    "@types/node": "^20.11.24",
     "c8": "^9.1.0",
     "oclif": "^4.4.18"
   },
