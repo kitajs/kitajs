@@ -153,8 +153,8 @@ importers:
         specifier: workspace:^
         version: link:../runtime
       '@scalar/api-reference':
-        specifier: ^1.17.4
-        version: 1.17.4(postcss@8.4.35)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.19)(yjs@13.6.12)
+        specifier: ^1.17.15
+        version: 1.17.15(postcss@8.4.35)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.19)(yjs@13.6.12)
       '@scalar/fastify-api-reference':
         specifier: ^1.17.3
         version: 1.17.3(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.1)
@@ -1495,7 +1495,7 @@ packages:
   /@changesets/apply-release-plan@7.0.0:
     resolution: {integrity: sha512-vfi69JR416qC9hWmFGSxj7N6wA5J222XNBmezSVATPWDVPIF7gkd4d8CpbEbXmRWbVrkoli3oerGS6dcL/BGsQ==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@changesets/config': 3.0.0
       '@changesets/get-version-range-type': 0.4.0
       '@changesets/git': 3.0.0
@@ -1513,7 +1513,7 @@ packages:
   /@changesets/assemble-release-plan@6.0.0:
     resolution: {integrity: sha512-4QG7NuisAjisbW4hkLCmGW2lRYdPrKzro+fCtZaILX+3zdUELSvYjpL4GTv0E4aM9Mef3PuIQp89VmHJ4y2bfw==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@changesets/errors': 0.2.0
       '@changesets/get-dependents-graph': 2.0.0
       '@changesets/types': 6.0.0
@@ -1615,7 +1615,7 @@ packages:
   /@changesets/get-release-plan@4.0.0:
     resolution: {integrity: sha512-9L9xCUeD/Tb6L/oKmpm8nyzsOzhdNBBbt/ZNcjynbHC07WW4E1eX8NMGC5g5SbM5z/V+MOrYsJ4lRW41GCbg3w==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@changesets/assemble-release-plan': 6.0.0
       '@changesets/config': 3.0.0
       '@changesets/pre': 2.0.0
@@ -1631,7 +1631,7 @@ packages:
   /@changesets/git@3.0.0:
     resolution: {integrity: sha512-vvhnZDHe2eiBNRFHEgMiGd2CT+164dfYyrJDhwwxTVD/OW0FUD6G7+4DIx1dNwkwjHyzisxGAU96q0sVNBns0w==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@changesets/errors': 0.2.0
       '@changesets/types': 6.0.0
       '@manypkg/get-packages': 1.1.3
@@ -1656,7 +1656,7 @@ packages:
   /@changesets/pre@2.0.0:
     resolution: {integrity: sha512-HLTNYX/A4jZxc+Sq8D1AMBsv+1qD6rmmJtjsCJa/9MSRybdxh0mjbTvE6JYZQ/ZiQ0mMlDOlGPXTm9KLTU3jyw==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@changesets/errors': 0.2.0
       '@changesets/types': 6.0.0
       '@manypkg/get-packages': 1.1.3
@@ -1666,7 +1666,7 @@ packages:
   /@changesets/read@0.6.0:
     resolution: {integrity: sha512-ZypqX8+/im1Fm98K4YcZtmLKgjs1kDQ5zHpc2U1qdtNBmZZfo/IBiG162RoP0CUF05tvp2y4IspH11PLnPxuuw==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@changesets/git': 3.0.0
       '@changesets/logger': 0.1.0
       '@changesets/parse': 0.4.0
@@ -1687,7 +1687,7 @@ packages:
   /@changesets/write@0.3.0:
     resolution: {integrity: sha512-slGLb21fxZVUYbyea+94uFiD6ntQW0M2hIKNznFizDhZPDgn2c/fv1UzzlW43RVzh1BEDuIqW6hzlJ1OflNmcw==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@changesets/types': 6.0.0
       fs-extra: 7.0.1
       human-id: 1.0.2
@@ -1762,6 +1762,18 @@ packages:
       '@lezer/json': 1.0.2
     dev: true
 
+  /@codemirror/lang-yaml@6.0.0(@codemirror/view@6.24.1):
+    resolution: {integrity: sha512-fVPapdX1oYr5HMC5bou1MHscGnNCvOHuhUW6C+V2gfIeIRcughvVfznV0OuUyHy0AdXoBCjOehjzFcmLRumu2Q==}
+    dependencies:
+      '@codemirror/autocomplete': 6.12.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.24.1)(@lezer/common@1.2.1)
+      '@codemirror/language': 6.10.1
+      '@codemirror/state': 6.4.1
+      '@lezer/common': 1.2.1
+      '@lezer/yaml': 1.0.2
+    transitivePeerDependencies:
+      - '@codemirror/view'
+    dev: true
+
   /@codemirror/language@6.10.1:
     resolution: {integrity: sha512-5GrXzrhq6k+gL5fjkAwt90nYDmjlzTIJV8THnxNFtNKWotMIlzzN+CpqxqwXOECnUdOndmSeWntVrVcv5axWRQ==}
     dependencies:
@@ -1771,12 +1783,6 @@ packages:
       '@lezer/highlight': 1.2.0
       '@lezer/lr': 1.4.0
       style-mod: 4.1.0
-    dev: true
-
-  /@codemirror/legacy-modes@6.3.3:
-    resolution: {integrity: sha512-X0Z48odJ0KIoh/HY8Ltz75/4tDYc9msQf1E/2trlxFaFFhgjpVHjZ/BCXe1Lk7s4Gd67LL/CeEEHNI+xHOiESg==}
-    dependencies:
-      '@codemirror/language': 6.10.1
     dev: true
 
   /@codemirror/lint@6.5.0:
@@ -2018,6 +2024,14 @@ packages:
       '@lezer/common': 1.2.1
     dev: true
 
+  /@lezer/yaml@1.0.2:
+    resolution: {integrity: sha512-XCkwuxe+eumJ28nA9e1S6XKsXz9W7V/AG+WBiWOtiIuUpKcZ/bHuvN8bLxSDREIcybSRpEd/jvphh4vgm6Ed2g==}
+    dependencies:
+      '@lezer/common': 1.2.1
+      '@lezer/highlight': 1.2.0
+      '@lezer/lr': 1.4.0
+    dev: true
+
   /@lukeed/ms@2.0.1:
     resolution: {integrity: sha512-Xs/4RZltsAL7pkvaNStUQt7netTkyxrS0K+RILcVr3TRMS/ToOg4I6uNfhB9SlGsnWBym4U+EaXq0f0cEMNkHA==}
     engines: {node: '>=8'}
@@ -2025,7 +2039,7 @@ packages:
   /@manypkg/find-root@1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@types/node': 12.20.55
       find-up: 4.1.0
       fs-extra: 8.1.0
@@ -2034,7 +2048,7 @@ packages:
   /@manypkg/get-packages@1.1.3:
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.9
       '@changesets/types': 4.1.0
       '@manypkg/find-root': 1.1.0
       fs-extra: 8.1.0
@@ -2496,16 +2510,16 @@ packages:
       '@codemirror/view': 6.24.1
     dev: true
 
-  /@scalar/api-client@0.12.6(typescript@5.3.3)(vue@3.4.19)(yjs@13.6.12):
-    resolution: {integrity: sha512-XO0s9jlRjo/IWYC2vSJeFV2m7jxTLX/5WsX9w9forzh2iZNo2qU0E1vZOZ69s7wjkb18r3a60+ewjtZx7lZMog==}
+  /@scalar/api-client@0.12.14(typescript@5.3.3)(vue@3.4.19)(yjs@13.6.12):
+    resolution: {integrity: sha512-0YyV6IX9/3QTCHLawTD0Avakvf76qFnoITVjXX8LWAxu9KuuLTzvC65VL7KKQ/NejqNuA2HlhO91iWfy4Ju4TA==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
     dependencies:
       '@headlessui/vue': 1.7.19(vue@3.4.19)
-      '@scalar/components': 0.2.5(typescript@5.3.3)
-      '@scalar/themes': 0.5.8(vue@3.4.19)
-      '@scalar/use-codemirror': 0.8.6(vue@3.4.19)(yjs@13.6.12)
+      '@scalar/components': 0.4.2(typescript@5.3.3)
+      '@scalar/themes': 0.5.10(vue@3.4.19)
+      '@scalar/use-codemirror': 0.8.8(vue@3.4.19)(yjs@13.6.12)
       '@scalar/use-modal': 0.2.8(@headlessui/vue@1.7.19)(vue@3.4.19)
       '@vueuse/core': 10.8.0(vue@3.4.19)
       axios: 1.6.7
@@ -2521,8 +2535,8 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/api-reference@1.17.4(postcss@8.4.35)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.19)(yjs@13.6.12):
-    resolution: {integrity: sha512-wxeO8TpGj++QK4g3WQBEUkptaWrvStgWFQDwp/AEPfS0d03rngHz9FmUFTUOlE+WfcHh61mGTw7IIP3fRYIgrA==}
+  /@scalar/api-reference@1.17.15(postcss@8.4.35)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.19)(yjs@13.6.12):
+    resolution: {integrity: sha512-Jtr1Pye+DLQ7ng3Rv3/2WrEvHEGqGCqmk5/IURhAwI6oam5Sd/4t9Qk0ActeK8ufnjhXVbWj88qCmlBSBPtkGg==}
     engines: {node: '>=18'}
     peerDependencies:
       unified: ^11.0.0
@@ -2530,12 +2544,12 @@ packages:
     dependencies:
       '@floating-ui/vue': 1.0.6(vue@3.4.19)
       '@headlessui/vue': 1.7.19(vue@3.4.19)
-      '@scalar/api-client': 0.12.6(typescript@5.3.3)(vue@3.4.19)(yjs@13.6.12)
-      '@scalar/components': 0.2.5(typescript@5.3.3)
+      '@scalar/api-client': 0.12.14(typescript@5.3.3)(vue@3.4.19)(yjs@13.6.12)
+      '@scalar/components': 0.4.2(typescript@5.3.3)
       '@scalar/snippetz': 0.1.5
-      '@scalar/swagger-editor': 0.10.8(typescript@5.3.3)(vue@3.4.19)(yjs@13.6.12)
-      '@scalar/swagger-parser': 0.5.18(openapi-types@12.1.3)
-      '@scalar/themes': 0.5.8(vue@3.4.19)
+      '@scalar/swagger-editor': 0.10.15(typescript@5.3.3)(vue@3.4.19)(yjs@13.6.12)
+      '@scalar/swagger-parser': 0.5.20(openapi-types@12.1.3)
+      '@scalar/themes': 0.5.10(vue@3.4.19)
       '@scalar/use-modal': 0.2.8(@headlessui/vue@1.7.19)(vue@3.4.19)
       '@scalar/use-tooltip': 0.5.11(vue@3.4.19)
       '@unhead/schema': 1.8.10
@@ -2549,7 +2563,6 @@ packages:
       js-yaml: 4.1.0
       openapi-types: 12.1.3
       postcss-nested: 6.0.1(postcss@8.4.35)
-      prismjs: 1.29.0
       rehype-external-links: 3.0.0
       rehype-format: 5.0.0
       rehype-highlight: 7.0.0
@@ -2573,8 +2586,8 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/components@0.2.5(typescript@5.3.3):
-    resolution: {integrity: sha512-7pUzruMSrCsJ74cqU/3Z6Xqry84f5fuZqvKANORioEI26Quy11Ms9d/i4PyT2Uy6vVboBkHXKcygSX2uYf8Fhw==}
+  /@scalar/components@0.4.2(typescript@5.3.3):
+    resolution: {integrity: sha512-GIeqj0m1vXuALf/mhKIIeGiqnWv7VVFKrt2Wfl6hBosrXJ02noTivAHDsHhqSIks5p6WCO0nz5jnI4dqMW+LDw==}
     engines: {node: '>=18'}
     dependencies:
       '@headlessui/vue': 1.7.19(vue@3.4.19)
@@ -2583,6 +2596,7 @@ packages:
       class-variance-authority: 0.7.0
       cva: 1.0.0-beta.1(typescript@5.3.3)
       nanoid: 5.0.6
+      prismjs: 1.29.0
       tailwind-merge: 2.2.1
       vue: 3.4.19(typescript@5.3.3)
     transitivePeerDependencies:
@@ -2635,15 +2649,15 @@ packages:
       '@scalar/snippetz-plugin-node-undici': 0.1.5
     dev: true
 
-  /@scalar/swagger-editor@0.10.8(typescript@5.3.3)(vue@3.4.19)(yjs@13.6.12):
-    resolution: {integrity: sha512-dqQJnmG1fAc13AX07ccBGPYuoZ25KWA4XkcvpF7WW3wLo/pHZ7BjGT56KCjKRqxRycOl4fNrxNnKudiNC76DvA==}
+  /@scalar/swagger-editor@0.10.15(typescript@5.3.3)(vue@3.4.19)(yjs@13.6.12):
+    resolution: {integrity: sha512-bVgo+n0ZHF+8bxs6kYkom2GBfxcapBX+XSEHLJtztrUVnQgG0xN6PuUIDl01bMiBwkQW1gAXAB6rPJrAWU8LEA==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
     dependencies:
-      '@scalar/components': 0.2.5(typescript@5.3.3)
-      '@scalar/themes': 0.5.8(vue@3.4.19)
-      '@scalar/use-codemirror': 0.8.6(vue@3.4.19)(yjs@13.6.12)
+      '@scalar/components': 0.4.2(typescript@5.3.3)
+      '@scalar/themes': 0.5.10(vue@3.4.19)
+      '@scalar/use-codemirror': 0.8.8(vue@3.4.19)(yjs@13.6.12)
       '@vueuse/core': 10.8.0(vue@3.4.19)
       vue: 3.4.19(typescript@5.3.3)
     transitivePeerDependencies:
@@ -2652,8 +2666,8 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/swagger-parser@0.5.18(openapi-types@12.1.3):
-    resolution: {integrity: sha512-McPPq3NM0NEK4YyoJIjo28iU2b7ldPm3U/HNLymfXs8WwZ+Thjg9oCSVUV8tdEkN4Cbh1klG9Bjc1rKw1Adepw==}
+  /@scalar/swagger-parser@0.5.20(openapi-types@12.1.3):
+    resolution: {integrity: sha512-EnmjfbLoFcj0aEG0gHUrg1YtqJMDM+QfhetdfmbHFM17ErlXjLpW2hyP2DUx3K5zNNi/EMl+5VXmzzimcl0OXA==}
     engines: {node: '>=18'}
     dependencies:
       '@apidevtools/swagger-parser': 10.1.0(openapi-types@12.1.3)
@@ -2662,8 +2676,8 @@ packages:
       - openapi-types
     dev: true
 
-  /@scalar/themes@0.5.8(vue@3.4.19):
-    resolution: {integrity: sha512-eEwjhLATpvNVjke0m2Iwy+UatLqj7ylAIzJA+nNkmzf/41vSLK5klznVfKc5wMpYuqYlI9IPTRz1kY34j9IsKg==}
+  /@scalar/themes@0.5.10(vue@3.4.19):
+    resolution: {integrity: sha512-dJlavsnvH1vJRSE57lxAAyWs6S6bKv9rveBCqnomUMk1bdpcUFEVNjwkGT7PkjTMFdQkIyLxexaw5xATGBw7PQ==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
@@ -2671,17 +2685,19 @@ packages:
       vue: 3.4.19(typescript@5.3.3)
     dev: true
 
-  /@scalar/use-codemirror@0.8.6(vue@3.4.19)(yjs@13.6.12):
-    resolution: {integrity: sha512-8wtB1khnm7k/MvjsN6NQa2LAJJH2e/7m0fQ+6DgIgV56D5Ka9ZVeGKUvqCboDKHyrSkODj/GaWA8AnEX9NRVOg==}
+  /@scalar/use-codemirror@0.8.8(vue@3.4.19)(yjs@13.6.12):
+    resolution: {integrity: sha512-IBmGJ+1bJdZOyxbscebf7Ltsvdm/kC8EbcL3hUUBpTL3SsTQr4OkE/7pR4slh/UlM2q6F62Hc7x+0RC2qV/nLw==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
       yjs: ^13.6.0
     dependencies:
+      '@codemirror/autocomplete': 6.12.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.24.1)(@lezer/common@1.2.1)
+      '@codemirror/lang-css': 6.2.1(@codemirror/view@6.24.1)
       '@codemirror/lang-html': 6.4.8
       '@codemirror/lang-json': 6.0.1
+      '@codemirror/lang-yaml': 6.0.0(@codemirror/view@6.24.1)
       '@codemirror/language': 6.10.1
-      '@codemirror/legacy-modes': 6.3.3
       '@codemirror/state': 6.4.1
       '@codemirror/view': 6.24.1
       '@lezer/common': 1.2.1
