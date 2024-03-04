@@ -34,7 +34,7 @@
     "@scalar/fastify-api-reference": "^1.17.3",
     "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
-    "type-fest": "^4.10.3"
+    "type-fest": "^4.11.0"
   },
   "devDependencies": {
     "c8": "^9.1.0"
