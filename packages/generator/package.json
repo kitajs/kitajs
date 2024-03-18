@@ -40,7 +40,7 @@
     "@scalar/api-reference": "^1.17.15",
     "@scalar/fastify-api-reference": "^1.18.5",
     "@swc-node/register": "^1.9.0",
-    "@swc/helpers": "^0.5.6",
+    "@swc/helpers": "^0.5.7",
     "@types/json-stable-stringify": "^1.0.36",
     "@types/node": "^20.11.25",
     "c8": "^9.1.0",

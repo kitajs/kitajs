@@ -76,8 +76,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0(@swc/core@1.3.93)(@swc/types@0.1.5)(typescript@5.3.3)
       '@swc/helpers':
-        specifier: ^0.5.6
-        version: 0.5.6
+        specifier: ^0.5.7
+        version: 0.5.7
       '@types/node':
         specifier: ^20.11.25
         version: 20.11.25
@@ -162,8 +162,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0(@swc/core@1.3.93)(@swc/types@0.1.5)(typescript@5.3.3)
       '@swc/helpers':
-        specifier: ^0.5.6
-        version: 0.5.6
+        specifier: ^0.5.7
+        version: 0.5.7
       '@types/json-stable-stringify':
         specifier: ^1.0.36
         version: 1.0.36
@@ -220,8 +220,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0(@swc/core@1.3.93)(@swc/types@0.1.5)(typescript@5.3.3)
       '@swc/helpers':
-        specifier: ^0.5.6
-        version: 0.5.6
+        specifier: ^0.5.7
+        version: 0.5.7
       '@types/node':
         specifier: ^20.11.25
         version: 20.11.25
@@ -288,8 +288,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0(@swc/core@1.3.93)(@swc/types@0.1.5)(typescript@5.3.3)
       '@swc/helpers':
-        specifier: ^0.5.6
-        version: 0.5.6
+        specifier: ^0.5.7
+        version: 0.5.7
       '@types/deasync':
         specifier: ^0.1.5
         version: 0.1.5
@@ -3253,7 +3253,7 @@ packages:
       '@swc/core': '>= 1.3'
       '@swc/types': '>= 0.1'
     dependencies:
-      '@swc/core': 1.3.93(@swc/helpers@0.5.6)
+      '@swc/core': 1.3.93(@swc/helpers@0.5.7)
       '@swc/types': 0.1.5
     dev: true
 
@@ -3265,7 +3265,7 @@ packages:
     dependencies:
       '@swc-node/core': 1.13.0(@swc/core@1.3.93)(@swc/types@0.1.5)
       '@swc-node/sourcemap-support': 0.5.0
-      '@swc/core': 1.3.93(@swc/helpers@0.5.6)
+      '@swc/core': 1.3.93(@swc/helpers@0.5.7)
       colorette: 2.0.20
       debug: 4.3.4(supports-color@8.1.1)
       pirates: 4.0.6
@@ -3373,7 +3373,7 @@ packages:
     dev: true
     optional: true
 
-  /@swc/core@1.3.93(@swc/helpers@0.5.6):
+  /@swc/core@1.3.93(@swc/helpers@0.5.7):
     resolution: {integrity: sha512-690GRr1wUGmGYZHk7fUduX/JUwViMF2o74mnZYIWEcJaCcd9MQfkhsxPBtjeg6tF+h266/Cf3RPYhsFBzzxXcA==}
     engines: {node: '>=10'}
     requiresBuild: true
@@ -3384,7 +3384,7 @@ packages:
         optional: true
     dependencies:
       '@swc/counter': 0.1.2
-      '@swc/helpers': 0.5.6
+      '@swc/helpers': 0.5.7
       '@swc/types': 0.1.5
     optionalDependencies:
       '@swc/core-darwin-arm64': 1.3.93
@@ -3403,8 +3403,8 @@ packages:
     resolution: {integrity: sha512-9F4ys4C74eSTEUNndnER3VJ15oru2NumfQxS8geE+f3eB5xvfxpWyqE5XlVnxb/R14uoXi6SLbBwwiDSkv+XEw==}
     dev: true
 
-  /@swc/helpers@0.5.6:
-    resolution: {integrity: sha512-aYX01Ke9hunpoCexYAgQucEpARGQ5w/cqHFrIR+e9gdKb1QWTsVJuTJ2ozQzIAxLyRQe/m+2RqzkyOOGiMKRQA==}
+  /@swc/helpers@0.5.7:
+    resolution: {integrity: sha512-BVvNZhx362+l2tSwSuyEUV4h7+jk9raNdoTSdLfwTshXJSaGmYKluGRJznziCI3KX02Z19DdsQrdfrpXAU3Hfg==}
     dependencies:
       tslib: 2.6.2
     dev: true
