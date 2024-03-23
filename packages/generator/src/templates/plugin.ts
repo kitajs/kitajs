@@ -5,6 +5,7 @@ import {
   Route,
   kFastifyVariable,
   kKitaOptions,
+  kSchemaDefinitions,
   stringifyOptions
 } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
@@ -68,6 +69,8 @@ ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schem
       }
     );
 
+    ${getSchemaDefinitions(schemas) && `module.exports.${kSchemaDefinitions} = ${toSchemaDefinitions(schemas)}`}
+
     exports.__esModule = true;
 
     ${ts.types}
@@ -75,6 +78,16 @@ ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schem
     import type { FastifyPluginAsync } from 'fastify'
 
     export declare const Kita: FastifyPluginAsync<{${plugins.map(toPluginType).join(',\n')}}>;
+    
+    ${
+      getSchemaDefinitions(schemas) &&
+      `
+/**
+ * All schemas exported in the \`providers/schemas.ts\` file
+ */
+export declare const ${kSchemaDefinitions}: ${toSchemaDefinitions(schemas)}
+   `
+    }
   `;
 }
 
@@ -84,6 +97,27 @@ function toRoute(route: Route) {
 
 function toProvider(provider: Provider, cwdSrcRelativity: string) {
   return `const ${provider.type} = require(${toMaybeRelativeImport(provider.providerPath, cwdSrcRelativity)});`;
+}
+
+function getSchemaDefinitions(schemas: JsonSchema[]) {
+  return schemas.find((schema) => schema.$id === kSchemaDefinitions);
+}
+
+function toSchemaDefinitions(schemas: JsonSchema[]) {
+  const kitaSchema = getSchemaDefinitions(schemas);
+
+  if (!kitaSchema) {
+    return '{}';
+  }
+
+  return stringify(
+    {
+      ...kitaSchema,
+      // Remove the $id to make it more readable without messing up the schema
+      $id: undefined
+    },
+    { space: 4 }
+  );
 }
 
 function toPlugin(plugin: KitaPlugin) {
