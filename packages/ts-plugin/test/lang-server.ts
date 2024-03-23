@@ -3,7 +3,12 @@ import { EventEmitter } from 'events';
 import { server } from 'typescript/lib/tsserverlibrary';
 
 /** All requests used in tests */
-export type Requests = server.protocol.OpenRequest | server.protocol.SemanticDiagnosticsSyncRequest;
+export type Requests =
+  | server.protocol.OpenRequest
+  | server.protocol.SemanticDiagnosticsSyncRequest
+  | server.protocol.CompletionsRequest;
+
+const CONTENT_LENGTH_HEADER = 'Content-Length: ';
 
 export class TSLangServer {
   responseEventEmitter = new EventEmitter();
@@ -26,9 +31,29 @@ export class TSLangServer {
 
     this.server.stdout!.setEncoding('utf-8');
 
+    let expLength = 0;
+    let buffered = '';
+
     this.server.stdout!.on('data', (data) => {
-      const [_length, _eol, res] = data.split('\n', 3);
-      const obj = JSON.parse(res);
+      // Start of a new data packet
+      if (data.startsWith(CONTENT_LENGTH_HEADER)) {
+        // Content-Length: 123\n\n{...}
+        const [length, , res] = data.split('\n', 3);
+
+        expLength = parseInt(length.slice(CONTENT_LENGTH_HEADER.length), 10);
+        buffered = res;
+
+        // Continuation of a previous packet
+      } else {
+        buffered += data;
+      }
+
+      // More data is expected, so we need to wait for the next chunk
+      if (expLength - 1 > buffered.length) {
+        return;
+      }
+
+      const obj = JSON.parse(buffered);
 
       if (obj.type === 'event') {
         this.responseEventEmitter.emit(obj.event, obj);

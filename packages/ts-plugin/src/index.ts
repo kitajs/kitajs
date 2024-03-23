@@ -43,33 +43,7 @@ export = function initHtmlPlugin() {
         try {
           // Lazy load the parser
           if (!config) {
-            // ts typescript will return the path with / on windows
-            const root = path.normalize(program.getCurrentDirectory());
-
-            try {
-              config = importConfig(path.join(root, 'kita.config.js'));
-            } catch {
-              config = parseConfig({}, root);
-            }
-
-            // process.cwd() will return the editor cwd, and not the project cwd
-            if (config.cwd === process.cwd()) {
-              config.cwd = root;
-            }
-
-            rootRoute = path.resolve(config.src, kRoutesFolder);
-            rootProvider = path.resolve(config.src, kProvidersFolder);
-            providerPaths = program
-              .getSourceFiles()
-              .map((f) => f.fileName)
-              .filter((f) => f.startsWith(toTsPath(rootProvider)));
-
-            parser = new KitaParser(config, program);
-
-            info.project.projectService.logger.info(
-              `[kita-plugin] Successfully parsed config in ${performance.now() - start}ms`
-            );
-            info.project.projectService.logger.info(`[kita-plugin] ${JSON.stringify(config, null, 2)}`);
+            loadParser(program, start);
           }
 
           // Only parse files inside the cwd
@@ -107,6 +81,37 @@ export = function initHtmlPlugin() {
 
         return diagnostics;
       };
+
+      function loadParser(program: ts.Program, start: number) {
+        // ts typescript will return the path with / on windows
+        const root = path.normalize(program.getCurrentDirectory());
+
+        try {
+          config = importConfig(path.join(root, 'kita.config.js'));
+        } catch {
+          config = parseConfig({}, root);
+        }
+
+        // process.cwd() will return the editor cwd, and not the project cwd
+        if (config.cwd === process.cwd()) {
+          config.cwd = root;
+        }
+
+        rootRoute = path.resolve(config.src, kRoutesFolder);
+        rootProvider = path.resolve(config.src, kProvidersFolder);
+        providerPaths = program
+          .getSourceFiles()
+          .map((f) => f.fileName)
+          .filter((f) => f.startsWith(toTsPath(rootProvider)));
+
+        parser = new KitaParser(config, program);
+
+        info.project.projectService.logger.info(
+          `[kita-plugin] Successfully parsed config in ${performance.now() - start}ms`
+        );
+
+        info.project.projectService.logger.info(`[kita-plugin] ${JSON.stringify(config, null, 2)}`);
+      }
 
       return proxy;
     }
