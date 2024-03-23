@@ -37,9 +37,10 @@ export class TSLangServer {
     this.server.stdout!.on('data', (data) => {
       // Start of a new data packet
       if (data.startsWith(CONTENT_LENGTH_HEADER)) {
-        let [rawLength, _eol, res] = data.split('\n', 3);
+        // Content-Length: 123\n\n{...}
+        const [length, , res] = data.split('\n', 3);
 
-        expLength = parseInt(rawLength.slice(CONTENT_LENGTH_HEADER.length), 10);
+        expLength = parseInt(length.slice(CONTENT_LENGTH_HEADER.length), 10);
         buffered = res;
 
         // Continuation of a previous packet
