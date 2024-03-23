@@ -6,7 +6,8 @@
     "jsxFactory": "Html.createElement",
     "jsxFragmentFactory": "Html.Fragment",
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }, { "name": "@kitajs/ts-plugin" }],
-    "skipLibCheck": false
+    "skipLibCheck": false,
+    "lib": ["WebWorker", "DOM", "ESNext"]
   },
   "include": ["src", "test"]
 }
