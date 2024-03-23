@@ -11,8 +11,8 @@ const routeIndexContent = readFileSync(routeIndex, 'utf-8');
 const providerIndex = path.join(__dirname, 'src/providers/index.ts');
 const providerIndexContent = readFileSync(providerIndex, 'utf-8');
 
-describe('Simple project', () => {
-  it('Emits a ParameterResolverNotFoundError', async () => {
+describe('No errors', () => {
+  it('Parses route without errors', async () => {
     await using server = new TSLangServer(__dirname);
 
     await server.send({
@@ -20,6 +20,14 @@ describe('Simple project', () => {
       arguments: {
         file: routeIndex,
         fileContent: routeIndexContent
+      }
+    });
+
+    await server.send({
+      command: ts.server.protocol.CommandTypes.Open,
+      arguments: {
+        file: providerIndex,
+        fileContent: providerIndexContent
       }
     });
 
@@ -40,21 +48,13 @@ describe('Simple project', () => {
       seq: 0,
       type: 'response',
       command: 'semanticDiagnosticsSync',
-      request_seq: 2,
+      request_seq: 3,
       success: true,
-      body: [
-        {
-          start: { line: 1, offset: 25 },
-          end: { line: 1, offset: 47 },
-          text: 'This parameter type does not have a registered resolved. Did you forget to wrap it into a Body<>, Query<>, etc.?',
-          code: 'kita - 301',
-          category: 'error'
-        }
-      ]
+      body: []
     });
   });
 
-  it('Emits a UntypedProviderError', async () => {
+  it('Parses provider without errors', async () => {
     await using server = new TSLangServer(__dirname);
 
     await server.send({
@@ -62,6 +62,14 @@ describe('Simple project', () => {
       arguments: {
         file: providerIndex,
         fileContent: providerIndexContent
+      }
+    });
+
+    await server.send({
+      command: ts.server.protocol.CommandTypes.Open,
+      arguments: {
+        file: routeIndex,
+        fileContent: routeIndex
       }
     });
 
@@ -82,17 +90,9 @@ describe('Simple project', () => {
       seq: 0,
       type: 'response',
       command: 'semanticDiagnosticsSync',
-      request_seq: 2,
+      request_seq: 3,
       success: true,
-      body: [
-        {
-          start: { line: 5, offset: 1 },
-          end: { line: 7, offset: 2 },
-          text: 'The provider default export needs to have a explicit return type declared.',
-          code: 'kita - 306',
-          category: 'error'
-        }
-      ]
+      body: []
     });
   });
 });
