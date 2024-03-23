@@ -105,7 +105,9 @@ export class SchemaBuilder {
    * @param skipWrappers If we should return OptionalType or AnnotatedType wrappers or its inner type
    */
   toPrimitive(type: ts.Node | BaseType, skipWrappers = false): BaseType | undefined {
-    type = type instanceof BaseType ? type : this.createTypeSchema(type);
+    if (!(type instanceof BaseType)) {
+      type = this.createTypeSchema(type);
+    }
 
     // Primitive types
     if (
