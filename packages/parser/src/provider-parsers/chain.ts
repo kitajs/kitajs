@@ -2,7 +2,7 @@ import { ChainParser, Provider, ProviderParser, ProviderResolverNotFound } from 
 import type { ts } from 'ts-json-schema-generator';
 
 export class ChainProviderParser extends ChainParser<ProviderParser> implements ProviderParser {
-  async parse(node: ts.SourceFile): Promise<Provider> {
+  async parse(node: ts.SourceFile): Promise<Provider | undefined> {
     const parser = this.cache.get(node);
 
     if (!parser) {

@@ -159,7 +159,12 @@ export class KitaParser implements AstCollector {
 
     // Parsing
     this.rootParameterParser = buildParameterParser(this.config, this.schemaBuilder, this);
-    this.rootProviderParser = buildProviderParser(this.config, this.rootParameterParser);
+    this.rootProviderParser = buildProviderParser(
+      this.config,
+      this.rootParameterParser,
+      this.program.getTypeChecker(),
+      this.schemaBuilder
+    );
     this.rootRouteParser = buildRouteParser(
       this.config,
       this.schemaBuilder,
@@ -185,6 +190,11 @@ export class KitaParser implements AstCollector {
 
       if (provider instanceof Error) {
         yield new UnknownKitaError(provider.message, provider);
+        continue;
+      }
+
+      // Ignore providers that resolved elsewhere, like in a plugin
+      if (!provider) {
         continue;
       }
 

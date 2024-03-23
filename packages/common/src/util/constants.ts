@@ -33,3 +33,6 @@ export const kRoutesFolder = 'routes';
 
 /** The folder name where providers are stored */
 export const kProvidersFolder = 'providers';
+
+/** The export name of all definitions that kita should export */
+export const kSchemaDefinitions = 'KitaSchemas';

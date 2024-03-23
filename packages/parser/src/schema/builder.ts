@@ -198,9 +198,11 @@ export class SchemaBuilder {
   }
 
   /** Appends new definitions to the schema builder. */
-  private appendChildDefinitions(type: BaseType) {
+  appendChildDefinitions(type: BaseType, inner?: string) {
     const seen = new Set();
     const nameIdMap = new Map<string, string>();
+
+    const definitions = inner ? ((this.definitions[inner] ??= {}) as Record<string, JsonSchema>) : this.definitions;
 
     for (const child of this.formatter.getChildren(type)) {
       if (!(child instanceof DefinitionType) || seen.has(child.getId())) {
@@ -224,13 +226,13 @@ export class SchemaBuilder {
       nameIdMap.set(name, childId);
 
       // Add child definition
-      if (!(name in this.definitions)) {
+      if (!(name in definitions)) {
         // @ts-expect-error - unnamed child should be kept inside the original definition
         if (!child.name) {
           continue;
         }
 
-        this.definitions[name] = this.formatter.getDefinition(child.getType());
+        definitions[name] = this.formatter.getDefinition(child.getType());
       }
     }
   }
