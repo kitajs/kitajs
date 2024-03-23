@@ -36,11 +36,11 @@
     "@kitajs/common": "workspace:^",
     "@kitajs/generator": "workspace:^",
     "@kitajs/parser": "workspace:^",
-    "@oclif/core": "^3.19.6",
+    "@oclif/core": "^3.25.2",
     "@oclif/plugin-autocomplete": "^3.0.10",
-    "@oclif/plugin-help": "^6.0.14",
+    "@oclif/plugin-help": "^6.0.15",
     "@oclif/plugin-not-found": "^3.0.12",
-    "@oclif/plugin-plugins": "^4.2.5",
+    "@oclif/plugin-plugins": "^4.3.3",
     "@oclif/plugin-warn-if-update-available": "^3.0.12",
     "chalk": "^4.1.2",
     "deepmerge": "^4.3.1",
@@ -48,11 +48,11 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@swc-node/register": "^1.8.0",
-    "@swc/helpers": "^0.5.6",
-    "@types/node": "^20.11.20",
+    "@swc-node/register": "^1.9.0",
+    "@swc/helpers": "^0.5.7",
+    "@types/node": "^20.11.25",
     "c8": "^9.1.0",
-    "oclif": "^4.4.18"
+    "oclif": "^4.4.21"
   },
   "peerDependencies": {
     "typescript": "^5.3"
