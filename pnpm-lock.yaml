@@ -106,8 +106,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.12.0
-        version: 4.13.1
+        specifier: ^4.14.0
+        version: 4.14.0
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -131,8 +131,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.12.0
-        version: 4.13.1
+        specifier: ^4.14.0
+        version: 4.14.0
     devDependencies:
       '@fastify/multipart':
         specifier: ^8.1.0
@@ -204,8 +204,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.12.0
-        version: 4.13.1
+        specifier: ^4.14.0
+        version: 4.14.0
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -262,8 +262,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.12.0
-        version: 4.13.1
+        specifier: ^4.14.0
+        version: 4.14.0
     devDependencies:
       c8:
         specifier: ^9.1.0
@@ -306,8 +306,8 @@ importers:
         specifier: file:.
         version: file:packages/ts-plugin(typescript@5.3.3)
       type-fest:
-        specifier: ^4.12.0
-        version: 4.13.1
+        specifier: ^4.14.0
+        version: 4.14.0
 
 packages:
 
@@ -7281,8 +7281,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /type-fest@4.13.1:
-    resolution: {integrity: sha512-ASMgM+Vf2cLwDMt1KXSkMUDSYCxtckDJs8zsaVF/mYteIsiARKCVtyXtcK38mIKbLTctZP8v6GMqdNaeI3fo7g==}
+  /type-fest@4.14.0:
+    resolution: {integrity: sha512-on5/Cw89wwqGZQu+yWO0gGMGu8VNxsaW9SB2HE8yJjllEk7IDTwnSN1dUVldYILhYPN5HzD7WAaw2cc/jBfn0Q==}
     engines: {node: '>=16'}
 
   /type-is@1.6.18:
