@@ -54,8 +54,8 @@ importers:
         specifier: ^3.0.12
         version: 3.1.1
       '@oclif/plugin-plugins':
-        specifier: ^4.3.3
-        version: 4.3.8
+        specifier: ^4.3.9
+        version: 4.3.9
       '@oclif/plugin-warn-if-update-available':
         specifier: ^3.0.12
         version: 3.0.14
@@ -1947,14 +1947,14 @@ packages:
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
 
-  /@oclif/plugin-plugins@4.3.8:
-    resolution: {integrity: sha512-QU0a4VFmA+Wb/kIUsBKw14KMbH4bHdz5ejwvqql89DumtsUzPOekSHgEzODC2ESZnDWx+h5pD9NPg4lAMPMbxQ==}
+  /@oclif/plugin-plugins@4.3.9:
+    resolution: {integrity: sha512-UEZDj5B+goDKivraSyIY0CrDYhH1QYbmyqYs0AjSVaytrBcf5wSxLjg20rOT/R+Ou0glYXbtvY7sN4YFd/7SSw==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.26.0
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
-      npm: 10.2.4
+      npm: 10.5.0
       npm-run-path: 4.0.1
       semver: 7.6.0
       shelljs: 0.8.5
@@ -5958,8 +5958,8 @@ packages:
       path-key: 3.1.1
     dev: false
 
-  /npm@10.2.4:
-    resolution: {integrity: sha512-umEuYneVEYO9KoEEI8n2sSGmNQeqco/3BSeacRlqIkCzw4E7XGtYSWMeJobxzr6hZ2n9cM+u5TsMTcC5bAgoWA==}
+  /npm@10.5.0:
+    resolution: {integrity: sha512-Ejxwvfh9YnWVU2yA5FzoYLTW52vxHCz+MHrOFg9Cc8IFgF/6f5AGPAvb5WTay5DIUP1NIfN3VBZ0cLlGO0Ys+A==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
@@ -6026,7 +6026,6 @@ packages:
       - semver
       - spdx-expression-parse
       - ssri
-      - strip-ansi
       - supports-color
       - tar
       - text-table
