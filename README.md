@@ -17,6 +17,7 @@
 <br />
 
 <div align="center">
+  <a href="https://kita.js.org/discord"><img src="https://img.shields.io/discord/1216165027774595112?logo=discord&logoColor=white&color=%237289da" alt="Discord"></a>
   <a title="MIT license" target="_blank" href="https://github.com/kitajs/kitajs/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/kitajs/kitajs"></a>
   <a title="Codecov" target="_blank" href="https://app.codecov.io/gh/kitajs/kitajs"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/kitajs/kitajs?token=ML0KGCU0VM"></a>
   <a title="Last Commit" target="_blank" href="https://github.com/kitajs/kitajs/commits/master"><img alt="Last commit" src="https://img.shields.io/github/last-commit/kitajs/kitajs"></a>
@@ -35,6 +36,8 @@
 </p>
 
 <br />
+
+![Discord](https://img.shields.io/discord/1216165027774595112)
 
 ## You are probably looking for the [minimal-example](https://github.com/kitajs/minimal-example)
 
