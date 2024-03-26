@@ -17,6 +17,7 @@
 <br />
 
 <div align="center">
+  <a href="https://kita.js.org/discord"><img src="https://img.shields.io/discord/1216165027774595112?logo=discord&logoColor=white&color=%237289da" alt="Discord"></a>
   <a title="MIT license" target="_blank" href="https://github.com/kitajs/kitajs/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/kitajs/kitajs"></a>
   <a title="Codecov" target="_blank" href="https://app.codecov.io/gh/kitajs/kitajs"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/kitajs/kitajs?token=ML0KGCU0VM"></a>
   <a title="NPM Package" target="_blank" href="https://www.npmjs.com/package/@kitajs/cli"><img alt="Downloads" src="https://img.shields.io/npm/dw/@kitajs/cli?style=flat"></a>
@@ -47,12 +48,9 @@
 * [Usage](#usage)
 * [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
-  - [`kita b`](#kita-b)
   - [`kita build`](#kita-build)
-  - [`kita c`](#kita-c)
   - [`kita config`](#kita-config)
   - [`kita help [COMMANDS]`](#kita-help-commands)
-  - [`kita i`](#kita-i)
   - [`kita init`](#kita-init)
   - [`kita plugins`](#kita-plugins)
   - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
@@ -60,12 +58,11 @@
   - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
   - [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
   - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
+  - [`kita plugins reset`](#kita-plugins-reset)
   - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
   - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
   - [`kita plugins update`](#kita-plugins-update)
-  - [`kita r`](#kita-r)
   - [`kita reset`](#kita-reset)
-  - [`kita w`](#kita-w)
   - [`kita watch`](#kita-watch)
 
 <br />
@@ -94,23 +91,25 @@ USAGE
 
 <!-- commands -->
 
-- [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
-- [`kita build`](#kita-build)
-- [`kita config`](#kita-config)
-- [`kita help [COMMANDS]`](#kita-help-commands)
-- [`kita init`](#kita-init)
-- [`kita plugins`](#kita-plugins)
-- [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
-- [`kita plugins:inspect PLUGIN...`](#kita-pluginsinspect-plugin)
-- [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
-- [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
-- [`kita plugins reset`](#kita-plugins-reset)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
-- [`kita plugins update`](#kita-plugins-update)
-- [`kita reset`](#kita-reset)
-- [`kita watch`](#kita-watch)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
+  - [`kita build`](#kita-build)
+  - [`kita config`](#kita-config)
+  - [`kita help [COMMANDS]`](#kita-help-commands)
+  - [`kita init`](#kita-init)
+  - [`kita plugins`](#kita-plugins)
+  - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
+  - [`kita plugins:inspect PLUGIN...`](#kita-pluginsinspect-plugin)
+  - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
+  - [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
+  - [`kita plugins reset`](#kita-plugins-reset)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
+  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
+  - [`kita plugins update`](#kita-plugins-update)
+  - [`kita reset`](#kita-reset)
+  - [`kita watch`](#kita-watch)
 
 ## `kita autocomplete [SHELL]`
 
