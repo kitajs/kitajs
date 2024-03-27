@@ -1,8 +1,8 @@
-import { KitaError } from '../errors';
-import { KitaPlugin } from './plugin';
-import { Provider } from './provider';
-import { Route } from './route';
-import { JsonSchema } from './schema';
+import type { KitaError } from '../errors';
+import type { KitaPlugin } from './plugin';
+import type { Provider } from './provider';
+import type { Route } from './route';
+import type { JsonSchema } from './schema';
 
 /**
  * A KitaParser instance is a representation of a AST parser. It is used to read all source files and parse them into an

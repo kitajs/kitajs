@@ -1,5 +1,5 @@
-import { Parameter } from './parameter';
-import { RouteSchema } from './schema';
+import type { Parameter } from './parameter';
+import type { RouteSchema } from './schema';
 
 /** The AST definition for a kitajs route method. */
 export interface Route {
