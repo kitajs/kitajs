@@ -1,5 +1,18 @@
 # @kitajs/ts-plugin
 
+## 1.1.22
+
+### Patch Changes
+
+- [#339](https://github.com/kitajs/kitajs/pull/339)
+  [`8da5fd4`](https://github.com/kitajs/kitajs/commit/8da5fd43f620dd3e9b59f144df763f428ab150f7) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added autocompletions for providers and routes
+
+- Updated dependencies [[`7547d32`](https://github.com/kitajs/kitajs/commit/7547d32e019947895e64d3e5d59bb54471ada8a9),
+  [`02bb613`](https://github.com/kitajs/kitajs/commit/02bb613dc9b059a03a0ab084b8785da43c7c1160)]:
+  - @kitajs/parser@1.1.22
+  - @kitajs/common@1.1.16
+
 ## 1.1.21
 
 ### Patch Changes

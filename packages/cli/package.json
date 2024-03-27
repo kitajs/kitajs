@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/cli",
-  "version": "1.1.29",
+  "version": "1.1.30",
   "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!",
   "homepage": "https://kita.js.org",
   "bugs": {
@@ -32,6 +32,30 @@
     "start": "node --require @swc-node/register index.ts",
     "test": "c8 --reporter lcov --reporter text node --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
   },
+  "oclif": {
+    "additionalHelpFlags": [
+      "-h"
+    ],
+    "additionalVersionFlags": [
+      "-v"
+    ],
+    "bin": "kita",
+    "commands": "dist/commands",
+    "dirname": "kita",
+    "plugins": [
+      "@oclif/plugin-autocomplete",
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found",
+      "@oclif/plugin-warn-if-update-available",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "warn-if-update-available": {
+      "frequency": 30,
+      "frequencyUnit": "seconds",
+      "timeoutInDays": 7
+    }
+  },
   "dependencies": {
     "@kitajs/common": "workspace:^",
     "@kitajs/generator": "workspace:^",
@@ -56,29 +80,5 @@
   },
   "peerDependencies": {
     "typescript": "^5.3"
-  },
-  "oclif": {
-    "bin": "kita",
-    "dirname": "kita",
-    "commands": "dist/commands",
-    "topicSeparator": " ",
-    "additionalHelpFlags": [
-      "-h"
-    ],
-    "additionalVersionFlags": [
-      "-v"
-    ],
-    "plugins": [
-      "@oclif/plugin-autocomplete",
-      "@oclif/plugin-help",
-      "@oclif/plugin-not-found",
-      "@oclif/plugin-warn-if-update-available",
-      "@oclif/plugin-plugins"
-    ],
-    "warn-if-update-available": {
-      "frequency": 30,
-      "frequencyUnit": "seconds",
-      "timeoutInDays": 7
-    }
   }
 }

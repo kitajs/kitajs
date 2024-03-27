@@ -1,5 +1,20 @@
 # @kitajs/parser
 
+## 1.1.22
+
+### Patch Changes
+
+- [#346](https://github.com/kitajs/kitajs/pull/346)
+  [`7547d32`](https://github.com/kitajs/kitajs/commit/7547d32e019947895e64d3e5d59bb54471ada8a9) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added a beautiful scalar UI theme designed for kita
+
+- [#248](https://github.com/kitajs/kitajs/pull/248)
+  [`02bb613`](https://github.com/kitajs/kitajs/commit/02bb613dc9b059a03a0ab084b8785da43c7c1160) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added Schemas provider
+
+- Updated dependencies [[`02bb613`](https://github.com/kitajs/kitajs/commit/02bb613dc9b059a03a0ab084b8785da43c7c1160)]:
+  - @kitajs/common@1.1.16
+
 ## 1.1.21
 
 ### Patch Changes

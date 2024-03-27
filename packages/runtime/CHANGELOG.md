@@ -1,5 +1,12 @@
 # @kitajs/runtime
 
+## 1.1.17
+
+### Patch Changes
+
+- Updated dependencies [[`02bb613`](https://github.com/kitajs/kitajs/commit/02bb613dc9b059a03a0ab084b8785da43c7c1160)]:
+  - @kitajs/common@1.1.16
+
 ## 1.1.16
 
 ### Patch Changes
