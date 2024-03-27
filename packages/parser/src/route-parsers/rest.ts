@@ -19,6 +19,7 @@ import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
 import { parseUrl } from '../util/string';
+import { DefaultOpenApiInfo, ScalarUiTheme } from '../util/swagger';
 import { traverseParameters } from '../util/traverser';
 
 export class RestRouteParser implements RouteParser {
@@ -62,7 +63,10 @@ export class RestRouteParser implements RouteParser {
         importUrl: '@fastify/swagger',
         options: {
           mode: 'dynamic',
-          openapi: { openapi: '3.1.0' },
+          openapi: {
+            openapi: '3.1.0',
+            info: DefaultOpenApiInfo
+          },
           refResolver: {
             _raw: '{ buildLocalReference(json, _, __, i) { return json.$id || json.$title || json.name || `def-${i}` } }'
           }
@@ -75,7 +79,13 @@ export class RestRouteParser implements RouteParser {
       this.collector.addPlugin('fastifyScalarUi', {
         name: 'fastifyScalarUi',
         importUrl: '@scalar/fastify-api-reference',
-        options: { routePrefix: '/reference' }
+        options: {
+          routePrefix: '/reference',
+          configuration: {
+            theme: 'none',
+            customCss: ScalarUiTheme
+          }
+        }
       });
     }
 

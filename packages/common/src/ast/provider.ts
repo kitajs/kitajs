@@ -1,7 +1,7 @@
-import { Promisable } from 'type-fest';
-import ts from 'typescript';
-import { Parameter } from './parameter';
-import { Route } from './route';
+import type { Promisable } from 'type-fest';
+import type ts from 'typescript';
+import type { Parameter } from './parameter';
+import type { Route } from './route';
 
 /** The AST definition for a kitajs provider. */
 export interface Provider {

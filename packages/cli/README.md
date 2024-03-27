@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -91,25 +91,23 @@ USAGE
 
 <!-- commands -->
 
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
-  - [`kita build`](#kita-build)
-  - [`kita config`](#kita-config)
-  - [`kita help [COMMANDS]`](#kita-help-commands)
-  - [`kita init`](#kita-init)
-  - [`kita plugins`](#kita-plugins)
-  - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
-  - [`kita plugins:inspect PLUGIN...`](#kita-pluginsinspect-plugin)
-  - [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
-  - [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
-  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
-  - [`kita plugins reset`](#kita-plugins-reset)
-  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
-  - [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
-  - [`kita plugins update`](#kita-plugins-update)
-  - [`kita reset`](#kita-reset)
-  - [`kita watch`](#kita-watch)
+- [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
+- [`kita build`](#kita-build)
+- [`kita config`](#kita-config)
+- [`kita help [COMMAND]`](#kita-help-command)
+- [`kita init`](#kita-init)
+- [`kita plugins`](#kita-plugins)
+- [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
+- [`kita plugins:inspect PLUGIN...`](#kita-pluginsinspect-plugin)
+- [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
+- [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
+- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
+- [`kita plugins reset`](#kita-plugins-reset)
+- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
+- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
+- [`kita plugins update`](#kita-plugins-update)
+- [`kita reset`](#kita-reset)
+- [`kita watch`](#kita-watch)
 
 ## `kita autocomplete [SHELL]`
 
@@ -141,7 +139,7 @@ EXAMPLES
 ```
 
 _See code:
-[@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.10/src/commands/autocomplete/index.ts)_
+[@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.13/src/commands/autocomplete/index.ts)_
 
 ## `kita build`
 
@@ -201,16 +199,16 @@ EXAMPLES
 
 _See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.29/src/commands/config.ts)_
 
-## `kita help [COMMANDS]`
+## `kita help [COMMAND]`
 
 Display help for kita.
 
 ```
 USAGE
-  $ kita help [COMMANDS...] [-n]
+  $ kita help [COMMAND...] [-n]
 
 ARGUMENTS
-  COMMANDS...  Command to show help for.
+  COMMAND...  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -219,7 +217,7 @@ DESCRIPTION
   Display help for kita.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.15/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.19/src/commands/help.ts)_
 
 ## `kita init`
 
@@ -263,7 +261,7 @@ EXAMPLES
   $ kita plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.3/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/index.ts)_
 
 ## `kita plugins:install PLUGIN...`
 
@@ -332,7 +330,7 @@ EXAMPLES
   $ kita plugins inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.3/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/inspect.ts)_
 
 ## `kita plugins:install PLUGIN...`
 
@@ -376,7 +374,7 @@ EXAMPLES
   $ kita plugins install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.3/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/install.ts)_
 
 ## `kita plugins:link PLUGIN`
 
@@ -406,7 +404,7 @@ EXAMPLES
   $ kita plugins link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.3/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/link.ts)_
 
 ## `kita plugins:uninstall PLUGIN...`
 
@@ -447,7 +445,7 @@ FLAGS
   --reinstall  Reinstall all plugins after uninstalling.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.3/src/commands/plugins/reset.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/reset.ts)_
 
 ## `kita plugins:uninstall PLUGIN...`
 
@@ -476,7 +474,7 @@ EXAMPLES
 ```
 
 _See code:
-[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.3/src/commands/plugins/uninstall.ts)_
+[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/uninstall.ts)_
 
 ## `kita plugins:uninstall PLUGIN...`
 
@@ -520,7 +518,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.3/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/update.ts)_
 
 ## `kita reset`
 

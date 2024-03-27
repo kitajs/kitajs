@@ -139,7 +139,6 @@ function toPluginType(plugin: KitaPlugin) {
     /**
      * Options for the \`${plugin.name}\` plugin. Use \`false\` to disable it manually.
      * 
-     * @default ${stringifyOptions(plugin.options)}
      * @see {@link ${plugin.importUrl}}
      */
     ${plugin.name}?: Parameters<typeof import("${plugin.importUrl}").default>[1] | false`;

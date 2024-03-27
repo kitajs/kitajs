@@ -1,6 +1,6 @@
-import { Promisable } from 'type-fest';
-import { AstCollector } from './collector';
-import { Route } from './route';
+import type { Promisable } from 'type-fest';
+import type { AstCollector } from './collector';
+import type { Route } from './route';
 
 export interface SourceFormatter {
   /** Called each time a route needs to be generated */
