@@ -18,7 +18,7 @@ try {
  * @link https://scalar.com
  */
 export const ScalarUiTheme = fs
-  .readFileSync(path.resolve(__dirname, '../../../assets/swagger.css'), 'utf-8')
+  .readFileSync(path.resolve(__dirname, '../../assets/swagger.css'), 'utf-8')
   // Simple minification step to reduce the size of the theme
   .trim()
   .replace(/\n/g, '')
