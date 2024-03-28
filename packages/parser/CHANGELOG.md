@@ -1,5 +1,12 @@
 # @kitajs/parser
 
+## 1.1.23
+
+### Patch Changes
+
+- [`44b0571`](https://github.com/kitajs/kitajs/commit/44b05718893c97bee78df8565f3f35bfd94a5f6c) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added Swagger CSS to a dedicated file
+
 ## 1.1.22
 
 ### Patch Changes
