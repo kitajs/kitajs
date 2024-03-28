@@ -17,7 +17,8 @@
   "main": "dist/index.js",
   "files": [
     "src",
-    "dist"
+    "dist",
+    "assets"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
