@@ -39,7 +39,19 @@
 
 <br />
 
-> [!IMPORTANT]  
-> Documentation yet to be written.
+## Using Kita's ScalarUi Theme
+
+Kita got a dedicated theme from [ScalarUi](https://scalarui.com) that you can use to render your API documentation. To
+use it, you need to include the following CSS file in your HTML:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kitajs@1/parser/assets/swagger.min.css" />
+```
+
+You may also import it from your JavaScript file:
+
+```js
+import '@kitajs/parser/assets/swagger.css';
+```
 
 <br />
