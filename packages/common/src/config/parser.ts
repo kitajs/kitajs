@@ -33,7 +33,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
       );
     } catch (error) {
       if ((error as Error).message.startsWith("Cannot find module '@kitajs/runtime'")) {
-        throw new RuntimeNotFoundError();
+        throw new RuntimeNotFoundError(runtimePath);
       }
 
       throw error;

@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import { BaseKitaCommand } from '../util/base';
+import { printSponsor } from '../util/sponsor';
 
 export default class Init extends BaseKitaCommand {
   static override description = 'Creates a basic kita.config.js';
@@ -10,7 +11,7 @@ export default class Init extends BaseKitaCommand {
   static override examples = ['<%= config.bin %> <%= command.id %>'];
 
   async run(): Promise<void> {
-    this.printSponsor();
+    printSponsor(this);
 
     const { flags } = await this.parse(Init);
 

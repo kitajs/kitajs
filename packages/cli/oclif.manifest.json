@@ -119,6 +119,75 @@
       "isESM": false,
       "relativePath": ["dist", "commands", "config.js"]
     },
+    "create": {
+      "aliases": [],
+      "args": {},
+      "description": "Scaffolds a new project with Kita",
+      "examples": [
+        {
+          "command": "<%= config.bin %> <%= command.id %> -n mybackend",
+          "description": "Scaffolds a project called mybackend."
+        }
+      ],
+      "flags": {
+        "name": {
+          "char": "n",
+          "description": "The name of the project.",
+          "name": "name",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "dir": {
+          "char": "d",
+          "description": "The directory to create the project in.",
+          "name": "dir",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "template": {
+          "char": "t",
+          "description": "The template to use.",
+          "name": "template",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": ["kita"],
+          "type": "option"
+        },
+        "initGit": {
+          "char": "g",
+          "description": "Initializes a git repository.",
+          "name": "initGit",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "install-deps": {
+          "char": "i",
+          "description": "Installs the dependencies after scaffolding.",
+          "name": "install-deps",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Skips the prompts and uses the defaults.",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "create",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "create.js"]
+    },
     "init": {
       "aliases": [],
       "args": {},
@@ -278,5 +347,5 @@
       "relativePath": ["dist", "commands", "watch.js"]
     }
   },
-  "version": "1.1.29"
+  "version": "1.1.31"
 }

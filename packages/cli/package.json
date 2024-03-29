@@ -22,7 +22,6 @@
     "bin",
     "dist",
     "runtime",
-    "npm-shrinkwrap.json",
     "oclif.manifest.json"
   ],
   "scripts": {
@@ -68,12 +67,14 @@
     "@oclif/plugin-warn-if-update-available": "^3.0.12",
     "chalk": "^4.1.2",
     "deepmerge": "^4.3.1",
+    "inquirer": "^8.2.6",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.7",
+    "@types/inquirer": "^8.2.10",
     "@types/node": "^20.11.30",
     "c8": "^9.1.0",
     "oclif": "^4.6.3"

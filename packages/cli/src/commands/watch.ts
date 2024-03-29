@@ -3,6 +3,7 @@ import { KitaParser } from '@kitajs/parser';
 import { Flags, ux } from '@oclif/core';
 import chalk from 'chalk';
 import { BaseKitaCommand } from '../util/base';
+import { printSponsor } from '../util/sponsor';
 import Build from './build';
 
 export default class Watch extends BaseKitaCommand {
@@ -33,7 +34,7 @@ export default class Watch extends BaseKitaCommand {
   };
 
   async run(): Promise<void> {
-    this.printSponsor();
+    printSponsor(this);
 
     const { flags } = await this.parse(Watch);
 

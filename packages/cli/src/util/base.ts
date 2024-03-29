@@ -47,24 +47,6 @@ export abstract class BaseKitaCommand extends Command {
     };
   }
 
-  protected printSponsor() {
-    if (process.stdout.isTTY) {
-      if (
-        // defined environments should not show the message
-        process.env.NODE_ENV === undefined &&
-        // 50% chance of showing the sponsor message
-        Math.random() < 0.5
-      ) {
-        this.log(
-          chalk`{grey    Please support my open source work ❤️  \nhttps://github.com/sponsors/arthurfiorette\n}`
-        );
-      }
-
-      // terminal may not be 256 color compatible
-      this.log(chalk`Thanks for using {${chalk.level > 1 ? `hex('#b58d88')` : 'yellow'} Kita}! 🎉\n`);
-    }
-  }
-
   protected async resetRuntime(config: KitaConfig, copyRuntime = true) {
     ux.action.start('Clearing runtime', '', {
       stdout: true,
