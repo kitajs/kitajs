@@ -162,13 +162,6 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "install-deps": {
-          "char": "i",
-          "description": "Installs the dependencies after scaffolding.",
-          "name": "install-deps",
-          "allowNo": false,
-          "type": "boolean"
-        },
         "yes": {
           "char": "y",
           "description": "Skips the prompts and uses the defaults.",
