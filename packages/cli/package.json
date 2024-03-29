@@ -22,7 +22,8 @@
     "bin",
     "dist",
     "runtime",
-    "oclif.manifest.json"
+    "oclif.manifest.json",
+    "templates"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

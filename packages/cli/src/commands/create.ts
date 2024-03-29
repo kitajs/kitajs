@@ -1,16 +1,19 @@
 import { Command, Flags } from '@oclif/core';
 import inquirer from 'inquirer';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import { printSponsor } from '../util/sponsor';
 
 const AvailableTemplates = [{ name: 'Kita + TypeScript', value: 'kita' }];
 
 const DefaultInputs = {
-  projectName: process.cwd().split('/').pop(),
+  projectName: process.cwd().split('/').pop()!,
   directory: process.cwd(),
   template: 'kita',
   initGit: false
 };
+
+const TemplatesDir = path.resolve(__dirname, '../../templates');
 
 export default class Create extends Command {
   static override description = 'Scaffolds a new project with Kita';
@@ -95,6 +98,11 @@ export default class Create extends Command {
       ],
       DefaultInputs
     );
+
+    const selectedProjectPath = path.resolve(answers.directory, answers.projectName);
+
+    // copies the template to the selected directory
+    await fs.cp(path.resolve(TemplatesDir, answers.template), selectedProjectPath, { recursive: true });
 
     console.log(answers);
   }
