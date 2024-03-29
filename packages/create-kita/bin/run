@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+require('@oclif/core').execute({
+  development: false,
+  dir: require.resolve('@kitajs/cli'),
+  args: ['create', ...process.argv.slice(2)]
+});
