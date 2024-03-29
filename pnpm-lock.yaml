@@ -116,6 +116,22 @@ importers:
         specifier: ^20.11.30
         version: 20.11.30
 
+  packages/create-kita:
+    dependencies:
+      '@kitajs/cli':
+        specifier: workspace:^
+        version: link:../cli
+      '@oclif/core':
+        specifier: ^3.25.2
+        version: 3.26.0
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.30
+        version: 20.11.30
+
   packages/generator:
     dependencies:
       '@kitajs/common':
