@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "kita build && tsc -p tsconfig.build.json",
-    "dev": "concurrently -n \"K,T,Srv\" -c \"grey,grey,bgBlue\" \"kita watch\" \"tsc -w --preserveWatchOutput\" \"node -r @swc-node/register --watch src/index.ts\"",
+    "build": "concurrently --raw --restart-tries 0 \"npm:build:*\"",
+    "build:css": "tailwindcss -m -i ./src/styles/index.css -o ./public/tailwind.css",
+    "build:server": "kita build && tsc -p tsconfig.build.json",
+    "dev": "concurrently --raw --restart-tries 0 \"npm:dev:*\"",
+    "dev:css": "tailwindcss -i ./src/styles/index.css -o ./public/tailwind.css --watch",
+    "dev:kita": "kita watch",
+    "dev:server": "node -r @swc-node/register --watch src/index.ts",
+    "dev:tsc": "tsc -w --preserveWatchOutput",
     "format": "biome format --write .",
     "lint": "biome check .",
     "lint:ci": "biome ci .",
@@ -17,6 +23,7 @@
     "@fastify/helmet": "^11.1.1",
     "@fastify/multipart": "^8.2.0",
     "@fastify/sensible": "^5.5.0",
+    "@fastify/static": "^7.0.2",
     "@fastify/under-pressure": "^8.3.0",
     "@kitajs/html": "4.0.0-next.3",
     "@kitajs/runtime": "^1.1.17",
@@ -33,9 +40,11 @@
     "@kitajs/ts-html-plugin": "4.0.0-next.3",
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
+    "@tailwindcss/typography": "^0.5.12",
     "@types/node": "^20.11.30",
     "concurrently": "^8.2.2",
-    "pino-pretty": "^11.0.0"
+    "pino-pretty": "^11.0.0",
+    "tailwindcss": "^3.4.3"
   },
   "engines": {
     "node": ">=20"

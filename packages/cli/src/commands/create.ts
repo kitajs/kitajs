@@ -7,7 +7,7 @@ import { printSponsor } from '../util/sponsor';
 
 const AvailableTemplates = [
   { name: 'Kita', value: 'kita' },
-  { name: 'Kita + JSX', value: 'kita-jsx' }
+  { name: 'Kita + JSX + Tailwind', value: 'kita-jsx' }
 ];
 
 const TemplatesDir = path.resolve(__dirname, '../../templates');

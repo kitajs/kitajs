@@ -1,10 +1,12 @@
 import './prelude';
 
 import fastifyHelmet from '@fastify/helmet';
+import fastifyStatic from '@fastify/static';
 import fastifyUnderPressure from '@fastify/under-pressure';
 import { Kita } from '@kitajs/runtime';
 import closeWithGrace from 'close-with-grace';
 import fp from 'fastify-plugin';
+import path from 'node:path';
 
 export default fp(async (app) => {
   // Registers the generated kita plugin
@@ -21,6 +23,11 @@ export default fp(async (app) => {
   // Important security headers for Fastify
   app.register(fastifyHelmet, {
     global: true
+  });
+
+  // Serves static files from the public directory
+  app.register(fastifyStatic, {
+    root: path.resolve('public')
   });
 
   // Add your custom stuff here
