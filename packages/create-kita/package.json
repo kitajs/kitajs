@@ -1,0 +1,36 @@
+{
+  "name": "create-kita",
+  "version": "1.0.0",
+  "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!",
+  "homepage": "https://kita.js.org",
+  "bugs": {
+    "url": "https://github.com/kitajs/kitajs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitajs/kitajs.git",
+    "directory": "packages/create-kita"
+  },
+  "funding": "https://github.com/sponsors/arthurfiorette",
+  "license": "MIT",
+  "author": "Arthur Fiorette <kita@arthur.place>",
+  "main": "bin/run",
+  "bin": "bin/run",
+  "files": [
+    "bin"
+  ],
+  "scripts": {
+    "test": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@kitajs/cli": "workspace:^",
+    "@oclif/core": "^3.25.2",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30"
+  },
+  "peerDependencies": {
+    "typescript": "^5.3"
+  }
+}

@@ -3,6 +3,7 @@ import { KitaParser } from '@kitajs/parser';
 import { Flags, ux } from '@oclif/core';
 import chalk from 'chalk';
 import { BaseKitaCommand } from '../util/base';
+import { printSponsor } from '../util/sponsor';
 
 export default class Build extends BaseKitaCommand {
   static override description = 'Analyses your backend searching for routes and bakes it into the runtime.';
@@ -43,7 +44,7 @@ export default class Build extends BaseKitaCommand {
   };
 
   async run(): Promise<void> {
-    this.printSponsor();
+    printSponsor(this);
 
     const { flags } = await this.parse(Build);
 

@@ -1,6 +1,7 @@
 import { Flags } from '@oclif/core';
 import { inspect } from 'util';
 import { BaseKitaCommand } from '../util/base';
+import { printSponsor } from '../util/sponsor';
 
 export default class Config extends BaseKitaCommand {
   static override description = 'Prints the full resolved configuration file';
@@ -22,6 +23,8 @@ export default class Config extends BaseKitaCommand {
   };
 
   async run(): Promise<void> {
+    printSponsor(this);
+
     const { flags } = await this.parse(Config);
     const { config, compilerOptions } = this.parseConfig(flags, undefined, false);
 

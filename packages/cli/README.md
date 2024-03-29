@@ -76,7 +76,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version|-v)
-@kitajs/cli/1.1.29 linux-x64 node-v20.11.0
+@kitajs/cli/1.1.31 linux-x64 node-v20.11.0
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
@@ -94,6 +94,7 @@ USAGE
 - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
 - [`kita build`](#kita-build)
 - [`kita config`](#kita-config)
+- [`kita create`](#kita-create)
 - [`kita help [COMMAND]`](#kita-help-command)
 - [`kita init`](#kita-init)
 - [`kita plugins`](#kita-plugins)
@@ -171,7 +172,7 @@ EXAMPLES
     $ kita build -d
 ```
 
-_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.29/src/commands/build.ts)_
+_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/build.ts)_
 
 ## `kita config`
 
@@ -197,7 +198,34 @@ EXAMPLES
     $ kita config -c kita.config.js
 ```
 
-_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.29/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/config.ts)_
+
+## `kita create`
+
+Scaffolds a new project with Kita
+
+```
+USAGE
+  $ kita create [-n <value>] [-d <value>] [-t kita] [-g] [-y]
+
+FLAGS
+  -d, --dir=<value>        The directory to create the project in.
+  -g, --initGit            Initializes a git repository.
+  -n, --name=<value>       The name of the project.
+  -t, --template=<option>  The template to use.
+                           <options: kita>
+  -y, --yes                Skips the prompts and uses the defaults.
+
+DESCRIPTION
+  Scaffolds a new project with Kita
+
+EXAMPLES
+  Scaffolds a project called mybackend.
+
+    $ kita create -n mybackend
+```
+
+_See code: [src/commands/create.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/create.ts)_
 
 ## `kita help [COMMAND]`
 
@@ -238,7 +266,7 @@ EXAMPLES
   $ kita init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.29/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/init.ts)_
 
 ## `kita plugins`
 
@@ -541,7 +569,7 @@ EXAMPLES
     $ kita reset
 ```
 
-_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.29/src/commands/reset.ts)_
+_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/reset.ts)_
 
 ## `kita watch`
 
@@ -576,7 +604,7 @@ EXAMPLES
     $ kita watch -d
 ```
 
-_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.29/src/commands/watch.ts)_
+_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/watch.ts)_
 
 <!-- commandsstop -->
 
