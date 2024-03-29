@@ -5,5 +5,5 @@
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["lib"]
+  "include": ["*.js"]
 }
