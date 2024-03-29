@@ -14,12 +14,12 @@
     /* Language and Environment */
     "target": "ESNext",
     // "lib": [],
-    // "jsx": "preserve",
+    "jsx": "react-jsx",
     // "experimentalDecorators": true,
     // "emitDecoratorMetadata": true,
     // "jsxFactory": "",
     // "jsxFragmentFactory": "",
-    // "jsxImportSource": "",
+    "jsxImportSource": "@kitajs/html",
     // "reactNamespace": "",
     // "noLib": true,
     // "useDefineForClassFields": true,
@@ -106,7 +106,8 @@
 
     /* Completeness */
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "plugins": [{ "name": "@kitajs/ts-plugin" }]
   },
   "include": ["src", "test"]
 }

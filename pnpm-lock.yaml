@@ -94,7 +94,7 @@ importers:
         specifier: ^4.6.3
         version: 4.6.3
 
-  packages/cli/templates/kita:
+  packages/cli/templates/kita-jsx:
     dependencies:
       '@fastify/helmet':
         specifier: ^11.1.1
@@ -108,6 +108,9 @@ importers:
       '@fastify/under-pressure':
         specifier: ^8.3.0
         version: 8.3.0
+      '@kitajs/html':
+        specifier: 4.0.0-next.3
+        version: 4.0.0-next.3(@kitajs/ts-html-plugin@4.0.0-next.3)
       '@kitajs/runtime':
         specifier: ^1.1.17
         version: link:../../../runtime
@@ -136,6 +139,9 @@ importers:
       '@kitajs/cli':
         specifier: ^1.1.31
         version: link:../..
+      '@kitajs/ts-html-plugin':
+        specifier: 4.0.0-next.3
+        version: 4.0.0-next.3(@kitajs/html@4.0.0-next.3)(typescript@5.3.3)
       '@swc-node/register':
         specifier: ^1.9.0
         version: 1.9.0(@swc/core@1.4.8)(@swc/types@0.1.6)(typescript@5.3.3)
@@ -1957,6 +1963,18 @@ packages:
       csstype: 3.1.3
     dev: true
 
+  /@kitajs/html@4.0.0-next.3(@kitajs/ts-html-plugin@4.0.0-next.3):
+    resolution: {integrity: sha512-tpzFgsIy6oYvvp3EhGULQyn/CwWoXLRl/cP0IHP4+I9mSkV+iLy9njwVquwMFWVkWNXsm4TXhoBqehvNR6MO2w==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@kitajs/ts-html-plugin': ^4.0.0-next.3
+    peerDependenciesMeta:
+      '@kitajs/ts-html-plugin':
+        optional: true
+    dependencies:
+      '@kitajs/ts-html-plugin': 4.0.0-next.3(@kitajs/html@4.0.0-next.3)(typescript@5.3.3)
+      csstype: 3.1.3
+
   /@kitajs/ts-html-plugin@1.3.4(@kitajs/html@3.1.2)(typescript@5.3.3):
     resolution: {integrity: sha512-AAht1OvLkQizJ59DM70qBgb0VwdyW9KUtDaH66JrfanMMvSSoM598WspJrVdVbe50olw69H+nnTj0lEfNDVmPQ==}
     hasBin: true
@@ -1970,6 +1988,19 @@ packages:
       typescript: 5.3.3
       yargs: 17.7.2
     dev: true
+
+  /@kitajs/ts-html-plugin@4.0.0-next.3(@kitajs/html@4.0.0-next.3)(typescript@5.3.3):
+    resolution: {integrity: sha512-YYr0ukReTbjGjW19icQ0CnVhMeGFdhE9ACsmtvDeOfmoUkgkZ4ubXr98wzIWl66SlmrH34NIOtCqk+Llo6ptIw==}
+    hasBin: true
+    peerDependencies:
+      '@kitajs/html': ^4.0.0-next.3
+      typescript: ^5.3.3
+    dependencies:
+      '@kitajs/html': 4.0.0-next.3(@kitajs/ts-html-plugin@4.0.0-next.3)
+      chalk: 4.1.2
+      tslib: 2.6.2
+      typescript: 5.3.3
+      yargs: 17.7.2
 
   /@lezer/common@1.2.1:
     resolution: {integrity: sha512-yemX0ZD2xS/73llMZIK6KplkjIjf2EvAHcinDi/TfJ9hS25G0388+ClHt6/3but0oOxinTcQHJLDXh6w1crzFQ==}
@@ -2978,7 +3009,7 @@ packages:
       '@swc/core': '>= 1.3'
       '@swc/types': '>= 0.1'
     dependencies:
-      '@swc/core': 1.4.8(@swc/helpers@0.5.7)
+      '@swc/core': 1.4.8(@swc/helpers@0.5.8)
       '@swc/types': 0.1.6
     dev: true
 
@@ -2990,9 +3021,9 @@ packages:
     dependencies:
       '@swc-node/core': 1.13.0(@swc/core@1.4.8)(@swc/types@0.1.6)
       '@swc-node/sourcemap-support': 0.5.0
-      '@swc/core': 1.4.8(@swc/helpers@0.5.7)
+      '@swc/core': 1.4.8(@swc/helpers@0.5.8)
       colorette: 2.0.20
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.4
       pirates: 4.0.6
       tslib: 2.6.2
       typescript: 5.3.3
@@ -3098,7 +3129,7 @@ packages:
     dev: true
     optional: true
 
-  /@swc/core@1.4.8(@swc/helpers@0.5.7):
+  /@swc/core@1.4.8(@swc/helpers@0.5.8):
     resolution: {integrity: sha512-uY2RSJcFPgNOEg12RQZL197LZX+MunGiKxsbxmh22VfVxrOYGRvh4mPANFlrD1yb38CgmW1wI6YgIi8LkIwmWg==}
     engines: {node: '>=10'}
     requiresBuild: true
@@ -3109,7 +3140,7 @@ packages:
         optional: true
     dependencies:
       '@swc/counter': 0.1.3
-      '@swc/helpers': 0.5.7
+      '@swc/helpers': 0.5.8
       '@swc/types': 0.1.6
     optionalDependencies:
       '@swc/core-darwin-arm64': 1.4.8
@@ -3585,7 +3616,7 @@ packages:
     dependencies:
       '@fastify/error': 3.4.1
       archy: 1.0.0
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.4
       fastq: 1.17.1
     transitivePeerDependencies:
       - supports-color
@@ -3899,7 +3930,6 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
-    dev: true
 
   /clone@1.0.4:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
@@ -4057,7 +4087,6 @@ packages:
 
   /csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
-    dev: true
 
   /csv-generate@3.4.3:
     resolution: {integrity: sha512-w/T+rqR0vwvHqWs/1ZyMDWtHHSJaN06klRqJXBEpDJaM/+dZkso0OKh1VcuuYvK3XM53KysVNq8Ko/epCK8wOw==}
@@ -4142,6 +4171,17 @@ packages:
     dependencies:
       bindings: 1.5.0
       node-addon-api: 1.7.2
+
+  /debug@4.3.4:
+    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.2
 
   /debug@4.3.4(supports-color@8.1.1):
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -4432,7 +4472,6 @@ packages:
   /escalade@3.1.2:
     resolution: {integrity: sha512-ErCHMCae19vR8vQGe50xIsVomy19rg6gFu3+r3jkEO46suLMWBksvVyoGgQV+jOfl84ZSOSlmv6Gxa89PmTGmA==}
     engines: {node: '>=6'}
-    dev: true
 
   /escape-string-regexp@1.0.5:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
@@ -4751,7 +4790,6 @@ packages:
   /get-caller-file@2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
-    dev: true
 
   /get-intrinsic@1.2.4:
     resolution: {integrity: sha512-5uYhsJH8VJBTv7oslg4BznJYhDoRI6waYCxMmCdnTrcCrHA/fCFKoTFz2JKKE0HdDFUF7/oQuhzumXJK7paBRQ==}
@@ -7054,7 +7092,6 @@ packages:
   /require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
@@ -8143,7 +8180,6 @@ packages:
   /y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
-    dev: true
 
   /yallist@2.1.2:
     resolution: {integrity: sha512-ncTzHV7NvsQZkYe1DW7cbDLm0YpzHmZF5r/iyP3ZnQtMiJ+pjzisCiMNI+Sj+xQF5pXhSHxSB3uDbsBTzY/c2A==}
@@ -8168,7 +8204,6 @@ packages:
   /yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
-    dev: true
 
   /yargs@15.4.1:
     resolution: {integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==}
@@ -8198,7 +8233,6 @@ packages:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
-    dev: true
 
   /yarn@1.22.22:
     resolution: {integrity: sha512-prL3kGtyG7o9Z9Sv8IPfBNrWTDmXB4Qbes8A9rEzt6wkJV8mUvoirjU0Mp3GGAU06Y0XQyA3/2/RQFVuK7MTfg==}
