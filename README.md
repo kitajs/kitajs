@@ -37,8 +37,6 @@
 
 <br />
 
-![Discord](https://img.shields.io/discord/1216165027774595112)
-
 ## You are probably looking for the [minimal-example](https://github.com/kitajs/minimal-example)
 
 <br />
