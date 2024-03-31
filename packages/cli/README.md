@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -206,14 +206,13 @@ Scaffolds a new project with Kita
 
 ```
 USAGE
-  $ kita create [-n <value>] [-d <value>] [-t kita] [-g] [-y]
+  $ kita create [-n <value>] [-d <value>] [-t kita|kita-jsx] [-y]
 
 FLAGS
   -d, --dir=<value>        The directory to create the project in.
-  -g, --initGit            Initializes a git repository.
   -n, --name=<value>       The name of the project.
   -t, --template=<option>  The template to use.
-                           <options: kita>
+                           <options: kita|kita-jsx>
   -y, --yes                Skips the prompts and uses the defaults.
 
 DESCRIPTION

@@ -121,6 +121,8 @@ export default class Create extends Command {
     this.log(
       chalk`
 To get started, run the following commands:
+{gray # Globally install kita cli}
+{cyan $} npm i -g @kitajs/cli
 ${relativeness ? chalk`\n{cyan $} cd {yellow ${relativeness}}` : ''}
 {cyan $} npm install
 {cyan $} npm run dev

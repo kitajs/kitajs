@@ -1,0 +1,337 @@
+{
+  "commands": {
+    "build": {
+      "aliases": [],
+      "args": {},
+      "description": "Analyses your backend searching for routes and bakes it into the runtime.",
+      "examples": [
+        {
+          "command": "<%= config.bin %> <%= command.id %> -c kita.config.js",
+          "description": "Builds your backend with a custom config file."
+        },
+        {
+          "command": "<%= config.bin %> <%= command.id %> -d",
+          "description": "Fast checks your backend for errors without generating the runtime."
+        }
+      ],
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "cwd": {
+          "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
+          "name": "cwd",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "dry-run": {
+          "char": "d",
+          "description": "Skips generation process and only type-checks your files.",
+          "helpGroup": "build",
+          "name": "dry-run",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "dts": {
+          "char": "D",
+          "description": "Skips emitting declaration files (d.ts).",
+          "exclusive": ["dry-run"],
+          "helpGroup": "build",
+          "name": "dts",
+          "allowNo": true,
+          "type": "boolean"
+        },
+        "reset": {
+          "char": "r",
+          "description": "Removes previous generated files before each build.",
+          "exclusive": ["dry-run"],
+          "helpGroup": "build",
+          "name": "reset",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "build",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "build.js"]
+    },
+    "config": {
+      "aliases": [],
+      "args": {},
+      "description": "Prints the full resolved configuration file",
+      "examples": [
+        {
+          "command": "<%= config.bin %> <%= command.id %> -c kita.config.js",
+          "description": "Builds your backend with a custom config file."
+        }
+      ],
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "cwd": {
+          "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
+          "name": "cwd",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "raw": {
+          "char": "r",
+          "description": "Prints a JSON string instead of a pretty printed object.",
+          "name": "raw",
+          "allowNo": true,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "config",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "config.js"]
+    },
+    "create": {
+      "aliases": [],
+      "args": {},
+      "description": "Scaffolds a new project with Kita",
+      "examples": [
+        {
+          "command": "<%= config.bin %> <%= command.id %> -n mybackend",
+          "description": "Scaffolds a project called mybackend."
+        }
+      ],
+      "flags": {
+        "name": {
+          "char": "n",
+          "description": "The name of the project.",
+          "name": "name",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "dir": {
+          "char": "d",
+          "description": "The directory to create the project in.",
+          "name": "dir",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "template": {
+          "char": "t",
+          "description": "The template to use.",
+          "name": "template",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": ["kita", "kita-jsx"],
+          "type": "option"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Skips the prompts and uses the defaults.",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "create",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "create.js"]
+    },
+    "init": {
+      "aliases": [],
+      "args": {},
+      "description": "Creates a basic kita.config.js",
+      "examples": ["<%= config.bin %> <%= command.id %>"],
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "cwd": {
+          "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
+          "name": "cwd",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "init",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "init.js"]
+    },
+    "reset": {
+      "aliases": [],
+      "args": {},
+      "description": "Resets your runtime in an attempt to fix any issues.",
+      "examples": [
+        {
+          "command": "<%= config.bin %> <%= command.id %>",
+          "description": "Resets your runtime"
+        }
+      ],
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "cwd": {
+          "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
+          "name": "cwd",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "reset",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "reset.js"]
+    },
+    "watch": {
+      "aliases": [],
+      "args": {},
+      "description": "Watch for changes in your source code and rebuilds the runtime.",
+      "examples": [
+        {
+          "command": "<%= config.bin %> <%= command.id %> -c kita.config.js",
+          "description": "Watches your source with a custom config file."
+        },
+        {
+          "command": "<%= config.bin %> <%= command.id %> -d",
+          "description": "Watches your source and only emits errors."
+        }
+      ],
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "cwd": {
+          "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
+          "name": "cwd",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "dry-run": {
+          "char": "d",
+          "description": "Skips generation process and only type-checks your files.",
+          "helpGroup": "build",
+          "name": "dry-run",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "dts": {
+          "char": "D",
+          "description": "Skips emitting declaration files (d.ts).",
+          "exclusive": ["dry-run"],
+          "helpGroup": "build",
+          "name": "dts",
+          "allowNo": true,
+          "type": "boolean"
+        },
+        "reset": {
+          "char": "r",
+          "description": "Removes previous generated files before each build.",
+          "exclusive": ["dry-run"],
+          "helpGroup": "build",
+          "name": "reset",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "ignore": {
+          "char": "i",
+          "description": "Comma separated directories to ignore when watching for changes.",
+          "helpGroup": "watch",
+          "name": "ignore",
+          "delimiter": ",",
+          "hasDynamicHelp": false,
+          "multiple": true,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "watch",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "watch.js"]
+    }
+  },
+  "version": "1.1.31"
+}
