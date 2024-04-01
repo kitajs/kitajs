@@ -24,6 +24,8 @@ declare global {
    *   // Sample of your fastify main file
    *   .then(console.log, console.error);
    * ```
+   *
+   * @link https://kita.js.org/concepts/routing#kita-project-root
    */
   var KITA_PROJECT_ROOT: string;
 }

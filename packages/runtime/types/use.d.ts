@@ -16,11 +16,15 @@ import type { RouteShorthandOptions } from 'fastify';
  *  return route;
  * }
  * ```
+ *
+ * @link https://kita.js.org/routing/configuration
  */
 export type Use<_Config extends RouteMapper | RouteMapper[]> = void;
 
 /**
  * A RouteMapper is a function that takes a RouteShorthandOptions and returns a RouteShorthandOptions. It is used to
  * modify the route configuration.
+ *
+ * @link https://kita.js.org/routing/configuration
  */
 export type RouteMapper = (config: RouteShorthandOptions) => RouteShorthandOptions;

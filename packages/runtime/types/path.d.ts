@@ -13,5 +13,7 @@ import type { Primitive } from 'type-fest';
  *   type: Path<string, 'dash-case-name'>
  * ) {}
  * ```
+ *
+ * @link https://kita.js.org/parameters/path
  */
 export type Path<Type extends Primitive = string, _Name extends string = string> = Type;

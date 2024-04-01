@@ -11,6 +11,8 @@
  *   body: Body<MyType> // reference works!
  * ) {}
  * ```
+ *
+ * @link https://kita.js.org/parameters/body
  */
 export type Body<Obj> = Obj;
 
@@ -28,5 +30,7 @@ export type Body<Obj> = Obj;
  *   parent: BodyProp<User, 'parent'>
  * ) {}
  * ```
+ *
+ * @link https://kita.js.org/parameters/body#using-bodyprop
  */
 export type BodyProp<Type, _Path extends string = string> = Type;

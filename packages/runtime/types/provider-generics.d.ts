@@ -22,5 +22,7 @@
  *   return 1;
  * }
  * ```
+ *
+ * @link https://kita.js.org/providers/#provider-generics
  */
 export type ProviderGenerics<T = (string | number | boolean)[]> = T;

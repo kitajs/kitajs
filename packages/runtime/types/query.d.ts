@@ -5,14 +5,18 @@ import type { Primitive } from 'type-fest';
  *
  * @example
  *
- *     export function get(
- *       name: Query, // <string, 'name'>
- *       age: Query<number>, // <number, 'age'>
- *       type: Query<string, 'custom name'>,
+ * ```ts
+ * export function get(
+ *   name: Query, // <string, 'name'>
+ *   age: Query<number>, // <number, 'age'>
+ *   type: Query<string, 'custom name'>,
  *
- *       // If this mode is used, it **MUST BE THE ONLY** Query in use.
- *       values: Query<MyQuery>
- *     ) {}
+ *   // If this mode is used, it **MUST BE THE ONLY** Query in use.
+ *   values: Query<MyQuery>
+ * ) {}
+ * ```
+ *
+ * @link https://kita.js.org/parameters/query
  */
 export type Query<
   Type extends Primitive | Primitive[] | Record<string, any> = string,

@@ -15,6 +15,8 @@ import type { MultipartFile, SavedMultipartFile } from '@fastify/multipart';
  *   const data = await file.toBuffer();
  * }
  * ```
+ *
+ * @link https://kita.js.org/parameters/file
  */
 export type File<_Name extends string = string> = MultipartFile;
 
@@ -32,5 +34,7 @@ export type File<_Name extends string = string> = MultipartFile;
  *   const fileToRead = file.filepath;
  * }
  * ```
+ *
+ * @link https://kita.js.org/parameters/file
  */
 export type SavedFile<_Name extends string = string> = SavedMultipartFile;

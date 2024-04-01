@@ -4,6 +4,8 @@
  * When used within a html route, its result will be piped into `@kitajs/html`'s renderToStream function and **support
  * for `Suspense` components will be enabled**.
  *
+ * @deprecated Use `{ id }: FastifyRequest` instead. This will be removed when support for @kitajs/html v4 is
+ *   implemented.
  * @example
  *
  * ```tsx
