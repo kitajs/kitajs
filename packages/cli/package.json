@@ -62,7 +62,7 @@
     "@kitajs/parser": "workspace:^",
     "@oclif/core": "^3.25.2",
     "@oclif/plugin-autocomplete": "^3.0.10",
-    "@oclif/plugin-help": "^6.0.19",
+    "@oclif/plugin-help": "^6.0.20",
     "@oclif/plugin-not-found": "^3.0.12",
     "@oclif/plugin-plugins": "^4.3.9",
     "@oclif/plugin-warn-if-update-available": "^3.0.12",

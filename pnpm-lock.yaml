@@ -48,8 +48,8 @@ importers:
         specifier: ^3.0.10
         version: 3.0.13
       '@oclif/plugin-help':
-        specifier: ^6.0.19
-        version: 6.0.19
+        specifier: ^6.0.20
+        version: 6.0.20
       '@oclif/plugin-not-found':
         specifier: ^3.0.12
         version: 3.1.1
@@ -1954,8 +1954,8 @@ packages:
       - supports-color
     dev: false
 
-  /@oclif/plugin-help@6.0.19:
-    resolution: {integrity: sha512-ib9wjiWi8afTIQrdDPDgUkKaC4R+78wnKWpzybMH0yG1dd3krVHu0zHYEJUtC3Ples/cRv7f4EHBkO3lQpnZcA==}
+  /@oclif/plugin-help@6.0.20:
+    resolution: {integrity: sha512-4UG/5q7O3dhUsC0JMqcUV0NU7jybkXkAXLnsRt+KVzDtZWwNOeBECimIFWOmwna5BaneTn8b0+lqO4JvUgeiqA==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.26.0
@@ -6177,7 +6177,7 @@ packages:
       '@inquirer/input': 2.1.0
       '@inquirer/select': 2.2.0
       '@oclif/core': 3.26.0
-      '@oclif/plugin-help': 6.0.19
+      '@oclif/plugin-help': 6.0.20
       '@oclif/plugin-not-found': 3.1.1
       '@oclif/plugin-warn-if-update-available': 3.0.14
       async-retry: 1.3.3
