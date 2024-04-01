@@ -15,8 +15,8 @@ export function generateIndex(routes: Route[]) {
     if (!${kKitaGlobalRoot}) {
       throw new Error(
         process.stdout.isTTY
-          ? '\x1b[31mPlease define globalThis.KITA_PROJECT_ROOT before importing any routes.\x1b[0m\nhttps://kita.js.org/concepts/routing#kita-project-root\x1b[0m\n'
-          : 'Please define globalThis.KITA_PROJECT_ROOT before importing any routes.\nhttps://kita.js.org/concepts/routing#kita-project-root'
+          ? '\\x1b[31mPlease define globalThis.KITA_PROJECT_ROOT before importing any routes.\\x1b[0m\\nhttps://kita.js.org/concepts/routing#kita-project-root\\x1b[0m\\n'
+          : 'Please define globalThis.KITA_PROJECT_ROOT before importing any routes.\\nhttps://kita.js.org/concepts/routing#kita-project-root'
       );
     }
   }

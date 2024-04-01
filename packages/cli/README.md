@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -76,7 +76,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version|-v)
-@kitajs/cli/1.1.31 linux-x64 node-v20.11.0
+@kitajs/cli/1.1.33 linux-x64 node-v20.11.0
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
@@ -98,14 +98,14 @@ USAGE
 - [`kita help [COMMAND]`](#kita-help-command)
 - [`kita init`](#kita-init)
 - [`kita plugins`](#kita-plugins)
-- [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin)
+- [`kita plugins add PLUGIN`](#kita-plugins-add-plugin)
 - [`kita plugins:inspect PLUGIN...`](#kita-pluginsinspect-plugin)
-- [`kita plugins:install PLUGIN...`](#kita-pluginsinstall-plugin-1)
-- [`kita plugins:link PLUGIN`](#kita-pluginslink-plugin)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin)
+- [`kita plugins install PLUGIN`](#kita-plugins-install-plugin)
+- [`kita plugins link PATH`](#kita-plugins-link-path)
+- [`kita plugins remove [PLUGIN]`](#kita-plugins-remove-plugin)
 - [`kita plugins reset`](#kita-plugins-reset)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-1)
-- [`kita plugins:uninstall PLUGIN...`](#kita-pluginsuninstall-plugin-2)
+- [`kita plugins uninstall [PLUGIN]`](#kita-plugins-uninstall-plugin)
+- [`kita plugins unlink [PLUGIN]`](#kita-plugins-unlink-plugin)
 - [`kita plugins update`](#kita-plugins-update)
 - [`kita reset`](#kita-reset)
 - [`kita watch`](#kita-watch)
@@ -172,7 +172,7 @@ EXAMPLES
     $ kita build -d
 ```
 
-_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/build.ts)_
+_See code: [src/commands/build.ts](https://github.com/kitajs/kitajs/blob/v1.1.33/src/commands/build.ts)_
 
 ## `kita config`
 
@@ -198,7 +198,7 @@ EXAMPLES
     $ kita config -c kita.config.js
 ```
 
-_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.33/src/commands/config.ts)_
 
 ## `kita create`
 
@@ -224,7 +224,7 @@ EXAMPLES
     $ kita create -n mybackend
 ```
 
-_See code: [src/commands/create.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/create.ts)_
+_See code: [src/commands/create.ts](https://github.com/kitajs/kitajs/blob/v1.1.33/src/commands/create.ts)_
 
 ## `kita help [COMMAND]`
 
@@ -244,7 +244,7 @@ DESCRIPTION
   Display help for kita.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.19/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
 
 ## `kita init`
 
@@ -265,7 +265,7 @@ EXAMPLES
   $ kita init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/kitajs/kitajs/blob/v1.1.33/src/commands/init.ts)_
 
 ## `kita plugins`
 
@@ -288,48 +288,53 @@ EXAMPLES
   $ kita plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.4/src/commands/plugins/index.ts)_
 
-## `kita plugins:install PLUGIN...`
+## `kita plugins add PLUGIN`
 
-Installs a plugin into the CLI.
+Installs a plugin into kita.
 
 ```
 USAGE
-  $ kita plugins add plugins:install PLUGIN...
+  $ kita plugins add PLUGIN... [--json] [-f] [-h] [-s | -v]
 
 ARGUMENTS
   PLUGIN...  Plugin to install.
 
 FLAGS
-  -f, --force    Run yarn install with force flag.
+  -f, --force    Force npm to fetch remote resources even if a local copy exists on disk.
   -h, --help     Show CLI help.
-  -s, --silent   Silences yarn output.
-  -v, --verbose  Show verbose yarn output.
+  -s, --silent   Silences npm output.
+  -v, --verbose  Show verbose npm output.
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  Installs a plugin into the CLI.
-  Can be installed from npm or a git url.
+  Installs a plugin into kita.
+
+  Uses bundled npm executable to install plugins into /home/hzk/.local/share/kita
 
   Installation of a user-installed plugin will override a core plugin.
 
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
+  Use the KITA_NPM_LOG_LEVEL environment variable to set the npm loglevel.
+  Use the KITA_NPM_REGISTRY environment variable to set the npm registry.
 
 ALIASES
   $ kita plugins add
 
 EXAMPLES
-  $ kita plugins add myplugin
+  Install a plugin from npm registry.
 
-  $ kita plugins add https://github.com/someuser/someplugin
+    $ kita plugins add myplugin
 
-  $ kita plugins add someuser/someplugin
+  Install a plugin from a github url.
+
+    $ kita plugins add https://github.com/someuser/someplugin
+
+  Install a plugin from a github slug.
+
+    $ kita plugins add someuser/someplugin
 ```
 
 ## `kita plugins:inspect PLUGIN...`
@@ -357,59 +362,64 @@ EXAMPLES
   $ kita plugins inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.4/src/commands/plugins/inspect.ts)_
 
-## `kita plugins:install PLUGIN...`
+## `kita plugins install PLUGIN`
 
-Installs a plugin into the CLI.
+Installs a plugin into kita.
 
 ```
 USAGE
-  $ kita plugins install PLUGIN...
+  $ kita plugins install PLUGIN... [--json] [-f] [-h] [-s | -v]
 
 ARGUMENTS
   PLUGIN...  Plugin to install.
 
 FLAGS
-  -f, --force    Run yarn install with force flag.
+  -f, --force    Force npm to fetch remote resources even if a local copy exists on disk.
   -h, --help     Show CLI help.
-  -s, --silent   Silences yarn output.
-  -v, --verbose  Show verbose yarn output.
+  -s, --silent   Silences npm output.
+  -v, --verbose  Show verbose npm output.
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  Installs a plugin into the CLI.
-  Can be installed from npm or a git url.
+  Installs a plugin into kita.
+
+  Uses bundled npm executable to install plugins into /home/hzk/.local/share/kita
 
   Installation of a user-installed plugin will override a core plugin.
 
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
+  Use the KITA_NPM_LOG_LEVEL environment variable to set the npm loglevel.
+  Use the KITA_NPM_REGISTRY environment variable to set the npm registry.
 
 ALIASES
   $ kita plugins add
 
 EXAMPLES
-  $ kita plugins install myplugin
+  Install a plugin from npm registry.
 
-  $ kita plugins install https://github.com/someuser/someplugin
+    $ kita plugins install myplugin
 
-  $ kita plugins install someuser/someplugin
+  Install a plugin from a github url.
+
+    $ kita plugins install https://github.com/someuser/someplugin
+
+  Install a plugin from a github slug.
+
+    $ kita plugins install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.4/src/commands/plugins/install.ts)_
 
-## `kita plugins:link PLUGIN`
+## `kita plugins link PATH`
 
 Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ kita plugins link PLUGIN
+  $ kita plugins link PATH [-h] [--install] [-v]
 
 ARGUMENTS
   PATH  [default: .] path to plugin
@@ -431,15 +441,15 @@ EXAMPLES
   $ kita plugins link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.4/src/commands/plugins/link.ts)_
 
-## `kita plugins:uninstall PLUGIN...`
+## `kita plugins remove [PLUGIN]`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ kita plugins remove plugins:uninstall PLUGIN...
+  $ kita plugins remove [PLUGIN...] [-h] [-v]
 
 ARGUMENTS
   PLUGIN...  plugin to uninstall
@@ -472,15 +482,15 @@ FLAGS
   --reinstall  Reinstall all plugins after uninstalling.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/reset.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.4/src/commands/plugins/reset.ts)_
 
-## `kita plugins:uninstall PLUGIN...`
+## `kita plugins uninstall [PLUGIN]`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ kita plugins uninstall PLUGIN...
+  $ kita plugins uninstall [PLUGIN...] [-h] [-v]
 
 ARGUMENTS
   PLUGIN...  plugin to uninstall
@@ -501,15 +511,15 @@ EXAMPLES
 ```
 
 _See code:
-[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/uninstall.ts)_
+[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.4/src/commands/plugins/uninstall.ts)_
 
-## `kita plugins:uninstall PLUGIN...`
+## `kita plugins unlink [PLUGIN]`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ kita plugins unlink plugins:uninstall PLUGIN...
+  $ kita plugins unlink [PLUGIN...] [-h] [-v]
 
 ARGUMENTS
   PLUGIN...  plugin to uninstall
@@ -545,7 +555,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.9/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.4/src/commands/plugins/update.ts)_
 
 ## `kita reset`
 
@@ -568,7 +578,7 @@ EXAMPLES
     $ kita reset
 ```
 
-_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/reset.ts)_
+_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.33/src/commands/reset.ts)_
 
 ## `kita watch`
 
@@ -603,7 +613,7 @@ EXAMPLES
     $ kita watch -d
 ```
 
-_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.31/src/commands/watch.ts)_
+_See code: [src/commands/watch.ts](https://github.com/kitajs/kitajs/blob/v1.1.33/src/commands/watch.ts)_
 
 <!-- commandsstop -->
 
