@@ -1,5 +1,12 @@
 # @kitajs/generator
 
+## 1.1.27
+
+### Patch Changes
+
+- [`c42f222`](https://github.com/kitajs/kitajs/commit/c42f2222e638433b0352c14b0a70ff6c513a8046) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Updated KITA_PROJECT_ROOT error message
+
 ## 1.1.26
 
 ### Patch Changes
