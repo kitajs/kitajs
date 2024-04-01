@@ -14,6 +14,7 @@ describe('Runtime tests', () => {
       runtime.Kita();
       assert.fail('Kita function should throw error');
     } catch (error) {
+      console.log(error);
       assert.equal(error.message, 'You must run `kita build` before using @kitajs/runtime.');
     }
   });
