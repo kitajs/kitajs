@@ -1,5 +1,13 @@
 # @kitajs/cli
 
+## 1.1.33
+
+### Patch Changes
+
+- [#365](https://github.com/kitajs/kitajs/pull/365)
+  [`93cccd4`](https://github.com/kitajs/kitajs/commit/93cccd4a06602f1ea2377bde31fd2d415dbad384) Thanks
+  [@devzolo](https://github.com/devzolo)! - Fixed project name detection and path resolution on Windows
+
 ## 1.1.32
 
 ### Patch Changes
