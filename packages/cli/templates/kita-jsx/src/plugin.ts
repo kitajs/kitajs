@@ -22,7 +22,13 @@ export default fp(async (app) => {
 
   // Important security headers for Fastify
   app.register(fastifyHelmet, {
-    global: true
+    global: true,
+    contentSecurityPolicy: {
+      directives: {
+        // The Suspense component uses inline <script> tags
+        scriptSrc: ["'self'", "'unsafe-inline'"]
+      }
+    }
   });
 
   // Serves static files from the public directory
