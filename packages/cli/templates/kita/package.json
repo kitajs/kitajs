@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.6.3",
-    "@kitajs/cli": "workspace:^",
+    "@kitajs/cli": "1.1.31",
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.2",
     "concurrently": "^8.2.2",
     "pino-pretty": "^11.0.0"
   },

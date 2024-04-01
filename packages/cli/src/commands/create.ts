@@ -88,18 +88,31 @@ export default class Create extends Command {
       }
     );
 
+    // Recursively creates the directory
+    await fs.promises.mkdir(answers.directory, { recursive: true });
+
+    // Ensures there's no conflict with existing files
+    const files = await fs.promises.readdir(answers.directory);
+
+    if (files.length > 0) {
+      const { overwrite } = await inquirer.prompt<{ overwrite: boolean }>([
+        {
+          type: 'confirm',
+          name: 'overwrite',
+          message: 'The directory is not empty. Do you want to overwrite it?',
+          default: false
+        }
+      ]);
+
+      if (!overwrite) {
+        this.error('Directory is not empty. Exiting.', { exit: 1 });
+      }
+    }
+
     ux.action.start('Creating project', 'This may take a few seconds', {
       stdout: true,
       style: 'clock'
     });
-
-    // Recursively creates the directory
-    await fs.promises.mkdir(answers.directory, { recursive: true });
-
-    // Fails if a package.json already exists
-    if (fs.existsSync(path.resolve(answers.directory, 'package.json'))) {
-      this.error('A package.json already exists in the selected directory.', { exit: 1 });
-    }
 
     // copies the template to the selected directory
     await fs.promises.cp(path.resolve(TemplatesDir, answers.template), answers.directory, { recursive: true });
@@ -121,10 +134,12 @@ export default class Create extends Command {
     this.log(
       chalk`
 To get started, run the following commands:
-{gray # Globally install kita cli}
+
+{gray # Globally install kita cli if you haven't already.}
 {cyan $} npm i -g @kitajs/cli
 ${relativeness ? chalk`\n{cyan $} cd {yellow ${relativeness}}` : ''}
 {cyan $} npm install
+{cyan $} npm run build
 {cyan $} npm run dev
 
 {cyan Happy hacking!}
