@@ -14,10 +14,11 @@
   "funding": "https://github.com/sponsors/arthurfiorette",
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",
-  "main": "bin/run",
+  "main": "index.js",
   "bin": "bin/run",
   "files": [
-    "bin"
+    "bin",
+    "index.js"
   ],
   "scripts": {
     "test": "tsc --noEmit"
