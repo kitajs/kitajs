@@ -1,5 +1,13 @@
 # @kitajs/cli
 
+## 1.1.32
+
+### Patch Changes
+
+- [#354](https://github.com/kitajs/kitajs/pull/354)
+  [`daa2ce5`](https://github.com/kitajs/kitajs/commit/daa2ce512a89278f893b5a41fec44b5893080ccd) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added basic tailwind example
+
 ## 1.1.31
 
 ### Patch Changes
