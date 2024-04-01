@@ -3,3 +3,6 @@ node_modules
 
 # Transpiled output
 dist
+
+# Transpiled tailwind
+public/tailwind.css

@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "build": "kita build && tsc -p tsconfig.build.json",
-    "dev": "concurrently -n \"K,T,Srv\" -c \"grey,grey,bgBlue\" \"kita watch\" \"tsc -w --preserveWatchOutput\" \"node -r @swc-node/register --watch src/index.ts\"",
+    "dev": "concurrently --raw --restart-tries 0 \"npm:dev:*\"",
+    "dev:kita": "kita watch",
+    "dev:server": "node --env-file=.env --enable-source-maps -r @swc-node/register --watch src/index.ts",
+    "dev:tsc": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "format": "biome format --write .",
     "lint": "biome check .",
     "lint:ci": "biome ci .",
     "lint:fix": "biome check --apply-unsafe .",
-    "start": "node dist/index.js",
-    "test": "kita build && node -r @swc-node/register --test test/**/*.test.ts",
+    "start": "node --env-file=.env --enable-source-maps dist/index.js",
+    "test": "kita build && node --env-file=.env --enable-source-maps -r @swc-node/register --test test/**/*.test.ts",
     "test:types": "kita build --dry-run && tsc --noEmit"
   },
   "dependencies": {
@@ -20,7 +23,6 @@
     "@fastify/under-pressure": "^8.3.0",
     "@kitajs/runtime": "^1.1.17",
     "close-with-grace": "^1.3.0",
-    "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
     "fastify-plugin": "^4.5.1",
     "pino": "^8.19.0",
@@ -28,12 +30,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.6.3",
-    "@kitajs/cli": "^1.1.31",
+    "@kitajs/cli": "1.1.31",
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.2",
     "concurrently": "^8.2.2",
-    "pino-pretty": "^11.0.0"
+    "pino-pretty": "^11.0.0",
+    "typescript": "^5.4.3"
   },
   "engines": {
     "node": ">=20"
