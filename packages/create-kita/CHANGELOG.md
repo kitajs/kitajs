@@ -1,5 +1,12 @@
 # create-kita
 
+## 1.1.1
+
+### Patch Changes
+
+- [`d31eed5`](https://github.com/kitajs/kitajs/commit/d31eed5a37e92c20d7135a795df45d583dc2a0b4) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Fixed create-kita entrypoint
+
 ## 1.1.0
 
 ### Minor Changes
