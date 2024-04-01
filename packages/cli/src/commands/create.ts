@@ -58,7 +58,7 @@ export default class Create extends Command {
           type: 'input',
           name: 'projectName',
           message: 'What is the name of your project?',
-          default: flags.name || process.cwd().split('/').pop()!,
+          default: flags.name || path.basename(process.cwd()),
           when: !flags.yes,
           askAnswered: true
         },
@@ -82,7 +82,7 @@ export default class Create extends Command {
         }
       ],
       {
-        projectName: process.cwd().split('/').pop()!,
+        projectName: path.basename(process.cwd()),
         directory: path.resolve(flags.dir || ''),
         template: 'kita'
       }
@@ -120,7 +120,7 @@ export default class Create extends Command {
     // replaces package.json and reame @kitajs/template with the project name
     const packageJsonPath = path.resolve(answers.directory, 'package.json');
     const packageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf-8'));
-    packageJson.name = answers.projectName;
+    packageJson.name = answers.projectName === '.' ? path.basename(process.cwd()) : answers.projectName;
     await fs.promises.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
     const readmePath = path.resolve(answers.directory, 'README.md');
