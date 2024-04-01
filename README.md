@@ -37,26 +37,6 @@
 
 <br />
 
-## You are probably looking for the [minimal-example](https://github.com/kitajs/minimal-example)
+<h1 align=center>🎉 Kita is officially Stable! <a href="https://kita.js.org/quickstart#automatic-installation">Try it out today!</a></h1>
 
 <br />
-<br />
-
-> [!NOTE]  
-> This project is undocumented and WIP. I'm working as hard as I can to make it usable, but it's not ready yet. Expect
-> the first oficial release ~jan/2024.
-
-<br />
-
-Things to document:
-
-- Route operationId re-exports cannot be used in the first tick of the nodejs process in order to avoid circular
-  dependencies. They must be used in the second tick or imported directly from the routes/... file.
-  (`await Runtime.ready`)
-
-- `keyword: "isFile"` error when multipart ajv plugin is not present.
-
-- Document that kita global root is required.
-
-- Build only dts runtime inside single-thread builds to prevent circular dependencies to messing up return type of
-  routes using another routes.
