@@ -31,7 +31,7 @@
     "@fastify/sensible": "^5.5.0",
     "@fastify/swagger": "^8.14.0",
     "@kitajs/common": "workspace:^",
-    "@scalar/fastify-api-reference": "^1.20.9",
+    "@scalar/fastify-api-reference": "^1.20.10",
     "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.14.0"
