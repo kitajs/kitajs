@@ -1,5 +1,15 @@
 # @kitajs/runtime
 
+## 1.1.18
+
+### Patch Changes
+
+- [`c42f222`](https://github.com/kitajs/kitajs/commit/c42f2222e638433b0352c14b0a70ff6c513a8046) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Updated KITA_PROJECT_ROOT error message
+
+- [`38296aa`](https://github.com/kitajs/kitajs/commit/38296aa9dea87e998a3199ec1010ce40962e7ea3) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Added documentation URL for all Parameters
+
 ## 1.1.17
 
 ### Patch Changes
