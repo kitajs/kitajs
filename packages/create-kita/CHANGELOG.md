@@ -1,5 +1,12 @@
 # create-kita
 
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`93cccd4`](https://github.com/kitajs/kitajs/commit/93cccd4a06602f1ea2377bde31fd2d415dbad384)]:
+  - @kitajs/cli@1.1.33
+
 ## 1.1.1
 
 ### Patch Changes
