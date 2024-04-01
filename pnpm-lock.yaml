@@ -91,8 +91,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0
       oclif:
-        specifier: ^4.6.3
-        version: 4.6.3
+        specifier: ^4.7.5
+        version: 4.7.5
 
   packages/common:
     dependencies:
@@ -1721,11 +1721,11 @@ packages:
     resolution: {integrity: sha512-nH5mxoTEoqk6WpoBz80GMpDSm9jH5V9AF8n+JZAZfMzd9gHeEG9w1o3KawPRR72lfzpP+QxBHLkOKLEApwhDiQ==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
 
-  /@inquirer/core@7.1.0:
-    resolution: {integrity: sha512-FRCiDiU54XHt5B/D8hX4twwZuzSP244ANHbu3R7CAsJfiv1dUOz24ePBgCZjygEjDUi6BWIJuk4eWLKJ7LATUw==}
+  /@inquirer/core@7.1.1:
+    resolution: {integrity: sha512-rD1UI3eARN9qJBcLRXPOaZu++Bg+xsk0Tuz1EUOXEW+UbYif1sGjr0Tw7lKejHzKD9IbXE1CEtZ+xR/DrNlQGQ==}
     engines: {node: '>=18'}
     dependencies:
       '@inquirer/type': 1.2.1
@@ -1738,24 +1738,23 @@ packages:
       cli-width: 4.1.0
       figures: 3.2.0
       mute-stream: 1.0.0
-      run-async: 3.0.0
       signal-exit: 4.1.0
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
 
-  /@inquirer/input@2.1.0:
-    resolution: {integrity: sha512-o57pST+xxZfGww1h4G7ISiX37KlLcajhKgKGG7/h8J6ClWtsyqwMv1el9Ds/4geuYN/HcPj0MyX9gTEO62UpcA==}
+  /@inquirer/input@2.1.1:
+    resolution: {integrity: sha512-Ag5PDh3/V3B68WGD/5LKXDqbdWKlF7zyfPAlstzu0NoZcZGBbZFjfgXlZIcb6Gs+AfdSi7wNf7soVAaMGH7moQ==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
     dev: true
 
-  /@inquirer/select@2.2.0:
-    resolution: {integrity: sha512-Pml3DhVM1LnfqasUMIzaBtw+s5UjM5k0bzDeWrWOgqAMWe16AOg0DcAhXHf+SYbnj2CFBeP/TvkvedL4aAEWww==}
+  /@inquirer/select@2.2.1:
+    resolution: {integrity: sha512-JR4FeHvuxPSPWQy8DzkIvoIsJ4SWtSFb4xVLvLto84dL+jkv12lm8ILtuax4bMHvg5MBj3wYUF6Tk9izJ07gdw==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
       ansi-escapes: 4.3.2
       chalk: 4.1.2
@@ -6166,16 +6165,16 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.6.3:
-    resolution: {integrity: sha512-T/61U0IcslqHwZTo1W/6//BoSz/rv24ckM0s7S+ROI7x/GzQyMcjq7NHGdytRISb6ripxU5GI2CsEc1Vo5vhnA==}
+  /oclif@4.7.5:
+    resolution: {integrity: sha512-bXxT81jGcr7lI3OzxDpcGTV9bkxwV5ZiikZsN05WrC/GKCqYPSYGb5M/u35bcyt9Ez860wtj5wNuOaCiL/pmow==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
       '@aws-sdk/client-cloudfront': 3.540.0
       '@aws-sdk/client-s3': 3.540.0
       '@inquirer/confirm': 3.1.0
-      '@inquirer/input': 2.1.0
-      '@inquirer/select': 2.2.0
+      '@inquirer/input': 2.1.1
+      '@inquirer/select': 2.2.1
       '@oclif/core': 3.26.0
       '@oclif/plugin-help': 6.0.19
       '@oclif/plugin-not-found': 3.1.1
@@ -6192,7 +6191,7 @@ packages:
       lodash.template: 4.5.0
       normalize-package-data: 3.0.3
       semver: 7.6.0
-      sort-package-json: 2.8.0
+      sort-package-json: 2.10.0
       validate-npm-package-name: 5.0.0
     transitivePeerDependencies:
       - aws-crt
@@ -6880,10 +6879,6 @@ packages:
     engines: {node: '>=0.12.0'}
     dev: false
 
-  /run-async@3.0.0:
-    resolution: {integrity: sha512-540WwVDOMxA6dN6We19EcT9sc3hkXPw5mzRNGM3FkdN/vtE9NFvj5lFAPNwUDmJjXidm3v7TC1cTE7t17Ulm1Q==}
-    engines: {node: '>=0.12.0'}
-
   /run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
@@ -7080,6 +7075,20 @@ packages:
 
   /sort-object-keys@1.1.3:
     resolution: {integrity: sha512-855pvK+VkU7PaKYPc+Jjnmt4EzejQHyhhF33q31qG8x7maDzkeFhAAThdCYay11CISO+qAMwjOBP+fPZe0IPyg==}
+    dev: true
+
+  /sort-package-json@2.10.0:
+    resolution: {integrity: sha512-MYecfvObMwJjjJskhxYfuOADkXp1ZMMnCFC8yhp+9HDsk7HhR336hd7eiBs96lTXfiqmUNI+WQCeCMRBhl251g==}
+    hasBin: true
+    dependencies:
+      detect-indent: 7.0.1
+      detect-newline: 4.0.1
+      get-stdin: 9.0.0
+      git-hooks-list: 3.1.0
+      globby: 13.2.2
+      is-plain-obj: 4.1.0
+      semver: 7.6.0
+      sort-object-keys: 1.1.3
     dev: true
 
   /sort-package-json@2.8.0:

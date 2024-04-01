@@ -78,7 +78,7 @@
     "@types/inquirer": "^8.2.10",
     "@types/node": "^20.11.30",
     "c8": "^9.1.0",
-    "oclif": "^4.6.3"
+    "oclif": "^4.7.5"
   },
   "peerDependencies": {
     "typescript": "^5.3"
