@@ -1,5 +1,16 @@
 # @kitajs/cli
 
+## 1.1.35
+
+### Patch Changes
+
+- [`1246d25`](https://github.com/kitajs/kitajs/commit/1246d25aa254cb7261bf8239f810a2b2d0085a39) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Require Node v20+
+
+- Updated dependencies []:
+  - @kitajs/generator@1.1.27
+  - @kitajs/parser@1.1.23
+
 ## 1.1.34
 
 ### Patch Changes

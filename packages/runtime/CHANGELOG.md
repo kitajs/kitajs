@@ -1,5 +1,12 @@
 # @kitajs/runtime
 
+## 1.1.19
+
+### Patch Changes
+
+- [`1246d25`](https://github.com/kitajs/kitajs/commit/1246d25aa254cb7261bf8239f810a2b2d0085a39) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Require Node v20+
+
 ## 1.1.18
 
 ### Patch Changes
