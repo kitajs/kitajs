@@ -41,5 +41,8 @@
   },
   "peerDependencies": {
     "fastify": "^4.26"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
