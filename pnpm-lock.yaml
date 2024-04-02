@@ -175,8 +175,8 @@ importers:
         specifier: workspace:^
         version: link:../runtime
       '@scalar/api-reference':
-        specifier: ^1.20.14
-        version: 1.20.14(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14)
+        specifier: ^1.20.17
+        version: 1.20.17(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14)
       '@scalar/fastify-api-reference':
         specifier: ^1.20.10
         version: 1.20.10(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
@@ -2153,8 +2153,8 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/api-reference@1.20.14(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14):
-    resolution: {integrity: sha512-LRToQ/wpEyJpgyP/E7y0n9bOwiZ3cUCwpyhgd5ufYrX42fAHlv1QTVw19VV3cxDER56L/bcoAkg55z4cYDWxKw==}
+  /@scalar/api-reference@1.20.17(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14):
+    resolution: {integrity: sha512-365tqnfpQb1eFWBfaFC1uuxqjHCsRval37Q6Tf30dTMVTD13fNBFmzIXj915jN9GwGrBJXENz2ou2hobPZclzQ==}
     engines: {node: '>=18'}
     peerDependencies:
       unified: ^11.0.0
