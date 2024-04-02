@@ -14,6 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
+        node: [20, 21]
 
     steps:
       - name: Checkout
@@ -25,8 +26,8 @@ jobs:
       - name: Setup node and restore cached dependencies
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
           cache: 'pnpm'
+          node-version: ${{ matrix.node }}
 
       - name: Install packages
         run: pnpm install --frozen-lockfile
