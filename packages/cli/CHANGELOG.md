@@ -1,5 +1,13 @@
 # @kitajs/cli
 
+## 1.1.36
+
+### Patch Changes
+
+- [#374](https://github.com/kitajs/kitajs/pull/374)
+  [`f80f49f`](https://github.com/kitajs/kitajs/commit/f80f49f9ee633a3b1a8c49bfa5aa954d8be60e82) Thanks
+  [@zMarques](https://github.com/zMarques)! - Improved kita-jsx template landing page
+
 ## 1.1.35
 
 ### Patch Changes
