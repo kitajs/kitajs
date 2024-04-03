@@ -3,4 +3,4 @@
 'create-kita': patch
 ---
 
-new home screen to template kita-jsx
+Improved kita-jsx template landing page
