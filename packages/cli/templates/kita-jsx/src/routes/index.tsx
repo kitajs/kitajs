@@ -18,7 +18,7 @@ export function get() {
             </div>
 
             <div class="relative lg:w-1/2 flex items-center justify-center">
-              <img class="size-[250px] z" src="/kita.svg" alt="Kita brown and white lotus logo" />
+              <img class="size-[250px] z" src="https://kita.js.org/logo.svg" alt="Kita brown and white lotus logo" />
               <div class=" bg-gradient-to-br from-red-200 to-red-900 absolute size-[250px] -z-10 top-1/2 rounded-full left-1/2 -translate-y-1/2 -translate-x-1/2 blur-3xl " />
             </div>
           </div>
