@@ -39,6 +39,7 @@ describe('Path parameter', async () => {
 
   test('default path with custom type and [name, num]', () => {
     const route = kita.getRoute('postNameNum');
+
     assert.deepStrictEqual(route, {
       kind: 'rest',
       url: '/:name-:num',
