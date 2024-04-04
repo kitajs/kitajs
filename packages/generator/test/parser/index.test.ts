@@ -15,7 +15,7 @@ describe('Parser', async () => {
   });
 
   test('methods are bound correctly', () => {
-    assert.deepEqual(rt.getNameNum('name', 1), { name: 'name', num: 1 });
+    assert.deepStrictEqual(rt.getNameNum('name', 1), { name: 'name', num: 1 });
   });
 
   test('getNameNum options were generated', async () => {
