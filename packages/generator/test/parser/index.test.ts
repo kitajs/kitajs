@@ -5,7 +5,7 @@ import { createApp, generateRuntime } from '../runner';
 //@ts-ignore - first test may not have been run yet
 import type Runtime from './runtime';
 
-describe('Parser', async () => {
+describe('Multiple path parameters', async () => {
   const rt = await generateRuntime<typeof Runtime>(__dirname);
 
   test('expects getNameNum was generated', () => {
