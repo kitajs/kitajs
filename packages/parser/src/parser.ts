@@ -1,22 +1,22 @@
 import {
-  AstCollector,
   DuplicateOperationIdError,
   DuplicateProviderTypeError,
-  JsonSchema,
   KitaError,
-  Provider,
-  ProviderParser,
-  Route,
-  SourceFormatter,
   UnknownKitaError,
   kProvidersFolder,
   kRoutesFolder,
+  type AstCollector,
+  type JsonSchema,
   type KitaConfig,
   type ParameterParser,
-  type RouteParser
+  type Provider,
+  type ProviderParser,
+  type Route,
+  type RouteParser,
+  type SourceFormatter
 } from '@kitajs/common';
-import { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
-import path from 'path';
+import type { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
+import path from 'node:path';
 import { ts } from 'ts-json-schema-generator';
 import { buildParameterParser } from './parameter-parsers';
 import { buildProviderParser } from './provider-parsers';
@@ -220,7 +220,7 @@ export class KitaParser implements AstCollector {
       }
 
       if (result instanceof Error) {
-        yield new UnknownKitaError(result.message, result);
+        yield new UnknownKitaError(String(result), result);
         continue;
       }
 
