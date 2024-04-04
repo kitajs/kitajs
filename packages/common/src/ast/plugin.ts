@@ -6,7 +6,7 @@ export interface KitaPlugin {
   /**
    * The import name/path of this plugin to be registered by fastify.
    *
-   * @example 'fastify-swagger'
+   * @example '@fastify/swagger'
    */
   importUrl: string;
 
@@ -31,7 +31,7 @@ export function stringifyOptions(options: KitaPlugin['options']): string {
         return `${key}: ${value._raw}`;
       }
 
-      return `${key}: ${JSON.stringify(value)}`;
+      return `${key}: ${JSON.stringify(value, null, 2)}`;
     })
-    .join(', ')} }`;
+    .join(',\n  ')} }`;
 }

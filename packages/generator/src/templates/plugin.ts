@@ -20,27 +20,8 @@ export function generatePlugin(
   cwdSrcRelativity: string
 ) {
   return ts`${'plugin'}
-    'use strict';
-
     const fp = require('fastify-plugin');
 
-    /**
-     * The Kita generated fastify plugin. Registering it into your fastify instance will
-     * automatically register all routes, schemas and providers.
-     *
-     * @example
-     * \`\`\`ts
-     * import { Kita } from '@kitajs/runtime';
-     * 
-     * const app = fastify();
-     * 
-     * app.register(Kita)
-     * 
-     * app.listen().then(console.log);
-     * \`\`\`
-     * 
-     * @see {@link https://kita.js.org}
-     */
     exports.Kita = fp(
       async (${kFastifyVariable}, ${kKitaOptions}) => {
         // Register all plugins
@@ -64,7 +45,7 @@ ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schem
         }, ${kKitaOptions});
       },
       {
-        name: 'Kita',
+        name: '@kitajs/runtime',
         fastify: '4.x'
       }
     );
@@ -76,8 +57,27 @@ ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schem
     ${ts.types}
 
     import type { FastifyPluginAsync } from 'fastify'
+    ${plugins.map(toPluginTypeImport).join('\n')}
 
-    export declare const Kita: FastifyPluginAsync<{${plugins.map(toPluginType).join(',\n')}}>;
+    /**
+     * The Kita generated fastify plugin. 
+     * 
+     * Registering it into your fastify instance will automatically register all
+     * routes, schemas and providers.
+     *
+     * @example
+     * \`\`\`ts
+     * app.register(Kita, {
+     *   // You can configure all ${plugins.length} configured plugins here:
+     *   ${plugins.map((p) => `${p.name}: { }`).join(',\n *   ')}
+     * })
+     * \`\`\`
+     * 
+     * @see {@link https://kita.js.org}
+     */
+    export declare const Kita: FastifyPluginAsync<{
+      ${plugins.map(toPluginType).join(',\n')}
+    }>;
     
     ${
       getSchemaDefinitions(schemas) &&
@@ -89,6 +89,10 @@ export declare const ${kSchemaDefinitions}: ${toSchemaDefinitions(schemas)}
    `
     }
   `;
+}
+
+function toPluginTypeImport(plugin: KitaPlugin) {
+  return `import type ${plugin.name} from '${plugin.importUrl}';`;
 }
 
 function toRoute(route: Route) {
@@ -121,13 +125,20 @@ function toSchemaDefinitions(schemas: JsonSchema[]) {
 }
 
 function toPlugin(plugin: KitaPlugin) {
-  return `
-   if (${kKitaOptions}.${plugin.name} !== false) {
-     await ${kFastifyVariable}.register(require("${plugin.importUrl}"), Object.assign(${stringifyOptions(
-       plugin.options
-     )}, ${kKitaOptions}.${plugin.name} || {}))
-   }
-  `;
+  return `{
+    const plugin = require("${plugin.importUrl}")
+    const pluginName = plugin[Symbol.for('fastify.display-name')]
+
+    if (
+      // Encapsulated plugins should not be registered twice
+      (!pluginName || !${kFastifyVariable}.hasPlugin(pluginName)) &&
+      ${kKitaOptions}.${plugin.name} !== false
+      ) {
+      await ${kFastifyVariable}.register(plugin, Object.assign(${stringifyOptions(
+        plugin.options
+      )}, ${kKitaOptions}.${plugin.name} || {}))
+    }
+  }`;
 }
 
 function toSchema(schema: JsonSchema) {
@@ -135,11 +146,12 @@ function toSchema(schema: JsonSchema) {
 }
 
 function toPluginType(plugin: KitaPlugin) {
-  return `
-    /**
-     * Options for the \`${plugin.name}\` plugin. Use \`false\` to disable it manually.
+  return `    /**
+     * Options for the \`${plugin.name}\` plugin. 
      * 
-     * @see {@link ${plugin.importUrl}}
+     * Use \`false\` to disable it manually.
+     * 
+     * @see {@linkcode ${plugin.name}}
      */
-    ${plugin.name}?: Parameters<typeof import("${plugin.importUrl}").default>[1] | false`;
+    ${plugin.name}?: Parameters<typeof ${plugin.name}>[1] | false`;
 }
