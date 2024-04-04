@@ -39,7 +39,7 @@ describe('Parser', async () => {
     });
 
     assert.equal(res.statusCode, 400);
-    assert.deepEqual(res.json(), {
+    assert.deepStrictEqual(res.json(), {
       code: 'FST_ERR_VALIDATION',
       error: 'Bad Request',
       message: 'params/num must be number',
