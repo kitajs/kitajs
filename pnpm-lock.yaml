@@ -54,8 +54,8 @@ importers:
         specifier: ^3.0.12
         version: 3.1.1
       '@oclif/plugin-plugins':
-        specifier: ^5.0.4
-        version: 5.0.4
+        specifier: ^5.0.5
+        version: 5.0.5
       '@oclif/plugin-warn-if-update-available':
         specifier: ^3.0.12
         version: 3.0.14
@@ -112,8 +112,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.14.0
-        version: 4.14.0
+        specifier: ^4.15.0
+        version: 4.15.0
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -153,8 +153,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.14.0
-        version: 4.14.0
+        specifier: ^4.15.0
+        version: 4.15.0
     devDependencies:
       '@fastify/multipart':
         specifier: ^8.1.0
@@ -175,11 +175,11 @@ importers:
         specifier: workspace:^
         version: link:../runtime
       '@scalar/api-reference':
-        specifier: ^1.20.17
-        version: 1.20.17(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14)
+        specifier: ^1.20.20
+        version: 1.20.20(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14)
       '@scalar/fastify-api-reference':
-        specifier: ^1.20.10
-        version: 1.20.10(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
+        specifier: ^1.20.20
+        version: 1.20.20(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
       '@swc-node/register':
         specifier: ^1.9.0
         version: 1.9.0(@swc/core@1.4.8)(@swc/types@0.1.6)(typescript@5.3.3)
@@ -226,8 +226,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.14.0
-        version: 4.14.0
+        specifier: ^4.15.0
+        version: 4.15.0
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -272,8 +272,8 @@ importers:
         specifier: workspace:^
         version: link:../common
       '@scalar/fastify-api-reference':
-        specifier: ^1.20.10
-        version: 1.20.10(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
+        specifier: ^1.20.20
+        version: 1.20.20(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
       fastify:
         specifier: ^4.26
         version: 4.26.2
@@ -284,8 +284,8 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       type-fest:
-        specifier: ^4.14.0
-        version: 4.14.0
+        specifier: ^4.15.0
+        version: 4.15.0
     devDependencies:
       c8:
         specifier: ^9.1.0
@@ -328,8 +328,8 @@ importers:
         specifier: file:.
         version: file:packages/ts-plugin(typescript@5.3.3)
       type-fest:
-        specifier: ^4.14.0
-        version: 4.14.0
+        specifier: ^4.15.0
+        version: 4.15.0
 
 packages:
 
@@ -1968,14 +1968,14 @@ packages:
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
 
-  /@oclif/plugin-plugins@5.0.4:
-    resolution: {integrity: sha512-wtO10MH4vKkyXx97n+S/ZJU/fS9YbYbBN/Ku0BOcbeRH0f+CXcPK7pe6SR4AdnTBRb8BmhESrS3+FKfgTCcBXA==}
+  /@oclif/plugin-plugins@5.0.5:
+    resolution: {integrity: sha512-2Mi87LYSj8LBPXR/j+DffFoyaTmaWiKXayyomyA3Q/TOk8/FkMSNzaUxYzno3sFXy/LsPRd9DZXm+UO1dHV1jw==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.26.0
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
-      npm: 10.5.0
+      npm: 10.2.4
       npm-package-arg: 11.0.1
       npm-run-path: 5.3.0
       semver: 7.6.0
@@ -2117,17 +2117,17 @@ packages:
     dev: true
     optional: true
 
-  /@scalar/api-client@1.1.11(@scalar/oas-utils@0.1.2)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14):
-    resolution: {integrity: sha512-iy2mv2x0vmfSoINsY5wMpQ1uR8keeKYMbshuXrXXdsg8r+421TA4WkvIQPhu9fYGBwSb/5uyJIvouAh0PbtOKA==}
+  /@scalar/api-client@1.1.12(@scalar/oas-utils@0.1.3)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14):
+    resolution: {integrity: sha512-cUTRcc1pmq/Rc2fi2nXQ5Dihinkf93GXkgsw9Qg4ufbaqoXXxkTiGPgqMEcz3xnziozLp0IzqEAMP/7L7lnqAA==}
     engines: {node: '>=18'}
     peerDependencies:
-      '@scalar/oas-utils': 0.1.2
+      '@scalar/oas-utils': 0.1.3
       vue: ^3.3.0
     dependencies:
       '@floating-ui/vue': 1.0.6(vue@3.4.21)
       '@headlessui/vue': 1.7.19(vue@3.4.21)
-      '@scalar/components': 0.4.8(typescript@5.3.3)(vue@3.4.21)
-      '@scalar/oas-utils': 0.1.2
+      '@scalar/components': 0.4.9(typescript@5.3.3)(vue@3.4.21)
+      '@scalar/oas-utils': 0.1.3
       '@scalar/openapi-parser': 0.3.2
       '@scalar/themes': 0.6.7(vue@3.4.21)
       '@scalar/use-codemirror': 0.9.1(vue@3.4.21)(yjs@13.6.14)
@@ -2153,17 +2153,17 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/api-reference@1.20.17(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14):
-    resolution: {integrity: sha512-365tqnfpQb1eFWBfaFC1uuxqjHCsRval37Q6Tf30dTMVTD13fNBFmzIXj915jN9GwGrBJXENz2ou2hobPZclzQ==}
+  /@scalar/api-reference@1.20.20(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14):
+    resolution: {integrity: sha512-BXjvG4Gnioc3FLBJ5vPLpoTssQLO8Lc3xsuPgJwOLbLMa+YivqbhvIke9eAdz4FKFz8oM4Rei9M1eJ8ip482Kw==}
     engines: {node: '>=18'}
     peerDependencies:
       unified: ^11.0.0
       vue: ^3.3.0
     dependencies:
       '@headlessui/vue': 1.7.19(vue@3.4.21)
-      '@scalar/api-client': 1.1.11(@scalar/oas-utils@0.1.2)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14)
-      '@scalar/components': 0.4.8(typescript@5.3.3)(vue@3.4.21)
-      '@scalar/oas-utils': 0.1.2
+      '@scalar/api-client': 1.1.12(@scalar/oas-utils@0.1.3)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14)
+      '@scalar/components': 0.4.9(typescript@5.3.3)(vue@3.4.21)
+      '@scalar/oas-utils': 0.1.3
       '@scalar/openapi-parser': 0.3.2
       '@scalar/snippetz': 0.1.5
       '@scalar/themes': 0.6.7(vue@3.4.21)
@@ -2206,8 +2206,8 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/components@0.4.8(typescript@5.3.3)(vue@3.4.21):
-    resolution: {integrity: sha512-HexZ7HquPe/fohWxpDusIzMOvgdZlZRB5BpUSaORdSiEI7tsMujdqE4PTvvYWshdkF8xovAIPpFmXHhIOnZ0rg==}
+  /@scalar/components@0.4.9(typescript@5.3.3)(vue@3.4.21):
+    resolution: {integrity: sha512-VMN8lnUwoigIdFWbvyQjxSqTiIne+xu1bX3nAa4o9z2/z3XZ92XFsPpVBMOiaii0ssXhYDRIIF3Czcl7xE+gGA==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
@@ -2225,8 +2225,8 @@ packages:
       - typescript
     dev: true
 
-  /@scalar/fastify-api-reference@1.20.10(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2):
-    resolution: {integrity: sha512-o2llnKu70+d/pp87H4XdeT9kYhw+Pq1wtXS30p9VT+VEF41qGDZSmnTAx+qYnP03598UV9iSb1Uf/Rjf6U/w7Q==}
+  /@scalar/fastify-api-reference@1.20.20(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2):
+    resolution: {integrity: sha512-yXSUaLQu0jx8F+nHKXV2iJ4pBL40by95k0mIaDK8LvKd7YJWtFt5r9F6LicssGOCaX4820VRwOxzzIRmX/Xd0Q==}
     engines: {node: '>=18'}
     peerDependencies:
       fastify: ^4.0.0
@@ -2237,8 +2237,8 @@ packages:
       fastify-html: 0.3.3
       fastify-plugin: 4.5.1
 
-  /@scalar/oas-utils@0.1.2:
-    resolution: {integrity: sha512-+9+b9qxHndKr3SZZIFNfpt+gOVGdGnPvc3zhTPmEYmytsI+jxbQWoZN1jX/HimbgQAJarghdvNj7KbewZRX/OA==}
+  /@scalar/oas-utils@0.1.3:
+    resolution: {integrity: sha512-LeQG1mPtnJrY/ken1EquOHp3ZX/KcQpFskkN4VsAJ5vtJO+nhshhgPAcjOdsccuciZTk59qK2jgeVt1qTnSGig==}
     engines: {node: '>=18'}
     dependencies:
       yaml: 2.4.1
@@ -6093,8 +6093,8 @@ packages:
       path-key: 4.0.0
     dev: false
 
-  /npm@10.5.0:
-    resolution: {integrity: sha512-Ejxwvfh9YnWVU2yA5FzoYLTW52vxHCz+MHrOFg9Cc8IFgF/6f5AGPAvb5WTay5DIUP1NIfN3VBZ0cLlGO0Ys+A==}
+  /npm@10.2.4:
+    resolution: {integrity: sha512-umEuYneVEYO9KoEEI8n2sSGmNQeqco/3BSeacRlqIkCzw4E7XGtYSWMeJobxzr6hZ2n9cM+u5TsMTcC5bAgoWA==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
@@ -6161,6 +6161,7 @@ packages:
       - semver
       - spdx-expression-parse
       - ssri
+      - strip-ansi
       - supports-color
       - tar
       - text-table
@@ -7471,8 +7472,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /type-fest@4.14.0:
-    resolution: {integrity: sha512-on5/Cw89wwqGZQu+yWO0gGMGu8VNxsaW9SB2HE8yJjllEk7IDTwnSN1dUVldYILhYPN5HzD7WAaw2cc/jBfn0Q==}
+  /type-fest@4.15.0:
+    resolution: {integrity: sha512-tB9lu0pQpX5KJq54g+oHOLumOx+pMep4RaM6liXh2PKmVRFF+/vAtUP0ZaJ0kOySfVNjF6doBWPHhBhISKdlIA==}
     engines: {node: '>=16'}
 
   /type-is@1.6.18:

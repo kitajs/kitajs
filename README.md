@@ -40,3 +40,22 @@
 <h1 align=center>🎉 Kita is officially Stable! <a href="https://kita.js.org/quickstart#automatic-installation">Try it out today!</a></h1>
 
 <br />
+
+## Star History
+
+<a href="https://star-history.com/#kitajs/kitajs&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=kitajs/kitajs&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=kitajs/kitajs&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kitajs/kitajs&type=Date" />
+  </picture>
+</a>
+
+<br />
+
+## All Thanks To Our Contributors:
+
+<a href="https://github.com/kitajs/kitajs/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kitajs/kitajs" />
+</a>
+

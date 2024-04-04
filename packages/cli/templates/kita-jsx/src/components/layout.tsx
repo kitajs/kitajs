@@ -13,7 +13,7 @@ export function Layout({ children }: PropsWithChildren) {
 
           <title>KitaJS</title>
         </head>
-        <body>{children}</body>
+        <body class="bg-zinc-900 text-zinc-200">{children}</body>
       </html>
     </>
   );

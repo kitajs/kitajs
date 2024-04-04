@@ -29,7 +29,7 @@
     "deepmerge": "^4.3.1",
     "ts-json-schema-generator": "^1.5.0",
     "tslib": "^2.6.2",
-    "type-fest": "^4.14.0",
+    "type-fest": "^4.15.0",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
