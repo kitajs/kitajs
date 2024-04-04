@@ -1,13 +1,16 @@
 import Html from '@kitajs/html';
 import { Suspense } from '@kitajs/html/suspense';
-import { SuspenseId } from '@kitajs/runtime';
+import type { FastifyRequest } from 'fastify';
 
-export function get(id: SuspenseId) {
-  return `<!doctype html>${(
-    <Suspense rid={id} fallback={<div>fallback</div>}>
-      Hello World
-    </Suspense>
-  )}`;
+export function get({ id }: FastifyRequest) {
+  return (
+    <>
+      {'<!doctype html>'}
+      <Suspense rid={id} fallback={<div>fallback</div>}>
+        Hello World
+      </Suspense>
+    </>
+  );
 }
 
 export function post() {

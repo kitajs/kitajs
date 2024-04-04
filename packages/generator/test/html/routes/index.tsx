@@ -1,12 +1,12 @@
 import { Html } from '@kitajs/html';
 import { Suspense } from '@kitajs/html/suspense';
-import { SuspenseId } from '@kitajs/runtime';
+import type { FastifyRequest } from 'fastify';
 import { setTimeout } from 'node:timers/promises';
 
-export async function get(id: SuspenseId) {
+export async function get({ id }: FastifyRequest) {
   return (
-    <Suspense rid={id} fallback={<div>fallback</div>}>
-      {setTimeout(100, 'Hello World')}
+    <Suspense rid={id} fallback={<div>Fallback</div>}>
+      {setTimeout(100, <div>Content</div>)}
     </Suspense>
   );
 }
