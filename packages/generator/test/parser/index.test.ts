@@ -60,7 +60,7 @@ describe('Parser', async () => {
     });
 
     assert.equal(res.statusCode, 200);
-    assert.deepEqual(res.json(), { notName: 'kita', notNum: 1 });
+    assert.deepStrictEqual(res.json(), { notName: 'kita', notNum: 1 });
   });
 
   test('postNameNum options returns error', async () => {
