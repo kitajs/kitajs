@@ -1,6 +1,14 @@
-import { Parameter, Provider, Route, capital, kControllerName, kReplyParam, kRequestParam } from '@kitajs/common';
+import {
+  capital,
+  kControllerName,
+  kReplyParam,
+  kRequestParam,
+  type Parameter,
+  type Provider,
+  type Route
+} from '@kitajs/common';
 import stringify from 'json-stable-stringify';
-import path from 'path';
+import path from 'node:path';
 import { ts } from 'ts-writer';
 import { escapePath, removeExt, toMaybeRelativeImport } from '../util/path';
 
@@ -14,7 +22,6 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
 
   ${route.parameters
     .flatMap((p) => p.imports)
-    .concat(route.imports || [])
     .filter((imp): imp is { name: string; path: string } => !!imp)
     // Remove duplicates
     .filter((imp, index, arr) => arr.findIndex((i) => i.name === imp.name) === index)
@@ -26,13 +33,11 @@ export function generateRoute(route: Route, cwd: string, cwdSrcRelativity: strin
     route.schema.operationId
   }Handler(${kRequestParam}, ${kReplyParam}) {
     ${route.parameters.map(toParamHelper)}
-    ${
-      route.customReturn ||
-      `return exports.${route.schema.operationId}(${ts.join(
-        route.parameters.map((p) => p.value),
-        ','
-      )});`
-    }
+  
+    return ${kReplyParam}.${route.customSend || 'send'}(exports.${route.schema.operationId}(${ts.join(
+      route.parameters.map((p) => p.value),
+      ','
+    )}));
   }
 
   ${route.method === 'ALL' ? `const { supportedMethods } = require('fastify/lib/httpMethods');` : ''}
@@ -140,7 +145,9 @@ export function toLifecycleArray(parameters: Parameter[], providers: Provider[])
     const provider = providers.find((p) => p.type === parameter.providerName)!;
 
     for (const hook of provider.lifecycleHooks) {
-      (hookTypes[hook] ??= []).push(parameter.providerName!);
+      hookTypes[hook] ??= [];
+
+      hookTypes[hook]!.push(parameter.providerName!);
     }
   }
 

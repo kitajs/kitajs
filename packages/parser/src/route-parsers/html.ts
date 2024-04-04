@@ -1,18 +1,15 @@
 import {
   DefaultExportedRoute,
   InvalidHtmlRoute,
-  KitaConfig,
-  ParameterParser,
-  Route,
-  RouteParser,
-  kControllerName,
-  kReplyParam,
-  kRequestParam
+  type AstCollector,
+  type KitaConfig,
+  type ParameterParser,
+  type Route,
+  type RouteParser
 } from '@kitajs/common';
-import path from 'path';
+import path from 'node:path';
 import { StringType, ts } from 'ts-json-schema-generator';
-import { SuspenseIdParameterParser } from '../parameter-parsers/suspense-id';
-import { SchemaBuilder } from '../schema/builder';
+import type { SchemaBuilder } from '../schema/builder';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
@@ -24,7 +21,8 @@ export class HtmlRouteParser implements RouteParser {
     private config: KitaConfig,
     private paramParser: ParameterParser,
     private checker: ts.TypeChecker,
-    private builder: SchemaBuilder
+    private builder: SchemaBuilder,
+    private collector: AstCollector
   ) {}
 
   supports(node: ts.Node): boolean {
@@ -60,6 +58,15 @@ export class HtmlRouteParser implements RouteParser {
   async parse(node: ts.FunctionDeclaration): Promise<Route> {
     const source = node.getSourceFile();
 
+    // Adds kitajs fastify-html plugin
+    if (!this.collector.getPlugin('kitaFastifyHtml')) {
+      this.collector.addPlugin('kitaFastifyHtml', {
+        name: 'kitaFastifyHtml',
+        importUrl: '@kitajs/fastify-html-plugin',
+        options: {}
+      });
+    }
+
     const { url, routeId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();
 
@@ -70,6 +77,7 @@ export class HtmlRouteParser implements RouteParser {
       method: method.toUpperCase() as Uppercase<string>,
       relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],
+      customSend: 'html',
       schema: {
         operationId: `${method.toLowerCase() + routeId}View`,
         hide: true,
@@ -91,30 +99,6 @@ export class HtmlRouteParser implements RouteParser {
     // Adds all parameters in their respective position
     for await (const { param, index } of traverseParameters(node, this.paramParser, route)) {
       route.parameters[index] = param;
-    }
-
-    const routeParameters = route.parameters.map((r) => r.value).join(', ');
-
-    if (
-      // If the SuspenseId parameter was used, we need to render as a stream.
-      route.parameters.some((p) => p.name === SuspenseIdParameterParser.name)
-    ) {
-      const boundCall = `${kControllerName}.${route.controllerMethod}.bind(undefined${
-        routeParameters ? `, ${routeParameters}` : ''
-      })`;
-
-      route.imports ??= [];
-      route.imports.push({
-        name: '{ renderToStream }',
-        path: '@kitajs/html/suspense'
-      });
-      route.customReturn = `return ${kReplyParam}.type('text/html; charset=utf-8').send(renderToStream(${boundCall}, ${kRequestParam}.id));`;
-    } else {
-      const handlerCall = `${kControllerName}.${route.controllerMethod}.call(undefined${
-        routeParameters ? `, ${routeParameters}` : ''
-      })`;
-
-      route.customReturn = `${kReplyParam}.type('text/html; charset=utf-8'); return ${handlerCall}`;
     }
 
     return route;
