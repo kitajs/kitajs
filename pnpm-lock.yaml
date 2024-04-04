@@ -166,8 +166,8 @@ importers:
         specifier: ^8.14.0
         version: 8.14.0
       '@kitajs/html':
-        specifier: ^3.1.2
-        version: 3.1.2(@kitajs/ts-html-plugin@1.3.4)
+        specifier: ^4.1.0
+        version: 4.1.0
       '@kitajs/parser':
         specifier: workspace:^
         version: link:../parser
@@ -236,8 +236,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       '@kitajs/html':
-        specifier: ^3.1.2
-        version: 3.1.2(@kitajs/ts-html-plugin@1.3.4)
+        specifier: ^4.1.0
+        version: 4.1.0
       '@kitajs/runtime':
         specifier: workspace:^
         version: link:../runtime
@@ -1786,28 +1786,11 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@kitajs/html@3.1.2(@kitajs/ts-html-plugin@1.3.4):
-    resolution: {integrity: sha512-igMLn8VCrAyjFuK1OOsCkiiu95EQ+hK/C96moz9+MzX3lsMukZO/AqXRxdhTeB80AtE61pL+lUTuwTkqz/s+rQ==}
+  /@kitajs/html@4.1.0:
+    resolution: {integrity: sha512-uB2HnIR7SYgLkIYdtEyTLc08MzukKh9BXRW6Qs3U9vRHG/LMeTpzuPHrkssfPjFAXHAoM4TukxV+rggJ57l5+A==}
     engines: {node: '>=12'}
-    peerDependencies:
-      '@kitajs/ts-html-plugin': '>=1.3.3'
     dependencies:
-      '@kitajs/ts-html-plugin': 1.3.4(@kitajs/html@3.1.2)(typescript@5.3.3)
       csstype: 3.1.3
-    dev: true
-
-  /@kitajs/ts-html-plugin@1.3.4(@kitajs/html@3.1.2)(typescript@5.3.3):
-    resolution: {integrity: sha512-AAht1OvLkQizJ59DM70qBgb0VwdyW9KUtDaH66JrfanMMvSSoM598WspJrVdVbe50olw69H+nnTj0lEfNDVmPQ==}
-    hasBin: true
-    peerDependencies:
-      '@kitajs/html': ^3.1.1
-      typescript: ^5.2.2
-    dependencies:
-      '@kitajs/html': 3.1.2(@kitajs/ts-html-plugin@1.3.4)
-      chalk: 4.1.2
-      tslib: 2.6.2
-      typescript: 5.3.3
-      yargs: 17.7.2
     dev: true
 
   /@lezer/common@1.2.1:
