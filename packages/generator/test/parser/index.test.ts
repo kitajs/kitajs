@@ -48,7 +48,7 @@ describe('Parser', async () => {
   });
 
   test('methods post are bound correctly', () => {
-    assert.deepEqual(rt.postNameNum('kita', 1), { notName: 'kita', notNum: 1 });
+    assert.deepStrictEqual(rt.postNameNum('kita', 1), { notName: 'kita', notNum: 1 });
   });
 
   test('postNameNum options were generated', async () => {
