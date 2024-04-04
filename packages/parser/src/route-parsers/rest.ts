@@ -1,18 +1,18 @@
 import {
-  AstCollector,
   DefaultExportedRoute,
-  KitaConfig,
   KitaError,
-  ParameterParser,
   ReturnTypeError,
-  Route,
-  RouteParser,
   RouteWithoutReturnError,
-  capital
+  capital,
+  type AstCollector,
+  type KitaConfig,
+  type ParameterParser,
+  type Route,
+  type RouteParser
 } from '@kitajs/common';
-import path from 'path';
+import path from 'node:path';
 import { UndefinedType, VoidType, ts } from 'ts-json-schema-generator';
-import { SchemaBuilder } from '../schema/builder';
+import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { HttpMethods } from '../util/http';
 import { parseJsDocTags } from '../util/jsdoc';

@@ -52,20 +52,16 @@ export interface Route {
   schema: RouteSchema;
 
   /**
-   * If this route requires a custom return call.
+   * What method of reply should be used to send the response.
    *
    * @example
    *
    * ```ts
-   * // kind: "rest"
-   * return controller.method(...parameters);
-   *
-   * // kind: "html"
-   * return reply.send(html);
+   * // Html routes uses 'html'
+   * reply.html(response);
    * ```
+   *
+   * @default 'send'
    */
-  customReturn?: string;
-
-  /** Any imports that should be added to the route file. */
-  imports?: { name: string; path: string }[];
+  customSend?: string;
 }

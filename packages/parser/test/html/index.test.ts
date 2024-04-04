@@ -1,4 +1,3 @@
-import { kControllerName } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe, it } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -12,8 +11,10 @@ describe('Html routes', async () => {
     assert.equal(kita.getRouteCount(), 3);
   });
 
-  it('tests with suspense', () => {
+  it('tests with Suspense', () => {
     const route = kita.getRoute('getIndexView');
+
+    console.dir(kita.getRoutes(), { depth: 10 });
 
     assert.deepStrictEqual(route, {
       kind: 'html',
@@ -21,18 +22,17 @@ describe('Html routes', async () => {
       controllerMethod: 'get',
       method: 'GET',
       relativePath: cwdRelative('routes/index.tsx'),
-      parameters: [{ name: 'SuspenseIdParameterParser', value: 'req.id' }],
+      parameters: [{ name: 'FastifyParameterParser', value: 'req' }],
+      customSend: 'html',
       schema: {
         operationId: 'getIndexView',
         hide: true,
-        response: { [200]: { type: 'string' } }
-      },
-      imports: [{ name: '{ renderToStream }', path: '@kitajs/html/suspense' }],
-      customReturn: `return reply.type('text/html; charset=utf-8').send(renderToStream(${kControllerName}.get.bind(undefined, req.id), req.id));`
+        response: { '200': { type: 'string' } }
+      }
     });
   });
 
-  it('sync html', () => {
+  it('Sync html', () => {
     const route = kita.getRoute('postIndexView');
 
     assert.deepStrictEqual(route, {
@@ -42,16 +42,16 @@ describe('Html routes', async () => {
       method: 'POST',
       relativePath: cwdRelative('routes/index.tsx'),
       parameters: [],
+      customSend: 'html',
       schema: {
         operationId: 'postIndexView',
         hide: true,
-        response: { [200]: { type: 'string' } }
-      },
-      customReturn: `reply.type('text/html; charset=utf-8'); return ${kControllerName}.post.call(undefined)`
+        response: { '200': { type: 'string' } }
+      }
     });
   });
 
-  it('async html', () => {
+  it('Async html', () => {
     const route = kita.getRoute('putIndexView');
 
     assert.deepStrictEqual(route, {
@@ -61,12 +61,12 @@ describe('Html routes', async () => {
       method: 'PUT',
       relativePath: cwdRelative('routes/index.tsx'),
       parameters: [],
+      customSend: 'html',
       schema: {
         operationId: 'putIndexView',
         hide: true,
-        response: { [200]: { type: 'string' } }
-      },
-      customReturn: `reply.type('text/html; charset=utf-8'); return ${kControllerName}.put.call(undefined)`
+        response: { '200': { type: 'string' } }
+      }
     });
   });
 });
