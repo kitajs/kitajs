@@ -175,8 +175,8 @@ importers:
         specifier: workspace:^
         version: link:../runtime
       '@scalar/api-reference':
-        specifier: ^1.20.20
-        version: 1.20.20(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14)
+        specifier: ^1.20.22
+        version: 1.20.22(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14)
       '@scalar/fastify-api-reference':
         specifier: ^1.20.20
         version: 1.20.20(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
@@ -2117,8 +2117,8 @@ packages:
     dev: true
     optional: true
 
-  /@scalar/api-client@1.1.12(@scalar/oas-utils@0.1.3)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14):
-    resolution: {integrity: sha512-cUTRcc1pmq/Rc2fi2nXQ5Dihinkf93GXkgsw9Qg4ufbaqoXXxkTiGPgqMEcz3xnziozLp0IzqEAMP/7L7lnqAA==}
+  /@scalar/api-client@1.1.13(@scalar/oas-utils@0.1.3)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14):
+    resolution: {integrity: sha512-Uy9w/dxHP1ygfFVUmDQtxHMSHfPncbBkz/PXXtNYPuwEOK835cOm9q627cgv6Zn6mR94k+RBJWY0KLj+U4NBqA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@scalar/oas-utils': 0.1.3
@@ -2153,15 +2153,15 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/api-reference@1.20.20(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14):
-    resolution: {integrity: sha512-BXjvG4Gnioc3FLBJ5vPLpoTssQLO8Lc3xsuPgJwOLbLMa+YivqbhvIke9eAdz4FKFz8oM4Rei9M1eJ8ip482Kw==}
+  /@scalar/api-reference@1.20.22(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14):
+    resolution: {integrity: sha512-GULm1Z18YHx9ayUeQ6n+ZMtDpiL8cECkOAvhIuNd6u56slO8RKTyY6OmYCDg8Vm5FRnIW5mTjI7yv7UpKSz83Q==}
     engines: {node: '>=18'}
     peerDependencies:
       unified: ^11.0.0
       vue: ^3.3.0
     dependencies:
       '@headlessui/vue': 1.7.19(vue@3.4.21)
-      '@scalar/api-client': 1.1.12(@scalar/oas-utils@0.1.3)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14)
+      '@scalar/api-client': 1.1.13(@scalar/oas-utils@0.1.3)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14)
       '@scalar/components': 0.4.9(typescript@5.3.3)(vue@3.4.21)
       '@scalar/oas-utils': 0.1.3
       '@scalar/openapi-parser': 0.3.2
