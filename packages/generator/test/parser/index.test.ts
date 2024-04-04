@@ -27,7 +27,7 @@ describe('Parser', async () => {
     });
 
     assert.equal(res.statusCode, 200);
-    assert.deepEqual(JSON.parse(res.body), { name: 'kita', num: 1 });
+    assert.deepStrictEqual(res.json(), { name: 'kita', num: 1 });
   });
 
   test('getNameNum returns error ', async () => {
