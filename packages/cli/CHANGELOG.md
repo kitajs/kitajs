@@ -1,5 +1,24 @@
 # @kitajs/cli
 
+## 1.1.36
+
+### Patch Changes
+
+- [#374](https://github.com/kitajs/kitajs/pull/374)
+  [`f80f49f`](https://github.com/kitajs/kitajs/commit/f80f49f9ee633a3b1a8c49bfa5aa954d8be60e82) Thanks
+  [@zMarques](https://github.com/zMarques)! - Improved kita-jsx template landing page
+
+## 1.1.35
+
+### Patch Changes
+
+- [`1246d25`](https://github.com/kitajs/kitajs/commit/1246d25aa254cb7261bf8239f810a2b2d0085a39) Thanks
+  [@arthurfiorette](https://github.com/arthurfiorette)! - Require Node v20+
+
+- Updated dependencies []:
+  - @kitajs/generator@1.1.27
+  - @kitajs/parser@1.1.23
+
 ## 1.1.34
 
 ### Patch Changes

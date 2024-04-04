@@ -19,7 +19,7 @@ describe('Correctly handles ALL methods', async () => {
     assert.equal(rt.allIndex(), 'Hello World!');
   });
 
-  test(`Ensure all works all supported methods`, async (t) => {
+  test('Ensure all works all supported methods', async (t) => {
     await using app = createApp(rt);
 
     for (const method of HttpMethods) {

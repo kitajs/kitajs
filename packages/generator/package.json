@@ -28,17 +28,18 @@
     "json-stable-stringify": "^1.1.1",
     "ts-writer": "^1.3.1",
     "tslib": "^2.6.2",
-    "type-fest": "^4.14.0"
+    "type-fest": "^4.15.0"
   },
   "devDependencies": {
     "@fastify/multipart": "^8.1.0",
     "@fastify/sensible": "^5.5.0",
     "@fastify/swagger": "^8.14.0",
-    "@kitajs/html": "^3.1.2",
+    "@kitajs/fastify-html-plugin": "^4.0.1",
+    "@kitajs/html": "^4.1.0",
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
-    "@scalar/api-reference": "^1.20.14",
-    "@scalar/fastify-api-reference": "^1.20.10",
+    "@scalar/api-reference": "^1.20.20",
+    "@scalar/fastify-api-reference": "^1.20.20",
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
     "@types/json-stable-stringify": "^1.0.36",

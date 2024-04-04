@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/runtime",
-  "version": "1.1.18",
+  "version": "1.1.19",
   "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!",
   "homepage": "https://kita.js.org",
   "bugs": {
@@ -31,10 +31,11 @@
     "@fastify/sensible": "^5.5.0",
     "@fastify/swagger": "^8.14.0",
     "@kitajs/common": "workspace:^",
-    "@scalar/fastify-api-reference": "^1.20.10",
+    "@kitajs/fastify-html-plugin": "^4.0.1",
+    "@scalar/fastify-api-reference": "^1.20.20",
     "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
-    "type-fest": "^4.14.0"
+    "type-fest": "^4.15.0"
   },
   "devDependencies": {
     "c8": "^9.1.0"

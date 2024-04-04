@@ -29,7 +29,7 @@ export function appendProviderDiagnostics(parser: KitaParser, provider: ts.Sourc
     if (error instanceof KitaError) {
       diagnostics.push(error.diagnostic);
     } else if (error instanceof Error) {
-      diagnostics.push(new UnknownKitaError(error.message, error).diagnostic);
+      diagnostics.push(new UnknownKitaError(String(error), error).diagnostic);
     } else {
       diagnostics.push(new UnknownKitaError('Unknown error!', error).diagnostic);
     }

@@ -23,7 +23,7 @@
     // "reactNamespace": "",
     // "noLib": true,
     // "useDefineForClassFields": true,
-    // "moduleDetection": "auto",                        ,
+    // "moduleDetection": "auto",
     "preserveWatchOutput": true,
 
     /* Modules */

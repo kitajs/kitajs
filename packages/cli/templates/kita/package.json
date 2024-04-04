@@ -6,7 +6,7 @@
     "build": "kita build && tsc -p tsconfig.build.json",
     "dev": "concurrently --raw --restart-tries 0 \"npm:dev:*\"",
     "dev:kita": "kita watch",
-    "dev:server": "node --env-file=.env --enable-source-maps -r @swc-node/register --watch src/index.ts",
+    "dev:server": "node --env-file=.env --enable-source-maps -r @swc-node/register --watch --watch-preserve-output src/index.ts | pino-pretty",
     "dev:tsc": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "format": "biome format --write .",
     "lint": "biome check .",
@@ -29,8 +29,8 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.6.3",
-    "@kitajs/cli": "1.1.32",
+    "@biomejs/biome": "^1.6.4",
+    "@kitajs/cli": "^1.1.34",
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
     "@types/node": "^20.12.2",

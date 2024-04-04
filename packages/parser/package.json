@@ -29,12 +29,12 @@
     "deepmerge": "^4.3.1",
     "ts-json-schema-generator": "^1.5.0",
     "tslib": "^2.6.2",
-    "type-fest": "^4.14.0",
+    "type-fest": "^4.15.0",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@fastify/sensible": "^5.5.0",
-    "@kitajs/html": "^3.1.2",
+    "@kitajs/html": "^4.1.0",
     "@kitajs/runtime": "workspace:^",
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",

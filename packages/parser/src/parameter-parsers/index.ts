@@ -12,7 +12,6 @@ import { HeaderParameterParser } from './header';
 import { PathParameterParser } from './path';
 import { ProviderGenericsParameterParser } from './provider-generics';
 import { QueryParameterParser } from './query';
-import { SuspenseIdParameterParser } from './suspense-id';
 import { ThisParameterParser } from './this';
 
 export function buildParameterParser(
@@ -36,7 +35,6 @@ export function buildParameterParser(
     .add(new HeaderParameterParser(config))
     .add(new CookieParameterParser(collector))
     .add(new ThisParameterParser())
-    .add(new SuspenseIdParameterParser())
     .add(new ProviderGenericsParameterParser())
     .add(new FileParameterParser(config, collector))
     .add(new ErrorsParameterParser(collector));

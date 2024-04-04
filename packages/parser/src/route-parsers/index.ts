@@ -17,7 +17,7 @@ export function buildRouteParser(
   config.routeParserAugmentor?.(chain);
 
   chain
-    .add(new HtmlRouteParser(config, paramParser, typeChecker, schema))
+    .add(new HtmlRouteParser(config, paramParser, typeChecker, schema, collector))
     .add(new RestRouteParser(config, schema, paramParser, typeChecker, collector));
 
   return chain;
