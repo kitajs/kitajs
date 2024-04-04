@@ -6,7 +6,7 @@
     "build": "kita build && tsc -p tsconfig.build.json",
     "dev": "concurrently --raw --restart-tries 0 \"npm:dev:*\"",
     "dev:kita": "kita watch",
-    "dev:server": "node --env-file=.env --enable-source-maps -r @swc-node/register --watch src/index.ts",
+    "dev:server": "node --env-file=.env --enable-source-maps -r @swc-node/register --watch --watch-preserve-output src/index.ts | pino-pretty",
     "dev:tsc": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "format": "biome format --write .",
     "lint": "biome check .",

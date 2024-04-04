@@ -19,7 +19,7 @@ if (!process.env.PORT) {
 }
 
 fastify({
-  logger: { transport: { target: 'pino-pretty' } },
+  logger: { level: process.env.LOG_LEVEL || 'info' },
   ajv: { plugins: [ajvFilePlugin] }
 })
   // Registers our backend
