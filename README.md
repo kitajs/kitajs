@@ -51,7 +51,9 @@
   </picture>
 </a>
 
-### All Thanks To Our Contributors:
+<br />
+
+## All Thanks To Our Contributors:
 
 <a href="https://github.com/kitajs/kitajs/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=kitajs/kitajs" />
