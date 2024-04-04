@@ -34,9 +34,9 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.6.4",
+    "@biomejs/biome": "^1.6.4",
     "@kitajs/cli": "^1.1.31",
-    "@kitajs/ts-html-plugin": "4.0.1",
+    "@kitajs/ts-html-plugin": "^4.0.1",
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
     "@tailwindcss/typography": "^0.5.12",
