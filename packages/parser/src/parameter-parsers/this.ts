@@ -1,8 +1,8 @@
 import {
   InvalidParameterUsageError,
-  Parameter,
-  ParameterParser,
-  Route,
+  type Parameter,
+  type ParameterParser,
+  type Route,
   RouteMapperNotExportedError,
   RouteOptionsAlreadyDefinedError,
   kControllerName

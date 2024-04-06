@@ -1,8 +1,8 @@
 import {
-  JsonSchema,
-  KitaPlugin,
-  Provider,
-  Route,
+  type JsonSchema,
+  type KitaPlugin,
+  type Provider,
+  type Route,
   kFastifyVariable,
   kKitaOptions,
   kSchemaDefinitions,

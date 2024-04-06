@@ -1,4 +1,4 @@
-import { Parameter } from '@kitajs/common';
+import type { Parameter } from '@kitajs/common';
 import { join } from './codegen';
 
 export const VALID_IDENTIFIER = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/;

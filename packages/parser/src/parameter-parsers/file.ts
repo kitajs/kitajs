@@ -1,10 +1,10 @@
 import {
-  AstCollector,
+  type AstCollector,
   BodyInGetRequestError,
-  KitaConfig,
-  Parameter,
-  ParameterParser,
-  Route,
+  type KitaConfig,
+  type Parameter,
+  type ParameterParser,
+  type Route,
   kRequestParam
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
@@ -57,7 +57,7 @@ export class FileParameterParser implements ParameterParser {
     });
 
     if (isSavedFile) {
-      let helper;
+      let helper: string | undefined;
 
       // No previous file parameters, we need to add the helper
       if (!route.parameters.find((f) => f.name === FileParameterParser.name)) {

@@ -1,6 +1,6 @@
 import { isPromiseLike } from '@kitajs/common';
 import deasync from 'deasync';
-import { Promisable } from 'type-fest';
+import type { Promisable } from 'type-fest';
 
 /** Adapted from https://www.npmjs.com/package/synchronized-promise to avoid requiring deasync every time. */
 export function awaitSync<C>(promise: Promisable<C>) {

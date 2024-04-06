@@ -1,6 +1,6 @@
-import { GenericTest } from '../providers/generics';
-import { Test } from '../providers/test';
-import { Transformer } from '../providers/transformer';
+import type { GenericTest } from '../providers/generics';
+import type { Test } from '../providers/test';
+import type { Transformer } from '../providers/transformer';
 
 export function get(test: Test) {
   return test.a;

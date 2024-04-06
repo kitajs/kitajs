@@ -1,5 +1,5 @@
-import { Config as JsonConfig, SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
-import { ChainParser, ParameterParser, ProviderParser, RouteParser } from '../parsers';
+import type { Config as JsonConfig, SubNodeParser, SubTypeFormatter } from 'ts-json-schema-generator';
+import type { ChainParser, ParameterParser, ProviderParser, RouteParser } from '../parsers';
 
 /** The kita config interface. all possible customizations are done through this interface. */
 export interface KitaConfig {

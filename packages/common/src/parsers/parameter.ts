@@ -1,6 +1,6 @@
 import type ts from 'typescript';
 import type { Parameter, Route } from '../ast';
-import { Parser } from './parser';
+import type { Parser } from './parser';
 
 /** A parameter parser is responsible for parsing a node into a parameter. */
 export interface ParameterParser

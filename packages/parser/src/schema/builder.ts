@@ -11,14 +11,14 @@ import {
   EnumType,
   IntersectionType,
   LiteralType,
-  NodeParser,
+  type NodeParser,
   OptionalType,
   PrimitiveType,
   ReferenceType,
-  Schema,
-  Config as TsjConfig,
+  type Schema,
+  type Config as TsjConfig,
   TupleType,
-  TypeFormatter,
+  type TypeFormatter,
   UndefinedType,
   UnionType,
   VoidType,
@@ -204,6 +204,7 @@ export class SchemaBuilder {
     const seen = new Set();
     const nameIdMap = new Map<string, string>();
 
+    // biome-ignore lint/suspicious/noAssignInExpressions: This is a valid use case.
     const definitions = inner ? ((this.definitions[inner] ??= {}) as Record<string, JsonSchema>) : this.definitions;
 
     for (const child of this.formatter.getChildren(type)) {

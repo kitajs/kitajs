@@ -14,8 +14,6 @@ describe('Html routes', async () => {
   it('tests with Suspense', () => {
     const route = kita.getRoute('getIndexView');
 
-    console.dir(kita.getRoutes(), { depth: 10 });
-
     assert.deepStrictEqual(route, {
       kind: 'html',
       url: '/',
