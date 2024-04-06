@@ -1,15 +1,15 @@
 import {
   EmptyRouteFileError,
   KitaError,
-  type Parameter,
-  type ParameterParser,
   ParameterResolverNotFoundError,
-  type Parser,
-  type Route,
   RouteParameterMultipleErrors,
   SourceFileNotFoundError,
   UnknownKitaError,
-  isPromiseLike
+  isPromiseLike,
+  type Parameter,
+  type ParameterParser,
+  type Parser,
+  type Route
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 
@@ -185,6 +185,7 @@ export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: Pa
   if (errors.length > 1) {
     throw new RouteParameterMultipleErrors(fn.name || fn, errors);
   }
+
   if (errors.length) {
     throw errors[0];
   }

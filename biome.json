@@ -1,7 +1,10 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
   "organizeImports": {
-    "enabled": true
+    "enabled": false
+  },
+  "formatter": {
+    "enabled": false
   },
   "linter": {
     "enabled": true,
@@ -9,16 +12,16 @@
       "recommended": true,
       "style": {
         "noNonNullAssertion": "off",
-        "noParameterAssign": "off"
+        "noParameterAssign": "off",
+        "useDefaultParameterLast": "off"
       },
       "suspicious": {
-        "noExplicitAny": "off"
+        "noExplicitAny": "off",
+        "noConsoleLog": "error"
       }
     }
   },
-  "formatter": {
-    "enabled": false
-  },
+
   "javascript": {
     "formatter": {
       "quoteStyle": "single",

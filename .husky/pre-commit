@@ -7,7 +7,7 @@ FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Lint all selected files
-echo "$FILES" | xargs ./node_modules/.bin/biome check --apply-unsafe
+echo "$FILES" | xargs ./node_modules/.bin/biome check
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add

@@ -1,5 +1,5 @@
-import path from 'node:path';
 import { kKitaGlobalRoot } from '@kitajs/common';
+import path from 'node:path';
 
 /** Posix: `./`, in windows: `.\\` */
 export const CURRENT_DIR = `.${path.sep}`;
@@ -39,6 +39,7 @@ export function removeExt(p: string) {
   if (ext) {
     return p.slice(0, -ext.length);
   }
+
   return p;
 }
 
