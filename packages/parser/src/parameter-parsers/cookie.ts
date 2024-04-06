@@ -1,4 +1,4 @@
-import { AstCollector, Parameter, ParameterParser, Route, kRequestParam } from '@kitajs/common';
+import { kRequestParam, type AstCollector, type Parameter, type ParameterParser, type Route } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import { getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';

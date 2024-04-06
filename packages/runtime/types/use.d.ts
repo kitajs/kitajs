@@ -19,6 +19,7 @@ import type { RouteShorthandOptions } from 'fastify';
  *
  * @link https://kita.js.org/routing/configuration
  */
+// biome-ignore lint/suspicious/noConfusingVoidType: it is a valid use case
 export type Use<_Config extends RouteMapper | RouteMapper[]> = void;
 
 /**

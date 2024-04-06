@@ -1,8 +1,8 @@
 import deepmerge from 'deepmerge';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { InvalidConfigError, RuntimeNotFoundError } from '../errors';
-import { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
+import type { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
 export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()): KitaConfig {
@@ -126,7 +126,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 function env<T>(name: string, cast: (x: any) => T) {
   const key = `KITA_${name.toUpperCase()}`;
 
-  if (!process.env.hasOwnProperty(key)) {
+  if (!process.env[key]) {
     return undefined;
   }
 

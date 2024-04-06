@@ -1,16 +1,16 @@
 import {
   InvalidParameterUsageError,
-  KitaConfig,
-  Parameter,
   ParameterConflictError,
-  ParameterParser,
   QueryMixError,
-  Route,
-  kRequestParam
+  kRequestParam,
+  type KitaConfig,
+  type Parameter,
+  type ParameterParser,
+  type Route
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import { StringType } from 'ts-json-schema-generator';
-import { SchemaBuilder } from '../schema/builder';
+import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { getParameterGenerics, getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';
 import { buildAccessProperty } from '../util/syntax';

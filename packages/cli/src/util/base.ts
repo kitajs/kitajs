@@ -1,18 +1,18 @@
 import {
-  AstCollector,
-  KitaConfig,
   KitaError,
-  PartialKitaConfig,
-  SourceFormatter,
-  readCompilerOptions
+  readCompilerOptions,
+  type AstCollector,
+  type KitaConfig,
+  type PartialKitaConfig,
+  type SourceFormatter
 } from '@kitajs/common';
 import { KitaFormatter } from '@kitajs/generator';
 import { KitaParser } from '@kitajs/parser';
 import { Command, Flags, ux } from '@oclif/core';
-import { CommandError } from '@oclif/core/lib/interfaces';
+import type { CommandError } from '@oclif/core/lib/interfaces';
 import chalk from 'chalk';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { readConfig } from './config';
 import { formatDiagnostic, formatStatus } from './diagnostics';
 

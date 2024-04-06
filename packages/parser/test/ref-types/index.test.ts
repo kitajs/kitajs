@@ -1,4 +1,4 @@
-import { JsonSchema } from '@kitajs/common';
+import type { JsonSchema } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -233,6 +233,7 @@ describe('Schema Refs generation', async () => {
 
     // $id is defined only for external schemas
     const responseWithoutId = Object.assign<Partial<JsonSchema>, unknown>({}, response);
+    // biome-ignore lint/performance/noDelete: it is a test
     delete responseWithoutId.$id;
 
     assert.deepStrictEqual(body, responseWithoutId);

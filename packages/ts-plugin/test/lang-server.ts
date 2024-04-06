@@ -1,6 +1,6 @@
-import { ChildProcess, fork } from 'child_process';
-import { EventEmitter } from 'events';
-import { server } from 'typescript/lib/tsserverlibrary';
+import { fork, type ChildProcess } from 'node:child_process';
+import { EventEmitter } from 'node:events';
+import type { server } from 'typescript/lib/tsserverlibrary';
 
 /** All requests used in tests */
 export type Requests =
@@ -40,7 +40,7 @@ export class TSLangServer {
         // Content-Length: 123\n\n{...}
         const [length, , res] = data.split('\n', 3);
 
-        expLength = parseInt(length.slice(CONTENT_LENGTH_HEADER.length), 10);
+        expLength = Number.parseInt(length.slice(CONTENT_LENGTH_HEADER.length), 10);
         buffered = res;
 
         // Continuation of a previous packet

@@ -1,4 +1,4 @@
-import { PropsWithChildren } from '@kitajs/html';
+import type { PropsWithChildren } from '@kitajs/html';
 
 export function Layout({ children }: PropsWithChildren) {
   return (

@@ -1,5 +1,5 @@
-import { ProviderGenerics, RouteSchema } from '@kitajs/runtime';
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import type { ProviderGenerics, RouteSchema } from '@kitajs/runtime';
+import type { FastifyInstance, FastifyRequest } from 'fastify';
 
 export type GenericTest<_T extends number> = [string, number, string];
 

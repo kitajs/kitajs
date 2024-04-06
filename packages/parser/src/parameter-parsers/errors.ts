@@ -1,11 +1,11 @@
 import {
-  AstCollector,
   InvalidParameterUsageError,
-  Parameter,
-  ParameterParser,
-  Route,
   UnknownHttpError,
-  kFastifyParam
+  kFastifyParam,
+  type AstCollector,
+  type Parameter,
+  type ParameterParser,
+  type Route
 } from '@kitajs/common';
 import http from 'node:http';
 import { ts } from 'ts-json-schema-generator';

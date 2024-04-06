@@ -14,7 +14,7 @@ describe('Http Methods', async () => {
 
   test('generates all methods', async (t) => {
     for (const method of HttpMethods) {
-      await t.test(method, () => assert.ok(kita.getRoute(method.toLowerCase() + 'Index')));
+      await t.test(method, () => assert.ok(kita.getRoute(`${method.toLowerCase()}Index`)));
     }
   });
 });

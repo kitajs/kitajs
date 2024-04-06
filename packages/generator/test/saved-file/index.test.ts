@@ -24,6 +24,7 @@ describe('Saved File', async () => {
   test('Works with SavedFile', async () => {
     await using app = createApp(rt, { ajv: { plugins: [ajvFilePlugin] } });
 
+    // biome-ignore lint/correctness/noConstantCondition: it is a test
     if (-1 > 1) {
       app.register(rt.Kita, {
         fastifyMultipart: {

@@ -1,6 +1,6 @@
 import type { SavedFile } from '@kitajs/runtime';
-import assert from 'assert';
-import { readFileSync } from 'fs';
+import assert from 'node:assert';
+import { readFileSync } from 'node:fs';
 
 export function post(file: SavedFile, unnamed: SavedFile<'named'>) {
   assert.ok(file);

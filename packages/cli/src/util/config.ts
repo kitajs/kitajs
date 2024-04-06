@@ -1,9 +1,9 @@
-import { KitaConfig, parseConfig } from '@kitajs/common';
+import { parseConfig, type KitaConfig } from '@kitajs/common';
 import { ux } from '@oclif/core';
 import chalk from 'chalk';
 import deepmerge from 'deepmerge';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export function readConfig(
   root: string,

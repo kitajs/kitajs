@@ -11,19 +11,19 @@ import {
   EnumType,
   IntersectionType,
   LiteralType,
-  NodeParser,
   OptionalType,
   PrimitiveType,
   ReferenceType,
-  Schema,
-  Config as TsjConfig,
   TupleType,
-  TypeFormatter,
   UndefinedType,
   UnionType,
   VoidType,
   createFormatter,
-  createParser
+  createParser,
+  type NodeParser,
+  type Schema,
+  type Config as TsjConfig,
+  type TypeFormatter
 } from 'ts-json-schema-generator';
 import { correctFormatterChildrenOrder, removeFormatterDefinitions } from './helpers';
 
@@ -204,6 +204,7 @@ export class SchemaBuilder {
     const seen = new Set();
     const nameIdMap = new Map<string, string>();
 
+    // biome-ignore lint/suspicious/noAssignInExpressions: This is a valid use case.
     const definitions = inner ? ((this.definitions[inner] ??= {}) as Record<string, JsonSchema>) : this.definitions;
 
     for (const child of this.formatter.getChildren(type)) {

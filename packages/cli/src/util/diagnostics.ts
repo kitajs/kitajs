@@ -1,24 +1,21 @@
-import { AstCollector } from '@kitajs/common';
+import type { AstCollector } from '@kitajs/common';
 import chalk from 'chalk';
 import ts from 'typescript';
 
 export function formatDiagnostic(diagnostics: readonly ts.Diagnostic[]) {
   const formatter = process.stdout.isTTY ? ts.formatDiagnosticsWithColorAndContext : ts.formatDiagnostics;
 
-  return (
-    '\n' +
-    formatter(diagnostics, {
-      getCanonicalFileName(fileName) {
-        return fileName;
-      },
-      getCurrentDirectory() {
-        return process.cwd();
-      },
-      getNewLine() {
-        return '\n';
-      }
-    })
-  );
+  return `\n${formatter(diagnostics, {
+    getCanonicalFileName(fileName) {
+      return fileName;
+    },
+    getCurrentDirectory() {
+      return process.cwd();
+    },
+    getNewLine() {
+      return '\n';
+    }
+  })}`;
 }
 
 export function formatStatus(collector: AstCollector, diagnostics: unknown[]) {

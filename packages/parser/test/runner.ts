@@ -1,5 +1,5 @@
-import { AstCollector, KitaConfig, parseConfig, readCompilerOptions } from '@kitajs/common';
-import path from 'path';
+import { parseConfig, readCompilerOptions, type AstCollector, type KitaConfig } from '@kitajs/common';
+import path from 'node:path';
 import { KitaParser, walk } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');

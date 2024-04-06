@@ -68,6 +68,7 @@ export class KitaParser implements AstCollector {
       onError?: (error: unknown) => void;
     };
 
+    // biome-ignore lint/style/useConst: the watcher is reassigned
     let watcher: ts.WatchOfConfigFile<ts.SemanticDiagnosticsBuilderProgram>;
 
     // Note that there is another overload for `createWatchCompilerHost` that takes

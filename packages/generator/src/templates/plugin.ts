@@ -1,12 +1,12 @@
 import {
-  JsonSchema,
-  KitaPlugin,
-  Provider,
-  Route,
   kFastifyVariable,
   kKitaOptions,
   kSchemaDefinitions,
-  stringifyOptions
+  stringifyOptions,
+  type JsonSchema,
+  type KitaPlugin,
+  type Provider,
+  type Route
 } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
 import { ts } from 'ts-writer';

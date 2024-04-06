@@ -1,5 +1,5 @@
 import { Flags } from '@oclif/core';
-import { inspect } from 'util';
+import { inspect } from 'node:util';
 import { BaseKitaCommand } from '../util/base';
 import { printSponsor } from '../util/sponsor';
 
@@ -39,9 +39,9 @@ export default class Config extends BaseKitaCommand {
       this.log(
         inspect(config, {
           colors: true,
-          depth: Infinity,
-          maxArrayLength: Infinity,
-          maxStringLength: Infinity
+          depth: Number.POSITIVE_INFINITY,
+          maxArrayLength: Number.POSITIVE_INFINITY,
+          maxStringLength: Number.POSITIVE_INFINITY
         })
       );
     }

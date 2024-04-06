@@ -3,19 +3,19 @@ import {
   IncompatibleProviderError,
   InvalidProviderHookError,
   InvalidProviderSchemaTransformerError,
-  KitaConfig,
   KitaError,
   LifecycleHookNames,
   NoProviderExportedError,
-  ParameterParser,
-  Provider,
-  ProviderParser,
   RouteParameterMultipleErrors,
   UnknownKitaError,
   UntypedProviderError,
-  WronglyTypedProviderError
+  WronglyTypedProviderError,
+  type KitaConfig,
+  type ParameterParser,
+  type Provider,
+  type ProviderParser
 } from '@kitajs/common';
-import path from 'path';
+import path from 'node:path';
 import { ts } from 'ts-json-schema-generator';
 import type { Promisable } from 'type-fest';
 import {
@@ -97,6 +97,7 @@ export class DefaultProviderParser implements ProviderParser {
           }
         } catch (error: any) {
           if (!(error instanceof KitaError)) {
+            // biome-ignore lint/suspicious/noCatchAssign: This is a valid use case.
             error = new UnknownKitaError(String(error), error);
           }
 

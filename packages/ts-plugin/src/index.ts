@@ -1,7 +1,7 @@
-import { KitaConfig, KitaError, importConfig, kProvidersFolder, kRoutesFolder, parseConfig } from '@kitajs/common';
+import { KitaError, importConfig, kProvidersFolder, kRoutesFolder, parseConfig, type KitaConfig } from '@kitajs/common';
 import { KitaParser, toTsPath } from '@kitajs/parser';
-import path from 'path';
-import ts, { server } from 'typescript/lib/tsserverlibrary';
+import path from 'node:path';
+import ts, { type server } from 'typescript/lib/tsserverlibrary';
 import { appendProviderDiagnostics } from './parsers/provider';
 import { appendRouteDiagnostics } from './parsers/route';
 import { proxyObject } from './util/proxy';

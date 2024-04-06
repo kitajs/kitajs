@@ -1,6 +1,13 @@
 import type { ts } from 'ts-json-schema-generator';
 
-import { Parameter, ParameterParser, Route, kFastifyParam, kReplyParam, kRequestParam } from '@kitajs/common';
+import {
+  kFastifyParam,
+  kReplyParam,
+  kRequestParam,
+  type Parameter,
+  type ParameterParser,
+  type Route
+} from '@kitajs/common';
 import { getTypeNodeName } from '../util/nodes';
 
 export class FastifyParameterParser implements ParameterParser {

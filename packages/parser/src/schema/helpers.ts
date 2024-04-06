@@ -1,6 +1,6 @@
 import type { Route, RouteSchema } from '@kitajs/common';
 import deepmerge from 'deepmerge';
-import { type TypeFormatter } from 'ts-json-schema-generator';
+import type { TypeFormatter } from 'ts-json-schema-generator';
 
 /** Combines a route schema with a new schema. */
 export function mergeSchema(route: Route, schema: Partial<RouteSchema>) {
@@ -17,7 +17,7 @@ export function mergeSchema(route: Route, schema: Partial<RouteSchema>) {
 export function removeFormatterDefinitions(typeFormatter: TypeFormatter) {
   const getDefinition = typeFormatter.getDefinition.bind(typeFormatter);
 
-  typeFormatter.getDefinition = function (type) {
+  typeFormatter.getDefinition = (type) => {
     // Calls the original getDefinition function.
     const def = getDefinition(type);
 
@@ -43,7 +43,7 @@ export function removeFormatterDefinitions(typeFormatter: TypeFormatter) {
 export function correctFormatterChildrenOrder(typeFormatter: TypeFormatter) {
   const getChildren = typeFormatter.getChildren.bind(typeFormatter);
 
-  typeFormatter.getChildren = function (type) {
+  typeFormatter.getChildren = (type) => {
     const children = getChildren(type);
 
     // The original type is always the first child

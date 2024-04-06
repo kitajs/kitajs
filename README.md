@@ -58,4 +58,3 @@
 <a href="https://github.com/kitajs/kitajs/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=kitajs/kitajs" />
 </a>
-

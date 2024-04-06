@@ -1,7 +1,7 @@
 import test, { describe } from 'node:test';
 import { createApp, generateRuntime } from '../runner';
 
-import assert from 'assert';
+import assert from 'node:assert';
 //@ts-ignore - first test may not have been run yet
 import { SuspenseScript } from '@kitajs/html/suspense';
 import type Runtime from './runtime';

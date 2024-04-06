@@ -1,6 +1,6 @@
 import type { KitaConfig, ParameterParser, ProviderParser } from '@kitajs/common';
-import ts from 'typescript';
-import { SchemaBuilder } from '../schema/builder';
+import type ts from 'typescript';
+import type { SchemaBuilder } from '../schema/builder';
 import { ChainProviderParser } from './chain';
 import { DefaultProviderParser } from './default';
 import { SchemasProviderParser } from './schema';

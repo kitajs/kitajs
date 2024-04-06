@@ -1,8 +1,8 @@
-import http, { IncomingMessage } from 'http';
 import assert from 'node:assert';
+import http, { type IncomingMessage } from 'node:http';
 import path from 'node:path';
 import test, { describe } from 'node:test';
-import { Worker } from 'worker_threads';
+import { Worker } from 'node:worker_threads';
 import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet

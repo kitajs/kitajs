@@ -1,5 +1,5 @@
-import { MyProvider } from '../providers/a';
-import { GenericTest } from '../providers/generics';
+import type { MyProvider } from '../providers/a';
+import type { GenericTest } from '../providers/generics';
 
 /** Default desc */
 export function get(test: MyProvider) {
