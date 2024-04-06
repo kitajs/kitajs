@@ -27,12 +27,13 @@
     "test": "c8 --reporter lcov --reporter text node --test test/**/*.test.js && tsc --noEmit"
   },
   "dependencies": {
-    "@fastify/multipart": "^8.1.0",
+    "@fastify/cookie": "^9.3.1",
+    "@fastify/multipart": "^8.2.0",
     "@fastify/sensible": "^5.5.0",
     "@fastify/swagger": "^8.14.0",
     "@kitajs/common": "workspace:^",
-    "@kitajs/fastify-html-plugin": "^4.0.1",
-    "@scalar/fastify-api-reference": "^1.20.20",
+    "@kitajs/fastify-html-plugin": "^4.1.0",
+    "@scalar/fastify-api-reference": "^1.20.25",
     "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.15.0"
