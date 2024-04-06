@@ -1,4 +1,4 @@
-import ts from 'typescript';
+import type ts from 'typescript';
 import { KitaError } from './base';
 
 export class RouteResolverNotFoundError extends KitaError {
@@ -172,8 +172,7 @@ export class RouteParameterMultipleErrors extends KitaError {
   ) {
     super({
       code: 313,
-      messageText:
-        'Multiple errors were found while parsing this route: \n' + children.map((e) => e.message).join('\n'),
+      messageText: `Multiple errors were found while parsing this route: \n${children.map((e) => e.message).join('\n')}`,
       node,
       relatedInformation: children.map((e) => e.diagnostic)
     });
@@ -241,7 +240,7 @@ export class IncompatibleProviderError extends KitaError {
   ) {
     super({
       code: 318,
-      messageText: 'This provider cannot be used here: \n' + children.map((e) => e.message).join('\n'),
+      messageText: `This provider cannot be used here: \n${children.map((e) => e.message).join('\n')}`,
       node,
       relatedInformation: children.map((e) => e.diagnostic)
     });

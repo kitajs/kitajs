@@ -5,8 +5,8 @@ import {
   UnknownNodeError,
   isPromiseLike
 } from '@kitajs/common';
-import { KitaParser } from '@kitajs/parser';
-import ts from 'typescript';
+import type { KitaParser } from '@kitajs/parser';
+import type ts from 'typescript';
 import { awaitSync } from '../util/sync';
 
 /**

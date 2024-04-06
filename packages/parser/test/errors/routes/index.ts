@@ -1,4 +1,4 @@
-import { HttpErrors } from '@fastify/sensible';
+import type { HttpErrors } from '@fastify/sensible';
 
 const maybe = false as boolean;
 const array = [1, 2, 3];
@@ -79,6 +79,7 @@ export async function get(MYerRORnAMe: HttpErrors) {
   return { hello: 'world' };
 
   //@ts-ignore - never executes
+  // biome-ignore lint/correctness/noUnreachable: it is unreachable
   throw MYerRORnAMe.conflict('Error!'); //409
 }
 

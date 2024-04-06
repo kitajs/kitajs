@@ -1,22 +1,22 @@
+import path from 'node:path';
 import {
+  type AstCollector,
   DuplicateOperationIdError,
   DuplicateProviderTypeError,
-  KitaError,
-  UnknownKitaError,
-  kProvidersFolder,
-  kRoutesFolder,
-  type AstCollector,
   type JsonSchema,
   type KitaConfig,
+  KitaError,
   type ParameterParser,
   type Provider,
   type ProviderParser,
   type Route,
   type RouteParser,
-  type SourceFormatter
+  type SourceFormatter,
+  UnknownKitaError,
+  kProvidersFolder,
+  kRoutesFolder
 } from '@kitajs/common';
 import type { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
-import path from 'node:path';
 import { ts } from 'ts-json-schema-generator';
 import { buildParameterParser } from './parameter-parsers';
 import { buildProviderParser } from './provider-parsers';
@@ -68,6 +68,7 @@ export class KitaParser implements AstCollector {
       onError?: (error: unknown) => void;
     };
 
+    // biome-ignore lint/style/useConst: the watcher is reassigned
     let watcher: ts.WatchOfConfigFile<ts.SemanticDiagnosticsBuilderProgram>;
 
     // Note that there is another overload for `createWatchCompilerHost` that takes

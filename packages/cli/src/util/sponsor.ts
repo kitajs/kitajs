@@ -1,4 +1,4 @@
-import { Command } from '@oclif/core';
+import type { Command } from '@oclif/core';
 import chalk from 'chalk';
 
 export function printSponsor(cmd: Command) {

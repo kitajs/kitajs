@@ -1,4 +1,4 @@
-import ts from 'typescript';
+import type ts from 'typescript';
 import { KitaError } from './base';
 
 export class InvalidConfigError extends KitaError {

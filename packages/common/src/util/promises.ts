@@ -1,4 +1,4 @@
-import { Promisable } from 'type-fest';
+import type { Promisable } from 'type-fest';
 
 /** Resolves the first predicate that returns true. Otherwise, returns literal `false`. */
 export function predicateRace<

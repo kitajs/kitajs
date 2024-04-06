@@ -30,4 +30,4 @@ declare global {
   var KITA_PROJECT_ROOT: string;
 }
 
-export {};
+export type {};

@@ -22,12 +22,16 @@
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile",
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
+    "lint": "biome check .",
+    "lint:ci": "biome ci .",
+    "lint:fix": "biome check --apply-unsafe .",
     "prepare": "husky",
     "test": "pnpm -r --no-bail --aggregate-output --parallel test",
     "watch": "pnpm -r --parallel --no-bail build --watch"
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.12",
+    "@biomejs/biome": "1.6.4",
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.1",
     "@kitajs/ts-plugin": "workspace:^",

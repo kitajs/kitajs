@@ -1,4 +1,4 @@
-import { Provider } from '../providers';
+import type { Provider } from '../providers';
 
 type ASD = 'not defined';
 

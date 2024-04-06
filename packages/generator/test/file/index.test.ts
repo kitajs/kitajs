@@ -1,9 +1,9 @@
-import { ajvFilePlugin } from '@fastify/multipart';
-import formAutoContent from 'form-auto-content';
 import assert from 'node:assert';
 import { createReadStream } from 'node:fs';
 import path from 'node:path';
 import test, { describe } from 'node:test';
+import { ajvFilePlugin } from '@fastify/multipart';
+import formAutoContent from 'form-auto-content';
 import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
@@ -24,6 +24,7 @@ describe('File', async () => {
   test('Sends normal file', async () => {
     await using app = createApp(rt, { ajv: { plugins: [ajvFilePlugin] } });
 
+    // biome-ignore lint/correctness/noConstantCondition: it is a test
     if (-1 > 1) {
       app.register(rt.Kita, {
         fastifyMultipart: {
