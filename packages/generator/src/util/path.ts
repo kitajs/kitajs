@@ -1,5 +1,5 @@
+import path from 'node:path';
 import { kKitaGlobalRoot } from '@kitajs/common';
-import path from 'path';
 
 /** Posix: `./`, in windows: `.\\` */
 export const CURRENT_DIR = `.${path.sep}`;
@@ -38,9 +38,8 @@ export function removeExt(p: string) {
   // Only remove the extension if its present
   if (ext) {
     return p.slice(0, -ext.length);
-  } else {
-    return p;
   }
+  return p;
 }
 
 /** Matches all \ in a string */

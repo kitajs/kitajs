@@ -1,8 +1,8 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import { H1 } from '../providers/application';
-import { H2 } from '../providers/lifecycle';
-import { H3 } from '../providers/mix';
-import { H4 } from '../providers/none';
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import type { H1 } from '../providers/application';
+import type { H2 } from '../providers/lifecycle';
+import type { H3 } from '../providers/mix';
+import type { H4 } from '../providers/none';
 
 export function get(t1: H1, app: FastifyInstance) {
   return {

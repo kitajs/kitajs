@@ -1,4 +1,4 @@
-import { ChainParser, Provider, ProviderParser, ProviderResolverNotFound } from '@kitajs/common';
+import { ChainParser, type Provider, type ProviderParser, ProviderResolverNotFound } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 
 export class ChainProviderParser extends ChainParser<ProviderParser> implements ProviderParser {

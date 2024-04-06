@@ -1,17 +1,17 @@
 import {
   EmptyRouteFileError,
   KitaError,
-  Parameter,
-  ParameterParser,
+  type Parameter,
+  type ParameterParser,
   ParameterResolverNotFoundError,
-  Parser,
-  Route,
+  type Parser,
+  type Route,
   RouteParameterMultipleErrors,
   SourceFileNotFoundError,
   UnknownKitaError,
   isPromiseLike
 } from '@kitajs/common';
-import { ts } from 'ts-json-schema-generator';
+import type { ts } from 'ts-json-schema-generator';
 
 /** Traverse each statement of a source file for the given path and yields the result of the provided parser or an error. */
 export async function* traverseStatements<R>(
@@ -184,7 +184,8 @@ export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: Pa
 
   if (errors.length > 1) {
     throw new RouteParameterMultipleErrors(fn.name || fn, errors);
-  } else if (errors.length) {
+  }
+  if (errors.length) {
     throw errors[0];
   }
 }

@@ -1,4 +1,4 @@
-import { RouteSchema } from '@kitajs/common';
+import type { RouteSchema } from '@kitajs/common';
 
 export interface Transformer {
   b: 1;

@@ -1,5 +1,5 @@
-import { KitaConfig, capitalize, kRoutesFolder } from '@kitajs/common';
 import path from 'node:path';
+import { type KitaConfig, capitalize, kRoutesFolder } from '@kitajs/common';
 
 const WIN32_SEP_REGEX = /\\/g;
 

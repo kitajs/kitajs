@@ -1,4 +1,4 @@
-import { AstCollector, KitaConfig, ParameterParser } from '@kitajs/common';
+import type { AstCollector, KitaConfig, ParameterParser } from '@kitajs/common';
 import type { SchemaBuilder } from '../schema/builder';
 import { BodyParameterParser } from './body';
 import { BodyPropParameterParser } from './body-prop';

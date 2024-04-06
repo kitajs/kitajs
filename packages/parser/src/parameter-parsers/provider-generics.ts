@@ -1,4 +1,4 @@
-import { Parameter, ParameterParser } from '@kitajs/common';
+import type { Parameter, ParameterParser } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import { getTypeNodeName } from '../util/nodes';
 

@@ -1,5 +1,5 @@
-import { RouteSchema } from '@kitajs/runtime';
-import { FastifyRequest } from 'fastify';
+import type { RouteSchema } from '@kitajs/runtime';
+import type { FastifyRequest } from 'fastify';
 
 export type MyProvider = string;
 

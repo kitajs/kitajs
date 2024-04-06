@@ -1,4 +1,4 @@
-import { ProviderD } from './d';
+import type { ProviderD } from './d';
 
 export type ProviderC = 3;
 

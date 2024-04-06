@@ -1,5 +1,5 @@
 import { CannotReadConfigError, InvalidConfigError } from '../errors';
-import { KitaConfig } from './model';
+import type { KitaConfig } from './model';
 import { parseConfig } from './parser';
 
 /** Parses and validates the config. */
@@ -9,7 +9,7 @@ export function importConfig(path?: string, root?: string): KitaConfig {
     return parseConfig({}, root);
   }
 
-  let config;
+  let config: unknown;
 
   try {
     config = require(path);

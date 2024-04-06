@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /** Synchronously walks the given directory and returns all files in it. */
 export function walk(dir: string): string[] {

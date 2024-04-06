@@ -1,7 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { ux } from '@oclif/core';
 import chalk from 'chalk';
-import fs from 'fs';
-import path from 'path';
 import { BaseKitaCommand } from '../util/base';
 import { printSponsor } from '../util/sponsor';
 

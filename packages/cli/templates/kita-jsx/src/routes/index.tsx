@@ -28,6 +28,7 @@ export function get() {
               href="https://kita.js.org"
               target="_blank"
               class="border flex flex-col h-full border-red-200 rounded-xl p-6 gap-6"
+              rel="noreferrer"
             >
               <h2 class="leading[3rem] text-2xl font-bold">Kita.js 🡲</h2>
               <p class="leading-2 text-base lg:text-xl text-zinc-500 font-medium">
@@ -39,6 +40,7 @@ export function get() {
               href="https://kita.js.org/routing/html"
               target="_blank"
               class="border flex flex-col h-full border-red-200 rounded-xl p-6 gap-6"
+              rel="noreferrer"
             >
               <h2 class="leading[3rem] text-2xl font-bold">Kita HTML 🡲</h2>
               <p class="leading-2 text-base lg:text-xl text-zinc-500 font-medium">
@@ -50,6 +52,7 @@ export function get() {
               href="https://github.com/kitajs"
               target="_blank"
               class="border flex flex-col h-full border-red-200 rounded-xl p-6 gap-6"
+              rel="noreferrer"
             >
               <h2 class="leading[3rem] text-2xl font-bold">Github 🡲</h2>
               <p class="leading-2 text-base lg:text-xl text-zinc-500 font-medium">

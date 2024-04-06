@@ -1,4 +1,10 @@
-import { AstCollector, InvalidProviderGenericTypeError, Parameter, ParameterParser, Route } from '@kitajs/common';
+import {
+  type AstCollector,
+  InvalidProviderGenericTypeError,
+  type Parameter,
+  type ParameterParser,
+  type Route
+} from '@kitajs/common';
 import { ts } from 'ts-json-schema-generator';
 import { getParameterGenerics, getTypeNodeName } from '../util/nodes';
 import { joinParameters } from '../util/syntax';
