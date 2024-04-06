@@ -1,11 +1,11 @@
 ---
-'@kitajs/cli': patch
-'@kitajs/common': patch
-'create-kita': patch
-'@kitajs/generator': patch
-'@kitajs/parser': patch
-'@kitajs/runtime': patch
-'@kitajs/ts-plugin': patch
+'@kitajs/cli': minor
+'@kitajs/common': minor
+'create-kita': minor
+'@kitajs/generator': minor
+'@kitajs/parser': minor
+'@kitajs/runtime': minor
+'@kitajs/ts-plugin': minor
 ---
 
 Test code against node v20 and v21
