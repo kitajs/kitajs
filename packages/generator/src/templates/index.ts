@@ -1,4 +1,4 @@
-import { type Route, kKitaGlobalRoot, kKitaRoot } from '@kitajs/common';
+import { kKitaGlobalRoot, kKitaRoot, type Route } from '@kitajs/common';
 import { ts } from 'ts-writer';
 
 export function generateIndex(routes: Route[]) {

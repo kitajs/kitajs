@@ -1,6 +1,6 @@
+import type { AstCollector, KitaConfig, Route, SourceFormatter } from '@kitajs/common';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { AstCollector, KitaConfig, Route, SourceFormatter } from '@kitajs/common';
 import type { TsFile } from 'ts-writer';
 import { generateIndex } from './templates';
 import { generatePlugin } from './templates/plugin';

@@ -1,5 +1,5 @@
-import { inspect } from 'node:util';
 import { Flags } from '@oclif/core';
+import { inspect } from 'node:util';
 import { BaseKitaCommand } from '../util/base';
 import { printSponsor } from '../util/sponsor';
 

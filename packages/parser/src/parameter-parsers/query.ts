@@ -1,12 +1,12 @@
 import {
   InvalidParameterUsageError,
+  ParameterConflictError,
+  QueryMixError,
+  kRequestParam,
   type KitaConfig,
   type Parameter,
-  ParameterConflictError,
   type ParameterParser,
-  QueryMixError,
-  type Route,
-  kRequestParam
+  type Route
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import { StringType } from 'ts-json-schema-generator';

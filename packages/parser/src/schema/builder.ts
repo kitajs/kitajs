@@ -11,19 +11,19 @@ import {
   EnumType,
   IntersectionType,
   LiteralType,
-  type NodeParser,
   OptionalType,
   PrimitiveType,
   ReferenceType,
-  type Schema,
-  type Config as TsjConfig,
   TupleType,
-  type TypeFormatter,
   UndefinedType,
   UnionType,
   VoidType,
   createFormatter,
-  createParser
+  createParser,
+  type NodeParser,
+  type Schema,
+  type Config as TsjConfig,
+  type TypeFormatter
 } from 'ts-json-schema-generator';
 import { correctFormatterChildrenOrder, removeFormatterDefinitions } from './helpers';
 

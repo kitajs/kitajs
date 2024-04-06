@@ -1,22 +1,22 @@
-import path from 'node:path';
 import {
-  type AstCollector,
   DuplicateOperationIdError,
   DuplicateProviderTypeError,
+  KitaError,
+  UnknownKitaError,
+  kProvidersFolder,
+  kRoutesFolder,
+  type AstCollector,
   type JsonSchema,
   type KitaConfig,
-  KitaError,
   type ParameterParser,
   type Provider,
   type ProviderParser,
   type Route,
   type RouteParser,
-  type SourceFormatter,
-  UnknownKitaError,
-  kProvidersFolder,
-  kRoutesFolder
+  type SourceFormatter
 } from '@kitajs/common';
 import type { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
+import path from 'node:path';
 import { ts } from 'ts-json-schema-generator';
 import { buildParameterParser } from './parameter-parsers';
 import { buildProviderParser } from './provider-parsers';

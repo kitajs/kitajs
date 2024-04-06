@@ -1,8 +1,8 @@
 import {
   ChainParser,
+  ParameterResolverNotFoundError,
   type Parameter,
   type ParameterParser,
-  ParameterResolverNotFoundError,
   type Route
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';

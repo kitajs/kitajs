@@ -1,4 +1,4 @@
-import { type KitaConfig, type ParameterParser, type Route, kRequestParam } from '@kitajs/common';
+import { kRequestParam, type KitaConfig, type ParameterParser, type Route } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import { mergeSchema } from '../schema/helpers';
 import { getParameterName, getTypeNodeName, isParamOptional } from '../util/nodes';

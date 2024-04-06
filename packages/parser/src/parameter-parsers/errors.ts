@@ -1,13 +1,13 @@
-import http from 'node:http';
 import {
-  type AstCollector,
   InvalidParameterUsageError,
+  UnknownHttpError,
+  kFastifyParam,
+  type AstCollector,
   type Parameter,
   type ParameterParser,
-  type Route,
-  UnknownHttpError,
-  kFastifyParam
+  type Route
 } from '@kitajs/common';
+import http from 'node:http';
 import { ts } from 'ts-json-schema-generator';
 import { mergeSchema } from '../schema/helpers';
 import { getTypeName, getTypeNodeName } from '../util/nodes';

@@ -1,5 +1,5 @@
-import assert from 'node:assert';
 import type { File } from '@kitajs/runtime';
+import assert from 'node:assert';
 
 export async function post(file: File, unnamed: File<'named'>) {
   assert.ok(file);

@@ -1,12 +1,12 @@
 import type { ts } from 'ts-json-schema-generator';
 
 import {
-  type Parameter,
-  type ParameterParser,
-  type Route,
   kFastifyParam,
   kReplyParam,
-  kRequestParam
+  kRequestParam,
+  type Parameter,
+  type ParameterParser,
+  type Route
 } from '@kitajs/common';
 import { getTypeNodeName } from '../util/nodes';
 

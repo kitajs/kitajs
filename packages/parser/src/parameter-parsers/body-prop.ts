@@ -1,12 +1,12 @@
 import {
   BodyInGetRequestError,
   InvalidParameterUsageError,
+  ParameterConflictError,
+  kRequestParam,
   type KitaConfig,
   type Parameter,
-  ParameterConflictError,
   type ParameterParser,
-  type Route,
-  kRequestParam
+  type Route
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import type { SchemaBuilder } from '../schema/builder';

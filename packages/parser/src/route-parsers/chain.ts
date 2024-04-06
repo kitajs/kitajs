@@ -1,4 +1,4 @@
-import { ChainParser, type Route, type RouteParser, RouteResolverNotFoundError } from '@kitajs/common';
+import { ChainParser, RouteResolverNotFoundError, type Route, type RouteParser } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import type { Promisable } from 'type-fest';
 

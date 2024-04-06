@@ -1,6 +1,6 @@
 import {
-  type AstCollector,
   InvalidProviderGenericTypeError,
+  type AstCollector,
   type Parameter,
   type ParameterParser,
   type Route

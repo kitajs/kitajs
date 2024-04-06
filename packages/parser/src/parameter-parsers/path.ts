@@ -1,11 +1,11 @@
 import {
   InvalidParameterUsageError,
+  kRequestParam,
   type JsonSchema,
   type KitaConfig,
   type Parameter,
   type ParameterParser,
-  type Route,
-  kRequestParam
+  type Route
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import { ArrayType } from 'ts-json-schema-generator';

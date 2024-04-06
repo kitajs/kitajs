@@ -1,4 +1,4 @@
-import { type ChildProcess, fork } from 'node:child_process';
+import { fork, type ChildProcess } from 'node:child_process';
 import { EventEmitter } from 'node:events';
 import type { server } from 'typescript/lib/tsserverlibrary';
 

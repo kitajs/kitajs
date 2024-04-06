@@ -1,6 +1,6 @@
+import deepmerge from 'deepmerge';
 import fs from 'node:fs';
 import path from 'node:path';
-import deepmerge from 'deepmerge';
 import { InvalidConfigError, RuntimeNotFoundError } from '../errors';
 import type { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 

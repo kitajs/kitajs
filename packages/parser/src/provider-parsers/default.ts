@@ -1,21 +1,21 @@
-import path from 'node:path';
 import {
   ApplicationHookNames,
   IncompatibleProviderError,
   InvalidProviderHookError,
   InvalidProviderSchemaTransformerError,
-  type KitaConfig,
   KitaError,
   LifecycleHookNames,
   NoProviderExportedError,
-  type ParameterParser,
-  type Provider,
-  type ProviderParser,
   RouteParameterMultipleErrors,
   UnknownKitaError,
   UntypedProviderError,
-  WronglyTypedProviderError
+  WronglyTypedProviderError,
+  type KitaConfig,
+  type ParameterParser,
+  type Provider,
+  type ProviderParser
 } from '@kitajs/common';
+import path from 'node:path';
 import { ts } from 'ts-json-schema-generator';
 import type { Promisable } from 'type-fest';
 import {

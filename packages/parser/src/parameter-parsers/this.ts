@@ -1,11 +1,11 @@
 import {
   InvalidParameterUsageError,
-  type Parameter,
-  type ParameterParser,
-  type Route,
   RouteMapperNotExportedError,
   RouteOptionsAlreadyDefinedError,
-  kControllerName
+  kControllerName,
+  type Parameter,
+  type ParameterParser,
+  type Route
 } from '@kitajs/common';
 import { ts } from 'ts-json-schema-generator';
 import {

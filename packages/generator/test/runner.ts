@@ -1,11 +1,11 @@
 /// <reference types="@kitajs/runtime" />
 
+import { parseConfig, readCompilerOptions, type PartialKitaConfig } from '@kitajs/common';
+import { KitaParser } from '@kitajs/parser';
+import fastify, { type FastifyHttpOptions } from 'fastify';
 import assert from 'node:assert';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { type PartialKitaConfig, parseConfig, readCompilerOptions } from '@kitajs/common';
-import { KitaParser } from '@kitajs/parser';
-import fastify, { type FastifyHttpOptions } from 'fastify';
 import { KitaFormatter } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');

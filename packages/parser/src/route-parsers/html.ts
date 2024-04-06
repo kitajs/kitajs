@@ -86,7 +86,7 @@ export class HtmlRouteParser implements RouteParser {
     };
 
     // Parses all jsdoc tags
-    parseJsDocTags(node, route);
+    parseJsDocTags(node, route, this.collector);
 
     const returnType = this.builder.createTypeSchema(getReturnType(node, this.checker));
     const primitive = this.builder.toPrimitive(returnType, true);

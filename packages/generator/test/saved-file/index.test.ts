@@ -1,9 +1,9 @@
+import { ajvFilePlugin } from '@fastify/multipart';
+import formAutoContent from 'form-auto-content';
 import assert from 'node:assert';
 import { createReadStream } from 'node:fs';
 import path from 'node:path';
 import test, { describe } from 'node:test';
-import { ajvFilePlugin } from '@fastify/multipart';
-import formAutoContent from 'form-auto-content';
 import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet

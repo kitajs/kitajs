@@ -1,11 +1,11 @@
 import {
-  type AstCollector,
   BodyInGetRequestError,
+  kRequestParam,
+  type AstCollector,
   type KitaConfig,
   type Parameter,
   type ParameterParser,
-  type Route,
-  kRequestParam
+  type Route
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
 import { mergeSchema } from '../schema/helpers';
