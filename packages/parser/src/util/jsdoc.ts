@@ -1,9 +1,15 @@
-import { EmptyJsdocError, JsdocAlreadyDefinedError, Route, UnknownHttpJsdocError } from '@kitajs/common';
+import {
+  EmptyJsdocError,
+  JsdocAlreadyDefinedError,
+  UnknownHttpJsdocError,
+  type AstCollector,
+  type Route
+} from '@kitajs/common';
 import { ts } from 'ts-json-schema-generator';
 import { mergeSchema } from '../schema/helpers';
 
 /** Parses all jsdoc tags of a route function and applies them to the route. */
-export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
+export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route, collector: AstCollector) {
   // Base description
   {
     //@ts-expect-error - TODO: Improve jsdoc parsing
@@ -56,7 +62,16 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route) {
           throw new EmptyJsdocError(tag.tagName || tag);
         }
 
-        const numbers = value.split(',').map(Number);
+        const numbers = value.trim().split(',').map(Number);
+
+        // Adds fastify sensible plugin
+        if (!collector.getPlugin('fastifySensible')) {
+          collector.addPlugin('fastifySensible', {
+            name: 'fastifySensible',
+            importUrl: '@fastify/sensible',
+            options: { sharedSchemaId: 'HttpError' }
+          });
+        }
 
         for (const number of numbers) {
           if (Number.isNaN(number)) {

@@ -110,7 +110,7 @@ export class RestRouteParser implements RouteParser {
     };
 
     // Parses all jsdoc tags
-    parseJsDocTags(node, route);
+    parseJsDocTags(node, route, this.collector);
 
     // Adds response type.
     try {
