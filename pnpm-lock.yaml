@@ -169,8 +169,8 @@ importers:
         specifier: ^8.14.0
         version: 8.14.0
       '@kitajs/fastify-html-plugin':
-        specifier: ^4.0.1
-        version: 4.0.1(@kitajs/html@4.1.0)
+        specifier: ^4.1.0
+        version: 4.1.0(@kitajs/html@4.1.0)
       '@kitajs/html':
         specifier: ^4.1.0
         version: 4.1.0
@@ -1920,19 +1920,6 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@kitajs/fastify-html-plugin@4.0.1(@kitajs/html@4.1.0):
-    resolution: {integrity: sha512-fKxSkjR0+jPLGaQ2tUMWUfqKgYKnXXI0skOavJOWMv7zxDtT9v5vPrjwCNuZO5/8qtowx9kMmCcdpMIdfCAE9Q==}
-    peerDependencies:
-      '@kitajs/html': ^4.1.0
-      '@kitajs/ts-html-plugin': ^4.0.1
-    peerDependenciesMeta:
-      '@kitajs/ts-html-plugin':
-        optional: true
-    dependencies:
-      '@kitajs/html': 4.1.0
-      fastify-plugin: 4.5.1
-    dev: true
-
   /@kitajs/fastify-html-plugin@4.1.0(@kitajs/html@4.1.0):
     resolution: {integrity: sha512-pbd4xOVopLnBfxqUyCHYzNtKX2H4V3z8lW+CPXnPEYpXgWUeLVjozevmTMDyWBCi14RujNWHJ1CPcz3uX2ZrXQ==}
     peerDependencies:
@@ -1944,7 +1931,6 @@ packages:
     dependencies:
       '@kitajs/html': 4.1.0
       fastify-plugin: 4.5.1
-    dev: false
 
   /@kitajs/html@4.1.0:
     resolution: {integrity: sha512-uB2HnIR7SYgLkIYdtEyTLc08MzukKh9BXRW6Qs3U9vRHG/LMeTpzuPHrkssfPjFAXHAoM4TukxV+rggJ57l5+A==}
