@@ -34,7 +34,7 @@
     "@fastify/multipart": "^8.1.0",
     "@fastify/sensible": "^5.5.0",
     "@fastify/swagger": "^8.14.0",
-    "@kitajs/fastify-html-plugin": "^4.0.1",
+    "@kitajs/fastify-html-plugin": "^4.1.0",
     "@kitajs/html": "^4.1.0",
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
