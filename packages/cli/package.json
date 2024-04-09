@@ -76,7 +76,7 @@
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
     "@types/inquirer": "^8.2.10",
-    "@types/node": "^20.12.2",
+    "@types/node": "^20.12.6",
     "c8": "^9.1.0",
     "oclif": "^4.7.5"
   },
