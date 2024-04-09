@@ -45,8 +45,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@oclif/core':
-        specifier: ^3.25.2
-        version: 3.26.0
+        specifier: ^3.26.2
+        version: 3.26.2
       '@oclif/plugin-autocomplete':
         specifier: ^3.0.10
         version: 3.0.13
@@ -131,8 +131,8 @@ importers:
         specifier: workspace:^
         version: link:../cli
       '@oclif/core':
-        specifier: ^3.25.2
-        version: 3.26.0
+        specifier: ^3.26.2
+        version: 3.26.2
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -2036,8 +2036,8 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  /@oclif/core@3.26.0:
-    resolution: {integrity: sha512-TpMdfD4tfA2tVVbd4l0PrP02o5KoUXYmudBbTC7CeguDo/GLoprw4uL8cMsaVA26+cbcy7WYtOEydQiHVtJixA==}
+  /@oclif/core@3.26.2:
+    resolution: {integrity: sha512-Gpn21jKjcOx0TecI1wLJrY/65jtgJx5f1GzTc81oKvEpKes1b3Li2SMZygRaWRpcQ3wjN0d7lTPi8WwLsmTBjA==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@types/cli-progress': 3.11.5
@@ -2073,7 +2073,7 @@ packages:
     resolution: {integrity: sha512-iRfRZmONzODC34/uyRjYitLOd0z7yD3+uDNMPn3bI8LuWgKPp15SXKdvdE3Cc1i1jdb5HHTwc0LQJuRJEpd8vg==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.26.0
+      '@oclif/core': 3.26.2
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       ejs: 3.1.9
@@ -2085,14 +2085,14 @@ packages:
     resolution: {integrity: sha512-4UG/5q7O3dhUsC0JMqcUV0NU7jybkXkAXLnsRt+KVzDtZWwNOeBECimIFWOmwna5BaneTn8b0+lqO4JvUgeiqA==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.26.0
+      '@oclif/core': 3.26.2
 
   /@oclif/plugin-not-found@3.1.2:
     resolution: {integrity: sha512-FbnvPkwwkwd0J/jgECCbpeUFvkli2pZEeWiHlNiIZL1nOv3xXrYiC8/eiTo+qmNuCyHyEXcSr+Ke8DLA+jac4g==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@inquirer/confirm': 3.1.2
-      '@oclif/core': 3.26.0
+      '@oclif/core': 3.26.2
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
 
@@ -2100,7 +2100,7 @@ packages:
     resolution: {integrity: sha512-kd6xcHVNsLST7WlLpTOtXeClmX9AipY20JhOwxN05GV4WArV+VBkcD79noMjVlDmq1+04i/RI7WkBFNMjDVfpQ==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.26.0
+      '@oclif/core': 3.26.2
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       npm: 10.5.1
@@ -2116,7 +2116,7 @@ packages:
     resolution: {integrity: sha512-JtPTJFjL6izMCe5dDS2ix2PyWAD2DeJ5Atzd2HHRifbPcmOxaUE62FKTnarIwfPHLMF/nN33liwo9InAdirozg==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@oclif/core': 3.26.0
+      '@oclif/core': 3.26.2
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
@@ -6350,7 +6350,7 @@ packages:
       '@inquirer/confirm': 3.1.1
       '@inquirer/input': 2.1.1
       '@inquirer/select': 2.2.1
-      '@oclif/core': 3.26.0
+      '@oclif/core': 3.26.2
       '@oclif/plugin-help': 6.0.20
       '@oclif/plugin-not-found': 3.1.2
       '@oclif/plugin-warn-if-update-available': 3.0.15
