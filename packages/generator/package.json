@@ -38,7 +38,7 @@
     "@kitajs/html": "^4.1.0",
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
-    "@scalar/api-reference": "^1.20.27",
+    "@scalar/api-reference": "^1.20.29",
     "@scalar/fastify-api-reference": "^1.20.27",
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
