@@ -21,6 +21,7 @@
   "files": [
     "bin",
     "dist",
+    "!**/tsconfig.build.tsbuildinfo",
     "runtime",
     "oclif.manifest.json",
     "templates"

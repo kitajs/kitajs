@@ -17,6 +17,7 @@
   "main": "dist/index.js",
   "files": [
     "src",
+    "!**/tsconfig.tsbuildinfo",
     "dist"
   ],
   "scripts": {
