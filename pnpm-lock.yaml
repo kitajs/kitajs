@@ -94,8 +94,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0
       oclif:
-        specifier: ^4.7.8
-        version: 4.7.8
+        specifier: ^4.8.0
+        version: 4.8.0
 
   packages/common:
     dependencies:
@@ -6573,8 +6573,8 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /oclif@4.7.8:
-    resolution: {integrity: sha512-LqsxvbrZCYQAlpY+/yeneMruKIzAa6qgUhWkiZqlDwkaL+ckex10VkwQ7qYOl4sOyykh8ZHRkNdPFgPC1mEK0A==}
+  /oclif@4.8.0:
+    resolution: {integrity: sha512-sSaAy8m7EVrkgkM9mXE+b33hDUI9lhAz28JhX13EVmV6eJRRqpnBqQSymdIoKDCyJoQeAY/JHqnMXvyuObMZBg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
