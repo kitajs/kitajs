@@ -7,6 +7,7 @@ import {
   ArrayType,
   BaseType,
   Context,
+  DEFAULT_CONFIG,
   DefinitionType,
   EnumType,
   IntersectionType,
@@ -38,11 +39,13 @@ export class SchemaBuilder {
     private config: KitaConfig,
     program: ts.Program
   ) {
-    const generatorCfg: TsjConfig = {
+    const generatorCfg = {
+      ...DEFAULT_CONFIG,
       ...config.generatorConfig,
       tsconfig: config.tsconfig,
-      discriminatorType: 'open-api'
-    };
+      discriminatorType: 'open-api',
+      functions: 'hide'
+    } satisfies TsjConfig;
 
     this.parser = createParser(program, generatorCfg, (mut) => {
       for (const parser of config.generatorConfig.parsers) {

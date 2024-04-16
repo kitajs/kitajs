@@ -81,7 +81,7 @@ export interface KitaConfig {
   watchIgnore: string[];
 }
 
-export interface KitaGeneratorConfig extends Omit<JsonConfig, 'tsconfig' | 'discriminatorType'> {
+export interface KitaGeneratorConfig extends Omit<JsonConfig, 'tsconfig' | 'discriminatorType' | 'functions'> {
   /** Extra parsers to handle ts.Nodes into Schema Nodes */
   parsers: SubNodeParser[];
   /** Extra formatters to handle Schema Nodes into json schemas */
