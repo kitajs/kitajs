@@ -31,7 +31,7 @@
     "ts-json-schema-generator": "^2.0.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.15.0",
-    "typescript": "^5.3.3"
+    "typescript": "~5.4.5"
   },
   "devDependencies": {
     "@fastify/sensible": "^5.5.0",
@@ -44,6 +44,6 @@
     "fastify": "^4.26.2"
   },
   "peerDependencies": {
-    "typescript": "^5.3"
+    "typescript": "~5.4.5"
   }
 }

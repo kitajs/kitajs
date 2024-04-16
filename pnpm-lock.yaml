@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@arthurfiorette/prettier-config':
         specifier: ^1.0.12
-        version: 1.0.12(prettier@3.2.5)(typescript@5.3.3)
+        version: 1.0.12(prettier@3.2.5)(typescript@5.4.5)
       '@biomejs/biome':
         specifier: 1.6.4
         version: 1.6.4
@@ -30,8 +30,8 @@ importers:
         specifier: ^3.2.5
         version: 3.2.5
       typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
+        specifier: ~5.4.5
+        version: 5.4.5
 
   packages/cli:
     dependencies:
@@ -75,12 +75,12 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
+        specifier: ~5.4.5
+        version: 5.4.5
     devDependencies:
       '@swc-node/register':
         specifier: ^1.9.0
-        version: 1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.3.3)
+        version: 1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.4.5)
       '@swc/helpers':
         specifier: ^0.5.8
         version: 0.5.8
@@ -109,8 +109,8 @@ importers:
         specifier: ^4.26
         version: 4.26.2
       ts-json-schema-generator:
-        specifier: ^1.5.0
-        version: 1.5.0
+        specifier: ^2.0.1
+        version: 2.0.1
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
@@ -118,8 +118,8 @@ importers:
         specifier: ^4.15.0
         version: 4.15.0
       typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
+        specifier: ~5.4.5
+        version: 5.4.5
     devDependencies:
       '@types/node':
         specifier: ^20.12.7
@@ -134,8 +134,8 @@ importers:
         specifier: ^3.26.2
         version: 3.26.2
       typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
+        specifier: ~5.4.5
+        version: 5.4.5
     devDependencies:
       '@types/node':
         specifier: ^20.12.7
@@ -151,7 +151,7 @@ importers:
         version: 1.1.1
       ts-writer:
         specifier: ^1.3.1
-        version: 1.3.1(typescript@5.3.3)
+        version: 1.3.1(typescript@5.4.5)
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
@@ -182,13 +182,13 @@ importers:
         version: link:../runtime
       '@scalar/api-reference':
         specifier: ^1.20.30
-        version: 1.20.30(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14)
+        version: 1.20.30(postcss@8.4.38)(typescript@5.4.5)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14)
       '@scalar/fastify-api-reference':
         specifier: ^1.20.27
         version: 1.20.27(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
       '@swc-node/register':
         specifier: ^1.9.0
-        version: 1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.3.3)
+        version: 1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.4.5)
       '@swc/helpers':
         specifier: ^0.5.8
         version: 0.5.8
@@ -235,8 +235,8 @@ importers:
         specifier: ^4.15.0
         version: 4.15.0
       typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
+        specifier: ~5.4.5
+        version: 5.4.5
     devDependencies:
       '@fastify/sensible':
         specifier: ^5.5.0
@@ -249,7 +249,7 @@ importers:
         version: link:../runtime
       '@swc-node/register':
         specifier: ^1.9.0
-        version: 1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.3.3)
+        version: 1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.4.5)
       '@swc/helpers':
         specifier: ^0.5.8
         version: 0.5.8
@@ -318,15 +318,15 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       typescript:
-        specifier: ~5.3.3
-        version: 5.3.3
+        specifier: ~5.4.5
+        version: 5.4.5
     devDependencies:
       '@kitajs/runtime':
         specifier: workspace:^
         version: link:../runtime
       '@swc-node/register':
         specifier: ^1.9.0
-        version: 1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.3.3)
+        version: 1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.4.5)
       '@swc/helpers':
         specifier: ^0.5.8
         version: 0.5.8
@@ -338,14 +338,14 @@ importers:
         version: 20.12.7
       self:
         specifier: file:.
-        version: file:packages/ts-plugin(typescript@5.3.3)
+        version: file:packages/ts-plugin(typescript@5.4.5)
       type-fest:
         specifier: ^4.15.0
         version: 4.15.0
 
 packages:
 
-  /@arthurfiorette/prettier-config@1.0.12(prettier@3.2.5)(typescript@5.3.3):
+  /@arthurfiorette/prettier-config@1.0.12(prettier@3.2.5)(typescript@5.4.5):
     resolution: {integrity: sha512-jR36bHWLVv71FuKkU9XYeBe6ry/AN98EDh0WVyfo3QwjJFbhpeElFTS4nluwxeXfu6nJ8/Hv8bJf6cYeXzfeoA==}
     hasBin: true
     peerDependencies:
@@ -353,7 +353,7 @@ packages:
     dependencies:
       prettier: 3.2.5
       prettier-plugin-jsdoc: 1.3.0(prettier@3.2.5)
-      prettier-plugin-organize-imports: 3.2.4(prettier@3.2.5)(typescript@5.3.3)
+      prettier-plugin-organize-imports: 3.2.4(prettier@3.2.5)(typescript@5.4.5)
       prettier-plugin-packagejson: 2.4.14(prettier@3.2.5)
     transitivePeerDependencies:
       - '@volar/vue-language-plugin-pug'
@@ -2074,7 +2074,7 @@ packages:
       vue: ^3.2.0
     dependencies:
       '@tanstack/vue-virtual': 3.2.0(vue@3.4.21)
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     dev: true
 
   /@humanwhocodes/momoa@3.0.1:
@@ -2536,7 +2536,7 @@ packages:
     dev: true
     optional: true
 
-  /@scalar/api-client@1.1.16(@scalar/oas-utils@0.1.5)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14):
+  /@scalar/api-client@1.1.16(@scalar/oas-utils@0.1.5)(typescript@5.4.5)(vue@3.4.21)(yjs@13.6.14):
     resolution: {integrity: sha512-b9dU+JIaz+zHESKFt5Kq2FA2fEFWwyABf0GQPpQ0k/skuyPVp0ixwQIZjEv2/PAY8qaZD9ghmXuSGDl0KbM5vA==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -2545,7 +2545,7 @@ packages:
     dependencies:
       '@floating-ui/vue': 1.0.6(vue@3.4.21)
       '@headlessui/vue': 1.7.19(vue@3.4.21)
-      '@scalar/components': 0.4.11(axios@1.6.8)(typescript@5.3.3)(vue@3.4.21)
+      '@scalar/components': 0.4.11(axios@1.6.8)(typescript@5.4.5)(vue@3.4.21)
       '@scalar/oas-utils': 0.1.5(axios@1.6.8)
       '@scalar/openapi-parser': 0.3.2
       '@scalar/themes': 0.6.7(vue@3.4.21)
@@ -2558,7 +2558,7 @@ packages:
       nanoid: 5.0.6
       pretty-bytes: 6.1.1
       pretty-ms: 8.0.0
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - debug
@@ -2572,7 +2572,7 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/api-reference@1.20.30(postcss@8.4.38)(typescript@5.3.3)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14):
+  /@scalar/api-reference@1.20.30(postcss@8.4.38)(typescript@5.4.5)(unified@11.0.4)(vue@3.4.21)(yjs@13.6.14):
     resolution: {integrity: sha512-EWlWq3WdirBxl+A7weI1FFlCbu2LMEyGTgAKaDDBbOMajBEisikCO5y3ZcPgv4JDGZNXdbJ+MpQxP91cetgdFw==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -2580,8 +2580,8 @@ packages:
       vue: ^3.3.0
     dependencies:
       '@headlessui/vue': 1.7.19(vue@3.4.21)
-      '@scalar/api-client': 1.1.16(@scalar/oas-utils@0.1.5)(typescript@5.3.3)(vue@3.4.21)(yjs@13.6.14)
-      '@scalar/components': 0.4.11(axios@1.6.8)(typescript@5.3.3)(vue@3.4.21)
+      '@scalar/api-client': 1.1.16(@scalar/oas-utils@0.1.5)(typescript@5.4.5)(vue@3.4.21)(yjs@13.6.14)
+      '@scalar/components': 0.4.11(axios@1.6.8)(typescript@5.4.5)(vue@3.4.21)
       '@scalar/oas-utils': 0.1.5(axios@1.6.8)
       '@scalar/openapi-parser': 0.3.2
       '@scalar/snippetz': 0.1.5
@@ -2608,7 +2608,7 @@ packages:
       remark-stringify: 11.0.0
       unhead: 1.9.4
       unified: 11.0.4
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
       vue-sonner: 1.1.2
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -2625,7 +2625,7 @@ packages:
       - yjs
     dev: true
 
-  /@scalar/components@0.4.11(axios@1.6.8)(typescript@5.3.3)(vue@3.4.21):
+  /@scalar/components@0.4.11(axios@1.6.8)(typescript@5.4.5)(vue@3.4.21):
     resolution: {integrity: sha512-Qw9pMvYwU1qjA53y9xbIsuwH2KP1yGffPn44kwoKdVMAEznCfwW/tvQ00i6tCNpPGdw/XVMBh9AWtd0IU6RN0A==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -2635,11 +2635,11 @@ packages:
       '@scalar/oas-utils': 0.1.5(axios@1.6.8)
       '@vueuse/core': 10.9.0(vue@3.4.21)
       class-variance-authority: 0.7.0
-      cva: 1.0.0-beta.1(typescript@5.3.3)
+      cva: 1.0.0-beta.1(typescript@5.4.5)
       nanoid: 5.0.6
       prismjs: 1.29.0
       tailwind-merge: 2.2.2
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - axios
@@ -2731,7 +2731,7 @@ packages:
     peerDependencies:
       vue: ^3.3.0
     dependencies:
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     dev: true
 
   /@scalar/use-codemirror@0.9.1(vue@3.4.21)(yjs@13.6.14):
@@ -2756,7 +2756,7 @@ packages:
       '@replit/codemirror-css-color-picker': 6.1.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.26.1)
       '@uiw/codemirror-themes': 4.21.25(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.26.1)
       codemirror: 6.0.1(@lezer/common@1.2.1)
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
       y-codemirror.next: 0.3.3(@codemirror/state@6.4.1)(@codemirror/view@6.26.1)(yjs@13.6.14)
       yjs: 13.6.14
     dev: true
@@ -2769,7 +2769,7 @@ packages:
       vue: ^3.3.0
     dependencies:
       '@headlessui/vue': 1.7.19(vue@3.4.21)
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     dev: true
 
   /@scalar/use-tooltip@0.5.12(vue@3.4.21):
@@ -2778,7 +2778,7 @@ packages:
     peerDependencies:
       vue: ^3.3.0
     dependencies:
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     dev: true
 
   /@sindresorhus/is@5.6.0:
@@ -3252,7 +3252,7 @@ packages:
       '@swc/types': 0.1.6
     dev: true
 
-  /@swc-node/register@1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.3.3):
+  /@swc-node/register@1.9.0(@swc/core@1.4.12)(@swc/types@0.1.6)(typescript@5.4.5):
     resolution: {integrity: sha512-i0iYInD4q5v3xQC6bKvs0QtfUxu197CU5qKALmpxEqTYs7sIhQ7KFLe3kP+eAR4gRkJTvAgjQgrokXLN2jZrOw==}
     peerDependencies:
       '@swc/core': '>= 1.3'
@@ -3265,7 +3265,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       pirates: 4.0.6
       tslib: 2.6.2
-      typescript: 5.3.3
+      typescript: 5.4.5
     transitivePeerDependencies:
       - '@swc/types'
       - supports-color
@@ -3427,7 +3427,7 @@ packages:
       vue: ^2.7.0 || ^3.0.0
     dependencies:
       '@tanstack/virtual-core': 3.2.0
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     dev: true
 
   /@types/cli-progress@3.11.5:
@@ -3654,7 +3654,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.21
       '@vue/shared': 3.4.21
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     dev: true
 
   /@vue/shared@3.4.21:
@@ -4235,11 +4235,6 @@ packages:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
     dev: true
 
-  /commander@11.1.0:
-    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
-    engines: {node: '>=16'}
-    dev: false
-
   /commander@12.0.0:
     resolution: {integrity: sha512-MwVNWlYjDTtOjX5PiD7o5pK0UrFU/OYgcJfjjK4RaHZETNtjJqrZa9Y9ds88+A+f+d5lv+561eZ+yCKoS3gbAA==}
     engines: {node: '>=18'}
@@ -4334,7 +4329,7 @@ packages:
       stream-transform: 2.1.3
     dev: true
 
-  /cva@1.0.0-beta.1(typescript@5.3.3):
+  /cva@1.0.0-beta.1(typescript@5.4.5):
     resolution: {integrity: sha512-gznFqTgERU9q4wg7jfgqtt34+RUt9S5t0xDAAEuDwQEAXEgjdDkKXpLLNjwSxsB4Ln/sqWJEH7yhE8Ny0mxd0w==}
     peerDependencies:
       typescript: '>= 4.5.5 < 6'
@@ -4343,7 +4338,7 @@ packages:
         optional: true
     dependencies:
       clsx: 2.0.0
-      typescript: 5.3.3
+      typescript: 5.4.5
     dev: true
 
   /data-view-buffer@1.0.1:
@@ -6944,7 +6939,7 @@ packages:
       - supports-color
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.4(prettier@3.2.5)(typescript@5.3.3):
+  /prettier-plugin-organize-imports@3.2.4(prettier@3.2.5)(typescript@5.4.5):
     resolution: {integrity: sha512-6m8WBhIp0dfwu0SkgfOxJqh+HpdyfqSSLfKKRZSFbDuEQXDDndb8fTpRWkUrX/uBenkex3MgnVk0J3b3Y5byog==}
     peerDependencies:
       '@volar/vue-language-plugin-pug': ^1.0.4
@@ -6958,7 +6953,7 @@ packages:
         optional: true
     dependencies:
       prettier: 3.2.5
-      typescript: 5.3.3
+      typescript: 5.4.5
     dev: true
 
   /prettier-plugin-packagejson@2.4.14(prettier@3.2.5):
@@ -7811,20 +7806,6 @@ packages:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
     dev: true
 
-  /ts-json-schema-generator@1.5.0:
-    resolution: {integrity: sha512-RkiaJ6YxGc5EWVPfyHxszTmpGxX8HC2XBvcFlAl1zcvpOG4tjjh+eXioStXJQYTvr9MoK8zCOWzAUlko3K0DiA==}
-    engines: {node: '>=10.0.0'}
-    hasBin: true
-    dependencies:
-      '@types/json-schema': 7.0.15
-      commander: 11.1.0
-      glob: 8.1.0
-      json5: 2.2.3
-      normalize-path: 3.0.0
-      safe-stable-stringify: 2.4.3
-      typescript: 5.3.3
-    dev: false
-
   /ts-json-schema-generator@2.0.1:
     resolution: {integrity: sha512-0sWa9uXFzkcZS/0LV4BLB91elC+2brg6JyIYXZEUCs6P7Z/BXuhUutxO4ssg7Kb9Xe4dzQXsc5IAmOHt7IETmA==}
     engines: {node: '>=10.0.0'}
@@ -7839,14 +7820,14 @@ packages:
       typescript: 5.4.5
     dev: false
 
-  /ts-writer@1.3.1(typescript@5.3.3):
+  /ts-writer@1.3.1(typescript@5.4.5):
     resolution: {integrity: sha512-I/uvF/evEuXr0ym7imZnmRDiPeuBpFrj4Zsk8gJyIW3kca8uMLbImnwPQzrsOCQ8JjLQuWSLSJqn0VBfRVWl9A==}
     peerDependencies:
       typescript: ^5.2.2
     dependencies:
       json-stable-stringify: 1.1.1
       tslib: 2.6.2
-      typescript: 5.3.3
+      typescript: 5.4.5
     dev: false
 
   /tsc-alias@1.8.8:
@@ -7961,16 +7942,10 @@ packages:
       possible-typed-array-names: 1.0.0
     dev: true
 
-  /typescript@5.3.3:
-    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   /typescript@5.4.5:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: false
 
   /unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -8192,14 +8167,14 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.5)
     dev: true
 
   /vue-sonner@1.1.2:
     resolution: {integrity: sha512-yg4f5s0a3oiiI7cNvO0Dajux1Y7s04lxww3vnQtnwQawJ3KqaKA9RIRMdI9wGTosRGIOwgYFniFRGl4+IuKPZw==}
     dev: true
 
-  /vue@3.4.21(typescript@5.3.3):
+  /vue@3.4.21(typescript@5.4.5):
     resolution: {integrity: sha512-5hjyV/jLEIKD/jYl4cavMcnzKwjMKohureP8ejn3hhEjwhWIhWeuzL2kJAjzl/WyVsgPY56Sy4Z40C3lVshxXA==}
     peerDependencies:
       typescript: '*'
@@ -8212,7 +8187,7 @@ packages:
       '@vue/runtime-dom': 3.4.21
       '@vue/server-renderer': 3.4.21(vue@3.4.21)
       '@vue/shared': 3.4.21
-      typescript: 5.3.3
+      typescript: 5.4.5
     dev: true
 
   /w3c-keyname@2.2.8:
@@ -8416,16 +8391,16 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: true
 
-  file:packages/ts-plugin(typescript@5.3.3):
+  file:packages/ts-plugin(typescript@5.4.5):
     resolution: {directory: packages/ts-plugin, type: directory}
     id: file:packages/ts-plugin
     name: '@kitajs/ts-plugin'
     peerDependencies:
-      typescript: ^5.3
+      typescript: ~5.4.5
     dependencies:
       '@kitajs/common': link:packages/common
       '@kitajs/parser': link:packages/parser
       deasync: 0.1.29
       tslib: 2.6.2
-      typescript: 5.3.3
+      typescript: 5.4.5
     dev: true
