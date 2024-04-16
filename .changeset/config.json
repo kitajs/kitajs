@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.2.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "kitajs/kitajs" }],
+  "changelog": ["changesets-format-with-issue-links", { "repoBaseUrl": "https://github.com/kitajs/kitajs" }],
   "commit": false,
   "fixed": [],
   "linked": [],
