@@ -16,8 +16,7 @@
   "author": "Arthur Fiorette <kita@arthur.place>",
   "main": "dist/index.js",
   "bin": {
-    "kita": "bin/run.js",
-    "kita-dev": "bin/dev.js"
+    "kita": "bin/run"
   },
   "files": [
     "bin",
