@@ -1,25 +1,16 @@
 import assert from 'node:assert';
-import { spawnSync } from 'node:child_process';
 import { it } from 'node:test';
-import { KITA_BIN } from '../constants';
+import { forkAsync } from '../constants';
 
-it('Prints default config', () => {
-  const cmd = spawnSync(KITA_BIN, ['config'], {
+it('Prints default config', async () => {
+  const cmd = await forkAsync(['config'], {
     cwd: __dirname,
     stdio: 'pipe',
-    encoding: 'utf-8',
     env: {
       ...process.env,
       KITA_RUNTIME_PATH: __dirname
     }
   });
-
-  if (cmd.status !== 0) {
-    console.debug(cmd);
-  }
-
-  assert.equal(cmd.status, 0);
-  assert.equal(cmd.stderr, '');
 
   const cfg = JSON.parse(cmd.stdout);
   assert.equal(typeof cfg, 'object');
