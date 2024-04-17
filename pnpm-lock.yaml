@@ -51,8 +51,8 @@ importers:
         specifier: ^3.0.15
         version: 3.0.15
       '@oclif/plugin-help':
-        specifier: ^6.0.20
-        version: 6.0.20
+        specifier: ^6.0.21
+        version: 6.0.21
       '@oclif/plugin-not-found':
         specifier: ^3.1.4
         version: 3.1.4
@@ -2316,19 +2316,11 @@ packages:
       - supports-color
     dev: false
 
-  /@oclif/plugin-help@6.0.20:
-    resolution: {integrity: sha512-4UG/5q7O3dhUsC0JMqcUV0NU7jybkXkAXLnsRt+KVzDtZWwNOeBECimIFWOmwna5BaneTn8b0+lqO4JvUgeiqA==}
-    engines: {node: '>=18.0.0'}
-    dependencies:
-      '@oclif/core': 3.26.3
-    dev: false
-
   /@oclif/plugin-help@6.0.21:
     resolution: {integrity: sha512-w860r9d456xhw1GPaos9yQF+BZeFY9UKdrINbL3fZFX5ZHhr/zGT4Fep5wUkHogjjnSB8+ZHi3D6j2jScIizUw==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.26.3
-    dev: true
 
   /@oclif/plugin-not-found@3.1.4:
     resolution: {integrity: sha512-2YzBCBhieiu3BXjsmyb5jGs1ivYVxLG/3pSbPvo5oJGi5D5SWB038v4y61PzrUZ+2LWPLBfDQIMWccoI2r7cew==}
