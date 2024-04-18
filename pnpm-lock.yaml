@@ -57,8 +57,8 @@ importers:
         specifier: ^3.1.4
         version: 3.1.4
       '@oclif/plugin-plugins':
-        specifier: ^5.0.10
-        version: 5.0.10
+        specifier: ^5.0.11
+        version: 5.0.11
       '@oclif/plugin-warn-if-update-available':
         specifier: ^3.0.12
         version: 3.0.15
@@ -2331,8 +2331,8 @@ packages:
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
 
-  /@oclif/plugin-plugins@5.0.10:
-    resolution: {integrity: sha512-IfiiNvE06zIoU1VQVU/CSLF2IqKsyj1t7nFwY3xV0KRLymynl1H58jsiFdK7cqyqNFpJtW8afJtqms0dC1rlHA==}
+  /@oclif/plugin-plugins@5.0.11:
+    resolution: {integrity: sha512-es+IMNI97Jw+EX25r9ejrOph9R/8FbNXmWrH/NnhUJ3lNDpeMPM8njP4ovHYJi2+ta2VTHDxhQFNRDlNnUiyOw==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@oclif/core': 3.26.3
@@ -2343,6 +2343,7 @@ packages:
       npm-run-path: 5.3.0
       semver: 7.6.0
       validate-npm-package-name: 5.0.0
+      yarn: 1.22.22
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -8307,6 +8308,13 @@ packages:
       y18n: 5.0.8
       yargs-parser: 21.1.1
     dev: true
+
+  /yarn@1.22.22:
+    resolution: {integrity: sha512-prL3kGtyG7o9Z9Sv8IPfBNrWTDmXB4Qbes8A9rEzt6wkJV8mUvoirjU0Mp3GGAU06Y0XQyA3/2/RQFVuK7MTfg==}
+    engines: {node: '>=4.0.0'}
+    hasBin: true
+    requiresBuild: true
+    dev: false
 
   /yjs@13.6.14:
     resolution: {integrity: sha512-D+7KcUr0j+vBCUSKXXEWfA+bG4UQBviAwP3gYBhkstkgwy5+8diOPMx0iqLIOxNo/HxaREUimZRxqHGAHCL2BQ==}
