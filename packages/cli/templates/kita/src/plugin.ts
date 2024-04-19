@@ -3,7 +3,6 @@ import './prelude';
 import fastifyHelmet from '@fastify/helmet';
 import fastifyUnderPressure from '@fastify/under-pressure';
 import { Kita } from '@kitajs/runtime';
-import closeWithGrace from 'close-with-grace';
 import fp from 'fastify-plugin';
 
 export default fp(async (app) => {
@@ -26,18 +25,4 @@ export default fp(async (app) => {
   // Add your custom stuff here
   // app.register(myPlugin)
   // ...
-
-  // Delay is the number of milliseconds for the graceful close to finish
-  const closeListeners = closeWithGrace({ delay: 500 }, async ({ err }) => {
-    if (err) {
-      app.log.error(err);
-    }
-
-    await app.close();
-  });
-
-  // Cancelling the close listeners
-  app.addHook('onClose', async () => {
-    closeListeners.uninstall();
-  });
 });
