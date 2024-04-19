@@ -35,7 +35,8 @@
     "@kitajs/fastify-html-plugin": "^4.1.0",
     "@scalar/fastify-api-reference": "^1.21.0",
     "fastify-plugin": "^4.5.1",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "type-fest": "^4.15.0"
   },
   "devDependencies": {
     "c8": "^9.1.0"
