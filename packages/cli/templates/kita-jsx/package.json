@@ -9,7 +9,7 @@
     "dev": "concurrently --raw --restart-tries 0 \"npm:dev:*\"",
     "dev:css": "tailwindcss -i ./src/styles/index.css -o ./public/tailwind.css --watch",
     "dev:kita": "kita watch",
-    "dev:server": "node --env-file=.env --enable-source-maps -r @swc-node/register --watch --watch-preserve-output src/index.ts | pino-pretty",
+    "dev:server": "node --env-file=.env --enable-source-maps -r @swc-node/register --watch --watch-preserve-output --inspect src/index.ts | pino-pretty",
     "dev:tsc": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "format": "biome format --write .",
     "lint": "biome check .",

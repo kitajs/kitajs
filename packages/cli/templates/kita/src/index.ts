@@ -19,7 +19,7 @@ if (!process.env.PORT) {
 }
 
 fastify({
-  logger: { level: process.env.LOG_LEVEL || 'info' },
+  logger: { level: process.env.LOG_LEVEL || 'trace' },
   ajv: { plugins: [ajvFilePlugin] }
 })
   // Registers our backend
