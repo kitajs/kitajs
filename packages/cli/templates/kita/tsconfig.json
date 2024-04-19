@@ -106,7 +106,8 @@
 
     /* Completeness */
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "plugins": [{ "name": "@kitajs/ts-plugin" }]
   },
   "include": ["src", "test"]
 }
