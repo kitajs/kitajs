@@ -6,7 +6,7 @@ import backendPlugin from '../src/plugin';
 describe('Creates route', () => {
   test('GET /', async () => {
     await using app = fastify();
-    app.register(backendPlugin);
+    await app.register(backendPlugin);
 
     const response = await app.inject({
       method: 'GET',
@@ -22,7 +22,7 @@ describe('Creates route', () => {
 
   test('GET /?name=Kita', async () => {
     await using app = fastify();
-    app.register(backendPlugin);
+    await app.register(backendPlugin);
 
     const response = await app.inject({
       method: 'GET',
