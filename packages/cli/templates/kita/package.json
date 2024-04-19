@@ -2,6 +2,7 @@
   "name": "@kitajs/template",
   "version": "1.0.0",
   "private": true,
+  "type": "commonjs",
   "scripts": {
     "build": "kita build && tsc -p tsconfig.build.json",
     "dev": "concurrently --raw --restart-tries 0 \"npm:dev:*\"",

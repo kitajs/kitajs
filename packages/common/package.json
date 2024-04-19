@@ -14,6 +14,7 @@
   "funding": "https://github.com/sponsors/arthurfiorette",
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",
+  "type": "commonjs",
   "main": "dist/index.js",
   "files": [
     "src",

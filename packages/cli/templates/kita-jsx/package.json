@@ -2,6 +2,7 @@
   "name": "@kitajs/template",
   "version": "1.0.0",
   "private": true,
+  "type": "commonjs",
   "scripts": {
     "build": "concurrently --raw --restart-tries 0 \"npm:build:*\"",
     "build:css": "tailwindcss -m -i ./src/styles/index.css -o ./public/tailwind.css",
