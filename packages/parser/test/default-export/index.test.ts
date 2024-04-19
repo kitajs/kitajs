@@ -5,7 +5,7 @@ import { parseRoutesWithErrors } from '../runner';
 
 describe('Default export', () => {
   test('does not allows default export routes', async () => {
-    const { errors } = await parseRoutesWithErrors(__dirname);
+    const { errors } = parseRoutesWithErrors(__dirname);
 
     assert.equal(errors.length, 1);
     assert.ok(errors[0] instanceof DefaultExportedRoute);

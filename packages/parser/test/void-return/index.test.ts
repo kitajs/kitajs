@@ -5,7 +5,7 @@ import { parseRoutesWithErrors } from '../runner';
 
 describe('Void return type', () => {
   test('does not allows routes returning null', async () => {
-    const { errors } = await parseRoutesWithErrors(__dirname);
+    const { errors } = parseRoutesWithErrors(__dirname);
 
     assert.equal(errors.length, 3);
     assert.ok(errors[0] instanceof RouteWithoutReturnError);

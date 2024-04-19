@@ -33,32 +33,31 @@ export class KitaFormatter implements SourceFormatter {
     );
   }
 
-  async flush() {
+  flush() {
     const files = this.files.flatMap((file) =>
       this.typeOnly ? [file.types] : this.config.declaration ? [file.source, file.types] : file.source
     );
 
     // Tries to delete previous index.js and index.d.ts original files
-    // Ignores errors
-    await Promise.allSettled([
-      fs.promises.unlink(path.join(this.config.runtimePath, 'index.js')),
-      fs.promises.unlink(path.join(this.config.runtimePath, 'index.d.ts'))
-    ]);
+    try {
+      fs.unlinkSync(path.join(this.config.runtimePath, 'index.js'));
+    } catch {}
+
+    try {
+      fs.unlinkSync(path.join(this.config.runtimePath, 'index.d.ts'));
+    } catch {}
 
     // Make sure all directories exists
     const dirs = files.map((f) => path.dirname(f.filename)).filter((v, i, a) => a.indexOf(v) === i);
-    await Promise.all(
-      dirs.map((dir) =>
-        fs.promises.mkdir(path.join(this.config.runtimePath, dir), {
-          recursive: true
-        })
-      )
-    );
+
+    for (const dir of dirs) {
+      fs.mkdirSync(path.join(this.config.runtimePath, dir), { recursive: true });
+    }
 
     // Write all files
-    await Promise.all(
-      files.map((file) => fs.promises.writeFile(path.join(this.config.runtimePath, file.filename), file.content))
-    );
+    for (const file of files) {
+      fs.writeFileSync(path.join(this.config.runtimePath, file.filename), file.content);
+    }
 
     // Clear files
     const length = this.files.length;

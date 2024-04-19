@@ -1,13 +1,6 @@
-import {
-  KitaError,
-  ProviderResolverNotFound,
-  SourceFileNotFoundError,
-  UnknownNodeError,
-  isPromiseLike
-} from '@kitajs/common';
+import { KitaError, ProviderResolverNotFound, SourceFileNotFoundError, UnknownNodeError } from '@kitajs/common';
 import type { KitaParser } from '@kitajs/parser';
 import type ts from 'typescript';
-import { awaitSync } from '../util/sync';
 
 /**
  * Sync parses a single route file and appends any errors to the diagnostics array.
@@ -32,11 +25,7 @@ export function appendRouteDiagnostics(
       continue;
     }
 
-    let supports = parser.rootProviderParser.supports(provider);
-
-    if (isPromiseLike(supports)) {
-      supports = awaitSync(supports);
-    }
+    const supports = parser.rootProviderParser.supports(provider);
 
     // This should never happens as there is a catch-all in the parser
     if (!supports) {
@@ -45,11 +34,7 @@ export function appendRouteDiagnostics(
     }
 
     try {
-      let parsed = parser.rootProviderParser.parse(provider);
-
-      if (isPromiseLike(parsed)) {
-        parsed = awaitSync(parsed);
-      }
+      const parsed = parser.rootProviderParser.parse(provider);
 
       // @ts-expect-error - Manually push the provider to the parser providers array
       parser.providers.set(parsed.type, parsed);
@@ -62,11 +47,7 @@ export function appendRouteDiagnostics(
 
   // After registering all providers, we can now parse the route
   for (const statement of route.statements) {
-    let supports = parser.rootRouteParser.supports(statement);
-
-    if (isPromiseLike(supports)) {
-      supports = awaitSync(supports);
-    }
+    const supports = parser.rootRouteParser.supports(statement);
 
     // Ignore this statement
     if (!supports) {
@@ -74,13 +55,8 @@ export function appendRouteDiagnostics(
     }
 
     try {
-      let parsed = parser.rootRouteParser.parse(statement);
-
-      if (isPromiseLike(parsed)) {
-        parsed = awaitSync(parsed);
-      }
-
-      // success!
+      // Simply tries to parse the route
+      parser.rootRouteParser.parse(statement);
     } catch (error) {
       if (error instanceof KitaError) {
         diagnostics.push(error.diagnostic);

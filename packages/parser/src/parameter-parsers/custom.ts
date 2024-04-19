@@ -18,16 +18,11 @@ export class ProviderParameterParser implements ParameterParser {
     return !!name && !!this.collector.getProvider(name);
   }
 
-  async parse(
-    param: ts.ParameterDeclaration,
-    route: Route,
-    _node: ts.FunctionDeclaration,
-    index: number
-  ): Promise<Parameter> {
+  parse(param: ts.ParameterDeclaration, route: Route, _node: ts.FunctionDeclaration, index: number): Parameter {
     const name = getTypeNodeName(param)!;
     const provider = this.collector.getProvider(name)!;
 
-    const parameters = await provider.parseParameters(route, param);
+    const parameters = provider.parseParameters(route, param);
 
     const providerGenericsIndex = parameters.findIndex((p) => p.name === ProviderGenericsParameterParser.name);
 

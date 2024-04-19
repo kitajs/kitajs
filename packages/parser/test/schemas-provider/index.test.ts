@@ -3,7 +3,7 @@ import test, { describe } from 'node:test';
 import { parseRoutes } from '../runner';
 
 describe('KitaSchemas Provider', async () => {
-  const kita = await parseRoutes(__dirname);
+  const kita = parseRoutes(__dirname);
 
   test('expects 1 provider was generated', () => {
     assert.equal(kita.getProviderCount(), 0);

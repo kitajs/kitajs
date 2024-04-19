@@ -4,7 +4,7 @@ import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('Wildcard routes', async () => {
-  const kita = await parseRoutes(__dirname);
+  const kita = parseRoutes(__dirname);
 
   test('expects 1 route were generated', () => {
     assert.equal(kita.getProviderCount(), 0);

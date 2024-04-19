@@ -4,7 +4,7 @@ import { cwdRelative } from '../../src/util/paths';
 import { parseRoutes } from '../runner';
 
 describe('Providers Registration', async () => {
-  const kita = await parseRoutes(__dirname);
+  const kita = parseRoutes(__dirname);
 
   test('expects 4 providers were generated', () => {
     assert.equal(kita.getProviderCount(), 4);

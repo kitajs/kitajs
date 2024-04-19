@@ -55,7 +55,7 @@ export class HtmlRouteParser implements RouteParser {
     return true;
   }
 
-  async parse(node: ts.FunctionDeclaration): Promise<Route> {
+  parse(node: ts.FunctionDeclaration): Route {
     const source = node.getSourceFile();
 
     // Adds kitajs fastify-html plugin
@@ -97,7 +97,7 @@ export class HtmlRouteParser implements RouteParser {
     }
 
     // Adds all parameters in their respective position
-    for await (const { param, index } of traverseParameters(node, this.paramParser, route)) {
+    for (const { param, index } of traverseParameters(node, this.paramParser, route)) {
       route.parameters[index] = param;
     }
 

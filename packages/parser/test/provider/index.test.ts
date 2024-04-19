@@ -4,7 +4,7 @@ import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('Providers', async () => {
-  const kita = await parseRoutes(__dirname);
+  const kita = parseRoutes(__dirname);
 
   test('expects 2 route was generated', () => {
     assert.equal(kita.getProviderCount(), 3);

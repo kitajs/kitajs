@@ -28,7 +28,6 @@
   "dependencies": {
     "@kitajs/common": "workspace:^",
     "@kitajs/parser": "workspace:^",
-    "deasync": "^0.1.29",
     "tslib": "^2.6.2",
     "typescript": "~5.4.5"
   },
@@ -38,8 +37,7 @@
     "@swc/helpers": "^0.5.10",
     "@types/deasync": "^0.1.5",
     "@types/node": "^20.12.7",
-    "self": "file:.",
-    "type-fest": "^4.15.0"
+    "self": "file:."
   },
   "peerDependencies": {
     "typescript": "~5.4.5"

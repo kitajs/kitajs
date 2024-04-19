@@ -31,16 +31,18 @@ export async function generateRuntime<R extends { ready: Promise<void> }>(
   const kita = KitaParser.create(config, compilerOptions, compilerOptions.rootNames, formatter);
 
   // Should not emit any errors
-  for await (const error of kita.parse()) {
+  for (const error of kita.parse()) {
     console.error(error);
     assert.fail(error);
   }
 
-  await formatter.flush();
+  formatter.flush();
 
   globalThis.KITA_PROJECT_ROOT = config.src;
   const rt = require(config.runtimePath!) as R;
+
   await rt.ready;
+
   return rt;
 }
 
