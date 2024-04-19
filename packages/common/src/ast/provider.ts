@@ -1,4 +1,3 @@
-import type { Promisable } from 'type-fest';
 import type ts from 'typescript';
 import type { Parameter } from './parameter';
 import type { Route } from './route';
@@ -41,7 +40,7 @@ export interface Provider {
   lifecycleHooks: string[];
 
   /** Parses all parameters taking into account a specific route */
-  parseParameters: (this: void, route: Route, parameterNode: ts.ParameterDeclaration) => Promisable<Parameter[]>;
+  parseParameters: (this: void, route: Route, parameterNode: ts.ParameterDeclaration) => Parameter[];
 }
 
 export const ApplicationHookNames = ['onRoute', 'onRegister', 'onReady', 'onListen', 'onClose', 'preClose'] as const;

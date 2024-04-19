@@ -6,7 +6,6 @@ import {
   type Route
 } from '@kitajs/common';
 import type { ts } from 'ts-json-schema-generator';
-import type { Promisable } from 'type-fest';
 
 export class ChainParameterParser extends ChainParser<ParameterParser> implements ParameterParser {
   parse(
@@ -14,7 +13,7 @@ export class ChainParameterParser extends ChainParser<ParameterParser> implement
     route: Route | null,
     routeNode: ts.FunctionDeclaration,
     paramIndex: number
-  ): Promisable<Parameter> {
+  ): Parameter {
     const parser = this.cache.get(param);
 
     if (!parser) {

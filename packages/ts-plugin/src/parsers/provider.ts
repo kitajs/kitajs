@@ -1,15 +1,10 @@
-import { KitaError, ProviderResolverNotFound, UnknownKitaError, isPromiseLike } from '@kitajs/common';
+import { KitaError, ProviderResolverNotFound, UnknownNodeError } from '@kitajs/common';
 import type { KitaParser } from '@kitajs/parser';
 import type ts from 'typescript';
-import { awaitSync } from '../util/sync';
 
 /** Manual and faster parsing of a single provider file. */
 export function appendProviderDiagnostics(parser: KitaParser, provider: ts.SourceFile, diagnostics: ts.Diagnostic[]) {
-  let supports = parser.rootProviderParser.supports(provider);
-
-  if (isPromiseLike(supports)) {
-    supports = awaitSync(supports);
-  }
+  const supports = parser.rootProviderParser.supports(provider);
 
   // This should never happens as there is a catch-all in the parser
   if (!supports) {
@@ -18,20 +13,16 @@ export function appendProviderDiagnostics(parser: KitaParser, provider: ts.Sourc
   }
 
   try {
-    let parsed = parser.rootProviderParser.parse(provider);
+    // Simply tries to parse the provider
 
-    if (isPromiseLike(parsed)) {
-      parsed = awaitSync(parsed);
-    }
-
-    // success!
+    parser.rootProviderParser.parse(provider);
   } catch (error) {
     if (error instanceof KitaError) {
       diagnostics.push(error.diagnostic);
     } else if (error instanceof Error) {
-      diagnostics.push(new UnknownKitaError(String(error), error).diagnostic);
+      diagnostics.push(new UnknownNodeError(provider, error.message).diagnostic);
     } else {
-      diagnostics.push(new UnknownKitaError('Unknown error!', error).diagnostic);
+      diagnostics.push(new UnknownNodeError(provider, String(error)).diagnostic);
     }
   }
 }

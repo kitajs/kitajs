@@ -1,7 +1,7 @@
 import { CannotCreateNodeTypeError, kSchemaDefinitions, type Provider, type ProviderParser } from '@kitajs/common';
 import path from 'node:path';
 import type { ts } from 'ts-json-schema-generator';
-import type { Promisable } from 'type-fest';
+
 import type { SchemaBuilder } from '../schema/builder';
 
 export class SchemasProviderParser implements ProviderParser {
@@ -11,11 +11,11 @@ export class SchemasProviderParser implements ProviderParser {
   ) {}
 
   /** Default provider handles all files. */
-  supports(file: ts.SourceFile): Promisable<boolean> {
+  supports(file: ts.SourceFile): boolean {
     return path.basename(file.fileName) === 'schemas.ts';
   }
 
-  async parse(source: ts.SourceFile): Promise<Provider | undefined> {
+  parse(source: ts.SourceFile): Provider | undefined {
     const symbol = this.checker.getSymbolAtLocation(source);
 
     if (!symbol) {

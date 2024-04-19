@@ -64,7 +64,7 @@ export class KitaParser implements AstCollector {
   static createWatcher(config: KitaConfig, compilerOptions: ts.CompilerOptions, formatter?: SourceFormatter) {
     const parser = {} as {
       ref: KitaParser;
-      onChange?: (parser: KitaParser) => Promise<void>;
+      onChange?: (parser: KitaParser) => void;
       onError?: (error: unknown) => void;
     };
 
@@ -101,19 +101,25 @@ export class KitaParser implements AstCollector {
         try {
           parser.ref = new KitaParser(config, program, parser.ref.formatter);
         } catch (error) {
-          const promise = parser.onChange?.(parser.ref);
-
-          if (promise && parser.onError) {
-            promise.catch(parser.onError);
+          try {
+            parser.onChange?.(parser.ref);
+          } catch (error) {
+            if (parser.onError) {
+              parser.onError(error);
+            } else {
+              throw error;
+            }
           }
         }
 
         setImmediate(() => {
-          if (parser.onChange) {
-            const promise = parser.onChange(parser.ref);
-
-            if (promise && parser.onError) {
-              promise.catch(parser.onError);
+          try {
+            parser.onChange?.(parser.ref);
+          } catch (error) {
+            if (parser.onError) {
+              parser.onError(error);
+            } else {
+              throw error;
             }
           }
         });
@@ -128,20 +134,26 @@ export class KitaParser implements AstCollector {
     try {
       parser.ref = new KitaParser(config, watcher.getProgram().getProgram(), formatter);
     } catch (error) {
-      const promise = parser.onChange?.(parser.ref);
-
-      if (promise && parser.onError) {
-        promise.catch(parser.onError);
+      try {
+        parser.onChange?.(parser.ref);
+      } catch (error) {
+        if (parser.onError) {
+          parser.onError(error);
+        } else {
+          throw error;
+        }
       }
     }
 
     // Make sure to call the onChange hook after the first parse
     setImmediate(() => {
-      if (parser.onChange) {
-        const promise = parser.onChange(parser.ref);
-
-        if (promise && parser.onError) {
-          promise.catch(parser.onError);
+      try {
+        parser.onChange?.(parser.ref);
+      } catch (error) {
+        if (parser.onError) {
+          parser.onError(error);
+        } else {
+          throw error;
         }
       }
     });
@@ -175,11 +187,11 @@ export class KitaParser implements AstCollector {
     );
   }
 
-  async *parse() {
+  *parse() {
     const files = this.program.getSourceFiles().map((f) => f.fileName);
 
     // Parses all providers first
-    for await (const provider of traverseProviders(
+    for (const provider of traverseProviders(
       this.program,
       this.rootProviderParser,
       files.filter((f) => f.startsWith(toTsPath(path.join(this.config.src, kProvidersFolder))))
@@ -210,7 +222,7 @@ export class KitaParser implements AstCollector {
     }
 
     // Parses all routes
-    for await (const result of traverseStatements(
+    for (const result of traverseStatements(
       this.program,
       this.rootRouteParser,
       files.filter((f) => f.startsWith(toTsPath(path.join(this.config.src, kRoutesFolder))))
@@ -257,22 +269,12 @@ export class KitaParser implements AstCollector {
       this.routes.set(route.schema.operationId, route);
 
       if (this.formatter) {
-        const promise = this.formatter.generateRoute(route, this);
-
-        // Only await if needs to
-        if (promise) {
-          await promise;
-        }
+        this.formatter.generateRoute(route, this);
       }
     }
 
     if (this.formatter) {
-      const promise = this.formatter.generateRuntime(this);
-
-      // Only await if needs to
-      if (promise) {
-        await promise;
-      }
+      this.formatter.generateRuntime(this);
     }
   }
 

@@ -5,7 +5,6 @@ import {
   RouteParameterMultipleErrors,
   SourceFileNotFoundError,
   UnknownKitaError,
-  isPromiseLike,
   type Parameter,
   type ParameterParser,
   type Parser,
@@ -14,7 +13,7 @@ import {
 import type { ts } from 'ts-json-schema-generator';
 
 /** Traverse each statement of a source file for the given path and yields the result of the provided parser or an error. */
-export async function* traverseStatements<R>(
+export function* traverseStatements<R>(
   program: Pick<ts.Program, 'getSourceFile'>,
   parser: Parser<ts.Statement, R, []>,
   files: string[]
@@ -30,23 +29,14 @@ export async function* traverseStatements<R>(
     let parsed = 0;
 
     for (const statement of sourceFile.statements) {
-      let supports = parser.supports(statement);
-
-      if (isPromiseLike(supports)) {
-        supports = await supports;
-      }
-
-      if (supports) {
+      if (parser.supports(statement)) {
         parsed++;
 
         try {
-          let parsed = parser.parse(statement);
-
-          if (isPromiseLike(parsed)) {
-            parsed = await parsed;
-          }
-
-          yield { parsed, statement };
+          yield {
+            parsed: parser.parse(statement),
+            statement
+          };
         } catch (error) {
           // Also returns errors as values to be handled by the caller
           // This allows us to keep parsing even if some routes fail
@@ -66,7 +56,7 @@ export async function* traverseStatements<R>(
 }
 
 /** Traverse each source file for the given path and yields the result of the provided parser or an error. */
-export async function* traverseProviders<R>(
+export function* traverseProviders<R>(
   program: Pick<ts.Program, 'getSourceFile'>,
   parser: Parser<ts.SourceFile, R, []>,
   files: string[]
@@ -85,21 +75,9 @@ export async function* traverseProviders<R>(
         throw new SourceFileNotFoundError(filename);
       }
 
-      let supports = parser.supports(source);
-
-      if (isPromiseLike(supports)) {
-        supports = await supports;
-      }
-
-      if (supports) {
+      if (parser.supports(source)) {
         try {
-          let parsed = parser.parse(source);
-
-          if (isPromiseLike(parsed)) {
-            parsed = await parsed;
-          }
-
-          yield parsed;
+          yield parser.parse(source);
         } catch (error) {
           if (
             // If a parameter resolver is not found, it may be a provider
@@ -141,7 +119,7 @@ export async function* traverseProviders<R>(
  * Traverse each parameter for the given function and yields the result of the provided parser. Errors are thrown
  * synchronously.
  */
-export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: ParameterParser, route: Route | null) {
+export function* traverseParameters(fn: ts.FunctionDeclaration, parser: ParameterParser, route: Route | null) {
   let parameterIndex = 0;
 
   const errors: KitaError[] = [];
@@ -149,11 +127,7 @@ export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: Pa
   for (let index = 0; index < fn.parameters.length; index++) {
     try {
       const parameter = fn.parameters[index]!;
-      let supports = parser.supports(parameter);
-
-      if (isPromiseLike(supports)) {
-        supports = await supports;
-      }
+      const supports = parser.supports(parameter);
 
       // All parameters should be supported by at least one parser
       if (!supports) {
@@ -161,11 +135,7 @@ export async function* traverseParameters(fn: ts.FunctionDeclaration, parser: Pa
       }
 
       // Yield the result of the parser (promises are unwrapped)
-      let param = parser.parse(parameter, route, fn, index) as Parameter;
-
-      if (param instanceof Promise) {
-        param = await param;
-      }
+      const param = parser.parse(parameter, route, fn, index) as Parameter;
 
       // Ignored parameter
       if (param.ignore) {

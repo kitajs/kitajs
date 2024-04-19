@@ -24,7 +24,7 @@ describe('Hello World', async () => {
   test('expect 2 errors', async () => {
     const errors = [];
 
-    for await (const error of kita.parse()) {
+    for (const error of kita.parse()) {
       errors.push(error);
     }
 

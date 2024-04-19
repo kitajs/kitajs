@@ -4,7 +4,7 @@ import { cwdRelative } from '../../src';
 import { parseRoutes } from '../runner';
 
 describe('File and SavedFile', async () => {
-  const kita = await parseRoutes(__dirname);
+  const kita = parseRoutes(__dirname);
 
   test('expects 2 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);
@@ -17,7 +17,7 @@ describe('File and SavedFile', async () => {
   });
 
   test('works with File', async () => {
-    const route = await kita.getRoute('postIndex');
+    const route = kita.getRoute('postIndex');
 
     assert.deepStrictEqual(route, {
       kind: 'rest',
@@ -44,7 +44,7 @@ describe('File and SavedFile', async () => {
   });
 
   test('works with SavedFile', async () => {
-    const route = await kita.getRoute('putIndex');
+    const route = kita.getRoute('putIndex');
 
     assert.deepStrictEqual(route, {
       kind: 'rest',

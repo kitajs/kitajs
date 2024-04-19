@@ -1,5 +1,8 @@
 {
   "cSpell.words": ["Augmentor", "deepmerge", "fastify", "Fastify", "kita", "kitajs"],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.tsserver.log": "verbose"
+  "typescript.tsserver.log": "verbose",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

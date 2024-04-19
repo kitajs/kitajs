@@ -49,7 +49,7 @@ export class RestRouteParser implements RouteParser {
     return true;
   }
 
-  async parse(node: ts.FunctionDeclaration): Promise<Route> {
+  parse(node: ts.FunctionDeclaration): Route {
     const defaultExport = node.modifiers!.find((s) => s.kind === ts.SyntaxKind.DefaultKeyword);
 
     if (defaultExport) {
@@ -135,7 +135,7 @@ export class RestRouteParser implements RouteParser {
     }
 
     // Adds all parameters in their respective position
-    for await (const { param, index } of traverseParameters(node, this.paramParser, route)) {
+    for (const { param, index } of traverseParameters(node, this.paramParser, route)) {
       route.parameters[index] = param;
     }
 

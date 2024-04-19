@@ -4,7 +4,7 @@ import { HttpMethods } from '../../src/util/http';
 import { parseRoutes } from '../runner';
 
 describe('Http Methods', async () => {
-  const kita = await parseRoutes(__dirname);
+  const kita = parseRoutes(__dirname);
 
   test('expects 16 routes were generated', () => {
     assert.equal(kita.getProviderCount(), 0);

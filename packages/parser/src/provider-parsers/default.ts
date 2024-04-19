@@ -17,7 +17,7 @@ import {
 } from '@kitajs/common';
 import path from 'node:path';
 import { ts } from 'ts-json-schema-generator';
-import type { Promisable } from 'type-fest';
+
 import {
   getTypeName,
   getTypeNodeName,
@@ -36,11 +36,11 @@ export class DefaultProviderParser implements ProviderParser {
   ) {}
 
   /** Default provider handles all files. */
-  supports(): Promisable<boolean> {
+  supports(): boolean {
     return true;
   }
 
-  async parse(source: ts.SourceFile): Promise<Provider> {
+  parse(source: ts.SourceFile): Provider {
     const fn = source.statements.find(isDefaultExportFunction);
 
     if (!fn) {
@@ -87,12 +87,12 @@ export class DefaultProviderParser implements ProviderParser {
       applicationHooks: applicationHooks.map((h) => h.name!.text),
       lifecycleHooks: lifecycleHooks.map((h) => h.name!.text),
 
-      parseParameters: async (route, parameterNode) => {
+      parseParameters: (route, parameterNode) => {
         const parameters = [];
 
         // Adds all parameters in their respective position
         try {
-          for await (const { param, index } of traverseParameters(fn, this.paramParser, route)) {
+          for (const { param, index } of traverseParameters(fn, this.paramParser, route)) {
             parameters[index] = param;
           }
         } catch (error: any) {
