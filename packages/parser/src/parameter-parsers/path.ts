@@ -32,6 +32,11 @@ export class PathParameterParser implements ParameterParser {
     }
 
     const name = getParameterName(param, 1);
+
+    if (name.includes('-')) {
+      throw new InvalidParameterUsageError('Path parameter cannot contain dashes', param.type || param);
+    }
+
     const [type] = getParameterGenerics(param);
 
     let schema: JsonSchema;

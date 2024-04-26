@@ -3,6 +3,8 @@ import type { Primitive } from 'type-fest';
 /**
  * Path parameters. e.g. `/users/:name/:age`
  *
+ * It does not support path parameters with dashes like `/users/:my-name`.
+ *
  * @example
  *
  * ```ts
@@ -10,7 +12,7 @@ import type { Primitive } from 'type-fest';
  * export function get(
  *   name: Path, // <string, 'name'>
  *   age: Path<number>, // <number, 'age'>
- *   type: Path<string, 'dash-case-name'>
+ *   type: Path<string, 'customName'>
  * ) {}
  * ```
  *
