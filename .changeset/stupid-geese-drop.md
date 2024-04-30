@@ -8,4 +8,4 @@
 '@kitajs/ts-plugin': minor
 ---
 
-Test code against node v20 and v21
+Test code against node v20 and v22
