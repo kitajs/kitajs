@@ -1,4 +1,3 @@
-import { kKitaGlobalRoot } from '@kitajs/common';
 import path from 'node:path';
 
 /** Posix: `./`, in windows: `.\\` */
@@ -28,7 +27,7 @@ export function toMaybeRelativeImport(imp: string, cwdSrcRelativity: string) {
   }
 
   // Removes source folder from path, as it will be contained in the `KITA_GLOBAL_ROOT` variable
-  return `\`\${${kKitaGlobalRoot}}${escapePath(path.sep + path.relative(cwdSrcRelativity, withoutExt))}\``;
+  return `'${escapePath(path.relative(cwdSrcRelativity, withoutExt))}'`;
 }
 
 /** Removes the extension from a path, if present. */

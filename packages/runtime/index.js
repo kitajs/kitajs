@@ -4,6 +4,3 @@
 //
 // You are probably looking for the generated code in the ./generated folder.
 //
-
-/** @type {import('./')} */
-module.exports = require('./generated');

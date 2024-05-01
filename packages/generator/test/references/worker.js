@@ -1,7 +1,7 @@
 globalThis.KITA_PROJECT_ROOT = __dirname;
 
 const fastify = require('fastify');
-const { Kita } = require('./runtime');
+const { Kita } = require('./runtime.kita');
 const worker = require('node:worker_threads');
 
 if (worker.isMainThread) {

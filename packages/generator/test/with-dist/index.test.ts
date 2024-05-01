@@ -8,8 +8,7 @@ import path from 'node:path';
 import ts from 'typescript';
 
 //@ts-ignore - first test may not have been run yet
-import type Runtime from './runtime';
-
+import type * as Runtime from './runtime.kita';
 const tsconfig = require.resolve('./tsconfig.json');
 const compilerOptions = readCompilerOptions(tsconfig);
 

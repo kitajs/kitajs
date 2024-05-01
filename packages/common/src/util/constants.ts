@@ -16,9 +16,6 @@ export const kTransformSchema = 'transformSchema';
 /** The name of the request parameter */
 export const kKitaOptions = 'options';
 
-/** The variable name of the controller import */
-export const kControllerName = 'Controller';
-
 /** The name of the root kita options. */
 export const kOptionsRoot = 'root';
 

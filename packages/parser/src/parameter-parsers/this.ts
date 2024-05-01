@@ -2,7 +2,6 @@ import {
   InvalidParameterUsageError,
   RouteMapperNotExportedError,
   RouteOptionsAlreadyDefinedError,
-  kControllerName,
   type Parameter,
   type ParameterParser,
   type Route
@@ -78,7 +77,7 @@ export class ThisParameterParser implements ParameterParser {
         throw new RouteMapperNotExportedError(config);
       }
 
-      route.options = `${kControllerName}.${type}($1)`;
+      route.options = `${route.controllerName}.${type}($1)`;
 
       return {
         name: ThisParameterParser.name,
@@ -115,7 +114,7 @@ export class ThisParameterParser implements ParameterParser {
         route.options = '$1';
       }
 
-      route.options = `${kControllerName}.${type}(${route.options})`;
+      route.options = `${route.controllerName}.${type}(${route.options})`;
     }
 
     // This parameter is synthetic, so this result will not be used.

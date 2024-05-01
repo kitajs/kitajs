@@ -25,6 +25,8 @@ export class HtmlRouteParser implements RouteParser {
     private collector: AstCollector
   ) {}
 
+  private static controllers = new Map<string, number>();
+
   supports(node: ts.Node): boolean {
     if (!isExportFunction(node)) {
       return false;
@@ -67,6 +69,12 @@ export class HtmlRouteParser implements RouteParser {
       });
     }
 
+    const controllerId =
+      HtmlRouteParser.controllers.get(source.fileName) ||
+      // biome-ignore lint/style/noCommaOperator: easier syntax
+      (HtmlRouteParser.controllers.set(source.fileName, HtmlRouteParser.controllers.size),
+      HtmlRouteParser.controllers.size);
+
     const { url, routeId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();
 
@@ -74,6 +82,7 @@ export class HtmlRouteParser implements RouteParser {
       kind: 'html',
       url,
       controllerMethod: method,
+      controllerName: `RestController${controllerId}`,
       method: method.toUpperCase() as Uppercase<string>,
       relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],

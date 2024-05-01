@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 import fs from 'node:fs';
 import path from 'node:path';
-import { InvalidConfigError, RuntimeNotFoundError } from '../errors';
+import { InvalidConfigError, UnreachableRuntime } from '../errors';
 import type { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
@@ -10,43 +10,14 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 
   const src = env('src', String) ?? config.src ?? 'src';
 
-  if (typeof src !== 'string') {
-    throw new InvalidConfigError(
-      `'src' must be a string: (${JSON.stringify(src)}). Read from ${envOrigin('src')}`,
-      config
-    );
-  }
+  const format = env('format', Boolean) ?? config.format ?? process.stdout.isTTY;
 
-  let runtimePath = env('runtime_path', String) ?? config.runtimePath;
+  const output = path.resolve(cwd, env('output', String) ?? config.output ?? `src${path.sep}runtime.kita.ts`);
 
-  if (!runtimePath) {
-    try {
-      runtimePath = path.join(
-        // Joined @kitajs/runtime and generated separately because when
-        // resolve is called on a package name (instead of folder if it was @kitajs/runtime/generated)
-        // it will look only for the package.json and resolve from there.
-        path.dirname(
-          // Allows global installations to work
-          require.resolve('@kitajs/runtime', { paths: [cwd] })
-        ),
-        'generated'
-      );
-    } catch (error) {
-      if ((error as Error).message.startsWith("Cannot find module '@kitajs/runtime'")) {
-        throw new RuntimeNotFoundError(runtimePath);
-      }
-
-      throw error;
-    }
-  }
-
-  if (typeof runtimePath !== 'string') {
-    throw new InvalidConfigError(
-      `'runtimePath' must be a string or undefined: (${JSON.stringify(runtimePath)}). Read from ${envOrigin(
-        'runtime_path'
-      )}`,
-      config
-    );
+  try {
+    fs.mkdirSync(path.dirname(output), { recursive: true });
+  } catch (error: any) {
+    throw new UnreachableRuntime(output, error);
   }
 
   const declaration = env('declaration', Boolean) ?? config.declaration ?? true;
@@ -98,7 +69,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
   }
 
   const watchIgnore = env('watch_ignore', (x) => String(x).split(',')) ??
-    config.watchIgnore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), runtimePath];
+    config.watchIgnore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), output];
 
   if (!Array.isArray(watchIgnore)) {
     throw new InvalidConfigError(
@@ -109,13 +80,14 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 
   return {
     cwd,
+    src,
     tsconfig,
-    src: path.resolve(cwd, src),
-    declaration: declaration,
-    runtimePath: runtimePath,
-    watchIgnore: watchIgnore,
-    responses: responses,
-    generatorConfig: generatorConfig,
+    format,
+    declaration,
+    output,
+    watchIgnore,
+    responses,
+    generatorConfig,
     parameterParserAugmentor: config.parameterParserAugmentor || noop,
     providerParserAugmentor: config.providerParserAugmentor || noop,
     routeParserAugmentor: config.routeParserAugmentor || noop

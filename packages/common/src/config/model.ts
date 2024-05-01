@@ -21,13 +21,21 @@ export interface KitaConfig {
   src: string;
 
   /**
+   * If the output should be formatted to be more readable and reduce possible conflicts.
+   *
+   * @default 'process.stdout.isTTY'
+   * @env `KITA_FORMAT` - The environment variable to override this setting.
+   */
+  format: boolean;
+
+  /**
    * Uses a different located @kitajs/runtime. You should only override this setting if you are having problems with
    * your package manger or the runtime cannot be found by default.
    *
-   * @default 'node_modules/@kitajs/runtime/generated'
-   * @env `KITA_RUNTIME_PATH` - The environment variable to override this setting.
+   * @default 'src/runtime.kita.ts'
+   * @env `KITA_OUTPUT` - The environment variable to override this setting.
    */
-  runtimePath: string;
+  output: string;
 
   /**
    * If the generated runtime should include declaration files alongside the javascript files. This is only helpful for
@@ -76,7 +84,7 @@ export interface KitaConfig {
   /**
    * All directories changes should be ignored.
    *
-   * @default ['node_modules', 'dist', <runtime>]
+   * @default ['node_modules', 'dist', <output>]
    */
   watchIgnore: string[];
 }

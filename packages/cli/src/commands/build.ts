@@ -33,13 +33,6 @@ export default class Build extends BaseKitaCommand {
       allowNo: true,
       helpGroup: 'build',
       exclusive: ['dry-run']
-    }),
-    reset: Flags.boolean({
-      char: 'r',
-      description: 'Removes previous generated files before each build.',
-      default: false,
-      helpGroup: 'build',
-      exclusive: ['dry-run']
     })
   };
 
@@ -59,20 +52,18 @@ export default class Build extends BaseKitaCommand {
       style: 'clock'
     });
 
-    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config);
+    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config, compilerOptions);
 
     const parser = KitaParser.create(
       config,
       compilerOptions,
       // Prefer already looked up files instead of walking the folder again
-      compilerOptions.rootNames,
-      // Dry runs should not generate any files
-      formatter
+      compilerOptions.rootNames
     );
 
     ux.action.stop(chalk`{cyan Ready to build!}`);
 
-    const diagnostics = await this.runParser(parser, formatter, flags.reset, config);
+    const diagnostics = await this.runParser(parser, config, formatter);
 
     if (diagnostics.length > 0) {
       this.error(chalk`{red Finished with errors!}`);

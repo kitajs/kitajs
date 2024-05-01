@@ -12,8 +12,7 @@ import {
   type Provider,
   type ProviderParser,
   type Route,
-  type RouteParser,
-  type SourceFormatter
+  type RouteParser
 } from '@kitajs/common';
 import type { KitaPlugin } from '@kitajs/common/dist/ast/plugin';
 import path from 'node:path';
@@ -41,27 +40,20 @@ export class KitaParser implements AstCollector {
    *
    * You may pass a formatter to format the source code of the routes and providers.
    */
-  static create(
-    config: KitaConfig,
-    compilerOptions: ts.CompilerOptions,
-    rootNames: string[],
-    formatter?: SourceFormatter
-  ) {
+  static create(config: KitaConfig, compilerOptions: ts.CompilerOptions, rootNames: string[]) {
     const parser = new KitaParser(
       config,
       ts.createProgram({
         options: compilerOptions,
         // Adds both providers and controllers
         rootNames: rootNames
-      }),
-
-      formatter
+      })
     );
 
     return parser;
   }
 
-  static createWatcher(config: KitaConfig, compilerOptions: ts.CompilerOptions, formatter?: SourceFormatter) {
+  static createWatcher(config: KitaConfig, compilerOptions: ts.CompilerOptions) {
     const parser = {} as {
       ref: KitaParser;
       onChange?: (parser: KitaParser) => void;
@@ -99,7 +91,7 @@ export class KitaParser implements AstCollector {
         const program = watcher.getProgram().getProgram();
 
         try {
-          parser.ref = new KitaParser(config, program, parser.ref.formatter);
+          parser.ref = new KitaParser(config, program);
         } catch (error) {
           try {
             parser.onChange?.(parser.ref);
@@ -132,7 +124,7 @@ export class KitaParser implements AstCollector {
     watcher = ts.createWatchProgram(host);
 
     try {
-      parser.ref = new KitaParser(config, watcher.getProgram().getProgram(), formatter);
+      parser.ref = new KitaParser(config, watcher.getProgram().getProgram());
     } catch (error) {
       try {
         parser.onChange?.(parser.ref);
@@ -163,9 +155,7 @@ export class KitaParser implements AstCollector {
 
   constructor(
     protected readonly config: KitaConfig,
-    protected readonly program: ts.Program,
-    /** A source formatter to call every time a route is generated */
-    protected readonly formatter?: SourceFormatter
+    protected readonly program: ts.Program
   ) {
     // Json schema
     this.schemaBuilder = new SchemaBuilder(this.config, program);
@@ -267,14 +257,6 @@ export class KitaParser implements AstCollector {
       }
 
       this.routes.set(route.schema.operationId, route);
-
-      if (this.formatter) {
-        this.formatter.generateRoute(route, this);
-      }
-    }
-
-    if (this.formatter) {
-      this.formatter.generateRuntime(this);
     }
   }
 

@@ -59,22 +59,7 @@ ${routes.map((r) => `${kFastifyVariable}.route(${r.schema.operationId}.${r.schem
     import type { FastifyPluginAsync } from 'fastify'
     ${plugins.map(toPluginTypeImport).join('\n')}
 
-    /**
-     * The Kita generated fastify plugin. 
-     * 
-     * Registering it into your fastify instance will automatically register all
-     * routes, schemas and providers.
-     *
-     * @example
-     * \`\`\`ts
-     * app.register(Kita, {
-     *   // You can configure all ${plugins.length} configured plugins here:
-     *   ${plugins.map((p) => `${p.name}: { }`).join(',\n *   ')}
-     * })
-     * \`\`\`
-     * 
-     * @see {@link https://kita.js.org}
-     */
+    
     export declare const Kita: FastifyPluginAsync<{
       ${plugins.map(toPluginType).join(',\n')}
     }>;

@@ -4,8 +4,7 @@ import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
 import { HttpMethods } from '@kitajs/parser';
-import type Runtime from './runtime';
-
+import type * as Runtime from './runtime.kita';
 describe('Correctly handles ALL methods', async () => {
   const rt = await generateRuntime<typeof Runtime>(__dirname);
 

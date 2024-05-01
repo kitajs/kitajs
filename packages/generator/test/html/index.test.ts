@@ -4,8 +4,7 @@ import { createApp, generateRuntime } from '../runner';
 import assert from 'node:assert';
 //@ts-ignore - first test may not have been run yet
 import { SuspenseScript } from '@kitajs/html/suspense';
-import type Runtime from './runtime';
-
+import type * as Runtime from './runtime.kita';
 describe('Html routes', async () => {
   const rt = await generateRuntime<typeof Runtime>(__dirname);
 

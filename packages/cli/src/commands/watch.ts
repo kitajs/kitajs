@@ -50,21 +50,16 @@ export default class Watch extends BaseKitaCommand {
       style: 'clock'
     });
 
-    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config);
+    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config, compilerOptions);
 
-    const parser = KitaParser.createWatcher(
-      config,
-      compilerOptions,
-      // Dry runs should not generate any files
-      formatter
-    );
+    const parser = KitaParser.createWatcher(config, compilerOptions);
 
     ux.action.stop(chalk`{cyan Ready to build!}`);
 
     parser.onError = (err) => this.logToStderr(String(err));
 
     parser.onChange = async (parser) => {
-      await this.runParser(parser, formatter, flags.reset, config);
+      await this.runParser(parser, config, formatter);
 
       if (parser.getRouteCount() === 0) {
         this.warn(chalk`{yellow No routes were found!}`);

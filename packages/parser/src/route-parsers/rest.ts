@@ -31,6 +31,8 @@ export class RestRouteParser implements RouteParser {
     private collector: AstCollector
   ) {}
 
+  private static controllers = new Map<string, number>();
+
   supports(node: ts.Node): boolean {
     if (!isExportFunction(node)) {
       return false;
@@ -68,7 +70,7 @@ export class RestRouteParser implements RouteParser {
             info: DefaultOpenApiInfo
           },
           refResolver: {
-            _raw: '{ buildLocalReference(json, _, __, i) { return json.$id || json.$title || json.name || `def-${i}` } }'
+            _raw: '{ buildLocalReference: (json: any, _: any, __: any, i: any) => String(json.$id || json.$title || json.name || `def-${i}`) }'
           }
         }
       });
@@ -91,6 +93,12 @@ export class RestRouteParser implements RouteParser {
 
     const source = node.getSourceFile();
 
+    const controllerId =
+      RestRouteParser.controllers.get(source.fileName) ||
+      // biome-ignore lint/style/noCommaOperator: easier syntax
+      (RestRouteParser.controllers.set(source.fileName, RestRouteParser.controllers.size),
+      RestRouteParser.controllers.size);
+
     const { url, routeId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();
 
@@ -98,6 +106,7 @@ export class RestRouteParser implements RouteParser {
       kind: 'rest',
       url,
       controllerMethod: method,
+      controllerName: `RestController${controllerId}`,
       method: method.toUpperCase() as Uppercase<string>,
       relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],

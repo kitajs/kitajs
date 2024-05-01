@@ -7,8 +7,7 @@ import test, { describe } from 'node:test';
 import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
-import type Runtime from './runtime';
-
+import type * as Runtime from './runtime.kita';
 const fileC = path.join(__dirname, 'c.txt');
 const fileD = path.join(__dirname, 'd.txt');
 

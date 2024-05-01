@@ -7,7 +7,6 @@ import {
   type Provider,
   type Route
 } from '@kitajs/common';
-import stringify from 'json-stable-stringify';
 import path from 'node:path';
 import { ts } from 'ts-writer';
 import { escapePath, removeExt, toMaybeRelativeImport } from '../util/path';
@@ -110,48 +109,4 @@ export function toParamHelper(param: Parameter) {
   if (${kReplyParam}.sent) {
     return reply;
   }`;
-}
-
-export function toAsyncStatement(parameters: Parameter[]) {
-  if (!parameters.some((p) => p.helper?.includes('await'))) {
-    return undefined;
-  }
-
-  return 'async ';
-}
-
-export function toReplacedSchema(r: Route) {
-  let code = stringify(r.schema, { space: 4 });
-
-  for (const param of r.parameters) {
-    if (param.schemaTransformer) {
-      code = `${param.providerName}.transformSchema(${code}${
-        Array.isArray(param.schemaTransformer) ? `, ${param.schemaTransformer.join(', ')}` : ''
-      })`;
-    }
-  }
-
-  return code;
-}
-
-export function toLifecycleArray(parameters: Parameter[], providers: Provider[]) {
-  const hookTypes: Record<string, string[]> = {};
-
-  for (const parameter of parameters) {
-    if (!parameter.providerName) {
-      continue;
-    }
-
-    const provider = providers.find((p) => p.type === parameter.providerName)!;
-
-    for (const hook of provider.lifecycleHooks) {
-      hookTypes[hook] ??= [];
-
-      hookTypes[hook]!.push(parameter.providerName!);
-    }
-  }
-
-  return Object.entries(hookTypes)
-    .map(([hook, values]) => `${hook}: [${values.map((v) => `${v}.${hook}`).join(', ')}]`)
-    .join(',');
 }

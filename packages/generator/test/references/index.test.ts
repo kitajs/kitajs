@@ -6,8 +6,7 @@ import { Worker } from 'node:worker_threads';
 import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
-import type Runtime from './runtime';
-
+import type * as Runtime from './runtime.kita';
 describe('References', async () => {
   const rt = await generateRuntime<typeof Runtime>(__dirname);
 

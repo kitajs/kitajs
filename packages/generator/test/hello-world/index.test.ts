@@ -3,8 +3,7 @@ import test, { describe } from 'node:test';
 import { createApp, generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
-import type Runtime from './runtime';
-
+import type * as Runtime from './runtime.kita';
 describe('Hello World', async () => {
   const rt = await generateRuntime<typeof Runtime>(__dirname);
 
@@ -24,7 +23,7 @@ describe('Hello World', async () => {
 
     const res = await app.inject({ method: 'GET', url: '/' });
 
-    assert.equal(res.statusCode, 200);
     assert.equal(res.body, 'Hello World!');
+    assert.equal(res.statusCode, 200);
   });
 });

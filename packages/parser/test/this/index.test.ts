@@ -1,4 +1,3 @@
-import { kControllerName } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -26,7 +25,7 @@ describe('This & Use usage', async () => {
         response: { '2xx': { type: 'string' } },
         operationId: 'getIndex'
       },
-      options: `${kControllerName}.test2($1)`
+      options: `${route!.controllerName}.test2($1)`
     });
   });
 
@@ -44,7 +43,7 @@ describe('This & Use usage', async () => {
         response: { '2xx': { type: 'string' } },
         operationId: 'postIndex'
       },
-      options: `${kControllerName}.test3(${kControllerName}.test2(${kControllerName}.test($1)))`
+      options: `${route!.controllerName}.test3(${route!.controllerName}.test2(${route!.controllerName}.test($1)))`
     });
   });
 });

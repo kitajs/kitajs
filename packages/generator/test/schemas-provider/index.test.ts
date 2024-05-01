@@ -3,8 +3,7 @@ import test, { describe } from 'node:test';
 import { generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
-import type Runtime from './runtime';
-
+import type * as Runtime from './runtime.kita';
 describe('Schemas Provider', async () => {
   const rt = await generateRuntime<typeof Runtime>(__dirname);
 

@@ -5,8 +5,7 @@ import { generateRuntime } from '../runner';
 
 //@ts-ignore - first test may not have been run yet
 import fastify from 'fastify';
-import type Runtime from './runtime';
-
+import type * as Runtime from './runtime.kita';
 describe('Multiple plugin registrations', async () => {
   const rt = await generateRuntime<typeof Runtime>(__dirname);
 
