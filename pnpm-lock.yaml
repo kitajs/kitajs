@@ -57,8 +57,8 @@ importers:
         specifier: ^3.1.4
         version: 3.1.4
       '@oclif/plugin-plugins':
-        specifier: ^5.0.11
-        version: 5.0.11
+        specifier: ^5.0.18
+        version: 5.0.18
       '@oclif/plugin-warn-if-update-available':
         specifier: ^3.0.12
         version: 3.0.15
@@ -1049,6 +1049,10 @@ packages:
     resolution: {integrity: sha512-e6Vwu+cb2Sn4qFFpmY1fQLRWIY5ugruMuN94xb7+kyUzxrirYjJATPhuCT1G5xj9Dk+hTMH+Sp6XcHcVTS1lHg==}
     engines: {node: '>=18.0.0'}
 
+  '@oclif/core@3.26.5':
+    resolution: {integrity: sha512-uRmAujGJjLhhgpLylbiuHuPt9Ec7u6aJ72utuSPNTRw47+W5vbQSGnLGPiil1Mt5YDL+zFOyTVH6Uv3NSP2SaQ==}
+    engines: {node: '>=18.0.0'}
+
   '@oclif/plugin-autocomplete@3.0.15':
     resolution: {integrity: sha512-Q0XcqU3YQ6mAi8PGAfbsLBCquC6LmaxgMblxUlp6o3MvlsaO3tsQOWg20Mlciq4t+IX1r6VmP3L/EtkuJHFluQ==}
     engines: {node: '>=18.0.0'}
@@ -1061,8 +1065,8 @@ packages:
     resolution: {integrity: sha512-2YzBCBhieiu3BXjsmyb5jGs1ivYVxLG/3pSbPvo5oJGi5D5SWB038v4y61PzrUZ+2LWPLBfDQIMWccoI2r7cew==}
     engines: {node: '>=18.0.0'}
 
-  '@oclif/plugin-plugins@5.0.11':
-    resolution: {integrity: sha512-es+IMNI97Jw+EX25r9ejrOph9R/8FbNXmWrH/NnhUJ3lNDpeMPM8njP4ovHYJi2+ta2VTHDxhQFNRDlNnUiyOw==}
+  '@oclif/plugin-plugins@5.0.18':
+    resolution: {integrity: sha512-XWxrs6Jc0ovuoK7MeIViWwXYX939l55tzpr7+1dac7y33hqBrH50K5kn2M7NXjfYYJrY17IqRLhlmRLGE6vuYQ==}
     engines: {node: '>=18.0.0'}
 
   '@oclif/plugin-warn-if-update-available@3.0.15':
@@ -3183,8 +3187,8 @@ packages:
     resolution: {integrity: sha512-ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  npm@10.5.0:
-    resolution: {integrity: sha512-Ejxwvfh9YnWVU2yA5FzoYLTW52vxHCz+MHrOFg9Cc8IFgF/6f5AGPAvb5WTay5DIUP1NIfN3VBZ0cLlGO0Ys+A==}
+  npm@10.7.0:
+    resolution: {integrity: sha512-FXylyYSXNjgXx3l82BT8RSQvCoGIQ3h8YdRFGKNvo3Pv/bKscK4pdWkx/onwTpHDqGw+oeLf4Rxln9WVyxAxlQ==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     bundledDependencies:
@@ -3195,6 +3199,7 @@ packages:
       - '@npmcli/map-workspaces'
       - '@npmcli/package-json'
       - '@npmcli/promise-spawn'
+      - '@npmcli/redact'
       - '@npmcli/run-script'
       - '@sigstore/tuf'
       - abbrev
@@ -3203,8 +3208,6 @@ packages:
       - chalk
       - ci-info
       - cli-columns
-      - cli-table3
-      - columnify
       - fastest-levenshtein
       - fs-minipass
       - glob
@@ -3240,7 +3243,6 @@ packages:
       - npm-profile
       - npm-registry-fetch
       - npm-user-validate
-      - npmlog
       - p-map
       - pacote
       - parse-conflict-json
@@ -3269,6 +3271,10 @@ packages:
   object-treeify@1.1.33:
     resolution: {integrity: sha512-EFVjAYfzWqWsBMRHPMAXLCDIJnpMhdWAqR7xG6M6a2cs6PMFpl/+Z20w9zDW4vkxOFfddegBKq9Rehd0bxWE7A==}
     engines: {node: '>= 10'}
+
+  object-treeify@4.0.1:
+    resolution: {integrity: sha512-Y6tg5rHfsefSkfKujv2SwHulInROy/rCL5F4w0QOWxut8AnxYxf0YmNhTh95Zfyxpsudo66uqkux0ACFnyMSgQ==}
+    engines: {node: '>= 16'}
 
   object.assign@4.1.5:
     resolution: {integrity: sha512-byy+U7gp+FVwmyzKPYhW2h5l3crpmGsxl7X2s8y43IgxvG4g3QZ6CffDtsNQy1WsmZpQbO+ybo0AlW7TY6DcBQ==}
@@ -5713,6 +5719,37 @@ snapshots:
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
 
+  '@oclif/core@3.26.5':
+    dependencies:
+      '@types/cli-progress': 3.11.5
+      ansi-escapes: 4.3.2
+      ansi-styles: 4.3.0
+      cardinal: 2.1.1
+      chalk: 4.1.2
+      clean-stack: 3.0.1
+      cli-progress: 3.12.0
+      color: 4.2.3
+      debug: 4.3.4(supports-color@8.1.1)
+      ejs: 3.1.10
+      get-package-type: 0.1.0
+      globby: 11.1.0
+      hyperlinker: 1.0.0
+      indent-string: 4.0.0
+      is-wsl: 2.2.0
+      js-yaml: 3.14.1
+      minimatch: 9.0.4
+      natural-orderby: 2.0.3
+      object-treeify: 1.1.33
+      password-prompt: 1.1.3
+      slice-ansi: 4.0.0
+      string-width: 4.2.3
+      strip-ansi: 6.0.1
+      supports-color: 8.1.1
+      supports-hyperlinks: 2.3.0
+      widest-line: 3.1.0
+      wordwrap: 1.0.0
+      wrap-ansi: 7.0.0
+
   '@oclif/plugin-autocomplete@3.0.15':
     dependencies:
       '@oclif/core': 3.26.3
@@ -5733,14 +5770,15 @@ snapshots:
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
 
-  '@oclif/plugin-plugins@5.0.11':
+  '@oclif/plugin-plugins@5.0.18':
     dependencies:
-      '@oclif/core': 3.26.3
+      '@oclif/core': 3.26.5
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
-      npm: 10.5.0
+      npm: 10.7.0
       npm-package-arg: 11.0.2
       npm-run-path: 5.3.0
+      object-treeify: 4.0.1
       semver: 7.6.0
       validate-npm-package-name: 5.0.0
       yarn: 1.22.22
@@ -8422,13 +8460,15 @@ snapshots:
     dependencies:
       path-key: 4.0.0
 
-  npm@10.5.0: {}
+  npm@10.7.0: {}
 
   object-inspect@1.13.1: {}
 
   object-keys@1.1.1: {}
 
   object-treeify@1.1.33: {}
+
+  object-treeify@4.0.1: {}
 
   object.assign@4.1.5:
     dependencies:

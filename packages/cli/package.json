@@ -67,7 +67,7 @@
     "@oclif/plugin-autocomplete": "^3.0.15",
     "@oclif/plugin-help": "^6.0.21",
     "@oclif/plugin-not-found": "^3.1.4",
-    "@oclif/plugin-plugins": "^5.0.11",
+    "@oclif/plugin-plugins": "^5.0.18",
     "@oclif/plugin-warn-if-update-available": "^3.0.12",
     "chalk": "^4.1.2",
     "deepmerge": "^4.3.1",
