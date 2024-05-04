@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -91,6 +91,7 @@ USAGE
 
 <!-- commands -->
 
+- [`kita ast`](#kita-ast)
 - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
 - [`kita build`](#kita-build)
 - [`kita config`](#kita-config)
@@ -107,8 +108,32 @@ USAGE
 - [`kita plugins uninstall [PLUGIN]`](#kita-plugins-uninstall-plugin)
 - [`kita plugins unlink [PLUGIN]`](#kita-plugins-unlink-plugin)
 - [`kita plugins update`](#kita-plugins-update)
-- [`kita reset`](#kita-reset)
 - [`kita watch`](#kita-watch)
+
+## `kita ast`
+
+Prints the full Kita's AST object for debugging purposes
+
+```
+USAGE
+  $ kita ast [-c <value>] [--cwd <value>] [-r] [-R] [-s] [-P] [-p]
+
+FLAGS
+  -P, --providers  Prints the providers.
+  -R, --routes     Prints the routes.
+  -p, --plugins    Prints the plugins.
+  -r, --raw        Prints a raw JSON string instead of a pretty printed one.
+  -s, --schemas    Prints the schemas.
+
+GLOBAL FLAGS
+  -c, --config=<value>  Path to your kita.config.js file, if any.
+      --cwd=<value>     Sets the current working directory for your command.
+
+DESCRIPTION
+  Prints the full Kita's AST object for debugging purposes
+```
+
+_See code: [src/commands/ast.ts](https://github.com/kitajs/kitajs/blob/v1.1.36/src/commands/ast.ts)_
 
 ## `kita autocomplete [SHELL]`
 
@@ -182,7 +207,7 @@ USAGE
   $ kita config [-c <value>] [--cwd <value>] [-r]
 
 FLAGS
-  -r, --[no-]raw  Prints a JSON string instead of a pretty printed object.
+  -r, --raw  Prints a raw JSON string instead of a pretty printed one.
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
@@ -190,11 +215,6 @@ GLOBAL FLAGS
 
 DESCRIPTION
   Prints the full resolved configuration file
-
-EXAMPLES
-  Builds your backend with a custom config file.
-
-    $ kita config -c kita.config.js
 ```
 
 _See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.36/src/commands/config.ts)_
@@ -557,29 +577,6 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.11/src/commands/plugins/update.ts)_
-
-## `kita reset`
-
-Resets your runtime in an attempt to fix any issues.
-
-```
-USAGE
-  $ kita reset [-c <value>] [--cwd <value>]
-
-GLOBAL FLAGS
-  -c, --config=<value>  Path to your kita.config.js file, if any.
-      --cwd=<value>     Sets the current working directory for your command.
-
-DESCRIPTION
-  Resets your runtime in an attempt to fix any issues.
-
-EXAMPLES
-  Resets your runtime
-
-    $ kita reset
-```
-
-_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.36/src/commands/reset.ts)_
 
 ## `kita watch`
 

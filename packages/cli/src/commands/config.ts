@@ -4,19 +4,11 @@ import { BaseKitaCommand } from '../util/base';
 export default class Config extends BaseKitaCommand {
   static override description = 'Prints the full resolved configuration file';
 
-  static override examples = [
-    {
-      command: '<%= config.bin %> <%= command.id %> -c kita.config.js',
-      description: 'Builds your backend with a custom config file.'
-    }
-  ];
-
   static override flags = {
     raw: Flags.boolean({
       char: 'r',
       description: 'Prints a raw JSON string instead of a pretty printed one.',
-      default: false,
-      allowNo: true
+      default: false
     })
   };
 
