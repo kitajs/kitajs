@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-* [Usage](#usage)
-* [Commands](#commands)
+- [Usage](#usage)
+- [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -148,7 +148,7 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita build [-c <value>] [--cwd <value>] [-d] [-f]
+  $ kita build [-c <value>] [--cwd <value>] [-f | -d]
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
@@ -587,7 +587,7 @@ Watch for changes in your source code and rebuilds the runtime.
 
 ```
 USAGE
-  $ kita watch [-c <value>] [--cwd <value>] [-d] [-f] [-i <value>]
+  $ kita watch [-c <value>] [--cwd <value>] [-f | -d] [-i <value>]
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.

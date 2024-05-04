@@ -42,8 +42,10 @@
           "type": "boolean"
         },
         "format": {
+          "aliases": ["prettier"],
           "char": "f",
           "description": "Formats the generated runtime using prettier.",
+          "exclusive": ["dry-run"],
           "helpGroup": "build",
           "name": "format",
           "allowNo": true,
@@ -283,8 +285,10 @@
           "type": "boolean"
         },
         "format": {
+          "aliases": ["prettier"],
           "char": "f",
           "description": "Formats the generated runtime using prettier.",
+          "exclusive": ["dry-run"],
           "helpGroup": "build",
           "name": "format",
           "allowNo": true,

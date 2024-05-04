@@ -97,14 +97,14 @@ export abstract class BaseKitaCommand extends Command {
     }
 
     if (formatter) {
-      ux.action.start(chalk`Generating {cyan ${path.basename(config.output)}}`, '', {
+      ux.action.start(chalk`Writing code`, '', {
         stdout: true,
         style: 'arc'
       });
 
       await formatter.generate(parser);
 
-      ux.action.stop(chalk`{green done.}`);
+      ux.action.stop(chalk`{cyan ${path.relative(config.cwd, config.output)}}`);
     } else {
       this.log(chalk`{yellow Skipping generation process.}`);
     }
