@@ -1,6 +1,4 @@
 import {
-  kFastifyVariable,
-  kKitaOptions,
   stringifyOptions,
   type JsonSchema,
   type KitaPlugin,
@@ -17,83 +15,31 @@ export const createPlugin = (
   providers: Provider[],
   schemas: JsonSchema[]
 ) => tst/* ts */ `
-  export interface KitaPluginOptions {
-    ${plugins.map(toPluginType)}
-  }
 
-  /**
-   * The Kita generated fastify plugin.
-   *
-   * Registering it into your fastify instance will automatically register all
-   * routes, schemas and providers.
-   *
-   * @example
-   * \`\`\`ts
-   * app.register(Kita, {
-   *   // You can configure all ${plugins.length} configured plugins here:
-   *   ${plugins.map((p) => `${p.name}: { }`).join(',\n *   ')}
-   * })
-   * \`\`\`
-   *
-   * @see {@link https://kita.js.org}
-   */
-  export const Kita = fp<KitaPluginOptions>(
-    async (${kFastifyVariable}, options) => {
-      ${plugins.map(createPluginRegister)}
+export const runtime:KitaGeneratedRuntime<{
+  ${plugins.map(toPluginType)}
+}> = {
+    schemas: [
       ${schemas.map(toSchema)}
-      ${
-        /*
-
-      Register all routes inside a plugin to make sure capsulation works
-      https://github.com/fastify/fastify-plugin/issues/78#issuecomment-672692334
-
-      */ ''
-      }
-      await ${kFastifyVariable}.register(
-        async ${kFastifyVariable} => {
-          ${providers.map(toProviderApplicationHooks)}
-          ${routes.map((r) => toRouteRegister(r, providers))}
-        },
-        ${kKitaOptions}
-      )
-    },
-    {
-      name: '@kitajs/runtime',
-      fastify: '4.x'
+    ],
+    routes: [
+      ${routes.map((r) => toOptions(r, providers))}
+    ],
+    applicationHooks: [
+      ${providers.map(toProviderApplicationHooks)}
+    ],
+    plugins: {
+      ${plugins.map(createPluginRegister)}
     }
-  )
-`;
-
-const toPluginType = (plugin: KitaPlugin) => tst/* ts */ `
-  /**
-  * Options for the \`${plugin.name}\` plugin.
-  *
-  * Use \`false\` to disable it manually.
-  *
-  * @see {@linkcode ${plugin.name}}
-  */
-  ${plugin.name}?: Parameters<typeof ${plugin.name}>[1] | false
+  }
 `;
 
 const toSchema = (schema: JsonSchema) => tst/* ts */ `
-  ${kFastifyVariable}.addSchema(${stringify(schema)})
+  ${stringify(schema)},
 `;
 
 const createPluginRegister = (plugin: KitaPlugin) => tst/* ts */ `
-  const ${plugin.name}Display =
-  //@ts-ignore - fastify-plugin does this
-  ${plugin.name}[Symbol.for('fastify.display-name')]
-
-  if (
-      ${plugin.name}Display &&
-      !${kFastifyVariable}.hasPlugin(${plugin.name}Display) &&
-      ${kKitaOptions}.${plugin.name} !== false
-    ) {
-    await ${kFastifyVariable}.register(
-      ${plugin.name},
-      Object.assign(${stringifyOptions(plugin.options)}, ${kKitaOptions}.${plugin.name} || {}) as any
-    )
-  }
+  ${plugin.name}: [${plugin.name}, ${stringifyOptions(plugin.options)}],
 `;
 
 const toProviderApplicationHooks = (provider: Provider) => tst/* ts */ `
@@ -101,11 +47,7 @@ const toProviderApplicationHooks = (provider: Provider) => tst/* ts */ `
 `;
 
 const toAddApplicationHooks = (applicationHook: string, controllerName: string) => tst/* ts */ `
-  ${kFastifyVariable}.addHook('${applicationHook}', ${controllerName}.${applicationHook})
-`;
-
-const toRouteRegister = (route: Route, providers: Provider[]) => tst/* ts */ `
-  ${kFastifyVariable}.route(${toOptions(route, providers)})
+  ['${applicationHook}', ${controllerName}.${applicationHook}],
 `;
 
 const toOptions = (r: Route, providers: Provider[]) => {
@@ -115,8 +57,7 @@ const toOptions = (r: Route, providers: Provider[]) => {
       method: ${r.method === 'ALL' ? 'supportedMethods' : `'${r.method}'`},
       handler: ${r.schema.operationId}Handler,
       schema: ${toReplacedSchema(r)}, ${toLifecycleArray(r.parameters, providers)}
-    }
-  `;
+    },`;
 
   return r.options ? r.options.replace('$1', code) : code;
 };
@@ -126,7 +67,7 @@ export function toReplacedSchema(r: Route) {
 
   for (const param of r.parameters) {
     if (param.schemaTransformer) {
-      code = `${param.providerName}.transformSchema(${code}${
+      code = tst/* ts */ `${param.providerName}.transformSchema(${code}${
         Array.isArray(param.schemaTransformer) ? `, ${param.schemaTransformer.join(', ')}` : ''
       })`;
     }
@@ -153,7 +94,7 @@ export function toLifecycleArray(parameters: Parameter[], providers: Provider[])
   }
 
   const code = Object.entries(hookTypes)
-    .map(([hook, values]) => `${hook}: [${values.map((v) => `${v}.${hook}`).join(', ')}]`)
+    .map(([hook, values]) => tst/* ts */ `${hook}: [${values.map((v) => `${v}.${hook}`).join(', ')}]`)
     .join(',');
 
   if (code) {
@@ -162,3 +103,14 @@ export function toLifecycleArray(parameters: Parameter[], providers: Provider[])
 
   return '';
 }
+
+const toPluginType = (plugin: KitaPlugin) => tst/* ts */ `
+  /**
+   * Options for the \`${plugin.name}\` plugin.
+   *
+   * Use \`false\` to disable it manually.
+   *
+   * @see {@linkcode ${plugin.name}}
+   */
+  ${plugin.name}?: Parameters<typeof ${plugin.name}>[1] | boolean
+`;

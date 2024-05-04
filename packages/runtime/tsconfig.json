@@ -4,6 +4,6 @@
     "noEmit": true,
     "skipLibCheck": false
   },
-  "include": ["types", "index.d.ts"],
+  "include": ["types", "index.d.ts", "index.js"],
   "exclude": ["generated"]
 }

@@ -2,7 +2,7 @@ import { kSchemaDefinitions, type JsonSchema, type KitaPlugin, type Provider, ty
 import stringify from 'json-stable-stringify';
 import { formatImport } from '../util/path';
 import { tst } from '../util/template';
-import { createPlugin } from './plugin';
+import { createPlugin as createGeneratedRuntime } from './plugin';
 import { createRoute, createRouteType } from './route';
 
 export const generateKitaRuntime = (
@@ -25,18 +25,20 @@ export const generateKitaRuntime = (
 
   import fp from 'fastify-plugin'
   import type { FastifyRequest, FastifyReply } from 'fastify'
+  import type { KitaGeneratedRuntime } from '@kitajs/runtime'
   ${plugins.map(toPluginImport)}
   ${providers.map((p) => toProviderImport(p, src))}${toAllMethod(routes)}
   ${groupRouteImports(routes, src)}
+  ${groupRouteExports(routes, src)}
   ${routes.map(createRouteType)}
   ${routes.map(createRoute)}
-  ${createPlugin(routes, plugins, providers, schemas)}
-  ${groupRouteExports(routes, src)}
+  ${createGeneratedRuntime(routes, plugins, providers, schemas)}
   ${createSchemaDefinitions(schemas)}
 `;
 
-export const toAllMethod = (routes: Route[]) =>
-  routes.find((r) => r.method === 'ALL') ? `\nimport { supportedMethods } from 'fastify/lib/httpMethods.js'` : '';
+export const toAllMethod = (routes: Route[]) => tst/* ts */ `
+  ${routes.find((r) => r.method === 'ALL') && `\nimport { supportedMethods } from 'fastify/lib/httpMethods.js'`}
+`;
 
 export const toProviderImport = (provider: Provider, src: string) => tst/* ts */ `
   import * as ${provider.type} from '${formatImport(provider.providerPath, src)}'
