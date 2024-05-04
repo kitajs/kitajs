@@ -1,21 +1,18 @@
-/// <reference types="@kitajs/runtime" />
-
 import { parseConfig, readCompilerOptions, type PartialKitaConfig } from '@kitajs/common';
 import { KitaParser } from '@kitajs/parser';
-import fastify, { type FastifyHttpOptions } from 'fastify';
 import assert from 'node:assert';
-import path from 'node:path';
 import { KitaFormatter } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');
 
 export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaConfig = {}): Promise<R> {
+  const src = partialCfg.src ?? cwd;
+
   const config = parseConfig({
     cwd,
-    src: cwd,
+    src,
     tsconfig,
-    output: path.resolve(cwd, 'runtime.kita.ts'),
-    format: false, // faster tests
+    format: true,
     ...partialCfg
   });
 
@@ -32,10 +29,4 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
   await formatter.generate(kita);
 
   return import(config.output!);
-}
-
-export function createApp<R>(runtime: R, opts?: FastifyHttpOptions<any, any>) {
-  const app = fastify(opts);
-  app.register((runtime as { Kita: () => void }).Kita);
-  return app;
 }

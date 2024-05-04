@@ -1,24 +1,25 @@
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
+import { generateRuntime } from '../runner';
 
-//@ts-ignore - first test may not have been run yet
-import type * as Runtime from './runtime.kita';
 describe('Multiple path parameters', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('expects getNameNum was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getNameNum);
-    assert.ok(rt.getNameNumHandler);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.getNameNum);
   });
 
   test('methods are bound correctly', () => {
-    assert.deepStrictEqual(rt.getNameNum('name', 1), { name: 'name', num: 1 });
+    assert.deepStrictEqual(runtime.getNameNum('name', 1), { name: 'name', num: 1 });
   });
 
   test('getNameNum options were generated', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({
       method: 'GET',
@@ -30,7 +31,8 @@ describe('Multiple path parameters', async () => {
   });
 
   test('getNameNum returns error ', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({
       method: 'GET',
@@ -47,11 +49,12 @@ describe('Multiple path parameters', async () => {
   });
 
   test('methods post are bound correctly', () => {
-    assert.deepStrictEqual(rt.postNameNum('kita', 1), { notName: 'kita', notNum: 1 });
+    assert.deepStrictEqual(runtime.postNameNum('kita', 1), { notName: 'kita', notNum: 1 });
   });
 
   test('postNameNum options were generated', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({
       method: 'POST',
@@ -63,7 +66,8 @@ describe('Multiple path parameters', async () => {
   });
 
   test('postNameNum options returns error', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({
       method: 'POST',

@@ -51,15 +51,19 @@ const toAddApplicationHooks = (applicationHook: string, controllerName: string) 
 `;
 
 const toOptions = (r: Route, providers: Provider[]) => {
-  const code = tst/* ts */ `
+  let code = tst/* ts */ `
     {
       url: '${r.url}',
       method: ${r.method === 'ALL' ? 'supportedMethods' : `'${r.method}'`},
       handler: ${r.schema.operationId}Handler,
       schema: ${toReplacedSchema(r)}, ${toLifecycleArray(r.parameters, providers)}
-    },`;
+    }`;
 
-  return r.options ? r.options.replace('$1', code) : code;
+  if (r.options) {
+    code = r.options.replace('$1', code);
+  }
+
+  return `${code},`;
 };
 
 export function toReplacedSchema(r: Route) {

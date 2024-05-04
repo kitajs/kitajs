@@ -1,14 +1,40 @@
 import deepmerge from 'deepmerge';
+import { error } from 'node:console';
 import fs from 'node:fs';
 import path from 'node:path';
-import { InvalidConfigError } from '../errors';
+import { InvalidConfigError, KitaError } from '../errors';
 import type { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
 export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()): KitaConfig {
   const cwd = env('cwd', String) ?? config.cwd ?? root;
 
-  const src = env('src', String) ?? config.src ?? 'src';
+  let esm = env('esm', strToBool) ?? config.esm ?? false;
+
+  try {
+    const packageJson = require(path.join(cwd, 'package.json'));
+
+    switch (packageJson?.type) {
+      case undefined:
+      case 'commonjs':
+        esm = false;
+        break;
+      case 'module':
+        esm = true;
+        break;
+      default:
+        throw new InvalidConfigError(
+          `Invalid package.json type: ${packageJson.type}. Only 'commonjs' or 'module' are supported.`,
+          config
+        );
+    }
+  } catch (e) {
+    if (e instanceof KitaError) {
+      throw error;
+    }
+  }
+
+  let src = env('src', String) ?? config.src ?? 'src';
 
   if (typeof src !== 'string') {
     throw new InvalidConfigError(
@@ -16,6 +42,8 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
       config
     );
   }
+
+  src = path.resolve(cwd, src);
 
   const format = env('format', strToBool) ?? config.format ?? !!process.stdout.isTTY;
 
@@ -26,13 +54,12 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  const output = path.resolve(cwd, env('output', String) ?? config.output ?? `src${path.sep}runtime.kita.ts`);
+  let output = env('output', String) ?? config.output;
 
-  if (typeof output !== 'string') {
-    throw new InvalidConfigError(
-      `'output' must be a string: (${JSON.stringify(output)}). Read from ${envOrigin('output')}`,
-      config
-    );
+  if (output) {
+    output = path.resolve(cwd, output);
+  } else {
+    output = path.join(src, 'runtime.kita.ts');
   }
 
   const responses = env('responses', JSON.parse) ?? config.responses ?? {};
@@ -86,7 +113,8 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 
   return {
     cwd,
-    src: path.resolve(cwd, src),
+    src,
+    esm,
     tsconfig,
     format,
     output,

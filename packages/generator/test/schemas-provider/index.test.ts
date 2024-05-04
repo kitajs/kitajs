@@ -2,13 +2,11 @@ import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { generateRuntime } from '../runner';
 
-//@ts-ignore - first test may not have been run yet
-import type * as Runtime from './runtime.kita';
 describe('Schemas Provider', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('KitaSchemas was generated', () => {
-    assert.deepStrictEqual(rt.KitaSchemas, {
+    assert.deepStrictEqual(runtime.KitaSchemas, {
       B: {
         additionalProperties: false,
         properties: {

@@ -17,7 +17,8 @@ export class KitaFormatter implements SourceFormatter {
       collector.getPlugins(),
       collector.getProviders(),
       collector.getSchemas(),
-      path.relative(this.config.cwd, this.config.src)
+      path.relative(this.config.cwd, this.config.src),
+      this.config.esm
     );
 
     if (this.config.format) {
@@ -38,9 +39,8 @@ export class KitaFormatter implements SourceFormatter {
           embeddedLanguageFormatting: 'off',
           quoteProps: 'preserve'
         });
-      } catch (error: any) {
         // ignore formatting errors
-      }
+      } catch {}
     }
 
     try {

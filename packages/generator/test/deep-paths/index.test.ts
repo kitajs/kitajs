@@ -1,24 +1,25 @@
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
+import { generateRuntime } from '../runner';
 
-//@ts-ignore - first test may not have been run yet
-import type * as Runtime from './runtime.kita';
 describe('Deep Paths', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('expects getIndex was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getABCDE);
-    assert.ok(rt.getABCDEHandler);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.getABCDE);
   });
 
   test('methods are bound correctly', () => {
-    assert.equal(rt.getABCDE(), 'Hello World!');
+    assert.equal(runtime.getABCDE(), 'Hello World!');
   });
 
   test('getIndex options were generated', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'GET', url: '/a/b/c/d/e' });
 

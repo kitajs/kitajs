@@ -37,6 +37,14 @@ export interface KitaConfig {
   output: string;
 
   /**
+   * If the output should be in esm format.
+   *
+   * @default 'Gets from <cwd>/package.json type field'
+   * @env `KITA_ESM` - The environment variable to override this setting.
+   */
+  esm: boolean;
+
+  /**
    * The tsconfig path to use to parse the files.
    *
    * @default 'tsconfig.json'

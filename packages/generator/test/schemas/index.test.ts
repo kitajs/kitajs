@@ -1,24 +1,26 @@
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
+import { generateRuntime } from '../runner';
 
-//@ts-ignore - first test may not have been run yet
-import type * as Runtime from './runtime.kita';
 describe('Schemas', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('expects getIndex was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getIndex);
-    assert.ok(rt.getIndexHandler);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.getIndex);
   });
 
   test('methods are bound correctly', () => {
-    assert.equal(rt.getIndex({ name: 'Schema' }), 'Hello Schema!');
+    assert.equal(runtime.getIndex({ name: 'Schema' }), 'Hello Schema!');
   });
 
   test('schema was generated', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
+
     await app.ready();
 
     assert.deepStrictEqual(app.getSchema('Data'), {
@@ -31,7 +33,8 @@ describe('Schemas', async () => {
   });
 
   test('getIndex options were generated', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'GET', url: '/' });
 

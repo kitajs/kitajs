@@ -1,22 +1,24 @@
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
+import { generateRuntime } from '../runner';
 
-//@ts-ignore - first test may not have been run yet
-import type * as Runtime from './runtime.kita';
 describe('Providers Hook', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('expects all routes were generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getIndex);
-    assert.ok(rt.postIndex);
-    assert.ok(rt.putIndex);
-    assert.ok(rt.deleteIndex);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.getIndex);
+    assert.ok(runtime.postIndex);
+    assert.ok(runtime.putIndex);
+    assert.ok(runtime.deleteIndex);
   });
 
   test('tests application hook', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({
       method: 'GET',
@@ -30,7 +32,8 @@ describe('Providers Hook', async () => {
   });
 
   test('tests lifecycle hook', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({
       method: 'POST',
@@ -46,7 +49,8 @@ describe('Providers Hook', async () => {
   });
 
   test('tests lifecycle and application hook', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({
       method: 'PUT',
@@ -63,7 +67,8 @@ describe('Providers Hook', async () => {
   });
 
   test('tests no hooks', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({
       method: 'DELETE',

@@ -8,6 +8,8 @@ module.exports.Kita = fp(
    * >} opts
    */
   async (fastify, opts) => {
+    opts.plugins = opts.plugins || {};
+
     const { runtime } = await opts.runtime;
 
     // Adds all plugins

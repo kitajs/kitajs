@@ -7,9 +7,26 @@ import type {
   RouteOptions
 } from 'fastify';
 import type { ApplicationHook, LifecycleHook } from 'fastify/types/hooks';
+import type { Promisable } from 'type-fest';
 
 declare module 'fastify' {
   export interface FastifyRegister {
+    /**
+     * Register the Kita generated fastify plugin with all routes, schemas and providers.
+     *
+     * @example
+     *
+     * ```ts
+     * app.register(Kita, {
+     *   runtime: import('./runtime.kita'),
+     *   plugins: {
+     *     myPluginConfig: false // disables it
+     *   }
+     * });
+     * ```
+     *
+     * @see {@link https://kita.js.org}
+     */
     // biome-ignore lint/style/useShorthandFunctionType: type extension here is necessary to allow generic trickery
     <const R extends KitaGeneratedRuntime>(
       plugin: typeof Kita<R>,
@@ -37,14 +54,14 @@ export interface KitaGeneratedRuntime<B = unknown> {
  * app.register(Kita, {
  *   runtime: import('./runtime.kita'),
  *   plugins: {
- *     myPlugin: false
+ *     myPluginConfig: false // disables it
  *   }
  * });
  * ```
  */
 export interface KitaPluginOptions<R extends KitaGeneratedRuntime> {
-  runtime: Promise<{ runtime: R }>;
-  plugins: R['__brand'];
+  runtime: Promisable<{ runtime: R }>;
+  plugins?: R['__brand'];
 }
 
 /**
@@ -56,7 +73,10 @@ export interface KitaPluginOptions<R extends KitaGeneratedRuntime> {
  *
  * ```ts
  * app.register(Kita, {
- *   runtime: import('./runtime.kita')
+ *   runtime: import('./runtime.kita'),
+ *   plugins: {
+ *     myPluginConfig: false // disables it
+ *   }
  * });
  * ```
  *

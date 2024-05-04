@@ -1,14 +1,13 @@
-import assert from 'node:assert';
-import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
-
 import { readCompilerOptions } from '@kitajs/common';
 import { walk } from '@kitajs/parser';
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
+import assert from 'node:assert';
 import path from 'node:path';
+import test, { describe } from 'node:test';
 import ts from 'typescript';
+import { generateRuntime } from '../runner';
 
-//@ts-ignore - first test may not have been run yet
-import type * as Runtime from './runtime.kita';
 const tsconfig = require.resolve('./tsconfig.json');
 const compilerOptions = readCompilerOptions(tsconfig);
 
@@ -20,24 +19,25 @@ describe('Dist usage', async () => {
 
   program.emit();
 
-  const rt = await generateRuntime<typeof Runtime>(__dirname, {
+  const runtime = await generateRuntime<typeof import('./src/runtime.kita')>(__dirname, {
     cwd: __dirname,
     src: path.join(__dirname, 'src'),
     tsconfig: tsconfig
   });
 
   test('expects getIndex was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getIndex);
-    assert.ok(rt.getIndexHandler);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.getIndex);
   });
 
   test('methods are bound correctly', () => {
-    assert.equal(rt.getIndex(), 'From dist!');
+    assert.equal(runtime.getIndex(), 'From dist!');
   });
 
   test('getIndex options were generated', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'GET', url: '/' });
 

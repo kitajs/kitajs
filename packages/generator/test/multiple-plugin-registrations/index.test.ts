@@ -1,23 +1,22 @@
 import fastifySwagger from '@fastify/swagger';
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { generateRuntime } from '../runner';
 
-//@ts-ignore - first test may not have been run yet
-import fastify from 'fastify';
-import type * as Runtime from './runtime.kita';
 describe('Multiple plugin registrations', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('expects getIndex was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getIndex);
-    assert.ok(rt.getIndexHandler);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.getIndex);
   });
 
   test('methods are bound correctly', () => {
-    assert.equal(rt.getIndex(), 'Hello World!');
-    assert.equal(rt.getIndex('Arthur'), 'Hello Arthur!');
+    assert.equal(runtime.getIndex(), 'Hello World!');
+    assert.equal(runtime.getIndex('Arthur'), 'Hello Arthur!');
   });
 
   test('getIndex options were generated', async () => {
@@ -27,7 +26,7 @@ describe('Multiple plugin registrations', async () => {
 
     // If the plugin does not check for previously registered plugins,
     // this should throw an error
-    app.register(rt.Kita);
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'GET', url: '/' });
 
