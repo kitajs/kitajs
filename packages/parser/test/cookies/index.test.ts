@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -23,23 +24,24 @@ describe('Cookies', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [
         {
           name: 'CookieParameterParser',
-          value: 'req.cookies.a',
-          helper: "if (req.cookies.a === undefined) { throw new Error('Missing cookie a') };"
+          value: `${kRequestParam}.cookies.a`,
+          helper: `if (${kRequestParam}.cookies.a === undefined) { throw new Error('Missing cookie a') };`
         },
         {
           name: 'CookieParameterParser',
-          value: 'req.cookies["c c"]',
-          helper: `if (req.cookies["c c"] === undefined) { throw new Error('Missing cookie c c') };`
+          value: `${kRequestParam}.cookies["c c"]`,
+          helper: `if (${kRequestParam}.cookies["c c"] === undefined) { throw new Error('Missing cookie c c') };`
         },
         {
           name: 'CookieParameterParser',
-          value: 'req.cookies.d',
-          helper: "if (req.cookies.d === undefined) { throw new Error('Missing cookie d') };"
+          value: `${kRequestParam}.cookies.d`,
+          helper: `if (${kRequestParam}.cookies.d === undefined) { throw new Error('Missing cookie d') };`
         }
       ],
       schema: {
@@ -56,17 +58,18 @@ describe('Cookies', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [
-        { name: 'CookieParameterParser', value: 'req.cookies.a', helper: undefined },
-        { name: 'CookieParameterParser', value: 'req.cookies.b', helper: undefined },
+        { name: 'CookieParameterParser', value: `${kRequestParam}.cookies.a`, helper: undefined },
+        { name: 'CookieParameterParser', value: `${kRequestParam}.cookies.b`, helper: undefined },
         {
           name: 'CookieParameterParser',
-          value: 'req.cookies.c',
-          helper: "if (req.cookies.c === undefined) { throw new Error('Missing cookie c') };"
+          value: `${kRequestParam}.cookies.c`,
+          helper: `if (${kRequestParam}.cookies.c === undefined) { throw new Error('Missing cookie c') };`
         },
-        { name: 'CookieParameterParser', value: 'req.cookies.d', helper: undefined }
+        { name: 'CookieParameterParser', value: `${kRequestParam}.cookies.d`, helper: undefined }
       ],
       schema: {
         response: { '2xx': { type: 'string' } },

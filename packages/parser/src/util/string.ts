@@ -46,6 +46,19 @@ export function parseUrl(filepath: string, config: KitaConfig) {
         .split('/')
         .flatMap((p) => p.split('-'))
         .map(capitalize)
+        .join('') || 'Index',
+
+    controllerId: `${
+      strip
+        // Replaces [...] to Wilcard
+        .replace(/\[\.{3}\]/g, 'Wildcard')
+        // Removes a/[b]/c -> a/b/c
+        .replace(/\[(.+?)\]/g, '$1')
+        // Camel case paths or dash case paths
+        .split('/')
+        .flatMap((p) => p.split('-'))
+        .map(capitalize)
         .join('') || 'Index'
+    }Controller`
   };
 }

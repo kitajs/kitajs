@@ -1,4 +1,4 @@
-import type { AstCollector, KitaConfig, SourceFormatter } from '@kitajs/common';
+import { UnreachableRuntime, type AstCollector, type KitaConfig, type SourceFormatter } from '@kitajs/common';
 import fs from 'node:fs';
 import path from 'node:path';
 import prettier from 'prettier';
@@ -43,6 +43,11 @@ export class KitaFormatter implements SourceFormatter {
       }
     }
 
-    await fs.promises.writeFile(this.config.output, code, 'utf-8');
+    try {
+      await fs.promises.mkdir(path.dirname(this.config.output), { recursive: true });
+      await fs.promises.writeFile(this.config.output, code, 'utf-8');
+    } catch (error: any) {
+      throw new UnreachableRuntime(this.config.output, error);
+    }
   }
 }

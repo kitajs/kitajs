@@ -22,8 +22,8 @@ export const createPlugin = (
   }
 
   /**
-   * The Kita generated fastify plugin. 
-   * 
+   * The Kita generated fastify plugin.
+   *
    * Registering it into your fastify instance will automatically register all
    * routes, schemas and providers.
    *
@@ -34,7 +34,7 @@ export const createPlugin = (
    *   ${plugins.map((p) => `${p.name}: { }`).join(',\n *   ')}
    * })
    * \`\`\`
-   * 
+   *
    * @see {@link https://kita.js.org}
    */
   export const Kita = fp<KitaPluginOptions>(
@@ -56,7 +56,7 @@ export const createPlugin = (
         },
         ${kKitaOptions}
       )
-    }, 
+    },
     {
       name: '@kitajs/runtime',
       fastify: '4.x'
@@ -66,21 +66,21 @@ export const createPlugin = (
 
 const toPluginType = (plugin: KitaPlugin) => tst/* ts */ `
   /**
-  * Options for the \`${plugin.name}\` plugin. 
-  * 
+  * Options for the \`${plugin.name}\` plugin.
+  *
   * Use \`false\` to disable it manually.
-  * 
+  *
   * @see {@linkcode ${plugin.name}}
   */
   ${plugin.name}?: Parameters<typeof ${plugin.name}>[1] | false
 `;
 
 const toSchema = (schema: JsonSchema) => tst/* ts */ `
-  ${kFastifyVariable}.addSchema(${stringify(schema, { space: 4 })})
+  ${kFastifyVariable}.addSchema(${stringify(schema)})
 `;
 
 const createPluginRegister = (plugin: KitaPlugin) => tst/* ts */ `
-  const ${plugin.name}Display = 
+  const ${plugin.name}Display =
   //@ts-ignore - fastify-plugin does this
   ${plugin.name}[Symbol.for('fastify.display-name')]
 
@@ -89,8 +89,8 @@ const createPluginRegister = (plugin: KitaPlugin) => tst/* ts */ `
       !${kFastifyVariable}.hasPlugin(${plugin.name}Display) &&
       ${kKitaOptions}.${plugin.name} !== false
     ) {
-    await ${kFastifyVariable}.register( 
-      ${plugin.name}, 
+    await ${kFastifyVariable}.register(
+      ${plugin.name},
       Object.assign(${stringifyOptions(plugin.options)}, ${kKitaOptions}.${plugin.name} || {}) as any
     )
   }
@@ -114,8 +114,7 @@ const toOptions = (r: Route, providers: Provider[]) => {
       url: '${r.url}',
       method: ${r.method === 'ALL' ? 'supportedMethods' : `'${r.method}'`},
       handler: ${r.schema.operationId}Handler,
-      schema: ${toReplacedSchema(r)},
-      ${toLifecycleArray(r.parameters, providers)}
+      schema: ${toReplacedSchema(r)}, ${toLifecycleArray(r.parameters, providers)}
     }
   `;
 
@@ -123,7 +122,7 @@ const toOptions = (r: Route, providers: Provider[]) => {
 };
 
 export function toReplacedSchema(r: Route) {
-  let code = stringify(r.schema, { space: 4 });
+  let code = stringify(r.schema);
 
   for (const param of r.parameters) {
     if (param.schemaTransformer) {
@@ -153,7 +152,13 @@ export function toLifecycleArray(parameters: Parameter[], providers: Provider[])
     }
   }
 
-  return Object.entries(hookTypes)
+  const code = Object.entries(hookTypes)
     .map(([hook, values]) => `${hook}: [${values.map((v) => `${v}.${hook}`).join(', ')}]`)
     .join(',');
+
+  if (code) {
+    return `\n${code}`;
+  }
+
+  return '';
 }

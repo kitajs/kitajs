@@ -10,7 +10,6 @@ import {
 import path from 'node:path';
 import { StringType, ts } from 'ts-json-schema-generator';
 import type { SchemaBuilder } from '../schema/builder';
-import { getIdFor } from '../util/id-gen';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
@@ -25,8 +24,6 @@ export class HtmlRouteParser implements RouteParser {
     private builder: SchemaBuilder,
     private collector: AstCollector
   ) {}
-
-  private static controllers = new Map<string, number>();
 
   supports(node: ts.Node): boolean {
     if (!isExportFunction(node)) {
@@ -70,16 +67,14 @@ export class HtmlRouteParser implements RouteParser {
       });
     }
 
-    const controllerId = getIdFor(source.fileName);
-
-    const { url, routeId } = parseUrl(source.fileName, this.config);
+    const { url, routeId, controllerId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();
 
     const route: Route = {
       kind: 'html',
       url,
       controllerMethod: method,
-      controllerName: `RestController${controllerId}`,
+      controllerName: controllerId,
       method: method.toUpperCase() as Uppercase<string>,
       relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],

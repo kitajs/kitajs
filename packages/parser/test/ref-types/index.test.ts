@@ -1,4 +1,4 @@
-import type { JsonSchema } from '@kitajs/common';
+import { kRequestParam, type JsonSchema } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -21,8 +21,9 @@ describe('Schema Refs generation', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
-      parameters: [{ name: 'BodyParameterParser', value: 'req.body' }],
+      parameters: [{ name: 'BodyParameterParser', value: `${kRequestParam}.body` }],
       schema: {
         operationId: 'postIndex',
         response: { '2xx': { $ref: 'PostIndexResponse' } },

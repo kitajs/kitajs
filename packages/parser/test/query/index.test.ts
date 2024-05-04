@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -17,14 +18,15 @@ describe('Query Parameter', async () => {
     assert.deepStrictEqual(route, {
       url: '/primitive',
       method: 'GET',
+      controllerName: 'PrimitiveController',
       controllerMethod: 'get',
       relativePath: cwdRelative('routes/primitive.ts'),
       parameters: [
-        { name: 'QueryParameterParser', value: 'req.query.name' },
-        { name: 'QueryParameterParser', value: 'req.query.age' },
-        { name: 'QueryParameterParser', value: 'req.query["custom name"]' },
-        { name: 'QueryParameterParser', value: 'req.query.date' },
-        { name: 'QueryParameterParser', value: 'req.query.arr' }
+        { name: 'QueryParameterParser', value: `${kRequestParam}.query.name` },
+        { name: 'QueryParameterParser', value: `${kRequestParam}.query.age` },
+        { name: 'QueryParameterParser', value: `${kRequestParam}.query["custom name"]` },
+        { name: 'QueryParameterParser', value: `${kRequestParam}.query.date` },
+        { name: 'QueryParameterParser', value: `${kRequestParam}.query.arr` }
       ],
       kind: 'rest',
       schema: {
@@ -51,10 +53,11 @@ describe('Query Parameter', async () => {
 
     assert.deepStrictEqual(route, {
       url: '/complex',
+      controllerName: 'ComplexController',
       controllerMethod: 'get',
       relativePath: cwdRelative('routes/complex.ts'),
       method: 'GET',
-      parameters: [{ name: 'QueryParameterParser', value: 'req.query' }],
+      parameters: [{ name: 'QueryParameterParser', value: `${kRequestParam}.query` }],
       kind: 'rest',
       schema: {
         operationId: 'getComplex',

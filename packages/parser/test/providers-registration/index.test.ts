@@ -1,3 +1,4 @@
+import { kReplyParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src/util/paths';
@@ -61,6 +62,7 @@ describe('Providers Registration', async () => {
         url: '/',
         controllerMethod: 'get',
         method: 'GET',
+        controllerName: 'IndexController',
         relativePath: cwdRelative('routes/index.ts'),
         parameters: [
           {
@@ -90,6 +92,7 @@ describe('Providers Registration', async () => {
         url: '/',
         controllerMethod: 'post',
         method: 'POST',
+        controllerName: 'IndexController',
         relativePath: cwdRelative('routes/index.ts'),
         parameters: [
           {
@@ -102,9 +105,10 @@ describe('Providers Registration', async () => {
             schemaTransformer: false,
             providerName: 'ProviderC',
             helper:
+              // biome-ignore lint/style/useTemplate: easier to read
               'const param0 = ProviderD.default();;\n' +
               '\n' +
-              '     if (reply.sent) {\n' +
+              `     if (${kReplyParam}.sent) {\n` +
               '       return;\n' +
               '     }\n' +
               '\n' +

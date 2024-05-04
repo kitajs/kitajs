@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 import fs from 'node:fs';
 import path from 'node:path';
-import { InvalidConfigError, UnreachableRuntime } from '../errors';
+import { InvalidConfigError } from '../errors';
 import type { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
@@ -33,12 +33,6 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
       `'output' must be a string: (${JSON.stringify(output)}). Read from ${envOrigin('output')}`,
       config
     );
-  }
-
-  try {
-    fs.mkdirSync(path.dirname(output), { recursive: true });
-  } catch (error: any) {
-    throw new UnreachableRuntime(output, error);
   }
 
   const responses = env('responses', JSON.parse) ?? config.responses ?? {};

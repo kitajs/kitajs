@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -28,8 +29,9 @@ describe('Hello World', async () => {
       url: '/',
       controllerMethod: 'all',
       method: 'ALL',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
-      parameters: [{ name: 'QueryParameterParser', value: 'req.query.name' }],
+      parameters: [{ name: 'QueryParameterParser', value: `${kRequestParam}.query.name` }],
       schema: {
         querystring: {
           type: 'object',

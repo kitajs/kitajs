@@ -25,7 +25,6 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
 
   // Should not emit any errors
   for (const error of kita.parse()) {
-    console.error(error);
     assert.fail(error);
   }
 

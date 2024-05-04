@@ -18,6 +18,7 @@ describe('Providers', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       schema: {
         response: { '2xx': { type: 'number', const: 1 } },
@@ -44,6 +45,7 @@ describe('Providers', async () => {
       kind: 'rest',
       url: '/',
       controllerMethod: 'post',
+      controllerName: 'IndexController',
       method: 'POST',
       relativePath: cwdRelative('routes/index.ts'),
       parameters: [
@@ -103,6 +105,7 @@ describe('Providers', async () => {
       kind: 'rest',
       url: '/',
       controllerMethod: 'put',
+      controllerName: 'IndexController',
       method: 'PUT',
       relativePath: cwdRelative('routes/index.ts'),
       parameters: [

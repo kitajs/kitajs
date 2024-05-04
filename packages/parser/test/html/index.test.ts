@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe, it } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -19,8 +20,9 @@ describe('Html routes', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.tsx'),
-      parameters: [{ name: 'FastifyParameterParser', value: 'req' }],
+      parameters: [{ name: 'FastifyParameterParser', value: kRequestParam }],
       customSend: 'html',
       schema: {
         operationId: 'getIndexView',
@@ -38,6 +40,7 @@ describe('Html routes', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.tsx'),
       parameters: [],
       customSend: 'html',
@@ -57,6 +60,7 @@ describe('Html routes', async () => {
       url: '/',
       controllerMethod: 'put',
       method: 'PUT',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.tsx'),
       parameters: [],
       customSend: 'html',

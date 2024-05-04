@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -20,7 +21,8 @@ describe('Path parameter', async () => {
       method: 'GET',
       relativePath: cwdRelative('routes/[name].ts'),
       kind: 'rest',
-      parameters: [{ name: 'PathParameterParser', value: 'req.params.name' }],
+      controllerName: 'NameController',
+      parameters: [{ name: 'PathParameterParser', value: `${kRequestParam}.params.name` }],
       schema: {
         params: {
           type: 'object',
@@ -41,8 +43,9 @@ describe('Path parameter', async () => {
       url: '/:name',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'NameController',
       relativePath: cwdRelative('routes/[name].ts'),
-      parameters: [{ name: 'PathParameterParser', value: 'req.params.name' }],
+      parameters: [{ name: 'PathParameterParser', value: `${kRequestParam}.params.name` }],
       kind: 'rest',
       schema: {
         params: {
@@ -64,8 +67,9 @@ describe('Path parameter', async () => {
       url: '/:num',
       controllerMethod: 'get',
       method: 'GET',
+      controllerName: 'NumController',
       relativePath: cwdRelative('routes/[num].ts'),
-      parameters: [{ name: 'PathParameterParser', value: 'req.params.num' }],
+      parameters: [{ name: 'PathParameterParser', value: `${kRequestParam}.params.num` }],
       kind: 'rest',
       schema: {
         params: {
@@ -87,8 +91,9 @@ describe('Path parameter', async () => {
       url: '/:num',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'NumController',
       relativePath: cwdRelative('routes/[num].ts'),
-      parameters: [{ name: 'PathParameterParser', value: 'req.params.num' }],
+      parameters: [{ name: 'PathParameterParser', value: `${kRequestParam}.params.num` }],
       kind: 'rest',
       schema: {
         params: {

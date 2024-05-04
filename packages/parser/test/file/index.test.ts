@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -24,10 +25,11 @@ describe('File and SavedFile', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       parameters: [
-        { name: 'FileParameterParser', value: 'req.body.file' },
-        { name: 'FileParameterParser', value: 'req.body.named' }
+        { name: 'FileParameterParser', value: `${kRequestParam}.body.file` },
+        { name: 'FileParameterParser', value: `${kRequestParam}.body.named` }
       ],
       schema: {
         operationId: 'postIndex',
@@ -51,16 +53,17 @@ describe('File and SavedFile', async () => {
       url: '/',
       controllerMethod: 'put',
       method: 'PUT',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       parameters: [
         {
           name: 'FileParameterParser',
-          value: "req.savedRequestFiles.find(file => file.fieldname === 'file')",
-          helper: 'await req.saveRequestFiles()'
+          value: `${kRequestParam}.savedRequestFiles.find(file => file.fieldname === 'file')`,
+          helper: `await ${kRequestParam}.saveRequestFiles()`
         },
         {
           name: 'FileParameterParser',
-          value: "req.savedRequestFiles.find(file => file.fieldname === 'named')",
+          value: `${kRequestParam}.savedRequestFiles.find(file => file.fieldname === 'named')`,
           helper: undefined
         }
       ],

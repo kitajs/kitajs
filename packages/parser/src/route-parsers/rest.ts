@@ -15,7 +15,6 @@ import { UndefinedType, VoidType, ts } from 'ts-json-schema-generator';
 import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { HttpMethods } from '../util/http';
-import { getIdFor } from '../util/id-gen';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
@@ -92,16 +91,14 @@ export class RestRouteParser implements RouteParser {
 
     const source = node.getSourceFile();
 
-    const controllerId = getIdFor(source.fileName);
-
-    const { url, routeId } = parseUrl(source.fileName, this.config);
+    const { url, routeId, controllerId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();
 
     const route: Route = {
       kind: 'rest',
       url,
       controllerMethod: method,
-      controllerName: `RestController${controllerId}`,
+      controllerName: controllerId,
       method: method.toUpperCase() as Uppercase<string>,
       relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],

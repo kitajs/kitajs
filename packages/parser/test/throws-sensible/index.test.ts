@@ -27,13 +27,12 @@ describe('@throws also registers fastifySensible', async () => {
   test('generates throwsInternalServerError', () => {
     const route = kita.getRoute('throwsInternalServerError');
 
-    console.dir(route, { depth: 10 });
-
     assert.deepStrictEqual(route, {
       kind: 'rest',
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       parameters: [],
       schema: {
