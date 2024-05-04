@@ -111,7 +111,7 @@ export default class Create extends Command {
 
     ux.action.start('Creating project', 'This may take a few seconds', {
       stdout: true,
-      style: 'clock'
+      style: 'arc'
     });
 
     // copies the template to the selected directory

@@ -26,7 +26,7 @@ export function readConfig(
   }
 
   if (useUx) {
-    ux.action.start('Reading config', '', { stdout: true, style: 'clock' });
+    ux.action.start('Reading config', '', { stdout: true, style: 'arc' });
   }
 
   const exists = fs.existsSync(configPath);

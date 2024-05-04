@@ -41,22 +41,12 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "dts": {
-          "char": "D",
-          "description": "Skips emitting declaration files (d.ts).",
-          "exclusive": ["dry-run"],
+        "format": {
+          "char": "f",
+          "description": "Formats the generated runtime using prettier.",
           "helpGroup": "build",
-          "name": "dts",
+          "name": "format",
           "allowNo": true,
-          "type": "boolean"
-        },
-        "reset": {
-          "char": "r",
-          "description": "Removes previous generated files before each build.",
-          "exclusive": ["dry-run"],
-          "helpGroup": "build",
-          "name": "reset",
-          "allowNo": false,
           "type": "boolean"
         }
       },
@@ -292,22 +282,12 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "dts": {
-          "char": "D",
-          "description": "Skips emitting declaration files (d.ts).",
-          "exclusive": ["dry-run"],
+        "format": {
+          "char": "f",
+          "description": "Formats the generated runtime using prettier.",
           "helpGroup": "build",
-          "name": "dts",
+          "name": "format",
           "allowNo": true,
-          "type": "boolean"
-        },
-        "reset": {
-          "char": "r",
-          "description": "Removes previous generated files before each build.",
-          "exclusive": ["dry-run"],
-          "helpGroup": "build",
-          "name": "reset",
-          "allowNo": false,
           "type": "boolean"
         },
         "ignore": {

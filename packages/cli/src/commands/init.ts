@@ -23,7 +23,7 @@ export default class Init extends BaseKitaCommand {
       this.error(chalk`{red File already exists: ${path.relative(process.cwd(), configPath)}}`);
     }
 
-    ux.action.start('Creating config file');
+    ux.action.start('Creating config file', '', { stdout: true, style: 'arc' });
 
     fs.writeFileSync(configPath, defaultConfig);
 

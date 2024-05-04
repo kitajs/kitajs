@@ -27,7 +27,6 @@ export default class Watch extends BaseKitaCommand {
       multiple: true,
       delimiter: ',',
       char: 'i',
-      name: 'ignore',
       exists: true,
       helpGroup: 'watch'
     })
@@ -39,15 +38,15 @@ export default class Watch extends BaseKitaCommand {
     const { flags } = await this.parse(Watch);
 
     const { config, compilerOptions } = this.parseConfig(flags, {
-      declaration: flags.dts,
-      watchIgnore: flags.ignore
+      watchIgnore: flags.ignore,
+      format: flags.format
     });
 
     await this.prepareFirstRun(config, compilerOptions);
 
     ux.action.start('Warming up', '', {
       stdout: true,
-      style: 'clock'
+      style: 'arc'
     });
 
     const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config, compilerOptions);

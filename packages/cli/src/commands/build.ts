@@ -26,13 +26,12 @@ export default class Build extends BaseKitaCommand {
       default: false,
       helpGroup: 'build'
     }),
-    dts: Flags.boolean({
-      char: 'D',
-      description: 'Skips emitting declaration files (d.ts).',
-      default: true,
-      allowNo: true,
+    format: Flags.boolean({
+      char: 'f',
+      description: 'Formats the generated runtime using prettier.',
       helpGroup: 'build',
-      exclusive: ['dry-run']
+      exclusive: ['dry-run'],
+      allowNo: true
     })
   };
 
@@ -42,17 +41,15 @@ export default class Build extends BaseKitaCommand {
     const { flags } = await this.parse(Build);
 
     const { config, compilerOptions } = this.parseConfig(flags, {
-      declaration: flags.dts
+      format: flags.format
     });
 
     await this.prepareFirstRun(config, compilerOptions);
 
     ux.action.start('Warming up', '', {
       stdout: true,
-      style: 'clock'
+      style: 'arc'
     });
-
-    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config, compilerOptions);
 
     const parser = KitaParser.create(
       config,
@@ -63,6 +60,7 @@ export default class Build extends BaseKitaCommand {
 
     ux.action.stop(chalk`{cyan Ready to build!}`);
 
+    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config, compilerOptions);
     const diagnostics = await this.runParser(parser, config, formatter);
 
     if (diagnostics.length > 0) {

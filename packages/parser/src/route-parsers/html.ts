@@ -10,6 +10,7 @@ import {
 import path from 'node:path';
 import { StringType, ts } from 'ts-json-schema-generator';
 import type { SchemaBuilder } from '../schema/builder';
+import { getIdFor } from '../util/id-gen';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
@@ -69,11 +70,7 @@ export class HtmlRouteParser implements RouteParser {
       });
     }
 
-    const controllerId =
-      HtmlRouteParser.controllers.get(source.fileName) ||
-      // biome-ignore lint/style/noCommaOperator: easier syntax
-      (HtmlRouteParser.controllers.set(source.fileName, HtmlRouteParser.controllers.size),
-      HtmlRouteParser.controllers.size);
+    const controllerId = getIdFor(source.fileName);
 
     const { url, routeId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();

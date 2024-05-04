@@ -15,6 +15,7 @@ import { UndefinedType, VoidType, ts } from 'ts-json-schema-generator';
 import type { SchemaBuilder } from '../schema/builder';
 import { mergeSchema } from '../schema/helpers';
 import { HttpMethods } from '../util/http';
+import { getIdFor } from '../util/id-gen';
 import { parseJsDocTags } from '../util/jsdoc';
 import { getReturnType, isExportFunction } from '../util/nodes';
 import { cwdRelative } from '../util/paths';
@@ -30,8 +31,6 @@ export class RestRouteParser implements RouteParser {
     private typeChecker: ts.TypeChecker,
     private collector: AstCollector
   ) {}
-
-  private static controllers = new Map<string, number>();
 
   supports(node: ts.Node): boolean {
     if (!isExportFunction(node)) {
@@ -93,11 +92,7 @@ export class RestRouteParser implements RouteParser {
 
     const source = node.getSourceFile();
 
-    const controllerId =
-      RestRouteParser.controllers.get(source.fileName) ||
-      // biome-ignore lint/style/noCommaOperator: easier syntax
-      (RestRouteParser.controllers.set(source.fileName, RestRouteParser.controllers.size),
-      RestRouteParser.controllers.size);
+    const controllerId = getIdFor(source.fileName);
 
     const { url, routeId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();

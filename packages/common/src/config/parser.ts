@@ -10,23 +10,35 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 
   const src = env('src', String) ?? config.src ?? 'src';
 
-  const format = env('format', Boolean) ?? config.format ?? process.stdout.isTTY;
+  if (typeof src !== 'string') {
+    throw new InvalidConfigError(
+      `'src' must be a string: (${JSON.stringify(src)}). Read from ${envOrigin('src')}`,
+      config
+    );
+  }
+
+  const format = env('format', strToBool) ?? config.format ?? !!process.stdout.isTTY;
+
+  if (typeof format !== 'boolean') {
+    throw new InvalidConfigError(
+      `'format' must be a boolean: (${JSON.stringify(format)}). Read from ${envOrigin('format')}`,
+      config
+    );
+  }
 
   const output = path.resolve(cwd, env('output', String) ?? config.output ?? `src${path.sep}runtime.kita.ts`);
+
+  if (typeof output !== 'string') {
+    throw new InvalidConfigError(
+      `'output' must be a string: (${JSON.stringify(output)}). Read from ${envOrigin('output')}`,
+      config
+    );
+  }
 
   try {
     fs.mkdirSync(path.dirname(output), { recursive: true });
   } catch (error: any) {
     throw new UnreachableRuntime(output, error);
-  }
-
-  const declaration = env('declaration', Boolean) ?? config.declaration ?? true;
-
-  if (typeof declaration !== 'boolean') {
-    throw new InvalidConfigError(
-      `'declaration' must be a boolean: (${JSON.stringify(declaration)}). Read from ${envOrigin('declaration')}`,
-      config
-    );
   }
 
   const responses = env('responses', JSON.parse) ?? config.responses ?? {};
@@ -80,10 +92,9 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 
   return {
     cwd,
-    src,
+    src: path.resolve(cwd, src),
     tsconfig,
     format,
-    declaration,
     output,
     watchIgnore,
     responses,
@@ -112,3 +123,24 @@ function envOrigin(name: string) {
 
 /** No operation function */
 function noop() {}
+
+// I guess this covers enough cases for now.
+function strToBool(str: string) {
+  switch (str.toLowerCase().trim()) {
+    case '':
+    case '0':
+    case 'false':
+    case 'no':
+    case 'n':
+    case 'off':
+      return false;
+    case '1':
+    case 'true':
+    case 'yes':
+    case 'y':
+    case 'on':
+      return true;
+    default:
+      throw new InvalidConfigError(`Invalid boolean string: ${str}.`);
+  }
+}

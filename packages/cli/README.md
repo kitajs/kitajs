@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -148,16 +148,15 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita build [-c <value>] [--cwd <value>] [-D | -d] [-r | ]
-
-BUILD FLAGS
-  -D, --[no-]dts  Skips emitting declaration files (d.ts).
-  -d, --dry-run   Skips generation process and only type-checks your files.
-  -r, --reset     Removes previous generated files before each build.
+  $ kita build [-c <value>] [--cwd <value>] [-d] [-f]
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
       --cwd=<value>     Sets the current working directory for your command.
+
+BUILD FLAGS
+  -d, --dry-run      Skips generation process and only type-checks your files.
+  -f, --[no-]format  Formats the generated runtime using prettier.
 
 DESCRIPTION
   Analyses your backend searching for routes and bakes it into the runtime.
@@ -588,16 +587,15 @@ Watch for changes in your source code and rebuilds the runtime.
 
 ```
 USAGE
-  $ kita watch [-c <value>] [--cwd <value>] [-D | -d] [-r | ] [-i <value>]
-
-BUILD FLAGS
-  -D, --[no-]dts  Skips emitting declaration files (d.ts).
-  -d, --dry-run   Skips generation process and only type-checks your files.
-  -r, --reset     Removes previous generated files before each build.
+  $ kita watch [-c <value>] [--cwd <value>] [-d] [-f] [-i <value>]
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
       --cwd=<value>     Sets the current working directory for your command.
+
+BUILD FLAGS
+  -d, --dry-run      Skips generation process and only type-checks your files.
+  -f, --[no-]format  Formats the generated runtime using prettier.
 
 WATCH FLAGS
   -i, --ignore=<value>...  Comma separated directories to ignore when watching for changes.

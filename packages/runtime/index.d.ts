@@ -6,5 +6,4 @@
 //
 
 export type { RouteSchema } from '@kitajs/common';
-export * from './generated';
 export type * from './types';

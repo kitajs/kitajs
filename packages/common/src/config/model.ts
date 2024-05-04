@@ -12,8 +12,7 @@ export interface KitaConfig {
   cwd: string;
 
   /**
-   * The root folder to search and register providers. It must be the same relative directory as your
-   * `KITA_PROJECT_ROOT` runtime variable.
+   * The root folder to search and register providers.
    *
    * @default 'src'
    * @env `KITA_SRC` - The environment variable to override this setting.
@@ -36,15 +35,6 @@ export interface KitaConfig {
    * @env `KITA_OUTPUT` - The environment variable to override this setting.
    */
   output: string;
-
-  /**
-   * If the generated runtime should include declaration files alongside the javascript files. This is only helpful for
-   * development purposes and can be disabled once you are building the runtime for production.
-   *
-   * @default true
-   * @env `KITA_DECLARATION` - The environment variable to override this setting.
-   */
-  declaration: boolean;
 
   /**
    * The tsconfig path to use to parse the files.

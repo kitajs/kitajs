@@ -15,6 +15,7 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
     src: cwd,
     tsconfig,
     output: path.resolve(cwd, 'runtime.kita.ts'),
+    format: false, // faster tests
     ...partialCfg
   });
 

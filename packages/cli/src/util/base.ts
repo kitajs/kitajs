@@ -54,7 +54,7 @@ export abstract class BaseKitaCommand extends Command {
   protected async prepareFirstRun(config: KitaConfig, compilerOptions: any) {
     ux.action.start('Searching runtime', '', {
       stdout: true,
-      style: 'clock'
+      style: 'arc'
     });
 
     if (
@@ -80,7 +80,7 @@ export abstract class BaseKitaCommand extends Command {
   protected async runParser(parser: AstCollector, config: KitaConfig, formatter?: SourceFormatter) {
     ux.action.start('Parsing sources', '', {
       stdout: true,
-      style: 'clock'
+      style: 'arc'
     });
 
     const diagnostics = [];
@@ -99,12 +99,12 @@ export abstract class BaseKitaCommand extends Command {
     if (formatter) {
       ux.action.start(chalk`Generating {cyan ${path.basename(config.output)}}`, '', {
         stdout: true,
-        style: 'clock'
+        style: 'arc'
       });
 
       await formatter.generate(parser);
 
-      ux.action.stop(chalk`{${config?.declaration ? 'blue' : 'yellow'} runtime written.`);
+      ux.action.stop(chalk`{green done.}`);
     } else {
       this.log(chalk`{yellow Skipping generation process.}`);
     }

@@ -10,6 +10,7 @@ import {
   UnknownKitaError,
   UntypedProviderError,
   WronglyTypedProviderError,
+  kTransformSchema,
   type KitaConfig,
   type ParameterParser,
   type Provider,
@@ -60,7 +61,7 @@ export class DefaultProviderParser implements ProviderParser {
       throw new WronglyTypedProviderError(returnType);
     }
 
-    const [schemaTransformer] = this.searchHelper(source, ['transformSchema']);
+    const [schemaTransformer] = this.searchHelper(source, [kTransformSchema]);
 
     // validations
     if (schemaTransformer) {
