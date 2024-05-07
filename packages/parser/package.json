@@ -35,7 +35,7 @@
     "typescript": "~5.4.5"
   },
   "devDependencies": {
-    "@fastify/sensible": "^5.5.0",
+    "@fastify/sensible": "^5.6.0",
     "@kitajs/html": "^4.1.0",
     "@kitajs/runtime": "workspace:^",
     "@swc-node/register": "^1.9.0",

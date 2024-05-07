@@ -30,7 +30,7 @@
   "dependencies": {
     "@fastify/cookie": "^9.3.1",
     "@fastify/multipart": "^8.2.0",
-    "@fastify/sensible": "^5.5.0",
+    "@fastify/sensible": "^5.6.0",
     "@fastify/swagger": "^8.14.0",
     "@kitajs/common": "workspace:^",
     "@kitajs/fastify-html-plugin": "^4.1.0",
