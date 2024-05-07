@@ -163,8 +163,8 @@ importers:
         specifier: ^8.1.0
         version: 8.2.0
       '@fastify/sensible':
-        specifier: ^5.5.0
-        version: 5.5.0
+        specifier: ^5.6.0
+        version: 5.6.0
       '@fastify/swagger':
         specifier: ^8.14.0
         version: 8.14.0
@@ -239,8 +239,8 @@ importers:
         version: 5.4.5
     devDependencies:
       '@fastify/sensible':
-        specifier: ^5.5.0
-        version: 5.5.0
+        specifier: ^5.6.0
+        version: 5.6.0
       '@kitajs/html':
         specifier: ^4.1.0
         version: 4.1.0
@@ -272,8 +272,8 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0
       '@fastify/sensible':
-        specifier: ^5.5.0
-        version: 5.5.0
+        specifier: ^5.6.0
+        version: 5.6.0
       '@fastify/swagger':
         specifier: ^8.14.0
         version: 8.14.0
@@ -862,8 +862,8 @@ packages:
   '@fastify/multipart@8.2.0':
     resolution: {integrity: sha512-OZ8nsyyoS2TV7Yeu3ZdrdDGsKUTAbfjrKC9jSxGgT2qdgek+BxpWX31ZubTrWMNZyU5xwk4ox6AvTjAbYWjrWg==}
 
-  '@fastify/sensible@5.5.0':
-    resolution: {integrity: sha512-D0zpl+nocsRXLceSbc4gasQaO3ZNQR4dy9Uu8Ym0mh8VUdrjpZ4g8Ca9O3pGXbBVOnPIGHUJNTV7Yf9dg/OYdg==}
+  '@fastify/sensible@5.6.0':
+    resolution: {integrity: sha512-Vq6Z2ZQy10GDqON+hvLF52K99s9et5gVVxTul5n3SIAf0Kq5QjPRUKkAMT3zPAiiGvoHtS3APa/3uaxfDgCODQ==}
 
   '@fastify/swagger@8.14.0':
     resolution: {integrity: sha512-sGiznEb3rl6pKGGUZ+JmfI7ct5cwbTQGo+IjewaTvtzfrshnryu4dZwEsjw0YHABpBA+kCz3kpRaHB7qpa67jg==}
@@ -5482,7 +5482,7 @@ snapshots:
       secure-json-parse: 2.7.0
       stream-wormhole: 1.1.0
 
-  '@fastify/sensible@5.5.0':
+  '@fastify/sensible@5.6.0':
     dependencies:
       '@lukeed/ms': 2.0.2
       fast-deep-equal: 3.1.3
