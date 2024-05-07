@@ -45,8 +45,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@oclif/core':
-        specifier: ^3.26.5
-        version: 3.26.5
+        specifier: ^3.26.6
+        version: 3.26.6
       '@oclif/plugin-autocomplete':
         specifier: ^3.0.17
         version: 3.0.17
@@ -131,8 +131,8 @@ importers:
         specifier: workspace:^
         version: link:../cli
       '@oclif/core':
-        specifier: ^3.26.5
-        version: 3.26.5
+        specifier: ^3.26.6
+        version: 3.26.6
       typescript:
         specifier: ~5.4.5
         version: 5.4.5
@@ -1000,8 +1000,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@oclif/core@3.26.5':
-    resolution: {integrity: sha512-uRmAujGJjLhhgpLylbiuHuPt9Ec7u6aJ72utuSPNTRw47+W5vbQSGnLGPiil1Mt5YDL+zFOyTVH6Uv3NSP2SaQ==}
+  '@oclif/core@3.26.6':
+    resolution: {integrity: sha512-+FiTw1IPuJTF9tSAlTsY8bGK4sgthehjz7c2SvYdgQncTkxI2xvUch/8QpjNYGLEmUneNygvYMRBax2KJcLccA==}
     engines: {node: '>=18.0.0'}
 
   '@oclif/plugin-autocomplete@3.0.17':
@@ -5684,7 +5684,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@oclif/core@3.26.5':
+  '@oclif/core@3.26.6':
     dependencies:
       '@types/cli-progress': 3.11.5
       ansi-escapes: 4.3.2
@@ -5717,7 +5717,7 @@ snapshots:
 
   '@oclif/plugin-autocomplete@3.0.17':
     dependencies:
-      '@oclif/core': 3.26.5
+      '@oclif/core': 3.26.6
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       ejs: 3.1.10
@@ -5726,18 +5726,18 @@ snapshots:
 
   '@oclif/plugin-help@6.0.21':
     dependencies:
-      '@oclif/core': 3.26.5
+      '@oclif/core': 3.26.6
 
   '@oclif/plugin-not-found@3.1.8':
     dependencies:
       '@inquirer/confirm': 3.1.6
-      '@oclif/core': 3.26.5
+      '@oclif/core': 3.26.6
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
 
   '@oclif/plugin-plugins@5.0.18':
     dependencies:
-      '@oclif/core': 3.26.5
+      '@oclif/core': 3.26.6
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       npm: 10.7.0
@@ -5752,7 +5752,7 @@ snapshots:
 
   '@oclif/plugin-warn-if-update-available@3.0.15':
     dependencies:
-      '@oclif/core': 3.26.5
+      '@oclif/core': 3.26.6
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
@@ -8795,7 +8795,7 @@ snapshots:
       '@inquirer/confirm': 3.1.6
       '@inquirer/input': 2.1.1
       '@inquirer/select': 2.3.2
-      '@oclif/core': 3.26.5
+      '@oclif/core': 3.26.6
       '@oclif/plugin-help': 6.0.21
       '@oclif/plugin-not-found': 3.1.8
       '@oclif/plugin-warn-if-update-available': 3.0.15
