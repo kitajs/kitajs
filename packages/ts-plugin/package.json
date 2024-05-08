@@ -37,7 +37,7 @@
     "@swc-node/register": "^1.9.1",
     "@swc/helpers": "^0.5.11",
     "@types/deasync": "^0.1.5",
-    "@types/node": "^20.12.8",
+    "@types/node": "^20.12.10",
     "self": "file:."
   },
   "peerDependencies": {
