@@ -77,7 +77,7 @@
   },
   "devDependencies": {
     "@swc-node/register": "^1.9.1",
-    "@swc/helpers": "^0.5.10",
+    "@swc/helpers": "^0.5.11",
     "@types/inquirer": "^8.2.10",
     "@types/node": "^20.12.8",
     "c8": "^9.1.0",
