@@ -43,7 +43,7 @@
     "@scalar/api-reference": "^1.22.24",
     "@scalar/fastify-api-reference": "^1.21.0",
     "@swc-node/register": "^1.9.1",
-    "@swc/helpers": "^0.5.10",
+    "@swc/helpers": "^0.5.11",
     "@types/json-stable-stringify": "^1.0.36",
     "@types/node": "^20.12.8",
     "@types/web-bluetooth": "^0.0.20",
