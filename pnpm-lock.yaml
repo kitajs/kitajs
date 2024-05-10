@@ -94,8 +94,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0
       oclif:
-        specifier: ^4.10.5
-        version: 4.10.5
+        specifier: ^4.10.6
+        version: 4.10.6
 
   packages/common:
     dependencies:
@@ -1022,6 +1022,10 @@ packages:
 
   '@oclif/plugin-warn-if-update-available@3.0.15':
     resolution: {integrity: sha512-JtPTJFjL6izMCe5dDS2ix2PyWAD2DeJ5Atzd2HHRifbPcmOxaUE62FKTnarIwfPHLMF/nN33liwo9InAdirozg==}
+    engines: {node: '>=18.0.0'}
+
+  '@oclif/plugin-warn-if-update-available@3.0.17':
+    resolution: {integrity: sha512-pSWCbsn4+K+6WBNUyN/odMs1yqmM9kk00/wanIzWhtJDbrVKqR2e/mTyX2Nsuu9ZJJZdSauFOsoz/Xu3CITzcg==}
     engines: {node: '>=18.0.0'}
 
   '@pkgr/core@0.1.1':
@@ -3439,8 +3443,8 @@ packages:
     resolution: {integrity: sha512-byy+U7gp+FVwmyzKPYhW2h5l3crpmGsxl7X2s8y43IgxvG4g3QZ6CffDtsNQy1WsmZpQbO+ybo0AlW7TY6DcBQ==}
     engines: {node: '>= 0.4'}
 
-  oclif@4.10.5:
-    resolution: {integrity: sha512-CM5uQnWu3HrjC9XDWO7MVHZtDaj+1DszZkXZ7VgjseF9FmcjXnjRaGpsaQ28A3cZ1MgynScwUHdBZ7XqtmBY4w==}
+  oclif@4.10.6:
+    resolution: {integrity: sha512-3MF84SA56CMJqZuPaGkOOhu5CLSrvBZB+LI/02OlfuubOPNAi92OLxkEnihxLgrBuI5nKe405OcsiPtap9tRyA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -5743,6 +5747,16 @@ snapshots:
       debug: 4.3.4(supports-color@8.1.1)
       http-call: 5.3.0
       lodash.template: 4.5.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@oclif/plugin-warn-if-update-available@3.0.17':
+    dependencies:
+      '@oclif/core': 3.26.6
+      chalk: 5.3.0
+      debug: 4.3.4(supports-color@8.1.1)
+      http-call: 5.3.0
+      lodash: 4.17.21
     transitivePeerDependencies:
       - supports-color
 
@@ -8762,7 +8776,7 @@ snapshots:
       has-symbols: 1.0.3
       object-keys: 1.1.1
 
-  oclif@4.10.5:
+  oclif@4.10.6:
     dependencies:
       '@aws-sdk/client-cloudfront': 3.569.0
       '@aws-sdk/client-s3': 3.569.0
@@ -8772,8 +8786,7 @@ snapshots:
       '@oclif/core': 3.26.6
       '@oclif/plugin-help': 6.0.21
       '@oclif/plugin-not-found': 3.1.8
-      '@oclif/plugin-warn-if-update-available': 3.0.15
-      '@types/debug': 4.1.12
+      '@oclif/plugin-warn-if-update-available': 3.0.17
       async-retry: 1.3.3
       chalk: 4.1.2
       change-case: 4.1.2
