@@ -181,8 +181,8 @@ importers:
         specifier: workspace:^
         version: link:../runtime
       '@scalar/api-reference':
-        specifier: ^1.22.37
-        version: 1.22.37(nanoid@5.0.6)(postcss@8.4.38)(typescript@5.4.5)(unified@11.0.4)(vue-sonner@1.1.2)(vue@3.4.21(typescript@5.4.5))(yjs@13.6.14)
+        specifier: ^1.22.38
+        version: 1.22.38(nanoid@5.0.6)(postcss@8.4.38)(typescript@5.4.5)(unified@11.0.4)(vue-sonner@1.1.2)(vue@3.4.21(typescript@5.4.5))(yjs@13.6.14)
       '@scalar/fastify-api-reference':
         specifier: ^1.22.37
         version: 1.22.37
@@ -1173,8 +1173,8 @@ packages:
       '@scalar/oas-utils': 0.1.11
       vue: ^3.3.0
 
-  '@scalar/api-reference@1.22.37':
-    resolution: {integrity: sha512-EtG0dIgwyFFbTEJe+OtBQ4XTX+aSUOlyGxE/zLsKBOcsuUdPnydblGbFy8qhoXZ/Z+/y8zIMlbvpuS5inE/8GA==}
+  '@scalar/api-reference@1.22.38':
+    resolution: {integrity: sha512-F+5SBXXvIYHLaeacTF07wOXX+e4swVTuTUBTvXpg1q+EGooM7iXXVT+Z0M9OmYkaC5ngzNXd1VsaJAoAc9woEQ==}
     engines: {node: '>=18'}
     peerDependencies:
       unified: ^11.0.0
@@ -6256,7 +6256,7 @@ snapshots:
       - vitest
       - yjs
 
-  '@scalar/api-reference@1.22.37(nanoid@5.0.6)(postcss@8.4.38)(typescript@5.4.5)(unified@11.0.4)(vue-sonner@1.1.2)(vue@3.4.21(typescript@5.4.5))(yjs@13.6.14)':
+  '@scalar/api-reference@1.22.38(nanoid@5.0.6)(postcss@8.4.38)(typescript@5.4.5)(unified@11.0.4)(vue-sonner@1.1.2)(vue@3.4.21(typescript@5.4.5))(yjs@13.6.14)':
     dependencies:
       '@headlessui/vue': 1.7.21(vue@3.4.21(typescript@5.4.5))
       '@scalar/api-client': 1.2.26(@scalar/oas-utils@0.1.11(axios@1.6.8))(typescript@5.4.5)(vue@3.4.21(typescript@5.4.5))(yjs@13.6.14)
