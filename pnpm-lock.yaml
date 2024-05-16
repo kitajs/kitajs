@@ -94,8 +94,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0
       oclif:
-        specifier: ^4.10.10
-        version: 4.10.10
+        specifier: ^4.10.11
+        version: 4.10.11
 
   packages/common:
     dependencies:
@@ -3497,8 +3497,8 @@ packages:
     resolution: {integrity: sha512-byy+U7gp+FVwmyzKPYhW2h5l3crpmGsxl7X2s8y43IgxvG4g3QZ6CffDtsNQy1WsmZpQbO+ybo0AlW7TY6DcBQ==}
     engines: {node: '>= 0.4'}
 
-  oclif@4.10.10:
-    resolution: {integrity: sha512-9QqSWjRVsztlYOKSPlvmQNa7wwMl9Emtbp2x4N756pFrNQpKXUCgM8B2Us4vTblK8+f4FMaiQNu4hYe4/2sagQ==}
+  oclif@4.10.11:
+    resolution: {integrity: sha512-np+E0OKdBuWPjqQD1cImAbfv1Monrk4KkQIRvH6RPZ7Awasvi8/UvvF6fENITVb+Hw4Rlk7aiSIzlnYqY100eg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -9147,7 +9147,7 @@ snapshots:
     dependencies:
       hosted-git-info: 7.0.1
       is-core-module: 2.13.1
-      semver: 7.6.0
+      semver: 7.6.2
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -9191,7 +9191,7 @@ snapshots:
       has-symbols: 1.0.3
       object-keys: 1.1.1
 
-  oclif@4.10.10:
+  oclif@4.10.11:
     dependencies:
       '@aws-sdk/client-cloudfront': 3.574.0
       '@aws-sdk/client-s3': 3.569.0
@@ -9213,7 +9213,7 @@ snapshots:
       got: 13.0.0
       lodash: 4.17.21
       normalize-package-data: 6.0.1
-      semver: 7.6.0
+      semver: 7.6.2
       sort-package-json: 2.10.0
       tiny-jsonc: 1.0.1
       validate-npm-package-name: 5.0.0
@@ -9816,7 +9816,7 @@ snapshots:
       git-hooks-list: 3.1.0
       globby: 13.2.2
       is-plain-obj: 4.1.0
-      semver: 7.6.0
+      semver: 7.6.2
       sort-object-keys: 1.1.3
 
   source-map-js@1.2.0: {}
