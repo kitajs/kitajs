@@ -57,8 +57,8 @@ importers:
         specifier: ^3.1.9
         version: 3.1.9
       '@oclif/plugin-plugins':
-        specifier: ^5.0.21
-        version: 5.0.21
+        specifier: ^5.1.2
+        version: 5.1.2
       '@oclif/plugin-warn-if-update-available':
         specifier: ^3.0.12
         version: 3.0.15
@@ -1068,8 +1068,8 @@ packages:
     resolution: {integrity: sha512-yPh9YAIIIzDRscR8P/yu4D2fwK5z5wze57wspklmNg4pW/tOFhe7BelgOBahSdkJQodS7TUIzI/CN4DWbNWuKQ==}
     engines: {node: '>=18.0.0'}
 
-  '@oclif/plugin-plugins@5.0.21':
-    resolution: {integrity: sha512-kyCIYUdX2a6+b6c7yjME6rW0Bw/iPqgLgCVhkV14qKHVS7FteGMDyio+nzPJ3BGdMHZuxGh9po7PImqNx7Mk7w==}
+  '@oclif/plugin-plugins@5.1.2':
+    resolution: {integrity: sha512-O8LhkCoL4VKFn72Ur2D9zB3a7ntgIrlOzjhRnND6cwsoA0FBeqNi0Jz8pzvJzLv7fZCN9O6kxNBN/Zmkb7rgJg==}
     engines: {node: '>=18.0.0'}
 
   '@oclif/plugin-warn-if-update-available@3.0.15':
@@ -2974,6 +2974,10 @@ packages:
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
+  isexe@3.1.1:
+    resolution: {integrity: sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ==}
+    engines: {node: '>=16'}
+
   isomorphic.js@0.2.5:
     resolution: {integrity: sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==}
 
@@ -3398,8 +3402,8 @@ packages:
     resolution: {integrity: sha512-ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  npm@10.7.0:
-    resolution: {integrity: sha512-FXylyYSXNjgXx3l82BT8RSQvCoGIQ3h8YdRFGKNvo3Pv/bKscK4pdWkx/onwTpHDqGw+oeLf4Rxln9WVyxAxlQ==}
+  npm@10.8.0:
+    resolution: {integrity: sha512-wh93uRczgp7HDnPMiLXcCkv2hagdJS0zJ9KT/31d0FoXP02+qgN2AOwpaW85fxRWkinl2rELfPw+CjBXW48/jQ==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     bundledDependencies:
@@ -4374,6 +4378,10 @@ packages:
     resolution: {integrity: sha512-YuKoXDAhBYxY7SfOKxHBDoSyENFeW5VvIIQp2TGQuit8gpK6MnWaQelBKxso72DoxTZfZdcP3W90LqpSkgPzLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
+  validate-npm-package-name@5.0.1:
+    resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
@@ -4475,6 +4483,11 @@ packages:
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
+    hasBin: true
+
+  which@4.0.0:
+    resolution: {integrity: sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==}
+    engines: {node: ^16.13.0 || >=18.0.0}
     hasBin: true
 
   widest-line@3.1.0:
@@ -6130,17 +6143,18 @@ snapshots:
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
 
-  '@oclif/plugin-plugins@5.0.21':
+  '@oclif/plugin-plugins@5.1.2':
     dependencies:
       '@oclif/core': 3.26.6
       chalk: 5.3.0
       debug: 4.3.4(supports-color@8.1.1)
-      npm: 10.7.0
+      npm: 10.8.0
       npm-package-arg: 11.0.2
       npm-run-path: 5.3.0
       object-treeify: 4.0.1
       semver: 7.6.2
-      validate-npm-package-name: 5.0.0
+      validate-npm-package-name: 5.0.1
+      which: 4.0.0
       yarn: 1.22.22
     transitivePeerDependencies:
       - supports-color
@@ -8561,6 +8575,8 @@ snapshots:
 
   isexe@2.0.0: {}
 
+  isexe@3.1.1: {}
+
   isomorphic.js@0.2.5: {}
 
   istanbul-lib-coverage@3.2.2: {}
@@ -9154,13 +9170,13 @@ snapshots:
       hosted-git-info: 7.0.1
       proc-log: 4.2.0
       semver: 7.6.2
-      validate-npm-package-name: 5.0.0
+      validate-npm-package-name: 5.0.1
 
   npm-run-path@5.3.0:
     dependencies:
       path-key: 4.0.0
 
-  npm@10.7.0: {}
+  npm@10.8.0: {}
 
   object-inspect@1.13.1: {}
 
@@ -10184,6 +10200,8 @@ snapshots:
     dependencies:
       builtins: 5.0.1
 
+  validate-npm-package-name@5.0.1: {}
+
   vary@1.1.2: {}
 
   vfile-location@5.0.2:
@@ -10274,6 +10292,10 @@ snapshots:
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  which@4.0.0:
+    dependencies:
+      isexe: 3.1.1
 
   widest-line@3.1.0:
     dependencies:
