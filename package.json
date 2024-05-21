@@ -32,7 +32,7 @@
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.12",
     "@biomejs/biome": "1.7.3",
-    "@changesets/cli": "^2.27.1",
+    "@changesets/cli": "^2.27.3",
     "@kitajs/ts-plugin": "workspace:^",
     "changesets-format-with-issue-links": "^0.3.0",
     "husky": "^9.0.11",
