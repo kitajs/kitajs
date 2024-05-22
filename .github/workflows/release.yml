@@ -9,6 +9,9 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  id-token: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
