@@ -45,6 +45,8 @@ jobs:
 
       - name: Build
         run: pnpm build
+        env:
+          KITA_RELEASE: true
 
       - name: Create Release Pull Request or Publish
         id: changesets

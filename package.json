@@ -19,7 +19,7 @@
   "scripts": {
     "build": "pnpm -r --aggregate-output build",
     "change": "changeset",
-    "ci:publish": "pnpm publish -r --access public --provenance && changeset tag",
+    "ci:publish": "pnpm publish -r --access public --provenance --no-git-checks && changeset tag",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile",
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
