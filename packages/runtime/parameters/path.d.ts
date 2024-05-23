@@ -14,6 +14,11 @@ import type { Primitive } from 'type-fest';
  *   age: Path<number>, // <number, 'age'>
  *   type: Path<string, 'customName'>
  * ) {}
+ *
+ * // routes/[...].ts
+ * export function get(
+ *   path: Path<string, '*'> // get remaining path
+ * ) {}
  * ```
  *
  * @link https://kita.js.org/parameters/path
