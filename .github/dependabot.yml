@@ -5,16 +5,6 @@ updates:
     schedule:
       interval: 'daily'
 
-  - package-ecosystem: 'npm'
-    directory: './packages/cli/templates/kita'
-    schedule:
-      interval: 'daily'
-
-  - package-ecosystem: 'npm'
-    directory: './packages/cli/templates/kita-jsx'
-    schedule:
-      interval: 'daily'
-
   - package-ecosystem: 'github-actions'
     directory: './'
     schedule:
