@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -76,7 +76,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version|-v)
-@kitajs/cli/1.1.36 linux-x64 node-v20.12.1
+@kitajs/cli/1.1.36 linux-x64 node-v20.13.1
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
