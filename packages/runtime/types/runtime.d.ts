@@ -63,7 +63,7 @@ export interface KitaGeneratedRuntime {
  */
 export interface KitaPluginOptions {
   runtime: Promisable<KitaGeneratedRuntime | { runtime: KitaGeneratedRuntime }>;
-  plugins: Kita.Plugins;
+  plugins?: Kita.Plugins;
 }
 
 /**

@@ -9,9 +9,15 @@ export const createPlugin = (
   schemas: JsonSchema[]
 ) => tst/* ts */ `
 
-export const runtime:KitaGeneratedRuntime<{
-  ${plugins.map(toPluginType)}
-}> = {
+declare global {
+  namespace Kita {
+    interface Plugins {
+      ${plugins.map(toPluginType)}
+    }
+  }
+}
+
+export const runtime: KitaGeneratedRuntime = {
     schemas: [
       ${schemas.map(toSchema)}
     ],

@@ -21,6 +21,7 @@
     "index.js",
     "index.d.ts",
     "types",
+    "parameters",
     "CHANGELOG.md",
     "lib",
     "assets"

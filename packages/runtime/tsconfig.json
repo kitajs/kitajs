@@ -4,5 +4,5 @@
     "noEmit": true,
     "skipLibCheck": false
   },
-  "include": ["types", "index.d.ts", "index.js", "lib"]
+  "include": ["parameters", "index.d.ts", "index.js", "lib", "types/runtime.d.ts"]
 }

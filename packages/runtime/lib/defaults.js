@@ -1,6 +1,7 @@
+const { buildLocalReference } = require('./json-schema');
 const { defaultOpenApiInfo, scalarUiTheme } = require('./swagger');
 
-exports.defaultOptions = {
+const defaultOptions = {
   '@fastify/sensible': { sharedSchemaId: 'HttpError' },
   '@fastify/multipart': { attachFieldsToBody: true },
   '@fastify/swagger': {
@@ -10,10 +11,7 @@ exports.defaultOptions = {
       info: defaultOpenApiInfo
     },
     refResolver: {
-      // Custom resolves that prefers a meaningful title over a random id
-      buildLocalReference(json, _, __, i) {
-        return String(json.$id || json.$title || json.name || `def-${i}`);
-      }
+      buildLocalReference
     }
   },
   fastifyScalarUi: {
@@ -24,3 +22,5 @@ exports.defaultOptions = {
     }
   }
 };
+
+exports.defaultOptions = defaultOptions;

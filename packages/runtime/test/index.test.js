@@ -1,5 +1,3 @@
-//@ts-check
-
 const { test, describe } = require('node:test');
 const assert = require('node:assert');
 const runtime = require('../index.js');
@@ -15,7 +13,6 @@ describe('Runtime tests', () => {
   test('Plugin registers everything', async () => {
     const app = fastify();
 
-    /** @type {import('../types/runtime.js').KitaGeneratedRuntime} */
     const options = {
       applicationHooks: [['onRequest', async () => {}]],
       plugins: {

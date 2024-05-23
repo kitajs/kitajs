@@ -1,7 +1,6 @@
 import { CannotCreateNodeTypeError, kSchemaDefinitions, type Provider, type ProviderParser } from '@kitajs/common';
 import path from 'node:path';
 import type { ts } from 'ts-json-schema-generator';
-
 import type { SchemaBuilder } from '../schema/builder';
 
 export class SchemasProviderParser implements ProviderParser {
