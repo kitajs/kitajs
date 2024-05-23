@@ -18,7 +18,7 @@
   "main": "dist/index.js",
   "bin": {
     "kita": "bin/run.js",
-    "kita-dev": "bin/run.js"
+    "kita-dev": "bin/dev.js"
   },
   "files": [
     "bin",
@@ -63,12 +63,12 @@
     "@kitajs/common": "workspace:^",
     "@kitajs/generator": "workspace:^",
     "@kitajs/parser": "workspace:^",
-    "@oclif/core": "^3.26.3",
+    "@oclif/core": "^3.26.5",
     "@oclif/plugin-autocomplete": "^3.0.16",
     "@oclif/plugin-help": "^6.0.21",
     "@oclif/plugin-not-found": "^3.1.7",
     "@oclif/plugin-plugins": "^5.0.18",
-    "@oclif/plugin-warn-if-update-available": "^3.0.12",
+    "@oclif/plugin-warn-if-update-available": "^3.0.16",
     "chalk": "^4.1.2",
     "deepmerge": "^4.3.1",
     "inquirer": "^8.2.6",
@@ -76,8 +76,8 @@
     "typescript": "~5.4.5"
   },
   "devDependencies": {
-    "@swc-node/register": "^1.9.0",
-    "@swc/helpers": "^0.5.10",
+    "@swc-node/register": "1.9.0",
+    "@swc/helpers": "0.5.10",
     "@types/inquirer": "^8.2.10",
     "@types/node": "^20.12.8",
     "c8": "^9.1.0",
@@ -87,6 +87,6 @@
     "typescript": "~5.4.5"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.13"
   }
 }

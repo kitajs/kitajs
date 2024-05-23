@@ -1,11 +1,4 @@
-import {
-  stringifyOptions,
-  type JsonSchema,
-  type KitaPlugin,
-  type Parameter,
-  type Provider,
-  type Route
-} from '@kitajs/common';
+import type { JsonSchema, KitaPlugin, Parameter, Provider, Route } from '@kitajs/common';
 import stringify from 'json-stable-stringify';
 import { tst } from '../util/template';
 
@@ -39,7 +32,7 @@ const toSchema = (schema: JsonSchema) => tst/* ts */ `
 `;
 
 const createPluginRegister = (plugin: KitaPlugin) => tst/* ts */ `
-  ${plugin.name}: [${plugin.name}, ${stringifyOptions(plugin.options)}],
+  ${plugin.name}: ${plugin.name},
 `;
 
 const toProviderApplicationHooks = (provider: Provider) => tst/* ts */ `

@@ -1,24 +1,26 @@
+Object.defineProperty(exports, '__esModule', { value: true });
+
 const fp = require('fastify-plugin');
+const { defaultOptions } = require('./lib/defaults');
 
 // The Kita plugin only registers all routes, plugins and schemas exported by your runtime
-module.exports.Kita = fp(
-  /**
-   * @param {import('./types/runtime.d.ts').KitaPluginOptions<
-   *   import('./types/runtime.d.ts').KitaGeneratedRuntime<Record<string, any>>
-   * >} opts
-   */
-  async (fastify, opts) => {
+exports.Kita = fp(
+  /** @param {import('./types/runtime.d.ts').KitaPluginOptions} opts */
+  async function fastifyKita(fastify, opts) {
     opts.plugins = opts.plugins || {};
 
-    const { runtime } = await opts.runtime;
+    let runtime = await opts.runtime;
+
+    if (!('__kita' in runtime)) {
+      runtime = runtime.runtime;
+    }
 
     // Adds all plugins
     for (const pluginName in runtime.plugins) {
-      const plugin = runtime.plugins[pluginName][0];
-      const defaultOptions = runtime.plugins[pluginName][1];
-      const display = plugin[Symbol.for('fastify.display-name')];
+      const plugin = runtime.plugins[pluginName];
+      const displayName = plugin[Symbol.for('fastify.display-name')];
 
-      if (display && !fastify.hasPlugin(display) && opts.plugins[pluginName] !== false) {
+      if (displayName && !fastify.hasPlugin(displayName) && opts.plugins[pluginName] !== false) {
         await fastify.register(plugin, {
           ...defaultOptions,
           ...opts.plugins[pluginName]

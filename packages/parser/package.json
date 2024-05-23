@@ -19,8 +19,7 @@
   "files": [
     "src",
     "!**/tsconfig.build.tsbuildinfo",
-    "dist",
-    "assets"
+    "dist"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -29,22 +28,24 @@
   "dependencies": {
     "@kitajs/common": "workspace:^",
     "deepmerge": "^4.3.1",
-    "ts-json-schema-generator": "^2.0.1",
+    "ts-json-schema-generator": "~2.0.1",
     "tslib": "^2.6.2",
-    "type-fest": "^4.15.0",
     "typescript": "~5.4.5"
   },
   "devDependencies": {
-    "@fastify/sensible": "^5.5.0",
+    "@fastify/sensible": "^5.6.0",
     "@kitajs/html": "^4.1.0",
     "@kitajs/runtime": "workspace:^",
-    "@swc-node/register": "^1.9.0",
-    "@swc/helpers": "^0.5.10",
-    "@types/node": "^20.12.8",
+    "@swc-node/register": "1.9.0",
+    "@swc/helpers": "0.5.10",
+    "@types/node": "^20.12.12",
     "c8": "^9.1.0",
-    "fastify": "^4.26.2"
+    "fastify": "^4.27.0"
   },
   "peerDependencies": {
     "typescript": "~5.4.5"
+  },
+  "engines": {
+    "node": ">=20.13"
   }
 }

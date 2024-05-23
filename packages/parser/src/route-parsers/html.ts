@@ -62,8 +62,7 @@ export class HtmlRouteParser implements RouteParser {
     if (!this.collector.getPlugin('kitaFastifyHtml')) {
       this.collector.addPlugin('kitaFastifyHtml', {
         name: 'kitaFastifyHtml',
-        importUrl: '@kitajs/fastify-html-plugin',
-        options: {}
+        importUrl: '@kitajs/fastify-html-plugin'
       });
     }
 
