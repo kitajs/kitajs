@@ -1,6 +1,6 @@
 import fastifyHelmet from '@fastify/helmet';
 import fastifyUnderPressure from '@fastify/under-pressure';
-import { Kita } from '@kitajs/runtime';
+import { Kita, KitaSwagger } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
 import { Env } from './util/environment';
 
@@ -26,6 +26,9 @@ export const backendPlugin = fp(async (app) => {
     // You can further configure the plugins here
     // plugins: {}
   });
+
+  // Serve the openapi.json file to be used by other tools
+  await app.register(KitaSwagger);
 
   // Add your custom stuff here
   // await app.register(myPlugin)

@@ -1,9 +1,9 @@
 const fp = require('fastify-plugin');
-const { defaultOptions } = require('./defaults');
+const { defaultOptions } = require('./defaults.js');
 
 // The Kita plugin only registers all routes, plugins and schemas exported by your runtime
 const Kita = fp(
-  /** @param {import('../types/runtime.d.ts').KitaPluginOptions} opts */
+  /** @param {import('../types/plugin').KitaPluginOptions} opts */
   async function fastifyKita(fastify, opts) {
     opts.plugins = opts.plugins || {};
 
@@ -15,7 +15,7 @@ const Kita = fp(
 
     // Adds all plugins
     for (const pluginName in runtime.plugins) {
-      const plugin = runtime.plugins[pluginName];
+      const plugin = require(runtime.plugins[pluginName]);
       const displayName = plugin[Symbol.for('fastify.display-name')];
 
       if (displayName && !fastify.hasPlugin(displayName) && opts.plugins[pluginName] !== false) {

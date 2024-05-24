@@ -1,8 +1,3 @@
-// Custom resolves that prefers a meaningful title over a random id
-function buildLocalReference(json, _, __, i) {
-  return String(json.$id || json.$title || json.name || `def-${i}`);
-}
-
 function addAjvSchemas(kitaSchemas) {
   return {
     customOptions(ajv) {
@@ -20,5 +15,4 @@ function addAjvSchemas(kitaSchemas) {
   };
 }
 
-exports.buildLocalReference = buildLocalReference;
 exports.addAjvSchemas = addAjvSchemas;

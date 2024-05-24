@@ -1,0 +1,98 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "8.14.0",
+    "title": "@fastify/swagger"
+  },
+  "definitions": {
+    "def-0": {
+      "additionalProperties": false,
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "message"],
+      "type": "object",
+      "title": "GetHelloResponse"
+    },
+    "def-1": {
+      "additionalProperties": false,
+      "properties": {
+        "created": {
+          "type": "string"
+        }
+      },
+      "required": ["created"],
+      "type": "object",
+      "title": "CreateUserResponse"
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "getHello",
+        "summary": "Get a hello message",
+        "description": "Simply returns a hello message",
+        "tags": ["Hello"],
+        "parameters": [
+          {
+            "type": "string",
+            "required": false,
+            "in": "query",
+            "name": "name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "$ref": "#/definitions/def-0"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createUser",
+        "summary": "Create a user",
+        "description": "Creates a user and logs it",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "A dto for creating a user",
+            "schema": {
+              "additionalProperties": false,
+              "description": "A dto for creating a user",
+              "properties": {
+                "email": {
+                  "format": "email",
+                  "type": "string"
+                },
+                "name": {
+                  "maxLength": 20,
+                  "minLength": 5,
+                  "type": "string"
+                }
+              },
+              "required": ["name", "email"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "$ref": "#/definitions/def-1"
+            }
+          }
+        }
+      }
+    }
+  }
+}

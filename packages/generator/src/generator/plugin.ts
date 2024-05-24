@@ -1,4 +1,11 @@
-import type { JsonSchema, KitaPlugin, Parameter, Provider, Route } from '@kitajs/common';
+import {
+  kSchemaDefinitions,
+  type JsonSchema,
+  type KitaPlugin,
+  type Parameter,
+  type Provider,
+  type Route
+} from '@kitajs/common';
 import stringify from 'json-stable-stringify';
 import { tst } from '../util/template';
 
@@ -19,7 +26,7 @@ declare global {
 
 export const runtime: KitaGeneratedRuntime = {
     schemas: [
-      ${schemas.map(toSchema)}
+      ${schemas.filter((s) => s.$id !== kSchemaDefinitions).map(toSchema)}
     ],
     routes: [
       ${routes.map((r) => toOptions(r, providers))}
@@ -38,7 +45,7 @@ const toSchema = (schema: JsonSchema) => tst/* ts */ `
 `;
 
 const createPluginRegister = (plugin: KitaPlugin) => tst/* ts */ `
-  ${plugin.name}: ${plugin.name},
+  ${plugin.name}: '${plugin.importUrl}',
 `;
 
 const toProviderApplicationHooks = (provider: Provider) => tst/* ts */ `

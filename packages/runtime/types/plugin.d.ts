@@ -1,5 +1,5 @@
 import type { JsonSchema } from '@kitajs/common';
-import type { FastifyPluginAsync, FastifyPluginCallback, FastifyRegisterOptions, RouteOptions } from 'fastify';
+import type { FastifyPluginAsync, FastifyRegisterOptions, RouteOptions } from 'fastify';
 import type { ApplicationHook, LifecycleHook } from 'fastify/types/hooks';
 import type { Promisable } from 'type-fest';
 
@@ -44,7 +44,8 @@ export interface KitaGeneratedRuntime {
   schemas: JsonSchema[];
   routes: RouteOptions[];
   applicationHooks: [ApplicationHook | LifecycleHook, () => Promise<unknown>][];
-  plugins: Record<string, FastifyPluginAsync | FastifyPluginCallback>;
+  /** Name -> Import Url */
+  plugins: Record<string, string>;
 }
 
 /**

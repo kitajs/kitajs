@@ -1,4 +1,3 @@
-const { buildLocalReference } = require('./json-schema');
 const { defaultOpenApiInfo, scalarUiTheme } = require('./swagger');
 
 const defaultOptions = {
@@ -11,7 +10,9 @@ const defaultOptions = {
       info: defaultOpenApiInfo
     },
     refResolver: {
-      buildLocalReference
+      buildLocalReference(json, _, __, i) {
+        return String(json.$id || json.$title || json.name || json.title || `def-${i}`);
+      }
     }
   },
   fastifyScalarUi: {
