@@ -83,6 +83,7 @@ export function parseJsDocTags(fn: ts.FunctionDeclaration, route: Route, collect
               [number]: {
                 // This type will be registered by `sharedSchemaId` option
                 // from @fastify/sensible
+                // TODO: Externalize this to a config
                 $ref: 'HttpError'
               }
             }
