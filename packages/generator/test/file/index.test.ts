@@ -22,7 +22,7 @@ describe('File', async () => {
 
   test('Sends normal file', async () => {
     await using app = fastify({ ajv: { plugins: [ajvFilePlugin] } });
-    await app.register(Kita, { runtime, plugins: { ajv: { plugins: [ajvFilePlugin] } } });
+    await app.register(Kita, { runtime });
 
     // biome-ignore lint/correctness/noConstantCondition: it is a type test
     if (-1 > 1) {

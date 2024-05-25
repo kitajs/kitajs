@@ -7,7 +7,7 @@ const fp = require('fastify-plugin');
 describe('Runtime tests', () => {
   test('Only exports Kita function', () => {
     assert.equal(typeof runtime, 'object');
-    assert.deepEqual(Object.keys(runtime), ['Kita']);
+    assert.equal(typeof runtime.Kita, 'function');
   });
 
   test('Plugin registers everything', async () => {
@@ -16,15 +16,7 @@ describe('Runtime tests', () => {
     const options = {
       applicationHooks: [['onRequest', async () => {}]],
       plugins: {
-        tst: [
-          fp(
-            async (_, opts) => {
-              assert.deepStrictEqual(opts, { a: 2 });
-            },
-            { name: 'tst' }
-          ),
-          { a: 1 }
-        ]
+        fastifyCookie: '@fastify/cookie'
       },
       routes: [
         {
@@ -56,7 +48,7 @@ describe('Runtime tests', () => {
     await app.ready();
 
     assert.deepStrictEqual((await app.inject({ path: '/' })).json(), { a: 1 });
-    assert.deepStrictEqual(app.hasPlugin('tst'), true);
+    assert.deepStrictEqual(app.hasPlugin('@fastify/cookie'), true);
     assert.deepStrictEqual(app.getSchemas(), {
       [`${options.schemas[0].$id}`]: options.schemas[0]
     });

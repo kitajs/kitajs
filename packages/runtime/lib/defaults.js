@@ -1,9 +1,9 @@
 const { defaultOpenApiInfo, scalarUiTheme } = require('./swagger');
 
 const defaultOptions = {
-  '@fastify/sensible': { sharedSchemaId: 'HttpError' },
-  '@fastify/multipart': { attachFieldsToBody: true },
-  '@fastify/swagger': {
+  fastifySensible: { sharedSchemaId: 'HttpError' },
+  fastifyMultipart: { attachFieldsToBody: true },
+  fastifySwagger: {
     mode: 'dynamic',
     openapi: {
       openapi: '3.1.0',
