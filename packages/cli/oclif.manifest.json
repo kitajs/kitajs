@@ -29,34 +29,6 @@
           "name": "raw",
           "allowNo": false,
           "type": "boolean"
-        },
-        "routes": {
-          "char": "R",
-          "description": "Prints the routes.",
-          "name": "routes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "schemas": {
-          "char": "s",
-          "description": "Prints the schemas.",
-          "name": "schemas",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "providers": {
-          "char": "P",
-          "description": "Prints the providers.",
-          "name": "providers",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "plugins": {
-          "char": "p",
-          "description": "Prints the plugins.",
-          "name": "plugins",
-          "allowNo": false,
-          "type": "boolean"
         }
       },
       "hasDynamicHelp": false,
@@ -159,6 +131,13 @@
           "char": "r",
           "description": "Prints a raw JSON string instead of a pretty printed one.",
           "name": "raw",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "root-names": {
+          "char": "R",
+          "description": "Also includes a list of all root filenames.",
+          "name": "root-names",
           "allowNo": false,
           "type": "boolean"
         }

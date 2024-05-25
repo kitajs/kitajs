@@ -20,7 +20,7 @@ interface CreateUser {
  * @operationId getHello
  * @summary Get a hello message
  */
-export function get(name: Query = 'World') {
+export function get(name: Query = 'World', a = 1) {
   return {
     name,
     message: `Hello ${name}!`

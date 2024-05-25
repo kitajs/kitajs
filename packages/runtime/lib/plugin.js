@@ -11,6 +11,10 @@ const Kita = fp(
 
     if (!('__kita' in runtime)) {
       runtime = runtime.runtime;
+
+      if (!('__kita' in runtime)) {
+        throw new Error('Provided runtime object is not a valid Kita runtime');
+      }
     }
 
     // Adds all plugins

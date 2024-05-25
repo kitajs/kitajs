@@ -9,6 +9,11 @@ export default class Config extends BaseKitaCommand {
       char: 'r',
       description: 'Prints a raw JSON string instead of a pretty printed one.',
       default: false
+    }),
+    'root-names': Flags.boolean({
+      char: 'R',
+      description: 'Also includes a list of all root filenames.',
+      default: false
     })
   };
 
@@ -18,8 +23,11 @@ export default class Config extends BaseKitaCommand {
 
     //@ts-expect-error - Just to allow the compilerOptions to be printed
     config.compilerOptions = compilerOptions;
-    //@ts-expect-error - Just to allow the compilerOptions to be pretty printed
-    compilerOptions.rootNames = undefined;
+
+    if (!flags['root-names']) {
+      //@ts-expect-error - Just to allow the compilerOptions to be pretty printed
+      compilerOptions.rootNames = undefined;
+    }
 
     if (flags.raw) {
       this.log(JSON.stringify(config));

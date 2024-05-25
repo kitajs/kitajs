@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -116,14 +116,10 @@ Prints the full Kita's AST object for debugging purposes
 
 ```
 USAGE
-  $ kita ast [-c <value>] [--cwd <value>] [-r] [-R] [-s] [-P] [-p]
+  $ kita ast [-c <value>] [--cwd <value>] [-r]
 
 FLAGS
-  -P, --providers  Prints the providers.
-  -R, --routes     Prints the routes.
-  -p, --plugins    Prints the plugins.
-  -r, --raw        Prints a raw JSON string instead of a pretty printed one.
-  -s, --schemas    Prints the schemas.
+  -r, --raw  Prints a raw JSON string instead of a pretty printed one.
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
@@ -204,10 +200,11 @@ Prints the full resolved configuration file
 
 ```
 USAGE
-  $ kita config [-c <value>] [--cwd <value>] [-r]
+  $ kita config [-c <value>] [--cwd <value>] [-r] [-R]
 
 FLAGS
-  -r, --raw  Prints a raw JSON string instead of a pretty printed one.
+  -R, --root-names  Also includes a list of all root filenames.
+  -r, --raw         Prints a raw JSON string instead of a pretty printed one.
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.

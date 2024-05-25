@@ -45,7 +45,7 @@ export abstract class KitaError extends Error {
    */
   readonly code: number;
 
-  readonly diagnostic: ts.Diagnostic & { __kita: true };
+  readonly diagnostic: ts.Diagnostic;
 
   constructor(diagnostic: PartialDiagnostic) {
     super(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
@@ -75,11 +75,8 @@ export abstract class KitaError extends Error {
         length: 0,
         start: 0
       },
-      diagnostic,
-      {
-        __kita: true
-      }
-    ) as ts.Diagnostic & { __kita: true };
+      diagnostic
+    ) as ts.Diagnostic;
   }
 }
 

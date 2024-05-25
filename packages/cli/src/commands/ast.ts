@@ -11,26 +11,6 @@ export default class Ast extends BaseKitaCommand {
       char: 'r',
       description: 'Prints a raw JSON string instead of a pretty printed one.',
       default: false
-    }),
-    routes: Flags.boolean({
-      char: 'R',
-      description: 'Prints the routes.',
-      default: false
-    }),
-    schemas: Flags.boolean({
-      char: 's',
-      description: 'Prints the schemas.',
-      default: false
-    }),
-    providers: Flags.boolean({
-      char: 'P',
-      description: 'Prints the providers.',
-      default: false
-    }),
-    plugins: Flags.boolean({
-      char: 'p',
-      description: 'Prints the plugins.',
-      default: false
     })
   };
 
@@ -44,17 +24,21 @@ export default class Ast extends BaseKitaCommand {
     const errors = Array.from(parser.parse());
 
     const ast = {
-      routes: flags.routes ? parser.getRoutes() : [],
-      schemas: flags.schemas ? parser.getSchemas() : [],
-      providers: flags.providers ? parser.getProviders() : [],
-      plugins: flags.plugins ? parser.getPlugins() : [],
+      routes: parser.getRoutes(),
+      schemas: parser.getSchemas(),
+      providers: parser.getProviders(),
+      plugins: parser.getPlugins(),
       errors: errors.map((err) => ({
         ...err,
-        diagnostic: ts.formatDiagnostic(err.diagnostic, {
-          getCanonicalFileName: (f) => f,
-          getCurrentDirectory: () => '',
-          getNewLine: () => '\n'
-        })
+        diagnostic: {
+          ...err.diagnostic,
+          file: err.diagnostic.file?.fileName,
+          prettyMessageText: ts.formatDiagnostic(err.diagnostic, {
+            getCanonicalFileName: (f) => f,
+            getCurrentDirectory: () => '',
+            getNewLine: () => '\n'
+          })
+        }
       }))
     };
 
