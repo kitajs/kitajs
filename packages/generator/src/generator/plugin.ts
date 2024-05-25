@@ -25,6 +25,7 @@ declare global {
 }
 
 export const runtime: KitaGeneratedRuntime = {
+    __kita: true,
     schemas: [
       ${schemas.filter((s) => s.$id !== kSchemaDefinitions).map(toSchema)}
     ],

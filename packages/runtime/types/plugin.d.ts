@@ -39,7 +39,7 @@ declare global {
 /** The generated runtime for a Kita application. */
 export interface KitaGeneratedRuntime {
   /** @internal property used to detect if a object is a kita runtime */
-  __kita: true;
+  __kita?: boolean;
 
   schemas: JsonSchema[];
   routes: RouteOptions[];

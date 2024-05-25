@@ -9,10 +9,10 @@ const Kita = fp(
 
     let runtime = await opts.runtime;
 
-    if (!('__kita' in runtime)) {
+    if (!runtime.__kita) {
       runtime = runtime.runtime;
 
-      if (!('__kita' in runtime)) {
+      if (!runtime.__kita) {
         throw new Error('Provided runtime object is not a valid Kita runtime');
       }
     }

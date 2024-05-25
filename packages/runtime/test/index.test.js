@@ -14,6 +14,7 @@ describe('Runtime tests', () => {
     const app = fastify();
 
     const options = {
+      __kita: true,
       applicationHooks: [['onRequest', async () => {}]],
       plugins: {
         fastifyCookie: '@fastify/cookie'
