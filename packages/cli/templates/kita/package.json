@@ -14,7 +14,7 @@
     "lint:ci": "biome ci .",
     "lint:fix": "biome check --apply-unsafe .",
     "start": "node --env-file=.env --enable-source-maps dist/index.js",
-    "test": "kita build && node --env-file=.env --enable-source-maps -r @swc-node/register --test test/**/*.test.ts",
+    "test": "kita build && node --env-file=.env --env-file=.env.test --enable-source-maps -r @swc-node/register --test test/**/*.test.ts",
     "test:types": "kita build --dry-run && tsc --noEmit"
   },
   "dependencies": {

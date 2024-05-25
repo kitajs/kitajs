@@ -1,7 +1,7 @@
 import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import backendPlugin from '../src/plugin';
+import { backendPlugin } from '../src/plugin';
 
 describe('Creates route', () => {
   test('GET /', async () => {
