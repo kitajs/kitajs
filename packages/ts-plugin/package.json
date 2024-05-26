@@ -35,8 +35,7 @@
   },
   "devDependencies": {
     "@kitajs/runtime": "workspace:^",
-    "@types/deasync": "^0.1.5",
-    "@types/node": "^20.12.8",
+    "@types/node": "^20.12.12",
     "self": "file:.",
     "tsx": "^4.11.0"
   },
