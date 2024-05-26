@@ -2,7 +2,6 @@ import { parseConfig, readCompilerOptions, type PartialKitaConfig } from '@kitaj
 import { KitaParser } from '@kitajs/parser';
 import assert from 'node:assert';
 import { KitaFormatter } from '../src';
-import {} from '/home/hzk/dev/kitajs/kitajs/node_modules/.pnpm/pirates@4.0.6/node_modules/pirates';
 
 const tsconfig = require.resolve('../tsconfig.json');
 
@@ -29,5 +28,5 @@ export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaCon
   const formatter = new KitaFormatter(config, compilerOptions);
   await formatter.generate(kita);
 
-  return require(config.output!);
+  return import(config.output!);
 }
