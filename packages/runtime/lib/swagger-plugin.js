@@ -11,7 +11,12 @@ const KitaSwagger = fp(
 
     // probably not in development mode
     if (!options.when) {
-      app.log.debug('Swagger plugin disabled');
+      app.log.debug({ name: 'kita' }, 'Swagger plugin disabled');
+      return;
+    }
+
+    if (!app.hasPlugin('@fastify/swagger')) {
+      app.log.warn({ name: 'kita' }, 'Swagger plugin not found, skipping integration.');
       return;
     }
 
@@ -22,25 +27,22 @@ const KitaSwagger = fp(
           options.pretty ? JSON.stringify(app.swagger(), null, 2) : JSON.stringify(app.swagger())
         );
 
-        app.log.debug('OpenAPI file created');
+        app.log.debug({ name: 'kita' }, 'OpenAPI file created');
       });
     }
 
     if (options.expose) {
       app.get(
         options.expose,
-        {
-          // Hide route from Swagger UI
-          schema: { hide: true }
-        },
+        // Hide route from Swagger UI
+        { schema: { hide: true } },
         async () => app.swagger()
       );
     }
   },
   {
     name: '@kitajs/runtime/swagger',
-    fastify: '4.x',
-    dependencies: ['@fastify/swagger']
+    fastify: '4.x'
   }
 );
 

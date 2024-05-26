@@ -32,8 +32,7 @@
     "build": "tsc -p tsconfig.build.json",
     "postbuild": "oclif manifest && oclif readme && node scripts/build.js",
     "prepublish": "mkdir -p runtime && cp -r ../runtime/generated/* ./runtime",
-    "start": "node --require @swc-node/register index.ts",
-    "test": "c8 --reporter lcov --reporter text node --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
+    "test": "c8 --reporter lcov --reporter text tsx --test test/**/*.test.ts && tsc --noEmit"
   },
   "oclif": {
     "additionalHelpFlags": [
@@ -76,12 +75,11 @@
     "typescript": "~5.4.5"
   },
   "devDependencies": {
-    "@swc-node/register": "1.9.0",
-    "@swc/helpers": "0.5.10",
     "@types/inquirer": "^8.2.10",
     "@types/node": "^20.12.8",
     "c8": "^9.1.0",
-    "oclif": "^4.10.1"
+    "oclif": "^4.10.1",
+    "tsx": "^4.11.0"
   },
   "peerDependencies": {
     "typescript": "~5.4.5"

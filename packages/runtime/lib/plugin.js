@@ -13,7 +13,12 @@ const Kita = fp(
       runtime = runtime.runtime;
 
       if (!runtime.__kita) {
-        throw new Error('Provided runtime object is not a valid Kita runtime');
+        app.log.fatal(
+          { name: 'kita' },
+          new Error('Provided runtime object is not a valid Kita runtime, skipping kita plugin entirely.')
+        );
+
+        return;
       }
     }
 

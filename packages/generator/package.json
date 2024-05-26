@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "c8 --reporter lcov --reporter text node --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
+    "test": "c8 --reporter lcov --reporter text tsx --test test/**/*.test.ts && tsc --noEmit"
   },
   "dependencies": {
     "@kitajs/common": "workspace:^",
@@ -41,8 +41,6 @@
     "@kitajs/runtime": "workspace:^",
     "@scalar/api-reference": "^1.22.43",
     "@scalar/fastify-api-reference": "^1.22.43",
-    "@swc-node/register": "1.9.0",
-    "@swc/helpers": "0.5.10",
     "@types/json-stable-stringify": "^1.0.36",
     "@types/node": "^20.12.12",
     "@types/web-bluetooth": "^0.0.20",
@@ -50,7 +48,7 @@
     "fastify": "^4.27.0",
     "fastify-plugin": "^4.5.1",
     "form-auto-content": "^3.2.1",
-    "tsc-alias": "^1.8.10"
+    "tsx": "^4.11.0"
   },
   "engines": {
     "node": ">=20.13"

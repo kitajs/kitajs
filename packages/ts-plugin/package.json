@@ -25,7 +25,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "postbuild": "pnpm install",
-    "test": "node --require @swc-node/register --test test/**/*.test.ts && tsc --noEmit"
+    "test": "tsx --test test/**/*.test.ts && tsc --noEmit"
   },
   "dependencies": {
     "@kitajs/common": "workspace:^",
@@ -35,11 +35,10 @@
   },
   "devDependencies": {
     "@kitajs/runtime": "workspace:^",
-    "@swc-node/register": "1.9.0",
-    "@swc/helpers": "0.5.10",
     "@types/deasync": "^0.1.5",
     "@types/node": "^20.12.8",
-    "self": "file:."
+    "self": "file:.",
+    "tsx": "^4.11.0"
   },
   "peerDependencies": {
     "typescript": "~5.4.5"

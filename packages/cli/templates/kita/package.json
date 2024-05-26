@@ -7,14 +7,14 @@
     "build": "kita build && tsc -p tsconfig.build.json",
     "dev": "concurrently --raw --restart-tries 0 \"npm:dev:*\"",
     "dev:kita": "kita watch",
-    "dev:server": "node --env-file=.env --enable-source-maps -r @swc-node/register --watch --watch-preserve-output --inspect src/index.ts | pino-pretty",
+    "dev:server": "tsx --env-file=.env --enable-source-maps --watch --watch-preserve-output --inspect src/index.ts | pino-pretty",
     "dev:tsc": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "format": "biome format --write .",
     "lint": "biome check .",
     "lint:ci": "biome ci .",
     "lint:fix": "biome check --apply-unsafe .",
     "start": "node --env-file=.env --enable-source-maps dist/index.js",
-    "test": "kita build && node --env-file=.env --env-file=.env.test --enable-source-maps -r @swc-node/register --test test/**/*.test.ts",
+    "test": "kita build && tsx --env-file=.env --env-file=.env.test --enable-source-maps --test test/**/*.test.ts",
     "test:types": "kita build --dry-run && tsc --noEmit"
   },
   "dependencies": {
@@ -35,11 +35,10 @@
     "@biomejs/biome": "^1.6.4",
     "@kitajs/cli": "workspace:^",
     "@kitajs/ts-plugin": "workspace:^",
-    "@swc-node/register": "^1.9.0",
-    "@swc/helpers": "^0.5.8",
     "@types/node": "^20.12.2",
     "concurrently": "^8.2.2",
     "pino-pretty": "^11.0.0",
+    "tsx": "^4.11.0",
     "typescript": "~5.4.5"
   },
   "engines": {
