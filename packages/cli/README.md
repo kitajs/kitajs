@@ -45,8 +45,8 @@
 - [Commands](#commands)
 <!-- tocstop -->
 
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
   - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
   - [`kita build`](#kita-build)
   - [`kita config`](#kita-config)
@@ -76,7 +76,7 @@ $ npm install -g @kitajs/cli
 $ kita COMMAND
 running command...
 $ kita (--version|-v)
-@kitajs/cli/1.1.36 linux-x64 node-v20.12.1
+@kitajs/cli/1.1.36 linux-x64 node-v20.13.1
 $ kita --help [COMMAND]
 USAGE
   $ kita COMMAND
@@ -91,6 +91,7 @@ USAGE
 
 <!-- commands -->
 
+- [`kita ast`](#kita-ast)
 - [`kita autocomplete [SHELL]`](#kita-autocomplete-shell)
 - [`kita build`](#kita-build)
 - [`kita config`](#kita-config)
@@ -107,8 +108,28 @@ USAGE
 - [`kita plugins uninstall [PLUGIN]`](#kita-plugins-uninstall-plugin)
 - [`kita plugins unlink [PLUGIN]`](#kita-plugins-unlink-plugin)
 - [`kita plugins update`](#kita-plugins-update)
-- [`kita reset`](#kita-reset)
 - [`kita watch`](#kita-watch)
+
+## `kita ast`
+
+Prints the full Kita's AST object for debugging purposes
+
+```
+USAGE
+  $ kita ast [-c <value>] [--cwd <value>] [-r]
+
+FLAGS
+  -r, --raw  Prints a raw JSON string instead of a pretty printed one.
+
+GLOBAL FLAGS
+  -c, --config=<value>  Path to your kita.config.js file, if any.
+      --cwd=<value>     Sets the current working directory for your command.
+
+DESCRIPTION
+  Prints the full Kita's AST object for debugging purposes
+```
+
+_See code: [src/commands/ast.ts](https://github.com/kitajs/kitajs/blob/v1.1.36/src/commands/ast.ts)_
 
 ## `kita autocomplete [SHELL]`
 
@@ -140,7 +161,7 @@ EXAMPLES
 ```
 
 _See code:
-[@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.15/src/commands/autocomplete/index.ts)_
+[@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.16/src/commands/autocomplete/index.ts)_
 
 ## `kita build`
 
@@ -148,16 +169,15 @@ Analyses your backend searching for routes and bakes it into the runtime.
 
 ```
 USAGE
-  $ kita build [-c <value>] [--cwd <value>] [-D | -d] [-r | ]
-
-BUILD FLAGS
-  -D, --[no-]dts  Skips emitting declaration files (d.ts).
-  -d, --dry-run   Skips generation process and only type-checks your files.
-  -r, --reset     Removes previous generated files before each build.
+  $ kita build [-c <value>] [--cwd <value>] [-f | -d]
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
       --cwd=<value>     Sets the current working directory for your command.
+
+BUILD FLAGS
+  -d, --dry-run      Skips generation process and only type-checks your files.
+  -f, --[no-]format  Formats the generated runtime using prettier.
 
 DESCRIPTION
   Analyses your backend searching for routes and bakes it into the runtime.
@@ -180,10 +200,11 @@ Prints the full resolved configuration file
 
 ```
 USAGE
-  $ kita config [-c <value>] [--cwd <value>] [-r]
+  $ kita config [-c <value>] [--cwd <value>] [-r] [-R]
 
 FLAGS
-  -r, --[no-]raw  Prints a JSON string instead of a pretty printed object.
+  -R, --root-names  Also includes a list of all root filenames.
+  -r, --raw         Prints a raw JSON string instead of a pretty printed one.
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
@@ -191,11 +212,6 @@ GLOBAL FLAGS
 
 DESCRIPTION
   Prints the full resolved configuration file
-
-EXAMPLES
-  Builds your backend with a custom config file.
-
-    $ kita config -c kita.config.js
 ```
 
 _See code: [src/commands/config.ts](https://github.com/kitajs/kitajs/blob/v1.1.36/src/commands/config.ts)_
@@ -288,7 +304,7 @@ EXAMPLES
   $ kita plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.11/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.18/src/commands/plugins/index.ts)_
 
 ## `kita plugins add PLUGIN`
 
@@ -363,7 +379,7 @@ EXAMPLES
 ```
 
 _See code:
-[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.11/src/commands/plugins/inspect.ts)_
+[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.18/src/commands/plugins/inspect.ts)_
 
 ## `kita plugins install PLUGIN`
 
@@ -413,7 +429,7 @@ EXAMPLES
 ```
 
 _See code:
-[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.11/src/commands/plugins/install.ts)_
+[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.18/src/commands/plugins/install.ts)_
 
 ## `kita plugins link PATH`
 
@@ -443,7 +459,7 @@ EXAMPLES
   $ kita plugins link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.11/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.18/src/commands/plugins/link.ts)_
 
 ## `kita plugins remove [PLUGIN]`
 
@@ -484,7 +500,7 @@ FLAGS
   --reinstall  Reinstall all plugins after uninstalling.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.11/src/commands/plugins/reset.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.18/src/commands/plugins/reset.ts)_
 
 ## `kita plugins uninstall [PLUGIN]`
 
@@ -513,7 +529,7 @@ EXAMPLES
 ```
 
 _See code:
-[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.11/src/commands/plugins/uninstall.ts)_
+[@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.18/src/commands/plugins/uninstall.ts)_
 
 ## `kita plugins unlink [PLUGIN]`
 
@@ -557,30 +573,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.11/src/commands/plugins/update.ts)_
-
-## `kita reset`
-
-Resets your runtime in an attempt to fix any issues.
-
-```
-USAGE
-  $ kita reset [-c <value>] [--cwd <value>]
-
-GLOBAL FLAGS
-  -c, --config=<value>  Path to your kita.config.js file, if any.
-      --cwd=<value>     Sets the current working directory for your command.
-
-DESCRIPTION
-  Resets your runtime in an attempt to fix any issues.
-
-EXAMPLES
-  Resets your runtime
-
-    $ kita reset
-```
-
-_See code: [src/commands/reset.ts](https://github.com/kitajs/kitajs/blob/v1.1.36/src/commands/reset.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.0.18/src/commands/plugins/update.ts)_
 
 ## `kita watch`
 
@@ -588,16 +581,15 @@ Watch for changes in your source code and rebuilds the runtime.
 
 ```
 USAGE
-  $ kita watch [-c <value>] [--cwd <value>] [-D | -d] [-r | ] [-i <value>]
-
-BUILD FLAGS
-  -D, --[no-]dts  Skips emitting declaration files (d.ts).
-  -d, --dry-run   Skips generation process and only type-checks your files.
-  -r, --reset     Removes previous generated files before each build.
+  $ kita watch [-c <value>] [--cwd <value>] [-f | -d] [-i <value>]
 
 GLOBAL FLAGS
   -c, --config=<value>  Path to your kita.config.js file, if any.
       --cwd=<value>     Sets the current working directory for your command.
+
+BUILD FLAGS
+  -d, --dry-run      Skips generation process and only type-checks your files.
+  -f, --[no-]format  Formats the generated runtime using prettier.
 
 WATCH FLAGS
   -i, --ignore=<value>...  Comma separated directories to ignore when watching for changes.

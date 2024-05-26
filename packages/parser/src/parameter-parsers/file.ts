@@ -27,8 +27,7 @@ export class FileParameterParser implements ParameterParser {
     if (!this.collector.getPlugin('fastifyMultipart')) {
       this.collector.addPlugin('fastifyMultipart', {
         name: 'fastifyMultipart',
-        importUrl: '@fastify/multipart',
-        options: { attachFieldsToBody: true }
+        importUrl: '@fastify/multipart'
       });
     }
 

@@ -14,19 +14,14 @@ describe('Hello World', async () => {
     parseConfig({
       tsconfig,
       cwd: __dirname,
-      src: __dirname,
-      runtimePath: path.resolve(__dirname, 'runtime')
+      src: __dirname
     }),
     readCompilerOptions(tsconfig),
     walk(__dirname)
   );
 
   test('expect 2 errors', async () => {
-    const errors = [];
-
-    for (const error of kita.parse()) {
-      errors.push(error);
-    }
+    const errors = Array.from(kita.parse());
 
     assert.equal(errors.length, 1);
 

@@ -20,6 +20,7 @@ describe('JSDoc usage on route', async () => {
       method: 'GET',
       relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
+      controllerName: 'IndexController',
       parameters: [],
       schema: {
         summary: 'C',
@@ -38,6 +39,7 @@ describe('JSDoc usage on route', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [],
@@ -56,6 +58,7 @@ describe('JSDoc usage on route', async () => {
       url: '/not-index',
       controllerMethod: 'put',
       method: 'PUT',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
       parameters: [],
@@ -77,6 +80,7 @@ describe('JSDoc usage on route', async () => {
       method: 'DELETE',
       relativePath: cwdRelative('routes/index.ts'),
       kind: 'rest',
+      controllerName: 'IndexController',
       parameters: [],
       schema: {
         response: { '2xx': { type: 'string' } },

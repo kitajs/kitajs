@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
     "skipLibCheck": false
   },
-  "include": ["types", "index.d.ts"],
-  "exclude": ["generated"]
+  "include": ["parameters", "index.d.ts", "index.js", "lib"]
 }

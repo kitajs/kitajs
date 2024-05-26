@@ -26,20 +26,12 @@ export default class Build extends BaseKitaCommand {
       default: false,
       helpGroup: 'build'
     }),
-    dts: Flags.boolean({
-      char: 'D',
-      description: 'Skips emitting declaration files (d.ts).',
-      default: true,
-      allowNo: true,
+    format: Flags.boolean({
+      char: 'f',
+      description: 'Formats the generated runtime using prettier.',
       helpGroup: 'build',
-      exclusive: ['dry-run']
-    }),
-    reset: Flags.boolean({
-      char: 'r',
-      description: 'Removes previous generated files before each build.',
-      default: false,
-      helpGroup: 'build',
-      exclusive: ['dry-run']
+      exclusive: ['dry-run'],
+      allowNo: true
     })
   };
 
@@ -49,30 +41,27 @@ export default class Build extends BaseKitaCommand {
     const { flags } = await this.parse(Build);
 
     const { config, compilerOptions } = this.parseConfig(flags, {
-      declaration: flags.dts
+      format: flags.format
     });
 
     await this.prepareFirstRun(config, compilerOptions);
 
     ux.action.start('Warming up', '', {
       stdout: true,
-      style: 'clock'
+      style: 'arc'
     });
-
-    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config);
 
     const parser = KitaParser.create(
       config,
       compilerOptions,
       // Prefer already looked up files instead of walking the folder again
-      compilerOptions.rootNames,
-      // Dry runs should not generate any files
-      formatter
+      compilerOptions.rootNames
     );
 
     ux.action.stop(chalk`{cyan Ready to build!}`);
 
-    const diagnostics = await this.runParser(parser, formatter, flags.reset, config);
+    const formatter = flags['dry-run'] ? undefined : new KitaFormatter(config, compilerOptions);
+    const diagnostics = await this.runParser(parser, config, formatter);
 
     if (diagnostics.length > 0) {
       this.error(chalk`{red Finished with errors!}`);

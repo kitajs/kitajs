@@ -62,18 +62,18 @@ export class HtmlRouteParser implements RouteParser {
     if (!this.collector.getPlugin('kitaFastifyHtml')) {
       this.collector.addPlugin('kitaFastifyHtml', {
         name: 'kitaFastifyHtml',
-        importUrl: '@kitajs/fastify-html-plugin',
-        options: {}
+        importUrl: '@kitajs/fastify-html-plugin'
       });
     }
 
-    const { url, routeId } = parseUrl(source.fileName, this.config);
+    const { url, routeId, controllerId } = parseUrl(source.fileName, this.config);
     const method = node.name!.getText();
 
     const route: Route = {
       kind: 'html',
       url,
       controllerMethod: method,
+      controllerName: controllerId,
       method: method.toUpperCase() as Uppercase<string>,
       relativePath: cwdRelative(path.relative(this.config.cwd, source.fileName)),
       parameters: [],

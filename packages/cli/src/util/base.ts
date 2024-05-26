@@ -47,24 +47,6 @@ export abstract class BaseKitaCommand extends Command {
     };
   }
 
-  protected async resetRuntime(config: KitaConfig, copyRuntime = true) {
-    ux.action.start('Clearing runtime', '', {
-      stdout: true,
-      style: 'clock'
-    });
-
-    await fs.promises.rm(config.runtimePath, { recursive: true });
-
-    // Maybe the generation step is being called shortly after the reset
-    if (copyRuntime) {
-      await fs.promises.cp(path.resolve(__dirname, '../../runtime'), config.runtimePath, {
-        recursive: true
-      });
-    }
-
-    ux.action.stop(chalk`{cyan .${path.sep}${path.relative(config.cwd, config.runtimePath)}}`);
-  }
-
   /**
    * If the user's source code imports any type only available inside the generated runtime, the first build will fail
    * because these imports resolves to an inexistent file, by running the parser twice we can avoid this problem.
@@ -72,11 +54,11 @@ export abstract class BaseKitaCommand extends Command {
   protected async prepareFirstRun(config: KitaConfig, compilerOptions: any) {
     ux.action.start('Searching runtime', '', {
       stdout: true,
-      style: 'clock'
+      style: 'arc'
     });
 
     if (
-      await fs.promises.access(path.join(config.runtimePath, 'plugin.js')).then(
+      await fs.promises.access(config.output).then(
         () => true,
         () => false
       )
@@ -85,20 +67,20 @@ export abstract class BaseKitaCommand extends Command {
       return;
     }
 
-    const formatter = new KitaFormatter(config, true);
-    const parser = KitaParser.create(config, compilerOptions, compilerOptions.rootNames, formatter);
+    const formatter = new KitaFormatter(config, compilerOptions);
+    const parser = KitaParser.create(config, compilerOptions, compilerOptions.rootNames);
 
     // Ignores all errors, just generates something
-    for await (const _ of parser.parse());
-    await formatter.flush();
+    for (const _ of parser.parse());
+    await formatter.generate(parser);
 
     ux.action.stop(chalk`{yellow First run!}`);
   }
 
-  protected async runParser(parser: AstCollector, formatter?: SourceFormatter, reset?: boolean, config?: KitaConfig) {
+  protected async runParser(parser: AstCollector, config: KitaConfig, formatter?: SourceFormatter) {
     ux.action.start('Parsing sources', '', {
       stdout: true,
-      style: 'clock'
+      style: 'arc'
     });
 
     const diagnostics = [];
@@ -115,18 +97,14 @@ export abstract class BaseKitaCommand extends Command {
     }
 
     if (formatter) {
-      if (reset && config) {
-        await this.resetRuntime(config, false);
-      }
-
-      ux.action.start(chalk`Generating {cyan @kitajs/runtime}`, '', {
+      ux.action.start(chalk`Writing code`, '', {
         stdout: true,
-        style: 'clock'
+        style: 'arc'
       });
 
-      const writeCount = await formatter.flush();
+      await formatter.generate(parser);
 
-      ux.action.stop(chalk`{${config?.declaration ? 'blue' : 'yellow'} ${writeCount}} files written.`);
+      ux.action.stop(chalk`{cyan ${path.relative(config.cwd, config.output)}}`);
     } else {
       this.log(chalk`{yellow Skipping generation process.}`);
     }

@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -24,8 +25,9 @@ describe('Http errors', async () => {
       url: '/',
       controllerMethod: 'get',
       method: 'GET',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
-      parameters: [{ name: 'ErrorsParameterParser', value: 'req.server.httpErrors' }],
+      parameters: [{ name: 'ErrorsParameterParser', value: `${kRequestParam}.server.httpErrors` }],
       schema: {
         operationId: 'getIndex',
         response: {
@@ -47,6 +49,7 @@ describe('Http errors', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       parameters: [],
       schema: {

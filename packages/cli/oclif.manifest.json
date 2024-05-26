@@ -1,5 +1,47 @@
 {
   "commands": {
+    "ast": {
+      "aliases": [],
+      "args": {},
+      "description": "Prints the full Kita's AST object for debugging purposes",
+      "flags": {
+        "config": {
+          "char": "c",
+          "description": "Path to your kita.config.js file, if any.",
+          "helpGroup": "global",
+          "name": "config",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "cwd": {
+          "description": "Sets the current working directory for your command.",
+          "helpGroup": "global",
+          "name": "cwd",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "raw": {
+          "char": "r",
+          "description": "Prints a raw JSON string instead of a pretty printed one.",
+          "name": "raw",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "ast",
+      "pluginAlias": "@kitajs/cli",
+      "pluginName": "@kitajs/cli",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": ["dist", "commands", "ast.js"]
+    },
     "build": {
       "aliases": [],
       "args": {},
@@ -41,22 +83,13 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "dts": {
-          "char": "D",
-          "description": "Skips emitting declaration files (d.ts).",
+        "format": {
+          "char": "f",
+          "description": "Formats the generated runtime using prettier.",
           "exclusive": ["dry-run"],
           "helpGroup": "build",
-          "name": "dts",
+          "name": "format",
           "allowNo": true,
-          "type": "boolean"
-        },
-        "reset": {
-          "char": "r",
-          "description": "Removes previous generated files before each build.",
-          "exclusive": ["dry-run"],
-          "helpGroup": "build",
-          "name": "reset",
-          "allowNo": false,
           "type": "boolean"
         }
       },
@@ -75,12 +108,6 @@
       "aliases": [],
       "args": {},
       "description": "Prints the full resolved configuration file",
-      "examples": [
-        {
-          "command": "<%= config.bin %> <%= command.id %> -c kita.config.js",
-          "description": "Builds your backend with a custom config file."
-        }
-      ],
       "flags": {
         "config": {
           "char": "c",
@@ -102,9 +129,16 @@
         },
         "raw": {
           "char": "r",
-          "description": "Prints a JSON string instead of a pretty printed object.",
+          "description": "Prints a raw JSON string instead of a pretty printed one.",
           "name": "raw",
-          "allowNo": true,
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "root-names": {
+          "char": "R",
+          "description": "Also includes a list of all root filenames.",
+          "name": "root-names",
+          "allowNo": false,
           "type": "boolean"
         }
       },
@@ -210,47 +244,6 @@
       "isESM": false,
       "relativePath": ["dist", "commands", "init.js"]
     },
-    "reset": {
-      "aliases": [],
-      "args": {},
-      "description": "Resets your runtime in an attempt to fix any issues.",
-      "examples": [
-        {
-          "command": "<%= config.bin %> <%= command.id %>",
-          "description": "Resets your runtime"
-        }
-      ],
-      "flags": {
-        "config": {
-          "char": "c",
-          "description": "Path to your kita.config.js file, if any.",
-          "helpGroup": "global",
-          "name": "config",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "cwd": {
-          "description": "Sets the current working directory for your command.",
-          "helpGroup": "global",
-          "name": "cwd",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "reset",
-      "pluginAlias": "@kitajs/cli",
-      "pluginName": "@kitajs/cli",
-      "pluginType": "core",
-      "strict": true,
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": ["dist", "commands", "reset.js"]
-    },
     "watch": {
       "aliases": [],
       "args": {},
@@ -292,22 +285,13 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "dts": {
-          "char": "D",
-          "description": "Skips emitting declaration files (d.ts).",
+        "format": {
+          "char": "f",
+          "description": "Formats the generated runtime using prettier.",
           "exclusive": ["dry-run"],
           "helpGroup": "build",
-          "name": "dts",
+          "name": "format",
           "allowNo": true,
-          "type": "boolean"
-        },
-        "reset": {
-          "char": "r",
-          "description": "Removes previous generated files before each build.",
-          "exclusive": ["dry-run"],
-          "helpGroup": "build",
-          "name": "reset",
-          "allowNo": false,
           "type": "boolean"
         },
         "ignore": {

@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -18,9 +19,10 @@ describe('Body Parameter', async () => {
       kind: 'rest',
       url: '/',
       controllerMethod: 'post',
+      controllerName: 'IndexController',
       method: 'POST',
       relativePath: cwdRelative('routes/index.ts'),
-      parameters: [{ name: 'BodyParameterParser', value: 'req.body' }],
+      parameters: [{ name: 'BodyParameterParser', value: `${kRequestParam}.body` }],
       schema: {
         body: { $ref: 'Complex' },
         response: { '2xx': { type: 'number' } },

@@ -4,7 +4,7 @@ import { it } from 'node:test';
 import { forkAsync } from '../constants';
 
 it('Prints overridden config', async () => {
-  const cmd = await forkAsync(['config'], {
+  const cmd = await forkAsync(['config', '-r'], {
     cwd: __dirname,
     stdio: 'pipe',
     env: {

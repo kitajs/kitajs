@@ -12,13 +12,14 @@
   },
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",
+  "type": "commonjs",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "build": "pnpm -r --aggregate-output build",
     "change": "changeset",
-    "ci:publish": "pnpm publish -r --access public && changeset tag",
+    "ci:publish": "pnpm publish -r --access public --provenance --no-git-checks && changeset tag",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile",
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
@@ -31,7 +32,7 @@
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.12",
-    "@biomejs/biome": "1.7.3",
+    "@biomejs/biome": "^1.7.3",
     "@changesets/cli": "^2.27.3",
     "@kitajs/ts-plugin": "workspace:^",
     "changesets-format-with-issue-links": "^0.3.0",
@@ -39,9 +40,9 @@
     "prettier": "^3.2.5",
     "typescript": "~5.4.5"
   },
-  "packageManager": "pnpm@9.0.1",
+  "packageManager": "pnpm@9.1.1",
   "engines": {
-    "node": ">=20.8.1",
-    "pnpm": ">=9.0.1"
+    "node": ">=20.13.0",
+    "pnpm": ">=9.1.1"
   }
 }

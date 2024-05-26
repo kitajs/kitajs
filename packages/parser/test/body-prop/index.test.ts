@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -20,12 +21,13 @@ describe('BodyProp Parameter', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       parameters: [
-        { name: 'BodyPropParameterParser', value: 'req.body.name' },
-        { name: 'BodyPropParameterParser', value: 'req.body.a' },
-        { name: 'BodyPropParameterParser', value: 'req.body.type' },
-        { name: 'BodyPropParameterParser', value: 'req.body["type 2"]' }
+        { name: 'BodyPropParameterParser', value: `${kRequestParam}.body.name` },
+        { name: 'BodyPropParameterParser', value: `${kRequestParam}.body.a` },
+        { name: 'BodyPropParameterParser', value: `${kRequestParam}.body.type` },
+        { name: 'BodyPropParameterParser', value: `${kRequestParam}.body["type 2"]` }
       ],
       schema: {
         operationId: 'postIndex',

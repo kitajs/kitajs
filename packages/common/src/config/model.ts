@@ -12,8 +12,7 @@ export interface KitaConfig {
   cwd: string;
 
   /**
-   * The root folder to search and register providers. It must be the same relative directory as your
-   * `KITA_PROJECT_ROOT` runtime variable.
+   * The root folder to search and register providers.
    *
    * @default 'src'
    * @env `KITA_SRC` - The environment variable to override this setting.
@@ -21,22 +20,29 @@ export interface KitaConfig {
   src: string;
 
   /**
+   * If the output should be formatted to be more readable and reduce possible conflicts.
+   *
+   * @default 'process.stdout.isTTY'
+   * @env `KITA_FORMAT` - The environment variable to override this setting.
+   */
+  format: boolean;
+
+  /**
    * Uses a different located @kitajs/runtime. You should only override this setting if you are having problems with
    * your package manger or the runtime cannot be found by default.
    *
-   * @default 'node_modules/@kitajs/runtime/generated'
-   * @env `KITA_RUNTIME_PATH` - The environment variable to override this setting.
+   * @default 'src/runtime.kita.ts'
+   * @env `KITA_OUTPUT` - The environment variable to override this setting.
    */
-  runtimePath: string;
+  output: string;
 
   /**
-   * If the generated runtime should include declaration files alongside the javascript files. This is only helpful for
-   * development purposes and can be disabled once you are building the runtime for production.
+   * If the output should be in esm format.
    *
-   * @default true
-   * @env `KITA_DECLARATION` - The environment variable to override this setting.
+   * @default 'Gets from <cwd>/package.json type field'
+   * @env `KITA_ESM` - The environment variable to override this setting.
    */
-  declaration: boolean;
+  esm: boolean;
 
   /**
    * The tsconfig path to use to parse the files.
@@ -76,7 +82,7 @@ export interface KitaConfig {
   /**
    * All directories changes should be ignored.
    *
-   * @default ['node_modules', 'dist', <runtime>]
+   * @default ['node_modules', 'dist', <output>]
    */
   watchIgnore: string[];
 }

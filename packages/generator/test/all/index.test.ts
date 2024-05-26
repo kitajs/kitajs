@@ -1,26 +1,26 @@
+import { HttpMethods } from '@kitajs/parser';
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
-
-//@ts-ignore - first test may not have been run yet
-import { HttpMethods } from '@kitajs/parser';
-import type Runtime from './runtime';
+import { generateRuntime } from '../runner';
 
 describe('Correctly handles ALL methods', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('expects allIndex was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.allIndex);
-    assert.ok(rt.allIndexHandler);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.allIndex);
   });
 
   test('methods are bound correctly', () => {
-    assert.equal(rt.allIndex(), 'Hello World!');
+    assert.equal(runtime.allIndex(), 'Hello World!');
   });
 
   test('Ensure all works all supported methods', async (t) => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     for (const method of HttpMethods) {
       await t.test(method, async () => {

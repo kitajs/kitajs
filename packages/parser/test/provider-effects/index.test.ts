@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -42,6 +43,7 @@ describe('Provider effects', async () => {
       url: '/',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'IndexController',
       relativePath: cwdRelative('routes/index.ts'),
       parameters: [
         {
@@ -50,7 +52,7 @@ describe('Provider effects', async () => {
           providerName: 'ProviderWithEffect',
           imports: [{ name: 'ProviderWithEffect', path: cwdRelative('providers/index.ts') }],
           schemaTransformer: false,
-          helper: 'const param1 = ProviderWithEffect.default(req.body);'
+          helper: `const param1 = ProviderWithEffect.default(${kRequestParam}.body);`
         }
       ],
       schema: {

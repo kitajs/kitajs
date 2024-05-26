@@ -14,7 +14,7 @@ export interface RouteSchema {
   querystring?: JsonSchema;
   params?: JsonSchema;
   headers?: JsonSchema;
-  response?: JsonSchema;
+  response?: JsonSchema | Record<string | number, JsonSchema>;
 
   /**
    * A unique identifier for the operation, can be used in open api definitions and other tools.

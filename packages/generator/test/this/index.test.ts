@@ -1,40 +1,20 @@
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
-
-//@ts-ignore - first test may not have been run yet
-import type Runtime from './runtime';
+import { generateRuntime } from '../runner';
 
 describe('This & Use usage', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
-  test('expects getIndex was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getIndex);
-    assert.ok(rt.getIndexHandler);
-    assert.ok(rt.postIndex);
-    assert.ok(rt.postIndexHandler);
-  });
-
-  test('GET / only has handler', () => {
-    //@ts-expect-error - internal property
-    const options = rt.getIndexOptions;
-
-    assert.ok(options.handler1 === undefined);
-    assert.ok(options.handler2);
-    assert.ok(options.handler3 === undefined);
-  });
-  test('POST / has 3 handler', () => {
-    //@ts-expect-error - internal property
-    const options = rt.postIndexOptions;
-
-    assert.ok(options.handler1);
-    assert.ok(options.handler2);
-    assert.ok(options.handler3);
+  test('expects runtime was generated', () => {
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
   });
 
   test('getIndex registers handler 2', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'GET', url: '/' });
 
@@ -46,7 +26,8 @@ describe('This & Use usage', async () => {
   });
 
   test('postIndex registers 3 handlers', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'POST', url: '/' });
 

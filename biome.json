@@ -36,7 +36,8 @@
       "packages/generator/test/**/runtime",
       "pnpm-lock.yaml",
       "packages/parser/test/jsdoc/routes/index.ts",
-      "packages/cli/test/build"
+      "packages/cli/test/build",
+      "**/runtime.kita.ts"
     ]
   }
 }

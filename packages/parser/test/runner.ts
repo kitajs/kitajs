@@ -28,18 +28,12 @@ export function parseRoutesWithErrors(cwd: string, config: Partial<KitaConfig> =
     tsconfig,
     cwd,
     src: cwd,
-    runtimePath: path.resolve(cwd, 'runtime'),
     ...config
   });
 
   const kita = KitaParser.create(cfg, readCompilerOptions(tsconfig), walk(cwd));
 
-  const errors = [];
-
-  // Should not emit any errors
-  for (const error of kita.parse()) {
-    errors.push(error);
-  }
+  const errors = Array.from(kita.parse());
 
   return { kita, errors };
 }

@@ -1,28 +1,36 @@
-import './prelude';
-
 import fastifyHelmet from '@fastify/helmet';
 import fastifyUnderPressure from '@fastify/under-pressure';
-import { Kita } from '@kitajs/runtime';
+import { Kita, KitaSwagger } from '@kitajs/runtime';
 import fp from 'fastify-plugin';
+import { Env } from './util/environment';
 
-export default fp(async (app) => {
-  // Registers the generated kita plugin
-  app.register(Kita);
-
+export const backendPlugin = fp(async (app) => {
   // Measures process load with automatic handling of "Service Unavailable"
-  app.register(fastifyUnderPressure, {
-    maxEventLoopDelay: 1000,
-    maxHeapUsedBytes: 1000000000,
-    maxRssBytes: 1000000000,
-    maxEventLoopUtilization: 0.98
-  });
+  if (Env.ENV === 'production') {
+    await app.register(fastifyUnderPressure, {
+      maxEventLoopDelay: 1000,
+      maxHeapUsedBytes: 100000000,
+      maxRssBytes: 100000000,
+      maxEventLoopUtilization: 0.98
+    });
+  }
 
   // Important security headers for Fastify
-  app.register(fastifyHelmet, {
+  await app.register(fastifyHelmet, {
     global: true
   });
 
+  // Registers the generated kita plugin
+  await app.register(Kita, {
+    runtime: import('./runtime.kita')
+    // You can further configure the plugins here
+    // plugins: {}
+  });
+
+  // Serve the openapi.json file to be used by other tools
+  await app.register(KitaSwagger);
+
   // Add your custom stuff here
-  // app.register(myPlugin)
+  // await app.register(myPlugin)
   // ...
 });

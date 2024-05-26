@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src';
@@ -22,13 +23,14 @@ describe('Header Parameter', async () => {
         url: '/',
         controllerMethod: 'get',
         method: 'GET',
+        controllerName: 'IndexController',
         relativePath: cwdRelative('routes/index.ts'),
         parameters: [
-          { name: 'HeaderParameterParser', value: 'req.headers.name' },
-          { name: 'HeaderParameterParser', value: 'req.headers.age' },
+          { name: 'HeaderParameterParser', value: `${kRequestParam}.headers.name` },
+          { name: 'HeaderParameterParser', value: `${kRequestParam}.headers.age` },
           {
             name: 'HeaderParameterParser',
-            value: 'req.headers["custom name"]'
+            value: `${kRequestParam}.headers["custom name"]`
           }
         ],
         schema: {

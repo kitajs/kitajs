@@ -19,6 +19,7 @@ describe('Wildcard routes', async () => {
       kind: 'rest',
       url: '/*',
       controllerMethod: 'get',
+      controllerName: 'WildcardController',
       method: 'GET',
       relativePath: cwdRelative('routes/[...].ts'),
       parameters: [],

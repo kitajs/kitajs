@@ -1,20 +1,59 @@
 const { test, describe } = require('node:test');
 const assert = require('node:assert');
-
 const runtime = require('../index.js');
+const fastify = require('fastify');
+const fp = require('fastify-plugin');
 
 describe('Runtime tests', () => {
-  test('Only exports Kita function by default', () => {
+  test('Only exports Kita function', () => {
     assert.equal(typeof runtime, 'object');
-    assert.deepEqual(Object.keys(runtime), ['Kita']);
+    assert.equal(typeof runtime.Kita, 'function');
   });
 
-  test('Default Kita function throws error', () => {
-    try {
-      runtime.Kita();
-      assert.fail('Kita function should throw error');
-    } catch (error) {
-      assert.equal(error.message, 'You must run `kita build` before using @kitajs/runtime.');
-    }
+  test('Plugin registers everything', async () => {
+    const app = fastify();
+
+    const options = {
+      __kita: true,
+      applicationHooks: [['onRequest', async () => {}]],
+      plugins: {
+        fastifyCookie: '@fastify/cookie'
+      },
+      routes: [
+        {
+          method: 'GET',
+          url: '/',
+          handler: async () => ({ a: 1 })
+        }
+      ],
+      schemas: [
+        {
+          $id: 'test',
+          type: 'object',
+          properties: {
+            test: {
+              type: 'string'
+            }
+          }
+        }
+      ]
+    };
+
+    await app.register(runtime.Kita, {
+      runtime: Promise.resolve({ runtime: options }),
+      plugins: {
+        tst: { a: 2 }
+      }
+    });
+
+    await app.ready();
+
+    assert.deepStrictEqual((await app.inject({ path: '/' })).json(), { a: 1 });
+    assert.deepStrictEqual(app.hasPlugin('@fastify/cookie'), true);
+    assert.deepStrictEqual(app.getSchemas(), {
+      [`${options.schemas[0].$id}`]: options.schemas[0]
+    });
+
+    await app.close();
   });
 });

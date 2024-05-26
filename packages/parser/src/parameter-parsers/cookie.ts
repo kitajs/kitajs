@@ -14,8 +14,7 @@ export class CookieParameterParser implements ParameterParser {
     if (!this.collector.getPlugin('fastifyCookie')) {
       this.collector.addPlugin('fastifyCookie', {
         name: 'fastifyCookie',
-        importUrl: '@fastify/cookie',
-        options: {}
+        importUrl: '@fastify/cookie'
       });
     }
 

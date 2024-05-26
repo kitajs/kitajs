@@ -24,6 +24,13 @@ export interface Route {
    */
   controllerMethod: string;
 
+  /**
+   * The name of the controller. To be used as `<NAME>.<METHOD>()`
+   *
+   * @example `Controller`
+   */
+  controllerName: string;
+
   /** All possible parameters for this route. */
   parameters: Parameter[];
 

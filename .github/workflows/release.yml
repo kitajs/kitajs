@@ -9,6 +9,11 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -40,6 +45,8 @@ jobs:
 
       - name: Build
         run: pnpm build
+        env:
+          KITA_RELEASE: true
 
       - name: Create Release Pull Request or Publish
         id: changesets

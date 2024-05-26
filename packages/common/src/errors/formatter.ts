@@ -13,15 +13,16 @@ export class GeneratedDiagnosticsErrors extends KitaError {
   }
 }
 
-export class RuntimeNotFoundError extends KitaError {
+export class UnreachableRuntime extends KitaError {
   override type = 'formatter';
 
-  constructor(readonly path?: string) {
+  constructor(
+    readonly path: string,
+    error: Error
+  ) {
     super({
       code: 501,
-      messageText: `Could not find the runtime package${
-        path ? `at ${path}` : ''
-      }. Did you forget to install @kitajs/runtime?`
+      messageText: `Could not create runtime at ${path}: ${String(error)}`
     });
   }
 }

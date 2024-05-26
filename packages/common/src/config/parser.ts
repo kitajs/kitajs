@@ -1,14 +1,40 @@
 import deepmerge from 'deepmerge';
+import { error } from 'node:console';
 import fs from 'node:fs';
 import path from 'node:path';
-import { InvalidConfigError, RuntimeNotFoundError } from '../errors';
+import { InvalidConfigError, KitaError } from '../errors';
 import type { KitaConfig, KitaGeneratorConfig, PartialKitaConfig } from './model';
 
 /** Parses and validates the config. */
 export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()): KitaConfig {
   const cwd = env('cwd', String) ?? config.cwd ?? root;
 
-  const src = env('src', String) ?? config.src ?? 'src';
+  let esm = env('esm', strToBool) ?? config.esm ?? false;
+
+  try {
+    const packageJson = require(path.join(cwd, 'package.json'));
+
+    switch (packageJson?.type) {
+      case undefined:
+      case 'commonjs':
+        esm = false;
+        break;
+      case 'module':
+        esm = true;
+        break;
+      default:
+        throw new InvalidConfigError(
+          `Invalid package.json type: ${packageJson.type}. Only 'commonjs' or 'module' are supported.`,
+          config
+        );
+    }
+  } catch (e) {
+    if (e instanceof KitaError) {
+      throw error;
+    }
+  }
+
+  let src = env('src', String) ?? config.src ?? 'src';
 
   if (typeof src !== 'string') {
     throw new InvalidConfigError(
@@ -17,45 +43,23 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
     );
   }
 
-  let runtimePath = env('runtime_path', String) ?? config.runtimePath;
+  src = path.resolve(cwd, src);
 
-  if (!runtimePath) {
-    try {
-      runtimePath = path.join(
-        // Joined @kitajs/runtime and generated separately because when
-        // resolve is called on a package name (instead of folder if it was @kitajs/runtime/generated)
-        // it will look only for the package.json and resolve from there.
-        path.dirname(
-          // Allows global installations to work
-          require.resolve('@kitajs/runtime', { paths: [cwd] })
-        ),
-        'generated'
-      );
-    } catch (error) {
-      if ((error as Error).message.startsWith("Cannot find module '@kitajs/runtime'")) {
-        throw new RuntimeNotFoundError(runtimePath);
-      }
+  const format = env('format', strToBool) ?? config.format ?? !!process.stdout.isTTY;
 
-      throw error;
-    }
-  }
-
-  if (typeof runtimePath !== 'string') {
+  if (typeof format !== 'boolean') {
     throw new InvalidConfigError(
-      `'runtimePath' must be a string or undefined: (${JSON.stringify(runtimePath)}). Read from ${envOrigin(
-        'runtime_path'
-      )}`,
+      `'format' must be a boolean: (${JSON.stringify(format)}). Read from ${envOrigin('format')}`,
       config
     );
   }
 
-  const declaration = env('declaration', Boolean) ?? config.declaration ?? true;
+  let output = env('output', String) ?? config.output;
 
-  if (typeof declaration !== 'boolean') {
-    throw new InvalidConfigError(
-      `'declaration' must be a boolean: (${JSON.stringify(declaration)}). Read from ${envOrigin('declaration')}`,
-      config
-    );
+  if (output) {
+    output = path.resolve(cwd, output);
+  } else {
+    output = path.join(src, 'runtime.kita.ts');
   }
 
   const responses = env('responses', JSON.parse) ?? config.responses ?? {};
@@ -98,7 +102,7 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
   }
 
   const watchIgnore = env('watch_ignore', (x) => String(x).split(',')) ??
-    config.watchIgnore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), runtimePath];
+    config.watchIgnore ?? [path.join(cwd, 'node_modules'), path.join(cwd, 'dist'), output];
 
   if (!Array.isArray(watchIgnore)) {
     throw new InvalidConfigError(
@@ -109,13 +113,14 @@ export function parseConfig(config: PartialKitaConfig = {}, root = process.cwd()
 
   return {
     cwd,
+    src,
+    esm,
     tsconfig,
-    src: path.resolve(cwd, src),
-    declaration: declaration,
-    runtimePath: runtimePath,
-    watchIgnore: watchIgnore,
-    responses: responses,
-    generatorConfig: generatorConfig,
+    format,
+    output,
+    watchIgnore,
+    responses,
+    generatorConfig,
     parameterParserAugmentor: config.parameterParserAugmentor || noop,
     providerParserAugmentor: config.providerParserAugmentor || noop,
     routeParserAugmentor: config.routeParserAugmentor || noop
@@ -140,3 +145,24 @@ function envOrigin(name: string) {
 
 /** No operation function */
 function noop() {}
+
+// I guess this covers enough cases for now.
+function strToBool(str: string) {
+  switch (str.toLowerCase().trim()) {
+    case '':
+    case '0':
+    case 'false':
+    case 'no':
+    case 'n':
+    case 'off':
+      return false;
+    case '1':
+    case 'true':
+    case 'yes':
+    case 'y':
+    case 'on':
+      return true;
+    default:
+      throw new InvalidConfigError(`Invalid boolean string: ${str}.`);
+  }
+}

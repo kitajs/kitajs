@@ -1,3 +1,4 @@
+import { kRequestParam } from '@kitajs/common';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
 import { cwdRelative } from '../../src/util/paths';
@@ -19,10 +20,11 @@ describe('Multiple path parameters', async () => {
       url: '/:name-:num',
       controllerMethod: 'get',
       method: 'GET',
+      controllerName: 'NameNumController',
       relativePath: cwdRelative('routes/[name]-[num].ts'),
       parameters: [
-        { name: 'PathParameterParser', value: 'req.params.name' },
-        { name: 'PathParameterParser', value: 'req.params.num' }
+        { name: 'PathParameterParser', value: `${kRequestParam}.params.name` },
+        { name: 'PathParameterParser', value: `${kRequestParam}.params.num` }
       ],
       schema: {
         operationId: 'getNameNum',
@@ -45,10 +47,11 @@ describe('Multiple path parameters', async () => {
       url: '/:name-:num',
       controllerMethod: 'post',
       method: 'POST',
+      controllerName: 'NameNumController',
       relativePath: cwdRelative('routes/[name]-[num].ts'),
       parameters: [
-        { name: 'PathParameterParser', value: 'req.params.name' },
-        { name: 'PathParameterParser', value: 'req.params.num' }
+        { name: 'PathParameterParser', value: `${kRequestParam}.params.name` },
+        { name: 'PathParameterParser', value: `${kRequestParam}.params.num` }
       ],
       schema: {
         operationId: 'postNameNum',

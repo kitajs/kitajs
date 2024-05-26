@@ -1,23 +1,24 @@
-import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
-
-import assert from 'node:assert';
-//@ts-ignore - first test may not have been run yet
 import { SuspenseScript } from '@kitajs/html/suspense';
-import type Runtime from './runtime';
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
+import assert from 'node:assert';
+import test, { describe } from 'node:test';
+import { generateRuntime } from '../runner';
 
 describe('Html routes', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('expects runtime was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getIndexView);
-    assert.ok(rt.postIndexView);
-    assert.ok(rt.putIndexView);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.getIndexView);
+    assert.ok(runtime.postIndexView);
+    assert.ok(runtime.putIndexView);
   });
 
   test('html suspense works', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'GET', url: '/' });
 
@@ -33,7 +34,8 @@ describe('Html routes', async () => {
   });
 
   test('normal html works', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'POST', url: '/' });
 
@@ -43,7 +45,8 @@ describe('Html routes', async () => {
   });
 
   test('async html works', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'PUT', url: '/' });
 

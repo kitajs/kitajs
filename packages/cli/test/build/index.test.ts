@@ -16,5 +16,5 @@ it('Builds code', async () => {
 
   assert.equal(cmd.stderr, '');
   assert.ok(cmd.stdout.startsWith('Searching runtime...'));
-  assert.ok(existsSync(path.join(__dirname, 'runtime', 'routes', 'customOperationId.js')));
+  assert.ok(existsSync(path.join(__dirname, 'src', 'runtime.kita.ts')));
 });

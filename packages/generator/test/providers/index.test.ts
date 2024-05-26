@@ -1,27 +1,25 @@
+import { Kita } from '@kitajs/runtime';
+import fastify from 'fastify';
 import assert from 'node:assert';
 import test, { describe } from 'node:test';
-import { createApp, generateRuntime } from '../runner';
-
-//@ts-ignore - first test may not have been run yet
-import type Runtime from './runtime';
+import { generateRuntime } from '../runner';
 
 describe('Providers', async () => {
-  const rt = await generateRuntime<typeof Runtime>(__dirname);
+  const runtime = await generateRuntime<typeof import('./runtime.kita')>(__dirname);
 
   test('expects getIndex was generated', () => {
-    assert.ok(rt);
-    assert.ok(rt.getIndex);
-    assert.ok(rt.getIndexHandler);
+    assert.ok(runtime);
+    assert.ok(runtime.runtime);
+    assert.ok(runtime.getIndex);
   });
 
   test('get schema was overridden', () => {
-    //@ts-expect-error - internal property
-    const options = rt.getIndexOptions;
+    const options = runtime.runtime.routes.find((r) => r.schema?.operationId === 'getIndex');
 
     assert.deepStrictEqual(options, {
       url: '/',
       method: 'GET',
-      handler: rt.getIndexHandler,
+      handler: options?.handler,
       schema: {
         operationId: 'getIndex',
         response: { '2xx': { type: 'string' } },
@@ -31,13 +29,12 @@ describe('Providers', async () => {
   });
 
   test('post schema was overridden', () => {
-    //@ts-expect-error - internal property
-    const options = rt.postIndexOptions;
+    const options = runtime.runtime.routes.find((r) => r.schema?.operationId === 'postIndex');
 
     assert.deepStrictEqual(options, {
       url: '/',
       method: 'POST',
-      handler: rt.postIndexHandler,
+      handler: options?.handler,
       schema: {
         operationId: 'postIndex',
         response: {
@@ -55,7 +52,8 @@ describe('Providers', async () => {
   });
 
   test('getIndex returns request id', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'GET', url: '/' });
 
@@ -64,7 +62,8 @@ describe('Providers', async () => {
   });
 
   test('provider generics works', async () => {
-    await using app = createApp(rt);
+    await using app = fastify();
+    await app.register(Kita, { runtime });
 
     const res = await app.inject({ method: 'POST', url: '/' });
 

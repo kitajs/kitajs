@@ -1,53 +1,32 @@
-/// <reference types="@kitajs/runtime" />
-
 import { parseConfig, readCompilerOptions, type PartialKitaConfig } from '@kitajs/common';
 import { KitaParser } from '@kitajs/parser';
-import fastify, { type FastifyHttpOptions } from 'fastify';
 import assert from 'node:assert';
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import { KitaFormatter } from '../src';
 
 const tsconfig = require.resolve('../tsconfig.json');
 
-export async function generateRuntime<R extends { ready: Promise<void> }>(
-  cwd: string,
-  partialCfg: PartialKitaConfig = {}
-): Promise<R> {
+export async function generateRuntime<R>(cwd: string, partialCfg: PartialKitaConfig = {}): Promise<R> {
+  const src = partialCfg.src ?? cwd;
+
   const config = parseConfig({
     cwd,
+    src,
     tsconfig,
-    src: cwd,
-    runtimePath: path.resolve(cwd, 'runtime'),
+    format: true,
     ...partialCfg
   });
 
   const compilerOptions = readCompilerOptions(tsconfig);
 
-  // Create runtime directory if not exists
-  await fs.mkdir(config.runtimePath!, { recursive: true });
-
-  const formatter = new KitaFormatter(config);
-  const kita = KitaParser.create(config, compilerOptions, compilerOptions.rootNames, formatter);
+  const kita = KitaParser.create(config, compilerOptions, compilerOptions.rootNames);
 
   // Should not emit any errors
   for (const error of kita.parse()) {
-    console.error(error);
     assert.fail(error);
   }
 
-  formatter.flush();
+  const formatter = new KitaFormatter(config, compilerOptions);
+  await formatter.generate(kita);
 
-  globalThis.KITA_PROJECT_ROOT = config.src;
-  const rt = require(config.runtimePath!) as R;
-
-  await rt.ready;
-
-  return rt;
-}
-
-export function createApp<R>(runtime: R, opts?: FastifyHttpOptions<any, any>) {
-  const app = fastify(opts);
-  app.register((runtime as { Kita: () => void }).Kita);
-  return app;
+  return import(config.output!);
 }

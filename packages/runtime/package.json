@@ -14,15 +14,17 @@
   "funding": "https://github.com/sponsors/arthurfiorette",
   "license": "MIT",
   "author": "Arthur Fiorette <kita@arthur.place>",
+  "sideEffects": false,
   "type": "commonjs",
   "main": "./index.js",
   "files": [
     "index.js",
     "index.d.ts",
-    "generated/index.js",
-    "generated/index.d.ts",
     "types",
-    "CHANGELOG.md"
+    "parameters",
+    "CHANGELOG.md",
+    "lib",
+    "assets"
   ],
   "scripts": {
     "test": "c8 --reporter lcov --reporter text node --test test/**/*.test.js && tsc --noEmit"
@@ -34,18 +36,18 @@
     "@fastify/swagger": "^8.14.0",
     "@kitajs/common": "workspace:^",
     "@kitajs/fastify-html-plugin": "^4.1.0",
-    "@scalar/fastify-api-reference": "^1.22.49",
+    "@scalar/fastify-api-reference": "^1.22.50",
     "fastify-plugin": "^4.5.1",
     "tslib": "^2.6.2",
-    "type-fest": "^4.18.2"
+    "type-fest": "^4.18.3"
   },
   "devDependencies": {
     "c8": "^9.1.0"
   },
   "peerDependencies": {
-    "fastify": "^4.26"
+    "fastify": "^4.27.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.13"
   }
 }

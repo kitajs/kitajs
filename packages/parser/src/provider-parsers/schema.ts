@@ -1,7 +1,6 @@
 import { CannotCreateNodeTypeError, kSchemaDefinitions, type Provider, type ProviderParser } from '@kitajs/common';
 import path from 'node:path';
 import type { ts } from 'ts-json-schema-generator';
-
 import type { SchemaBuilder } from '../schema/builder';
 
 export class SchemasProviderParser implements ProviderParser {
@@ -10,8 +9,8 @@ export class SchemasProviderParser implements ProviderParser {
     private schemaBuilder: SchemaBuilder
   ) {}
 
-  /** Default provider handles all files. */
   supports(file: ts.SourceFile): boolean {
+    // TODO: Ensure file is in root directory
     return path.basename(file.fileName) === 'schemas.ts';
   }
 
@@ -37,10 +36,10 @@ export class SchemasProviderParser implements ProviderParser {
 
       if (
         schema &&
-        //@ts-expect-error - always define a
+        //@ts-expect-error - always define a name
         !schema.name
       ) {
-        // @ts-expect-error - try to find a name
+        // @ts-expect-error - tries to find name
         schema.name = (originalNode?.name as ts.Identifier)?.getText();
       }
 

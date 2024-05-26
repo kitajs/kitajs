@@ -1,9 +1,7 @@
-//
-// This is the source code of the @kitajs/runtime package. There's
-// nothing here...
-//
-// You are probably looking for the generated code in the ./generated folder.
-//
+const { addAjvSchemas } = require('./lib/json-schema.js');
+const { Kita } = require('./lib/plugin.js');
+const { KitaSwagger } = require('./lib/swagger-plugin.js');
 
-/** @type {import('./')} */
-module.exports = require('./generated');
+exports.addAjvSchemas = addAjvSchemas;
+exports.Kita = Kita;
+exports.KitaSwagger = KitaSwagger;
