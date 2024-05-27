@@ -184,8 +184,8 @@ importers:
         specifier: ^1.22.49
         version: 1.22.49(nanoid@5.0.6)(postcss@8.4.38)(typescript@5.4.5)(unified@11.0.4)(vue-sonner@1.1.2)(vue@3.4.21(typescript@5.4.5))(yjs@13.6.14)
       '@scalar/fastify-api-reference':
-        specifier: ^1.22.49
-        version: 1.22.49
+        specifier: ^1.22.50
+        version: 1.22.50
       '@swc-node/register':
         specifier: ^1.9.1
         version: 1.9.1(@swc/core@1.4.12(@swc/helpers@0.5.11))(@swc/types@0.1.6)(typescript@5.4.5)
@@ -284,8 +284,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(@kitajs/html@4.1.0)
       '@scalar/fastify-api-reference':
-        specifier: ^1.22.49
-        version: 1.22.49
+        specifier: ^1.22.50
+        version: 1.22.50
       fastify:
         specifier: ^4.26
         version: 4.26.2
@@ -1232,8 +1232,8 @@ packages:
     peerDependencies:
       vue: ^3.3.0
 
-  '@scalar/fastify-api-reference@1.22.49':
-    resolution: {integrity: sha512-aBqVdaqCFs8dkMOMQXgzmfC3rbzWoibORl3E00pCikRs4exwNXhTsdMBdSCENlo+c/VynBun0Y5/0IL1a01TzA==}
+  '@scalar/fastify-api-reference@1.22.50':
+    resolution: {integrity: sha512-SUeec4SrMh6+ybsG4ZXTY8RArmjnsNeaNbmC0LIucAQzIv8PJpLK6qEFidDbE1LkAbMLZf5XoYvH3yoa90/YNQ==}
     engines: {node: '>=18'}
 
   '@scalar/oas-utils@0.1.14':
@@ -2811,10 +2811,12 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   globalthis@1.0.3:
     resolution: {integrity: sha512-sFdI5LyBiNTHjRd7cGPWapiHWMOXKyuBNX/cWJ3NfzrZQVa8GI/8cofCl74AOVqq9W5kNmguTIzJ/1s2gyI9wA==}
@@ -6604,7 +6606,7 @@ snapshots:
       - typescript
       - vitest
 
-  '@scalar/fastify-api-reference@1.22.49':
+  '@scalar/fastify-api-reference@1.22.50':
     dependencies:
       fastify-plugin: 4.5.1
 
