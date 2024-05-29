@@ -57,8 +57,8 @@ importers:
         specifier: ^3.1.10
         version: 3.1.10
       '@oclif/plugin-plugins':
-        specifier: ^5.1.2
-        version: 5.1.2
+        specifier: ^5.1.3
+        version: 5.1.3
       '@oclif/plugin-warn-if-update-available':
         specifier: ^3.0.12
         version: 3.0.15
@@ -1113,8 +1113,8 @@ packages:
     resolution: {integrity: sha512-epIWsksxCudFMQEVSvkjz2pWlpfgDkBu8ycRg1wHBrSMiGeHNj32POZgcrAbNrMlCdvWTakFPXgg6abZ8IbqYw==}
     engines: {node: '>=18.0.0'}
 
-  '@oclif/plugin-plugins@5.1.2':
-    resolution: {integrity: sha512-O8LhkCoL4VKFn72Ur2D9zB3a7ntgIrlOzjhRnND6cwsoA0FBeqNi0Jz8pzvJzLv7fZCN9O6kxNBN/Zmkb7rgJg==}
+  '@oclif/plugin-plugins@5.1.3':
+    resolution: {integrity: sha512-85ZG8c0PzxAUavboxHS5/jPa8iM2luc9EG4at4by8eOjO76yDswN+oqFZ6qitH4Jg+JC2gF6pyh66s4w9Cr0FQ==}
     engines: {node: '>=18.0.0'}
 
   '@oclif/plugin-warn-if-update-available@3.0.15':
@@ -6396,7 +6396,7 @@ snapshots:
       chalk: 5.3.0
       fast-levenshtein: 3.0.0
 
-  '@oclif/plugin-plugins@5.1.2':
+  '@oclif/plugin-plugins@5.1.3':
     dependencies:
       '@oclif/core': 3.26.6
       chalk: 5.3.0
