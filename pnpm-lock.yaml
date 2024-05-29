@@ -184,8 +184,8 @@ importers:
         specifier: ^1.22.52
         version: 1.22.52(nanoid@5.0.6)(postcss@8.4.38)(typescript@5.4.5)(unified@11.0.4)(vue-sonner@1.1.2)(vue@3.4.21(typescript@5.4.5))(yjs@13.6.14)
       '@scalar/fastify-api-reference':
-        specifier: ^1.22.52
-        version: 1.22.52
+        specifier: ^1.22.53
+        version: 1.22.53
       '@swc-node/register':
         specifier: ^1.9.1
         version: 1.9.1(@swc/core@1.4.12(@swc/helpers@0.5.11))(@swc/types@0.1.6)(typescript@5.4.5)
@@ -284,8 +284,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(@kitajs/html@4.1.0)
       '@scalar/fastify-api-reference':
-        specifier: ^1.22.52
-        version: 1.22.52
+        specifier: ^1.22.53
+        version: 1.22.53
       fastify:
         specifier: ^4.26
         version: 4.26.2
@@ -1228,8 +1228,8 @@ packages:
     peerDependencies:
       vue: ^3.3.0
 
-  '@scalar/fastify-api-reference@1.22.52':
-    resolution: {integrity: sha512-LyntypEW/1wsaN2gKIy28fgJ71Iw79+QfpyUvsz3surRZgwCaaiiypS4zDhjCflLaLoTSbgPovt/JIzvhbGu3w==}
+  '@scalar/fastify-api-reference@1.22.53':
+    resolution: {integrity: sha512-1Tjc5OsK++dA5hkkF4rT8bXrAKtggRxmbatMBBV4IxXEGTCXpt10PE2BDUgfAvkEIzUp9RXAgCF8c9atdpCUAQ==}
     engines: {node: '>=18'}
 
   '@scalar/oas-utils@0.1.15':
@@ -6586,7 +6586,7 @@ snapshots:
       - typescript
       - vitest
 
-  '@scalar/fastify-api-reference@1.22.52':
+  '@scalar/fastify-api-reference@1.22.53':
     dependencies:
       fastify-plugin: 4.5.1
 
