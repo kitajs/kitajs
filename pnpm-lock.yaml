@@ -57,8 +57,8 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2(typescript@5.4.5)
       '@oclif/plugin-plugins':
-        specifier: ^5.2.2
-        version: 5.2.2(typescript@5.4.5)
+        specifier: ^5.2.3
+        version: 5.2.3(typescript@5.4.5)
       '@oclif/plugin-warn-if-update-available':
         specifier: ^3.0.12
         version: 3.0.15
@@ -1121,8 +1121,8 @@ packages:
     resolution: {integrity: sha512-FyQiC0jQZsrvtoVyEkNy8gypdibCLw+AR3uP08NyO95UoJeEHpxHjJUK+E10wNsTCFLFuaBW7hAjvtGm+Ze0RQ==}
     engines: {node: '>=18.0.0'}
 
-  '@oclif/plugin-plugins@5.2.2':
-    resolution: {integrity: sha512-BUAnl3+fN08cf7LqnLhRv5kc+HWOLz3TLq3t9Af25a8QCpxYBKYznygxUroI50TM002+i0mvjktRjg2bH9eRzg==}
+  '@oclif/plugin-plugins@5.2.3':
+    resolution: {integrity: sha512-MvC2rbGXyIpX8lLaIP4FwZbUwrGFvIvKiHjd5L1MNKyaQfX+P5fJilYkOwmciYWmVCeXLhTmC+9Av+lJhk4m4A==}
     engines: {node: '>=18.0.0'}
 
   '@oclif/plugin-warn-if-update-available@3.0.15':
@@ -6482,7 +6482,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@oclif/plugin-plugins@5.2.2(typescript@5.4.5)':
+  '@oclif/plugin-plugins@5.2.3(typescript@5.4.5)':
     dependencies:
       '@oclif/core': 4.0.1(typescript@5.4.5)
       ansis: 3.2.0
