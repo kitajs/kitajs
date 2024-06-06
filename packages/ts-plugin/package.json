@@ -29,7 +29,7 @@
   "dependencies": {
     "@kitajs/common": "workspace:^",
     "@kitajs/parser": "workspace:^",
-    "tslib": "^2.6.2",
+    "tslib": "^2.6.3",
     "typescript": "~5.4.5"
   },
   "devDependencies": {

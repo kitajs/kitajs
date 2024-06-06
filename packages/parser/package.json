@@ -30,7 +30,7 @@
     "@kitajs/common": "workspace:^",
     "deepmerge": "^4.3.1",
     "ts-json-schema-generator": "^2.0.1",
-    "tslib": "^2.6.2",
+    "tslib": "^2.6.3",
     "type-fest": "^4.19.0",
     "typescript": "~5.4.5"
   },
