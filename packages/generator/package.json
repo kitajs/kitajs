@@ -29,7 +29,7 @@
     "@kitajs/common": "workspace:^",
     "json-stable-stringify": "^1.1.1",
     "ts-writer": "^1.3.1",
-    "tslib": "^2.6.2",
+    "tslib": "^2.6.3",
     "type-fest": "^4.19.0"
   },
   "devDependencies": {
