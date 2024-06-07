@@ -160,8 +160,8 @@ importers:
         version: 4.19.0
     devDependencies:
       '@fastify/multipart':
-        specifier: ^8.1.0
-        version: 8.2.0
+        specifier: ^8.3.0
+        version: 8.3.0
       '@fastify/sensible':
         specifier: ^5.6.0
         version: 5.6.0
@@ -269,8 +269,8 @@ importers:
         specifier: ^9.3.1
         version: 9.3.1
       '@fastify/multipart':
-        specifier: ^8.2.0
-        version: 8.2.0
+        specifier: ^8.3.0
+        version: 8.3.0
       '@fastify/sensible':
         specifier: ^5.6.0
         version: 5.6.0
@@ -960,8 +960,8 @@ packages:
   '@fastify/merge-json-schemas@0.1.1':
     resolution: {integrity: sha512-fERDVz7topgNjtXsJTTW1JKLy0rhuLRcquYqNR9rF7OcVpCa2OVW49ZPDIhaRRCaUuvVxI+N416xUoF76HNSXA==}
 
-  '@fastify/multipart@8.2.0':
-    resolution: {integrity: sha512-OZ8nsyyoS2TV7Yeu3ZdrdDGsKUTAbfjrKC9jSxGgT2qdgek+BxpWX31ZubTrWMNZyU5xwk4ox6AvTjAbYWjrWg==}
+  '@fastify/multipart@8.3.0':
+    resolution: {integrity: sha512-A8h80TTyqUzaMVH0Cr9Qcm6RxSkVqmhK/MVBYHYeRRSUbUYv08WecjWKSlG2aSnD4aGI841pVxAjC+G1GafUeQ==}
 
   '@fastify/sensible@5.6.0':
     resolution: {integrity: sha512-Vq6Z2ZQy10GDqON+hvLF52K99s9et5gVVxTul5n3SIAf0Kq5QjPRUKkAMT3zPAiiGvoHtS3APa/3uaxfDgCODQ==}
@@ -6190,7 +6190,7 @@ snapshots:
     dependencies:
       fast-deep-equal: 3.1.3
 
-  '@fastify/multipart@8.2.0':
+  '@fastify/multipart@8.3.0':
     dependencies:
       '@fastify/busboy': 2.1.1
       '@fastify/deepmerge': 1.3.0
