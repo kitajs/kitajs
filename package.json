@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@arthurfiorette/prettier-config": "^1.0.12",
-    "@biomejs/biome": "1.7.3",
+    "@biomejs/biome": "1.8.0",
     "@changesets/cli": "^2.27.5",
     "@kitajs/ts-plugin": "workspace:^",
     "changesets-format-with-issue-links": "^0.3.0",
