@@ -45,8 +45,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@oclif/core':
-        specifier: ^3.26.6
-        version: 3.26.6
+        specifier: ^4.0.3
+        version: 4.0.3(typescript@5.4.5)
       '@oclif/plugin-autocomplete':
         specifier: ^3.0.18
         version: 3.0.18
@@ -131,8 +131,8 @@ importers:
         specifier: workspace:^
         version: link:../cli
       '@oclif/core':
-        specifier: ^3.26.6
-        version: 3.26.6
+        specifier: ^4.0.3
+        version: 4.0.3(typescript@5.4.5)
       typescript:
         specifier: ~5.4.5
         version: 5.4.5
@@ -1078,8 +1078,8 @@ packages:
     resolution: {integrity: sha512-+FiTw1IPuJTF9tSAlTsY8bGK4sgthehjz7c2SvYdgQncTkxI2xvUch/8QpjNYGLEmUneNygvYMRBax2KJcLccA==}
     engines: {node: '>=18.0.0'}
 
-  '@oclif/core@4.0.1':
-    resolution: {integrity: sha512-A+mOOjs5+iv1MUrIwYsdekwhFvjNPWYmS+Ovd6ZsPoP8XAa6YCc7P/omtkbGV4ojfj45p2hBpdnFUg+lOxqY0A==}
+  '@oclif/core@4.0.3':
+    resolution: {integrity: sha512-yM8R/M2WfSNfL9eF8clS/SbQvanvHZJgoij5bLs3ro7uAFCkL/LYcagyj0UVGbysx5AI+SNIof6OHQUXYZpOZw==}
     engines: {node: '>=18.0.0'}
 
   '@oclif/plugin-autocomplete@3.0.18':
@@ -6217,7 +6217,7 @@ snapshots:
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
 
-  '@oclif/core@4.0.1(typescript@5.4.5)':
+  '@oclif/core@4.0.3(typescript@5.4.5)':
     dependencies:
       ansi-escapes: 4.3.2
       ansis: 3.2.0
@@ -6254,14 +6254,14 @@ snapshots:
 
   '@oclif/plugin-help@6.2.1(typescript@5.4.5)':
     dependencies:
-      '@oclif/core': 4.0.1(typescript@5.4.5)
+      '@oclif/core': 4.0.3(typescript@5.4.5)
     transitivePeerDependencies:
       - typescript
 
   '@oclif/plugin-not-found@3.2.2(typescript@5.4.5)':
     dependencies:
       '@inquirer/confirm': 3.1.9
-      '@oclif/core': 4.0.1(typescript@5.4.5)
+      '@oclif/core': 4.0.3(typescript@5.4.5)
       ansis: 3.2.0
       fast-levenshtein: 3.0.0
     transitivePeerDependencies:
@@ -6270,7 +6270,7 @@ snapshots:
   '@oclif/plugin-not-found@3.2.3(typescript@5.4.5)':
     dependencies:
       '@inquirer/confirm': 3.1.9
-      '@oclif/core': 4.0.1(typescript@5.4.5)
+      '@oclif/core': 4.0.3(typescript@5.4.5)
       ansis: 3.2.0
       fast-levenshtein: 3.0.0
     transitivePeerDependencies:
@@ -6278,7 +6278,7 @@ snapshots:
 
   '@oclif/plugin-plugins@5.2.4(typescript@5.4.5)':
     dependencies:
-      '@oclif/core': 4.0.1(typescript@5.4.5)
+      '@oclif/core': 4.0.3(typescript@5.4.5)
       ansis: 3.2.0
       debug: 4.3.5(supports-color@8.1.1)
       npm: 10.8.1
@@ -9362,7 +9362,7 @@ snapshots:
       '@inquirer/confirm': 3.1.9
       '@inquirer/input': 2.1.9
       '@inquirer/select': 2.3.5
-      '@oclif/core': 4.0.1(typescript@5.4.5)
+      '@oclif/core': 4.0.3(typescript@5.4.5)
       '@oclif/plugin-help': 6.2.1(typescript@5.4.5)
       '@oclif/plugin-not-found': 3.2.3(typescript@5.4.5)
       '@oclif/plugin-warn-if-update-available': 3.0.19
