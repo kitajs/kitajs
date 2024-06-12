@@ -115,8 +115,8 @@ importers:
         specifier: ^2.6.3
         version: 2.6.3
       type-fest:
-        specifier: ^4.19.0
-        version: 4.19.0
+        specifier: ^4.20.0
+        version: 4.20.0
       typescript:
         specifier: ~5.4.5
         version: 5.4.5
@@ -156,8 +156,8 @@ importers:
         specifier: ^2.6.3
         version: 2.6.3
       type-fest:
-        specifier: ^4.19.0
-        version: 4.19.0
+        specifier: ^4.20.0
+        version: 4.20.0
     devDependencies:
       '@fastify/multipart':
         specifier: ^8.3.0
@@ -232,8 +232,8 @@ importers:
         specifier: ^2.6.3
         version: 2.6.3
       type-fest:
-        specifier: ^4.19.0
-        version: 4.19.0
+        specifier: ^4.20.0
+        version: 4.20.0
       typescript:
         specifier: ~5.4.5
         version: 5.4.5
@@ -296,8 +296,8 @@ importers:
         specifier: ^2.6.3
         version: 2.6.3
       type-fest:
-        specifier: ^4.19.0
-        version: 4.19.0
+        specifier: ^4.20.0
+        version: 4.20.0
     devDependencies:
       c8:
         specifier: ^9.1.0
@@ -4349,8 +4349,8 @@ packages:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
 
-  type-fest@4.19.0:
-    resolution: {integrity: sha512-CN2l+hWACRiejlnr68vY0/7734Kzu+9+TOslUXbSCQ1ruY9XIHDBSceVXCcHm/oXrdzhtLMMdJEKfemf1yXiZQ==}
+  type-fest@4.20.0:
+    resolution: {integrity: sha512-MBh+PHUHHisjXf4tlx0CFWoMdjx8zCMLJHOjnV1prABYZFHqtFOyauCIK2/7w4oIfwkF8iNhLtnJEfVY2vn3iw==}
     engines: {node: '>=16'}
 
   type-is@1.6.18:
@@ -10211,7 +10211,7 @@ snapshots:
 
   type-fest@2.19.0: {}
 
-  type-fest@4.19.0: {}
+  type-fest@4.20.0: {}
 
   type-is@1.6.18:
     dependencies:
