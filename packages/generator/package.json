@@ -40,7 +40,7 @@
     "@kitajs/html": "^4.1.0",
     "@kitajs/parser": "workspace:^",
     "@kitajs/runtime": "workspace:^",
-    "@scalar/api-reference": "^1.23.5",
+    "@scalar/api-reference": "^1.24.8",
     "@scalar/fastify-api-reference": "^1.23.5",
     "@swc-node/register": "^1.9.1",
     "@swc/helpers": "^0.5.11",
