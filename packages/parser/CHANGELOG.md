@@ -1,5 +1,48 @@
 # @kitajs/parser
 
+## 1.2.0
+
+### Minor Changes
+
+- Test code against node v20 and v22 ([#396](https://github.com/kitajs/kitajs/issues/396))
+  ([b237991](https://github.com/kitajs/kitajs/commit/b23799177298876c7976864df97c85661c26cdde))
+
+### Patch Changes
+
+- ts-json-schema-generator v2.0 ([#419](https://github.com/kitajs/kitajs/issues/419))
+  ([c601f94](https://github.com/kitajs/kitajs/commit/c601f94e1487325f2d03fe4f0fcf5c2d4c9aba8c))
+- Added biomejs for code lint ([#398](https://github.com/kitajs/kitajs/issues/398))
+  ([7f31e56](https://github.com/kitajs/kitajs/commit/7f31e5667e534dcd9607c02059bd61503dd2943b))
+- Added tests to multiple path parameters ([#395](https://github.com/kitajs/kitajs/issues/395))
+  ([3588880](https://github.com/kitajs/kitajs/commit/35888802cc994a79d8eb382012f92ba7b7ce4952))
+- Improved error messages, testing ALL route and fixed runtime generated exports
+  ([#394](https://github.com/kitajs/kitajs/issues/394))
+  ([824c8d2](https://github.com/kitajs/kitajs/commit/824c8d29509537f55b6bb53a7c68872b4a7a0f49))
+- Throw error on path parameter with dashes
+  ([745def6](https://github.com/kitajs/kitajs/commit/745def6114baa3edcc8f04b72b52bdd25e9367ef))
+- Migrated to an entire sync api ([#432](https://github.com/kitajs/kitajs/issues/432))
+  ([39d26a3](https://github.com/kitajs/kitajs/commit/39d26a3d223e4e7f9a35616245144859f40c632e))
+- Fixed HttpError not found when only @throws is used ([#400](https://github.com/kitajs/kitajs/issues/400))
+  ([f85d8ea](https://github.com/kitajs/kitajs/commit/f85d8eaec878b182e9d7a2e54e1e3545c276902a))
+- Native support for Kita/Html v4 ([#393](https://github.com/kitajs/kitajs/issues/393))
+  ([effed69](https://github.com/kitajs/kitajs/commit/effed6976bea36b88860712ed1cc8bc0b78156c0))
+- Reduced final npm bundle size by ~100kb
+  ([6a23155](https://github.com/kitajs/kitajs/commit/6a23155b8f220793b03738b09e3d3b0b11724b07))
+- Updated dependencies ([#419](https://github.com/kitajs/kitajs/issues/419))
+  ([c601f94](https://github.com/kitajs/kitajs/commit/c601f94e1487325f2d03fe4f0fcf5c2d4c9aba8c))
+- Updated dependencies ([#398](https://github.com/kitajs/kitajs/issues/398))
+  ([7f31e56](https://github.com/kitajs/kitajs/commit/7f31e5667e534dcd9607c02059bd61503dd2943b))
+- Updated dependencies ([#397](https://github.com/kitajs/kitajs/issues/397))
+  ([a379097](https://github.com/kitajs/kitajs/commit/a379097d7d764264a72219d890984dfa8eeea3b5))
+- Updated dependencies ([#432](https://github.com/kitajs/kitajs/issues/432))
+  ([39d26a3](https://github.com/kitajs/kitajs/commit/39d26a3d223e4e7f9a35616245144859f40c632e))
+- Updated dependencies ([#393](https://github.com/kitajs/kitajs/issues/393))
+  ([effed69](https://github.com/kitajs/kitajs/commit/effed6976bea36b88860712ed1cc8bc0b78156c0))
+- Updated dependencies ([#396](https://github.com/kitajs/kitajs/issues/396))
+  ([b237991](https://github.com/kitajs/kitajs/commit/b23799177298876c7976864df97c85661c26cdde))
+- Updated dependencies ([6a23155](https://github.com/kitajs/kitajs/commit/6a23155b8f220793b03738b09e3d3b0b11724b07))
+  - @kitajs/common@1.2.0
+
 ## 1.1.23
 
 ### Patch Changes

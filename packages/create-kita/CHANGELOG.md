@@ -1,5 +1,30 @@
 # create-kita
 
+## 1.2.0
+
+### Minor Changes
+
+- Test code against node v20 and v22 ([#396](https://github.com/kitajs/kitajs/issues/396))
+  ([b237991](https://github.com/kitajs/kitajs/commit/b23799177298876c7976864df97c85661c26cdde))
+
+### Patch Changes
+
+- ts-json-schema-generator v2.0 ([#419](https://github.com/kitajs/kitajs/issues/419))
+  ([c601f94](https://github.com/kitajs/kitajs/commit/c601f94e1487325f2d03fe4f0fcf5c2d4c9aba8c))
+- Updated dependencies ([#419](https://github.com/kitajs/kitajs/issues/419))
+  ([c601f94](https://github.com/kitajs/kitajs/commit/c601f94e1487325f2d03fe4f0fcf5c2d4c9aba8c))
+- Updated dependencies ([#398](https://github.com/kitajs/kitajs/issues/398))
+  ([7f31e56](https://github.com/kitajs/kitajs/commit/7f31e5667e534dcd9607c02059bd61503dd2943b))
+- Updated dependencies ([08cd399](https://github.com/kitajs/kitajs/commit/08cd3997d4d92a9c3550e7bb2152616efd94fc61))
+- Updated dependencies ([8a17986](https://github.com/kitajs/kitajs/commit/8a1798669b0883a11d9c8c7dad46a922d566dcd7))
+- Updated dependencies ([#423](https://github.com/kitajs/kitajs/issues/423))
+  ([abc402d](https://github.com/kitajs/kitajs/commit/abc402d19704e0079e13249dc6fabcd01f98d314))
+- Updated dependencies ([#396](https://github.com/kitajs/kitajs/issues/396))
+  ([b237991](https://github.com/kitajs/kitajs/commit/b23799177298876c7976864df97c85661c26cdde))
+- Updated dependencies ([32d9696](https://github.com/kitajs/kitajs/commit/32d969663f494487bd56021d86c5d07f363847b7))
+- Updated dependencies ([6a23155](https://github.com/kitajs/kitajs/commit/6a23155b8f220793b03738b09e3d3b0b11724b07))
+  - @kitajs/cli@1.2.0
+
 ## 1.1.5
 
 ### Patch Changes
