@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@kitajs/cli": "workspace:^",
-    "@oclif/core": "^3.26.6",
+    "@oclif/core": "^4.0.17",
     "typescript": "~5.4.5"
   },
   "devDependencies": {
