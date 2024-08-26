@@ -45,8 +45,8 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@oclif/core':
-        specifier: ^3.26.6
-        version: 3.26.6
+        specifier: ^4.0.19
+        version: 4.0.19
       '@oclif/plugin-autocomplete':
         specifier: ^3.0.18
         version: 3.0.18
@@ -55,10 +55,10 @@ importers:
         version: 6.0.22
       '@oclif/plugin-not-found':
         specifier: ^3.2.2
-        version: 3.2.2(typescript@5.4.5)
+        version: 3.2.2
       '@oclif/plugin-plugins':
         specifier: ^5.3.2
-        version: 5.3.2(typescript@5.4.5)
+        version: 5.3.2
       '@oclif/plugin-warn-if-update-available':
         specifier: ^3.0.12
         version: 3.0.15
@@ -95,7 +95,7 @@ importers:
         version: 9.1.0
       oclif:
         specifier: ^4.13.6
-        version: 4.13.6(typescript@5.4.5)
+        version: 4.13.6
 
   packages/common:
     dependencies:
@@ -131,8 +131,8 @@ importers:
         specifier: workspace:^
         version: link:../cli
       '@oclif/core':
-        specifier: ^3.26.6
-        version: 3.26.6
+        specifier: ^4.0.19
+        version: 4.0.19
       typescript:
         specifier: ~5.4.5
         version: 5.4.5
@@ -1078,8 +1078,8 @@ packages:
     resolution: {integrity: sha512-+FiTw1IPuJTF9tSAlTsY8bGK4sgthehjz7c2SvYdgQncTkxI2xvUch/8QpjNYGLEmUneNygvYMRBax2KJcLccA==}
     engines: {node: '>=18.0.0'}
 
-  '@oclif/core@4.0.1':
-    resolution: {integrity: sha512-A+mOOjs5+iv1MUrIwYsdekwhFvjNPWYmS+Ovd6ZsPoP8XAa6YCc7P/omtkbGV4ojfj45p2hBpdnFUg+lOxqY0A==}
+  '@oclif/core@4.0.19':
+    resolution: {integrity: sha512-VXnsYNVfmucXp5BdOA/OcWi8F/h2h8ofW1GxQDdspodnmnUgALEpqrxXBl5NFuA+iEihtAJeXzX260ICHYDaBg==}
     engines: {node: '>=18.0.0'}
 
   '@oclif/plugin-autocomplete@3.0.18':
@@ -1895,6 +1895,10 @@ packages:
     resolution: {integrity: sha512-Yk3BkHH9U7oPyCN3gL5Tc7CpahG/+UFv/6UG03C311Vy9lzRmA5uoxDTpU9CO3rGHL6KzJz/pdDeXZCZ5Mu/Sg==}
     engines: {node: '>=15'}
 
+  ansis@3.3.2:
+    resolution: {integrity: sha512-cFthbBlt+Oi0i9Pv/j6YdVWJh54CtjGACaMPCIrEV4Ha7HWsIjXDwseYV79TIL0B4+KfSwD5S70PeQDkPUd1rA==}
+    engines: {node: '>=15'}
+
   anymatch@3.1.3:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
@@ -2028,10 +2032,6 @@ packages:
   call-bind@1.0.7:
     resolution: {integrity: sha512-GHTSNSYICQ7scH7sZ+M2rFopRoLh8t2bLSW6BbgrtLsahOIB5iyAVJf9GjWK3cYTDaMj4XdBpM1cA6pIS0Kv2w==}
     engines: {node: '>= 0.4'}
-
-  callsites@3.1.0:
-    resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
-    engines: {node: '>=6'}
 
   camel-case@4.1.2:
     resolution: {integrity: sha512-gxGWBrTT1JuMx6R+o5PTXMmUnhnVzLQ9SNutD4YqKtI6ap897t3tKECYla6gCWEkplXnlNybEkZg9GEGxKFCgw==}
@@ -2210,15 +2210,6 @@ packages:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
 
-  cosmiconfig@9.0.0:
-    resolution: {integrity: sha512-itvL5h8RETACmOTFc4UfIyB2RfEHi71Ax6E/PivVxq9NseKbOWpeyHEOIbmAw1rs8Ak0VursQNww7lf7YtUwzg==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      typescript: '>=4.9.5'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   crelt@1.0.6:
     resolution: {integrity: sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g==}
 
@@ -2392,10 +2383,6 @@ packages:
   entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
-
-  env-paths@2.2.1:
-    resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
-    engines: {node: '>=6'}
 
   error-ex@1.3.2:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
@@ -2850,10 +2837,6 @@ packages:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
     engines: {node: '>= 4'}
 
-  import-fresh@3.3.0:
-    resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
-    engines: {node: '>=6'}
-
   indent-string@4.0.0:
     resolution: {integrity: sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==}
     engines: {node: '>=8'}
@@ -3142,6 +3125,10 @@ packages:
   light-my-request@5.12.0:
     resolution: {integrity: sha512-P526OX6E7aeCIfw/9UyJNsAISfcFETghysaWHQAlQYayynShT08MOj4c6fBCvTWBrHXSvqBAKDp3amUPSCQI4w==}
 
+  lilconfig@3.1.2:
+    resolution: {integrity: sha512-eop+wDAvpItUys0FWkHIKeC9ybYrTGbU41U5K7+bttZZeohvnY7M9dZ5kB21GNWiFT2q1OoPTvncPCgSOVO5ow==}
+    engines: {node: '>=14'}
+
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
@@ -3406,6 +3393,10 @@ packages:
     resolution: {integrity: sha512-KqWh+VchfxcMNRAJjj2tnsSJdNbHsVgnkBhTNrW7AjVo6OvLtxw8zfT9oLw1JSohlFzJ8jCoTgaoXvJ+kHt6fw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  minimatch@9.0.5:
+    resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
+    engines: {node: '>=16 || 14 >=14.17'}
+
   minimist-options@4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
     engines: {node: '>= 6'}
@@ -3632,10 +3623,6 @@ packages:
 
   param-case@3.0.4:
     resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==}
-
-  parent-module@1.0.1:
-    resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
-    engines: {node: '>=6'}
 
   parse-json@4.0.0:
     resolution: {integrity: sha512-aOIos8bujGN93/8Ox/jPLh7RwVnPEysynVFE+fQZyg6jKELEHwzgKdLRFHUgXJL6kylijVSBC4BvN9OmsB48Rw==}
@@ -3946,10 +3933,6 @@ packages:
 
   resolve-alpn@1.2.1:
     resolution: {integrity: sha512-0a1F4l73/ZFZOakJnQ3FvkJ2+gSTQWz/r2KE5OdDY0TxPm5h4GkqkWWfM47T7HsbnOtcJVEF4epCVy6u7Q3K+g==}
-
-  resolve-from@4.0.0:
-    resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
-    engines: {node: '>=4'}
 
   resolve-from@5.0.0:
     resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
@@ -6202,27 +6185,25 @@ snapshots:
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
 
-  '@oclif/core@4.0.1(typescript@5.4.5)':
+  '@oclif/core@4.0.19':
     dependencies:
       ansi-escapes: 4.3.2
-      ansis: 3.2.0
+      ansis: 3.3.2
       clean-stack: 3.0.1
       cli-spinners: 2.9.2
-      cosmiconfig: 9.0.0(typescript@5.4.5)
       debug: 4.3.5(supports-color@8.1.1)
       ejs: 3.1.10
       get-package-type: 0.1.0
       globby: 11.1.0
       indent-string: 4.0.0
       is-wsl: 2.2.0
-      minimatch: 9.0.4
+      lilconfig: 3.1.2
+      minimatch: 9.0.5
       string-width: 4.2.3
       supports-color: 8.1.1
       widest-line: 3.1.0
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
-    transitivePeerDependencies:
-      - typescript
 
   '@oclif/plugin-autocomplete@3.0.18':
     dependencies:
@@ -6237,33 +6218,27 @@ snapshots:
     dependencies:
       '@oclif/core': 3.26.6
 
-  '@oclif/plugin-help@6.2.1(typescript@5.4.5)':
+  '@oclif/plugin-help@6.2.1':
     dependencies:
-      '@oclif/core': 4.0.1(typescript@5.4.5)
-    transitivePeerDependencies:
-      - typescript
+      '@oclif/core': 4.0.19
 
-  '@oclif/plugin-not-found@3.2.2(typescript@5.4.5)':
+  '@oclif/plugin-not-found@3.2.2':
     dependencies:
       '@inquirer/confirm': 3.1.9
-      '@oclif/core': 4.0.1(typescript@5.4.5)
+      '@oclif/core': 4.0.19
       ansis: 3.2.0
       fast-levenshtein: 3.0.0
-    transitivePeerDependencies:
-      - typescript
 
-  '@oclif/plugin-not-found@3.2.3(typescript@5.4.5)':
+  '@oclif/plugin-not-found@3.2.3':
     dependencies:
       '@inquirer/confirm': 3.1.9
-      '@oclif/core': 4.0.1(typescript@5.4.5)
+      '@oclif/core': 4.0.19
       ansis: 3.2.0
       fast-levenshtein: 3.0.0
-    transitivePeerDependencies:
-      - typescript
 
-  '@oclif/plugin-plugins@5.3.2(typescript@5.4.5)':
+  '@oclif/plugin-plugins@5.3.2':
     dependencies:
-      '@oclif/core': 4.0.1(typescript@5.4.5)
+      '@oclif/core': 4.0.19
       ansis: 3.2.0
       debug: 4.3.5(supports-color@8.1.1)
       npm: 10.8.1
@@ -6276,7 +6251,6 @@ snapshots:
       yarn: 1.22.22
     transitivePeerDependencies:
       - supports-color
-      - typescript
 
   '@oclif/plugin-warn-if-update-available@3.0.15':
     dependencies:
@@ -7368,6 +7342,8 @@ snapshots:
 
   ansis@3.2.0: {}
 
+  ansis@3.3.2: {}
+
   anymatch@3.1.3:
     dependencies:
       normalize-path: 3.0.0
@@ -7535,8 +7511,6 @@ snapshots:
       function-bind: 1.1.2
       get-intrinsic: 1.2.4
       set-function-length: 1.2.2
-
-  callsites@3.1.0: {}
 
   camel-case@4.1.2:
     dependencies:
@@ -7739,15 +7713,6 @@ snapshots:
 
   cookie@0.6.0: {}
 
-  cosmiconfig@9.0.0(typescript@5.4.5):
-    dependencies:
-      env-paths: 2.2.1
-      import-fresh: 3.3.0
-      js-yaml: 4.1.0
-      parse-json: 5.2.0
-    optionalDependencies:
-      typescript: 5.4.5
-
   crelt@1.0.6: {}
 
   cross-spawn@5.1.0:
@@ -7920,8 +7885,6 @@ snapshots:
       strip-ansi: 6.0.1
 
   entities@4.5.0: {}
-
-  env-paths@2.2.1: {}
 
   error-ex@1.3.2:
     dependencies:
@@ -8546,11 +8509,6 @@ snapshots:
 
   ignore@5.3.1: {}
 
-  import-fresh@3.3.0:
-    dependencies:
-      parent-module: 1.0.1
-      resolve-from: 4.0.0
-
   indent-string@4.0.0: {}
 
   inflight@1.0.6:
@@ -8814,6 +8772,8 @@ snapshots:
       cookie: 0.6.0
       process-warning: 3.0.0
       set-cookie-parser: 2.6.0
+
+  lilconfig@3.1.2: {}
 
   lines-and-columns@1.2.4: {}
 
@@ -9260,6 +9220,10 @@ snapshots:
     dependencies:
       brace-expansion: 2.0.1
 
+  minimatch@9.0.5:
+    dependencies:
+      brace-expansion: 2.0.1
+
   minimist-options@4.1.0:
     dependencies:
       arrify: 1.0.1
@@ -9340,16 +9304,16 @@ snapshots:
       has-symbols: 1.0.3
       object-keys: 1.1.1
 
-  oclif@4.13.6(typescript@5.4.5):
+  oclif@4.13.6:
     dependencies:
       '@aws-sdk/client-cloudfront': 3.592.0
       '@aws-sdk/client-s3': 3.583.0
       '@inquirer/confirm': 3.1.9
       '@inquirer/input': 2.1.9
       '@inquirer/select': 2.3.5
-      '@oclif/core': 4.0.1(typescript@5.4.5)
-      '@oclif/plugin-help': 6.2.1(typescript@5.4.5)
-      '@oclif/plugin-not-found': 3.2.3(typescript@5.4.5)
+      '@oclif/core': 4.0.19
+      '@oclif/plugin-help': 6.2.1
+      '@oclif/plugin-not-found': 3.2.3
       '@oclif/plugin-warn-if-update-available': 3.0.19
       async-retry: 1.3.3
       chalk: 4.1.2
@@ -9369,7 +9333,6 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
       - supports-color
-      - typescript
 
   on-exit-leak-free@2.1.2: {}
 
@@ -9429,10 +9392,6 @@ snapshots:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.6.3
-
-  parent-module@1.0.1:
-    dependencies:
-      callsites: 3.1.0
 
   parse-json@4.0.0:
     dependencies:
@@ -9779,8 +9738,6 @@ snapshots:
   require-main-filename@2.0.0: {}
 
   resolve-alpn@1.2.1: {}
-
-  resolve-from@4.0.0: {}
 
   resolve-from@5.0.0: {}
 
