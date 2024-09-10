@@ -42,7 +42,7 @@
     "@swc/helpers": "^0.5.8",
     "@tailwindcss/typography": "^0.5.12",
     "@types/node": "^20.11.30",
-    "concurrently": "^8.2.2",
+    "concurrently": "^9.0.0",
     "pino-pretty": "^11.0.0",
     "tailwindcss": "^3.4.3",
     "typescript": "~5.6.2"
