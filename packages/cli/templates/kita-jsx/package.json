@@ -41,7 +41,7 @@
     "@swc-node/register": "^1.9.0",
     "@swc/helpers": "^0.5.8",
     "@tailwindcss/typography": "^0.5.12",
-    "@types/node": "^20.11.30",
+    "@types/node": "^22.7.0",
     "concurrently": "^8.2.2",
     "pino-pretty": "^11.0.0",
     "tailwindcss": "^3.4.3",
