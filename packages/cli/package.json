@@ -1,6 +1,6 @@
 {
   "name": "@kitajs/cli",
-  "version": "1.1.36",
+  "version": "1.2.0",
   "description": "Performant and type safe fastify router - Build fast end-to-end APIs with ZERO abstraction cost!",
   "homepage": "https://kita.js.org",
   "bugs": {
